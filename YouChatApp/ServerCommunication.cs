@@ -43,6 +43,8 @@ namespace YouChatApp
         public const int disconnectResponse = 27;
         public const int sendMessageRequest = 28;
         public const int sendMessageResponse = 29;
+        public const int ResetPasswordRequest = 30;
+        public const int resetPasswordResponse = 31;
 
         const string registerResponse1 = "Your registeration has completed successfully \nPlease press the back button to return to the home screen and login";
         const string registerResponse2 = "Your registeration has failed \nPlease try again ";
@@ -66,6 +68,8 @@ namespace YouChatApp
         /// Declares a variable of type LoginRegistPage which represents the loginRegistPage form's object and is used to perform actions on the form
         /// </summary>
         public static LoginAndRegistration loginAndRegistration;
+
+        public static Profile profile;
 
         public static YouChat youChat;
 
@@ -224,7 +228,11 @@ namespace YouChatApp
                         }
                         else if (requestNumber == sendMessageResponse)
                         {
-                            youChat.Invoke((Action)delegate { youChat.Message(messageDetails); });
+                            youChat.Invoke((Action)delegate { youChat.Message3(messageDetails); });
+                        }
+                        else if (requestNumber == resetPasswordResponse)
+                        {
+
                         }
 
                     }
@@ -260,6 +268,24 @@ namespace YouChatApp
                     byte[] bytesToSend = System.Text.Encoding.ASCII.GetBytes(message);
                     ns.Write(bytesToSend, 0, bytesToSend.Length);
                     ns.Flush();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+        }
+        public static void SendImage(Image image)
+        {
+            if (isConnected)
+            {
+                try
+                {
+                    NetworkStream ns = Client.GetStream();
+
+                    image.Save(ns, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    ns.Close();
+
                 }
                 catch (Exception ex)
                 {

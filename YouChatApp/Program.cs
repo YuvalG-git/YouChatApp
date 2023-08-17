@@ -16,8 +16,8 @@ namespace YouChatApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new LoginAndRegistration());
-            Application.Run(new Profile());
+            Application.Run(new LoginAndRegistration());
+            //Application.Run(new Profile());
 
             //Application.Run(new YouChat());
 

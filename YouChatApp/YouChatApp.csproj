@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GroupCreator.cs">
-      <SubType>Form</SubType>
+    <Compile Include="CircularPictureBox.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GroupCreator.Designer.cs">
-      <DependentUpon>GroupCreator.cs</DependentUpon>
+    <Compile Include="CircularPictureBox.Designer.cs">
+      <DependentUpon>CircularPictureBox.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginAndRegistration.cs">
       <SubType>Form</SubType>
@@ -67,6 +68,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerCommunication.cs" />
+    <Compile Include="MessageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MessageControl.Designer.cs">
+      <DependentUpon>MessageControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="YouChat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +82,9 @@
     </Compile>
     <EmbeddedResource Include="LoginAndRegistration.resx">
       <DependentUpon>LoginAndRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageControl.resx">
+      <DependentUpon>MessageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
@@ -149,6 +159,69 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BoyCharacter1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\MaleImages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalCharacter1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hashtag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PictureUploader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CaptchaBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CaptchaBackground1.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Restart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ResetPasseword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\babyshark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\21.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\22.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnonymousProfile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DocumentFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DrawingFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PictureFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UserFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VideoFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmojiFile1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

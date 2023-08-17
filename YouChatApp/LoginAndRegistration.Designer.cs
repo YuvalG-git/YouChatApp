@@ -31,7 +31,16 @@ namespace YouChatApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginAndRegistration));
+            this.RegistrationGroupBox = new System.Windows.Forms.GroupBox();
+            this.NonArrivalSmtpCodeLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.ChangeEmailOptionLabel = new System.Windows.Forms.Label();
+            this.NewSMTPCodeOptionLabel = new System.Windows.Forms.Label();
+            this.ChangeEmailOptionButton = new System.Windows.Forms.Button();
+            this.GenderOptionsComboBox = new System.Windows.Forms.ComboBox();
+            this.NewSMTPCodeOptionButton = new System.Windows.Forms.Button();
+            this.CodeTextBox = new System.Windows.Forms.TextBox();
+            this.CodeLabel = new System.Windows.Forms.Label();
             this.AnotherGenderRadioButton = new System.Windows.Forms.RadioButton();
             this.GenderLabel = new System.Windows.Forms.Label();
             this.FemaleRadioButton = new System.Windows.Forms.RadioButton();
@@ -52,9 +61,22 @@ namespace YouChatApp
             this.usernameLabel = new System.Windows.Forms.Label();
             this.registLabel = new System.Windows.Forms.Label();
             this.usernameTextbox = new System.Windows.Forms.TextBox();
-            this.ReturnToStarterScreen = new System.Windows.Forms.Button();
+            this.RegisterReturnToStarterScreenButton = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.LoginGroupBox = new System.Windows.Forms.GroupBox();
+            this.CaptchaImageTestPanel = new System.Windows.Forms.Panel();
+            this.CaptchaImageCheckerButton = new System.Windows.Forms.Button();
+            this.CaptchaPicturesScoreLabel = new System.Windows.Forms.Label();
+            this.CaptchaCircularPictureBox = new YouChatApp.CircularPictureBox();
+            this.CaptchaPictureBox = new System.Windows.Forms.PictureBox();
+            this.CaptchaWordTestPanel = new System.Windows.Forms.Panel();
+            this.RestartCaptchaButton = new System.Windows.Forms.Button();
+            this.CaptchaLoginLabel = new System.Windows.Forms.Label();
+            this.CaptchaLoginTextBox = new System.Windows.Forms.TextBox();
+            this.CaptchaLabel = new System.Windows.Forms.Label();
+            this.CaptchaImageList = new System.Windows.Forms.ImageList(this.components);
+            this.ResetPasswordFromLoginButton = new System.Windows.Forms.Button();
+            this.ForgottenPasswordLabel = new System.Windows.Forms.Label();
             this.ViewPasswordButton = new System.Windows.Forms.Button();
             this.RegisterScreenButton = new System.Windows.Forms.Button();
             this.NoAccountLabel = new System.Windows.Forms.Label();
@@ -64,43 +86,228 @@ namespace YouChatApp
             this.usernameloginLabel = new System.Windows.Forms.Label();
             this.loginLabel = new System.Windows.Forms.Label();
             this.usernameloginTextbox = new System.Windows.Forms.TextBox();
+            this.CountDownTimeLabel = new System.Windows.Forms.Label();
             this.YouChatHeadlineLabel = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.ResetPasswordCodeSenderButton = new System.Windows.Forms.Button();
+            this.ResetPasswordCodeTextBox = new System.Windows.Forms.TextBox();
+            this.ResetPasswordVerificationButton = new System.Windows.Forms.Button();
+            this.NewPasswordTextBox = new System.Windows.Forms.TextBox();
+            this.NewPasswordSaverButton = new System.Windows.Forms.Button();
+            this.ResetPasswordReturnToStarterScreenButton = new System.Windows.Forms.Button();
             this.TimeLabel = new System.Windows.Forms.Label();
-            this.Timer = new System.Windows.Forms.Timer(this.components);
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.TimeTimer = new System.Windows.Forms.Timer(this.components);
+            this.CaptchaCountDownTimer = new System.Windows.Forms.Timer(this.components);
+            this.ResetPasswordGroupBox = new System.Windows.Forms.GroupBox();
+            this.ResetNewPasswordButton = new System.Windows.Forms.Button();
+            this.NewPasswordLabel = new System.Windows.Forms.Label();
+            this.ResetPasswordCodeLabel = new System.Windows.Forms.Label();
+            this.EmailResetPasswordTextBox = new System.Windows.Forms.TextBox();
+            this.EmailResetPasswordLabel = new System.Windows.Forms.Label();
+            this.UsernameResetPasswordLabel = new System.Windows.Forms.Label();
+            this.ResetPasswordLabel = new System.Windows.Forms.Label();
+            this.UsernameResetPasswordTextBox = new System.Windows.Forms.TextBox();
+            this.CaptchaPicturesImageList = new System.Windows.Forms.ImageList(this.components);
+            this.RegistrationGroupBox.SuspendLayout();
+            this.LoginGroupBox.SuspendLayout();
+            this.CaptchaImageTestPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).BeginInit();
+            this.CaptchaWordTestPanel.SuspendLayout();
+            this.ResetPasswordGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // RegistrationGroupBox
             // 
-            this.groupBox1.Controls.Add(this.AnotherGenderRadioButton);
-            this.groupBox1.Controls.Add(this.GenderLabel);
-            this.groupBox1.Controls.Add(this.FemaleRadioButton);
-            this.groupBox1.Controls.Add(this.birthDateLabel);
-            this.groupBox1.Controls.Add(this.MaleRadioButton);
-            this.groupBox1.Controls.Add(this.dateTimePicker1);
-            this.groupBox1.Controls.Add(this.cityTextbox);
-            this.groupBox1.Controls.Add(this.emailTextbox);
-            this.groupBox1.Controls.Add(this.lastnameTextbox);
-            this.groupBox1.Controls.Add(this.firstnameTextbox);
-            this.groupBox1.Controls.Add(this.registButton);
-            this.groupBox1.Controls.Add(this.passwordTextbox);
-            this.groupBox1.Controls.Add(this.cityLabel);
-            this.groupBox1.Controls.Add(this.emailLabel);
-            this.groupBox1.Controls.Add(this.lastnameLabel);
-            this.groupBox1.Controls.Add(this.firstnameLabel);
-            this.groupBox1.Controls.Add(this.passwordLabel);
-            this.groupBox1.Controls.Add(this.usernameLabel);
-            this.groupBox1.Controls.Add(this.registLabel);
-            this.groupBox1.Controls.Add(this.usernameTextbox);
-            this.groupBox1.Controls.Add(this.ReturnToStarterScreen);
-            this.groupBox1.Location = new System.Drawing.Point(368, 175);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(325, 382);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Visible = false;
+            this.RegistrationGroupBox.Controls.Add(this.NonArrivalSmtpCodeLinkLabel);
+            this.RegistrationGroupBox.Controls.Add(this.ChangeEmailOptionLabel);
+            this.RegistrationGroupBox.Controls.Add(this.NewSMTPCodeOptionLabel);
+            this.RegistrationGroupBox.Controls.Add(this.ChangeEmailOptionButton);
+            this.RegistrationGroupBox.Controls.Add(this.GenderOptionsComboBox);
+            this.RegistrationGroupBox.Controls.Add(this.NewSMTPCodeOptionButton);
+            this.RegistrationGroupBox.Controls.Add(this.CodeTextBox);
+            this.RegistrationGroupBox.Controls.Add(this.CodeLabel);
+            this.RegistrationGroupBox.Controls.Add(this.AnotherGenderRadioButton);
+            this.RegistrationGroupBox.Controls.Add(this.GenderLabel);
+            this.RegistrationGroupBox.Controls.Add(this.FemaleRadioButton);
+            this.RegistrationGroupBox.Controls.Add(this.birthDateLabel);
+            this.RegistrationGroupBox.Controls.Add(this.MaleRadioButton);
+            this.RegistrationGroupBox.Controls.Add(this.dateTimePicker1);
+            this.RegistrationGroupBox.Controls.Add(this.cityTextbox);
+            this.RegistrationGroupBox.Controls.Add(this.emailTextbox);
+            this.RegistrationGroupBox.Controls.Add(this.lastnameTextbox);
+            this.RegistrationGroupBox.Controls.Add(this.firstnameTextbox);
+            this.RegistrationGroupBox.Controls.Add(this.registButton);
+            this.RegistrationGroupBox.Controls.Add(this.passwordTextbox);
+            this.RegistrationGroupBox.Controls.Add(this.cityLabel);
+            this.RegistrationGroupBox.Controls.Add(this.emailLabel);
+            this.RegistrationGroupBox.Controls.Add(this.lastnameLabel);
+            this.RegistrationGroupBox.Controls.Add(this.firstnameLabel);
+            this.RegistrationGroupBox.Controls.Add(this.passwordLabel);
+            this.RegistrationGroupBox.Controls.Add(this.usernameLabel);
+            this.RegistrationGroupBox.Controls.Add(this.registLabel);
+            this.RegistrationGroupBox.Controls.Add(this.usernameTextbox);
+            this.RegistrationGroupBox.Controls.Add(this.RegisterReturnToStarterScreenButton);
+            this.RegistrationGroupBox.Location = new System.Drawing.Point(376, 104);
+            this.RegistrationGroupBox.Name = "RegistrationGroupBox";
+            this.RegistrationGroupBox.Size = new System.Drawing.Size(325, 615);
+            this.RegistrationGroupBox.TabIndex = 0;
+            this.RegistrationGroupBox.TabStop = false;
+            this.RegistrationGroupBox.Visible = false;
+            // 
+            // NonArrivalSmtpCodeLinkLabel
+            // 
+            this.NonArrivalSmtpCodeLinkLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NonArrivalSmtpCodeLinkLabel.Location = new System.Drawing.Point(19, 379);
+            this.NonArrivalSmtpCodeLinkLabel.Name = "NonArrivalSmtpCodeLinkLabel";
+            this.NonArrivalSmtpCodeLinkLabel.Size = new System.Drawing.Size(290, 31);
+            this.NonArrivalSmtpCodeLinkLabel.TabIndex = 32;
+            this.NonArrivalSmtpCodeLinkLabel.TabStop = true;
+            this.NonArrivalSmtpCodeLinkLabel.Text = "Press here if you haven\'t recieved any code to your Gmail Address";
+            // 
+            // ChangeEmailOptionLabel
+            // 
+            this.ChangeEmailOptionLabel.AutoSize = true;
+            this.ChangeEmailOptionLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChangeEmailOptionLabel.Location = new System.Drawing.Point(9, 565);
+            this.ChangeEmailOptionLabel.Name = "ChangeEmailOptionLabel";
+            this.ChangeEmailOptionLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ChangeEmailOptionLabel.Size = new System.Drawing.Size(272, 15);
+            this.ChangeEmailOptionLabel.TabIndex = 31;
+            this.ChangeEmailOptionLabel.Text = "Press here to change your Email Address";
+            this.ChangeEmailOptionLabel.Visible = false;
+            // 
+            // NewSMTPCodeOptionLabel
+            // 
+            this.NewSMTPCodeOptionLabel.AutoSize = true;
+            this.NewSMTPCodeOptionLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewSMTPCodeOptionLabel.Location = new System.Drawing.Point(6, 512);
+            this.NewSMTPCodeOptionLabel.Name = "NewSMTPCodeOptionLabel";
+            this.NewSMTPCodeOptionLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.NewSMTPCodeOptionLabel.Size = new System.Drawing.Size(234, 15);
+            this.NewSMTPCodeOptionLabel.TabIndex = 30;
+            this.NewSMTPCodeOptionLabel.Text = "Press here to recieve another code";
+            this.NewSMTPCodeOptionLabel.Visible = false;
+            // 
+            // ChangeEmailOptionButton
+            // 
+            this.ChangeEmailOptionButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChangeEmailOptionButton.Location = new System.Drawing.Point(12, 577);
+            this.ChangeEmailOptionButton.Name = "ChangeEmailOptionButton";
+            this.ChangeEmailOptionButton.Size = new System.Drawing.Size(90, 32);
+            this.ChangeEmailOptionButton.TabIndex = 27;
+            this.ChangeEmailOptionButton.Text = "email";
+            this.toolTip.SetToolTip(this.ChangeEmailOptionButton, "Press to sign up");
+            this.ChangeEmailOptionButton.UseVisualStyleBackColor = true;
+            this.ChangeEmailOptionButton.Visible = false;
+            this.ChangeEmailOptionButton.Click += new System.EventHandler(this.ChangeEmailOptionButton_Click);
+            // 
+            // GenderOptionsComboBox
+            // 
+            this.GenderOptionsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GenderOptionsComboBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GenderOptionsComboBox.FormattingEnabled = true;
+            this.GenderOptionsComboBox.Items.AddRange(new object[] {
+            "<Select A Gender>",
+            "Agender",
+            "Androgyne",
+            "Androgynous",
+            "Bigender",
+            "Cis",
+            "Cisgender",
+            "Cis Female",
+            "Cis Male",
+            "Cis Man",
+            "Cis Woman",
+            "Cisgender Female",
+            "Cisgender Male",
+            "Cisgender Man",
+            "Cisgender Woman",
+            "Female to Male",
+            "FTM",
+            "Gender Fluid",
+            "Gender Nonconforming",
+            "Gender Questioning",
+            "Gender Variant",
+            "Genderqueer",
+            "Intersex",
+            "Male to Female",
+            "MTF",
+            "Neither",
+            "Neutrois",
+            "Non-binary",
+            "Pangender",
+            "Trans",
+            "Trans*",
+            "Trans Female",
+            "Trans* Female",
+            "Trans Male",
+            "Trans* Male",
+            "Trans Man",
+            "Trans* Man",
+            "Trans Person",
+            "Trans* Person",
+            "Trans Woman",
+            "Trans* Woman",
+            "Transfeminine",
+            "Transgender",
+            "Transgender Female",
+            "Transgender Male",
+            "Transgender Man",
+            "Transgender Person",
+            "Transgender Woman",
+            "Transmasculine",
+            "Transsexual",
+            "Transsexual Female",
+            "Transsexual Male",
+            "Transsexual Man",
+            "Transsexual Person",
+            "Transsexual Woman",
+            "Two-Spirit",
+            "Other..."});
+            this.GenderOptionsComboBox.Location = new System.Drawing.Point(134, 315);
+            this.GenderOptionsComboBox.Name = "GenderOptionsComboBox";
+            this.GenderOptionsComboBox.Size = new System.Drawing.Size(173, 26);
+            this.GenderOptionsComboBox.TabIndex = 28;
+            this.GenderOptionsComboBox.Visible = false;
+            this.GenderOptionsComboBox.SelectedIndexChanged += new System.EventHandler(this.GenderOptionsComboBox_SelectedIndexChanged);
+            this.GenderOptionsComboBox.TextUpdate += new System.EventHandler(this.GenderOptionsComboBox_TextUpdate);
+            this.GenderOptionsComboBox.Enter += new System.EventHandler(this.GenderOptionsComboBox_Enter);
+            // 
+            // NewSMTPCodeOptionButton
+            // 
+            this.NewSMTPCodeOptionButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewSMTPCodeOptionButton.Location = new System.Drawing.Point(9, 530);
+            this.NewSMTPCodeOptionButton.Name = "NewSMTPCodeOptionButton";
+            this.NewSMTPCodeOptionButton.Size = new System.Drawing.Size(90, 32);
+            this.NewSMTPCodeOptionButton.TabIndex = 26;
+            this.NewSMTPCodeOptionButton.Text = "another code";
+            this.toolTip.SetToolTip(this.NewSMTPCodeOptionButton, "Press to sign up");
+            this.NewSMTPCodeOptionButton.UseVisualStyleBackColor = true;
+            this.NewSMTPCodeOptionButton.Visible = false;
+            this.NewSMTPCodeOptionButton.Click += new System.EventHandler(this.NewSMTPCodeOptionButton_Click);
+            // 
+            // CodeTextBox
+            // 
+            this.CodeTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CodeTextBox.Location = new System.Drawing.Point(134, 350);
+            this.CodeTextBox.Name = "CodeTextBox";
+            this.CodeTextBox.Size = new System.Drawing.Size(173, 23);
+            this.CodeTextBox.TabIndex = 25;
+            this.toolTip.SetToolTip(this.CodeTextBox, "Don\'t use \'#\'");
+            this.CodeTextBox.Visible = false;
+            // 
+            // CodeLabel
+            // 
+            this.CodeLabel.AutoSize = true;
+            this.CodeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CodeLabel.Location = new System.Drawing.Point(19, 345);
+            this.CodeLabel.Name = "CodeLabel";
+            this.CodeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CodeLabel.Size = new System.Drawing.Size(55, 18);
+            this.CodeLabel.TabIndex = 24;
+            this.CodeLabel.Text = "Code:";
+            this.CodeLabel.Visible = false;
             // 
             // AnotherGenderRadioButton
             // 
@@ -113,7 +320,7 @@ namespace YouChatApp
             this.AnotherGenderRadioButton.TabStop = true;
             this.AnotherGenderRadioButton.Text = "Another Gender";
             this.AnotherGenderRadioButton.UseVisualStyleBackColor = true;
-            this.AnotherGenderRadioButton.Click += new System.EventHandler(this.registerDetails);
+            this.AnotherGenderRadioButton.Click += new System.EventHandler(this.AnotherGenderRadioButton_Click);
             // 
             // GenderLabel
             // 
@@ -137,7 +344,7 @@ namespace YouChatApp
             this.FemaleRadioButton.TabStop = true;
             this.FemaleRadioButton.Text = "Female";
             this.FemaleRadioButton.UseVisualStyleBackColor = true;
-            this.FemaleRadioButton.Click += new System.EventHandler(this.registerDetails);
+            this.FemaleRadioButton.Click += new System.EventHandler(this.FemaleRadioButton_Click);
             // 
             // birthDateLabel
             // 
@@ -161,7 +368,7 @@ namespace YouChatApp
             this.MaleRadioButton.TabStop = true;
             this.MaleRadioButton.Text = "Male";
             this.MaleRadioButton.UseVisualStyleBackColor = true;
-            this.MaleRadioButton.Click += new System.EventHandler(this.registerDetails);
+            this.MaleRadioButton.Click += new System.EventHandler(this.MaleRadioButton_Click);
             // 
             // dateTimePicker1
             // 
@@ -221,7 +428,7 @@ namespace YouChatApp
             // 
             this.registButton.Enabled = false;
             this.registButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.registButton.Location = new System.Drawing.Point(80, 344);
+            this.registButton.Location = new System.Drawing.Point(107, 435);
             this.registButton.Name = "registButton";
             this.registButton.Size = new System.Drawing.Size(90, 32);
             this.registButton.TabIndex = 13;
@@ -327,36 +534,187 @@ namespace YouChatApp
             this.toolTip.SetToolTip(this.usernameTextbox, "Don\'t use \'#\'");
             this.usernameTextbox.TextChanged += new System.EventHandler(this.registerDetails);
             // 
-            // ReturnToStarterScreen
+            // RegisterReturnToStarterScreenButton
             // 
-            this.ReturnToStarterScreen.BackColor = System.Drawing.Color.White;
-            this.ReturnToStarterScreen.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
-            this.ReturnToStarterScreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ReturnToStarterScreen.Location = new System.Drawing.Point(12, 19);
-            this.ReturnToStarterScreen.Name = "ReturnToStarterScreen";
-            this.ReturnToStarterScreen.Size = new System.Drawing.Size(46, 29);
-            this.ReturnToStarterScreen.TabIndex = 18;
-            this.toolTip.SetToolTip(this.ReturnToStarterScreen, "Return to home screen");
-            this.ReturnToStarterScreen.UseVisualStyleBackColor = false;
-            this.ReturnToStarterScreen.Visible = false;
-            this.ReturnToStarterScreen.Click += new System.EventHandler(this.ReturnToStarterScreen_Click);
+            this.RegisterReturnToStarterScreenButton.BackColor = System.Drawing.SystemColors.Control;
+            this.RegisterReturnToStarterScreenButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
+            this.RegisterReturnToStarterScreenButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.RegisterReturnToStarterScreenButton.Location = new System.Drawing.Point(12, 19);
+            this.RegisterReturnToStarterScreenButton.Name = "RegisterReturnToStarterScreenButton";
+            this.RegisterReturnToStarterScreenButton.Size = new System.Drawing.Size(46, 29);
+            this.RegisterReturnToStarterScreenButton.TabIndex = 18;
+            this.toolTip.SetToolTip(this.RegisterReturnToStarterScreenButton, "Return to home screen");
+            this.RegisterReturnToStarterScreenButton.UseVisualStyleBackColor = true;
+            this.RegisterReturnToStarterScreenButton.Visible = false;
+            this.RegisterReturnToStarterScreenButton.Click += new System.EventHandler(this.ReturnToStarterScreen_Click);
             // 
-            // groupBox2
+            // LoginGroupBox
             // 
-            this.groupBox2.Controls.Add(this.ViewPasswordButton);
-            this.groupBox2.Controls.Add(this.RegisterScreenButton);
-            this.groupBox2.Controls.Add(this.NoAccountLabel);
-            this.groupBox2.Controls.Add(this.loginButton);
-            this.groupBox2.Controls.Add(this.passwordloginTextbox);
-            this.groupBox2.Controls.Add(this.passwordloginButton);
-            this.groupBox2.Controls.Add(this.usernameloginLabel);
-            this.groupBox2.Controls.Add(this.loginLabel);
-            this.groupBox2.Controls.Add(this.usernameloginTextbox);
-            this.groupBox2.Location = new System.Drawing.Point(64, 184);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(245, 325);
-            this.groupBox2.TabIndex = 14;
-            this.groupBox2.TabStop = false;
+            this.LoginGroupBox.Controls.Add(this.CaptchaImageTestPanel);
+            this.LoginGroupBox.Controls.Add(this.CaptchaWordTestPanel);
+            this.LoginGroupBox.Controls.Add(this.ResetPasswordFromLoginButton);
+            this.LoginGroupBox.Controls.Add(this.ForgottenPasswordLabel);
+            this.LoginGroupBox.Controls.Add(this.ViewPasswordButton);
+            this.LoginGroupBox.Controls.Add(this.RegisterScreenButton);
+            this.LoginGroupBox.Controls.Add(this.NoAccountLabel);
+            this.LoginGroupBox.Controls.Add(this.loginButton);
+            this.LoginGroupBox.Controls.Add(this.passwordloginTextbox);
+            this.LoginGroupBox.Controls.Add(this.passwordloginButton);
+            this.LoginGroupBox.Controls.Add(this.usernameloginLabel);
+            this.LoginGroupBox.Controls.Add(this.loginLabel);
+            this.LoginGroupBox.Controls.Add(this.usernameloginTextbox);
+            this.LoginGroupBox.Location = new System.Drawing.Point(56, 103);
+            this.LoginGroupBox.Name = "LoginGroupBox";
+            this.LoginGroupBox.Size = new System.Drawing.Size(245, 580);
+            this.LoginGroupBox.TabIndex = 14;
+            this.LoginGroupBox.TabStop = false;
+            // 
+            // CaptchaImageTestPanel
+            // 
+            this.CaptchaImageTestPanel.Controls.Add(this.CaptchaImageCheckerButton);
+            this.CaptchaImageTestPanel.Controls.Add(this.CaptchaPicturesScoreLabel);
+            this.CaptchaImageTestPanel.Controls.Add(this.CaptchaCircularPictureBox);
+            this.CaptchaImageTestPanel.Controls.Add(this.CaptchaPictureBox);
+            this.CaptchaImageTestPanel.Location = new System.Drawing.Point(15, 215);
+            this.CaptchaImageTestPanel.Name = "CaptchaImageTestPanel";
+            this.CaptchaImageTestPanel.Size = new System.Drawing.Size(221, 220);
+            this.CaptchaImageTestPanel.TabIndex = 38;
+            this.CaptchaImageTestPanel.Visible = false;
+            // 
+            // CaptchaImageCheckerButton
+            // 
+            this.CaptchaImageCheckerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CaptchaImageCheckerButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.CaptchaImageCheckerButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CaptchaImageCheckerButton.Location = new System.Drawing.Point(19, 173);
+            this.CaptchaImageCheckerButton.Name = "CaptchaImageCheckerButton";
+            this.CaptchaImageCheckerButton.Size = new System.Drawing.Size(170, 47);
+            this.CaptchaImageCheckerButton.TabIndex = 26;
+            this.CaptchaImageCheckerButton.Text = "Check Captcha";
+            this.toolTip.SetToolTip(this.CaptchaImageCheckerButton, "Press to login to the server");
+            this.CaptchaImageCheckerButton.UseVisualStyleBackColor = true;
+            this.CaptchaImageCheckerButton.Click += new System.EventHandler(this.CaptchaImageCheckerButton_Click);
+            // 
+            // CaptchaPicturesScoreLabel
+            // 
+            this.CaptchaPicturesScoreLabel.AutoSize = true;
+            this.CaptchaPicturesScoreLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CaptchaPicturesScoreLabel.Location = new System.Drawing.Point(3, 156);
+            this.CaptchaPicturesScoreLabel.Name = "CaptchaPicturesScoreLabel";
+            this.CaptchaPicturesScoreLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CaptchaPicturesScoreLabel.Size = new System.Drawing.Size(61, 18);
+            this.CaptchaPicturesScoreLabel.TabIndex = 26;
+            this.CaptchaPicturesScoreLabel.Text = "Score:";
+            // 
+            // CaptchaCircularPictureBox
+            // 
+            this.CaptchaCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CaptchaCircularPictureBox.Location = new System.Drawing.Point(30, 15);
+            this.CaptchaCircularPictureBox.Name = "CaptchaCircularPictureBox";
+            this.CaptchaCircularPictureBox.Size = new System.Drawing.Size(150, 150);
+            this.CaptchaCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CaptchaCircularPictureBox.TabIndex = 35;
+            this.CaptchaCircularPictureBox.TabStop = false;
+            this.CaptchaCircularPictureBox.Click += new System.EventHandler(this.CaptchaCircularPictureBox_Click);
+            // 
+            // CaptchaPictureBox
+            // 
+            this.CaptchaPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CaptchaPictureBox.Location = new System.Drawing.Point(30, 15);
+            this.CaptchaPictureBox.Name = "CaptchaPictureBox";
+            this.CaptchaPictureBox.Size = new System.Drawing.Size(150, 150);
+            this.CaptchaPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CaptchaPictureBox.TabIndex = 36;
+            this.CaptchaPictureBox.TabStop = false;
+            // 
+            // CaptchaWordTestPanel
+            // 
+            this.CaptchaWordTestPanel.Controls.Add(this.RestartCaptchaButton);
+            this.CaptchaWordTestPanel.Controls.Add(this.CaptchaLoginLabel);
+            this.CaptchaWordTestPanel.Controls.Add(this.CaptchaLoginTextBox);
+            this.CaptchaWordTestPanel.Controls.Add(this.CaptchaLabel);
+            this.CaptchaWordTestPanel.Location = new System.Drawing.Point(6, 216);
+            this.CaptchaWordTestPanel.Name = "CaptchaWordTestPanel";
+            this.CaptchaWordTestPanel.Size = new System.Drawing.Size(239, 140);
+            this.CaptchaWordTestPanel.TabIndex = 37;
+            // 
+            // RestartCaptchaButton
+            // 
+            this.RestartCaptchaButton.BackgroundImage = global::YouChatApp.Properties.Resources.Restart;
+            this.RestartCaptchaButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RestartCaptchaButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.RestartCaptchaButton.Location = new System.Drawing.Point(193, 3);
+            this.RestartCaptchaButton.Name = "RestartCaptchaButton";
+            this.RestartCaptchaButton.Size = new System.Drawing.Size(40, 40);
+            this.RestartCaptchaButton.TabIndex = 23;
+            this.RestartCaptchaButton.UseMnemonic = false;
+            this.RestartCaptchaButton.UseVisualStyleBackColor = true;
+            this.RestartCaptchaButton.Click += new System.EventHandler(this.RestartCaptchaButton_Click);
+            // 
+            // CaptchaLoginLabel
+            // 
+            this.CaptchaLoginLabel.AutoSize = true;
+            this.CaptchaLoginLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CaptchaLoginLabel.Location = new System.Drawing.Point(7, 75);
+            this.CaptchaLoginLabel.Name = "CaptchaLoginLabel";
+            this.CaptchaLoginLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CaptchaLoginLabel.Size = new System.Drawing.Size(94, 18);
+            this.CaptchaLoginLabel.TabIndex = 21;
+            this.CaptchaLoginLabel.Text = "CAPTCHA:";
+            // 
+            // CaptchaLoginTextBox
+            // 
+            this.CaptchaLoginTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CaptchaLoginTextBox.Location = new System.Drawing.Point(128, 70);
+            this.CaptchaLoginTextBox.Name = "CaptchaLoginTextBox";
+            this.CaptchaLoginTextBox.PasswordChar = '*';
+            this.CaptchaLoginTextBox.Size = new System.Drawing.Size(90, 23);
+            this.CaptchaLoginTextBox.TabIndex = 22;
+            this.CaptchaLoginTextBox.TextChanged += new System.EventHandler(this.loginDetails);
+            // 
+            // CaptchaLabel
+            // 
+            this.CaptchaLabel.Font = new System.Drawing.Font("Lucida Handwriting", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CaptchaLabel.ImageList = this.CaptchaImageList;
+            this.CaptchaLabel.Location = new System.Drawing.Point(3, 0);
+            this.CaptchaLabel.Name = "CaptchaLabel";
+            this.CaptchaLabel.Size = new System.Drawing.Size(200, 50);
+            this.CaptchaLabel.TabIndex = 20;
+            this.CaptchaLabel.Text = "captcha";
+            this.CaptchaLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // CaptchaImageList
+            // 
+            this.CaptchaImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("CaptchaImageList.ImageStream")));
+            this.CaptchaImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.CaptchaImageList.Images.SetKeyName(0, "CaptchaBackground4.png");
+            this.CaptchaImageList.Images.SetKeyName(1, "CaptchaBackground1.jpeg");
+            this.CaptchaImageList.Images.SetKeyName(2, "CaptchaBackground2.png");
+            this.CaptchaImageList.Images.SetKeyName(3, "CaptchaBackground3.jpeg");
+            // 
+            // ResetPasswordFromLoginButton
+            // 
+            this.ResetPasswordFromLoginButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ResetPasswordFromLoginButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.ResetPasswordFromLoginButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetPasswordFromLoginButton.Location = new System.Drawing.Point(37, 162);
+            this.ResetPasswordFromLoginButton.Name = "ResetPasswordFromLoginButton";
+            this.ResetPasswordFromLoginButton.Size = new System.Drawing.Size(170, 47);
+            this.ResetPasswordFromLoginButton.TabIndex = 25;
+            this.ResetPasswordFromLoginButton.Text = "Reset Password";
+            this.toolTip.SetToolTip(this.ResetPasswordFromLoginButton, "Press to login to the server");
+            this.ResetPasswordFromLoginButton.UseVisualStyleBackColor = true;
+            this.ResetPasswordFromLoginButton.Click += new System.EventHandler(this.ResetPasswordFromLoginButton_Click);
+            // 
+            // ForgottenPasswordLabel
+            // 
+            this.ForgottenPasswordLabel.AutoSize = true;
+            this.ForgottenPasswordLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForgottenPasswordLabel.Location = new System.Drawing.Point(9, 129);
+            this.ForgottenPasswordLabel.Name = "ForgottenPasswordLabel";
+            this.ForgottenPasswordLabel.Size = new System.Drawing.Size(230, 30);
+            this.ForgottenPasswordLabel.TabIndex = 24;
+            this.ForgottenPasswordLabel.Text = "Forgot Your Password?\r\nTo reset the password, press here!\r\n";
             // 
             // ViewPasswordButton
             // 
@@ -374,7 +732,7 @@ namespace YouChatApp
             // RegisterScreenButton
             // 
             this.RegisterScreenButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegisterScreenButton.Location = new System.Drawing.Point(75, 285);
+            this.RegisterScreenButton.Location = new System.Drawing.Point(83, 531);
             this.RegisterScreenButton.Name = "RegisterScreenButton";
             this.RegisterScreenButton.Size = new System.Drawing.Size(90, 32);
             this.RegisterScreenButton.TabIndex = 17;
@@ -387,7 +745,7 @@ namespace YouChatApp
             // 
             this.NoAccountLabel.AutoSize = true;
             this.NoAccountLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NoAccountLabel.Location = new System.Drawing.Point(16, 241);
+            this.NoAccountLabel.Location = new System.Drawing.Point(16, 498);
             this.NoAccountLabel.Name = "NoAccountLabel";
             this.NoAccountLabel.Size = new System.Drawing.Size(157, 30);
             this.NoAccountLabel.TabIndex = 14;
@@ -398,7 +756,7 @@ namespace YouChatApp
             this.loginButton.Enabled = false;
             this.loginButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.loginButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginButton.Location = new System.Drawing.Point(75, 166);
+            this.loginButton.Location = new System.Drawing.Point(75, 463);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(90, 32);
             this.loginButton.TabIndex = 13;
@@ -458,6 +816,17 @@ namespace YouChatApp
             this.usernameloginTextbox.TabIndex = 0;
             this.usernameloginTextbox.TextChanged += new System.EventHandler(this.loginDetails);
             // 
+            // CountDownTimeLabel
+            // 
+            this.CountDownTimeLabel.AutoSize = true;
+            this.CountDownTimeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CountDownTimeLabel.Location = new System.Drawing.Point(90, 30);
+            this.CountDownTimeLabel.Name = "CountDownTimeLabel";
+            this.CountDownTimeLabel.Size = new System.Drawing.Size(101, 18);
+            this.CountDownTimeLabel.TabIndex = 21;
+            this.CountDownTimeLabel.Text = "CountDown";
+            this.CountDownTimeLabel.Visible = false;
+            // 
             // YouChatHeadlineLabel
             // 
             this.YouChatHeadlineLabel.AutoSize = true;
@@ -465,9 +834,9 @@ namespace YouChatApp
             this.YouChatHeadlineLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.YouChatHeadlineLabel.Location = new System.Drawing.Point(200, 20);
             this.YouChatHeadlineLabel.Name = "YouChatHeadlineLabel";
-            this.YouChatHeadlineLabel.Size = new System.Drawing.Size(475, 150);
+            this.YouChatHeadlineLabel.Size = new System.Drawing.Size(354, 75);
             this.YouChatHeadlineLabel.TabIndex = 15;
-            this.YouChatHeadlineLabel.Text = "WELCOME TO\r\nYOUCHAT";
+            this.YouChatHeadlineLabel.Text = "YOUCHAT";
             this.YouChatHeadlineLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // toolTip
@@ -476,40 +845,260 @@ namespace YouChatApp
             this.toolTip.InitialDelay = 150;
             this.toolTip.ReshowDelay = 100;
             // 
+            // ResetPasswordCodeSenderButton
+            // 
+            this.ResetPasswordCodeSenderButton.Enabled = false;
+            this.ResetPasswordCodeSenderButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.ResetPasswordCodeSenderButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetPasswordCodeSenderButton.Location = new System.Drawing.Point(95, 136);
+            this.ResetPasswordCodeSenderButton.Name = "ResetPasswordCodeSenderButton";
+            this.ResetPasswordCodeSenderButton.Size = new System.Drawing.Size(129, 32);
+            this.ResetPasswordCodeSenderButton.TabIndex = 13;
+            this.ResetPasswordCodeSenderButton.Text = "Send Code";
+            this.toolTip.SetToolTip(this.ResetPasswordCodeSenderButton, "Press to login to the server");
+            this.ResetPasswordCodeSenderButton.UseVisualStyleBackColor = true;
+            this.ResetPasswordCodeSenderButton.Click += new System.EventHandler(this.ResetPasswordCodeSenderButton_Click);
+            // 
+            // ResetPasswordCodeTextBox
+            // 
+            this.ResetPasswordCodeTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetPasswordCodeTextBox.Location = new System.Drawing.Point(77, 238);
+            this.ResetPasswordCodeTextBox.Name = "ResetPasswordCodeTextBox";
+            this.ResetPasswordCodeTextBox.Size = new System.Drawing.Size(134, 23);
+            this.ResetPasswordCodeTextBox.TabIndex = 30;
+            this.toolTip.SetToolTip(this.ResetPasswordCodeTextBox, "Don\'t use \'#\'");
+            this.ResetPasswordCodeTextBox.Visible = false;
+            // 
+            // ResetPasswordVerificationButton
+            // 
+            this.ResetPasswordVerificationButton.Enabled = false;
+            this.ResetPasswordVerificationButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.ResetPasswordVerificationButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetPasswordVerificationButton.Location = new System.Drawing.Point(217, 230);
+            this.ResetPasswordVerificationButton.Name = "ResetPasswordVerificationButton";
+            this.ResetPasswordVerificationButton.Size = new System.Drawing.Size(104, 32);
+            this.ResetPasswordVerificationButton.TabIndex = 31;
+            this.ResetPasswordVerificationButton.Text = "Verify";
+            this.toolTip.SetToolTip(this.ResetPasswordVerificationButton, "Press to login to the server");
+            this.ResetPasswordVerificationButton.UseVisualStyleBackColor = true;
+            this.ResetPasswordVerificationButton.Visible = false;
+            // 
+            // NewPasswordTextBox
+            // 
+            this.NewPasswordTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewPasswordTextBox.Location = new System.Drawing.Point(77, 292);
+            this.NewPasswordTextBox.Name = "NewPasswordTextBox";
+            this.NewPasswordTextBox.Size = new System.Drawing.Size(134, 23);
+            this.NewPasswordTextBox.TabIndex = 33;
+            this.toolTip.SetToolTip(this.NewPasswordTextBox, "Don\'t use \'#\'");
+            this.NewPasswordTextBox.Visible = false;
+            // 
+            // NewPasswordSaverButton
+            // 
+            this.NewPasswordSaverButton.Enabled = false;
+            this.NewPasswordSaverButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.NewPasswordSaverButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewPasswordSaverButton.Location = new System.Drawing.Point(69, 331);
+            this.NewPasswordSaverButton.Name = "NewPasswordSaverButton";
+            this.NewPasswordSaverButton.Size = new System.Drawing.Size(206, 32);
+            this.NewPasswordSaverButton.TabIndex = 34;
+            this.NewPasswordSaverButton.Text = "Replace Password";
+            this.toolTip.SetToolTip(this.NewPasswordSaverButton, "Press to login to the server");
+            this.NewPasswordSaverButton.UseVisualStyleBackColor = true;
+            this.NewPasswordSaverButton.Visible = false;
+            // 
+            // ResetPasswordReturnToStarterScreenButton
+            // 
+            this.ResetPasswordReturnToStarterScreenButton.BackColor = System.Drawing.SystemColors.Control;
+            this.ResetPasswordReturnToStarterScreenButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
+            this.ResetPasswordReturnToStarterScreenButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ResetPasswordReturnToStarterScreenButton.Location = new System.Drawing.Point(6, 16);
+            this.ResetPasswordReturnToStarterScreenButton.Name = "ResetPasswordReturnToStarterScreenButton";
+            this.ResetPasswordReturnToStarterScreenButton.Size = new System.Drawing.Size(46, 29);
+            this.ResetPasswordReturnToStarterScreenButton.TabIndex = 30;
+            this.toolTip.SetToolTip(this.ResetPasswordReturnToStarterScreenButton, "Return to home screen");
+            this.ResetPasswordReturnToStarterScreenButton.UseVisualStyleBackColor = true;
+            this.ResetPasswordReturnToStarterScreenButton.Click += new System.EventHandler(this.ResetPasswordReturnToStarterScreenButton_Click);
+            // 
             // TimeLabel
             // 
             this.TimeLabel.AutoSize = true;
             this.TimeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeLabel.Location = new System.Drawing.Point(12, 539);
+            this.TimeLabel.Location = new System.Drawing.Point(12, 738);
             this.TimeLabel.Name = "TimeLabel";
             this.TimeLabel.Size = new System.Drawing.Size(0, 18);
             this.TimeLabel.TabIndex = 20;
             // 
-            // Timer
+            // TimeTimer
             // 
-            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
+            this.TimeTimer.Tick += new System.EventHandler(this.TimeTimer_Tick);
+            // 
+            // CaptchaCountDownTimer
+            // 
+            this.CaptchaCountDownTimer.Interval = 77;
+            this.CaptchaCountDownTimer.Tick += new System.EventHandler(this.CaptchaCountDownTimer_Tick);
+            // 
+            // ResetPasswordGroupBox
+            // 
+            this.ResetPasswordGroupBox.Controls.Add(this.ResetPasswordReturnToStarterScreenButton);
+            this.ResetPasswordGroupBox.Controls.Add(this.NewPasswordSaverButton);
+            this.ResetPasswordGroupBox.Controls.Add(this.ResetNewPasswordButton);
+            this.ResetPasswordGroupBox.Controls.Add(this.NewPasswordTextBox);
+            this.ResetPasswordGroupBox.Controls.Add(this.NewPasswordLabel);
+            this.ResetPasswordGroupBox.Controls.Add(this.ResetPasswordVerificationButton);
+            this.ResetPasswordGroupBox.Controls.Add(this.ResetPasswordCodeTextBox);
+            this.ResetPasswordGroupBox.Controls.Add(this.ResetPasswordCodeLabel);
+            this.ResetPasswordGroupBox.Controls.Add(this.EmailResetPasswordTextBox);
+            this.ResetPasswordGroupBox.Controls.Add(this.ResetPasswordCodeSenderButton);
+            this.ResetPasswordGroupBox.Controls.Add(this.EmailResetPasswordLabel);
+            this.ResetPasswordGroupBox.Controls.Add(this.UsernameResetPasswordLabel);
+            this.ResetPasswordGroupBox.Controls.Add(this.ResetPasswordLabel);
+            this.ResetPasswordGroupBox.Controls.Add(this.UsernameResetPasswordTextBox);
+            this.ResetPasswordGroupBox.Location = new System.Drawing.Point(745, 123);
+            this.ResetPasswordGroupBox.Name = "ResetPasswordGroupBox";
+            this.ResetPasswordGroupBox.Size = new System.Drawing.Size(327, 383);
+            this.ResetPasswordGroupBox.TabIndex = 24;
+            this.ResetPasswordGroupBox.TabStop = false;
+            this.ResetPasswordGroupBox.Visible = false;
+            // 
+            // ResetNewPasswordButton
+            // 
+            this.ResetNewPasswordButton.BackgroundImage = global::YouChatApp.Properties.Resources.Restart;
+            this.ResetNewPasswordButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ResetNewPasswordButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ResetNewPasswordButton.Location = new System.Drawing.Point(235, 282);
+            this.ResetNewPasswordButton.Name = "ResetNewPasswordButton";
+            this.ResetNewPasswordButton.Size = new System.Drawing.Size(40, 40);
+            this.ResetNewPasswordButton.TabIndex = 24;
+            this.ResetNewPasswordButton.UseMnemonic = false;
+            this.ResetNewPasswordButton.UseVisualStyleBackColor = true;
+            this.ResetNewPasswordButton.Visible = false;
+            // 
+            // NewPasswordLabel
+            // 
+            this.NewPasswordLabel.AutoSize = true;
+            this.NewPasswordLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewPasswordLabel.Location = new System.Drawing.Point(16, 271);
+            this.NewPasswordLabel.Name = "NewPasswordLabel";
+            this.NewPasswordLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.NewPasswordLabel.Size = new System.Drawing.Size(131, 18);
+            this.NewPasswordLabel.TabIndex = 32;
+            this.NewPasswordLabel.Text = "New Password:";
+            this.NewPasswordLabel.Visible = false;
+            // 
+            // ResetPasswordCodeLabel
+            // 
+            this.ResetPasswordCodeLabel.AutoSize = true;
+            this.ResetPasswordCodeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetPasswordCodeLabel.Location = new System.Drawing.Point(16, 238);
+            this.ResetPasswordCodeLabel.Name = "ResetPasswordCodeLabel";
+            this.ResetPasswordCodeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ResetPasswordCodeLabel.Size = new System.Drawing.Size(55, 18);
+            this.ResetPasswordCodeLabel.TabIndex = 30;
+            this.ResetPasswordCodeLabel.Text = "Code:";
+            this.ResetPasswordCodeLabel.Visible = false;
+            // 
+            // EmailResetPasswordTextBox
+            // 
+            this.EmailResetPasswordTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmailResetPasswordTextBox.Location = new System.Drawing.Point(134, 95);
+            this.EmailResetPasswordTextBox.Name = "EmailResetPasswordTextBox";
+            this.EmailResetPasswordTextBox.Size = new System.Drawing.Size(90, 23);
+            this.EmailResetPasswordTextBox.TabIndex = 24;
+            this.EmailResetPasswordTextBox.TextChanged += new System.EventHandler(this.SendCodeDetails);
+            // 
+            // EmailResetPasswordLabel
+            // 
+            this.EmailResetPasswordLabel.AutoSize = true;
+            this.EmailResetPasswordLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmailResetPasswordLabel.Location = new System.Drawing.Point(16, 95);
+            this.EmailResetPasswordLabel.Name = "EmailResetPasswordLabel";
+            this.EmailResetPasswordLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.EmailResetPasswordLabel.Size = new System.Drawing.Size(56, 18);
+            this.EmailResetPasswordLabel.TabIndex = 3;
+            this.EmailResetPasswordLabel.Text = "Email:";
+            // 
+            // UsernameResetPasswordLabel
+            // 
+            this.UsernameResetPasswordLabel.AutoSize = true;
+            this.UsernameResetPasswordLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UsernameResetPasswordLabel.Location = new System.Drawing.Point(16, 65);
+            this.UsernameResetPasswordLabel.Name = "UsernameResetPasswordLabel";
+            this.UsernameResetPasswordLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.UsernameResetPasswordLabel.Size = new System.Drawing.Size(93, 18);
+            this.UsernameResetPasswordLabel.TabIndex = 2;
+            this.UsernameResetPasswordLabel.Text = "username:";
+            // 
+            // ResetPasswordLabel
+            // 
+            this.ResetPasswordLabel.AutoSize = true;
+            this.ResetPasswordLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetPasswordLabel.Location = new System.Drawing.Point(52, 16);
+            this.ResetPasswordLabel.Name = "ResetPasswordLabel";
+            this.ResetPasswordLabel.Size = new System.Drawing.Size(269, 32);
+            this.ResetPasswordLabel.TabIndex = 1;
+            this.ResetPasswordLabel.Text = "RESET PASSWORD";
+            // 
+            // UsernameResetPasswordTextBox
+            // 
+            this.UsernameResetPasswordTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UsernameResetPasswordTextBox.Location = new System.Drawing.Point(134, 65);
+            this.UsernameResetPasswordTextBox.Name = "UsernameResetPasswordTextBox";
+            this.UsernameResetPasswordTextBox.Size = new System.Drawing.Size(90, 23);
+            this.UsernameResetPasswordTextBox.TabIndex = 0;
+            this.UsernameResetPasswordTextBox.TextChanged += new System.EventHandler(this.SendCodeDetails);
+            // 
+            // CaptchaPicturesImageList
+            // 
+            this.CaptchaPicturesImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("CaptchaPicturesImageList.ImageStream")));
+            this.CaptchaPicturesImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.CaptchaPicturesImageList.Images.SetKeyName(0, "View1.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(1, "View2.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(2, "View3.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(3, "View4.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(4, "View5.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(5, "View6.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(6, "View7.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(7, "View8.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(8, "View9.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(9, "View10.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(10, "View11.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(11, "View12.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(12, "View13.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(13, "View14.jpg");
+            this.CaptchaPicturesImageList.Images.SetKeyName(14, "View15.jpg");
             // 
             // LoginAndRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(859, 561);
+            this.ClientSize = new System.Drawing.Size(1234, 765);
+            this.Controls.Add(this.ResetPasswordGroupBox);
+            this.Controls.Add(this.CountDownTimeLabel);
             this.Controls.Add(this.TimeLabel);
             this.Controls.Add(this.YouChatHeadlineLabel);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.MaximumSize = new System.Drawing.Size(875, 600);
+            this.Controls.Add(this.LoginGroupBox);
+            this.Controls.Add(this.RegistrationGroupBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(875, 600);
             this.Name = "LoginAndRegistration";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Login & Registration";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginRegistPage_FormClosing);
             this.Load += new System.EventHandler(this.LoginAndRegistration_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.RegistrationGroupBox.ResumeLayout(false);
+            this.RegistrationGroupBox.PerformLayout();
+            this.LoginGroupBox.ResumeLayout(false);
+            this.LoginGroupBox.PerformLayout();
+            this.CaptchaImageTestPanel.ResumeLayout(false);
+            this.CaptchaImageTestPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).EndInit();
+            this.CaptchaWordTestPanel.ResumeLayout(false);
+            this.CaptchaWordTestPanel.PerformLayout();
+            this.ResetPasswordGroupBox.ResumeLayout(false);
+            this.ResetPasswordGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -518,7 +1107,7 @@ namespace YouChatApp
 
         #endregion
 
-        public System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.GroupBox RegistrationGroupBox;
         public System.Windows.Forms.TextBox usernameTextbox;
         public System.ComponentModel.BackgroundWorker backgroundWorker1;
         public System.Windows.Forms.Label emailLabel;
@@ -534,7 +1123,7 @@ namespace YouChatApp
         public System.Windows.Forms.TextBox passwordTextbox;
         public System.Windows.Forms.Label cityLabel;
         public System.Windows.Forms.Button registButton;
-        public System.Windows.Forms.GroupBox groupBox2;
+        public System.Windows.Forms.GroupBox LoginGroupBox;
         public System.Windows.Forms.Button loginButton;
         public System.Windows.Forms.TextBox passwordloginTextbox;
         public System.Windows.Forms.Label passwordloginButton;
@@ -543,18 +1132,57 @@ namespace YouChatApp
         public System.Windows.Forms.TextBox usernameloginTextbox;
         private System.Windows.Forms.Label YouChatHeadlineLabel;
         private System.Windows.Forms.Button RegisterScreenButton;
-        private System.Windows.Forms.Button ReturnToStarterScreen;
+        private System.Windows.Forms.Button RegisterReturnToStarterScreenButton;
         private System.Windows.Forms.Label NoAccountLabel;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button ViewPasswordButton;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label TimeLabel;
-        private System.Windows.Forms.Timer Timer;
+        private System.Windows.Forms.Timer TimeTimer;
         public System.Windows.Forms.Label GenderLabel;
         public System.Windows.Forms.Label birthDateLabel;
         private System.Windows.Forms.RadioButton MaleRadioButton;
         private System.Windows.Forms.RadioButton FemaleRadioButton;
         private System.Windows.Forms.RadioButton AnotherGenderRadioButton;
+        private System.Windows.Forms.Label CaptchaLabel;
+        public System.Windows.Forms.TextBox CaptchaLoginTextBox;
+        public System.Windows.Forms.Label CaptchaLoginLabel;
+        private System.Windows.Forms.ImageList CaptchaImageList;
+        private System.Windows.Forms.Button RestartCaptchaButton;
+        private System.Windows.Forms.Timer CaptchaCountDownTimer;
+        private System.Windows.Forms.Label CountDownTimeLabel;
+        public System.Windows.Forms.TextBox CodeTextBox;
+        public System.Windows.Forms.Label CodeLabel;
+        public System.Windows.Forms.Button ChangeEmailOptionButton;
+        public System.Windows.Forms.Button NewSMTPCodeOptionButton;
+        private System.Windows.Forms.ComboBox GenderOptionsComboBox;
+        public System.Windows.Forms.GroupBox ResetPasswordGroupBox;
+        public System.Windows.Forms.TextBox EmailResetPasswordTextBox;
+        public System.Windows.Forms.Button ResetPasswordCodeSenderButton;
+        public System.Windows.Forms.Label EmailResetPasswordLabel;
+        public System.Windows.Forms.Label UsernameResetPasswordLabel;
+        public System.Windows.Forms.Label ResetPasswordLabel;
+        public System.Windows.Forms.TextBox UsernameResetPasswordTextBox;
+        public System.Windows.Forms.TextBox ResetPasswordCodeTextBox;
+        public System.Windows.Forms.Label ResetPasswordCodeLabel;
+        public System.Windows.Forms.Button ResetPasswordVerificationButton;
+        public System.Windows.Forms.Button NewPasswordSaverButton;
+        private System.Windows.Forms.Button ResetNewPasswordButton;
+        public System.Windows.Forms.TextBox NewPasswordTextBox;
+        public System.Windows.Forms.Label NewPasswordLabel;
+        private System.Windows.Forms.Button ResetPasswordReturnToStarterScreenButton;
+        private System.Windows.Forms.LinkLabel NonArrivalSmtpCodeLinkLabel;
+        public System.Windows.Forms.Label ChangeEmailOptionLabel;
+        public System.Windows.Forms.Label NewSMTPCodeOptionLabel;
+        public System.Windows.Forms.Button ResetPasswordFromLoginButton;
+        private System.Windows.Forms.Label ForgottenPasswordLabel;
+        private CircularPictureBox CaptchaCircularPictureBox;
+        private System.Windows.Forms.PictureBox CaptchaPictureBox;
+        private System.Windows.Forms.ImageList CaptchaPicturesImageList;
+        public System.Windows.Forms.Button CaptchaImageCheckerButton;
+        public System.Windows.Forms.Label CaptchaPicturesScoreLabel;
+        private System.Windows.Forms.Panel CaptchaImageTestPanel;
+        private System.Windows.Forms.Panel CaptchaWordTestPanel;
     }
 }
 
