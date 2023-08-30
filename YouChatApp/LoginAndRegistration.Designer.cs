@@ -67,7 +67,6 @@ namespace YouChatApp
             this.CaptchaImageTestPanel = new System.Windows.Forms.Panel();
             this.CaptchaImageCheckerButton = new System.Windows.Forms.Button();
             this.CaptchaPicturesScoreLabel = new System.Windows.Forms.Label();
-            this.CaptchaCircularPictureBox = new YouChatApp.CircularPictureBox();
             this.CaptchaPictureBox = new System.Windows.Forms.PictureBox();
             this.CaptchaWordTestPanel = new System.Windows.Forms.Panel();
             this.RestartCaptchaButton = new System.Windows.Forms.Button();
@@ -108,13 +107,16 @@ namespace YouChatApp
             this.ResetPasswordLabel = new System.Windows.Forms.Label();
             this.UsernameResetPasswordTextBox = new System.Windows.Forms.TextBox();
             this.CaptchaPicturesImageList = new System.Windows.Forms.ImageList(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.CaptchaCircularPictureBox = new YouChatApp.CircularPictureBox();
             this.RegistrationGroupBox.SuspendLayout();
             this.LoginGroupBox.SuspendLayout();
             this.CaptchaImageTestPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).BeginInit();
             this.CaptchaWordTestPanel.SuspendLayout();
             this.ResetPasswordGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // RegistrationGroupBox
@@ -606,17 +608,6 @@ namespace YouChatApp
             this.CaptchaPicturesScoreLabel.TabIndex = 26;
             this.CaptchaPicturesScoreLabel.Text = "Score:";
             // 
-            // CaptchaCircularPictureBox
-            // 
-            this.CaptchaCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CaptchaCircularPictureBox.Location = new System.Drawing.Point(30, 15);
-            this.CaptchaCircularPictureBox.Name = "CaptchaCircularPictureBox";
-            this.CaptchaCircularPictureBox.Size = new System.Drawing.Size(150, 150);
-            this.CaptchaCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.CaptchaCircularPictureBox.TabIndex = 35;
-            this.CaptchaCircularPictureBox.TabStop = false;
-            this.CaptchaCircularPictureBox.Click += new System.EventHandler(this.CaptchaCircularPictureBox_Click);
-            // 
             // CaptchaPictureBox
             // 
             this.CaptchaPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -1068,12 +1059,33 @@ namespace YouChatApp
             this.CaptchaPicturesImageList.Images.SetKeyName(13, "View14.jpg");
             this.CaptchaPicturesImageList.Images.SetKeyName(14, "View15.jpg");
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(803, 539);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(177, 127);
+            this.pictureBox1.TabIndex = 25;
+            this.pictureBox1.TabStop = false;
+            // 
+            // CaptchaCircularPictureBox
+            // 
+            this.CaptchaCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CaptchaCircularPictureBox.Location = new System.Drawing.Point(30, 15);
+            this.CaptchaCircularPictureBox.Name = "CaptchaCircularPictureBox";
+            this.CaptchaCircularPictureBox.Size = new System.Drawing.Size(150, 150);
+            this.CaptchaCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CaptchaCircularPictureBox.TabIndex = 35;
+            this.CaptchaCircularPictureBox.TabStop = false;
+            this.CaptchaCircularPictureBox.Click += new System.EventHandler(this.CaptchaCircularPictureBox_Click);
+            // 
             // LoginAndRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(1234, 765);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ResetPasswordGroupBox);
             this.Controls.Add(this.CountDownTimeLabel);
             this.Controls.Add(this.TimeLabel);
@@ -1093,12 +1105,13 @@ namespace YouChatApp
             this.LoginGroupBox.PerformLayout();
             this.CaptchaImageTestPanel.ResumeLayout(false);
             this.CaptchaImageTestPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).EndInit();
             this.CaptchaWordTestPanel.ResumeLayout(false);
             this.CaptchaWordTestPanel.PerformLayout();
             this.ResetPasswordGroupBox.ResumeLayout(false);
             this.ResetPasswordGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1183,6 +1196,7 @@ namespace YouChatApp
         public System.Windows.Forms.Label CaptchaPicturesScoreLabel;
         private System.Windows.Forms.Panel CaptchaImageTestPanel;
         private System.Windows.Forms.Panel CaptchaWordTestPanel;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

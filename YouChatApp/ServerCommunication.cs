@@ -6,6 +6,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
+using Image = System.Drawing.Image;
 
 namespace YouChatApp
 {
@@ -45,6 +47,9 @@ namespace YouChatApp
         public const int sendMessageResponse = 29;
         public const int ResetPasswordRequest = 30;
         public const int resetPasswordResponse = 31;
+        public const int MessageTextSizeIndexSender = 32;
+        public const int ContactInformationRequest = 33;
+        public const int ContactInformationResponse = 34;
 
         const string registerResponse1 = "Your registeration has completed successfully \nPlease press the back button to return to the home screen and login";
         const string registerResponse2 = "Your registeration has failed \nPlease try again ";
@@ -64,6 +69,8 @@ namespace YouChatApp
         /// </summary>
         private static byte[] Data;
 
+        public static int SelectedContacts = 0;
+
         /// <summary>
         /// Declares a variable of type LoginRegistPage which represents the loginRegistPage form's object and is used to perform actions on the form
         /// </summary>
@@ -73,7 +80,14 @@ namespace YouChatApp
 
         public static YouChat youChat;
 
+        /// <summary>
+        /// 0 - verysmall, 1- small, 2- normal, 3- large, 4 -huge...
+        /// </summary>
+        public static int SelectedMessageTextSize = 2; //todoישר כשמתחברים צריך לקבל מהשרת ביחד עם דברים נוספים 
+        // value = 2 for now - until i will get the server to work
 
+
+        public static int CurrentChatNumberID = 0;
         /// <summary>
         /// Represents the player's name
         /// </summary>
@@ -219,6 +233,7 @@ namespace YouChatApp
                             {
                                 MessageBox.Show(messageDetails);
                                 loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenApp(); });
+
                             }
                             else if (messageDetails == loginResponse2)
                             {
@@ -228,10 +243,15 @@ namespace YouChatApp
                         }
                         else if (requestNumber == sendMessageResponse)
                         {
-                            youChat.Invoke((Action)delegate { youChat.Message3(messageDetails); });
+                            youChat.Invoke((Action)delegate { youChat.Message(messageDetails); });
                         }
                         else if (requestNumber == resetPasswordResponse)
                         {
+
+                        }
+                        else if(requestNumber == ContactInformationResponse)
+                        {
+                            youChat.Invoke((Action)delegate { youChat.SetChatControlListOfContacts(messageDetails); });
 
                         }
 
@@ -267,6 +287,27 @@ namespace YouChatApp
                     // Send data to the client
                     byte[] bytesToSend = System.Text.Encoding.ASCII.GetBytes(message);
                     ns.Write(bytesToSend, 0, bytesToSend.Length);
+                    ns.Flush();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+        }
+        public static void SendMessageAndImage(string message, Image image)
+        {
+            if (isConnected)
+            {
+                try
+                {
+                    NetworkStream ns = Client.GetStream();
+
+                    // Send data to the client
+                    byte[] bytesToSend = System.Text.Encoding.ASCII.GetBytes(message);
+                    ns.Write(bytesToSend, 0, bytesToSend.Length);
+                    image.Save(ns, System.Drawing.Imaging.ImageFormat.Jpeg);
+
                     ns.Flush();
                 }
                 catch (Exception ex)

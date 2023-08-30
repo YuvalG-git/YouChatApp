@@ -11,6 +11,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Button = System.Windows.Forms.Button;
 
 namespace YouChatApp
 {
@@ -24,6 +26,8 @@ namespace YouChatApp
         Boolean[] PrivacySettingsChoicesArray;
         string CurrentSelectedPrivacySettingsOption;
         string CurrentSelectedRadioButtonName;
+        string CurrentSelectedChatSettingsOption;
+
         public Profile(YouChat youChat)
         {
             InitializeComponent();
@@ -35,6 +39,7 @@ namespace YouChatApp
                 MaleImages.Enqueue(Image.FromFile(fi.FullName));
             SetProfileAvatarMatrix();
             ProfilePictureKindButtonsCreator();
+            ChatSettingsOptionButtonCreator();
             //todo to set the profile picture and the status according to the server...
             //need to also change the previous messages that have been sent after a changed profile picture
         }
@@ -153,6 +158,7 @@ namespace YouChatApp
             ProfilePictureKindButtonsCreator();
             PrivacySettingsOptionButtonCreator();
             SetPrivacySettingsChoicesArray();
+            ChatSettingsOptionButtonCreator();
             ServerCommunication.profile = this;
         }
 
@@ -209,6 +215,16 @@ namespace YouChatApp
             ContactsOptionRadioButton.Visible = false;
             NobodyOptionRadioButton.Visible = false;
 
+        }
+
+        private void SetChatSettingsInvisible()
+        {
+            MessageGapScrollBar.Visible = false;
+            MessageGapTextBox.Visible = false;
+            MessageGapLabel.Visible = false;
+            MessageTextSizeComboBox.Visible = false;
+            EnterPressedLabel.Visible = false;
+            EnterPressedToggleButton.Visible = false;
         }
 
         private void SetMaleProfilePictureOption()
@@ -348,10 +364,13 @@ namespace YouChatApp
             ProfilePictureSelectionButton.Enabled = false;
             StatusSelectionButton.Enabled = true;
             PrivacySettingsSelectionButton.Enabled = true;
+            ChatSettingsSelectionButton.Enabled = true;
+
 
             ProfilePictureSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             StatusSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             PrivacySettingsSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            ChatSettingsSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
 
 
             ProfilePictureSelectionButton.FlatAppearance.BorderColor = Color.Green;
@@ -360,15 +379,20 @@ namespace YouChatApp
 
             StatusSelectionButton.UseVisualStyleBackColor = true;
             PrivacySettingsSelectionButton.UseVisualStyleBackColor = true;
+            ChatSettingsSelectionButton.UseVisualStyleBackColor = true;
+
 
             SettingsModeLabel.Visible = true;
             SettingsModeLabel.Text = "Profile Picture";
             ProfilePicturePanel.Visible = true;
             StatusPanel.Visible = false;
             PrivacySettingsPanel.Visible = false;
+            ChatSettingsPanel.Visible = false;
 
             RestartPrivacySettingsKindSelection();
             SetPrivacySettingsInvisible();
+            RestartChatSettingsKindSelection();
+            SetChatSettingsInvisible();
             //locationלטפל גם ב
         }
 
@@ -377,10 +401,13 @@ namespace YouChatApp
             StatusSelectionButton.Enabled = false;
             ProfilePictureSelectionButton.Enabled = true;
             PrivacySettingsSelectionButton.Enabled = true;
+            ChatSettingsSelectionButton.Enabled = true;
+
 
             StatusSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ProfilePictureSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             PrivacySettingsSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            ChatSettingsSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
 
 
             StatusSelectionButton.FlatAppearance.BorderColor = Color.Green;
@@ -390,18 +417,22 @@ namespace YouChatApp
 
             ProfilePictureSelectionButton.UseVisualStyleBackColor = true;
             PrivacySettingsSelectionButton.UseVisualStyleBackColor = true;
+            ChatSettingsSelectionButton.UseVisualStyleBackColor = true;
+
 
             SettingsModeLabel.Visible = true;
             SettingsModeLabel.Text = "Status";
             StatusPanel.Visible = true;
             ProfilePicturePanel.Visible = false;
             PrivacySettingsPanel.Visible = false;
+            ChatSettingsPanel.Visible = false;
 
             RestartProfilePictureSelection();
             RestartPrivacySettingsKindSelection();
             SetProfilePictrueMatrixInvisible();
             SetPrivacySettingsInvisible();
-
+            RestartChatSettingsKindSelection();
+            SetChatSettingsInvisible();
 
 
         }
@@ -411,10 +442,13 @@ namespace YouChatApp
             PrivacySettingsSelectionButton.Enabled = false;
             StatusSelectionButton.Enabled = true;
             ProfilePictureSelectionButton.Enabled = true;
+            ChatSettingsSelectionButton.Enabled = true;
 
             PrivacySettingsSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             StatusSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             ProfilePictureSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            ChatSettingsSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+
 
             PrivacySettingsSelectionButton.FlatAppearance.BorderColor = Color.Green;
             PrivacySettingsSelectionButton.FlatAppearance.BorderSize = 2;
@@ -422,6 +456,8 @@ namespace YouChatApp
 
             StatusSelectionButton.UseVisualStyleBackColor = true;
             ProfilePictureSelectionButton.UseVisualStyleBackColor = true;
+            ChatSettingsSelectionButton.UseVisualStyleBackColor = true;
+
 
             SettingsModeLabel.Visible = true;
             SettingsModeLabel.Text = "Privacy Settings";
@@ -429,10 +465,48 @@ namespace YouChatApp
             PrivacySettingsPanel.Visible = true;
             StatusPanel.Visible = false;
             ProfilePicturePanel.Visible = false;
+            ChatSettingsPanel.Visible = false;
 
             RestartProfilePictureSelection();
             SetProfilePictrueMatrixInvisible();
+            RestartChatSettingsKindSelection();
+            SetChatSettingsInvisible();
+        }
 
+        private void ChatSettingsSelectionButton_Click(object sender, EventArgs e)
+        {
+            ChatSettingsSelectionButton.Enabled = false;
+            ProfilePictureSelectionButton.Enabled = true;
+            PrivacySettingsSelectionButton.Enabled = true;
+            StatusSelectionButton.Enabled = true;
+
+
+            ChatSettingsSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ProfilePictureSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            PrivacySettingsSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            StatusSelectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+
+
+            ChatSettingsSelectionButton.FlatAppearance.BorderColor = Color.Green;
+            ChatSettingsSelectionButton.FlatAppearance.BorderSize = 2;
+            ChatSettingsSelectionButton.BackColor = System.Drawing.SystemColors.ButtonShadow;
+
+            ProfilePictureSelectionButton.UseVisualStyleBackColor = true;
+            PrivacySettingsSelectionButton.UseVisualStyleBackColor = true;
+            StatusSelectionButton.UseVisualStyleBackColor = true;
+
+
+            SettingsModeLabel.Visible = true;
+            SettingsModeLabel.Text = "Chat Settings"; //todo to set the location of this label as well after i will decide the form's size
+            ChatSettingsPanel.Visible = true;
+            ProfilePicturePanel.Visible = false;
+            PrivacySettingsPanel.Visible = false;
+            StatusPanel.Visible = false;
+
+            RestartProfilePictureSelection(); // אולי כדאי לשמור את שם הכפתור שהיה לחוץ ובהתאם אליו לזמן את הפעולות - נשמע די מיותר לזמן עבור כל אחד ואחד מהם המון פעולות
+            RestartPrivacySettingsKindSelection();
+            SetProfilePictrueMatrixInvisible();
+            SetPrivacySettingsInvisible();
         }
         private Boolean ProfilePictureWasSelected()
         {
@@ -541,14 +615,11 @@ namespace YouChatApp
             string ImageLocation = "";
             try
             {
-                ProfilePictureOpenFileDialog.Filter = "jpg files(*.jpg)|*.jpg|PNG files (*.png)|*.png| All Files (*.*)|*.*";
+                ProfilePictureOpenFileDialog.Filter = "jpg files(*.jpg)|*.jpg|PNG files (*.png)|*.png|All Files (*.*)|*.*";
                 if (ProfilePictureOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     ImageLocation = ProfilePictureOpenFileDialog.FileName;
                     ProfilePictureUploaderPictureBox.Image = Image.FromFile(ImageLocation);
-
-
-                    //ProfilePictureUploaderPictureBox.ImageLocation = ImageLocation;
                 }
             }
             catch (Exception)
@@ -558,9 +629,10 @@ namespace YouChatApp
 
         }
 
+
         private void Profile_Load(object sender, EventArgs e)
         {
-
+            MessageTextSizeComboBox.SelectedIndex = ServerCommunication.SelectedMessageTextSize;
         }
 
 
@@ -589,6 +661,69 @@ namespace YouChatApp
             this.PrivacySettingsKindSelectionButtons[2].Text = "Profile Picture";
             this.PrivacySettingsKindSelectionButtons[3].Name = "PrivacySettingsStatusSelectionButton";
             this.PrivacySettingsKindSelectionButtons[3].Text = "Status";
+        }
+
+        private void ChatSettingsOptionButtonCreator()
+        {
+            ChatSettingsKindSelectionButtons = new Button[3];
+            int y = 20;
+            for (int i = 0; i < ChatSettingsKindSelectionButtons.GetLength(0); i++)
+            {
+                ChatSettingsKindSelectionButtons[i] = new Button();
+                this.ChatSettingsKindSelectionButtons[i].Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                this.ChatSettingsKindSelectionButtons[i].Location = new System.Drawing.Point(10, y);
+                this.ChatSettingsKindSelectionButtons[i].Size = new System.Drawing.Size(100, 50);
+                this.ChatSettingsKindSelectionButtons[i].TabIndex = 16;
+                this.ChatSettingsKindSelectionButtons[i].UseVisualStyleBackColor = true;
+                this.ChatSettingsPanel.Controls.Add(this.ChatSettingsKindSelectionButtons[i]);
+                this.ChatSettingsKindSelectionButtons[i].Click += new System.EventHandler(ChatSettingsKindOption_Click);
+                y += 70;
+            }
+            this.ChatSettingsKindSelectionButtons[0].Name = "ChatSettingsMessageGapSelectionButton";
+            this.ChatSettingsKindSelectionButtons[0].Text = "Gap Between Messages"; 
+            this.ChatSettingsKindSelectionButtons[1].Name = "ChatSettingsMessageTextSizeSelectionButton";
+            this.ChatSettingsKindSelectionButtons[1].Text = "Text Size";
+            this.ChatSettingsKindSelectionButtons[2].Name = "ChatSettingsEnterKeyPressedSelectionButton";
+            this.ChatSettingsKindSelectionButtons[2].Text = "Enter Key Pressed";
+
+        }
+        private void ChatSettingsKindOption_Click(object sender, EventArgs e)
+        {
+            RestartChatSettingsKindSelection();
+            ((Button)(sender)).FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ((Button)(sender)).FlatAppearance.BorderColor = Color.Green;
+            ((Button)(sender)).FlatAppearance.BorderSize = 2;
+            ((Button)(sender)).BackColor = System.Drawing.SystemColors.ButtonShadow;
+            ((Button)(sender)).Enabled = false;
+            CurrentSelectedChatSettingsOption = ((Button)(sender)).Name;
+            if (CurrentSelectedChatSettingsOption == "ChatSettingsMessageGapSelectionButton")
+            {
+                MessageGapScrollBar.Visible = true;
+                MessageGapTextBox.Visible = true;
+                MessageGapLabel.Visible = true;
+                MessageTextSizeComboBox.Visible = false;
+                EnterPressedLabel.Visible = false;
+                EnterPressedToggleButton.Visible = false;
+            }
+            else if (CurrentSelectedChatSettingsOption == "ChatSettingsMessageTextSizeSelectionButton")
+            {
+                MessageGapScrollBar.Visible = false;
+                MessageGapTextBox.Visible = false;
+                MessageGapLabel.Visible = false;
+                MessageTextSizeComboBox.Visible = true;
+                EnterPressedLabel.Visible = false;
+                EnterPressedToggleButton.Visible = false;
+            }
+            else
+            {
+                MessageGapScrollBar.Visible = false;
+                MessageGapTextBox.Visible = false;
+                MessageGapLabel.Visible = false;
+                MessageTextSizeComboBox.Visible = false;
+                EnterPressedLabel.Visible = true;
+                EnterPressedToggleButton.Visible = true;
+
+            }
         }
 
         private void PrivacySettingsKindOption_Click(object sender, EventArgs e)
@@ -630,6 +765,16 @@ namespace YouChatApp
             {
                 CurrentSelectedRadioButtonName = NobodyOptionRadioButton.Name;
 
+            }
+        }
+
+        private void RestartChatSettingsKindSelection()
+        {
+            foreach (Button ChatSettingsKindButton in ChatSettingsKindSelectionButtons)
+            {
+                ChatSettingsKindButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+                ChatSettingsKindButton.UseVisualStyleBackColor = true;
+                ChatSettingsKindButton.Enabled = true;
             }
         }
 
@@ -675,13 +820,10 @@ namespace YouChatApp
         int counter = 0;
         private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
-            hScrollBar1.Maximum = 100;
-            hScrollBar1.Minimum = 0;
-            hScrollBar1.SmallChange = 1;
             if (e.Type == ScrollEventType.Last)
-                counter = 100;
+                counter = 40;
             if (e.Type == ScrollEventType.First)
-                counter = 0;
+                counter = 10;
             if (e.Type == ScrollEventType.SmallDecrement)
                 counter--;
             if (e.Type == ScrollEventType.SmallIncrement)
@@ -695,15 +837,97 @@ namespace YouChatApp
                 counter += 5;
             }
             if (e.Type == ScrollEventType.First)
-                counter = 0;
+                counter = 10;
             if (e.Type == ScrollEventType.Last)
                 counter = 100;
 
-            Console.WriteLine(e.NewValue + "\n");
-            if (counter > 100) counter = 100;
-            if (counter < 0) counter = 0;
+            if (counter > 100) counter = 40;
+            if (counter < 10) counter = 10;
+        }
+        /// <summary>
+        /// The "IsNumeric" method checks if "number" represents a number
+        /// </summary>
+        /// <param name="number"> Represents the board's size that the player has chosen</param>
+        /// <returns> It returns true if all the characters in the string are numeric. OtherWise, it returns false </returns>
+        private bool IsNumeric(string number)
+        {
+            return number.All(char.IsNumber);
+        }
+        string LastValue = "10";
 
-            Console.WriteLine(counter.ToString());
+        private void MessageGapTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if ((IsNumeric(MessageGapTextBox.Text)))
+            {
+                LastValue = MessageGapTextBox.Text;
+            }
+            else
+            {
+                MessageGapTextBox.Text = LastValue;
+                MessageGapTextBox.Select(MessageGapTextBox.Text.Length, 0);
+
+            }
+        }
+
+        private void MessageTextSizeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ServerCommunication.SelectedMessageTextSize = MessageTextSizeComboBox.SelectedIndex;
+            //ServerCommunication.SendMessage();
+            //this.Invoke(new Action(() => ServerCommunication.youChat.ChangeMessagesAppearance()));
+            // אולי כדאי שבמקום להשתמש בפעולה הזאת יהיה כפתור של שמירה, והוא יוודא שהערך החדש שונה מהנוכחי, אם הוא לא אז לא יקרה כלום, ואם הוא כן שונה אז הערך הנוכחי ישתנה בהתאם והצאט ישנה את גודל הטקסט
+            //לשנות לכל אחד מהכפתורים של ההודעות את הגודל בהתאם לגודל החדש אבל גם את המיקומים החדשים של ההודעות...
+        }
+
+        //private void MessageGapTextBox_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if ((MessageGapTextBox.Text) != "" && (IsNumeric(MessageGapTextBox.Text)))
+        //    {
+        //        int Value = int.Parse(MessageGapTextBox.Text);
+        //        if (Value < 10)
+        //        {
+        //            MessageGapScrollBar.Value = 10;
+        //            MessageGapTextBox.Text = "10";
+        //        }
+        //        else if (Value > 40)
+        //        {
+        //            MessageGapScrollBar.Value = 40;
+        //            MessageGapTextBox.Text = "40";
+        //        }
+        //        else
+        //            MessageGapScrollBar.Value = Value;
+        //        LastValue = MessageGapTextBox.Text;
+
+        //    }
+        //    else
+        //    {
+        //        MessageGapTextBox.Text = LastValue;
+        //        MessageGapTextBox.Select(MessageGapTextBox.Text.Length, 0);
+
+        //    }
+        //}
+        private void MessageGapTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (MessageGapTextBox.Text != "")
+                {
+                    int Value = int.Parse(MessageGapTextBox.Text);
+                    if (Value < 10)
+                    {
+                        MessageGapScrollBar.Value = 10;
+                        MessageGapTextBox.Text = "10";
+                        MessageGapTextBox.Select(MessageGapTextBox.Text.Length, 0);
+                    }
+                    else if (Value > 40)
+                    {
+                        MessageGapScrollBar.Value = 40;
+                        MessageGapTextBox.Text = "40";
+                        MessageGapTextBox.Select(MessageGapTextBox.Text.Length, 0);
+                    }
+                    else
+                        MessageGapScrollBar.Value = Value;
+                }
+            }     
         }
     }
 }

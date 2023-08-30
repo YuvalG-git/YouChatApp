@@ -16,11 +16,16 @@ namespace YouChatApp
         public MessageControl()
         {
             InitializeComponent();
+            SetMessageControlTextSize();
         }
         public System.Windows.Forms.Label Username => UsernameLabel;
         public System.Windows.Forms.Label Message => MessageLabel;
         public System.Windows.Forms.Label Time => TimeLabel;
         public PictureBox ProfilePicture => ProfilePictureCircularPictureBox;
+
+        public float CurrentUsernameLabelTextSize = 12F;
+        public float CurrentNessageLabelTextSize = 15.75F;
+
         public void SetMessageControl()
         {
             int MessageControlToMessageLabelWidth = MessageLabel.Location.X - this.Location.X;
@@ -36,6 +41,40 @@ namespace YouChatApp
             }
 
 
+
+
+        }
+        //todo make sure that this function isnt on a specific control of this type...
+        public void SetMessageControlTextSize()//לשנות גם את הגודל של הcontrol עצמו בהתאם...
+        {
+            if (ServerCommunication.SelectedMessageTextSize == 0)
+            {
+                CurrentUsernameLabelTextSize = 9F;
+                CurrentNessageLabelTextSize = 11.00F;
+
+            }
+            else if (ServerCommunication.SelectedMessageTextSize == 1)
+            {
+                CurrentUsernameLabelTextSize = 10.5F;
+                CurrentNessageLabelTextSize = 13.25F;
+            }
+            else if (ServerCommunication.SelectedMessageTextSize == 2)
+            {
+                CurrentUsernameLabelTextSize = 12F;
+                CurrentNessageLabelTextSize = 15.75F;
+            }
+            else if (ServerCommunication.SelectedMessageTextSize == 3)
+            {
+                CurrentUsernameLabelTextSize = 14F;
+                CurrentNessageLabelTextSize = 18.25F;
+            }
+            else 
+            {
+                CurrentUsernameLabelTextSize = 16F;
+                CurrentNessageLabelTextSize = 21.75F;
+            }
+            this.UsernameLabel.Font = new System.Drawing.Font(this.UsernameLabel.Font.Name, CurrentUsernameLabelTextSize, this.UsernameLabel.Font.Style, this.UsernameLabel.Font.Unit);
+            this.MessageLabel.Font = new System.Drawing.Font(this.MessageLabel.Font.Name, CurrentNessageLabelTextSize, this.MessageLabel.Font.Style, this.MessageLabel.Font.Unit);
 
 
         }

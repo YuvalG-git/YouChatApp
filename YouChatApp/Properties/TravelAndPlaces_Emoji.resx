@@ -1,0 +1,526 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="e50a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\e50a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f301" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f301.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f302" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f302.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f303" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f303.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f304" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f304.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f305" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f305.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f306" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f306.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f307" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f307.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f309" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f309.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f30b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f30b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f30c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f30c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f386" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f386.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f387" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f387.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f391" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f391.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3a0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3a0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3a1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3a1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3a2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3a2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3aa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3aa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3cd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3cd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3ce" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3ce.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3d4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3d4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3d5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3d5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3d6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3d6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3d7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3d7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3d8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3d8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3d9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3d9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3da" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3da.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3db" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3db.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3dc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3dc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3dd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3dd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3de.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3df" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3df.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3e0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3e0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3e1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3e1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3e2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3e2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3e3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3e3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3e4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3e4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3e5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3e5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3ef" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3ef.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f3f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f492" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f492.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f54b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f54b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f54c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f54c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f54d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f54d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f5fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f5fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f5fb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f5fb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f5fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f5fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f5fd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f5fd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f5fe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f5fe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f5ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f5ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f680" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f680.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f681" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f681.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f682" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f682.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f683" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f683.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f684" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f684.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f685" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f685.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f686" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f686.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f687" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f687.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f688" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f688.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f689" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f689.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f68a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f68a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f68b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f68b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f68c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f68c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f68d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f68d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f68e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f68e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f68f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f68f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f690" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f690.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f691" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f691.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f692" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f692.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f693" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f693.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f694" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f694.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f695" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f695.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f696" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f696.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f697" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f697.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f698" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f698.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f699" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f699.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f69a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f69a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f69b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f69b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f69c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f69c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f69d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f69d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f69e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f69e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f69f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f69f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6a0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6a0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6a1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6a1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6a2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6a2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6a4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6a4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6a5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6a5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6a6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6a6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6a7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6a7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6a8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6a8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6b2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6b2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6d5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6d5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6d6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6d6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6de" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6de.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6df" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6df.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6e3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6e3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6e4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6e4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6e5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6e5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6f5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6f5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6f6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6f6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6fb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6fb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f6fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9af" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f9af.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9bc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f9bc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9bd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1f9bd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fa7c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1fa7c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fa9d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\1fa9d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2693" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\2693.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\26e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\26ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\26f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\26f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\26f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\26f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26f5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\26f5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\26fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26fd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\26fd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2708" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Travel\2708.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

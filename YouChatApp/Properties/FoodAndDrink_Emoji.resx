@@ -1,0 +1,496 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_1f32d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f32d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f32e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f32e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f32f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f32f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f330" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f330.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f336" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f336.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f33d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f33d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f345" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f345.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f346" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f346.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f347" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f347.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f348" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f348.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f349" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f349.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f34a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f34a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f34b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f34b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f34c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f34c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f34d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f34d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f34e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f34e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f34f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f34f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f350" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f350.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f351" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f351.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f352" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f352.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f353" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f353.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f354" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f354.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f355" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f355.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f356" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f356.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f357" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f357.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f358" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f358.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f359" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f359.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f35a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f35a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f35b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f35b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f35c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f35c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f35d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f35d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f35e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f35e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f35f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f35f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f360" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f360.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f361" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f361.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f362" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f362.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f363" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f363.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f364" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f364.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f365" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f365.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f366" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f366.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f367" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f367.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f368" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f368.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f369" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f369.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f36a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f36a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f36b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f36b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f36c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f36c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f36d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f36d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f36e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f36e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f36f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f36f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f370" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f370.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f371" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f371.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f372" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f372.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f373" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f373.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f374" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f374.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f375" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f375.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f376" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f376.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f377" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f377.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f378" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f378.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f379" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f379.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f37a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f37a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f37b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f37b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f37c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f37c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f37d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f37d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f37e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f37e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f37f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f37f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f382" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f382.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f942" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f942.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f943" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f943.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f944" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f944.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f94f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f94f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f950" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f950.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f951" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f951.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f952" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f952.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f953" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f953.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f954" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f954.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f955" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f955.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f956" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f956.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f957" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f957.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f958" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f958.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f959" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f959.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f95a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f95a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f95b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f95b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f95c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f95c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f95d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f95d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f95e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f95e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f95f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f95f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f960" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f960.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f961" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f961.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f962" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f962.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f963" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f963.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f964" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f964.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f965" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f965.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f966" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f966.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f967" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f967.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f968" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f968.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f969" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f969.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f96a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f96a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f96b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f96b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f96c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f96c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f96d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f96d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f96e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f96e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f96f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f96f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9c0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9c0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9c1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9c1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9c2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9c2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9c3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9c3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9c4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9c4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9c5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9c5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9c6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9c6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9c7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9c7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9c8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9c8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9c9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9c9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9ca" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9ca.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9cb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1f9cb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fad0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1fad0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fad1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1fad1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fad2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1fad2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fad3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1fad3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fad4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1fad4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fad5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1fad5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fad6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1fad6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fad7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1fad7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fad8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1fad8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fad9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\1fad9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2615" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Food\2615.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

@@ -1,0 +1,925 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_1f1e6_1f1e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1ee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1ee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1f6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1f6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1fd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1fd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e6_1f1ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e6-1f1ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1e7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1e7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1ee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1ee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1ef" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1ef.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1f6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1f6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1fb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1fb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1fe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1fe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e7_1f1ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e7-1f1ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1ee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1ee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1f5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1f5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1fb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1fb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1fd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1fd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1fe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1fe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e8_1f1ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e8-1f1ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e9_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e9-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e9_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e9-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e9_1f1ef" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e9-1f1ef.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e9_1f1f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e9-1f1f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e9_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e9-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e9_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e9-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1e9_1f1ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1e9-1f1ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ea_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ea-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ea_1f1e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ea-1f1e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ea_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ea-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ea_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ea-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ea_1f1ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ea-1f1ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ea_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ea-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ea_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ea-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ea_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ea-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ea_1f1fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ea-1f1fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1eb_1f1ee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1eb-1f1ee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1eb_1f1ef" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1eb-1f1ef.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1eb_1f1f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1eb-1f1f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1eb_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1eb-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1eb_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1eb-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1eb_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1eb-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1e7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1e7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1ee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1ee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1f5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1f5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1f6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1f6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ec_1f1fe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ec-1f1fe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ed_1f1f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ed-1f1f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ed_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ed-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ed_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ed-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ed_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ed-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ed_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ed-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ed_1f1fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ed-1f1fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1f6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1f6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ee_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ee-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ef_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ef-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ef_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ef-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ef_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ef-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ef_1f1f5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ef-1f1f5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1ee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1ee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1f5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1f5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1fe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1fe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f0_1f1ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f0-1f1ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1e7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1e7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1ee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1ee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1fb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1fb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f1_1f1fe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f1-1f1fe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1f5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1f5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1f6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1f6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1fb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1fb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1fd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1fd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1fe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1fe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f2_1f1ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f2-1f1ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1ee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1ee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1f5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1f5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f3_1f1ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f3-1f1ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f4_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f4-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f5_1f1fe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f5-1f1fe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f6_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f6-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f7_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f7-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f7_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f7-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f7_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f7-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f7_1f1fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f7-1f1fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f7_1f1fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f7-1f1fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1e7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1e7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1ee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1ee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1ef" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1ef.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1fb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1fb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1fd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1fd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1fe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1fe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f8_1f1ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f8-1f1ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1e9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1e9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1ef" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1ef.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1f1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1f1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1f7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1f7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1fb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1fb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1f9_1f1ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1f9-1f1ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fa_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fa-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fa_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fa-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fa_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fa-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fa_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fa-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fa_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fa-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fa_1f1fe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fa-1f1fe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fa_1f1ff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fa-1f1ff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fb_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fb-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fb_1f1e8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fb-1f1e8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fb_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fb-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fb_1f1ec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fb-1f1ec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fb_1f1ee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fb-1f1ee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fb_1f1f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fb-1f1f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fb_1f1fa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fb-1f1fa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fc_1f1eb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fc-1f1eb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fc_1f1f8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fc-1f1f8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fd_1f1f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fd-1f1f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fe_1f1ea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fe-1f1ea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1fe_1f1f9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1fe-1f1f9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ff_1f1e6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ff-1f1e6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ff_1f1f2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ff-1f1f2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f1ff_1f1fc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f1ff-1f1fc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f38c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f38c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f3f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3f3_fe0f_200d_1f308" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f3f3-fe0f-200d-1f308.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3f3_fe0f_200d_26a7_fe0f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f3f3-fe0f-200d-26a7-fe0f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3f4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f3f4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3f4_200d_2620_fe0f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f3f4-200d-2620-fe0f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3f4_e0067_e0062_e0065_e006e_e0067_e007f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f3f4-e0067-e0062-e0065-e006e-e0067-e007f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3f4_e0067_e0062_e0073_e0063_e0074_e007f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f3f4-e0067-e0062-e0073-e0063-e0074-e007f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f3f4_e0067_e0062_e0077_e006c_e0073_e007f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f3f4-e0067-e0062-e0077-e006c-e0073-e007f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f6a9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Flags\1f6a9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

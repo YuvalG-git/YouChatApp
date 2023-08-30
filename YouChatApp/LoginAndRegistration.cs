@@ -45,6 +45,7 @@ namespace YouChatApp
         int CaptchaPictureAttempts = 0;
         int CurrentPictureIndex;
         TimeSpan TimerTickTimeSpan;
+        List<int> NumbersList;
 
 
         DateTime CountDownDateTime = new DateTime();
@@ -68,6 +69,8 @@ namespace YouChatApp
             InitializeComponent();
             ServerCommunication.Connect("10.100.102.3");
             ServerCommunication.loginAndRegistration = this;
+            ProfilePictureImageList.InitializeImageLists();
+            pictureBox1.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[3];
         }
 
         /// <summary>
@@ -451,7 +454,7 @@ namespace YouChatApp
         //    messageControl1.ProfilePicture.BackgroundImage = passwordNotShown;
 
         //}
-        private void CreateCaptchaFailureWaitingTimeQueue()
+        private void CreateCaptchaFailureWaitingTimeQueue() //todo to use this code again in the second captcha test
         {
             TimerTickTimeSpan = TimeSpan.FromMilliseconds(CaptchaCountDownTimer.Interval);
             CaptchaFailureWaitingTimeQueue = new Queue<double>();
@@ -719,6 +722,7 @@ namespace YouChatApp
         private void LoadImage()
         {
             CurrentPictureIndex = NumbersForCaptchaPictures.Dequeue();
+            //NumbersList[CurrentPictureIndex] = CurrentPictureIndex;
             CaptchaCircularPictureBox.BackgroundImage = CaptchaPicturesImageList.Images[CurrentPictureIndex];
             CaptchaPictureBox.BackgroundImage = CaptchaPicturesImageList.Images[CurrentPictureIndex];
             RotateBothPictureBoxsRandomlly();
@@ -726,6 +730,7 @@ namespace YouChatApp
 
         private void CaptchaCircularPictureBox_Click(object sender, EventArgs e)
         {
+            //CaptchaPictureBox.FlatAppearance.BorderColor = Color.Transparent;
             MouseEventArgs mouseEventArgs = e as MouseEventArgs;
             if (mouseEventArgs != null)
             {
@@ -767,14 +772,52 @@ namespace YouChatApp
             if (Math.Abs(CaptchaPictureBoxAngle - CaptchaCircularPictureBoxAngle) <= 5)
             {
                 CaptchaPicturesScore++;
+               // CaptchaPictureBox.FlatAppearance.BorderColor = Color.Green;
+            }
+            else
+            {
+                //CaptchaPictureBox.FlatAppearance.BorderColor = Color.Red;
+
             }
             //todo to add something after 5 failed before all 15 are done
             CaptchaPicturesScoreLabel.Text = CaptchaPicturesScore.ToString() + "/" + CaptchaPictureAttempts.ToString();
-            if (NumbersForCaptchaPictures.Count == 0) 
+            //if (NumbersForCaptchaPictures.Count == 0)
+            //{
+            //    if (CaptchaPicturesScore <= 10)
+            //    {
+            //        //try again in 2 minutes
+            //    }
+            //    else
+            //    {
+            //        string username = usernameloginTextbox.Text;
+            //        string password = passwordloginTextbox.Text;
+            //        string userLoginDetails = username + "#" + password;
+            //        ServerCommunication.SendMessage(ServerCommunication.loginRequest + "$" + userLoginDetails);
+            //    }
+            //}
+            //else
+            //{
+            //    CurrentPictureIndex = NumbersForCaptchaPictures.Dequeue();
+            //    CaptchaPictureBox.BackgroundImage = CaptchaPicturesImageList.Images[CurrentPictureIndex];
+            //    CaptchaCircularPictureBox.BackgroundImage = CaptchaPicturesImageList.Images[CurrentPictureIndex];
+            //    RotateBothPictureBoxsRandomlly();
+            //}
+            if (CaptchaPictureAttempts == 5)
             {
-                if (CaptchaPicturesScore <= 10)
+                if (CaptchaPicturesScore < 3)
                 {
-                    //try again in 2 minutes
+                    CaptchaPictureAttempts = 0;
+                    CaptchaPicturesScore = 0;
+                    //try again in 2 minutes 
+                    //after two minutes:
+                    if (NumbersForCaptchaPictures.Count == 0)
+                    {
+                        SetNumbersList();
+                        SetNumberForCaptchaPicturesQueue();
+                        LoadImage();
+
+                    }
+
                 }
                 else
                 {
@@ -783,6 +826,7 @@ namespace YouChatApp
                     string userLoginDetails = username + "#" + password;
                     ServerCommunication.SendMessage(ServerCommunication.loginRequest + "$" + userLoginDetails);
                 }
+
             }
             else
             {
@@ -794,11 +838,21 @@ namespace YouChatApp
         }
         private void SetPictureOrderForCaptcha()
         {
-            Random random = new Random();
             NumbersForCaptchaPictures = new Queue<int>();
-            List<int> NumbersList = new List<int>();
+            NumbersList = new List<int>();
+            SetNumbersList();
+            SetNumberForCaptchaPicturesQueue();
+            LoadImage();
+        }
+
+        private void SetNumbersList()
+        {
             for (int i = 0; i < CaptchaPicturesImageList.Images.Count; i++)
                 NumbersList.Add(i);
+        }
+        private void SetNumberForCaptchaPicturesQueue()
+        {
+            Random random = new Random();
             int Index;
             while (NumbersList.Count > 0)
             {
@@ -806,7 +860,6 @@ namespace YouChatApp
                 NumbersForCaptchaPictures.Enqueue(NumbersList[Index]);
                 NumbersList.RemoveAt(Index);
             }
-            LoadImage();
         }
 
        

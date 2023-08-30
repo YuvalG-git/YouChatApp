@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_1f383" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f383.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f479" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f479.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f47a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f47a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f47b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f47b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f47d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f47d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f47e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f47e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f47f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f47f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f480" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f480.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f4a9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f4a9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f600" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f600.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f601" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f601.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f602" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f602.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f603" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f603.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f604" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f604.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f605" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f605.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f606" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f606.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f607" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f607.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f608" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f608.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f609" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f609.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f60a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f60a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f60b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f60b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f60c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f60c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f60d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f60d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f60e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f60e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f60f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f60f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f610" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f610.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f611" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f611.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f612" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f612.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f613" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f613.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f614" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f614.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f615" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f615.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f616" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f616.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f617" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f617.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f618" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f618.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f619" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f619.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f61a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f61a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f61b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f61b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f61c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f61c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f61d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f61d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f61e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f61e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f61f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f61f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f620" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f620.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f621" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f621.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f622" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f622.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f623" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f623.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f624.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f625" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f625.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f626" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f626.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f627" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f627.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f628" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f628.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f629" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f629.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f62a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f62a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f62b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f62b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f62c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f62c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f62d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f62d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f62e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f62e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f62e_200d_1f4a8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f62e-200d-1f4a8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f62f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f62f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f630" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f630.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f631" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f631.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f632" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f632.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f633" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f633.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f634" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f634.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f635" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f635.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f635_200d_1f4ab" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f635-200d-1f4ab.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f636" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f636.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f636_200d_1f32b_fe0f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f636-200d-1f32b-fe0f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f637" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f637.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f638" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f638.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f639" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f639.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f63a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f63a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f63b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f63b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f63c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f63c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f63d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f63d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f63e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f63e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f63f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f63f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f640" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f640.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f641" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f641.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f642" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f642.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f643" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f643.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f644" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f644.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f648" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f648.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f649" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f649.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f64a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f64a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f910" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f910.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f911" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f911.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f912" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f912.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f913" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f913.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f914" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f914.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f915" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f915.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f916" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f916.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f917" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f917.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f920" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f920.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f921" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f921.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f922" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f922.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f923" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f923.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f924" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f924.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f925" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f925.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f927" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f927.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f928" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f928.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f929" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f929.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f92a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f92a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f92b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f92b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f92c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f92c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f92d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f92d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f92e" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f92e.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f92f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f92f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f970" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f970.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f971" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f971.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f972" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f972.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f973" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f973.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f974" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f974.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f975" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f975.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f976" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f976.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f978" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f978.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f979" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f979.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f97a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f97a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9cc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f9cc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1f9d0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1f9d0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fae0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1fae0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fae1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1fae1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fae2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1fae2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fae3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1fae3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fae4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1fae4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1fae5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\1fae5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2620" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\2620.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2639" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\2639.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_263a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EmojiIcons\Smileys\263a.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

@@ -48,6 +48,9 @@
             this.CurrentProfilePicturePictureBox = new System.Windows.Forms.PictureBox();
             this.CurrentProfilePictureLabel = new System.Windows.Forms.Label();
             this.SaveProfilePictureButton = new System.Windows.Forms.Button();
+            this.PrivacySettingsPanel = new System.Windows.Forms.Panel();
+            this.NobodyOptionRadioButton = new System.Windows.Forms.RadioButton();
+            this.ContactsOptionRadioButton = new System.Windows.Forms.RadioButton();
             this.LackOfLogOutApprovalButton = new System.Windows.Forms.Button();
             this.LogOutApprovalButton = new System.Windows.Forms.Button();
             this.DisconnentButton = new System.Windows.Forms.Button();
@@ -56,13 +59,15 @@
             this.FemaleImageList = new System.Windows.Forms.ImageList(this.components);
             this.AnimalImageList = new System.Windows.Forms.ImageList(this.components);
             this.PrivacySettingsSelectionButton = new System.Windows.Forms.Button();
-            this.PrivacySettingsPanel = new System.Windows.Forms.Panel();
-            this.NobodyOptionRadioButton = new System.Windows.Forms.RadioButton();
-            this.ContactsOptionRadioButton = new System.Windows.Forms.RadioButton();
             this.ChatSettingsPanel = new System.Windows.Forms.Panel();
-            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
-            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.EnterPressedLabel = new System.Windows.Forms.Label();
+            this.MessageGapLabel = new System.Windows.Forms.Label();
+            this.MessageTextSizeComboBox = new System.Windows.Forms.ComboBox();
+            this.MessageGapTextBox = new System.Windows.Forms.TextBox();
+            this.MessageGapScrollBar = new System.Windows.Forms.HScrollBar();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ChatSettingsSelectionButton = new System.Windows.Forms.Button();
+            this.EnterPressedToggleButton = new YouChatApp.Controls.ToggleButton();
             this.StatusPanel.SuspendLayout();
             this.StatusTextPanel.SuspendLayout();
             this.ProfilePicturePanel.SuspendLayout();
@@ -122,7 +127,7 @@
             // ProfilePictureSelectionButton
             // 
             this.ProfilePictureSelectionButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProfilePictureSelectionButton.Location = new System.Drawing.Point(325, 91);
+            this.ProfilePictureSelectionButton.Location = new System.Drawing.Point(302, 105);
             this.ProfilePictureSelectionButton.Name = "ProfilePictureSelectionButton";
             this.ProfilePictureSelectionButton.Size = new System.Drawing.Size(148, 35);
             this.ProfilePictureSelectionButton.TabIndex = 12;
@@ -133,7 +138,7 @@
             // StatusSelectionButton
             // 
             this.StatusSelectionButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StatusSelectionButton.Location = new System.Drawing.Point(507, 91);
+            this.StatusSelectionButton.Location = new System.Drawing.Point(456, 105);
             this.StatusSelectionButton.Name = "StatusSelectionButton";
             this.StatusSelectionButton.Size = new System.Drawing.Size(148, 35);
             this.StatusSelectionButton.TabIndex = 13;
@@ -148,7 +153,7 @@
             this.StatusPanel.Controls.Add(this.ProfileStatusTextBox);
             this.StatusPanel.Controls.Add(this.RefreshTextButton);
             this.StatusPanel.Controls.Add(this.SaveTextButton);
-            this.StatusPanel.Location = new System.Drawing.Point(185, 0);
+            this.StatusPanel.Location = new System.Drawing.Point(502, 741);
             this.StatusPanel.Name = "StatusPanel";
             this.StatusPanel.Size = new System.Drawing.Size(350, 320);
             this.StatusPanel.TabIndex = 14;
@@ -158,7 +163,7 @@
             // 
             this.StatusTextPanel.AutoScroll = true;
             this.StatusTextPanel.Controls.Add(this.CurrentStatusLabel);
-            this.StatusTextPanel.Location = new System.Drawing.Point(28, 13);
+            this.StatusTextPanel.Location = new System.Drawing.Point(18, 12);
             this.StatusTextPanel.MaximumSize = new System.Drawing.Size(300, 200);
             this.StatusTextPanel.MinimumSize = new System.Drawing.Size(300, 0);
             this.StatusTextPanel.Name = "StatusTextPanel";
@@ -213,12 +218,11 @@
             // ProfilePicturePanel
             // 
             this.ProfilePicturePanel.Controls.Add(this.PictureUploaderButton);
-            this.ProfilePicturePanel.Controls.Add(this.StatusPanel);
             this.ProfilePicturePanel.Controls.Add(this.ProfilePictureUploaderPictureBox);
             this.ProfilePicturePanel.Controls.Add(this.CurrentProfilePicturePictureBox);
             this.ProfilePicturePanel.Controls.Add(this.CurrentProfilePictureLabel);
             this.ProfilePicturePanel.Controls.Add(this.SaveProfilePictureButton);
-            this.ProfilePicturePanel.Location = new System.Drawing.Point(188, 192);
+            this.ProfilePicturePanel.Location = new System.Drawing.Point(124, 155);
             this.ProfilePicturePanel.Name = "ProfilePicturePanel";
             this.ProfilePicturePanel.Size = new System.Drawing.Size(705, 580);
             this.ProfilePicturePanel.TabIndex = 15;
@@ -276,6 +280,42 @@
             this.SaveProfilePictureButton.TabIndex = 17;
             this.SaveProfilePictureButton.UseVisualStyleBackColor = true;
             this.SaveProfilePictureButton.Click += new System.EventHandler(this.SaveProfilePictureButton_Click);
+            // 
+            // PrivacySettingsPanel
+            // 
+            this.PrivacySettingsPanel.Controls.Add(this.NobodyOptionRadioButton);
+            this.PrivacySettingsPanel.Controls.Add(this.ContactsOptionRadioButton);
+            this.PrivacySettingsPanel.Location = new System.Drawing.Point(906, 415);
+            this.PrivacySettingsPanel.Name = "PrivacySettingsPanel";
+            this.PrivacySettingsPanel.Size = new System.Drawing.Size(350, 320);
+            this.PrivacySettingsPanel.TabIndex = 17;
+            this.PrivacySettingsPanel.Visible = false;
+            // 
+            // NobodyOptionRadioButton
+            // 
+            this.NobodyOptionRadioButton.AutoSize = true;
+            this.NobodyOptionRadioButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NobodyOptionRadioButton.Location = new System.Drawing.Point(143, 60);
+            this.NobodyOptionRadioButton.Name = "NobodyOptionRadioButton";
+            this.NobodyOptionRadioButton.Size = new System.Drawing.Size(87, 22);
+            this.NobodyOptionRadioButton.TabIndex = 4;
+            this.NobodyOptionRadioButton.Text = "Nobody";
+            this.NobodyOptionRadioButton.UseVisualStyleBackColor = true;
+            this.NobodyOptionRadioButton.Visible = false;
+            this.NobodyOptionRadioButton.Click += new System.EventHandler(this.PrivacySettingsRadioButton_Click);
+            // 
+            // ContactsOptionRadioButton
+            // 
+            this.ContactsOptionRadioButton.AutoSize = true;
+            this.ContactsOptionRadioButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ContactsOptionRadioButton.Location = new System.Drawing.Point(143, 20);
+            this.ContactsOptionRadioButton.Name = "ContactsOptionRadioButton";
+            this.ContactsOptionRadioButton.Size = new System.Drawing.Size(123, 22);
+            this.ContactsOptionRadioButton.TabIndex = 3;
+            this.ContactsOptionRadioButton.Text = "My contacts";
+            this.ContactsOptionRadioButton.UseVisualStyleBackColor = true;
+            this.ContactsOptionRadioButton.Visible = false;
+            this.ContactsOptionRadioButton.Click += new System.EventHandler(this.PrivacySettingsRadioButton_Click);
             // 
             // LackOfLogOutApprovalButton
             // 
@@ -417,7 +457,7 @@
             // PrivacySettingsSelectionButton
             // 
             this.PrivacySettingsSelectionButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PrivacySettingsSelectionButton.Location = new System.Drawing.Point(704, 91);
+            this.PrivacySettingsSelectionButton.Location = new System.Drawing.Point(610, 105);
             this.PrivacySettingsSelectionButton.Name = "PrivacySettingsSelectionButton";
             this.PrivacySettingsSelectionButton.Size = new System.Drawing.Size(148, 35);
             this.PrivacySettingsSelectionButton.TabIndex = 16;
@@ -425,95 +465,119 @@
             this.PrivacySettingsSelectionButton.UseVisualStyleBackColor = true;
             this.PrivacySettingsSelectionButton.Click += new System.EventHandler(this.PrivacySettingsSelectionButton_Click);
             // 
-            // PrivacySettingsPanel
-            // 
-            this.PrivacySettingsPanel.Controls.Add(this.NobodyOptionRadioButton);
-            this.PrivacySettingsPanel.Controls.Add(this.ContactsOptionRadioButton);
-            this.PrivacySettingsPanel.Location = new System.Drawing.Point(373, 192);
-            this.PrivacySettingsPanel.Name = "PrivacySettingsPanel";
-            this.PrivacySettingsPanel.Size = new System.Drawing.Size(350, 320);
-            this.PrivacySettingsPanel.TabIndex = 17;
-            this.PrivacySettingsPanel.Visible = false;
-            // 
-            // NobodyOptionRadioButton
-            // 
-            this.NobodyOptionRadioButton.AutoSize = true;
-            this.NobodyOptionRadioButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NobodyOptionRadioButton.Location = new System.Drawing.Point(143, 60);
-            this.NobodyOptionRadioButton.Name = "NobodyOptionRadioButton";
-            this.NobodyOptionRadioButton.Size = new System.Drawing.Size(87, 22);
-            this.NobodyOptionRadioButton.TabIndex = 4;
-            this.NobodyOptionRadioButton.Text = "Nobody";
-            this.NobodyOptionRadioButton.UseVisualStyleBackColor = true;
-            this.NobodyOptionRadioButton.Visible = false;
-            this.NobodyOptionRadioButton.Click += new System.EventHandler(this.PrivacySettingsRadioButton_Click);
-            // 
-            // ContactsOptionRadioButton
-            // 
-            this.ContactsOptionRadioButton.AutoSize = true;
-            this.ContactsOptionRadioButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ContactsOptionRadioButton.Location = new System.Drawing.Point(143, 20);
-            this.ContactsOptionRadioButton.Name = "ContactsOptionRadioButton";
-            this.ContactsOptionRadioButton.Size = new System.Drawing.Size(123, 22);
-            this.ContactsOptionRadioButton.TabIndex = 3;
-            this.ContactsOptionRadioButton.Text = "My contacts";
-            this.ContactsOptionRadioButton.UseVisualStyleBackColor = true;
-            this.ContactsOptionRadioButton.Visible = false;
-            this.ContactsOptionRadioButton.Click += new System.EventHandler(this.PrivacySettingsRadioButton_Click);
-            // 
             // ChatSettingsPanel
             // 
-            this.ChatSettingsPanel.Controls.Add(this.textBox1);
-            this.ChatSettingsPanel.Controls.Add(this.hScrollBar1);
-            this.ChatSettingsPanel.Controls.Add(this.domainUpDown1);
-            this.ChatSettingsPanel.Location = new System.Drawing.Point(929, 192);
+            this.ChatSettingsPanel.Controls.Add(this.EnterPressedLabel);
+            this.ChatSettingsPanel.Controls.Add(this.EnterPressedToggleButton);
+            this.ChatSettingsPanel.Controls.Add(this.MessageGapLabel);
+            this.ChatSettingsPanel.Controls.Add(this.MessageTextSizeComboBox);
+            this.ChatSettingsPanel.Controls.Add(this.MessageGapTextBox);
+            this.ChatSettingsPanel.Controls.Add(this.MessageGapScrollBar);
+            this.ChatSettingsPanel.Location = new System.Drawing.Point(950, 52);
             this.ChatSettingsPanel.Name = "ChatSettingsPanel";
             this.ChatSettingsPanel.Size = new System.Drawing.Size(347, 328);
             this.ChatSettingsPanel.TabIndex = 18;
+            this.ChatSettingsPanel.Visible = false;
             // 
-            // domainUpDown1
+            // EnterPressedLabel
             // 
-            this.domainUpDown1.Items.Add("1");
-            this.domainUpDown1.Items.Add("10");
-            this.domainUpDown1.Items.Add("2");
-            this.domainUpDown1.Items.Add("3");
-            this.domainUpDown1.Items.Add("4");
-            this.domainUpDown1.Items.Add("5");
-            this.domainUpDown1.Items.Add("6");
-            this.domainUpDown1.Items.Add("7");
-            this.domainUpDown1.Items.Add("8");
-            this.domainUpDown1.Items.Add("9");
-            this.domainUpDown1.Location = new System.Drawing.Point(53, 60);
-            this.domainUpDown1.Name = "domainUpDown1";
-            this.domainUpDown1.Size = new System.Drawing.Size(133, 20);
-            this.domainUpDown1.Sorted = true;
-            this.domainUpDown1.TabIndex = 0;
-            this.domainUpDown1.Text = "domainUpDown1";
+            this.EnterPressedLabel.AutoSize = true;
+            this.EnterPressedLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnterPressedLabel.Location = new System.Drawing.Point(57, 237);
+            this.EnterPressedLabel.Name = "EnterPressedLabel";
+            this.EnterPressedLabel.Size = new System.Drawing.Size(216, 14);
+            this.EnterPressedLabel.TabIndex = 25;
+            this.EnterPressedLabel.Text = "<Enter key will send your message>\r\n";
             // 
-            // hScrollBar1
+            // MessageGapLabel
             // 
-            this.hScrollBar1.Location = new System.Drawing.Point(66, 171);
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(149, 24);
-            this.hScrollBar1.TabIndex = 19;
-            this.hScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar1_Scroll);
+            this.MessageGapLabel.AutoSize = true;
+            this.MessageGapLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MessageGapLabel.Location = new System.Drawing.Point(138, 18);
+            this.MessageGapLabel.Name = "MessageGapLabel";
+            this.MessageGapLabel.Size = new System.Drawing.Size(208, 14);
+            this.MessageGapLabel.TabIndex = 23;
+            this.MessageGapLabel.Text = "<Enter A Value For Messags\' Gap>\r\n";
             // 
-            // textBox1
+            // MessageTextSizeComboBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(86, 148);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 20;
+            this.MessageTextSizeComboBox.FormattingEnabled = true;
+            this.MessageTextSizeComboBox.Items.AddRange(new object[] {
+            "Very Small",
+            "Small",
+            "Normal",
+            "Large",
+            "Huge"});
+            this.MessageTextSizeComboBox.Location = new System.Drawing.Point(139, 122);
+            this.MessageTextSizeComboBox.Name = "MessageTextSizeComboBox";
+            this.MessageTextSizeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.MessageTextSizeComboBox.TabIndex = 22;
+            this.MessageTextSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.MessageTextSizeComboBox_SelectedIndexChanged);
+            // 
+            // MessageGapTextBox
+            // 
+            this.MessageGapTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MessageGapTextBox.Location = new System.Drawing.Point(197, 35);
+            this.MessageGapTextBox.Name = "MessageGapTextBox";
+            this.MessageGapTextBox.Size = new System.Drawing.Size(109, 26);
+            this.MessageGapTextBox.TabIndex = 21;
+            this.MessageGapTextBox.TextChanged += new System.EventHandler(this.MessageGapTextBox_TextChanged);
+            this.MessageGapTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MessageGapTextBox_KeyDown);
+            // 
+            // MessageGapScrollBar
+            // 
+            this.MessageGapScrollBar.LargeChange = 5;
+            this.MessageGapScrollBar.Location = new System.Drawing.Point(151, 68);
+            this.MessageGapScrollBar.Maximum = 44;
+            this.MessageGapScrollBar.Minimum = 10;
+            this.MessageGapScrollBar.Name = "MessageGapScrollBar";
+            this.MessageGapScrollBar.Size = new System.Drawing.Size(183, 24);
+            this.MessageGapScrollBar.TabIndex = 19;
+            this.MessageGapScrollBar.Value = 10;
+            this.MessageGapScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar1_Scroll);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // ChatSettingsSelectionButton
+            // 
+            this.ChatSettingsSelectionButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChatSettingsSelectionButton.Location = new System.Drawing.Point(764, 105);
+            this.ChatSettingsSelectionButton.Name = "ChatSettingsSelectionButton";
+            this.ChatSettingsSelectionButton.Size = new System.Drawing.Size(148, 35);
+            this.ChatSettingsSelectionButton.TabIndex = 19;
+            this.ChatSettingsSelectionButton.Text = "Chat Settings";
+            this.ChatSettingsSelectionButton.UseVisualStyleBackColor = true;
+            this.ChatSettingsSelectionButton.Click += new System.EventHandler(this.ChatSettingsSelectionButton_Click);
+            // 
+            // EnterPressedToggleButton
+            // 
+            this.EnterPressedToggleButton.AutoSize = true;
+            this.EnterPressedToggleButton.BackColorSituationOff = System.Drawing.Color.Gray;
+            this.EnterPressedToggleButton.BackColorSituationOn = System.Drawing.Color.MediumSlateBlue;
+            this.EnterPressedToggleButton.Location = new System.Drawing.Point(141, 261);
+            this.EnterPressedToggleButton.MinimumSize = new System.Drawing.Size(45, 22);
+            this.EnterPressedToggleButton.Name = "EnterPressedToggleButton";
+            this.EnterPressedToggleButton.Size = new System.Drawing.Size(45, 22);
+            this.EnterPressedToggleButton.SolidStyle = true;
+            this.EnterPressedToggleButton.TabIndex = 24;
+            this.EnterPressedToggleButton.ToggleColorSituationOff = System.Drawing.Color.Gainsboro;
+            this.EnterPressedToggleButton.ToggleColorSituationOn = System.Drawing.Color.WhiteSmoke;
+            this.EnterPressedToggleButton.UseVisualStyleBackColor = true;
             // 
             // Profile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1403, 786);
+            this.ClientSize = new System.Drawing.Size(1423, 1061);
+            this.Controls.Add(this.ChatSettingsSelectionButton);
             this.Controls.Add(this.ChatSettingsPanel);
-            this.Controls.Add(this.PrivacySettingsPanel);
             this.Controls.Add(this.PrivacySettingsSelectionButton);
             this.Controls.Add(this.ProfilePicturePanel);
+            this.Controls.Add(this.PrivacySettingsPanel);
+            this.Controls.Add(this.StatusPanel);
             this.Controls.Add(this.StatusSelectionButton);
             this.Controls.Add(this.ProfilePictureSelectionButton);
             this.Controls.Add(this.LackOfLogOutApprovalButton);
@@ -549,7 +613,7 @@
         public System.Windows.Forms.Button[,] ProfileAvatarMatrix;
         public System.Windows.Forms.Button[] ProfilePictureKindSelectionButtons;
         public System.Windows.Forms.Button[] PrivacySettingsKindSelectionButtons;
-
+        public System.Windows.Forms.Button[] ChatSettingsKindSelectionButtons;
         private System.Windows.Forms.Label ProfileHeadlineLabel;
         private System.Windows.Forms.Label SettingsModeLabel;
         private System.Windows.Forms.TextBox ProfileStatusTextBox;
@@ -580,8 +644,13 @@
         private System.Windows.Forms.RadioButton NobodyOptionRadioButton;
         private System.Windows.Forms.RadioButton ContactsOptionRadioButton;
         private System.Windows.Forms.Panel ChatSettingsPanel;
-        private System.Windows.Forms.DomainUpDown domainUpDown1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.HScrollBar hScrollBar1;
+        private System.Windows.Forms.HScrollBar MessageGapScrollBar;
+        private System.Windows.Forms.TextBox MessageGapTextBox;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ComboBox MessageTextSizeComboBox;
+        private System.Windows.Forms.Button ChatSettingsSelectionButton;
+        private System.Windows.Forms.Label MessageGapLabel;
+        private Controls.ToggleButton EnterPressedToggleButton;
+        private System.Windows.Forms.Label EnterPressedLabel;
     }
 }
