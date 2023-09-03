@@ -18,6 +18,8 @@ namespace YouChatApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new LoginAndRegistration());
+            //Application.Run(new InitialProfileSelection());
+
             //Application.Run(new Profile());
             //Application.Run(new Paint());
             //Application.Run(new ContactSharing());

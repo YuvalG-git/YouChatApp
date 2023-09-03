@@ -23,6 +23,7 @@ namespace YouChatApp.AttachedFiles
         int ControlHeight = 406; //maybe in the future to use size based on the form's size
         List<Emoji> RichTextBoxContent;
         int EmojiCategories = 9;
+        List<List<string>> EmojiImagePathListOfLists = new List<List<string>>();
         public void InitializeEmojiPictureBoxList()
         {
             EmojiPictureBoxArrayOfLists = new List<PictureBox>[EmojiCategories];
@@ -272,6 +273,30 @@ namespace YouChatApp.AttachedFiles
                 foreach (DictionaryEntry entry in ResourceSet)
                 {
                     string resourceName = entry.Key.ToString();
+                    string ResourceNameCode = resourceName;
+                    if (ResourceNameCode.StartsWith("_"))
+                    {
+                        ResourceNameCode = resourceName.Substring(1);
+                    }
+                    string[] ResourceNameCodeContent = ResourceNameCode.Split('_');
+                    int ResourceNameLength = ResourceNameCodeContent.Length;
+                    if (ResourceNameLength == 1)
+                    {
+                        //enter to as first
+                        EmojiImagePathListOfLists.Add(new List<string> { ResourceNameCode });
+                    }
+                    else if (ResourceNameLength == 2)
+                    {
+                        //foreach(List<string> ResourceNameCodeList in EmojiImagePathListOfLists)
+                        //{
+                        //    if
+                        //}
+                    }
+                    //1- regular emoji
+                    //2 - colored regular emoji
+                    //4 - special amoji
+                    //5 - colored special emoji
+                    // the second one is the one i should be comparing
                     if (entry.Value is Image image)
                     {
 
@@ -441,6 +466,8 @@ namespace YouChatApp.AttachedFiles
 
             //}
         }
+        // Import the SetCursorPos function from User32.dll
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -468,14 +495,14 @@ namespace YouChatApp.AttachedFiles
 
         private void flowLayoutPanel1_MouseEnter(object sender, EventArgs e)
         {
-            isMouseOverPanel = true;
-            //UpdatePanelVisibility();
+            //isMouseOverPanel = true;
+            ////UpdatePanelVisibility();
         }
 
         private void flowLayoutPanel1_MouseLeave(object sender, EventArgs e)
         {
-            isMouseOverPanel = false;
-            UpdatePanelVisibility();
+            //isMouseOverPanel = false;
+            //UpdatePanelVisibility();
         }
 
         private void UpdatePanelVisibility()

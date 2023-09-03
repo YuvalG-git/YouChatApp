@@ -98,20 +98,8 @@ namespace YouChatApp
         /// </summary>
         public static string OppenentName;
 
-        /// <summary>
-        /// A boolean variable which represents the player's need in the game board's size
-        /// </summary>
-        public static Boolean noNeededSize;
+        public static bool EnterKeyPress = false; //false for now, in the future the value will be chosen when the user connects (the server will send this information
 
-        /// <summary>
-        /// Represents the player's color
-        /// </summary>
-        public static Color myColor;
-
-        /// <summary>
-        /// Represents the oppoenents's color
-        /// </summary>
-        public static Color oppenentColor;
 
         /// <summary>
         /// Represents the game board's size

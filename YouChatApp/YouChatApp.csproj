@@ -102,6 +102,12 @@
     </Compile>
     <Compile Include="AttachedFiles\EmojiInterface.cs" />
     <Compile Include="AttachedFiles\MessageImage.cs" />
+    <Compile Include="AttachedFiles\VideoCall.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AttachedFiles\VideoCall.Designer.cs">
+      <DependentUpon>VideoCall.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChatControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -120,6 +126,12 @@
     <Compile Include="ContactControl.Designer.cs">
       <DependentUpon>ContactControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ProfilePictureControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ProfilePictureControl.Designer.cs">
+      <DependentUpon>ProfilePictureControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -129,6 +141,12 @@
     <Compile Include="EmojiResourceSet.cs" />
     <Compile Include="Encryption\AES.cs" />
     <Compile Include="Encryption\RSA.cs" />
+    <Compile Include="InitialProfileSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InitialProfileSelection.Designer.cs">
+      <DependentUpon>InitialProfileSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="LockableRichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -251,6 +269,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ContactControl.resx">
       <DependentUpon>ContactControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ProfilePictureControl.resx">
+      <DependentUpon>ProfilePictureControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitialProfileSelection.resx">
+      <DependentUpon>InitialProfileSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LockableRichTextBox.resx">
       <DependentUpon>LockableRichTextBox.cs</DependentUpon>

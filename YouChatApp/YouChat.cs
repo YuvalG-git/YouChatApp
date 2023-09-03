@@ -82,6 +82,7 @@ namespace YouChatApp
             LettersAndNumbersArray[1] = Numbers;
             return LettersAndNumbersArray;
         }
+
         public void SetChatControlListOfContacts(string ChatInformation)
         {
             string[] ContactsInformation = ChatInformation.Split('#'); //todo check how i can allow the users to send # and more without the split activating - i thing maybe i need to put / or something before 
@@ -380,13 +381,14 @@ namespace YouChatApp
                 MessageTextBox.Text = "Here You Write Your Message";
                 MessageTextBox.ForeColor = Color.Silver;
             }
-            else if ((e.KeyCode == Keys.Shift) && (MessageTextBox.Text !=""))
+            else if ((e.KeyCode == Keys.Enter) && (MessageTextBox.Text !="") && (ServerCommunication.EnterKeyPress))
             {
                 string message = MessageTextBox.Text;
                 ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + message);
                 MessageTextBox.Text = "Here You Write Your Message";
                 MessageTextBox.ForeColor = Color.Silver;
             }
+
         }
 
         private void ChatButton_Click(object sender, EventArgs e)
@@ -459,6 +461,11 @@ namespace YouChatApp
             //{
 
             //}
+        }
+
+        private void VideoFileButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

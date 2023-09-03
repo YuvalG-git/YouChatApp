@@ -40,6 +40,8 @@ namespace YouChatApp
             SetProfileAvatarMatrix();
             ProfilePictureKindButtonsCreator();
             ChatSettingsOptionButtonCreator();
+            ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
+
             //todo to set the profile picture and the status according to the server...
             //need to also change the previous messages that have been sent after a changed profile picture
         }
@@ -237,7 +239,8 @@ namespace YouChatApp
             {
                 if (AvatarProfilePicture != null)
                 {
-                    AvatarProfilePicture.BackgroundImage = MaleImageList.Images[location];
+                    AvatarProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[location];
+                    //AvatarProfilePicture.BackgroundImage = MaleImageList.Images[location];
                     location++;
                     if ((!ProfilePictureMatrixIsStandart) && (AvatarProfilePicture.Name.StartsWith(lastRowAsString)))
                     {
@@ -270,7 +273,8 @@ namespace YouChatApp
                 {
                     if (FemaleImageList.Images.Count > location)
                     {
-                        AvatarProfilePicture.BackgroundImage = FemaleImageList.Images[location];
+                        AvatarProfilePicture.BackgroundImage = ProfilePictureImageList.FemaleProfilePictureImageList.Images[location];
+                        //AvatarProfilePicture.BackgroundImage = FemaleImageList.Images[location];
                         location++;
                         if ((ProfilePictureMatrixIsStandart) && (AvatarProfilePicture.Name.StartsWith(lastRowAsString)))
                         {
@@ -310,7 +314,10 @@ namespace YouChatApp
                 {
                     if (AnimalImageList.Images.Count > location)
                     {
-                        AvatarProfilePicture.BackgroundImage = AnimalImageList.Images[location];
+                        AvatarProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[location];
+
+                        //AvatarProfilePicture.BackgroundImage = AnimalImageList.Images[location];
+
                         location++;
                         if ((ProfilePictureMatrixIsStandart) && (AvatarProfilePicture.Name.StartsWith(lastRowAsString)))
                         {
@@ -340,6 +347,11 @@ namespace YouChatApp
             LackOfLogOutApprovalButton.Visible = true;
             LogOutConfirmationLabel.Visible = true;
             DisconnentButton.Enabled = false;
+            if (MessageBox.Show("Are you sure you want to log out?", "YouChat Log Out", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.Close();
+            }    
+
         }
 
         private void LackOfLogOutApprovalButton_Click(object sender, EventArgs e)

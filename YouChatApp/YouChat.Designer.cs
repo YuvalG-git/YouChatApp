@@ -417,6 +417,7 @@ namespace YouChatApp
             this.VideoFileButton.Size = new System.Drawing.Size(40, 40);
             this.VideoFileButton.TabIndex = 21;
             this.VideoFileButton.UseVisualStyleBackColor = true;
+            this.VideoFileButton.Click += new System.EventHandler(this.VideoFileButton_Click);
             // 
             // SendMessageButton
             // 

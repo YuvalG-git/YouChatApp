@@ -78,5 +78,9 @@ namespace YouChatApp
 
 
         }
+        public void SetBackColorByMessageSender()
+        {
+            this.BackColor = Color.MediumSeaGreen;
+        }
     }
 }
