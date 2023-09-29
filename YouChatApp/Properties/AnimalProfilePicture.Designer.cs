@@ -63,6 +63,96 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AnimalCharacter1 {
+            get {
+                object obj = ResourceManager.GetObject("AnimalCharacter1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AnimalCharacter10 {
+            get {
+                object obj = ResourceManager.GetObject("AnimalCharacter10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AnimalCharacter11 {
+            get {
+                object obj = ResourceManager.GetObject("AnimalCharacter11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AnimalCharacter12 {
+            get {
+                object obj = ResourceManager.GetObject("AnimalCharacter12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AnimalCharacter13 {
+            get {
+                object obj = ResourceManager.GetObject("AnimalCharacter13", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AnimalCharacter14 {
+            get {
+                object obj = ResourceManager.GetObject("AnimalCharacter14", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AnimalCharacter15 {
+            get {
+                object obj = ResourceManager.GetObject("AnimalCharacter15", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AnimalCharacter16 {
+            get {
+                object obj = ResourceManager.GetObject("AnimalCharacter16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AnimalCharacter17 {
+            get {
+                object obj = ResourceManager.GetObject("AnimalCharacter17", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap AnimalCharacter18 {
             get {
                 object obj = ResourceManager.GetObject("AnimalCharacter18", resourceCulture);
@@ -76,6 +166,16 @@ namespace YouChatApp.Properties {
         internal static System.Drawing.Bitmap AnimalCharacter19 {
             get {
                 object obj = ResourceManager.GetObject("AnimalCharacter19", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AnimalCharacter2 {
+            get {
+                object obj = ResourceManager.GetObject("AnimalCharacter2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +263,9 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter28 {
+        internal static System.Drawing.Bitmap AnimalCharacter3 {
             get {
-                object obj = ResourceManager.GetObject("AnimalCharacter28", resourceCulture);
+                object obj = ResourceManager.GetObject("AnimalCharacter3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +273,9 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter29 {
+        internal static System.Drawing.Bitmap AnimalCharacter4 {
             get {
-                object obj = ResourceManager.GetObject("AnimalCharacter29", resourceCulture);
+                object obj = ResourceManager.GetObject("AnimalCharacter4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +283,9 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter30 {
+        internal static System.Drawing.Bitmap AnimalCharacter5 {
             get {
-                object obj = ResourceManager.GetObject("AnimalCharacter30", resourceCulture);
+                object obj = ResourceManager.GetObject("AnimalCharacter5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,9 +293,9 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter31 {
+        internal static System.Drawing.Bitmap AnimalCharacter6 {
             get {
-                object obj = ResourceManager.GetObject("AnimalCharacter31", resourceCulture);
+                object obj = ResourceManager.GetObject("AnimalCharacter6", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +303,9 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter32 {
+        internal static System.Drawing.Bitmap AnimalCharacter7 {
             get {
-                object obj = ResourceManager.GetObject("AnimalCharacter32", resourceCulture);
+                object obj = ResourceManager.GetObject("AnimalCharacter7", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,9 +313,9 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter33 {
+        internal static System.Drawing.Bitmap AnimalCharacter8 {
             get {
-                object obj = ResourceManager.GetObject("AnimalCharacter33", resourceCulture);
+                object obj = ResourceManager.GetObject("AnimalCharacter8", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -223,109 +323,9 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter34 {
+        internal static System.Drawing.Bitmap AnimalCharacter9 {
             get {
-                object obj = ResourceManager.GetObject("AnimalCharacter34", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter35 {
-            get {
-                object obj = ResourceManager.GetObject("AnimalCharacter35", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter36 {
-            get {
-                object obj = ResourceManager.GetObject("AnimalCharacter36", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter37 {
-            get {
-                object obj = ResourceManager.GetObject("AnimalCharacter37", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter38 {
-            get {
-                object obj = ResourceManager.GetObject("AnimalCharacter38", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter39 {
-            get {
-                object obj = ResourceManager.GetObject("AnimalCharacter39", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter40 {
-            get {
-                object obj = ResourceManager.GetObject("AnimalCharacter40", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter41 {
-            get {
-                object obj = ResourceManager.GetObject("AnimalCharacter41", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter42 {
-            get {
-                object obj = ResourceManager.GetObject("AnimalCharacter42", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter43 {
-            get {
-                object obj = ResourceManager.GetObject("AnimalCharacter43", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AnimalCharacter44 {
-            get {
-                object obj = ResourceManager.GetObject("AnimalCharacter44", resourceCulture);
+                object obj = ResourceManager.GetObject("AnimalCharacter9", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

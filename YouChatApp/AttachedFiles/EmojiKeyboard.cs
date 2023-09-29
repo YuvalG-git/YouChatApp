@@ -8,6 +8,7 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
 using System.Messaging;
+using System.Net.NetworkInformation;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,14 +24,136 @@ namespace YouChatApp.AttachedFiles
         int ControlHeight = 406; //maybe in the future to use size based on the form's size
         List<Emoji> RichTextBoxContent;
         int EmojiCategories = 9;
-        List<List<string>> EmojiImagePathListOfLists = new List<List<string>>();
+        List<List<EmojiObject>> EmojiImagePathListOfLists = new List<List<EmojiObject>>();
+
+        private void InitializeEmojiImagePathListOfLists()
+        {
+            ResourceSet ResourceSet = EmojiResourceSet.resourceSetArray[1]; //represnts people emoji
+            bool WasHandled;
+            EmojiObject EmojiToBeInserted;
+            Image EmojiToBeInsertedImage;
+            string EmojiToBeInsertedName;
+            string EmojiToBeInsertedID;
+            string EmojiToBeInsertedColorID;
+            if (ResourceSet != null)
+            {
+                foreach (DictionaryEntry entry in ResourceSet)
+                {
+                    WasHandled = false;
+                    string resourceName = entry.Key.ToString();
+                    string ResourceNameCode = resourceName;
+                    if (ResourceNameCode.StartsWith("_"))
+                    {
+                        ResourceNameCode = resourceName.Substring(1);
+                    }
+                    string[] ResourceNameCodeContent = ResourceNameCode.Split('_');
+                    int ResourceNameLength = ResourceNameCodeContent.Length;
+                    if (entry.Value is Image image)
+                    {
+                        EmojiToBeInsertedImage = (Image)entry.Value;
+                        EmojiToBeInsertedName = resourceName;
+                        foreach (List<EmojiObject> EmojiPack in EmojiImagePathListOfLists)
+                        {
+                            foreach (EmojiObject Emoji in EmojiPack)
+                            {
+                                if (ResourceNameLength == 1)
+                                {
+                                    if (Emoji.EmojiID == ResourceNameCode)
+                                    {
+                                        EmojiToBeInsertedID = ResourceNameCode;
+                                        EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
+                                        EmojiPack.Insert(0, EmojiToBeInserted); //insert as first
+                                        WasHandled = true;
+                                    }
+                                }
+                                else if (ResourceNameLength == 2)
+                                {
+                                    if (Emoji.EmojiID == ResourceNameCodeContent[0])
+                                    {
+                                        EmojiToBeInsertedID = ResourceNameCodeContent[0];
+                                        EmojiToBeInsertedColorID = ResourceNameCodeContent[1];
+                                        EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
+                                        InsertToListByABC(EmojiPack, EmojiToBeInsertedColorID, EmojiToBeInserted);
+                                        WasHandled = true;
+                                    }
+                                }
+                                else if (ResourceNameLength == 4)
+                                {
+                                    if (Emoji.EmojiID == ResourceNameCodeContent[0])
+                                    {
+                                        EmojiToBeInsertedID = ResourceNameCodeContent[0];
+                                        EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
+                                        EmojiPack.Insert(0, EmojiToBeInserted); //insert as first
+                                        WasHandled = true;
+                                    }
+                                }
+                                else if (ResourceNameLength == 5)
+                                {
+                                    if (Emoji.EmojiID == ResourceNameCodeContent[0])
+                                    {
+                                        EmojiToBeInsertedID = ResourceNameCodeContent[0];
+                                        EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
+                                        EmojiPack.Insert(0, EmojiToBeInserted); //insert as first
+                                        WasHandled = true;
+                                    }
+                                }
+                                if (!WasHandled)
+                                {
+                                    EmojiToBeInsertedID = ResourceNameCode;
+                                    EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
+                                    List<EmojiObject> NewEmojiListToBeInserted = new List<EmojiObject>();
+                                    NewEmojiListToBeInserted.Add(EmojiToBeInserted);
+                                    EmojiImagePathListOfLists.Add(NewEmojiListToBeInserted);
+                                }
+                            }
+                        }
+                    }
+                   
+                    //1- regular emoji
+                    //2 - colored regular emoji
+                    //4 - special amoji
+                    //5 - colored special emoji
+                    // the second one is the one i should be comparing
+
+                }
+            }
+        }
+
+        private void InsertToListByABC(List<EmojiObject> EmojiPack, string SpecialId, EmojiObject EmojiToBeInserted)
+        {
+            Boolean WasInserted = false;
+            for (int i = 0; (i < EmojiPack.Count) && (!WasInserted); i++)
+            {
+                if (EmojiPack[i].EmojiColorID != "first")
+                {
+                    if (IsFirstStringFirstInABC(SpecialId, EmojiPack[i].EmojiColorID))
+                    {
+                        EmojiPack.Insert(i, EmojiToBeInserted); 
+                        WasInserted = true;
+                    }
+                }
+            }
+        }
+
+        private bool IsFirstStringFirstInABC (string String1, string String2)
+        {
+            int comparisonResult = string.Compare(String1, String2, StringComparison.OrdinalIgnoreCase);
+            return comparisonResult < 0;
+        }
         public void InitializeEmojiPictureBoxList()
         {
             EmojiPictureBoxArrayOfLists = new List<PictureBox>[EmojiCategories];
             for (int i = 0; i < EmojiCategories; i++)
             {
                 EmojiPictureBoxArrayOfLists[i] = new List<System.Windows.Forms.PictureBox>();
-                SetTab(i);
+                if (i!=1)
+                {
+                    SetTab(i);
+                }
+                else
+                {
+                    InitializeEmojiImagePathListOfLists();
+                }
 
             }
         }
@@ -260,6 +383,8 @@ namespace YouChatApp.AttachedFiles
             //    }
             //}
 
+
+            //if (TabNumber == //anything but people do the code above else call the function that does something)
             int count = 0;
             int x = 0;
             int y = 0;
@@ -280,18 +405,18 @@ namespace YouChatApp.AttachedFiles
                     }
                     string[] ResourceNameCodeContent = ResourceNameCode.Split('_');
                     int ResourceNameLength = ResourceNameCodeContent.Length;
-                    if (ResourceNameLength == 1)
-                    {
-                        //enter to as first
-                        EmojiImagePathListOfLists.Add(new List<string> { ResourceNameCode });
-                    }
-                    else if (ResourceNameLength == 2)
-                    {
-                        //foreach(List<string> ResourceNameCodeList in EmojiImagePathListOfLists)
-                        //{
-                        //    if
-                        //}
-                    }
+                    //if (ResourceNameLength == 1)
+                    //{
+                    //    //enter to as first
+                    //    EmojiImagePathListOfLists.Add(new List<string> { ResourceNameCode });
+                    //}
+                    //else if (ResourceNameLength == 2)
+                    //{
+                    //    //foreach(List<string> ResourceNameCodeList in EmojiImagePathListOfLists)
+                    //    //{
+                    //    //    if
+                    //    //}
+                    //}
                     //1- regular emoji
                     //2 - colored regular emoji
                     //4 - special amoji
@@ -337,7 +462,6 @@ namespace YouChatApp.AttachedFiles
         private void EmojiPictureBox_MouseLeave(object sender, EventArgs e)
         {
             ((PictureBox)(sender)).BackColor = Color.Transparent;
-
         }
 
         private void richTextBox1_ContentsResized(object sender, ContentsResizedEventArgs e)

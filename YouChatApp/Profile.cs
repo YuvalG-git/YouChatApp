@@ -40,6 +40,9 @@ namespace YouChatApp
             SetProfileAvatarMatrix();
             ProfilePictureKindButtonsCreator();
             ChatSettingsOptionButtonCreator();
+            PrivacySettingsOptionButtonCreator();
+            SetPrivacySettingsChoicesArray();
+            ServerCommunication.profile = this;
             ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
 
             //todo to set the profile picture and the status according to the server...
@@ -162,6 +165,8 @@ namespace YouChatApp
             SetPrivacySettingsChoicesArray();
             ChatSettingsOptionButtonCreator();
             ServerCommunication.profile = this;
+            ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
+
         }
 
         private void LoadImages1()
@@ -314,9 +319,9 @@ namespace YouChatApp
                 {
                     if (AnimalImageList.Images.Count > location)
                     {
-                        AvatarProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[location];
+                        //AvatarProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[location];
 
-                        //AvatarProfilePicture.BackgroundImage = AnimalImageList.Images[location];
+                        AvatarProfilePicture.BackgroundImage = AnimalImageList.Images[location];
 
                         location++;
                         if ((ProfilePictureMatrixIsStandart) && (AvatarProfilePicture.Name.StartsWith(lastRowAsString)))
@@ -579,6 +584,7 @@ namespace YouChatApp
         {
             ProfileStatusTextBox.Text = "Write Here Your YouChat Status";
             ProfileStatusTextBox.ForeColor = Color.Silver;
+            CharNumberLabel.Text = "0/" + ProfileStatusTextBox.MaxLength;
         }
 
         private void ProfileStatusTextBox_TextChanged(object sender, EventArgs e)

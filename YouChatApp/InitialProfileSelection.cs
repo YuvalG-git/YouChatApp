@@ -12,11 +12,61 @@ namespace YouChatApp
 {
     public partial class InitialProfileSelection : Form
     {
-        public InitialProfileSelection()
+        public InitialProfileSelection(bool IsPhaseOne)
         {
             InitializeComponent();
             ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
+            ProfilePictureControl.AddButtonClickHandler(SetConfirmButtonEnabled);
+            if (IsPhaseOne)
+            {
+                SetPhaseOne();
+            }
+            else
+            {
+                SetPhaseTwo();
+            }
 
+
+        }
+
+        private void RefreshTextButton_Click(object sender, EventArgs e)
+        {
+            ProfileStatusTextBox.Text = "Write Here Your YouChat Status";
+            ProfileStatusTextBox.ForeColor = Color.Silver;
+            CharNumberLabel.Text = "0/" + ProfileStatusTextBox.MaxLength;
+
+        }
+
+        private void ProfileStatusTextBox_TextChanged(object sender, EventArgs e)
+        {
+            CharNumberLabel.Text = ProfileStatusTextBox.TextLength.ToString() + "/" + ProfileStatusTextBox.MaxLength;
+            string StatusText = ProfileStatusTextBox.Text;
+            if ((StatusText != "") && (StatusText != "Write Here Your YouChat Status"))
+            {
+                ConfirmButton.Enabled = true;
+            }
+            else
+            {
+                ConfirmButton.Enabled = false;
+            }
+        }
+
+        private void ProfileStatusTextBox_Enter(object sender, EventArgs e)
+        {
+            if (ProfileStatusTextBox.Text == "Write Here Your YouChat Status")
+            {
+                ProfileStatusTextBox.Text = "";
+                ProfileStatusTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
+            }
+        }
+
+        private void ProfileStatusTextBox_Leave(object sender, EventArgs e)
+        {
+            if (ProfileStatusTextBox.Text == "")
+            {
+                ProfileStatusTextBox.Text = "Write Here Your YouChat Status";
+                ProfileStatusTextBox.ForeColor = Color.Silver;
+            }
         }
 
         //private void ProfilePictureKindButtonsCreator()
@@ -245,12 +295,67 @@ namespace YouChatApp
         {
             if (ProfilePictureGroupBox.Visible)
             {
-                
+                string ProfilePictureId = ProfilePictureControl.GetImageNameID();
+                ServerCommunication.SendMessage(ServerCommunication.UploadProfilePictureRequest + "$" + ProfilePictureId);
             }
             else
             {
+                string ProfileStatus = ProfileStatusTextBox.Text;
+                ServerCommunication.SendMessage(ServerCommunication.UploadStatusRequest + "$" + ProfileStatus);
+            }
+        }
+        public void OpenApp()
+        {
+            this.Hide();
+            ServerCommunication.youChat = new YouChat();
+            this.Invoke(new Action(() => ServerCommunication.youChat.ShowDialog()));
+        }
+
+        private void SetPhaseOne()
+        {
+            ProfilePictureGroupBox.Visible = true;
+            StatusGroupBox.Visible = false;
+            ProfileSettingsHeadlineLabel.Text = "Profile Picture";
+        }
+        public void SetPhaseTwo()
+        {
+            ProfilePictureGroupBox.Visible = false;
+            StatusGroupBox.Visible = true;
+            ProfileSettingsHeadlineLabel.Text = "Status";
+
+        }
+
+        private void ProfilePictureControl_Click(object sender, EventArgs e) //how to do it?
+        {
+            if (ProfilePictureControl.ImageChosenAtTheMoment != null)
+            {
+                ConfirmButton.Enabled = true;
+            }
+            else
+            {
+                ConfirmButton.Enabled = false;
 
             }
+        }
+        public void SetConfirmButtonEnabled(object sender, EventArgs e)
+        {
+            if (ProfilePictureControl.ImageChosenAtTheMoment != null)
+            {
+                ConfirmButton.Enabled = true;
+            }
+            else
+            {
+                ConfirmButton.Enabled = false;
+
+            }
+        }
+        public void SetConfirmButtonEnabledToFalse()
+        {
+            ConfirmButton.Enabled = false;
+        }
+        public void SetConfirmButtonEnabledToTrue()
+        {
+            ConfirmButton.Enabled = true;
         }
     }
 }

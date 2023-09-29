@@ -36,7 +36,6 @@ namespace YouChatApp
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.ChatPanel = new System.Windows.Forms.Panel();
             this.ContactManagementPanel = new System.Windows.Forms.Panel();
-            this.GroupCreatorPanel = new System.Windows.Forms.Panel();
             this.HashtagLabel = new System.Windows.Forms.Label();
             this.UserTagLineTextBox = new System.Windows.Forms.TextBox();
             this.UserIDTextBox = new System.Windows.Forms.TextBox();
@@ -44,6 +43,7 @@ namespace YouChatApp
             this.label2 = new System.Windows.Forms.Label();
             this.IDNameLabel = new System.Windows.Forms.Label();
             this.UserIDLabel = new System.Windows.Forms.Label();
+            this.GroupCreatorPanel = new System.Windows.Forms.Panel();
             this.MessageTextBox = new System.Windows.Forms.TextBox();
             this.ChatLabel = new System.Windows.Forms.Label();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -90,7 +90,6 @@ namespace YouChatApp
             // 
             // ContactManagementPanel
             // 
-            this.ContactManagementPanel.Controls.Add(this.GroupCreatorPanel);
             this.ContactManagementPanel.Controls.Add(this.HashtagLabel);
             this.ContactManagementPanel.Controls.Add(this.UserTagLineTextBox);
             this.ContactManagementPanel.Controls.Add(this.UserIDTextBox);
@@ -103,14 +102,6 @@ namespace YouChatApp
             this.ContactManagementPanel.Size = new System.Drawing.Size(300, 850);
             this.ContactManagementPanel.TabIndex = 10;
             this.ContactManagementPanel.Visible = false;
-            // 
-            // GroupCreatorPanel
-            // 
-            this.GroupCreatorPanel.Location = new System.Drawing.Point(0, 0);
-            this.GroupCreatorPanel.Name = "GroupCreatorPanel";
-            this.GroupCreatorPanel.Size = new System.Drawing.Size(300, 849);
-            this.GroupCreatorPanel.TabIndex = 27;
-            this.GroupCreatorPanel.Visible = false;
             // 
             // HashtagLabel
             // 
@@ -186,6 +177,14 @@ namespace YouChatApp
             this.UserIDLabel.TabIndex = 0;
             this.UserIDLabel.Text = "Your ID:";
             // 
+            // GroupCreatorPanel
+            // 
+            this.GroupCreatorPanel.Location = new System.Drawing.Point(13, 92);
+            this.GroupCreatorPanel.Name = "GroupCreatorPanel";
+            this.GroupCreatorPanel.Size = new System.Drawing.Size(300, 849);
+            this.GroupCreatorPanel.TabIndex = 27;
+            this.GroupCreatorPanel.Visible = false;
+            // 
             // MessageTextBox
             // 
             this.MessageTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -206,7 +205,7 @@ namespace YouChatApp
             // 
             this.ChatLabel.AutoSize = true;
             this.ChatLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChatLabel.Location = new System.Drawing.Point(143, 35);
+            this.ChatLabel.Location = new System.Drawing.Point(130, 35);
             this.ChatLabel.Name = "ChatLabel";
             this.ChatLabel.Size = new System.Drawing.Size(129, 37);
             this.ChatLabel.TabIndex = 4;
@@ -216,7 +215,7 @@ namespace YouChatApp
             // 
             this.ChatButton.BackgroundImage = global::YouChatApp.Properties.Resources.Chat;
             this.ChatButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ChatButton.Location = new System.Drawing.Point(278, 22);
+            this.ChatButton.Location = new System.Drawing.Point(253, 20);
             this.ChatButton.Name = "ChatButton";
             this.ChatButton.Size = new System.Drawing.Size(60, 60);
             this.ChatButton.TabIndex = 26;
@@ -228,7 +227,7 @@ namespace YouChatApp
             // 
             this.NewContactButton.BackgroundImage = global::YouChatApp.Properties.Resources.contact;
             this.NewContactButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.NewContactButton.Location = new System.Drawing.Point(13, 22);
+            this.NewContactButton.Location = new System.Drawing.Point(10, 20);
             this.NewContactButton.Name = "NewContactButton";
             this.NewContactButton.Size = new System.Drawing.Size(60, 60);
             this.NewContactButton.TabIndex = 9;
@@ -240,7 +239,7 @@ namespace YouChatApp
             // 
             this.NewGroupButton.BackgroundImage = global::YouChatApp.Properties.Resources.group;
             this.NewGroupButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.NewGroupButton.Location = new System.Drawing.Point(77, 22);
+            this.NewGroupButton.Location = new System.Drawing.Point(75, 20);
             this.NewGroupButton.Name = "NewGroupButton";
             this.NewGroupButton.Size = new System.Drawing.Size(60, 60);
             this.NewGroupButton.TabIndex = 5;
@@ -456,7 +455,6 @@ namespace YouChatApp
             this.Controls.Add(this.DocumentFileButton);
             this.Controls.Add(this.EmojiFileButton);
             this.Controls.Add(this.UserFileButton);
-            this.Controls.Add(this.ChatLabel);
             this.Controls.Add(this.PhotoFileButton);
             this.Controls.Add(this.VideoFileButton);
             this.Controls.Add(this.CurrentChatPanel);
@@ -468,6 +466,8 @@ namespace YouChatApp
             this.Controls.Add(this.MessageTextBox);
             this.Controls.Add(this.ChatPanel);
             this.Controls.Add(this.ProfileButton);
+            this.Controls.Add(this.GroupCreatorPanel);
+            this.Controls.Add(this.ChatLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "YouChat";

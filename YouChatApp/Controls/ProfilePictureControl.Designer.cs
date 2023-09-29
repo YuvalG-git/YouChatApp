@@ -41,5 +41,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button[,] ProfileAvatarMatrix;
+        private System.Windows.Forms.Button[] ProfilePictureKindSelectionButtons;
     }
 }

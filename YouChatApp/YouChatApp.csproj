@@ -50,6 +50,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
     <Reference Include="Spire.Pdf, Version=8.6.0.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>..\packages\FreeSpire.PDFViewer.7.6.0\lib\net46\Spire.Pdf.dll</HintPath>
     </Reference>
@@ -75,6 +84,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttachedFiles\Contact.cs" />
+    <Compile Include="AttachedFiles\ContactManager.cs" />
+    <Compile Include="AttachedFiles\EmojiObject.cs" />
     <Compile Include="AttachedFiles\MessageChar.cs" />
     <Compile Include="AttachedFiles\ContactSharing.cs">
       <SubType>Form</SubType>
@@ -108,29 +120,66 @@
     <Compile Include="AttachedFiles\VideoCall.Designer.cs">
       <DependentUpon>VideoCall.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChatControl.cs">
+    <Compile Include="Controls\ChatControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ChatControl.Designer.cs">
+    <Compile Include="Controls\ChatControl.Designer.cs">
       <DependentUpon>ChatControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="CircularPictureBox.cs">
+    <Compile Include="Controls\CircularPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CircularPictureBox.Designer.cs">
+    <Compile Include="Controls\CircularPictureBox.Designer.cs">
       <DependentUpon>CircularPictureBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="ContactControl.cs">
+    <Compile Include="Controls\ContactControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ContactControl.Designer.cs">
+    <Compile Include="Controls\ContactControl.Designer.cs">
       <DependentUpon>ContactControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CustomButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomButton.Designer.cs">
+      <DependentUpon>CustomButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CustomComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomComboBox.Designer.cs">
+      <DependentUpon>CustomComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CustomTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomTextBox.Designer.cs">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GraphicsHandler.cs" />
+    <Compile Include="Controls\PasswordGeneratorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PasswordGeneratorControl.Designer.cs">
+      <DependentUpon>PasswordGeneratorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ProfilePictureControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\ProfilePictureControl.Designer.cs">
       <DependentUpon>ProfilePictureControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SearchBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SearchBar.Designer.cs">
+      <DependentUpon>SearchBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SmtpControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SmtpControl.Designer.cs">
+      <DependentUpon>SmtpControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ToggleButton.cs">
       <SubType>Component</SubType>
@@ -139,19 +188,15 @@
       <DependentUpon>ToggleButton.cs</DependentUpon>
     </Compile>
     <Compile Include="EmojiResourceSet.cs" />
-    <Compile Include="Encryption\AES.cs" />
-    <Compile Include="Encryption\RSA.cs" />
+    <Compile Include="Encryption\AESServiceProvider.cs" />
+    <Compile Include="Encryption\Encryption.cs" />
+    <Compile Include="Encryption\MD5.cs" />
+    <Compile Include="Encryption\RSAServiceProvider.cs" />
     <Compile Include="InitialProfileSelection.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InitialProfileSelection.Designer.cs">
       <DependentUpon>InitialProfileSelection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LockableRichTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LockableRichTextBox.Designer.cs">
-      <DependentUpon>LockableRichTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginAndRegistration.cs">
       <SubType>Form</SubType>
@@ -159,12 +204,14 @@
     <Compile Include="LoginAndRegistration.Designer.cs">
       <DependentUpon>LoginAndRegistration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Paint.cs">
+    <Compile Include="AttachedFiles\Paint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Paint.Designer.cs">
+    <Compile Include="AttachedFiles\Paint.Designer.cs">
       <DependentUpon>Paint.cs</DependentUpon>
     </Compile>
+    <Compile Include="MessageType.cs" />
+    <Compile Include="PasswordHandler.cs" />
     <Compile Include="Profile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +251,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FoodAndDrink_Emoji.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\ImageRotationHandler.cs" />
     <Compile Include="Properties\MaleProfilePicture.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -240,12 +288,13 @@
       <DependentUpon>TravelAndPlaces_Emoji.resx</DependentUpon>
     </Compile>
     <Compile Include="ServerCommunication.cs" />
-    <Compile Include="MessageControl.cs">
+    <Compile Include="Controls\MessageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MessageControl.Designer.cs">
+    <Compile Include="Controls\MessageControl.Designer.cs">
       <DependentUpon>MessageControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SmtpHandler.cs" />
     <Compile Include="YouChat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -264,28 +313,40 @@
     <EmbeddedResource Include="AttachedFiles\ImageHandler.resx">
       <DependentUpon>ImageHandler.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChatControl.resx">
+    <EmbeddedResource Include="AttachedFiles\VideoCall.resx">
+      <DependentUpon>VideoCall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChatControl.resx">
       <DependentUpon>ChatControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ContactControl.resx">
+    <EmbeddedResource Include="Controls\ContactControl.resx">
       <DependentUpon>ContactControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CustomTextBox.resx">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PasswordGeneratorControl.resx">
+      <DependentUpon>PasswordGeneratorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ProfilePictureControl.resx">
       <DependentUpon>ProfilePictureControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SearchBar.resx">
+      <DependentUpon>SearchBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SmtpControl.resx">
+      <DependentUpon>SmtpControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InitialProfileSelection.resx">
       <DependentUpon>InitialProfileSelection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LockableRichTextBox.resx">
-      <DependentUpon>LockableRichTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginAndRegistration.resx">
       <DependentUpon>LoginAndRegistration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MessageControl.resx">
+    <EmbeddedResource Include="Controls\MessageControl.resx">
       <DependentUpon>MessageControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Paint.resx">
+    <EmbeddedResource Include="AttachedFiles\Paint.resx">
       <DependentUpon>Paint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profile.resx">
@@ -11817,6 +11878,153 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="EmojiIcons\People\1f3c2-1f3ff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MenuBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CameraLens.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Microphone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Foward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExclamationMark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter15.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AnimalProfilePicture\AnimalCharacter17.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Eraser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shapes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rectange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Triangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RotateRight90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RotateLeft90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rotate180.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FlipVertically.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FlipHorizontally.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RedoNotPressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UndoNotPressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BoldText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ItalicText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UnderlineText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StrikeoutText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StrikeoutText1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackgroundColor2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Resend.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

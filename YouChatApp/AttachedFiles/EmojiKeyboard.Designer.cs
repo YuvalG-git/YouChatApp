@@ -43,7 +43,6 @@ namespace YouChatApp.AttachedFiles
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.TabImageList = new System.Windows.Forms.ImageList(this.components);
-            this.lockableRichTextBox1 = new YouChatApp.LockableRichTextBox();
             this.EmojiTabControl.SuspendLayout();
             this.TabPage1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -82,7 +81,6 @@ namespace YouChatApp.AttachedFiles
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.lockableRichTextBox1);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(288, 184);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(200, 100);
@@ -174,15 +172,6 @@ namespace YouChatApp.AttachedFiles
             this.TabImageList.Images.SetKeyName(7, "1f523.png");
             this.TabImageList.Images.SetKeyName(8, "1f3f4.png");
             // 
-            // lockableRichTextBox1
-            // 
-            this.lockableRichTextBox1.Location = new System.Drawing.Point(3, 3);
-            this.lockableRichTextBox1.Name = "lockableRichTextBox1";
-            this.lockableRichTextBox1.ReadOnly = true;
-            this.lockableRichTextBox1.Size = new System.Drawing.Size(100, 96);
-            this.lockableRichTextBox1.TabIndex = 1;
-            this.lockableRichTextBox1.Text = "";
-            // 
             // EmojiKeyboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,7 +202,6 @@ namespace YouChatApp.AttachedFiles
         private System.Windows.Forms.ImageList TabImageList;
         private List<System.Windows.Forms.PictureBox>[] EmojiPictureBoxArrayOfLists;
         private WebBrowser webBrowser1;
-        private LockableRichTextBox lockableRichTextBox1;
         private FlowLayoutPanel flowLayoutPanel1;
         private Button button2;
     }

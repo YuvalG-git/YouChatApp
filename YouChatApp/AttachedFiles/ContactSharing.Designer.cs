@@ -34,6 +34,7 @@ namespace YouChatApp.AttachedFiles
             this.SendButton = new System.Windows.Forms.Button();
             this.RestartButton = new System.Windows.Forms.Button();
             this.InstructionLabel = new System.Windows.Forms.Label();
+            this.SearchBar = new YouChatApp.Controls.SearchBar();
             this.SuspendLayout();
             // 
             // ContactPanel
@@ -76,6 +77,14 @@ namespace YouChatApp.AttachedFiles
             this.InstructionLabel.TabIndex = 0;
             this.InstructionLabel.Text = "<You may select up to 3 contacts from your contact list>";
             // 
+            // SearchBar
+            // 
+            this.SearchBar.Location = new System.Drawing.Point(456, 3);
+            this.SearchBar.Name = "SearchBar";
+            this.SearchBar.Size = new System.Drawing.Size(320, 60);
+            this.SearchBar.TabIndex = 2;
+            this.SearchBar.TextContent = "44545";
+            // 
             // ContactSharing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -85,6 +94,7 @@ namespace YouChatApp.AttachedFiles
             this.Controls.Add(this.RestartButton);
             this.Controls.Add(this.SendButton);
             this.Controls.Add(this.ContactPanel);
+            this.Controls.Add(this.SearchBar);
             this.Name = "ContactSharing";
             this.Text = "ContactSharing";
             this.ResumeLayout(false);
@@ -99,5 +109,6 @@ namespace YouChatApp.AttachedFiles
         private System.Windows.Forms.Button SendButton;
         private System.Windows.Forms.Button RestartButton;
         private System.Windows.Forms.Label InstructionLabel;
+        private Controls.SearchBar SearchBar;
     }
 }

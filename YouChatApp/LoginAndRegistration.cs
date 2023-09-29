@@ -16,12 +16,16 @@ using System.Reflection;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Threading;
 
 namespace YouChatApp
 {
     public partial class LoginAndRegistration : Form
     {
-        
+        const int RegistrationMessage = 1;
+        const int LoginMessage = 2;
+        const int PasswordRenewalMessage = 3;
 
         /// <summary>
         /// Declares a variable of type RulesPage
@@ -46,7 +50,7 @@ namespace YouChatApp
         int CurrentPictureIndex;
         TimeSpan TimerTickTimeSpan;
         List<int> NumbersList;
-
+        SmtpHandler smtpHandler;
 
         DateTime CountDownDateTime = new DateTime();
         TimeSpan CountDownTimeSpan;
@@ -69,8 +73,7 @@ namespace YouChatApp
             InitializeComponent();
             ServerCommunication.Connect("10.100.102.3");
             ServerCommunication.loginAndRegistration = this;
-            ProfilePictureImageList.InitializeImageLists();
-            pictureBox1.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[3];
+            smtpHandler = new SmtpHandler();
         }
 
         /// <summary>
@@ -84,6 +87,13 @@ namespace YouChatApp
             this.Hide();
             ServerCommunication.youChat = new YouChat();
             this.Invoke(new Action(() => ServerCommunication.youChat.ShowDialog()));
+        }
+        public void OpenInitialProfileSelection(Boolean IsPhaseOne)
+        {
+            ServerCommunication.name = usernameTextbox.Text;
+            this.Hide();
+            ServerCommunication.InitialProfileSelection = new InitialProfileSelection(IsPhaseOne);
+            this.Invoke(new Action(() => ServerCommunication.InitialProfileSelection.ShowDialog()));
         }
 
         private void SetCaptchaCode()
@@ -102,23 +112,89 @@ namespace YouChatApp
 
         }
 
-        /// <summary>
-        /// The "registButton_Click" event handler collects user input from textboxes and performs validation checks, displaying error messages if necessary
-        /// However, If all inputs are valid, the code disables the registButton, combines the user details into a string, and sends a register request message to the server using the ClientClass
-        /// </summary>
-        /// <param name="sender">The object that raised the event</param>
-        /// <param name="e">The event arguments</param>
-        private void registButton_Click(object sender, EventArgs e)
+        private string CheckPassword(string Password)
         {
+            string PasswordAcceptanceText = "";
+            List<string> CharsNotInPassword = new List<string>();
+            if (PasswordHandler.CharNumber(Password) < 8)
+            {
+                CharsNotInPassword.Add("eight characters");
+            }
+            if (!PasswordHandler.ContainLowercase(Password))
+            {
+                CharsNotInPassword.Add("one lowercase");
+            }
+            if (!PasswordHandler.ContainUppercase(Password))
+            {
+                CharsNotInPassword.Add("one uppercase");
+
+            }
+            if (!PasswordHandler.ContainDigit(Password))
+            {
+                CharsNotInPassword.Add("one digit");
+
+            }
+            if (!PasswordHandler.ContainSpecial(Password))
+            {
+                CharsNotInPassword.Add("one special symbol");
+            }
+            if (CharsNotInPassword.Count == 0)
+            {
+                PasswordAcceptanceText = "That's a strong password";
+                //change color to green
+            }
+            else 
+            {
+                PasswordAcceptanceText = "Your password must contain at least ";
+                if (CharsNotInPassword.Count == 1)
+                {
+                    PasswordAcceptanceText += CharsNotInPassword[0];
+                    //change color to yellow
+                    //maybe add a line of : "that a Medium password and weak"
+
+                }
+                else
+                {
+                    int NumberOfInsertedMissingCharRequirement = 0;
+                    foreach (string MissingCharRequirement in CharsNotInPassword)
+                    {
+                        PasswordAcceptanceText += MissingCharRequirement;
+                        if (CharsNotInPassword.Count - 2 == NumberOfInsertedMissingCharRequirement)
+                        {
+                            PasswordAcceptanceText += " and ";
+
+                        }
+                        else if ((CharsNotInPassword.Count - 1 > NumberOfInsertedMissingCharRequirement))
+                        {
+                            PasswordAcceptanceText += ", ";
+
+                        }
+                        NumberOfInsertedMissingCharRequirement++;
+                    }
+                }
+
+            }
+            return PasswordAcceptanceText;
+
+        }
+
+            /// <summary>
+            /// The "registButton_Click" event handler collects user input from textboxes and performs validation checks, displaying error messages if necessary
+            /// However, If all inputs are valid, the code disables the registButton, combines the user details into a string, and sends a register request message to the server using the ClientClass
+            /// </summary>
+            /// <param name="sender">The object that raised the event</param>
+            /// <param name="e">The event arguments</param>
+            private void registButton_Click(object sender, EventArgs e)
+        {
+            string username = usernameTextbox.Text;
+            string password = passwordTextbox.Text;
+            string firstname = firstnameTextbox.Text;
+            string lastname = lastnameTextbox.Text;
+            string email = emailTextbox.Text;
+            string city = cityTextbox.Text;
+            string dateOfBirth = BirthDateDateTimePicker.Value.ToShortDateString();
             if (!CodeLabel.Visible)
             {
-                string username = usernameTextbox.Text;
-                string password = passwordTextbox.Text;
-                string firstname = firstnameTextbox.Text;
-                string lastname = lastnameTextbox.Text;
-                string email = emailTextbox.Text;
-                string city = cityTextbox.Text;
-                string dateOfBirth = dateTimePicker1.Value.ToShortDateString();
                 if (username.Contains("#"))
                     MessageBox.Show("choose an username which doesn't conatain '#'");
                 if (password.Contains("#"))
@@ -161,10 +237,18 @@ namespace YouChatApp
                                 lastnameTextbox.Enabled = false;
                                 emailTextbox.Enabled = false;
                                 cityTextbox.Enabled = false;
-                                string userDetails = username + "#" + password + "#" + firstname + "#" + lastname + "#" + email + "#" + city + "#" + dateOfBirth + "#" + Gender;
-                                ServerCommunication.SendMessage(ServerCommunication.registerRequest + "$" + userDetails + "$" + userDetails.Length);
+                                BirthDateDateTimePicker.Enabled = false;
+                                MaleRadioButton.Enabled = false;
+                                FemaleRadioButton.Enabled = false;
+                                AnotherGenderRadioButton.Enabled = false;
+                                
+                                //string RegistrationDate = DateTime.Today.ToString("yyyy-MM-dd"); ;
+                                //string userDetails = username + "#" + password + "#" + firstname + "#" + lastname + "#" + email + "#" + city + "#" + dateOfBirth + "#" + Gender + "#" + RegistrationDate; //to add in the server side the handle of theRegistrationDate 
+                                //ServerCommunication.SendMessage(ServerCommunication.registerRequest + "$" + userDetails + "$" + userDetails.Length);
                                 registButton.Text = "Verify";
-                                //SendCodeToUserEmail();
+                                registButton.Enabled = false;
+                                Thread.Sleep(500);
+                                smtpHandler.SendCodeToUserEmail(username, email,RegistrationMessage);
                             }
                         }
                     }
@@ -176,12 +260,16 @@ namespace YouChatApp
             {
                 CodeTextBox.Enabled = false;
 
-                if (CodeTextBox.Text == SmtpCode)
+                if (CodeTextBox.Text == smtpHandler.GetSmtpCode())
                 {
                     MessageBox.Show("good job");
+                    string RegistrationDate = DateTime.Today.ToString("yyyy-MM-dd"); ;
+                    string userDetails = username + "#" + password + "#" + firstname + "#" + lastname + "#" + email + "#" + city + "#" + dateOfBirth + "#" + Gender + "#" + RegistrationDate; //to add in the server side the handle of theRegistrat
+                    ServerCommunication.SendMessage(ServerCommunication.registerRequest + "$" + userDetails + "$" + userDetails.Length);
                 }
                 else
                 {
+                    CodeTextBox.Text = "";
                     registButton.Visible = false;
                     ChangeEmailOptionButton.Visible = true;
                     NewSMTPCodeOptionButton.Visible = true;
@@ -190,10 +278,18 @@ namespace YouChatApp
 
         }
 
+        private void CheckLegalEmailAddress()
+        {
+            //to check if the email address is allowed here instead in registButton_Click
+        }
+
         private void NewSMTPCodeOptionButton_Click(object sender, EventArgs e)
         {
             SetFormAfterWrongSMTPCode();
-            SendCodeToUserEmail();
+            string Username = usernameTextbox.Text;
+            string DestinationEmail = emailTextbox.Text;
+            smtpHandler.SendCodeToUserEmail(Username, DestinationEmail, RegistrationMessage);
+            //SendCodeToUserEmail();
         }
 
         private void ChangeEmailOptionButton_Click(object sender, EventArgs e)
@@ -205,9 +301,14 @@ namespace YouChatApp
             lastnameTextbox.Enabled = true;
             emailTextbox.Enabled = true;
             cityTextbox.Enabled = true;
+            BirthDateDateTimePicker.Enabled = true;
+            MaleRadioButton.Enabled = true;
+            FemaleRadioButton.Enabled = true;
+            AnotherGenderRadioButton.Enabled = true;
             CodeLabel.Visible = false;
             CodeTextBox.Visible = false;
             registButton.Text = "Sign Up";
+            registButton.Enabled = true;
         }
         
         private void SetFormAfterWrongSMTPCode()
@@ -231,6 +332,22 @@ namespace YouChatApp
             return count;
         }
 
+        public void HandleMatchingUsernameAndPassword(string EmailAddress)
+        {
+            SendLoginEmailThroughSmtpProtocol(EmailAddress);
+            //todo - make everything visible
+            usernameloginTextbox.Enabled = false;
+            passwordloginTextbox.Enabled = false;
+            LoginCodeLabel.Visible = true;
+            LoginSmtpCodeTextBox.Visible = true;
+            LoginNewSmtpCodeSenderButton.Visible = true;
+            LoginSmtpCodeVerifyButton.Visible = true;
+        }
+        private void SendLoginEmailThroughSmtpProtocol(string EmailAddress)
+        {
+            string username = usernameloginTextbox.Text;
+            smtpHandler.SendCodeToUserEmail(username, EmailAddress, LoginMessage);
+        }
         /// <summary>
         /// This function is responsible for the player's login to the game:
         /// the function checks for the presence of the '#' character in the username and password entered by the user.
@@ -243,46 +360,18 @@ namespace YouChatApp
         {
             string username = usernameloginTextbox.Text;
             string password = passwordloginTextbox.Text;
-            string CaptchaCodeEntered = CaptchaLoginTextBox.Text;
-            string CaptchaCode = CaptchaLabel.Text;
-            if (CaptchaCodeEntered != CaptchaCode)
-            {
-                NumberOfFailedCaptchaTests++;
-                if (NumberOfFailedCaptchaTests >= 3)
-                {
-                    if (CaptchaFailureWaitingTimeQueue.Count > 0)
-                    {
-                        CountDownTime = CaptchaFailureWaitingTimeQueue.Dequeue();
-                    }
-                    CountDownTimeSpan = TimeSpan.FromMinutes(CountDownTime);
-                    MessageBox.Show("Captcha Failed\nTry again in " + CountDownTimeSpan.ToString(@"mm\:ss"));
-
-                    CaptchaCountDownTimer.Start();
-                    CountDownTimeLabel.Visible = true;
-                    LoginGroupBox.Enabled = false;
-                }
-                else
-                {
-                    CaptchaLoginTextBox.Text = "";
-                    MessageBox.Show("Try Again");
-                    SetCaptchaCode();
-                }
-            }
+            if (username.Contains("#"))
+                MessageBox.Show("choose an username which doesn't contain '#'");
+            else if (password.Contains("#"))
+                MessageBox.Show("choose a password which doesn't contain '#'");
             else
             {
-                CaptchaLoginTextBox.Enabled = false;
-                if (username.Contains("#"))
-                    MessageBox.Show("choose an username which doesn't contain '#'");
-                else if (password.Contains("#"))
-                    MessageBox.Show("choose a password which doesn't contain '#'");
-                else
-                {
-                    loginButton.Enabled = false;
-                    CaptchaImageTestPanel.Visible = true;
-                    CaptchaWordTestPanel.Visible = false;
+                loginButton.Enabled = false;
+                string userLoginDetails = username + "#" + password;
+                ServerCommunication.SendMessage(ServerCommunication.loginRequest + "$" + userLoginDetails);
 
-                }
             }
+
         }
 
         private void CaptchaCountDownTimer_Tick(object sender, EventArgs e)
@@ -293,6 +382,8 @@ namespace YouChatApp
                 CaptchaCountDownTimer.Stop();
                 CountDownTimeLabel.Text = "Countdown Complete!";
                 LoginGroupBox.Enabled = true;
+                CaptchaLoginTextBox.Text = "";
+                CaptchaLoginTextBox.Enabled = true;
             }
             else
             {
@@ -359,7 +450,7 @@ namespace YouChatApp
         /// <param name="e">The event arguments</param>
         private void loginDetails(object sender, EventArgs e)
         {
-            if ((usernameloginTextbox.Text != "") && (passwordloginTextbox.Text != "") && (CaptchaLoginTextBox.Text != ""))
+            if ((usernameloginTextbox.Text != "") && (passwordloginTextbox.Text != "") /*&& (CaptchaLoginTextBox.Text != "")*/)
                 loginButton.Enabled = true;
             else
                 loginButton.Enabled = false;
@@ -386,7 +477,7 @@ namespace YouChatApp
         }
         private void RegistButtonSetEnabled()
         {
-            if ((usernameTextbox.Text != "") && (passwordTextbox.Text != "") && (firstnameTextbox.Text != "") && (lastnameTextbox.Text != "") && (emailTextbox.Text != "") && (cityTextbox.Text != "") && (dateTimePicker1.CustomFormat != " ") && (RadioButtonIsChecked()))
+            if ((usernameTextbox.Text != "") && (passwordTextbox.Text != "") && (firstnameTextbox.Text != "") && (lastnameTextbox.Text != "") && (emailTextbox.Text != "") && (cityTextbox.Text != "") && (BirthDateDateTimePicker.CustomFormat != " ") && (RadioButtonIsChecked()))
                 registButton.Enabled = true;
             else
                 registButton.Enabled = false;
@@ -436,8 +527,8 @@ namespace YouChatApp
             CreateCaptchaFailureWaitingTimeQueue();
             SetCaptchaCode();
             TimeTimer.Start();
-            dateTimePicker1.MinDate = new DateTime(DateTime.Today.Year - 100, DateTime.Today.Month, DateTime.Today.Day);
-            dateTimePicker1.MaxDate = DateTime.Now;
+            BirthDateDateTimePicker.MinDate = new DateTime(DateTime.Today.Year - 100, DateTime.Today.Month, DateTime.Today.Day);
+            BirthDateDateTimePicker.MaxDate = DateTime.Now;
             SetPictureOrderForCaptcha();
             GenderOptionsComboBox.SelectedIndex = 0; // Automatically select the placeholder item
             //RECAPTCHAWebBrowser.Navigate($"https://www.google.com/recaptcha/api/fallback?k={SiteKey}");
@@ -474,7 +565,7 @@ namespace YouChatApp
         {
             if (e.KeyCode == Keys.Back)
             {
-                dateTimePicker1.CustomFormat = " ";
+                BirthDateDateTimePicker.CustomFormat = " ";
                 RegistButtonSetEnabled();
             }
             // להוסיף כפתור של ריפרש וגם בלחיצה עליו יקרה אותו דבר
@@ -569,7 +660,7 @@ namespace YouChatApp
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+            BirthDateDateTimePicker.CustomFormat = "dd/MM/yyyy";
             RegistButtonSetEnabled();
         }
 
@@ -587,11 +678,66 @@ namespace YouChatApp
             ServerCommunication.SendMessage(ServerCommunication.ResetPasswordRequest + "$" + UserResetPasswordDetails);
         }
 
+        public void HandleMatchingUsernameAndEmailAddress()
+        {
+            SendResetPasswordEmailThroughSmtpProtocol();
+            UsernameResetPasswordTextBox.Enabled = false;
+            EmailResetPasswordTextBox.Enabled = false;
+            ResetPasswordCodeLabel.Visible = true;
+            ResetPasswordCodeTextBox.Visible = true;
+            ResetPasswordVerificationButton.Visible = true;
+            NewSmtpCodeSenderButton.Visible = true;
+        }
+        private void SendResetPasswordEmailThroughSmtpProtocol()
+        {
+            string username = UsernameResetPasswordTextBox.Text;
+            string emailAddress = EmailResetPasswordTextBox.Text;
+            smtpHandler.SendCodeToUserEmail(username, emailAddress, PasswordRenewalMessage);
+        }
+
         private void ResetPasswordReturnToStarterScreenButton_Click(object sender, EventArgs e)
+        {
+            ReturnToLoginPanelFromResetPasswordPanel();
+        }
+        public void ReturToLoginPanelAfterSuccessfulPasswordRenewal()
+        {
+            ReturnToLoginPanelFromResetPasswordPanel();
+            MessageBox.Show("Your new password has been saved");
+
+        }
+
+        private void ReturnToLoginPanelFromResetPasswordPanel()
         {
             RegistrationGroupBox.Visible = false;
             LoginGroupBox.Visible = true;
             ResetPasswordGroupBox.Visible = false;
+            UsernameResetPasswordTextBox.Text = "";
+            EmailResetPasswordTextBox.Text = "";
+            ResetPasswordCodeTextBox.Text = "";
+            NewPasswordTextBox.Text = "";
+            UsernameResetPasswordTextBox.Enabled = true;
+            EmailResetPasswordTextBox.Enabled = true;
+            ResetPasswordCodeLabel.Visible = false;
+            ResetPasswordCodeTextBox.Visible = false;
+            ResetPasswordVerificationButton.Visible = false;
+            NewSmtpCodeSenderButton.Visible = false;
+            NewPasswordLabel.Visible = false;
+            NewPasswordTextBox.Visible = false;
+            ResetNewPasswordButton.Visible = false;
+            NewPasswordSaverButton.Visible = false;
+        }
+
+        public void RestartResetPasswordDetails()
+        {
+            ResetPasswordCodeSenderButton.Enabled = false;
+            //to make the border red when i'll switch it to the custom control...
+            MessageBox.Show("Your details were incorrect\nPlease Check for mistakes", "Incorrect Details");
+        }
+        public void SelectNewPasswordForPasswordRenewal()
+        {
+            NewPasswordSaverButton.Enabled = false;
+            MessageBox.Show("You have already chosen this password in the past\nChoose a new password that you haven't chosen before");
+
 
         }
 
@@ -665,11 +811,11 @@ namespace YouChatApp
             int port = 587;  
 
             SmtpCode = getCode();
-            string appPassword = "fmgwqaquwfmckchv";  // Use your generated app password
+            string appPassword = "fmgwqaquwfmckchv";
             string sourceEmail = "youchatcyberapplication@gmail.com";
             string destinationEmail = emailTextbox.Text;
             string subject = "YouChat Verification Code";
-            string body = "Here is your code:\n" + SmtpCode;
+            string body = "Welcome to YouChat!\nHere is your code:\n" + SmtpCode;
 
             using (SmtpClient smtpClient = new SmtpClient(server, port))
             {
@@ -740,24 +886,6 @@ namespace YouChatApp
         }
 
 
-        private void RotateImageToPoint(Point clickPoint)
-        {
-            CaptchaCircularPictureBoxAngle = CalculateRotationAngle(clickPoint);
-
-            Bitmap rotatedImage = new Bitmap(CaptchaCircularPictureBox.BackgroundImage.Width, CaptchaCircularPictureBox.BackgroundImage.Height);
-            using (Graphics graphics = Graphics.FromImage(rotatedImage))
-            {
-                graphics.TranslateTransform(rotatedImage.Width / 2, rotatedImage.Height / 2);
-                graphics.RotateTransform((float)CaptchaCircularPictureBoxAngle);
-                graphics.TranslateTransform(-rotatedImage.Width / 2, -rotatedImage.Height / 2);
-                graphics.DrawImage(CaptchaPicturesImageList.Images[CurrentPictureIndex], new PointF(0, 0));
-            }
-
-            CaptchaCircularPictureBox.BackgroundImage = rotatedImage;
-
-
-        }
-
         private void CaptchaImageCheckerButton_Click(object sender, EventArgs e)
         {
 
@@ -824,7 +952,9 @@ namespace YouChatApp
                     string username = usernameloginTextbox.Text;
                     string password = passwordloginTextbox.Text;
                     string userLoginDetails = username + "#" + password;
-                    ServerCommunication.SendMessage(ServerCommunication.loginRequest + "$" + userLoginDetails);
+                    //ServerCommunication.SendMessage(ServerCommunication.loginRequest + "$" + userLoginDetails);
+                    ServerCommunication.SendMessage(ServerCommunication.InitialProfileSettingsCheckRequest + "$" + userLoginDetails);
+
                 }
 
             }
@@ -862,7 +992,39 @@ namespace YouChatApp
             }
         }
 
-       
+        private void passwordTextbox_Leave(object sender, EventArgs e)
+        {
+            string CurrentPassword = passwordTextbox.Text;
+            PasswordHandler.CheckPassword(CurrentPassword);
+            PasswordRequirementsLabel.Text = PasswordHandler.PasswordStrength;
+            PasswordRequirementsLabel.BackColor = PasswordHandler.PasswordInformationColor;
+
+            //PasswordRequirementsLabel.Text = CheckPassword(CurrentPassword);
+            //string CheckedPasswordResult = PasswordRequirementsLabel.Text;
+
+            //if (CheckedPasswordResult == "That's a strong password")
+            //{
+            //    PasswordRequirementsLabel.ForeColor = Color.Green;
+            //}
+            //else if(!CheckedPasswordResult.Contains("and"))
+            //{
+            //    PasswordRequirementsLabel.ForeColor = Color.Yellow;
+            //}
+            //else 
+            //{
+            //    PasswordRequirementsLabel.ForeColor = Color.Red;
+            //}
+            if (PasswordHandler.PasswordStrength != "That's a strong password")
+            {
+                PasswordExclamationButton.Visible = true;
+            }
+            else
+            {
+                PasswordExclamationButton.Visible = false;
+
+            }
+        }
+
         private void RotateBothPictureBoxsRandomlly()
         {
             CaptchaPictureAttempts++;
@@ -894,12 +1056,185 @@ namespace YouChatApp
                 graphics.TranslateTransform(-CaptchaCircularPictureBoxAngleRotatedImage.Width / 2, -CaptchaCircularPictureBoxAngleRotatedImage.Height / 2);
                 graphics.DrawImage(CaptchaPicturesImageList.Images[CurrentPictureIndex], new PointF(0, 0));
             }
-
             CaptchaPictureBox.BackgroundImage = CaptchaPictureBoxRotatedImage;
             CaptchaCircularPictureBox.BackgroundImage = CaptchaCircularPictureBoxAngleRotatedImage;
+        }
+        private void RotateImageToPoint(Point clickPoint)
+        {
+            CaptchaCircularPictureBoxAngle = CalculateRotationAngle(clickPoint);
 
+            Bitmap rotatedImage = new Bitmap(CaptchaCircularPictureBox.BackgroundImage.Width, CaptchaCircularPictureBox.BackgroundImage.Height);
+            using (Graphics graphics = Graphics.FromImage(rotatedImage))
+            {
+                graphics.TranslateTransform(rotatedImage.Width / 2, rotatedImage.Height / 2);
+                graphics.RotateTransform((float)CaptchaCircularPictureBoxAngle);
+                graphics.TranslateTransform(-rotatedImage.Width / 2, -rotatedImage.Height / 2);
+                graphics.DrawImage(CaptchaPicturesImageList.Images[CurrentPictureIndex], new PointF(0, 0));
+            }
 
+            CaptchaCircularPictureBox.BackgroundImage = rotatedImage;
+        }
+        private void RotateImage(Control control) //try to use it - if doesnt work 2 parmeters: picturebox and circularpicturebox - to check which one and act accordinglly
+        {
+            Bitmap rotatedImage = new Bitmap(control.BackgroundImage.Width, control.BackgroundImage.Height);
+            using (Graphics graphics = Graphics.FromImage(rotatedImage))
+            {
+                graphics.TranslateTransform(rotatedImage.Width / 2, rotatedImage.Height / 2);
+                graphics.RotateTransform((float)CaptchaCircularPictureBoxAngle);
+                graphics.TranslateTransform(-rotatedImage.Width / 2, -rotatedImage.Height / 2);
+                graphics.DrawImage(CaptchaPicturesImageList.Images[CurrentPictureIndex], new PointF(0, 0));
+            }
 
+            control.BackgroundImage = rotatedImage;
+        }
+
+        private void ResetNewPasswordButton_Click(object sender, EventArgs e)
+        {
+            NewPasswordTextBox.Text = "";
+        }
+
+        private void NewSmtpCodeSenderButton_Click(object sender, EventArgs e)
+        {
+            SendResetPasswordEmailThroughSmtpProtocol();
+        }
+
+        private void ResetPasswordVerificationButton_Click(object sender, EventArgs e)
+        {
+            string EnteredSmtpCode = ResetPasswordCodeTextBox.Text;
+            if (EnteredSmtpCode == smtpHandler.GetSmtpCode())
+            {
+                NewPasswordLabel.Visible = true;
+                NewPasswordTextBox.Visible = true;
+                ResetNewPasswordButton.Visible = true;
+                NewPasswordSaverButton.Visible = true;
+            }
+        }
+
+        private void NewPasswordSaverButton_Click(object sender, EventArgs e)
+        {
+            //if the password is good...
+            string username = UsernameResetPasswordTextBox.Text;
+            string newPassword = NewPasswordTextBox.Text;
+            string userDetails = username + "#" + newPassword;
+            ServerCommunication.SendMessage(ServerCommunication.PasswordRenewalMessageRequest + "$" + userDetails);
+
+        }
+
+        private void LoginSmtpCodeVerifyButton_Click(object sender, EventArgs e)
+        {
+            string EnteredSmtpCode = LoginSmtpCodeTextBox.Text;
+            if (EnteredSmtpCode == smtpHandler.GetSmtpCode())
+            {
+                CaptchaWordTestPanel.Visible = true;
+            }
+        }
+
+        private void LoginSmtpCodeTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string text = LoginSmtpCodeTextBox.Text;
+            if (text != "")
+            {
+                LoginSmtpCodeVerifyButton.Enabled = true;
+            }
+            else
+            {
+                LoginSmtpCodeVerifyButton.Enabled = false;
+
+            }
+        }
+
+        private void ResetPasswordCodeTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string text = ResetPasswordCodeTextBox.Text;
+            if (text != "")
+            {
+                ResetPasswordVerificationButton.Enabled = true;
+            }
+            else
+            {
+                ResetPasswordVerificationButton.Enabled = false;
+
+            }
+        }
+
+        private void NewPasswordTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string text = NewPasswordTextBox.Text;
+            if (text != "")
+            {
+                NewPasswordSaverButton.Enabled = true;
+            }
+            else
+            {
+                NewPasswordSaverButton.Enabled = false;
+
+            }
+        }
+
+        private void CaptchaLoginTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string text = CaptchaLoginTextBox.Text;
+            if (text != "")
+            {
+                CheckWordCaptchaButton.Enabled = true;
+            }
+            else
+            {
+                CheckWordCaptchaButton.Enabled = false;
+
+            }
+        }
+
+        private void CheckWordCaptchaButton_Click(object sender, EventArgs e)
+        {
+            string CaptchaCodeEntered = CaptchaLoginTextBox.Text;
+            string CaptchaCode = CaptchaLabel.Text;
+            CaptchaLoginTextBox.Enabled = false;
+
+            if (CaptchaCodeEntered != CaptchaCode)
+            {
+                NumberOfFailedCaptchaTests++;
+                if (NumberOfFailedCaptchaTests >= 3)
+                {
+                    if (CaptchaFailureWaitingTimeQueue.Count > 0)
+                    {
+                        CountDownTime = CaptchaFailureWaitingTimeQueue.Dequeue();
+                    }
+                    CountDownTimeSpan = TimeSpan.FromMinutes(CountDownTime);
+                    MessageBox.Show("Captcha Failed\nTry again in " + CountDownTimeSpan.ToString(@"mm\:ss"));
+
+                    CaptchaCountDownTimer.Start();
+                    CountDownTimeLabel.Visible = true;
+                    LoginGroupBox.Enabled = false;
+                }
+                else
+                {
+                    CaptchaLoginTextBox.Text = "";
+                    MessageBox.Show("Try Again");
+                    CaptchaLoginTextBox.Enabled = true;
+
+                    SetCaptchaCode();
+                }
+            }
+            else
+            {
+                CaptchaImageTestPanel.Visible = true;
+                CaptchaWordTestPanel.Visible = false;
+            }
+        }
+
+        private void CodeTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string text = CodeTextBox.Text;
+            if (text != "")
+            {
+                registButton.Enabled = true;
+            }
+            else
+            {
+                registButton.Enabled = false;
+
+            }
         }
 
         private double CalculateRotationAngle(Point clickPoint)
@@ -910,6 +1245,13 @@ namespace YouChatApp
             double angleInRadians = Math.Atan2(deltaY, deltaX);
             double angleInDegrees = angleInRadians * (180.0 / Math.PI);
             return angleInDegrees + 90; // Add 90 degrees to align with clicked point
+        }
+
+        public void SetProfileDetails(bool IsPhaseOne)
+        {
+            this.Hide();
+            ServerCommunication.InitialProfileSelection = new InitialProfileSelection(IsPhaseOne); 
+            this.Invoke(new Action(() => ServerCommunication.InitialProfileSelection.ShowDialog()));
         }
 
     }
