@@ -15,6 +15,7 @@ namespace YouChatApp
         public InitialProfileSelection(bool IsPhaseOne)
         {
             InitializeComponent();
+            ServerCommunication.BeginRead();
             ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
             ProfilePictureControl.AddButtonClickHandler(SetConfirmButtonEnabled);
             if (IsPhaseOne)
@@ -296,12 +297,16 @@ namespace YouChatApp
             if (ProfilePictureGroupBox.Visible)
             {
                 string ProfilePictureId = ProfilePictureControl.GetImageNameID();
-                ServerCommunication.SendMessage(ServerCommunication.UploadProfilePictureRequest + "$" + ProfilePictureId);
+                //ServerCommunication.SendMessage(ServerCommunication.UploadProfilePictureRequest + "$" + ProfilePictureId);
+
+                ServerCommunication.SendMessage(ServerCommunication.UploadProfilePictureRequest, ProfilePictureId);
             }
             else
             {
                 string ProfileStatus = ProfileStatusTextBox.Text;
-                ServerCommunication.SendMessage(ServerCommunication.UploadStatusRequest + "$" + ProfileStatus);
+                //ServerCommunication.SendMessage(ServerCommunication.UploadStatusRequest + "$" + ProfileStatus);
+
+                ServerCommunication.SendMessage(ServerCommunication.UploadStatusRequest, ProfileStatus);
             }
         }
         public void OpenApp()

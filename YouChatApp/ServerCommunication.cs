@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -168,6 +169,9 @@ namespace YouChatApp
         private static Boolean UdpIsOn = false;
 
 
+        public static string ProfilePictureId;
+        public static string ProfileStatus;
+
         /// <summary>
         /// The Connect method attempts to establish a TCP/IP connection with a server using the provided IP addressand port: 1500
         /// If the connection attempt fails, a MessageBox is displayed to the user
@@ -188,9 +192,10 @@ namespace YouChatApp
                 MessageBox.Show("There wasn't a server in this address...\nPlease Try Again", "Server Connection Attempt");
             }
 
-            //Rsa = new RSAServiceProvider();
-            //PrivateKey = Rsa.GetPrivateKey();
+            Rsa = new RSAServiceProvider();
+            PrivateKey = Rsa.GetPrivateKey();
             //SendMessage(EncryptionClientPublicKeySender + "$" + Rsa.GetPublicKey());
+            SendMessage(EncryptionClientPublicKeySender, Rsa.GetPublicKey());
             if (!Client.Connected)
                 return false;
             Data = new byte[Client.ReceiveBufferSize];
@@ -277,38 +282,35 @@ namespace YouChatApp
                         string DecryptedMessageDetails;
                         if (requestNumber == EncryptionServerPublicKeyReciever)
                         {
-                            //ServerPublicKey = messageDetails; //maybe i should make the publickey as bytes and not string and then do the switch to string just after that...
+                            ServerPublicKey = messageDetails; //maybe i should make the publickey as bytes and not string and then do the switch to string just after that...
                         }
                         else if (requestNumber == EncryptionSymmetricKeyReciever)//gets Symmetrical Key
                         {
-                            //DecryptedMessageDetails = Rsa.Decrypt(messageDetails, PrivateKey);
-                            //SymmetricKey = messageDetails; 
+                            DecryptedMessageDetails = Rsa.Decrypt(messageDetails, PrivateKey);
+                            SymmetricKey = DecryptedMessageDetails; 
                         }
                         else
                         {
-                            //byte[] Key = Encoding.UTF8.GetBytes(SymmetricKey);
-                            //byte[] IV = new byte[16];
-
-                            //DecryptedMessageDetails = AESServiceProvider.DecryptFromByte(Data, Key, IV);
+                            DecryptedMessageDetails = Encryption.Encryption.DecryptData(SymmetricKey, messageDetails);
                             if (requestNumber == registerResponse)
                             {
-                                if (messageDetails == registerResponse1)
+                                if (DecryptedMessageDetails == registerResponse1)
                                 {
-                                    MessageBox.Show(messageDetails);
+                                    MessageBox.Show(DecryptedMessageDetails);
                                     //loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenApp(); });
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.SetProfileDetails(true); });
                                 }
-                                else if (messageDetails == registerResponse2)
+                                else if (DecryptedMessageDetails == registerResponse2)
                                 {
-                                    MessageBox.Show(messageDetails);
+                                    MessageBox.Show(DecryptedMessageDetails);
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.setRegistButtonEnabled(); });
                                 }
                             }
                             else if (requestNumber == loginResponse)
                             {
-                                if (messageDetails == loginResponse1)
+                                if (DecryptedMessageDetails == loginResponse1)
                                 {
-                                    MessageBox.Show(messageDetails);
+                                    MessageBox.Show(DecryptedMessageDetails);
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenApp(); });
 
                                     //bool IsPhaseOne = false;
@@ -327,84 +329,86 @@ namespace YouChatApp
 
 
                                 }
-                                else if (messageDetails == loginResponse2)
+                                else if (DecryptedMessageDetails == loginResponse2)
                                 {
-                                    MessageBox.Show(messageDetails + "\nYou probably wrote the wrong username or password \nIn case you don't have an account yet, please sign up");
+                                    MessageBox.Show(DecryptedMessageDetails + "\nYou probably wrote the wrong username or password \nIn case you don't have an account yet, please sign up");
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.setLoginButtonEnabled(); });
                                 }
-                                else if (messageDetails == loginResponse3)
+                                else if (DecryptedMessageDetails == loginResponse3)
                                 {
 
                                 }
-                                else if (messageDetails == loginResponse4)
+                                else if (DecryptedMessageDetails == loginResponse4)
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenInitialProfileSelection(true); });
 
                                 }
-                                else if (messageDetails == loginResponse5)
+                                else if (DecryptedMessageDetails == loginResponse5)
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenInitialProfileSelection(false); });
 
                                 }
                                 else
                                 {
-                                    loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.HandleMatchingUsernameAndPassword(messageDetails); });
+                                    loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.HandleMatchingUsernameAndPassword(DecryptedMessageDetails); });
 
                                 }
                             }
                             else if (requestNumber == sendMessageResponse)
                             {
-                                youChat.Invoke((Action)delegate { youChat.Message(messageDetails); });
+                                youChat.Invoke((Action)delegate { youChat.Message(DecryptedMessageDetails); });
                             }
                             else if (requestNumber == ResetPasswordResponse)
                             {
-                                if (messageDetails == ResetPasswordResponse1)
+                                if (DecryptedMessageDetails == ResetPasswordResponse1)
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.HandleMatchingUsernameAndEmailAddress(); });
                                 }
-                                else if (messageDetails == ResetPasswordResponse2)
+                                else if (DecryptedMessageDetails == ResetPasswordResponse2)
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.RestartResetPasswordDetails(); });
                                 }
                             }
                             else if(requestNumber == PasswordRenewalMessageResponse)
                             {
-                                if ((messageDetails == PasswordRenewalMessageResponse1) || (messageDetails == PasswordRenewalMessageResponse3))
+                                if ((DecryptedMessageDetails == PasswordRenewalMessageResponse1) || (DecryptedMessageDetails == PasswordRenewalMessageResponse3))
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.SelectNewPasswordForPasswordRenewal(); });
                                 }
-                                else if (messageDetails == PasswordRenewalMessageResponse2)
+                                else if (DecryptedMessageDetails == PasswordRenewalMessageResponse2)
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.ReturToLoginPanelAfterSuccessfulPasswordRenewal(); });
                                 }
                             }
                             else if (requestNumber == ContactInformationResponse)
                             {
-                                youChat.Invoke((Action)delegate { youChat.SetChatControlListOfContacts(messageDetails); });
+                                youChat.Invoke((Action)delegate { youChat.SetChatControlListOfContacts(DecryptedMessageDetails); });
                             }
                             else if (requestNumber == UploadProfilePictureResponse)
                             {
-                                youChat.Invoke((Action)delegate { InitialProfileSelection.SetPhaseTwo(); });
+                                ProfilePictureId = DecryptedMessageDetails;
+                                InitialProfileSelection.Invoke((Action)delegate { InitialProfileSelection.SetPhaseTwo(); });
                             }
                             else if (requestNumber == UploadStatusResponse)
                             {
-                                youChat.Invoke((Action)delegate { InitialProfileSelection.OpenApp(); });
+                                ProfileStatus = DecryptedMessageDetails;
+                                InitialProfileSelection.Invoke((Action)delegate { InitialProfileSelection.OpenApp(); });
                             }
                             else if(requestNumber == InitialProfileSettingsCheckResponse)
                             {
-                                if (messageDetails == InitialProfileSettingsCheckResponse1)
+                                if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse1)
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenInitialProfileSelection(true); });
 
                                 }
-                                else if (messageDetails == InitialProfileSettingsCheckResponse2)
+                                else if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse2)
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenInitialProfileSelection(false); });
 
                                 }
-                                else if (messageDetails == InitialProfileSettingsCheckResponse3)
+                                else if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse3)
                                 {
-                                    MessageBox.Show(messageDetails);
+                                    MessageBox.Show(DecryptedMessageDetails);
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenApp(); });
                                 }
                             }
@@ -433,13 +437,22 @@ namespace YouChatApp
         /// The SendMessage method sends a message to the server
         /// </summary>
         /// <param name="message">Represents the message the client sends to the server</param>
-        public static void SendMessage(string message)
+        public static void SendMessage(int messageId,string messageContent)
         {
             if (isConnected)
             {
                 try
                 {
-                    //string EncryptedMessage =  Encryption.Encryption.EncryptData(SymmetricKey, message);
+                    string message;
+                    if (messageId == EncryptionClientPublicKeySender)
+                    {
+                        message = messageId + "$" + messageContent;
+                    }
+                    else
+                    {
+                        string EncryptedMessageContent = Encryption.Encryption.EncryptData(SymmetricKey, messageContent);
+                        message = messageId + "$" + EncryptedMessageContent;
+                    }
                     NetworkStream ns = Client.GetStream();
 
                     // Send data to the client

@@ -265,7 +265,9 @@ namespace YouChatApp
                     MessageBox.Show("good job");
                     string RegistrationDate = DateTime.Today.ToString("yyyy-MM-dd"); ;
                     string userDetails = username + "#" + password + "#" + firstname + "#" + lastname + "#" + email + "#" + city + "#" + dateOfBirth + "#" + Gender + "#" + RegistrationDate; //to add in the server side the handle of theRegistrat
-                    ServerCommunication.SendMessage(ServerCommunication.registerRequest + "$" + userDetails + "$" + userDetails.Length);
+                    ServerCommunication.SendMessage(ServerCommunication.registerRequest, userDetails);
+                    //ServerCommunication.SendMessage(ServerCommunication.registerRequest + "$" + userDetails + "$" + userDetails.Length);
+
                 }
                 else
                 {
@@ -368,7 +370,8 @@ namespace YouChatApp
             {
                 loginButton.Enabled = false;
                 string userLoginDetails = username + "#" + password;
-                ServerCommunication.SendMessage(ServerCommunication.loginRequest + "$" + userLoginDetails);
+                ServerCommunication.SendMessage(ServerCommunication.loginRequest, userLoginDetails);
+                //ServerCommunication.SendMessage(ServerCommunication.loginRequest + "$" + userLoginDetails);
 
             }
 
@@ -490,7 +493,8 @@ namespace YouChatApp
         /// <param name="e">The event arguments</param>
         private void LoginRegistPage_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ServerCommunication.SendMessage(ServerCommunication.disconnectRequest + "$" + "color erasure");
+            ServerCommunication.SendMessage(ServerCommunication.disconnectRequest, "color erasure");
+            //ServerCommunication.SendMessage(ServerCommunication.disconnectRequest + "$" + "color erasure");
             System.Windows.Forms.Application.ExitThread();
         }
 
@@ -674,8 +678,9 @@ namespace YouChatApp
             string Username = UsernameResetPasswordTextBox.Text;
             string Email = EmailResetPasswordTextBox.Text;
             string UserResetPasswordDetails = Username + "#" + Email;
+            ServerCommunication.SendMessage(ServerCommunication.ResetPasswordRequest, UserResetPasswordDetails);
 
-            ServerCommunication.SendMessage(ServerCommunication.ResetPasswordRequest + "$" + UserResetPasswordDetails);
+            //ServerCommunication.SendMessage(ServerCommunication.ResetPasswordRequest + "$" + UserResetPasswordDetails);
         }
 
         public void HandleMatchingUsernameAndEmailAddress()
@@ -953,7 +958,10 @@ namespace YouChatApp
                     string password = passwordloginTextbox.Text;
                     string userLoginDetails = username + "#" + password;
                     //ServerCommunication.SendMessage(ServerCommunication.loginRequest + "$" + userLoginDetails);
-                    ServerCommunication.SendMessage(ServerCommunication.InitialProfileSettingsCheckRequest + "$" + userLoginDetails);
+
+
+                    //ServerCommunication.SendMessage(ServerCommunication.InitialProfileSettingsCheckRequest + "$" + userLoginDetails);
+                    ServerCommunication.SendMessage(ServerCommunication.InitialProfileSettingsCheckRequest, userLoginDetails);
 
                 }
 
@@ -1116,7 +1124,8 @@ namespace YouChatApp
             string username = UsernameResetPasswordTextBox.Text;
             string newPassword = NewPasswordTextBox.Text;
             string userDetails = username + "#" + newPassword;
-            ServerCommunication.SendMessage(ServerCommunication.PasswordRenewalMessageRequest + "$" + userDetails);
+            ServerCommunication.SendMessage(ServerCommunication.PasswordRenewalMessageRequest, userDetails);
+            //ServerCommunication.SendMessage(ServerCommunication.PasswordRenewalMessageRequest + "$" + userDetails);
 
         }
 

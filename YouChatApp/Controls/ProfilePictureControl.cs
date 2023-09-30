@@ -14,6 +14,7 @@ namespace YouChatApp.Controls
     {
         public Image ImageChosenAtTheMoment { get; private set; }
         string[] ImageChosenAtTheMomentId = new string[2];
+        string CurrentImageIndex;
         string CurrentTypeOfProfilePicture = "";
         Boolean ProfilePictureMatrixIsStandart = true;
         Boolean FirstProfilePictureMatrixUpload = true;
@@ -24,7 +25,8 @@ namespace YouChatApp.Controls
 
         public string GetImageNameID()
         {
-            return ImageChosenAtTheMomentId[0].Substring(0, ImageChosenAtTheMomentId[0].Length - "SelectionButton".Length) + ImageChosenAtTheMomentId[1];
+            CurrentImageIndex = GetIndexFromName(ImageChosenAtTheMomentId[1]).ToString();
+            return ImageChosenAtTheMomentId[0].Substring(0, ImageChosenAtTheMomentId[0].Length - "SelectionButton".Length) + CurrentImageIndex;
         }
 
         public ProfilePictureControl()
@@ -90,6 +92,21 @@ namespace YouChatApp.Controls
                 x = 30;
                 y += 85;
             }
+        }
+        private int GetIndexFromName(string Name)
+        {
+            string[] NameParts = Name.Split(',');
+            string rowAsString = NameParts[0];
+            string columnAsString = NameParts[1];
+            int row = int.Parse(rowAsString);
+            int column = int.Parse(columnAsString);
+            int lastRow = ProfileAvatarMatrix.GetLength(0) - 1;
+            int index = (row * ProfileAvatarMatrix.GetLength(1)) + column;
+            if (row == lastRow)
+            {
+                index -= 1;
+            }
+            return index;
         }
         private void ProfilePictureOption_Click(object sender, EventArgs e)
         {

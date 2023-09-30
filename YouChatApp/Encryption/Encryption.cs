@@ -15,5 +15,14 @@ namespace YouChatApp.Encryption
             string EncryptedMessage = AESServiceProvider.Encrypt(Message, Key, IV);
             return EncryptedMessage;
         }
+
+        public static string DecryptData(string SymmetricKey, string Message)
+        {
+            byte[] Key = Encoding.UTF8.GetBytes(SymmetricKey);
+            byte[] IV = new byte[16];
+
+            string DecryptedMessage = AESServiceProvider.Decrypt(Message, Key, IV);
+            return DecryptedMessage;
+        }
     }
 }

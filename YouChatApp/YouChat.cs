@@ -158,7 +158,8 @@ namespace YouChatApp
                 string Message = MessageTextBox.Text;
                 string SendMessageTime = DateTime.Now.ToString("HH:mm");
                 string MessageContant = Message + "#" + SendMessageTime;
-                ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + MessageContant);
+                ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest, MessageContant);
+                //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + MessageContant);
                 MessageTextBox.Text = "Here You Write Your Message";
                 MessageTextBox.ForeColor = Color.Silver;
             }
@@ -370,7 +371,8 @@ namespace YouChatApp
 
         private void YouChat_Load(object sender, EventArgs e)
         {
-            ServerCommunication.SendMessage(ServerCommunication.ContactInformationRequest + "$" + "Chat Information");
+            //ServerCommunication.SendMessage(ServerCommunication.ContactInformationRequest + "$" + "Chat Information");
+            ServerCommunication.SendMessage(ServerCommunication.ContactInformationRequest, "Chat Information");
 
         }
 
@@ -384,7 +386,8 @@ namespace YouChatApp
             else if ((e.KeyCode == Keys.Enter) && (MessageTextBox.Text !="") && (ServerCommunication.EnterKeyPress))
             {
                 string message = MessageTextBox.Text;
-                ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + message);
+                //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + message);
+                ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest, message);
                 MessageTextBox.Text = "Here You Write Your Message";
                 MessageTextBox.ForeColor = Color.Silver;
             }
