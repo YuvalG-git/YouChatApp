@@ -18,6 +18,7 @@ namespace YouChatApp.AttachedFiles
             InitializeComponent();
             ContactControlList = new List<ContactControl>();
             SearchBar.AddSearchOnClickHandler(SearchContacts);
+            passwordGeneratorControl1.OnTextChangedEventHandler(PasswordFieldsValueChecker);
             messageControl1.SetMessageControl();
             SetContactControlList();
         }
@@ -69,6 +70,19 @@ namespace YouChatApp.AttachedFiles
             }
           
         }
+        private void PasswordFieldsValueChecker(object sender, EventArgs e)
+        {
+            if (passwordGeneratorControl1.DoesAllFieldsHaveValue())
+            {
+                SendButton.Enabled = true;
+            }
+            else
+            {
+                SendButton.Enabled = false;
+
+            }
+        }
+
 
 
         private void SetContactControlList()

@@ -145,6 +145,10 @@ namespace YouChatApp.Controls
 
             }
         }
+        public bool isPlaceHolder()
+        {
+            return IsPlaceHolderProperty;
+        }
 
 
 

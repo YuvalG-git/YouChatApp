@@ -17,10 +17,13 @@ namespace YouChatApp.Controls
         /// </summary>
         private Image passwordNotShown = global::YouChatApp.Properties.Resources.showPassword;
         private Image passwordShown = global::YouChatApp.Properties.Resources.dontShowPassword;
+        public event EventHandler TextChangedEvent;
 
         private bool[] PasswordIsShownArray;
-        private bool OldPasswordVisibleProperty = false;
-
+        private bool OldPasswordVisibleProperty = true;
+        private bool IsCurrentOldPasswordVisible = true;
+        private int HeightDifference = 60;
+        private bool AllFieldsHaveValue = false;
         public bool OldPasswordVisible
         {
             get 
@@ -30,8 +33,7 @@ namespace YouChatApp.Controls
             set
             {
                 OldPasswordVisibleProperty = value;
-                SetCase(OldPasswordVisibleProperty);
-                this.Invalidate();
+                SetCase();
             }
         }
         public PasswordGeneratorControl(/*bool IsOldPasswordVisible*/)
@@ -45,6 +47,7 @@ namespace YouChatApp.Controls
 
         private void InitializePasswordViewerButtonArray()
         {
+            int height = 30;
             PasswordViewerButtonArray = new System.Windows.Forms.Button[3];
             for (int i = 0; i < PasswordViewerButtonArray.Length; i++)
             {
@@ -52,30 +55,79 @@ namespace YouChatApp.Controls
                 this.PasswordViewerButtonArray[i].BackgroundImage = passwordNotShown;
                 this.PasswordViewerButtonArray[i].BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
                 this.PasswordViewerButtonArray[i].FlatAppearance.BorderColor = System.Drawing.Color.Black;
-                this.PasswordViewerButtonArray[i].Location = new System.Drawing.Point(223, 95);
+                this.PasswordViewerButtonArray[i].Location = new System.Drawing.Point(250, height);
                 this.PasswordViewerButtonArray[i].Name = "ViewPasswordButtonNumber" + (i+1);
                 this.PasswordViewerButtonArray[i].Size = new System.Drawing.Size(22, 23);
                 this.PasswordViewerButtonArray[i].TabIndex = 18;
                 this.PasswordViewerButtonArray[i].UseMnemonic = false;
                 this.PasswordViewerButtonArray[i].UseVisualStyleBackColor = true;
                 this.PasswordViewerButtonArray[i].Click += new System.EventHandler(this.PasswordViewerButton_Click);
+                this.Controls.Add(this.PasswordViewerButtonArray[i]);
+                height += HeightDifference;
+
             }
         }
         private void InitializePasswordTextBoxArray()
         {
-            PasswordTextBoxArray = new System.Windows.Forms.TextBox[3];
+            int height = 30;
+            PasswordTextBoxArray = new CustomTextBox[3];
             for (int i = 0; i < PasswordTextBoxArray.Length; i++)
             {
-                PasswordTextBoxArray[i] = new System.Windows.Forms.TextBox();
+                PasswordTextBoxArray[i] = new CustomTextBox();
                 this.PasswordTextBoxArray[i].Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                this.PasswordTextBoxArray[i].Location = new System.Drawing.Point(6, 39);
+                this.PasswordTextBoxArray[i].Location = new System.Drawing.Point(10, height);
                 this.PasswordTextBoxArray[i].Size = new System.Drawing.Size(228, 26);
                 this.PasswordTextBoxArray[i].TabIndex = 1;
+                this.PasswordTextBoxArray[i].UnderlineStyle = true;
+                this.PasswordTextBoxArray[i].PasswordChar = true;
+                this.PasswordTextBoxArray[i].PlaceHolderText = "Enter New Password";
+                this.PasswordTextBoxArray[i].TextChangedEvent += new System.EventHandler(this.CheckPasswordFieldsValue);
+
+                this.Controls.Add(this.PasswordTextBoxArray[i]);
+
+
+                height += HeightDifference;
             }
             this.PasswordTextBoxArray[0].Name = "OldPasswordTextBox";
             this.PasswordTextBoxArray[1].Name = "NewPasswordTextBox";
             this.PasswordTextBoxArray[2].Name = "ConfirmPasswordTextBox";
+            this.PasswordTextBoxArray[0].PlaceHolderText = "Enter Old Password";
 
+
+        }
+        private void CheckPasswordFieldsValue(object sender, EventArgs e)
+        {
+            if ((IsContainingValue(PasswordTextBoxArray[1])) && (IsContainingValue(PasswordTextBoxArray[2])) && ((IsContainingValue(PasswordTextBoxArray[0])) || !OldPasswordVisibleProperty))
+            {
+                AllFieldsHaveValue = true;
+            }
+            else
+            {
+                AllFieldsHaveValue = false;
+
+            }
+            
+            TextChangedEvent?.Invoke(this, e);
+        }
+        private bool IsContainingValue(CustomTextBox PasswordTextBox)
+        {
+            if (PasswordTextBox.isPlaceHolder())
+            {
+                return false;
+            }
+            else if (PasswordTextBox.TextContent == "") //todo - for some reason it replaces the regular text with the place holder text...
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool DoesAllFieldsHaveValue()
+        {
+            return AllFieldsHaveValue;
+        }
+        public void OnTextChangedEventHandler(EventHandler handler)
+        {
+            TextChangedEvent += handler;
         }
         private void InitializePasswordIsShownArray()
         {
@@ -94,28 +146,51 @@ namespace YouChatApp.Controls
             PasswordIsShownArray[IndexLocation] = !PasswordIsShownArray[IndexLocation];
             if (PasswordIsShownArray[IndexLocation])
             {
-                this.PasswordTextBoxArray[IndexLocation].PasswordChar = '\0';
+                //this.PasswordTextBoxArray[IndexLocation].PasswordChar = '\0';
+                this.PasswordTextBoxArray[IndexLocation].PasswordChar = false;
                 ((Button)(sender)).BackgroundImage = passwordShown;
             }
             else
             {
-                this.PasswordTextBoxArray[IndexLocation].PasswordChar = '*';
-                ((Button)(sender)).BackgroundImage = passwordNotShown;
+                if (!this.PasswordTextBoxArray[IndexLocation].isPlaceHolder())
+                {
+                    //this.PasswordTextBoxArray[IndexLocation].PasswordChar = '*';
+                    this.PasswordTextBoxArray[IndexLocation].PasswordChar = true;
+                    ((Button)(sender)).BackgroundImage = passwordNotShown;
+                }
             }
         }
-        private void SetCase(bool IsOldPasswordVisible)
+        private void SetCase()
         {
-            this.OldPasswordLabel.Visible = IsOldPasswordVisible;
-            this.PasswordViewerButtonArray[0].Visible = IsOldPasswordVisible;
-            this.PasswordTextBoxArray[0].Visible = IsOldPasswordVisible;
-            if (IsOldPasswordVisible)
+            if (IsCurrentOldPasswordVisible != OldPasswordVisibleProperty)
             {
+                IsCurrentOldPasswordVisible = OldPasswordVisibleProperty;
+                this.OldPasswordLabel.Visible = OldPasswordVisibleProperty;
+                this.PasswordViewerButtonArray[0].Visible = OldPasswordVisibleProperty;
+                this.PasswordTextBoxArray[0].Visible = OldPasswordVisibleProperty;
+                if (!OldPasswordVisibleProperty)
+                {
+                    for (int i = PasswordTextBoxArray.Length - 1; i > 0; i--)
+                    {
+                        this.PasswordTextBoxArray[i].Location = new System.Drawing.Point(this.PasswordTextBoxArray[i].Location.X, this.PasswordTextBoxArray[i - 1].Location.Y);
+                        this.PasswordViewerButtonArray[i].Location = new System.Drawing.Point(this.PasswordViewerButtonArray[i].Location.X, this.PasswordViewerButtonArray[i - 1].Location.Y);
+                    }
+                    this.ConfirmPasswordLabel.Location = new System.Drawing.Point(this.ConfirmPasswordLabel.Location.X, this.NewPasswordLabel.Location.Y);
 
+                    this.NewPasswordLabel.Location = new System.Drawing.Point(this.NewPasswordLabel.Location.X, this.OldPasswordLabel.Location.Y);
+                }
+                else
+                {
+                    this.PasswordTextBoxArray[1].Location = new System.Drawing.Point(this.PasswordTextBoxArray[1].Location.X, this.PasswordTextBoxArray[2].Location.Y);
+                    this.PasswordTextBoxArray[2].Location = new System.Drawing.Point(this.PasswordTextBoxArray[2].Location.X, this.PasswordTextBoxArray[2].Location.Y + HeightDifference);
+                    this.PasswordViewerButtonArray[1].Location = new System.Drawing.Point(this.PasswordViewerButtonArray[1].Location.X, this.PasswordViewerButtonArray[2].Location.Y);
+                    this.PasswordViewerButtonArray[2].Location = new System.Drawing.Point(this.PasswordViewerButtonArray[2].Location.X, this.PasswordViewerButtonArray[2].Location.Y + HeightDifference);
+                    this.NewPasswordLabel.Location = new System.Drawing.Point(this.NewPasswordLabel.Location.X, this.ConfirmPasswordLabel.Location.Y);
+                    this.ConfirmPasswordLabel.Location = new System.Drawing.Point(this.ConfirmPasswordLabel.Location.X, this.ConfirmPasswordLabel.Location.Y + HeightDifference);
+                }
             }
-            else
-            {
+           
 
-            }
         }
         public bool IsSamePassword()
         {

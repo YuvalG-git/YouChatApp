@@ -414,7 +414,8 @@ namespace YouChatApp
                             {
                                 if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse1)
                                 {
-                                    
+                                    loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.HandlePasswordUpdateCase(); });
+
                                 }
                                 else if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse2)
                                 {

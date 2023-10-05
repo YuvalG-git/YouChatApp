@@ -177,6 +177,13 @@ namespace YouChatApp
             return PasswordAcceptanceText;
 
         }
+        public void HandlePasswordUpdateCase()
+        {
+            PasswordUpdateGroupBox.Visible = true;
+            LoginGroupBox.Visible = false;
+            RegistrationGroupBox.Visible = false;
+            ResetPasswordGroupBox.Visible = false;
+        }
 
             /// <summary>
             /// The "registButton_Click" event handler collects user input from textboxes and performs validation checks, displaying error messages if necessary
@@ -431,6 +438,8 @@ namespace YouChatApp
             RegisterScreenButton.Visible = false;
             RegistrationGroupBox.Visible = true;
             LoginGroupBox.Visible = false;
+            PasswordUpdateGroupBox.Visible = false;
+
         }
 
         /// <summary>
@@ -446,6 +455,8 @@ namespace YouChatApp
             LoginGroupBox.Visible = true;
             RegisterReturnToStarterScreenButton.Visible = false;
             RegisterScreenButton.Visible = true;
+            PasswordUpdateGroupBox.Visible = false;
+
         }
 
 
@@ -788,6 +799,8 @@ namespace YouChatApp
         {
             ResetPasswordGroupBox.Visible = true;
             LoginGroupBox.Visible = false;
+            PasswordUpdateGroupBox.Visible = false;
+            ResetPasswordGroupBox.Visible = false;
         }
 
 

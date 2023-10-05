@@ -80,7 +80,7 @@
         #endregion
 
         private System.Windows.Forms.Label OldPasswordLabel;
-        private System.Windows.Forms.TextBox[] PasswordTextBoxArray;
+        private CustomTextBox[] PasswordTextBoxArray;
 
         private System.Windows.Forms.Button[] PasswordViewerButtonArray;
         private System.Windows.Forms.Label NewPasswordLabel;
