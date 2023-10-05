@@ -233,7 +233,7 @@ namespace YouChatApp.Controls
                 }
                 else
                 {
-                    SetPlaceHolder();
+                    //SetPlaceHolder();
                     return TextBox.Text;
                 }
             }

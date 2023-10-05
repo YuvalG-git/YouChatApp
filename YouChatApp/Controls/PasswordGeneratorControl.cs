@@ -115,10 +115,18 @@ namespace YouChatApp.Controls
             {
                 return false;
             }
-            else if (PasswordTextBox.TextContent == "") //todo - for some reason it replaces the regular text with the place holder text...
+            else
             {
-                return false;
+                string text = PasswordTextBox.TextContent;
+                if (text == "")
+                {
+                    return false;
+                }
             }
+            //else if (PasswordTextBox.TextContent == "") //todo - for some reason it replaces the regular text with the place holder text...
+            //{
+            //    return false;
+            //}
             return true;
         }
         public bool DoesAllFieldsHaveValue()
