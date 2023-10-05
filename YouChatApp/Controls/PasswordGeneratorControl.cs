@@ -19,14 +19,30 @@ namespace YouChatApp.Controls
         private Image passwordShown = global::YouChatApp.Properties.Resources.dontShowPassword;
 
         private bool[] PasswordIsShownArray;
-        public PasswordGeneratorControl(bool IsOldPasswordVisible)
+        private bool OldPasswordVisibleProperty = false;
+
+        public bool OldPasswordVisible
+        {
+            get 
+            { 
+                return OldPasswordVisibleProperty;
+            }
+            set
+            {
+                OldPasswordVisibleProperty = value;
+                SetCase(OldPasswordVisibleProperty);
+                this.Invalidate();
+            }
+        }
+        public PasswordGeneratorControl(/*bool IsOldPasswordVisible*/)
         {
             InitializeComponent();
             InitializePasswordTextBoxArray();
             InitializePasswordViewerButtonArray();
             InitializePasswordIsShownArray();
-            SetCase(IsOldPasswordVisible);
+            //SetCase(IsOldPasswordVisible);
         }
+
         private void InitializePasswordViewerButtonArray()
         {
             PasswordViewerButtonArray = new System.Windows.Forms.Button[3];
@@ -48,7 +64,7 @@ namespace YouChatApp.Controls
         private void InitializePasswordTextBoxArray()
         {
             PasswordTextBoxArray = new System.Windows.Forms.TextBox[3];
-            for (int i = 0; i < PasswordViewerButtonArray.Length; i++)
+            for (int i = 0; i < PasswordTextBoxArray.Length; i++)
             {
                 PasswordTextBoxArray[i] = new System.Windows.Forms.TextBox();
                 this.PasswordTextBoxArray[i].Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

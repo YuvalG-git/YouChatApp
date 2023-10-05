@@ -78,6 +78,7 @@
             this.MenuBarPictureBox.Size = new System.Drawing.Size(20, 30);
             this.MenuBarPictureBox.TabIndex = 5;
             this.MenuBarPictureBox.TabStop = false;
+            this.MenuBarPictureBox.Click += new System.EventHandler(this.MenuBarPictureBox_Click);
             // 
             // ProfilePictureCircularPictureBox
             // 

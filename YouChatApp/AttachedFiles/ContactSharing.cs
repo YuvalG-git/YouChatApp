@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using YouChatApp.Controls;
+using YouChatApp.ContactHandler;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace YouChatApp.AttachedFiles
 {
     public partial class ContactSharing : Form
     {
-        int LastContactControlHeightLocation = 20;
+        int LastContactControlHeightLocation = 0;
         int ContactNumber = 0;
         string SelectedUsers;
         public ContactSharing() //can be use for sending messages from other chats as well - maybe i can send a string or int that represents the event and act accordinglly
@@ -17,23 +18,56 @@ namespace YouChatApp.AttachedFiles
             InitializeComponent();
             ContactControlList = new List<ContactControl>();
             SearchBar.AddSearchOnClickHandler(SearchContacts);
-
+            messageControl1.SetMessageControl();
             SetContactControlList();
         }
         private void SearchContacts(object sender, System.EventArgs e)
         {
-            MessageBox.Show("hu");
-            foreach(Contact Contact in ContactManager.UserContacts)
-            {
-                string[] NameParts = Contact.Name.Split(' ');
-                foreach (string NamePart in NameParts)
-                {
-                    if (SearchBar.Text.StartsWith(NamePart)) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
-                    { 
+            //foreach(Contact Contact in ContactManager.UserContacts) //this works for every contact. maybe it would be better to create for all the contacts a control and then just view the correct ones...
+            //{
+            //    string[] NameParts = Contact.Name.Split(' ');
+            //    foreach (string NamePart in NameParts)
+            //    {
+            //        if (SearchBar.TextContent.StartsWith(NamePart)) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+            //        { 
 
-                    }
+            //        }
+            //    }
+            //}
+            string Text = SearchBar.SeacrhBar.TextContent;
+            LastContactControlHeightLocation = 0;
+            if (Text.Length == 0)
+            {
+                foreach (ContactControl Contact in ContactControlList)
+                {
+                    Contact.Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
+                    LastContactControlHeightLocation += Contact.Height + 10;
+                    Contact.Visible = true;
+
                 }
             }
+            else
+            {
+                foreach (ContactControl Contact in ContactControlList) //this works for every contact. maybe it would be better to create for all the contacts a control and then just view the correct ones...
+                {
+                    string[] NameParts = Contact.ContactName.Text.Split(' ');
+                    bool IsVisible = false;
+                    foreach (string NamePart in NameParts)
+                    {
+                        if (NamePart.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                        {
+                            Contact.Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
+                            IsVisible = true;
+                        }
+                    }
+                    if (IsVisible)
+                    {
+                        LastContactControlHeightLocation += Contact.Height + 10;
+                    }
+                    Contact.Visible = IsVisible;
+                }
+            }
+          
         }
 
 
@@ -45,7 +79,7 @@ namespace YouChatApp.AttachedFiles
             //        LastContactControlHeightLocation = this.ContactControlList[ContactNumber - 1].Location.Y + this.ContactControlList[ContactNumber - 1].Size.Height + 10;
             //    this.ContactControlList.Add(new ContactControl());
             //    this.ContactControlList[ContactNumber].Location = new System.Drawing.Point(30, LastContactControlHeightLocation);
-            //    this.ContactControlList[ContactNumber].Name = "ContactControlNumber:" + ContactNumber;
+            //    this.ContactControlList[ContactNumber].Name = Contact.Name;
             //    this.ContactControlList[ContactNumber].TabIndex = 0;
             //    this.ContactControlList[ContactNumber].BackColor = SystemColors.Control;
             //    this.ContactControlList[ContactNumber].ContactName.Text += ContactNumber;
@@ -61,26 +95,18 @@ namespace YouChatApp.AttachedFiles
             //    }
             //    ContactNumber++;
             //}
-            for (ContactNumber = 0; ContactNumber<6; ContactNumber++)
+            for (ContactNumber = 0; ContactNumber<4; ContactNumber++)
             {
                 if (ContactNumber != 0)
                     LastContactControlHeightLocation = this.ContactControlList[ContactNumber - 1].Location.Y + this.ContactControlList[ContactNumber - 1].Size.Height + 10;
                 this.ContactControlList.Add(new ContactControl());
-                this.ContactControlList[ContactNumber].Location = new System.Drawing.Point(30, LastContactControlHeightLocation);
-                this.ContactControlList[ContactNumber].Name = "ContactControlNumber:" + ContactNumber;
+                this.ContactControlList[ContactNumber].Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
+                this.ContactControlList[ContactNumber].Name = "4ContactControlNumber:" + ContactNumber;
                 this.ContactControlList[ContactNumber].TabIndex = 0;
                 this.ContactControlList[ContactNumber].BackColor = SystemColors.Control;
                 this.ContactControlList[ContactNumber].ContactName.Text += ContactNumber;
-
                 this.Controls.Add(this.ContactControlList[ContactNumber]);
                 this.ContactPanel.Controls.Add(this.ContactControlList[ContactNumber]);
-
-                if (this.ContactPanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
-                {
-                    //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
-                    Control LastControl = this.ContactControlList[ContactNumber];
-                    this.ContactPanel.ScrollControlIntoView(LastControl);
-                }
 
             }
 

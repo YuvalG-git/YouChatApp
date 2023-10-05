@@ -17,9 +17,9 @@ namespace YouChatApp.Controls
             InitializeComponent();
         }
         public event EventHandler Search;
-
         public CustomTextBox SeacrhBar => SearchBarCustomTextBox;
 
+        
 
         private void SearchBar_Load(object sender, EventArgs e)
         {
@@ -35,16 +35,8 @@ namespace YouChatApp.Controls
             Search += handler;
         }
 
-        public string TextContent
+        private void SearchBarCustomTextBox_MouseDown(object sender, MouseEventArgs e)
         {
-            get
-            {
-                return SearchBarCustomTextBox.Text;
-            }
-            set
-            {
-                SearchBarCustomTextBox.Text = value;
-            }
         }
     }
 }

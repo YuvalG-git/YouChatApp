@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YouChatApp.AttachedFiles;
+using YouChatApp.Controls;
 
 namespace YouChatApp
 {
@@ -20,10 +21,14 @@ namespace YouChatApp
     {
         Profile profile;
         public static int MessageNumber = 0;
-        public static int height = 10;
+        public static int heightForMessages = 10;
+        public static int heightForContacts = 10;
+        public static int heightForFriendRequests = 10;
+
         public static int messageGap = 10; 
         public static DateTime Time;
         public static int ContactChatNumber = 0;
+        public static int FriendRequestsNumber = 0;
         public static ResourceSet[] resourceSetArray;
 
         public YouChat()
@@ -33,11 +38,14 @@ namespace YouChatApp
             MessageLabels = new List<Label>();
             MessageControlListOfLists = new List<List<MessageControl>>();
             ChatControlListOfContacts = new List<ChatControl>();
+            ListOfFriendRequestControl = new List<FriendRequestControl>();
             IDNameLabel.Text = ServerCommunication.name;
             MessageControlListOfLists.Add(new List<MessageControl>());
 
-            ProfilePictureImageList.InitializeImageLists();
+            //ProfilePictureImageList.InitializeImageLists();
             SetResourceSetArray();
+            ServerCommunication.SendMessage(ServerCommunication.UserDetailsRequest, " ");
+
         }
         private void SetResourceSetArray()
         {
@@ -82,6 +90,10 @@ namespace YouChatApp
             LettersAndNumbersArray[1] = Numbers;
             return LettersAndNumbersArray;
         }
+        public void SetProfilePicture(Image ProfilePicture)
+        {
+            ProfileButton.BackgroundImage = ProfilePicture;
+        }
 
         public void SetChatControlListOfContacts(string ChatInformation)
         {
@@ -104,11 +116,11 @@ namespace YouChatApp
                 ContactProfilePictureNumber = ContactProfilePictureInformation[1]; // to understand how to seperate them
 
                 if (ContactChatNumber == 0)
-                    height = 0;
+                    heightForContacts = 0;
                 else
-                    height = this.ChatControlListOfContacts[ContactChatNumber - 1].Location.Y + this.ChatControlListOfContacts[ContactChatNumber - 1].Size.Height;
+                    heightForContacts = this.ChatControlListOfContacts[ContactChatNumber - 1].Location.Y + this.ChatControlListOfContacts[ContactChatNumber - 1].Size.Height;
                 this.ChatControlListOfContacts.Add(new ChatControl());
-                this.ChatControlListOfContacts[ContactChatNumber].Location = new System.Drawing.Point(0, height);
+                this.ChatControlListOfContacts[ContactChatNumber].Location = new System.Drawing.Point(0, heightForContacts);
                 this.ChatControlListOfContacts[ContactChatNumber].Name = "ChatControlNumber:" + ContactChatNumber;
                 this.ChatControlListOfContacts[ContactChatNumber].TabIndex = 0;
                 this.ChatControlListOfContacts[ContactChatNumber].BackColor = SystemColors.Control;
@@ -216,7 +228,69 @@ namespace YouChatApp
         {
             ProfileButton.Enabled = true;
         }
+        public void SetListOfFriendRequestControl(string ChatInformation)
+        {
+            string[] ContactsInformation = ChatInformation.Split('#'); //todo check how i can allow the users to send # and more without the split activating - i thing maybe i need to put / or something before 
+            string ContactUsername;
+            string ContactProfilePictureID;
+            string ContactProfilePictureKind;
+            string ContactProfilePictureNumber;
+            for (int i = 0; i < ContactsInformation.Length; i++)
+            {
+                string[] ContactDetails = ContactsInformation[i].Split('^');
+                ContactUsername = ContactDetails[0];
+                ContactProfilePictureID = ContactDetails[1];
+                string[] ContactProfilePictureInformation = SeparateLettersAndNumbers(ContactProfilePictureID);
+                ContactProfilePictureKind = ContactProfilePictureInformation[0];
+                ContactProfilePictureNumber = ContactProfilePictureInformation[1]; // to understand how to seperate them
 
+                if (FriendRequestsNumber == 0)
+                    heightForFriendRequests = 0;
+                else
+                    heightForFriendRequests = this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Location.Y + this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Size.Height;
+                this.ListOfFriendRequestControl.Add(new FriendRequestControl());
+                this.ListOfFriendRequestControl[FriendRequestsNumber].Location = new System.Drawing.Point(0, heightForFriendRequests);
+                this.ListOfFriendRequestControl[FriendRequestsNumber].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
+                this.ListOfFriendRequestControl[FriendRequestsNumber].TabIndex = 0;
+                this.ListOfFriendRequestControl[FriendRequestsNumber].BackColor = SystemColors.Control;
+                this.ListOfFriendRequestControl[FriendRequestsNumber].ContactName.Text = ContactUsername;
+                this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
+                this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
+
+                //todo - for this code i should maybe create a genric method:
+                if (ContactProfilePictureKind == "Male")
+                {
+                    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[ContactProfilePictureNumber];
+                }
+                else if (ContactProfilePictureKind == "Female")
+                {
+                    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.FemaleProfilePictureImageList.Images[ContactProfilePictureNumber];
+
+                }
+                else if (ContactProfilePictureKind == "Animal")
+                {
+                    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[ContactProfilePictureNumber];
+
+
+                }
+                this.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
+                this.FriendRequestPanel.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
+                FriendRequestsNumber++;
+
+
+            }
+        }
+        public void HandleFriendRequestApproval(object sender, EventArgs e)
+        {
+            //todo -needs to remove it from the list of friend requests...
+            this.ListOfFriendRequestControl.Remove((FriendRequestControl)(sender));
+            //also needs to restart height
+            FriendRequestsNumber--;
+        }
+        public void HandleFriendRequestRefusal(object sender, EventArgs e)
+        {
+            FriendRequestsNumber--;
+        }
 
 
         public void Message(string MessageInfo)
@@ -227,15 +301,17 @@ namespace YouChatApp
             string SendMessageTime = MessageDetails[2];
 
             if (MessageNumber != 0)
-                height = this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Location.Y + this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Size.Height + messageGap;
+                heightForMessages = this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Location.Y + this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Size.Height + messageGap;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID].Add(new MessageControl());
-            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Location = new System.Drawing.Point(30, height);
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Location = new System.Drawing.Point(30, heightForMessages);
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Name = "MessageControlNumber:" + MessageNumber;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].TabIndex = 0;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].BackColor = SystemColors.Control;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Username.Text = SenderUsername;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Message.Text = MessageContent;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Time.Text = SendMessageTime;
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].ProfilePicture.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture; //shouldn't use that... should receive the user image from the contact class...
+
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].SetMessageControl();
             this.Controls.Add(this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber]);
             this.MessagePanel.Controls.Add(this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber]);
@@ -444,7 +520,7 @@ namespace YouChatApp
         }
         public void ChangeMessagesAppearance()
         {
-            height = 10;
+            heightForMessages = 10;
             int NumberOfMessage = 0;
             foreach (List<MessageControl> MessageList in MessageControlListOfLists)
             {
@@ -453,9 +529,9 @@ namespace YouChatApp
                 {
                     Message.SetMessageControlTextSize();
                     if (MessageNumber != 0)
-                        height = this.MessageControlListOfLists[MessageList.Count][NumberOfMessage - 1].Location.Y + this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Size.Height + messageGap;
+                        heightForMessages = this.MessageControlListOfLists[MessageList.Count][NumberOfMessage - 1].Location.Y + this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Size.Height + messageGap;
                     this.MessageControlListOfLists[MessageList.Count][NumberOfMessage].SetMessageControl();
-                    this.MessageControlListOfLists[MessageList.Count][NumberOfMessage].Location = new System.Drawing.Point(30, height);
+                    this.MessageControlListOfLists[MessageList.Count][NumberOfMessage].Location = new System.Drawing.Point(30, heightForMessages);
 
                     NumberOfMessage++;
                 }
@@ -469,6 +545,14 @@ namespace YouChatApp
         private void VideoFileButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void RequestSender_Click(object sender, EventArgs e)
+        {
+            string usernameId = UserIDTextBox.Text;
+            string usernameTagLine = UserTagLineTextBox.Text;
+            string userIdDetails = usernameId + "#" + usernameTagLine;
+            ServerCommunication.SendMessage(ServerCommunication.FriendRequestSender, userIdDetails);
         }
     }
 }

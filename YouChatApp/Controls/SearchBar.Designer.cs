@@ -80,6 +80,7 @@
             this.SearchBarCustomTextBox.TextContent = "";
             this.SearchBarCustomTextBox.UnderlineStyle = false;
             this.SearchBarCustomTextBox.TextChangedEvent += new System.EventHandler(this.OnSearch);
+            this.SearchBarCustomTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SearchBarCustomTextBox_MouseDown);
             // 
             // SearchBar
             // 

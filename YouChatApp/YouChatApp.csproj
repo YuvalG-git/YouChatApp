@@ -84,8 +84,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttachedFiles\Contact.cs" />
-    <Compile Include="AttachedFiles\ContactManager.cs" />
+    <Compile Include="ContactHandler\Contact.cs" />
+    <Compile Include="ContactHandler\ContactManager.cs" />
     <Compile Include="AttachedFiles\EmojiObject.cs" />
     <Compile Include="AttachedFiles\MessageChar.cs" />
     <Compile Include="AttachedFiles\ContactSharing.cs">
@@ -156,6 +156,12 @@
     <Compile Include="Controls\CustomTextBox.Designer.cs">
       <DependentUpon>CustomTextBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FriendRequestControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FriendRequestControl.Designer.cs">
+      <DependentUpon>FriendRequestControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\GraphicsHandler.cs" />
     <Compile Include="Controls\PasswordGeneratorControl.cs">
       <SubType>UserControl</SubType>
@@ -212,10 +218,10 @@
     </Compile>
     <Compile Include="MessageType.cs" />
     <Compile Include="PasswordHandler.cs" />
-    <Compile Include="Profile.cs">
+    <Compile Include="UserProfile\Profile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Profile.Designer.cs">
+    <Compile Include="UserProfile\Profile.Designer.cs">
       <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
     <Compile Include="ProfilePictureImageList.cs" />
@@ -295,6 +301,7 @@
       <DependentUpon>MessageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="SmtpHandler.cs" />
+    <Compile Include="UserProfile\ProfileDetailsHandler.cs" />
     <Compile Include="YouChat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -325,6 +332,9 @@
     <EmbeddedResource Include="Controls\CustomTextBox.resx">
       <DependentUpon>CustomTextBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FriendRequestControl.resx">
+      <DependentUpon>FriendRequestControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\PasswordGeneratorControl.resx">
       <DependentUpon>PasswordGeneratorControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -349,7 +359,7 @@
     <EmbeddedResource Include="AttachedFiles\Paint.resx">
       <DependentUpon>Paint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Profile.resx">
+    <EmbeddedResource Include="UserProfile\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Activities_Emoji.resx">
@@ -12025,6 +12035,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Resend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

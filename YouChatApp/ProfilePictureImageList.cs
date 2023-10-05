@@ -18,7 +18,25 @@ namespace YouChatApp
 
         private static ImageList[] ImageListArray;
 
-        public static void InitializeImageLists()
+        //public static void InitializeImageLists()
+        //{
+        //    MaleProfilePictureImageList = new ImageList();
+        //    FemaleProfilePictureImageList = new ImageList();
+        //    AnimalProfilePictureImageList = new ImageList();
+        //    ImageListArray = new ImageList[] { MaleProfilePictureImageList, FemaleProfilePictureImageList, AnimalProfilePictureImageList };
+
+        //    foreach (ImageList ProfilePictureImageList in ImageListArray)
+        //    {
+        //        ProfilePictureImageList.TransparentColor = System.Drawing.Color.Transparent;
+        //        ProfilePictureImageList.ImageSize = new Size(124, 124);
+        //        ProfilePictureImageList.ColorDepth = ColorDepth.Depth32Bit;
+        //    }
+        //    LoadImagesFromResources("BoyCharacter");
+        //    LoadImagesFromResources("GirlCharacter");
+        //    LoadImagesFromResources("AnimalCharacter");
+
+        //}
+        static ProfilePictureImageList()
         {
             MaleProfilePictureImageList = new ImageList();
             FemaleProfilePictureImageList = new ImageList();
@@ -80,6 +98,35 @@ namespace YouChatApp
                     }
                 }
             }
+        }
+
+        public static Image GetImageByImageId(string ImageId) //maybe i need to make a method that seperates chars from numbers...
+        {
+            //InitializeImageLists();
+            Image profilePicture;
+            string IdAsString;
+            int Id;
+            if (ImageId.StartsWith("Male"))
+            {
+                IdAsString = ImageId.Replace("Male", "");
+                Id = int.Parse(IdAsString);
+                profilePicture = MaleProfilePictureImageList.Images[Id]; //todo - change beacuse it inserts the wrong image
+                string name = "BoyCharacter" + (Id + 1);
+                profilePicture = Properties.MaleProfilePicture.ResourceManager.GetObject(name) as Image;
+            }
+            else if(ImageId.StartsWith("Female"))
+            {
+                IdAsString = ImageId.Replace("Female", "");
+                Id = int.Parse(IdAsString);
+                profilePicture = FemaleProfilePictureImageList.Images[Id];
+            }
+            else
+            {
+                IdAsString = ImageId.Replace("Animal", "");
+                Id = int.Parse(IdAsString);
+                profilePicture = AnimalProfilePictureImageList.Images[Id];
+            }
+            return profilePicture;
         }
 
 

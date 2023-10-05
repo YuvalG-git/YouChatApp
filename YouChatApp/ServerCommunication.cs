@@ -9,8 +9,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using YouChatApp.ContactHandler;
 using YouChatApp.Encryption;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Image = System.Drawing.Image;
 
@@ -28,6 +31,13 @@ namespace YouChatApp
         public const int PasswordRenewalMessageResponse = 43;
         public const int InitialProfileSettingsCheckRequest = 44;
         public const int InitialProfileSettingsCheckResponse = 45;
+        public const int FriendRequestSender = 48;
+        public const int FriendRequestReceiver = 49;
+        public const int FriendRequestResponseSender = 50;
+        public const int FriendRequestResponseReceiver = 51;
+
+        public const int UserDetailsRequest = 46;
+        public const int UserDetailsResponse = 47;
         public const int registerRequest = 1;
         public const int registerResponse = 2;
         public const int loginRequest = 3;
@@ -80,12 +90,16 @@ namespace YouChatApp
         const string colorResponse3 = "Your oppoenent has already chosen this color \nPlease choose a diffrenet color";
         const string ResetPasswordResponse1 = "The username and email address were matching";
         const string ResetPasswordResponse2 = "The username and email address weren't matching";
-        const string InitialProfileSettingsCheckResponse1 = "The login has been successfully completed but You haven't selected profile picture and status yet";
-        const string InitialProfileSettingsCheckResponse2 = "The login has been successfully completed but You haven't selected status yet";
-        const string InitialProfileSettingsCheckResponse3 = "The login has been successfully completed";
+        const string InitialProfileSettingsCheckResponse1 = "The login has been successfully completed but you need to change your password";
+        const string InitialProfileSettingsCheckResponse2 = "The login has been successfully completed but You haven't selected profile picture and status yet";
+        const string InitialProfileSettingsCheckResponse3 = "The login has been successfully completed but You haven't selected status yet";
+        const string InitialProfileSettingsCheckResponse4 = "The login has been successfully completed";
         const string PasswordRenewalMessageResponse1 = "This password has already been chosen by you before";
         const string PasswordRenewalMessageResponse2 = "Your new password has been saved";
         const string PasswordRenewalMessageResponse3 = "An error occured";
+        public const string FriendRequestResponseSender1 = "Approval";
+        public const string FriendRequestResponseSender2 = "Rejection";
+
         /// <summary>
         /// Object which represents the server's TCP client
         /// </summary>
@@ -146,7 +160,7 @@ namespace YouChatApp
         /// </summary>
         public static int size;
 
-
+        public static Contact _myData;
         /// <summary>
         /// Represents the X coordinate of the board 
         /// </summary>
@@ -172,6 +186,8 @@ namespace YouChatApp
         public static string ProfilePictureId;
         public static string ProfileStatus;
 
+
+        public static ProfilePictureImageList profilePictureImageList = new ProfilePictureImageList();
         /// <summary>
         /// The Connect method attempts to establish a TCP/IP connection with a server using the provided IP addressand port: 1500
         /// If the connection attempt fails, a MessageBox is displayed to the user
@@ -398,20 +414,47 @@ namespace YouChatApp
                             {
                                 if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse1)
                                 {
+                                    
+                                }
+                                else if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse2)
+                                {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenInitialProfileSelection(true); });
 
                                 }
-                                else if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse2)
+                                else if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse3)
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenInitialProfileSelection(false); });
 
                                 }
-                                else if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse3)
+                                else if (DecryptedMessageDetails == InitialProfileSettingsCheckResponse4)
                                 {
                                     MessageBox.Show(DecryptedMessageDetails);
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.OpenApp(); });
                                 }
                             }
+                            else if(requestNumber == UserDetailsResponse)
+                            {
+                                //ProfilePictureImageList.InitializeImageLists();
+                                string[] MyContactContent = DecryptedMessageDetails.Split('#');
+                                UserProfile.ProfileDetailsHandler.Name = MyContactContent[0];
+                                UserProfile.ProfileDetailsHandler.ProfilePictureId = MyContactContent[1]; //need to convert it to the image
+                                UserProfile.ProfileDetailsHandler.ProfilePicture = GetImageByImageId(UserProfile.ProfileDetailsHandler.ProfilePictureId);//returns the wrong image for some reason
+                                                                                                                                                         //it returns the wrong image beacuse of a wrong number of images in the list
+                                                                                                                                                         //a soultion might be a object and not a static class...
+                                UserProfile.ProfileDetailsHandler.Status = MyContactContent[2];
+                                UserProfile.ProfileDetailsHandler.LastSeenProperty = bool.Parse(MyContactContent[3]); //a solution...
+                                UserProfile.ProfileDetailsHandler.OnlineProperty = bool.Parse(MyContactContent[4]);
+                                UserProfile.ProfileDetailsHandler.ProfilePictureProperty = bool.Parse(MyContactContent[5]);
+                                UserProfile.ProfileDetailsHandler.StatusProperty = bool.Parse(MyContactContent[6]);
+                                UserProfile.ProfileDetailsHandler.TextSize = int.Parse(MyContactContent[7]);
+                                UserProfile.ProfileDetailsHandler.MessageGap = int.Parse(MyContactContent[8]);
+                                UserProfile.ProfileDetailsHandler.EnterKeyPressed = bool.Parse(MyContactContent[9]);
+                                youChat.Invoke((Action)delegate { youChat.SetProfilePicture(UserProfile.ProfileDetailsHandler.ProfilePicture); });
+
+                                //needs to restart everything according to it...
+
+                            }
+
                         }
 
                        
@@ -433,25 +476,54 @@ namespace YouChatApp
             }
         }
 
+        public static Image GetImageByImageId(string ImageId) //maybe i need to make a method that seperates chars from numbers...
+        {
+            //InitializeImageLists();
+            Image profilePicture;
+            string IdAsString;
+            int Id;
+            if (ImageId.StartsWith("Male"))
+            {
+                IdAsString = ImageId.Replace("Male", "");
+                Id = int.Parse(IdAsString);
+                profilePicture = ProfilePictureImageList.MaleProfilePictureImageList.Images[Id]; //todo - change beacuse it inserts the wrong image
+                string name = "BoyCharacter" + (Id + 1);
+                //profilePicture = Properties.MaleProfilePicture.ResourceManager.GetObject(name) as Image;
+            }
+            else if (ImageId.StartsWith("Female"))
+            {
+                IdAsString = ImageId.Replace("Female", "");
+                Id = int.Parse(IdAsString);
+                profilePicture = ProfilePictureImageList.MaleProfilePictureImageList.Images[Id];
+            }
+            else
+            {
+                IdAsString = ImageId.Replace("Animal", "");
+                Id = int.Parse(IdAsString);
+                profilePicture = ProfilePictureImageList.MaleProfilePictureImageList.Images[Id];
+            }
+            return profilePicture;
+        }
+
         /// <summary>
         /// The SendMessage method sends a message to the server
         /// </summary>
         /// <param name="message">Represents the message the client sends to the server</param>
-        public static void SendMessage(int messageId,string messageContent)
+        public static void SendMessage(int messageId,string messageContent) //maybe to add a function that recieves only messageId (i dont need to send content all the time...)
         {
             if (isConnected)
             {
                 try
                 {
-                    string message;
+                    string message = messageId + "$";
                     if (messageId == EncryptionClientPublicKeySender)
                     {
-                        message = messageId + "$" + messageContent;
+                        message += messageContent;
                     }
                     else
                     {
                         string EncryptedMessageContent = Encryption.Encryption.EncryptData(SymmetricKey, messageContent);
-                        message = messageId + "$" + EncryptedMessageContent;
+                        message += EncryptedMessageContent;
                     }
                     NetworkStream ns = Client.GetStream();
 

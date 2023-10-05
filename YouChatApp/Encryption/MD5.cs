@@ -8,7 +8,7 @@ namespace YouChatApp.Encryption
 {
     internal class MD5
     {
-        static public string CreateMD5Hash(string Input)//crypts passwords
+        public static string CreateMD5Hash(string Input)//crypts passwords
         {
             // Step 1, calculate MD5 hash from input
             System.Security.Cryptography.MD5 Md5 = System.Security.Cryptography.MD5.Create();

@@ -22,6 +22,8 @@ namespace YouChatApp
         private Rectangle MenuAreaRectangle;
         private Rectangle MenuItemsAreaRectangle;
         private bool MenuItemsIsVisible = false;
+        private bool IsOnMenuItem = false;
+        private bool WasDeleted = false;
 
         Image DeleteImage = global::YouChatApp.Properties.Resources.Delete;
         Image CopyImage = global::YouChatApp.Properties.Resources.Copy;
@@ -45,20 +47,7 @@ namespace YouChatApp
 
         public void SetMessageControl()
         {
-            int MessageControlToMessageLabelWidth = MessageLabel.Location.X - this.Location.X;
-            int NewWidth = MessageLabel.Width + MessageControlToMessageLabelWidth + RectangleWidth + 10;
-            if (NewWidth > this.Width)
-            {
-                this.Width = NewWidth;
-                int TimeLabelYCoordination = MessageLabel.Height + MessageLabel.Location.Y + 5;
-                int TimeLabelXCoordination = MessageLabel.Width + MessageLabel.Location.X - TimeLabel.Width + 5;
-                TimeLabel.Location = new System.Drawing.Point(TimeLabelXCoordination, TimeLabelYCoordination);
-                this.Height = TimeLabel.Height + TimeLabel.Location.Y + 10;
-                int MenuBarPictureBoxYCoordination = (this.Height - MenuBarPictureBox.Height) / 2;
-                int MenuBarPictureBoxXCoordination = this.Width - MenuBarPictureBox.Width;
-                MenuBarPictureBox.Location = new System.Drawing.Point(MenuBarPictureBoxXCoordination, MenuBarPictureBoxYCoordination);
-                this.Size = new System.Drawing.Size(this.Width, this.Height);
-            }
+            HandleMessageControlDesign();
             NoramlWidth = this.Width;
             ControlHeight = this.Height;
             InitializeMenu();
@@ -68,6 +57,22 @@ namespace YouChatApp
 
 
 
+        }
+        private void HandleMessageControlDesign()
+        {
+            int NewWidth = MessageLabel.Location.X + MessageLabel.Width + RectangleWidth + 10;
+            if (NewWidth > this.Width)
+            {
+                this.Width = NewWidth;
+                int TimeLabelYCoordination = MessageLabel.Height + MessageLabel.Location.Y + 5;
+                int TimeLabelXCoordination = MessageLabel.Width + MessageLabel.Location.X - TimeLabel.Width + 5;
+                TimeLabel.Location = new System.Drawing.Point(TimeLabelXCoordination, TimeLabelYCoordination);
+                this.Height = TimeLabel.Height + TimeLabel.Location.Y + 10;
+                this.Size = new System.Drawing.Size(this.Width, this.Height);
+                int MenuBarPictureBoxYCoordination = (this.Height - MenuBarPictureBox.Height) / 2;
+                int MenuBarPictureBoxXCoordination = this.Width - MenuBarPictureBox.Width - 10;
+                MenuBarPictureBox.Location = new System.Drawing.Point(MenuBarPictureBoxXCoordination, MenuBarPictureBoxYCoordination);
+            }
         }
 
         private void SetMenuAreaRectangle()
@@ -101,9 +106,11 @@ namespace YouChatApp
                 this.MenuButtons[i].BackColor = SystemColors.Control;
                 this.MenuButtons[i].UseVisualStyleBackColor = true;
                 this.MenuButtons[i].BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-                this.Controls.Add(MenuButtons[i]);
 
                 this.MenuButtons[i].Click += new System.EventHandler(MenuButtons_Click);
+                //this.MenuButtons[i].MouseEnter += new System.EventHandler(this.MenuButton_MouseEnter);
+                //this.MenuButtons[i].MouseLeave += new System.EventHandler(this.MenuButton_MouseLeave);
+
 
                 XValue += this.MenuButtons[i].Size.Width + 10;
             }
@@ -126,9 +133,12 @@ namespace YouChatApp
                 if (MessageBox.Show("Are you sure you want to delete this message?", "Delete Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) // maybe to show a little bit of the message
                 {
                     MessageLabel.Text = "This message has been deleted";
-                    MenuBarPictureBox.Visible = false; //to do a check when sending the messages if this is a deleted message - in case it is, make sure the menubar is invisible
+                    WasDeleted = true;
+                    MenuBarPictureBox.Visible = false;
+
+                    HandleMessageControlDesign();
+                    //to do a check when sending the messages if this is a deleted message - in case it is, make sure the menubar is invisible
                     //when deleting need to update the chat member so they will change it and the xml chat file
-                    SetMessageControl();
                     WasChosen = true;
                 }
             }
@@ -145,7 +155,7 @@ namespace YouChatApp
             }
             if (WasChosen)
             {
-                CloseMenuItems();
+                RemoveMenuButtonsFromControls();
             }
         }
 
@@ -202,18 +212,24 @@ namespace YouChatApp
         {
             Point cursorLocation = this.PointToClient(((Control)sender).PointToScreen(e.Location));
 
-            if (PressIsOnRightEdgeRectangle(cursorLocation))
+            if ((PressIsOnRightEdgeRectangle(cursorLocation)) && (!WasDeleted))
             {
                 this.Width += 120;
                 MenuBarPictureBox.Visible = false;
                 MenuItemsIsVisible = true;
                 foreach (Button MenuButton in MenuButtons)
                 {
-                    //this.Controls.Add(MenuButton);
-                    //MenuButton.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MessageControl_MouseMove);
-
+                    this.Controls.Add(MenuButton);
                 }
             }
+        }
+        private void MenuButton_MouseEnter(object sender, EventArgs e)
+        {
+            IsOnMenuItem = true;
+        }
+        private void MenuButton_MouseLeave(object sender, EventArgs e)
+        {
+            IsOnMenuItem = false;
         }
         private void ControlsMouseDown()
         {
@@ -242,7 +258,7 @@ namespace YouChatApp
             {
                 Point cursorLocation = this.PointToClient(((Control)sender).PointToScreen(e.Location));
 
-                if (!IsMouseCursorOverMenuItemsRectangle(cursorLocation))
+                if ((!IsMouseCursorOverMenuItemsRectangle(cursorLocation)) && (!IsOnMenuItem))
                 {
                     CloseMenuItems();
                 }
@@ -261,22 +277,41 @@ namespace YouChatApp
 
         private void MessageControl_MouseLeave(object sender, EventArgs e)
         {
-            if (MenuItemsIsVisible)
+            Point cursorPos = Cursor.Position;
+
+            // Convert the screen coordinates to client coordinates of the control
+            Point controlPos = PointToClient(cursorPos);
+
+            // Check if the cursor is still within the control's client rectangle
+            if (!ClientRectangle.Contains(controlPos))
             {
-                CloseMenuItems();
+                if (MenuItemsIsVisible)
+                {
+                    CloseMenuItems();
+                }
             }
+
         }
         private void CloseMenuItems()
         {
             this.Width = NoramlWidth;
-            MenuItemsIsVisible = false;
             MenuBarPictureBox.Visible = true;
+            RemoveMenuButtonsFromControls();
+        }
+        private void RemoveMenuButtonsFromControls()
+        {
+            MenuItemsIsVisible = false;
             foreach (Button MenuButton in MenuButtons)
             {
-                //this.Controls.Remove(MenuButton);
-                //MenuButton.MouseMove -= new System.Windows.Forms.MouseEventHandler(this.MessageControl_MouseMove);
+                this.Controls.Remove(MenuButton);
+                MenuButton.MouseMove -= new System.Windows.Forms.MouseEventHandler(this.MessageControl_MouseMove);
 
             }
+        }
+
+        private void MenuBarPictureBox_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

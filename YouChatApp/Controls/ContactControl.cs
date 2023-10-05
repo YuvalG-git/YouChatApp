@@ -85,5 +85,6 @@ namespace YouChatApp
                 Graphics.DrawRectangle(BorderPen, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
             }
         }
+
     }
 }

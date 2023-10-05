@@ -40,11 +40,8 @@ namespace YouChatApp
             SmtpClient.EnableSsl = true;
             SmtpClient.Credentials = new NetworkCredential(YouChatSmtpSourceEmail, YouChatSmtpPassword);
             EmailBodyContent = new string[3];
-            //EmailBodyContent[0] = "Welcome to YouChat!\nWe are Glad that you chose to join our platform\nHere is your code:\n";
             EmailBodyContent[0] = "<p style='color: #008080; font-size: 16px; direction: ltr;'>Welcome to YouChat!<br>We are glad you chose to join our platform</p>";
             EmailBodyContent[0] += "<p style='color: black; font-size: 16px; font-weight: bold; direction: ltr;'>Here is your code:</p>";
-            //EmailBodyContent[1] = "Welcome back to YouChat!\nHere is your code:\n";
-            //EmailBodyContent[2] = "Welcome back to YouChat!\nHere is your code for renewing your password :\n";
             EmailBodyContent[1] = "<p style='color: #008080; font-size: 16px; direction: ltr;'>Welcome back to YouChat!</p>";
             EmailBodyContent[1] += "<p style='color: black; font-size: 16px; font-weight: bold; direction: ltr;'>Here is your code:</p>";
             EmailBodyContent[2] = "<p style='color: #008080; font-size: 16px; direction: ltr;'>Welcome back to YouChat!</p>";

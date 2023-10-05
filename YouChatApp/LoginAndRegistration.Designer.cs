@@ -120,13 +120,13 @@ namespace YouChatApp
             this.CaptchaPicturesImageList = new System.Windows.Forms.ImageList(this.components);
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.PasswordUpdateGroupBox = new System.Windows.Forms.GroupBox();
-            this.customTextBox2 = new YouChatApp.Controls.CustomTextBox();
-            this.customTextBox1 = new YouChatApp.Controls.CustomTextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
+            this.UpdatePasswordPasswordCustomTextBox = new YouChatApp.Controls.CustomTextBox();
+            this.UpdatePasswordUsernameCustomTextBox = new YouChatApp.Controls.CustomTextBox();
+            this.ExpiredPasswordLabel = new System.Windows.Forms.Label();
+            this.UpdatePasswordReturnToStarterScreenButton = new System.Windows.Forms.Button();
             this.UpdatePasswordButton = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.UpdatePasswordPasswordLabel = new System.Windows.Forms.Label();
+            this.UpdatePasswordUsernameLabel = new System.Windows.Forms.Label();
             this.PasswordUpdateLabel = new System.Windows.Forms.Label();
             this.RegistrationGroupBox.SuspendLayout();
             this.LoginGroupBox.SuspendLayout();
@@ -1248,13 +1248,13 @@ namespace YouChatApp
             // 
             // PasswordUpdateGroupBox
             // 
-            this.PasswordUpdateGroupBox.Controls.Add(this.customTextBox2);
-            this.PasswordUpdateGroupBox.Controls.Add(this.customTextBox1);
-            this.PasswordUpdateGroupBox.Controls.Add(this.label6);
-            this.PasswordUpdateGroupBox.Controls.Add(this.button6);
+            this.PasswordUpdateGroupBox.Controls.Add(this.UpdatePasswordPasswordCustomTextBox);
+            this.PasswordUpdateGroupBox.Controls.Add(this.UpdatePasswordUsernameCustomTextBox);
+            this.PasswordUpdateGroupBox.Controls.Add(this.ExpiredPasswordLabel);
+            this.PasswordUpdateGroupBox.Controls.Add(this.UpdatePasswordReturnToStarterScreenButton);
             this.PasswordUpdateGroupBox.Controls.Add(this.UpdatePasswordButton);
-            this.PasswordUpdateGroupBox.Controls.Add(this.label8);
-            this.PasswordUpdateGroupBox.Controls.Add(this.label9);
+            this.PasswordUpdateGroupBox.Controls.Add(this.UpdatePasswordPasswordLabel);
+            this.PasswordUpdateGroupBox.Controls.Add(this.UpdatePasswordUsernameLabel);
             this.PasswordUpdateGroupBox.Controls.Add(this.PasswordUpdateLabel);
             this.PasswordUpdateGroupBox.Location = new System.Drawing.Point(879, 409);
             this.PasswordUpdateGroupBox.Name = "PasswordUpdateGroupBox";
@@ -1263,73 +1263,73 @@ namespace YouChatApp
             this.PasswordUpdateGroupBox.TabStop = false;
             this.PasswordUpdateGroupBox.Visible = false;
             // 
-            // customTextBox2
+            // UpdatePasswordPasswordCustomTextBox
             // 
-            this.customTextBox2.BackColor = System.Drawing.SystemColors.Window;
-            this.customTextBox2.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.customTextBox2.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.customTextBox2.BorderRadius = 0;
-            this.customTextBox2.BorderSize = 2;
-            this.customTextBox2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customTextBox2.ForeColor = System.Drawing.Color.DimGray;
-            this.customTextBox2.IsFocused = false;
-            this.customTextBox2.Location = new System.Drawing.Point(135, 142);
-            this.customTextBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.customTextBox2.Multiline = false;
-            this.customTextBox2.Name = "customTextBox2";
-            this.customTextBox2.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.customTextBox2.PasswordChar = false;
-            this.customTextBox2.PlaceHolderColor = System.Drawing.Color.DarkGray;
-            this.customTextBox2.PlaceHolderText = "";
-            this.customTextBox2.Size = new System.Drawing.Size(144, 33);
-            this.customTextBox2.TabIndex = 33;
-            this.customTextBox2.TextContent = "";
-            this.customTextBox2.UnderlineStyle = true;
+            this.UpdatePasswordPasswordCustomTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.UpdatePasswordPasswordCustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.UpdatePasswordPasswordCustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.UpdatePasswordPasswordCustomTextBox.BorderRadius = 0;
+            this.UpdatePasswordPasswordCustomTextBox.BorderSize = 2;
+            this.UpdatePasswordPasswordCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpdatePasswordPasswordCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.UpdatePasswordPasswordCustomTextBox.IsFocused = false;
+            this.UpdatePasswordPasswordCustomTextBox.Location = new System.Drawing.Point(135, 142);
+            this.UpdatePasswordPasswordCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.UpdatePasswordPasswordCustomTextBox.Multiline = false;
+            this.UpdatePasswordPasswordCustomTextBox.Name = "UpdatePasswordPasswordCustomTextBox";
+            this.UpdatePasswordPasswordCustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.UpdatePasswordPasswordCustomTextBox.PasswordChar = false;
+            this.UpdatePasswordPasswordCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.UpdatePasswordPasswordCustomTextBox.PlaceHolderText = "";
+            this.UpdatePasswordPasswordCustomTextBox.Size = new System.Drawing.Size(144, 33);
+            this.UpdatePasswordPasswordCustomTextBox.TabIndex = 33;
+            this.UpdatePasswordPasswordCustomTextBox.TextContent = "";
+            this.UpdatePasswordPasswordCustomTextBox.UnderlineStyle = true;
             // 
-            // customTextBox1
+            // UpdatePasswordUsernameCustomTextBox
             // 
-            this.customTextBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.customTextBox1.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.customTextBox1.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.customTextBox1.BorderRadius = 0;
-            this.customTextBox1.BorderSize = 2;
-            this.customTextBox1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customTextBox1.ForeColor = System.Drawing.Color.DimGray;
-            this.customTextBox1.IsFocused = false;
-            this.customTextBox1.Location = new System.Drawing.Point(135, 101);
-            this.customTextBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.customTextBox1.Multiline = false;
-            this.customTextBox1.Name = "customTextBox1";
-            this.customTextBox1.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.customTextBox1.PasswordChar = false;
-            this.customTextBox1.PlaceHolderColor = System.Drawing.Color.DarkGray;
-            this.customTextBox1.PlaceHolderText = "";
-            this.customTextBox1.Size = new System.Drawing.Size(144, 33);
-            this.customTextBox1.TabIndex = 32;
-            this.customTextBox1.TextContent = "";
-            this.customTextBox1.UnderlineStyle = true;
+            this.UpdatePasswordUsernameCustomTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.UpdatePasswordUsernameCustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.UpdatePasswordUsernameCustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.UpdatePasswordUsernameCustomTextBox.BorderRadius = 0;
+            this.UpdatePasswordUsernameCustomTextBox.BorderSize = 2;
+            this.UpdatePasswordUsernameCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpdatePasswordUsernameCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.UpdatePasswordUsernameCustomTextBox.IsFocused = false;
+            this.UpdatePasswordUsernameCustomTextBox.Location = new System.Drawing.Point(135, 101);
+            this.UpdatePasswordUsernameCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.UpdatePasswordUsernameCustomTextBox.Multiline = false;
+            this.UpdatePasswordUsernameCustomTextBox.Name = "UpdatePasswordUsernameCustomTextBox";
+            this.UpdatePasswordUsernameCustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.UpdatePasswordUsernameCustomTextBox.PasswordChar = false;
+            this.UpdatePasswordUsernameCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.UpdatePasswordUsernameCustomTextBox.PlaceHolderText = "";
+            this.UpdatePasswordUsernameCustomTextBox.Size = new System.Drawing.Size(144, 33);
+            this.UpdatePasswordUsernameCustomTextBox.TabIndex = 32;
+            this.UpdatePasswordUsernameCustomTextBox.TextContent = "";
+            this.UpdatePasswordUsernameCustomTextBox.UnderlineStyle = true;
             // 
-            // label6
+            // ExpiredPasswordLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(19, 59);
-            this.label6.Name = "label6";
-            this.label6.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label6.Size = new System.Drawing.Size(279, 36);
-            this.label6.TabIndex = 31;
-            this.label6.Text = "Your password has expired.\r\nPlease choose another password.";
+            this.ExpiredPasswordLabel.AutoSize = true;
+            this.ExpiredPasswordLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExpiredPasswordLabel.Location = new System.Drawing.Point(19, 59);
+            this.ExpiredPasswordLabel.Name = "ExpiredPasswordLabel";
+            this.ExpiredPasswordLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ExpiredPasswordLabel.Size = new System.Drawing.Size(279, 36);
+            this.ExpiredPasswordLabel.TabIndex = 31;
+            this.ExpiredPasswordLabel.Text = "Your password has expired.\r\nPlease choose another password.";
             // 
-            // button6
+            // UpdatePasswordReturnToStarterScreenButton
             // 
-            this.button6.BackColor = System.Drawing.SystemColors.Control;
-            this.button6.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
-            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button6.Location = new System.Drawing.Point(6, 16);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(46, 29);
-            this.button6.TabIndex = 30;
-            this.button6.UseVisualStyleBackColor = true;
+            this.UpdatePasswordReturnToStarterScreenButton.BackColor = System.Drawing.SystemColors.Control;
+            this.UpdatePasswordReturnToStarterScreenButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
+            this.UpdatePasswordReturnToStarterScreenButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.UpdatePasswordReturnToStarterScreenButton.Location = new System.Drawing.Point(6, 16);
+            this.UpdatePasswordReturnToStarterScreenButton.Name = "UpdatePasswordReturnToStarterScreenButton";
+            this.UpdatePasswordReturnToStarterScreenButton.Size = new System.Drawing.Size(46, 29);
+            this.UpdatePasswordReturnToStarterScreenButton.TabIndex = 30;
+            this.UpdatePasswordReturnToStarterScreenButton.UseVisualStyleBackColor = true;
             // 
             // UpdatePasswordButton
             // 
@@ -1343,27 +1343,27 @@ namespace YouChatApp
             this.UpdatePasswordButton.Text = "Update Password";
             this.UpdatePasswordButton.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // UpdatePasswordPasswordLabel
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(32, 157);
-            this.label8.Name = "label8";
-            this.label8.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label8.Size = new System.Drawing.Size(56, 18);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Email:";
+            this.UpdatePasswordPasswordLabel.AutoSize = true;
+            this.UpdatePasswordPasswordLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpdatePasswordPasswordLabel.Location = new System.Drawing.Point(32, 157);
+            this.UpdatePasswordPasswordLabel.Name = "UpdatePasswordPasswordLabel";
+            this.UpdatePasswordPasswordLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.UpdatePasswordPasswordLabel.Size = new System.Drawing.Size(92, 18);
+            this.UpdatePasswordPasswordLabel.TabIndex = 3;
+            this.UpdatePasswordPasswordLabel.Text = "Password:";
             // 
-            // label9
+            // UpdatePasswordUsernameLabel
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(32, 111);
-            this.label9.Name = "label9";
-            this.label9.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label9.Size = new System.Drawing.Size(93, 18);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "username:";
+            this.UpdatePasswordUsernameLabel.AutoSize = true;
+            this.UpdatePasswordUsernameLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpdatePasswordUsernameLabel.Location = new System.Drawing.Point(32, 111);
+            this.UpdatePasswordUsernameLabel.Name = "UpdatePasswordUsernameLabel";
+            this.UpdatePasswordUsernameLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.UpdatePasswordUsernameLabel.Size = new System.Drawing.Size(93, 18);
+            this.UpdatePasswordUsernameLabel.TabIndex = 2;
+            this.UpdatePasswordUsernameLabel.Text = "username:";
             // 
             // PasswordUpdateLabel
             // 
@@ -1496,14 +1496,14 @@ namespace YouChatApp
         private System.Windows.Forms.Button PasswordExclamationButton;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         public System.Windows.Forms.GroupBox PasswordUpdateGroupBox;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button UpdatePasswordReturnToStarterScreenButton;
         public System.Windows.Forms.Button UpdatePasswordButton;
-        public System.Windows.Forms.Label label8;
+        public System.Windows.Forms.Label UpdatePasswordPasswordLabel;
         public System.Windows.Forms.Label PasswordUpdateLabel;
-        public System.Windows.Forms.Label label6;
-        public System.Windows.Forms.Label label9;
-        private Controls.CustomTextBox customTextBox1;
-        private Controls.CustomTextBox customTextBox2;
+        public System.Windows.Forms.Label ExpiredPasswordLabel;
+        public System.Windows.Forms.Label UpdatePasswordUsernameLabel;
+        private Controls.CustomTextBox UpdatePasswordUsernameCustomTextBox;
+        private Controls.CustomTextBox UpdatePasswordPasswordCustomTextBox;
         private Controls.CustomButton ChangeEmailOptionCustomButton;
         private Controls.CustomButton NewSMTPCodeOptionCustomButton;
         private System.Windows.Forms.Button RegisterReturnToStarterScreenButton;

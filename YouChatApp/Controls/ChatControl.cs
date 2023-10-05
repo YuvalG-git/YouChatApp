@@ -24,7 +24,7 @@ namespace YouChatApp
         public System.Windows.Forms.Label LastMessageTime => TimeLabel;
 
         private string ChatControlMode = "Regular";
-        private void OptionalMessageOrAddUserButton_Click(object sender, EventArgs e) //todo - add (not here) a method that checks the position of the control - if it will be display in contacts list so there is no need to show it, else there is a need to check if the user is in the friend list of the user - if use button press will move to the chat with him , otherwise it will send him a friend request
+        private void OptionalMessageOrAddUserButton_Click(object sender, EventArgs e) //todo - add (not here) a method that checks the position of the control - if it will be display in contacts list so there is no need to show it, else there is a need to check if the user is in the friend list of the user - if use button press will move to the chat with him (maybe i dont need this for this reason and pressing all over the control will lead to it), otherwise it will send him a friend request
         {
             if (ChatControlMode == "Add User")
             {

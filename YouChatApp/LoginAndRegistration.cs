@@ -297,6 +297,10 @@ namespace YouChatApp
         private void ChangeEmailOptionButton_Click(object sender, EventArgs e)
         {
             SetFormAfterWrongSMTPCode();
+            SetRegistPlatformEnabled();
+        }
+        private void SetRegistPlatformEnabled()
+        {
             usernameTextbox.Enabled = true;
             passwordTextbox.Enabled = true;
             firstnameTextbox.Enabled = true;
@@ -411,6 +415,7 @@ namespace YouChatApp
         public void setRegistButtonEnabled()
         {
             registButton.Enabled = true;
+            SetRegistPlatformEnabled();
         }
 
         /// <summary>

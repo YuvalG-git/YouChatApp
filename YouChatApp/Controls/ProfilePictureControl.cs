@@ -32,7 +32,7 @@ namespace YouChatApp.Controls
         public ProfilePictureControl()
         {
             InitializeComponent();
-            ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
+            //ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
             ProfilePictureKindButtonsCreator();
             SetProfileAvatarMatrix();
 
