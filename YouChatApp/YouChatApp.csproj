@@ -120,6 +120,7 @@
     <Compile Include="AttachedFiles\VideoCall.Designer.cs">
       <DependentUpon>VideoCall.cs</DependentUpon>
     </Compile>
+    <Compile Include="ContactHandler\ContactNameComparer.cs" />
     <Compile Include="Controls\ChatControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

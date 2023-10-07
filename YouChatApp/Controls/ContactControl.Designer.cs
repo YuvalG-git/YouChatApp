@@ -66,6 +66,7 @@
             this.ContactSharingCheckBox.Size = new System.Drawing.Size(20, 20);
             this.ContactSharingCheckBox.TabIndex = 2;
             this.ContactSharingCheckBox.UseVisualStyleBackColor = false;
+            this.ContactSharingCheckBox.CheckedChanged += new System.EventHandler(this.ContactSharingCheckBox_CheckedChanged);
             this.ContactSharingCheckBox.Click += new System.EventHandler(this.ContactSharingCheckBox_Click);
             // 
             // ContactControl

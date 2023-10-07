@@ -13,6 +13,7 @@ namespace YouChatApp.AttachedFiles
         int LastContactControlHeightLocation = 0;
         int ContactNumber = 0;
         string SelectedUsers;
+        List<string> SelectedContactsList = new List<string>();
         public ContactSharing() //can be use for sending messages from other chats as well - maybe i can send a string or int that represents the event and act accordinglly
         {
             InitializeComponent();
@@ -88,45 +89,54 @@ namespace YouChatApp.AttachedFiles
 
         private void SetContactControlList()
         {
-            //foreach(Contact Contact in ContactManager.UserContacts)
-            //{
-            //    if (ContactNumber != 0)
-            //        LastContactControlHeightLocation = this.ContactControlList[ContactNumber - 1].Location.Y + this.ContactControlList[ContactNumber - 1].Size.Height + 10;
-            //    this.ContactControlList.Add(new ContactControl());
-            //    this.ContactControlList[ContactNumber].Location = new System.Drawing.Point(30, LastContactControlHeightLocation);
-            //    this.ContactControlList[ContactNumber].Name = Contact.Name;
-            //    this.ContactControlList[ContactNumber].TabIndex = 0;
-            //    this.ContactControlList[ContactNumber].BackColor = SystemColors.Control;
-            //    this.ContactControlList[ContactNumber].ContactName.Text += ContactNumber;
+            ContactHandler.ContactManager.AddContact("bett");
+            ContactHandler.ContactManager.AddContact("tai");
 
-            //    this.Controls.Add(this.ContactControlList[ContactNumber]);
-            //    this.ContactPanel.Controls.Add(this.ContactControlList[ContactNumber]);
+            ContactHandler.ContactManager.AddContact("adolf");
+            ContactHandler.ContactManager.AddContact("greg");
+            ContactHandler.ContactManager.AddContact("denis");
 
-            //    if (this.ContactPanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
-            //    {
-            //        //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
-            //        Control LastControl = this.ContactControlList[ContactNumber];
-            //        this.ContactPanel.ScrollControlIntoView(LastControl);
-            //    }
-            //    ContactNumber++;
-            //}
-            for (ContactNumber = 0; ContactNumber<4; ContactNumber++)
+            foreach (Contact Contact in ContactManager.UserContacts)
             {
                 if (ContactNumber != 0)
                     LastContactControlHeightLocation = this.ContactControlList[ContactNumber - 1].Location.Y + this.ContactControlList[ContactNumber - 1].Size.Height + 10;
                 this.ContactControlList.Add(new ContactControl());
                 this.ContactControlList[ContactNumber].Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
-                this.ContactControlList[ContactNumber].Name = "4ContactControlNumber:" + ContactNumber;
+                this.ContactControlList[ContactNumber].Name = Contact.Name;
                 this.ContactControlList[ContactNumber].TabIndex = 0;
                 this.ContactControlList[ContactNumber].BackColor = SystemColors.Control;
-                this.ContactControlList[ContactNumber].ContactName.Text += ContactNumber;
+                this.ContactControlList[ContactNumber].ContactName.Text = Contact.Name;
+                this.ContactControlList[ContactNumber].OnCheckBoxCheckedChangedHandler(CheckedChanged);
+
                 this.Controls.Add(this.ContactControlList[ContactNumber]);
                 this.ContactPanel.Controls.Add(this.ContactControlList[ContactNumber]);
-
+                ContactNumber++;
             }
+            //for (ContactNumber = 0; ContactNumber<4; ContactNumber++)
+            //{
+            //    if (ContactNumber != 0)
+            //        LastContactControlHeightLocation = this.ContactControlList[ContactNumber - 1].Location.Y + this.ContactControlList[ContactNumber - 1].Size.Height + 10;
+            //    this.ContactControlList.Add(new ContactControl());
+            //    this.ContactControlList[ContactNumber].Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
+            //    this.ContactControlList[ContactNumber].Name = "4ContactControlNumber:" + ContactNumber;
+            //    this.ContactControlList[ContactNumber].TabIndex = 0;
+            //    this.ContactControlList[ContactNumber].BackColor = SystemColors.Control;
+            //    this.ContactControlList[ContactNumber].ContactName.Text += ContactNumber;
+            //    this.Controls.Add(this.ContactControlList[ContactNumber]);
+            //    this.ContactPanel.Controls.Add(this.ContactControlList[ContactNumber]);
+
+            //}
 
         }
+        private void CheckedChanged(object sender, System.EventArgs e)
+        {
+            //if (sender is ContactControl)
+            //{
+            //    Contact c = ((object)(sender));
+            //    SelectedContactsList.Add();
 
+            //}
+        }
         private void RestartButton_Click(object sender, System.EventArgs e)
         {
             foreach (ContactControl Contact in ContactControlList)

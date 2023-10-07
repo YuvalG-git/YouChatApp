@@ -18,6 +18,8 @@ namespace YouChatApp
         {
             InitializeComponent();
         }
+        public event EventHandler OnCheckBoxCheckedChanged;
+
         public CircularPictureBox ProfilePicture => ProfilePictureCircularPictureBox;
 
         public System.Windows.Forms.Label ContactName => ContactNameLabel;
@@ -26,7 +28,6 @@ namespace YouChatApp
 
         private Color BorderColorProperty = Color.RoyalBlue;
         private int BorderSizeProperty = 2;
-
 
         public Color BorderColor
         {
@@ -85,6 +86,15 @@ namespace YouChatApp
                 Graphics.DrawRectangle(BorderPen, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
             }
         }
+        public void OnCheckBoxCheckedChangedHandler(EventHandler handler)
+        {
+            OnCheckBoxCheckedChanged += handler;
+        }
 
+        private void ContactSharingCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OnCheckBoxCheckedChanged?.Invoke(this, e);
+
+        }
     }
 }

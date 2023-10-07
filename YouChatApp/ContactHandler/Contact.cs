@@ -31,6 +31,10 @@ namespace YouChatApp.ContactHandler
             this.StatusProperty = StatusProperty;
             this.IsContact = IsContact;
         }
+        public Contact(string Name)
+        {
+            this.Name = Name;
+        }
 
 
 

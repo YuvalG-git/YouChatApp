@@ -16,9 +16,30 @@ namespace YouChatApp.ContactHandler
         public static void AddContact(string Name, Image ProfilePicture, string Status, DateTime LastSeenTime, bool LastSeenProperty, bool OnlineProperty, bool ProfilePictureProperty, bool StatusProperty, bool IsContact)
         {
             Contact NewContact = new Contact(Name, ProfilePicture, Status, LastSeenTime, LastSeenProperty, OnlineProperty, ProfilePictureProperty, StatusProperty, IsContact);
-            UserContacts.Add(NewContact);
+            //UserContacts.Add(NewContact);
+            InsertAlphabetically(NewContact);
         }
+        public static void AddContact(string Name)
+        {
+            Contact NewContact = new Contact(Name);
+            //UserContacts.Add(NewContact);
+            InsertAlphabetically(NewContact);
+        }
+        private static void InsertAlphabetically(Contact contact)
+        {
+            string name = contact.Name;
 
+            int index = UserContacts.BinarySearch(contact, new ContactHandler.ContactNameComparer());
+
+            if (index < 0)
+            {
+                // If the element is not found, convert the index to the insertion point
+                index = ~index;
+            }
+
+            // Insert the new string at the calculated index
+            UserContacts.Insert(index, contact);
+        }
         public static Contact GetContact(string ContactName)
         {
             foreach (Contact contact in UserContacts)
