@@ -35,6 +35,8 @@ namespace YouChatApp
         public const int FriendRequestReceiver = 49;
         public const int FriendRequestResponseSender = 50;
         public const int FriendRequestResponseReceiver = 51;
+        public const int FriendsProfileDetailsRequest = 52;
+        public const int FriendsProfileDetailsResponse = 53;
 
         public const int UserDetailsRequest = 46;
         public const int UserDetailsResponse = 47;
@@ -372,7 +374,7 @@ namespace YouChatApp
                             }
                             else if (requestNumber == sendMessageResponse)
                             {
-                                youChat.Invoke((Action)delegate { youChat.Message(DecryptedMessageDetails); });
+                                youChat.Invoke((Action)delegate { youChat.HandleMessagesByOthers(DecryptedMessageDetails); });
                             }
                             else if (requestNumber == ResetPasswordResponse)
                             {

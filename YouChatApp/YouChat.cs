@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using YouChatApp.AttachedFiles;
 using YouChatApp.Controls;
+using YouChatApp.UserProfile;
 
 namespace YouChatApp
 {
@@ -25,7 +26,7 @@ namespace YouChatApp
         public static int heightForContacts = 10;
         public static int heightForFriendRequests = 10;
 
-        public static int messageGap = 10; 
+        public static int messageGap = 10;
         public static DateTime Time;
         public static int ContactChatNumber = 0;
         public static int FriendRequestsNumber = 0;
@@ -49,7 +50,7 @@ namespace YouChatApp
         }
         private void SetResourceSetArray()
         {
-             resourceSetArray = new ResourceSet[9];
+            resourceSetArray = new ResourceSet[9];
             {
                 resourceSetArray[0] = Properties.Activities_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
                 resourceSetArray[1] = Properties.AnimalsAndNature_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
@@ -93,6 +94,7 @@ namespace YouChatApp
         public void SetProfilePicture(Image ProfilePicture)
         {
             ProfileButton.BackgroundImage = ProfilePicture;
+            ServerCommunication.SendMessage(ServerCommunication.FriendsProfileDetailsRequest, " ");
         }
 
         public void SetChatControlListOfContacts(string ChatInformation)
@@ -170,12 +172,13 @@ namespace YouChatApp
                 string Message = MessageTextBox.Text;
                 string SendMessageTime = DateTime.Now.ToString("HH:mm");
                 string MessageContant = Message + "#" + SendMessageTime;
+                HandleYourMessages(Message, SendMessageTime);
                 ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest, MessageContant);
                 //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + MessageContant);
                 MessageTextBox.Text = "Here You Write Your Message";
                 MessageTextBox.ForeColor = Color.Silver;
             }
-            else if (LoadedPicturePictureBox.BackgroundImage!=null)
+            else if (LoadedPicturePictureBox.BackgroundImage != null)
             {
                 //ServerCommunication.SendImage(ServerCommunication.sendMessageRequest + "$" + MessageContant); need to figure out how to send a message as well - not nesserally perhaps - could use the username from the server and take the time the message got to the server...
 
@@ -185,7 +188,7 @@ namespace YouChatApp
 
         private void MessageTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (MessageTextBox.Text !="")
+            if (MessageTextBox.Text != "")
             {
                 SendMessageButton.Enabled = true;
             }
@@ -258,7 +261,7 @@ namespace YouChatApp
                 this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
 
                 //todo - for this code i should maybe create a genric method:
-                if (ContactProfilePictureKind == "Male")
+                if (ContactProfilePictureKind == "Male") //need to use that when getting a user imageid - but here i just take from the contacts list - by recieving the contact object and then its profileimage property...
                 {
                     this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[ContactProfilePictureNumber];
                 }
@@ -291,15 +294,41 @@ namespace YouChatApp
         {
             FriendRequestsNumber--;
         }
+        public void HandleYourMessages(string MessageContent, string SendMessageTime) //maybe i should the same function just with if or something like that (to ask if name == my name...)
+        {
+            if (MessageNumber != 0)
+                heightForMessages = this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Location.Y + this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Size.Height + messageGap;
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID].Add(new MessageControl());
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Location = new System.Drawing.Point(30, heightForMessages);
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Name = "MessageControlNumber:" + MessageNumber;
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].TabIndex = 0;
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].BackColor = SystemColors.Control;
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Username.Text = UserProfile.ProfileDetailsHandler.Name;
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Message.Text = MessageContent;
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Time.Text = SendMessageTime;
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].ProfilePicture.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture; 
 
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].SetBackColorByMessageSender();
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].SetMessageControl();
+            this.Controls.Add(this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber]);
+            this.MessagePanel.Controls.Add(this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber]);
 
-        public void Message(string MessageInfo)
+            if (this.MessagePanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
+            {
+                //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
+                Control LastControl = this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber];
+                this.MessagePanel.ScrollControlIntoView(LastControl);
+            }
+            MessageNumber++;
+
+        }
+        public void HandleMessagesByOthers(string MessageInfo)
         {
             string[] MessageDetails = MessageInfo.Split('#');
             string SenderUsername = MessageDetails[0];
             string MessageContent = MessageDetails[1];
             string SendMessageTime = MessageDetails[2];
-
+            ContactHandler.Contact SenderContact = ContactHandler.ContactManager.GetContact(SenderUsername);
             if (MessageNumber != 0)
                 heightForMessages = this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Location.Y + this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Size.Height + messageGap;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID].Add(new MessageControl());
@@ -310,7 +339,8 @@ namespace YouChatApp
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Username.Text = SenderUsername;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Message.Text = MessageContent;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Time.Text = SendMessageTime;
-            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].ProfilePicture.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture; //shouldn't use that... should receive the user image from the contact class...
+            //this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].ProfilePicture.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture; //shouldn't use that... should receive the user image from the contact class...
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].ProfilePicture.BackgroundImage = SenderContact.ProfilePicture;
 
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].SetMessageControl();
             this.Controls.Add(this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber]);
@@ -459,7 +489,7 @@ namespace YouChatApp
                 MessageTextBox.Text = "Here You Write Your Message";
                 MessageTextBox.ForeColor = Color.Silver;
             }
-            else if ((e.KeyCode == Keys.Enter) && (MessageTextBox.Text !="") && (ServerCommunication.EnterKeyPress))
+            else if ((e.KeyCode == Keys.Enter) && (MessageTextBox.Text != "") && (ServerCommunication.EnterKeyPress))
             {
                 string message = MessageTextBox.Text;
                 //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + message);

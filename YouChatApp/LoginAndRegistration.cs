@@ -74,6 +74,8 @@ namespace YouChatApp
             ServerCommunication.Connect("10.100.102.3");
             ServerCommunication.loginAndRegistration = this;
             smtpHandler = new SmtpHandler();
+            UpdatePasswordGeneratorControl.OnTextChangedEventHandler(UpdatePasswordFieldsChecker);
+
         }
 
         /// <summary>
@@ -1262,6 +1264,31 @@ namespace YouChatApp
                 registButton.Enabled = false;
 
             }
+        }
+
+        private void PasswordUpdateLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void UpdatePasswordFieldsChecker(object sender, EventArgs e)
+        {
+            bool PasswordFields = UpdatePasswordGeneratorControl.DoesAllFieldsHaveValue();
+            //bool UsernameField = ((!UpdatePasswordUsernameCustomTextBox.isPlaceHolder()) || ((UpdatePasswordUsernameCustomTextBox.TextContent != "") && (UpdatePasswordUsernameCustomTextBox.isPlaceHolder())));
+            bool UsernameField = UpdatePasswordUsernameCustomTextBox.IsContainingValue();
+            if ((PasswordFields) && (UsernameField))
+            {
+                UpdatePasswordButton.Enabled = true;
+            }
+            else
+            {
+                UpdatePasswordButton.Enabled = false;
+
+            }
+        }
+
+        private void UpdatePasswordUsernameCustomTextBox_TextChangedEvent(object sender, EventArgs e)
+        {
+
         }
 
         private double CalculateRotationAngle(Point clickPoint)

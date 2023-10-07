@@ -18,8 +18,9 @@ namespace YouChatApp.AttachedFiles
             InitializeComponent();
             ContactControlList = new List<ContactControl>();
             SearchBar.AddSearchOnClickHandler(SearchContacts);
-            passwordGeneratorControl1.OnTextChangedEventHandler(PasswordFieldsValueChecker);
-            messageControl1.SetMessageControl();
+            //passwordGeneratorControl1.OnTextChangedEventHandler(PasswordFieldsValueChecker);
+            //messageControl1.SetMessageControl();
+
             SetContactControlList();
         }
         private void SearchContacts(object sender, System.EventArgs e)
@@ -70,18 +71,18 @@ namespace YouChatApp.AttachedFiles
             }
           
         }
-        private void PasswordFieldsValueChecker(object sender, EventArgs e)
-        {
-            if (passwordGeneratorControl1.DoesAllFieldsHaveValue())
-            {
-                SendButton.Enabled = true;
-            }
-            else
-            {
-                SendButton.Enabled = false;
+        //private void PasswordFieldsValueChecker(object sender, EventArgs e)
+        //{
+        //    if (passwordGeneratorControl1.DoesAllFieldsHaveValue())
+        //    {
+        //        SendButton.Enabled = true;
+        //    }
+        //    else
+        //    {
+        //        SendButton.Enabled = false;
 
-            }
-        }
+        //    }
+        //}
 
 
 
@@ -152,6 +153,11 @@ namespace YouChatApp.AttachedFiles
                 //ServerCommunication.SendMessage(ServerCommunication.SendContactMessage + "$" + ContactNameList);
                 MessageBox.Show(ContactNameList);
             }
+        }
+
+        private void SearchBar_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

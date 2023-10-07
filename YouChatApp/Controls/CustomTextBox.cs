@@ -149,7 +149,21 @@ namespace YouChatApp.Controls
         {
             return IsPlaceHolderProperty;
         }
-
+        public bool IsContainingValue()
+        {
+            if (isPlaceHolder())
+            {
+                return false;
+            }
+            else
+            {
+                if (TextContent == "")
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
 
 

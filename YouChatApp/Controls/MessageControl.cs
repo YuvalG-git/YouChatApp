@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using YouChatApp.Controls;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace YouChatApp
@@ -137,6 +139,7 @@ namespace YouChatApp
                     MenuBarPictureBox.Visible = false;
 
                     HandleMessageControlDesign();
+                    RemoveMenuButtonsFromControls();
                     //to do a check when sending the messages if this is a deleted message - in case it is, make sure the menubar is invisible
                     //when deleting need to update the chat member so they will change it and the xml chat file
                     WasChosen = true;
@@ -155,7 +158,7 @@ namespace YouChatApp
             }
             if (WasChosen)
             {
-                RemoveMenuButtonsFromControls();
+                //RemoveMenuButtonsFromControls();
             }
         }
 
@@ -195,7 +198,46 @@ namespace YouChatApp
         }
         public void SetBackColorByMessageSender()
         {
-            this.BackColor = Color.MediumSeaGreen;
+            //this.BackColor = Color.MediumSeaGreen;
+            //foreach (Button MenuButton in MenuButtons)
+            //{
+            //    MenuButton.BackColor = Color.MediumSeaGreen;
+            //    MenuButton.FlatStyle = FlatStyle.Flat;
+            //    MenuButton.FlatAppearance.BorderColor = Color.SeaGreen;
+
+            //}
+            this.BackColor = Color.PaleTurquoise;
+            foreach (Button MenuButton in MenuButtons)
+            {
+                MenuButton.BackColor = Color.PaleTurquoise;
+                MenuButton.FlatStyle = FlatStyle.Flat;
+                MenuButton.FlatAppearance.BorderColor = Color.PaleTurquoise;
+
+            }
+        }
+        protected override void OnPaint(PaintEventArgs Pevent)
+        {
+            base.OnPaint(Pevent);
+            Pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+            Rectangle RectangleSurface = new Rectangle(0, 0, this.Width, this.Height);
+            Rectangle RectangleBorder = new Rectangle(1, 1, this.Width - 1, this.Height - 1);
+            using (GraphicsPath PathSurface = GraphicsHandler.GetFigurePath(RectangleSurface, 2))
+            {
+                using (GraphicsPath PathBorder = GraphicsHandler.GetFigurePath(RectangleBorder, 1))
+                {
+                    using (Pen PenSurface = new Pen(this.Parent.BackColor, 2))
+                    {
+                        using (Pen PenBorder = new Pen(Color.MediumTurquoise, 2))
+                        {
+                            PenBorder.Alignment = PenAlignment.Inset;
+                            this.Region = new Region(PathSurface);
+                            Pevent.Graphics.DrawPath(PenSurface, PathSurface);
+                            Pevent.Graphics.DrawPath(PenBorder, PathBorder);
+                        }
+                    }
+                }
+            }
         }
 
         //private void MenuBarButton_Click(object sender, EventArgs e) //if the mouse is not on the button or on the menuoptions close this and use this.controls.remove()...
