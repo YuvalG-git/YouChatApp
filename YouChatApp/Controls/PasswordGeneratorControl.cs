@@ -211,5 +211,9 @@ namespace YouChatApp.Controls
         {
             return PasswordTextBoxArray[0].Text; //will need to make sure if this password is similar to the password the server returned to me after logging in...
         }
+        public string GetNewPassword()
+        {
+            return PasswordTextBoxArray[1].Text; //will need to make sure if this password is similar to the password the server returned to me after logging in...
+        }
     }
 }

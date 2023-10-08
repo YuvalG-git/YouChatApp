@@ -1003,6 +1003,7 @@ namespace YouChatApp
             LoadImage();
         }
 
+
         private void SetNumbersList()
         {
             for (int i = 0; i < CaptchaPicturesImageList.Images.Count; i++)
@@ -1289,6 +1290,41 @@ namespace YouChatApp
         private void UpdatePasswordUsernameCustomTextBox_TextChangedEvent(object sender, EventArgs e)
         {
 
+        }
+
+        private void UpdatePasswordButton_Click(object sender, EventArgs e)
+        {
+            bool SameNewPassword = UpdatePasswordGeneratorControl.IsSamePassword();
+            if (SameNewPassword)
+            {
+                string OldPassword = UpdatePasswordGeneratorControl.GetOldPassword();
+                string NewPassword = UpdatePasswordGeneratorControl.GetNewPassword();
+                string Username = UpdatePasswordUsernameCustomTextBox.TextContent;
+                string UserInformation = Username + "#" + NewPassword + "#" + OldPassword;
+                UpdatePasswordGeneratorControl.Enabled = false;
+                UpdatePasswordUsernameCustomTextBox.Enabled = false;
+                UpdatePasswordButton.Enabled = false;
+                ServerCommunication.SendMessage(ServerCommunication.PasswordUpdateRequest, UserInformation);
+
+
+            }
+            else
+            {
+                MessageBox.Show("Check again the details provided", "Unmatch Detailds Provided");
+            }
+        }
+        public void HandleSuccessfulPasswordUpdate()
+        {
+            string NewPassword = UpdatePasswordGeneratorControl.GetNewPassword();
+            string Username = UpdatePasswordUsernameCustomTextBox.TextContent;
+            string UserInformation = Username + "#" + NewPassword;
+            ServerCommunication.SendMessage(ServerCommunication.InitialProfileSettingsCheckRequest, UserInformation);
+        }
+        public void RestartUpdatePasswordDetails()
+        {
+            UpdatePasswordGeneratorControl.Enabled = true;
+            UpdatePasswordUsernameCustomTextBox.Enabled = true;
+            UpdatePasswordButton.Enabled = true;
         }
 
         private double CalculateRotationAngle(Point clickPoint)

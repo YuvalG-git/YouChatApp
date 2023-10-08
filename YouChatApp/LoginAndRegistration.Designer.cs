@@ -33,6 +33,8 @@ namespace YouChatApp
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginAndRegistration));
             this.RegistrationGroupBox = new System.Windows.Forms.GroupBox();
+            this.ChangeEmailOptionCustomButton = new YouChatApp.Controls.CustomButton();
+            this.NewSMTPCodeOptionCustomButton = new YouChatApp.Controls.CustomButton();
             this.PasswordExclamationButton = new System.Windows.Forms.Button();
             this.PasswordRequirementsLabel = new System.Windows.Forms.Label();
             this.NonArrivalSmtpCodeLinkLabel = new System.Windows.Forms.LinkLabel();
@@ -91,6 +93,7 @@ namespace YouChatApp
             this.CaptchaImageTestPanel = new System.Windows.Forms.Panel();
             this.CaptchaImageCheckerButton = new System.Windows.Forms.Button();
             this.CaptchaPicturesScoreLabel = new System.Windows.Forms.Label();
+            this.CaptchaCircularPictureBox = new YouChatApp.CircularPictureBox();
             this.CaptchaPictureBox = new System.Windows.Forms.PictureBox();
             this.CountDownTimeLabel = new System.Windows.Forms.Label();
             this.YouChatHeadlineLabel = new System.Windows.Forms.Label();
@@ -117,24 +120,21 @@ namespace YouChatApp
             this.CaptchaPicturesImageList = new System.Windows.Forms.ImageList(this.components);
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.PasswordUpdateGroupBox = new System.Windows.Forms.GroupBox();
+            this.UpdatePasswordGeneratorControl = new YouChatApp.Controls.PasswordGeneratorControl();
+            this.UpdatePasswordUsernameCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.ExpiredPasswordLabel = new System.Windows.Forms.Label();
             this.UpdatePasswordReturnToStarterScreenButton = new System.Windows.Forms.Button();
             this.UpdatePasswordButton = new System.Windows.Forms.Button();
             this.UpdatePasswordUsernameLabel = new System.Windows.Forms.Label();
             this.PasswordUpdateLabel = new System.Windows.Forms.Label();
-            this.UpdatePasswordGeneratorControl = new YouChatApp.Controls.PasswordGeneratorControl();
-            this.UpdatePasswordUsernameCustomTextBox = new YouChatApp.Controls.CustomTextBox();
-            this.CaptchaCircularPictureBox = new YouChatApp.CircularPictureBox();
-            this.ChangeEmailOptionCustomButton = new YouChatApp.Controls.CustomButton();
-            this.NewSMTPCodeOptionCustomButton = new YouChatApp.Controls.CustomButton();
             this.RegistrationGroupBox.SuspendLayout();
             this.LoginGroupBox.SuspendLayout();
             this.CaptchaWordTestPanel.SuspendLayout();
             this.CaptchaImageTestPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).BeginInit();
             this.ResetPasswordGroupBox.SuspendLayout();
             this.PasswordUpdateGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // RegistrationGroupBox
@@ -178,6 +178,45 @@ namespace YouChatApp
             this.RegistrationGroupBox.TabIndex = 0;
             this.RegistrationGroupBox.TabStop = false;
             this.RegistrationGroupBox.Visible = false;
+            // 
+            // ChangeEmailOptionCustomButton
+            // 
+            this.ChangeEmailOptionCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.ChangeEmailOptionCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.ChangeEmailOptionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ChangeEmailOptionCustomButton.BorderRadius = 10;
+            this.ChangeEmailOptionCustomButton.BorderSize = 0;
+            this.ChangeEmailOptionCustomButton.FlatAppearance.BorderSize = 0;
+            this.ChangeEmailOptionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeEmailOptionCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChangeEmailOptionCustomButton.ForeColor = System.Drawing.Color.White;
+            this.ChangeEmailOptionCustomButton.Location = new System.Drawing.Point(180, 569);
+            this.ChangeEmailOptionCustomButton.Name = "ChangeEmailOptionCustomButton";
+            this.ChangeEmailOptionCustomButton.Size = new System.Drawing.Size(150, 40);
+            this.ChangeEmailOptionCustomButton.TabIndex = 35;
+            this.ChangeEmailOptionCustomButton.Text = "AnotherCode";
+            this.ChangeEmailOptionCustomButton.TextColor = System.Drawing.Color.White;
+            this.ChangeEmailOptionCustomButton.UseVisualStyleBackColor = false;
+            // 
+            // NewSMTPCodeOptionCustomButton
+            // 
+            this.NewSMTPCodeOptionCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.NewSMTPCodeOptionCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.NewSMTPCodeOptionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.NewSMTPCodeOptionCustomButton.BorderRadius = 10;
+            this.NewSMTPCodeOptionCustomButton.BorderSize = 0;
+            this.NewSMTPCodeOptionCustomButton.FlatAppearance.BorderSize = 0;
+            this.NewSMTPCodeOptionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewSMTPCodeOptionCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewSMTPCodeOptionCustomButton.ForeColor = System.Drawing.Color.White;
+            this.NewSMTPCodeOptionCustomButton.Image = global::YouChatApp.Properties.Resources.Resend;
+            this.NewSMTPCodeOptionCustomButton.Location = new System.Drawing.Point(180, 528);
+            this.NewSMTPCodeOptionCustomButton.Name = "NewSMTPCodeOptionCustomButton";
+            this.NewSMTPCodeOptionCustomButton.Size = new System.Drawing.Size(150, 40);
+            this.NewSMTPCodeOptionCustomButton.TabIndex = 34;
+            this.NewSMTPCodeOptionCustomButton.Text = "AnotherCode";
+            this.NewSMTPCodeOptionCustomButton.TextColor = System.Drawing.Color.White;
+            this.NewSMTPCodeOptionCustomButton.UseVisualStyleBackColor = false;
             // 
             // PasswordExclamationButton
             // 
@@ -913,6 +952,17 @@ namespace YouChatApp
             this.CaptchaPicturesScoreLabel.TabIndex = 26;
             this.CaptchaPicturesScoreLabel.Text = "Score:";
             // 
+            // CaptchaCircularPictureBox
+            // 
+            this.CaptchaCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CaptchaCircularPictureBox.Location = new System.Drawing.Point(30, 15);
+            this.CaptchaCircularPictureBox.Name = "CaptchaCircularPictureBox";
+            this.CaptchaCircularPictureBox.Size = new System.Drawing.Size(150, 150);
+            this.CaptchaCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CaptchaCircularPictureBox.TabIndex = 35;
+            this.CaptchaCircularPictureBox.TabStop = false;
+            this.CaptchaCircularPictureBox.Click += new System.EventHandler(this.CaptchaCircularPictureBox_Click);
+            // 
             // CaptchaPictureBox
             // 
             this.CaptchaPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -1210,6 +1260,38 @@ namespace YouChatApp
             this.PasswordUpdateGroupBox.TabIndex = 35;
             this.PasswordUpdateGroupBox.TabStop = false;
             // 
+            // UpdatePasswordGeneratorControl
+            // 
+            this.UpdatePasswordGeneratorControl.Location = new System.Drawing.Point(22, 178);
+            this.UpdatePasswordGeneratorControl.Name = "UpdatePasswordGeneratorControl";
+            this.UpdatePasswordGeneratorControl.OldPasswordVisible = true;
+            this.UpdatePasswordGeneratorControl.Size = new System.Drawing.Size(288, 188);
+            this.UpdatePasswordGeneratorControl.TabIndex = 33;
+            // 
+            // UpdatePasswordUsernameCustomTextBox
+            // 
+            this.UpdatePasswordUsernameCustomTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.UpdatePasswordUsernameCustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.UpdatePasswordUsernameCustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.UpdatePasswordUsernameCustomTextBox.BorderRadius = 0;
+            this.UpdatePasswordUsernameCustomTextBox.BorderSize = 2;
+            this.UpdatePasswordUsernameCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpdatePasswordUsernameCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.UpdatePasswordUsernameCustomTextBox.IsFocused = false;
+            this.UpdatePasswordUsernameCustomTextBox.Location = new System.Drawing.Point(33, 142);
+            this.UpdatePasswordUsernameCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.UpdatePasswordUsernameCustomTextBox.Multiline = false;
+            this.UpdatePasswordUsernameCustomTextBox.Name = "UpdatePasswordUsernameCustomTextBox";
+            this.UpdatePasswordUsernameCustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.UpdatePasswordUsernameCustomTextBox.PasswordChar = false;
+            this.UpdatePasswordUsernameCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.UpdatePasswordUsernameCustomTextBox.PlaceHolderText = "Enter Username";
+            this.UpdatePasswordUsernameCustomTextBox.Size = new System.Drawing.Size(228, 33);
+            this.UpdatePasswordUsernameCustomTextBox.TabIndex = 32;
+            this.UpdatePasswordUsernameCustomTextBox.TextContent = "";
+            this.UpdatePasswordUsernameCustomTextBox.UnderlineStyle = true;
+            this.UpdatePasswordUsernameCustomTextBox.TextChangedEvent += new System.EventHandler(this.UpdatePasswordFieldsChecker);
+            // 
             // ExpiredPasswordLabel
             // 
             this.ExpiredPasswordLabel.AutoSize = true;
@@ -1243,6 +1325,7 @@ namespace YouChatApp
             this.UpdatePasswordButton.TabIndex = 13;
             this.UpdatePasswordButton.Text = "Update Password";
             this.UpdatePasswordButton.UseVisualStyleBackColor = true;
+            this.UpdatePasswordButton.Click += new System.EventHandler(this.UpdatePasswordButton_Click);
             // 
             // UpdatePasswordUsernameLabel
             // 
@@ -1265,88 +1348,6 @@ namespace YouChatApp
             this.PasswordUpdateLabel.TabIndex = 1;
             this.PasswordUpdateLabel.Text = "UPDATE PASSWORD";
             this.PasswordUpdateLabel.Click += new System.EventHandler(this.PasswordUpdateLabel_Click);
-            // 
-            // UpdatePasswordGeneratorControl
-            // 
-            this.UpdatePasswordGeneratorControl.Location = new System.Drawing.Point(22, 178);
-            this.UpdatePasswordGeneratorControl.Name = "UpdatePasswordGeneratorControl";
-            this.UpdatePasswordGeneratorControl.OldPasswordVisible = true;
-            this.UpdatePasswordGeneratorControl.Size = new System.Drawing.Size(288, 188);
-            this.UpdatePasswordGeneratorControl.TabIndex = 33;
-            // 
-            // UpdatePasswordUsernameCustomTextBox
-            // 
-            this.UpdatePasswordUsernameCustomTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.UpdatePasswordUsernameCustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.UpdatePasswordUsernameCustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.UpdatePasswordUsernameCustomTextBox.BorderRadius = 0;
-            this.UpdatePasswordUsernameCustomTextBox.BorderSize = 2;
-            this.UpdatePasswordUsernameCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UpdatePasswordUsernameCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
-            this.UpdatePasswordUsernameCustomTextBox.IsFocused = false;
-            this.UpdatePasswordUsernameCustomTextBox.Location = new System.Drawing.Point(33, 142);
-            this.UpdatePasswordUsernameCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.UpdatePasswordUsernameCustomTextBox.Multiline = false;
-            this.UpdatePasswordUsernameCustomTextBox.Name = "UpdatePasswordUsernameCustomTextBox";
-            this.UpdatePasswordUsernameCustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.UpdatePasswordUsernameCustomTextBox.PasswordChar = false;
-            this.UpdatePasswordUsernameCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
-            this.UpdatePasswordUsernameCustomTextBox.PlaceHolderText = "Enter Username";
-            this.UpdatePasswordUsernameCustomTextBox.Size = new System.Drawing.Size(228, 33);
-            this.UpdatePasswordUsernameCustomTextBox.TabIndex = 32;
-            this.UpdatePasswordUsernameCustomTextBox.TextContent = "";
-            this.UpdatePasswordUsernameCustomTextBox.UnderlineStyle = true;
-            this.UpdatePasswordUsernameCustomTextBox.TextChangedEvent += new System.EventHandler(this.UpdatePasswordFieldsChecker);
-            // 
-            // CaptchaCircularPictureBox
-            // 
-            this.CaptchaCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CaptchaCircularPictureBox.Location = new System.Drawing.Point(30, 15);
-            this.CaptchaCircularPictureBox.Name = "CaptchaCircularPictureBox";
-            this.CaptchaCircularPictureBox.Size = new System.Drawing.Size(150, 150);
-            this.CaptchaCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.CaptchaCircularPictureBox.TabIndex = 35;
-            this.CaptchaCircularPictureBox.TabStop = false;
-            this.CaptchaCircularPictureBox.Click += new System.EventHandler(this.CaptchaCircularPictureBox_Click);
-            // 
-            // ChangeEmailOptionCustomButton
-            // 
-            this.ChangeEmailOptionCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.ChangeEmailOptionCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.ChangeEmailOptionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.ChangeEmailOptionCustomButton.BorderRadius = 10;
-            this.ChangeEmailOptionCustomButton.BorderSize = 0;
-            this.ChangeEmailOptionCustomButton.FlatAppearance.BorderSize = 0;
-            this.ChangeEmailOptionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChangeEmailOptionCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChangeEmailOptionCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ChangeEmailOptionCustomButton.Location = new System.Drawing.Point(180, 569);
-            this.ChangeEmailOptionCustomButton.Name = "ChangeEmailOptionCustomButton";
-            this.ChangeEmailOptionCustomButton.Size = new System.Drawing.Size(150, 40);
-            this.ChangeEmailOptionCustomButton.TabIndex = 35;
-            this.ChangeEmailOptionCustomButton.Text = "AnotherCode";
-            this.ChangeEmailOptionCustomButton.TextColor = System.Drawing.Color.White;
-            this.ChangeEmailOptionCustomButton.UseVisualStyleBackColor = false;
-            // 
-            // NewSMTPCodeOptionCustomButton
-            // 
-            this.NewSMTPCodeOptionCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.NewSMTPCodeOptionCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.NewSMTPCodeOptionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.NewSMTPCodeOptionCustomButton.BorderRadius = 10;
-            this.NewSMTPCodeOptionCustomButton.BorderSize = 0;
-            this.NewSMTPCodeOptionCustomButton.FlatAppearance.BorderSize = 0;
-            this.NewSMTPCodeOptionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NewSMTPCodeOptionCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewSMTPCodeOptionCustomButton.ForeColor = System.Drawing.Color.White;
-            this.NewSMTPCodeOptionCustomButton.Image = global::YouChatApp.Properties.Resources.Resend;
-            this.NewSMTPCodeOptionCustomButton.Location = new System.Drawing.Point(180, 528);
-            this.NewSMTPCodeOptionCustomButton.Name = "NewSMTPCodeOptionCustomButton";
-            this.NewSMTPCodeOptionCustomButton.Size = new System.Drawing.Size(150, 40);
-            this.NewSMTPCodeOptionCustomButton.TabIndex = 34;
-            this.NewSMTPCodeOptionCustomButton.Text = "AnotherCode";
-            this.NewSMTPCodeOptionCustomButton.TextColor = System.Drawing.Color.White;
-            this.NewSMTPCodeOptionCustomButton.UseVisualStyleBackColor = false;
             // 
             // LoginAndRegistration
             // 
@@ -1377,12 +1378,12 @@ namespace YouChatApp
             this.CaptchaWordTestPanel.PerformLayout();
             this.CaptchaImageTestPanel.ResumeLayout(false);
             this.CaptchaImageTestPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).EndInit();
             this.ResetPasswordGroupBox.ResumeLayout(false);
             this.ResetPasswordGroupBox.PerformLayout();
             this.PasswordUpdateGroupBox.ResumeLayout(false);
             this.PasswordUpdateGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

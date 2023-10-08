@@ -37,7 +37,8 @@ namespace YouChatApp
         public const int FriendRequestResponseReceiver = 51;
         public const int FriendsProfileDetailsRequest = 52;
         public const int FriendsProfileDetailsResponse = 53;
-
+        public const int PasswordUpdateRequest = 54;
+        public const int PasswordUpdateResponse = 55;
         public const int UserDetailsRequest = 46;
         public const int UserDetailsResponse = 47;
         public const int registerRequest = 1;
@@ -96,9 +97,10 @@ namespace YouChatApp
         const string InitialProfileSettingsCheckResponse2 = "The login has been successfully completed but You haven't selected profile picture and status yet";
         const string InitialProfileSettingsCheckResponse3 = "The login has been successfully completed but You haven't selected status yet";
         const string InitialProfileSettingsCheckResponse4 = "The login has been successfully completed";
-        const string PasswordRenewalMessageResponse1 = "This password has already been chosen by you before";
-        const string PasswordRenewalMessageResponse2 = "Your new password has been saved";
-        const string PasswordRenewalMessageResponse3 = "An error occured";
+        const string PasswordMessageResponse1 = "This password has already been chosen by you before";
+        const string PasswordMessageResponse2 = "Your new password has been saved";
+        const string PasswordMessageResponse3 = "An error occured";
+        const string PasswordMessageResponse4 = "Your past details aren't matching";
         public const string FriendRequestResponseSender1 = "Approval";
         public const string FriendRequestResponseSender2 = "Rejection";
 
@@ -389,11 +391,11 @@ namespace YouChatApp
                             }
                             else if(requestNumber == PasswordRenewalMessageResponse)
                             {
-                                if ((DecryptedMessageDetails == PasswordRenewalMessageResponse1) || (DecryptedMessageDetails == PasswordRenewalMessageResponse3))
+                                if ((DecryptedMessageDetails == PasswordMessageResponse1) || (DecryptedMessageDetails == PasswordMessageResponse3))
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.SelectNewPasswordForPasswordRenewal(); });
                                 }
-                                else if (DecryptedMessageDetails == PasswordRenewalMessageResponse2)
+                                else if (DecryptedMessageDetails == PasswordMessageResponse2)
                                 {
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.ReturToLoginPanelAfterSuccessfulPasswordRenewal(); });
                                 }
@@ -456,6 +458,23 @@ namespace YouChatApp
 
                                 //needs to restart everything according to it...
 
+                            }
+                            else if (requestNumber == PasswordUpdateResponse)
+                            {
+                                if ((DecryptedMessageDetails == PasswordMessageResponse1) || (DecryptedMessageDetails == PasswordMessageResponse3))
+                                {
+                                    MessageBox.Show("Choose a new pasword", "Password Already Chosen.");
+                                    loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.RestartUpdatePasswordDetails(); });
+                                }
+                                else if (DecryptedMessageDetails == PasswordMessageResponse2)
+                                {
+                                    loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.HandleSuccessfulPasswordUpdate(); });
+                                }
+                                else if (DecryptedMessageDetails == PasswordMessageResponse4)
+                                {
+                                    MessageBox.Show(PasswordMessageResponse4, "Unmatched Details");
+                                    loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.RestartUpdatePasswordDetails(); });
+                                }
                             }
 
                         }
