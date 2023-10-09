@@ -153,6 +153,16 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AudioCall {
+            get {
+                object obj = ResourceManager.GetObject("AudioCall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap babyshark {
             get {
                 object obj = ResourceManager.GetObject("babyshark", resourceCulture);
@@ -206,6 +216,26 @@ namespace YouChatApp.Properties {
         internal static System.Drawing.Bitmap CameraLens {
             get {
                 object obj = ResourceManager.GetObject("CameraLens", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CameraVideoClose {
+            get {
+                object obj = ResourceManager.GetObject("CameraVideoClose", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CameraVideoOpen {
+            get {
+                object obj = ResourceManager.GetObject("CameraVideoOpen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -436,6 +466,16 @@ namespace YouChatApp.Properties {
         internal static System.Drawing.Bitmap Hashtag {
             get {
                 object obj = ResourceManager.GetObject("Hashtag", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Headphone {
+            get {
+                object obj = ResourceManager.GetObject("Headphone", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -853,9 +893,39 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap VideoCall {
+            get {
+                object obj = ResourceManager.GetObject("VideoCall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VideoClose {
+            get {
+                object obj = ResourceManager.GetObject("VideoClose", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap VideoFile {
             get {
                 object obj = ResourceManager.GetObject("VideoFile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VideoOpen {
+            get {
+                object obj = ResourceManager.GetObject("VideoOpen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

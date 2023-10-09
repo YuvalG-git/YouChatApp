@@ -129,6 +129,9 @@ namespace YouChatApp
                 this.ChatControlListOfContacts[ContactChatNumber].ChatName.Text = ContactUsername;
                 this.ChatControlListOfContacts[ContactChatNumber].LastMessageContent.Text = ContactLastMessageContent;
                 this.ChatControlListOfContacts[ContactChatNumber].LastMessageTime.Text = ContactLastMessageTime;
+                this.ChatControlListOfContacts[ContactChatNumber].Click += new System.EventHandler(this.ChatControl_Click);
+
+
                 if (ContactProfilePictureKind == "Male")
                 {
                     this.ChatControlListOfContacts[ContactChatNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[ContactProfilePictureNumber];
@@ -156,7 +159,40 @@ namespace YouChatApp
 
             }
         }
+        private void ChatControl_Click(object sender, EventArgs e)
+        {
+            //ask for message history from the server in case that was the first press since logging in...
+            // set contact headline details:
+            string username = ((ChatControl)(sender)).ChatName.Text;
+            ContactHandler.Contact contact = ContactHandler.ContactManager.GetContact(username); //will works for users only and not for groups...
+            CurrentChatNameLabel.Text = contact.Name;
+            CurrentPictureChatPictureBox.BackgroundImage = contact.ProfilePicture;
+            if (contact.OnlineProperty) //todo - handle case the user blocked those options.. //this also not true beacause i am using his property that he let us or not see if he is online and not if he really is online..
+            {
+                //if (contact is online == true)
+                //{
+                //    LastSeenOnlineLabel.Text = "Online"; //should be is online..
 
+                //}
+            }
+            else
+            {
+                if (contact.LastSeenProperty)
+                {
+                    DateTime ContactLastSeenTime = contact.LastSeenTime;
+                    if (ContactLastSeenTime.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
+                    {
+                        LastSeenOnlineLabel.Text = contact.LastSeenTime.ToString("yyyy-MM-dd");
+
+                    }
+                    else
+                    {
+                        LastSeenOnlineLabel.Text = contact.LastSeenTime.ToString("yyyy-MM-dd   HH:mm");
+
+                    }
+                }
+            }
+        }
 
         private void ProfileButton_Click(object sender, EventArgs e)
         {

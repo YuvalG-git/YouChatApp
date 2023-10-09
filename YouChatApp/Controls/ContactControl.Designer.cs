@@ -39,6 +39,7 @@
             this.ProfilePictureCircularPictureBox.Location = new System.Drawing.Point(10, 10);
             this.ProfilePictureCircularPictureBox.Name = "ProfilePictureCircularPictureBox";
             this.ProfilePictureCircularPictureBox.Size = new System.Drawing.Size(60, 60);
+            this.ProfilePictureCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ProfilePictureCircularPictureBox.TabIndex = 0;
             this.ProfilePictureCircularPictureBox.TabStop = false;
             // 

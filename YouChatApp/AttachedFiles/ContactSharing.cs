@@ -20,7 +20,6 @@ namespace YouChatApp.AttachedFiles
             ContactControlList = new List<ContactControl>();
             SearchBar.AddSearchOnClickHandler(SearchContacts);
             //passwordGeneratorControl1.OnTextChangedEventHandler(PasswordFieldsValueChecker);
-            //messageControl1.SetMessageControl();
 
             SetContactControlList();
         }
@@ -38,6 +37,7 @@ namespace YouChatApp.AttachedFiles
             //    }
             //}
             string Text = SearchBar.SeacrhBar.TextContent;
+            string ContactName;
             LastContactControlHeightLocation = 0;
             if (Text.Length == 0)
             {
@@ -53,14 +53,26 @@ namespace YouChatApp.AttachedFiles
             {
                 foreach (ContactControl Contact in ContactControlList) //this works for every contact. maybe it would be better to create for all the contacts a control and then just view the correct ones...
                 {
-                    string[] NameParts = Contact.ContactName.Text.Split(' ');
                     bool IsVisible = false;
-                    foreach (string NamePart in NameParts)
+                    ContactName = Contact.ContactName.Text;
+                    if (Text.ToLower().Contains(" "))
                     {
-                        if (NamePart.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                        if (ContactName.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
                         {
                             Contact.Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
                             IsVisible = true;
+                        }
+                    }
+                    else
+                    {
+                        string[] NameParts = ContactName.Split(' ');
+                        foreach (string NamePart in NameParts)
+                        {
+                            if (NamePart.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                            {
+                                Contact.Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
+                                IsVisible = true;
+                            }
                         }
                     }
                     if (IsVisible)
@@ -89,12 +101,12 @@ namespace YouChatApp.AttachedFiles
 
         private void SetContactControlList()
         {
-            ContactHandler.ContactManager.AddContact("bett");
-            ContactHandler.ContactManager.AddContact("tai");
+            ContactHandler.ContactManager.AddContact("Noam Sfadia");
+            ContactHandler.ContactManager.AddContact("Noam Salomon");
 
-            ContactHandler.ContactManager.AddContact("adolf");
-            ContactHandler.ContactManager.AddContact("greg");
-            ContactHandler.ContactManager.AddContact("denis");
+            ContactHandler.ContactManager.AddContact("Alon Tamir");
+            ContactHandler.ContactManager.AddContact("Ben Raviv");
+            ContactHandler.ContactManager.AddContact("Yuval Gur");
 
             foreach (Contact Contact in ContactManager.UserContacts)
             {
@@ -106,6 +118,8 @@ namespace YouChatApp.AttachedFiles
                 this.ContactControlList[ContactNumber].TabIndex = 0;
                 this.ContactControlList[ContactNumber].BackColor = SystemColors.Control;
                 this.ContactControlList[ContactNumber].ContactName.Text = Contact.Name;
+                this.ContactControlList[ContactNumber].ProfilePicture.Image = ProfilePictureImageList.MaleProfilePictureImageList.Images[2];
+
                 this.ContactControlList[ContactNumber].OnCheckBoxCheckedChangedHandler(CheckedChanged);
 
                 this.Controls.Add(this.ContactControlList[ContactNumber]);
@@ -166,6 +180,11 @@ namespace YouChatApp.AttachedFiles
         }
 
         private void SearchBar_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void messageControl1_Load(object sender, EventArgs e)
         {
 
         }

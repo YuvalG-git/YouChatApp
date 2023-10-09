@@ -39,6 +39,9 @@ namespace YouChatApp
         public const int FriendsProfileDetailsResponse = 53;
         public const int PasswordUpdateRequest = 54;
         public const int PasswordUpdateResponse = 55;
+        public const int UserConnectionCheckRequest = 56;
+        public const int UserConnectionCheckResponse = 57;
+
         public const int UserDetailsRequest = 46;
         public const int UserDetailsResponse = 47;
         public const int registerRequest = 1;

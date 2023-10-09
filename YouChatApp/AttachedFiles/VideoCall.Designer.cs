@@ -29,110 +29,273 @@
         private void InitializeComponent()
         {
             this.CameraDeviceComboBox = new System.Windows.Forms.ComboBox();
-            this.CameraModeButton = new System.Windows.Forms.Button();
-            this.CameraDeviceLabel = new System.Windows.Forms.Label();
-            this.AudioDeviceLabel = new System.Windows.Forms.Label();
-            this.AudioDevicePictureBox = new System.Windows.Forms.PictureBox();
+            this.AudioInputDeviceComboBox = new System.Windows.Forms.ComboBox();
+            this.BackgroundPanel = new System.Windows.Forms.Panel();
+            this.AudioInputPanel = new System.Windows.Forms.Panel();
+            this.AudioInputDeviceLabel = new System.Windows.Forms.Label();
+            this.VideoDevicePanel = new System.Windows.Forms.Panel();
+            this.VideoDeviceLabel = new System.Windows.Forms.Label();
+            this.AudioOutputPanel = new System.Windows.Forms.Panel();
+            this.AudioOutputDeviceComboBox = new System.Windows.Forms.ComboBox();
+            this.AudioOutputDeviceLabel = new System.Windows.Forms.Label();
+            this.UserVideoPictureBox = new System.Windows.Forms.PictureBox();
+            this.RemoteVideoPictureBox = new System.Windows.Forms.PictureBox();
+            this.AudioOutputDevicePictureBox = new System.Windows.Forms.PictureBox();
+            this.AudioInputDevicePictureBox = new System.Windows.Forms.PictureBox();
+            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
             this.CameraDevicePictureBox = new System.Windows.Forms.PictureBox();
-            this.AudioDeviceComboBox = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.AudioDevicePictureBox)).BeginInit();
+            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
+            this.BackgroundPanel.SuspendLayout();
+            this.AudioInputPanel.SuspendLayout();
+            this.VideoDevicePanel.SuspendLayout();
+            this.AudioOutputPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UserVideoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RemoteVideoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AudioOutputDevicePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AudioInputDevicePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CameraDevicePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // CameraDeviceComboBox
             // 
+            this.CameraDeviceComboBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CameraDeviceComboBox.FormattingEnabled = true;
-            this.CameraDeviceComboBox.Location = new System.Drawing.Point(299, 399);
+            this.CameraDeviceComboBox.Location = new System.Drawing.Point(35, 32);
             this.CameraDeviceComboBox.Name = "CameraDeviceComboBox";
-            this.CameraDeviceComboBox.Size = new System.Drawing.Size(121, 21);
+            this.CameraDeviceComboBox.Size = new System.Drawing.Size(121, 26);
             this.CameraDeviceComboBox.TabIndex = 0;
             // 
-            // CameraModeButton
+            // AudioInputDeviceComboBox
             // 
-            this.CameraModeButton.Location = new System.Drawing.Point(738, 198);
-            this.CameraModeButton.Name = "CameraModeButton";
-            this.CameraModeButton.Size = new System.Drawing.Size(50, 50);
-            this.CameraModeButton.TabIndex = 1;
-            this.CameraModeButton.UseVisualStyleBackColor = true;
+            this.AudioInputDeviceComboBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AudioInputDeviceComboBox.FormattingEnabled = true;
+            this.AudioInputDeviceComboBox.Location = new System.Drawing.Point(35, 32);
+            this.AudioInputDeviceComboBox.Name = "AudioInputDeviceComboBox";
+            this.AudioInputDeviceComboBox.Size = new System.Drawing.Size(121, 26);
+            this.AudioInputDeviceComboBox.TabIndex = 6;
+            this.AudioInputDeviceComboBox.SelectedIndexChanged += new System.EventHandler(this.AudioDeviceComboBox_SelectedIndexChanged);
             // 
-            // CameraDeviceLabel
+            // BackgroundPanel
             // 
-            this.CameraDeviceLabel.AutoSize = true;
-            this.CameraDeviceLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CameraDeviceLabel.Location = new System.Drawing.Point(282, 423);
-            this.CameraDeviceLabel.Name = "CameraDeviceLabel";
-            this.CameraDeviceLabel.Size = new System.Drawing.Size(155, 18);
-            this.CameraDeviceLabel.TabIndex = 2;
-            this.CameraDeviceLabel.Text = "Connect a camera";
+            this.BackgroundPanel.BackColor = System.Drawing.Color.Black;
+            this.BackgroundPanel.Controls.Add(this.AudioOutputPanel);
+            this.BackgroundPanel.Controls.Add(this.AudioInputPanel);
+            this.BackgroundPanel.Controls.Add(this.VideoDevicePanel);
+            this.BackgroundPanel.Controls.Add(this.CameraModeCustomButton);
+            this.BackgroundPanel.Location = new System.Drawing.Point(2, 2);
+            this.BackgroundPanel.Name = "BackgroundPanel";
+            this.BackgroundPanel.Size = new System.Drawing.Size(802, 100);
+            this.BackgroundPanel.TabIndex = 7;
             // 
-            // AudioDeviceLabel
+            // AudioInputPanel
             // 
-            this.AudioDeviceLabel.AutoSize = true;
-            this.AudioDeviceLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AudioDeviceLabel.Location = new System.Drawing.Point(499, 423);
-            this.AudioDeviceLabel.Name = "AudioDeviceLabel";
-            this.AudioDeviceLabel.Size = new System.Drawing.Size(189, 18);
-            this.AudioDeviceLabel.TabIndex = 4;
-            this.AudioDeviceLabel.Text = "Connect a microphone";
+            this.AudioInputPanel.Controls.Add(this.AudioInputDevicePictureBox);
+            this.AudioInputPanel.Controls.Add(this.AudioInputDeviceComboBox);
+            this.AudioInputPanel.Controls.Add(this.AudioInputDeviceLabel);
+            this.AudioInputPanel.Location = new System.Drawing.Point(218, 10);
+            this.AudioInputPanel.Name = "AudioInputPanel";
+            this.AudioInputPanel.Size = new System.Drawing.Size(200, 75);
+            this.AudioInputPanel.TabIndex = 14;
             // 
-            // AudioDevicePictureBox
+            // AudioInputDeviceLabel
             // 
-            this.AudioDevicePictureBox.Image = global::YouChatApp.Properties.Resources.Microphone;
-            this.AudioDevicePictureBox.Location = new System.Drawing.Point(468, 423);
-            this.AudioDevicePictureBox.Name = "AudioDevicePictureBox";
-            this.AudioDevicePictureBox.Size = new System.Drawing.Size(25, 25);
-            this.AudioDevicePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.AudioDevicePictureBox.TabIndex = 5;
-            this.AudioDevicePictureBox.TabStop = false;
+            this.AudioInputDeviceLabel.AutoSize = true;
+            this.AudioInputDeviceLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AudioInputDeviceLabel.ForeColor = System.Drawing.Color.White;
+            this.AudioInputDeviceLabel.Location = new System.Drawing.Point(0, 0);
+            this.AudioInputDeviceLabel.Name = "AudioInputDeviceLabel";
+            this.AudioInputDeviceLabel.Size = new System.Drawing.Size(158, 18);
+            this.AudioInputDeviceLabel.TabIndex = 9;
+            this.AudioInputDeviceLabel.Text = "Audio Input Device";
+            // 
+            // VideoDevicePanel
+            // 
+            this.VideoDevicePanel.Controls.Add(this.VideoDeviceLabel);
+            this.VideoDevicePanel.Controls.Add(this.RefreshCameraOptionsCustomButton);
+            this.VideoDevicePanel.Controls.Add(this.CameraDeviceComboBox);
+            this.VideoDevicePanel.Controls.Add(this.CameraDevicePictureBox);
+            this.VideoDevicePanel.Location = new System.Drawing.Point(3, 10);
+            this.VideoDevicePanel.Name = "VideoDevicePanel";
+            this.VideoDevicePanel.Size = new System.Drawing.Size(200, 75);
+            this.VideoDevicePanel.TabIndex = 13;
+            // 
+            // VideoDeviceLabel
+            // 
+            this.VideoDeviceLabel.AutoSize = true;
+            this.VideoDeviceLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VideoDeviceLabel.ForeColor = System.Drawing.Color.White;
+            this.VideoDeviceLabel.Location = new System.Drawing.Point(0, 0);
+            this.VideoDeviceLabel.Name = "VideoDeviceLabel";
+            this.VideoDeviceLabel.Size = new System.Drawing.Size(112, 18);
+            this.VideoDeviceLabel.TabIndex = 9;
+            this.VideoDeviceLabel.Text = "Video Device";
+            // 
+            // AudioOutputPanel
+            // 
+            this.AudioOutputPanel.Controls.Add(this.AudioOutputDevicePictureBox);
+            this.AudioOutputPanel.Controls.Add(this.AudioOutputDeviceComboBox);
+            this.AudioOutputPanel.Controls.Add(this.AudioOutputDeviceLabel);
+            this.AudioOutputPanel.Location = new System.Drawing.Point(441, 10);
+            this.AudioOutputPanel.Name = "AudioOutputPanel";
+            this.AudioOutputPanel.Size = new System.Drawing.Size(200, 75);
+            this.AudioOutputPanel.TabIndex = 15;
+            // 
+            // AudioOutputDeviceComboBox
+            // 
+            this.AudioOutputDeviceComboBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AudioOutputDeviceComboBox.FormattingEnabled = true;
+            this.AudioOutputDeviceComboBox.Location = new System.Drawing.Point(35, 32);
+            this.AudioOutputDeviceComboBox.Name = "AudioOutputDeviceComboBox";
+            this.AudioOutputDeviceComboBox.Size = new System.Drawing.Size(121, 26);
+            this.AudioOutputDeviceComboBox.TabIndex = 6;
+            // 
+            // AudioOutputDeviceLabel
+            // 
+            this.AudioOutputDeviceLabel.AutoSize = true;
+            this.AudioOutputDeviceLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AudioOutputDeviceLabel.ForeColor = System.Drawing.Color.White;
+            this.AudioOutputDeviceLabel.Location = new System.Drawing.Point(0, 0);
+            this.AudioOutputDeviceLabel.Name = "AudioOutputDeviceLabel";
+            this.AudioOutputDeviceLabel.Size = new System.Drawing.Size(172, 18);
+            this.AudioOutputDeviceLabel.TabIndex = 9;
+            this.AudioOutputDeviceLabel.Text = "Audio Output Device";
+            // 
+            // UserVideoPictureBox
+            // 
+            this.UserVideoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.UserVideoPictureBox.Location = new System.Drawing.Point(479, 489);
+            this.UserVideoPictureBox.Name = "UserVideoPictureBox";
+            this.UserVideoPictureBox.Size = new System.Drawing.Size(240, 180);
+            this.UserVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.UserVideoPictureBox.TabIndex = 9;
+            this.UserVideoPictureBox.TabStop = false;
+            this.UserVideoPictureBox.SizeChanged += new System.EventHandler(this.VideoPictureBox_SizeChanged);
+            // 
+            // RemoteVideoPictureBox
+            // 
+            this.RemoteVideoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.RemoteVideoPictureBox.Location = new System.Drawing.Point(79, 189);
+            this.RemoteVideoPictureBox.Name = "RemoteVideoPictureBox";
+            this.RemoteVideoPictureBox.Size = new System.Drawing.Size(640, 480);
+            this.RemoteVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.RemoteVideoPictureBox.TabIndex = 10;
+            this.RemoteVideoPictureBox.TabStop = false;
+            // 
+            // AudioOutputDevicePictureBox
+            // 
+            this.AudioOutputDevicePictureBox.Image = global::YouChatApp.Properties.Resources.Headphone;
+            this.AudioOutputDevicePictureBox.Location = new System.Drawing.Point(3, 32);
+            this.AudioOutputDevicePictureBox.Name = "AudioOutputDevicePictureBox";
+            this.AudioOutputDevicePictureBox.Size = new System.Drawing.Size(26, 26);
+            this.AudioOutputDevicePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.AudioOutputDevicePictureBox.TabIndex = 5;
+            this.AudioOutputDevicePictureBox.TabStop = false;
+            // 
+            // AudioInputDevicePictureBox
+            // 
+            this.AudioInputDevicePictureBox.Image = global::YouChatApp.Properties.Resources.Microphone;
+            this.AudioInputDevicePictureBox.Location = new System.Drawing.Point(3, 32);
+            this.AudioInputDevicePictureBox.Name = "AudioInputDevicePictureBox";
+            this.AudioInputDevicePictureBox.Size = new System.Drawing.Size(26, 26);
+            this.AudioInputDevicePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.AudioInputDevicePictureBox.TabIndex = 5;
+            this.AudioInputDevicePictureBox.TabStop = false;
+            // 
+            // RefreshCameraOptionsCustomButton
+            // 
+            this.RefreshCameraOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshCameraOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshCameraOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
+            this.RefreshCameraOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RefreshCameraOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.RefreshCameraOptionsCustomButton.BorderRadius = 10;
+            this.RefreshCameraOptionsCustomButton.BorderSize = 0;
+            this.RefreshCameraOptionsCustomButton.FlatAppearance.BorderSize = 0;
+            this.RefreshCameraOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshCameraOptionsCustomButton.ForeColor = System.Drawing.Color.White;
+            this.RefreshCameraOptionsCustomButton.Location = new System.Drawing.Point(162, 30);
+            this.RefreshCameraOptionsCustomButton.Name = "RefreshCameraOptionsCustomButton";
+            this.RefreshCameraOptionsCustomButton.Size = new System.Drawing.Size(30, 30);
+            this.RefreshCameraOptionsCustomButton.TabIndex = 8;
+            this.RefreshCameraOptionsCustomButton.TextColor = System.Drawing.Color.White;
+            this.RefreshCameraOptionsCustomButton.UseVisualStyleBackColor = false;
             // 
             // CameraDevicePictureBox
             // 
             this.CameraDevicePictureBox.Image = global::YouChatApp.Properties.Resources.CameraLens;
-            this.CameraDevicePictureBox.Location = new System.Drawing.Point(260, 423);
+            this.CameraDevicePictureBox.Location = new System.Drawing.Point(3, 32);
             this.CameraDevicePictureBox.Name = "CameraDevicePictureBox";
-            this.CameraDevicePictureBox.Size = new System.Drawing.Size(25, 25);
+            this.CameraDevicePictureBox.Size = new System.Drawing.Size(26, 26);
             this.CameraDevicePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.CameraDevicePictureBox.TabIndex = 3;
             this.CameraDevicePictureBox.TabStop = false;
             // 
-            // AudioDeviceComboBox
+            // CameraModeCustomButton
             // 
-            this.AudioDeviceComboBox.FormattingEnabled = true;
-            this.AudioDeviceComboBox.Location = new System.Drawing.Point(518, 399);
-            this.AudioDeviceComboBox.Name = "AudioDeviceComboBox";
-            this.AudioDeviceComboBox.Size = new System.Drawing.Size(121, 21);
-            this.AudioDeviceComboBox.TabIndex = 6;
-            this.AudioDeviceComboBox.SelectedIndexChanged += new System.EventHandler(this.AudioDeviceComboBox_SelectedIndexChanged);
+            this.CameraModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.CameraModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.CameraModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoOpen;
+            this.CameraModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CameraModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.CameraModeCustomButton.BorderRadius = 10;
+            this.CameraModeCustomButton.BorderSize = 0;
+            this.CameraModeCustomButton.FlatAppearance.BorderSize = 0;
+            this.CameraModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CameraModeCustomButton.ForeColor = System.Drawing.Color.White;
+            this.CameraModeCustomButton.Location = new System.Drawing.Point(696, 18);
+            this.CameraModeCustomButton.Name = "CameraModeCustomButton";
+            this.CameraModeCustomButton.Size = new System.Drawing.Size(80, 60);
+            this.CameraModeCustomButton.TabIndex = 7;
+            this.CameraModeCustomButton.TextColor = System.Drawing.Color.White;
+            this.CameraModeCustomButton.UseVisualStyleBackColor = false;
+            this.CameraModeCustomButton.Click += new System.EventHandler(this.CameraModeCustomButton_Click);
             // 
             // VideoCall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.AudioDeviceComboBox);
-            this.Controls.Add(this.AudioDevicePictureBox);
-            this.Controls.Add(this.AudioDeviceLabel);
-            this.Controls.Add(this.CameraDevicePictureBox);
-            this.Controls.Add(this.CameraDeviceLabel);
-            this.Controls.Add(this.CameraModeButton);
-            this.Controls.Add(this.CameraDeviceComboBox);
+            this.ClientSize = new System.Drawing.Size(800, 713);
+            this.Controls.Add(this.UserVideoPictureBox);
+            this.Controls.Add(this.RemoteVideoPictureBox);
+            this.Controls.Add(this.BackgroundPanel);
             this.Name = "VideoCall";
             this.Text = "VideoCall";
-            ((System.ComponentModel.ISupportInitialize)(this.AudioDevicePictureBox)).EndInit();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VideoCall_FormClosing);
+            this.Load += new System.EventHandler(this.VideoCall_Load);
+            this.BackgroundPanel.ResumeLayout(false);
+            this.AudioInputPanel.ResumeLayout(false);
+            this.AudioInputPanel.PerformLayout();
+            this.VideoDevicePanel.ResumeLayout(false);
+            this.VideoDevicePanel.PerformLayout();
+            this.AudioOutputPanel.ResumeLayout(false);
+            this.AudioOutputPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UserVideoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RemoteVideoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AudioOutputDevicePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AudioInputDevicePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CameraDevicePictureBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.ComboBox CameraDeviceComboBox;
-        private System.Windows.Forms.Button CameraModeButton;
-        private System.Windows.Forms.Label CameraDeviceLabel;
         private System.Windows.Forms.PictureBox CameraDevicePictureBox;
-        private System.Windows.Forms.Label AudioDeviceLabel;
-        private System.Windows.Forms.PictureBox AudioDevicePictureBox;
-        private System.Windows.Forms.ComboBox AudioDeviceComboBox;
+        private System.Windows.Forms.PictureBox AudioInputDevicePictureBox;
+        private System.Windows.Forms.ComboBox AudioInputDeviceComboBox;
+        private Controls.CustomButton CameraModeCustomButton;
+        private Controls.CustomButton RefreshCameraOptionsCustomButton;
+        private System.Windows.Forms.PictureBox UserVideoPictureBox;
+        private System.Windows.Forms.PictureBox RemoteVideoPictureBox;
+        private System.Windows.Forms.Panel BackgroundPanel;
+        private System.Windows.Forms.Panel AudioInputPanel;
+        private System.Windows.Forms.Label AudioInputDeviceLabel;
+        private System.Windows.Forms.Panel VideoDevicePanel;
+        private System.Windows.Forms.Label VideoDeviceLabel;
+        private System.Windows.Forms.Panel AudioOutputPanel;
+        private System.Windows.Forms.PictureBox AudioOutputDevicePictureBox;
+        private System.Windows.Forms.ComboBox AudioOutputDeviceComboBox;
+        private System.Windows.Forms.Label AudioOutputDeviceLabel;
     }
 }

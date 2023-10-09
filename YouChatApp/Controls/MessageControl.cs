@@ -150,7 +150,6 @@ namespace YouChatApp
                 Clipboard.SetText(MessageLabel.Text);
                 MessageBox.Show("This message has been copied!", "Message Copied");
                 WasChosen = true;
-
             }
             else
             {
