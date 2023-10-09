@@ -37,6 +37,10 @@ namespace YouChatApp.AttachedFiles
             //    }
             //}
             string Text = SearchBar.SeacrhBar.TextContent;
+            if (Text.EndsWith(" "))
+            {
+                Text = Text.Substring(0, Text.Length - 1);
+            }
             string ContactName;
             LastContactControlHeightLocation = 0;
             if (Text.Length == 0)

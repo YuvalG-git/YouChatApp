@@ -27,8 +27,6 @@ namespace YouChatApp.ContactHandler
         }
         private static void InsertAlphabetically(Contact contact)
         {
-            string name = contact.Name;
-
             int index = UserContacts.BinarySearch(contact, new ContactHandler.ContactNameComparer());
 
             if (index < 0)

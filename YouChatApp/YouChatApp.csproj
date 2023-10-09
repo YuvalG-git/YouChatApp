@@ -121,6 +121,9 @@
     <Compile Include="AttachedFiles\AudioCall.Designer.cs">
       <DependentUpon>AudioCall.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChatHandler\Chat.cs" />
+    <Compile Include="ChatHandler\ChatLastMessageTimeComparer.cs" />
+    <Compile Include="ChatHandler\ChatManager.cs" />
     <Compile Include="ContactHandler\Contact.cs" />
     <Compile Include="ContactHandler\ContactManager.cs" />
     <Compile Include="AttachedFiles\EmojiObject.cs" />
@@ -340,6 +343,7 @@
     </Compile>
     <Compile Include="SmtpHandler.cs" />
     <Compile Include="UserProfile\ProfileDetailsHandler.cs" />
+    <Compile Include="VideoAndAudioServerCommunication.cs" />
     <Compile Include="YouChat.cs">
       <SubType>Form</SubType>
     </Compile>

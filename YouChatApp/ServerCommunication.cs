@@ -149,23 +149,10 @@ namespace YouChatApp
 
 
         public static int CurrentChatNumberID = 0;
-        /// <summary>
-        /// Represents the player's name
-        /// </summary>
-        public static string name;
 
-        /// <summary>
-        /// Represents the oppoenent's username
-        /// </summary>
-        public static string OppenentName;
 
         public static bool EnterKeyPress = false; //false for now, in the future the value will be chosen when the user connects (the server will send this information
 
-
-        /// <summary>
-        /// Represents the game board's size
-        /// </summary>
-        public static int size;
 
         public static Contact _myData;
         /// <summary>
@@ -512,20 +499,19 @@ namespace YouChatApp
                 IdAsString = ImageId.Replace("Male", "");
                 Id = int.Parse(IdAsString);
                 profilePicture = ProfilePictureImageList.MaleProfilePictureImageList.Images[Id]; //todo - change beacuse it inserts the wrong image
-                string name = "BoyCharacter" + (Id + 1);
                 //profilePicture = Properties.MaleProfilePicture.ResourceManager.GetObject(name) as Image;
             }
             else if (ImageId.StartsWith("Female"))
             {
                 IdAsString = ImageId.Replace("Female", "");
                 Id = int.Parse(IdAsString);
-                profilePicture = ProfilePictureImageList.MaleProfilePictureImageList.Images[Id];
+                profilePicture = ProfilePictureImageList.FemaleProfilePictureImageList.Images[Id];
             }
             else
             {
                 IdAsString = ImageId.Replace("Animal", "");
                 Id = int.Parse(IdAsString);
-                profilePicture = ProfilePictureImageList.MaleProfilePictureImageList.Images[Id];
+                profilePicture = ProfilePictureImageList.AnimalProfilePictureImageList.Images[Id];
             }
             return profilePicture;
         }

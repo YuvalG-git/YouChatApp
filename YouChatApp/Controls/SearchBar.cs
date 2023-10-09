@@ -38,5 +38,30 @@ namespace YouChatApp.Controls
         private void SearchBarCustomTextBox_MouseDown(object sender, MouseEventArgs e)
         {
         }
+        [Category("YouChat")]
+        public Color BorderColor
+        {
+            get 
+            { 
+                return SearchBarCustomTextBox.BorderColor;
+            }
+            set
+            {
+                SearchBarCustomTextBox.BorderColor = value;
+                this.Invalidate();
+            }
+        }
+        [Category("YouChat")]
+        public Color BorderFocusColor
+        {
+            get
+            {
+                return SearchBarCustomTextBox.BorderFocusColor;
+            }
+            set
+            {
+                SearchBarCustomTextBox.BorderFocusColor = value;
+            }
+        }
     }
 }

@@ -77,6 +77,7 @@
             this.SearchBarCustomTextBox.PlaceHolderText = "Search...";
             this.SearchBarCustomTextBox.Size = new System.Drawing.Size(250, 31);
             this.SearchBarCustomTextBox.TabIndex = 3;
+            this.SearchBarCustomTextBox.TextContent = "";
             this.SearchBarCustomTextBox.UnderlineStyle = false;
             this.SearchBarCustomTextBox.TextChangedEvent += new System.EventHandler(this.OnSearch);
             this.SearchBarCustomTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SearchBarCustomTextBox_MouseDown);
@@ -89,7 +90,7 @@
             this.Controls.Add(this.SearchPictureBox);
             this.Controls.Add(this.SearchBackgroundCircularPictureBox);
             this.Name = "SearchBar";
-            this.Size = new System.Drawing.Size(320, 60);
+            this.Size = new System.Drawing.Size(310, 60);
             this.Load += new System.EventHandler(this.SearchBar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SearchPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchBackgroundCircularPictureBox)).EndInit();

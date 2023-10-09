@@ -85,14 +85,12 @@ namespace YouChatApp
         /// </summary>
         public void OpenApp()
         {
-            ServerCommunication.name = usernameTextbox.Text;
             this.Hide();
             ServerCommunication.youChat = new YouChat();
             this.Invoke(new Action(() => ServerCommunication.youChat.ShowDialog()));
         }
         public void OpenInitialProfileSelection(Boolean IsPhaseOne)
         {
-            ServerCommunication.name = usernameTextbox.Text;
             this.Hide();
             ServerCommunication.InitialProfileSelection = new InitialProfileSelection(IsPhaseOne);
             this.Invoke(new Action(() => ServerCommunication.InitialProfileSelection.ShowDialog()));
