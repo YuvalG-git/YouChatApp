@@ -444,7 +444,9 @@ namespace YouChatApp
                                 UserProfile.ProfileDetailsHandler.TextSize = int.Parse(MyContactContent[7]);
                                 UserProfile.ProfileDetailsHandler.MessageGap = int.Parse(MyContactContent[8]);
                                 UserProfile.ProfileDetailsHandler.EnterKeyPressed = bool.Parse(MyContactContent[9]);
-                                youChat.Invoke((Action)delegate { youChat.SetProfilePicture(UserProfile.ProfileDetailsHandler.ProfilePicture); });
+                                UserProfile.ProfileDetailsHandler.TagLine = MyContactContent[10];
+
+                                youChat.Invoke((Action)delegate { youChat.SetProfilePicture(); });
 
                                 //needs to restart everything according to it...
 

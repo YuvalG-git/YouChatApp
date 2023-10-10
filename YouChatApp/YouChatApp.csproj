@@ -124,6 +124,8 @@
     <Compile Include="ChatHandler\Chat.cs" />
     <Compile Include="ChatHandler\ChatLastMessageTimeComparer.cs" />
     <Compile Include="ChatHandler\ChatManager.cs" />
+    <Compile Include="ChatHandler\GroupChat.cs" />
+    <Compile Include="ChatHandler\PersonalChat.cs" />
     <Compile Include="ContactHandler\Contact.cs" />
     <Compile Include="ContactHandler\ContactManager.cs" />
     <Compile Include="AttachedFiles\EmojiObject.cs" />

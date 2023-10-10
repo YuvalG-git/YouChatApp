@@ -54,7 +54,7 @@ namespace YouChatApp
             }
         }
 
-        private void ContactSharingCheckBox_Click(object sender, EventArgs e)
+        private void ContactSharingCheckBox_Click(object sender, EventArgs e)//todo - make sure it's not check on group creator..
         {
 
             if (ContactSharingCheckBox.Checked)

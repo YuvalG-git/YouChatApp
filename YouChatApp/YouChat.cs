@@ -46,10 +46,16 @@ namespace YouChatApp
             //ProfilePictureImageList.InitializeImageLists();
             SetResourceSetArray();
             ChatSearchBar.AddSearchOnClickHandler(SearchChats);
-
+            SetCustomTextBoxsPlaceHolderText();
             ServerCommunication.SendMessage(ServerCommunication.UserDetailsRequest, " ");
 
         }
+        private void SetCustomTextBoxsPlaceHolderText()
+        {
+            UserIdCustomTextBox.PlaceHolderText = "YouChat ID";
+            UserTaglineCustomTextBox.PlaceHolderText = "TAGLINE";
+        }
+
         private void SetResourceSetArray()
         {
             resourceSetArray = new ResourceSet[9];
@@ -93,20 +99,21 @@ namespace YouChatApp
             LettersAndNumbersArray[1] = Numbers;
             return LettersAndNumbersArray;
         }
-        public void SetProfilePicture(Image ProfilePicture)
+        public void SetProfilePicture()
         {
-            ProfileButton.BackgroundImage = ProfilePicture;
+            ProfileButton.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
+            UserIDLabel.Text += " " + UserProfile.ProfileDetailsHandler.Name + "#" + UserProfile.ProfileDetailsHandler.TagLine;
             ServerCommunication.SendMessage(ServerCommunication.FriendsProfileDetailsRequest, " ");
         }
-        private void SearchChats(object sender, System.EventArgs e)
+        private void SearchChats(object sender, System.EventArgs e) //אפשר לעשות פעולה גנרית שתקבל רשימה של הcontrols והיא תהיה גנרית...
         {
             string Text = ChatSearchBar.SeacrhBar.TextContent;
-            if (Text.EndsWith(" "))
+            while (Text.EndsWith(" "))
             {
                 Text = Text.Substring(0, Text.Length-1);
             }
             string ContactName;
-            heightForChats = ChatSearchPanel.Location.Y + ChatSearchPanel.Height;
+            heightForChats = 0;
             if (Text.Length == 0)
             {
                 foreach (ChatControl chat in ChatControlListOfContacts)
@@ -214,26 +221,36 @@ namespace YouChatApp
             //}
 
 
-            ChatManager.AddChat("Noam", "Noam", "Noam", DateTime.Now.AddMonths(-2), ProfilePictureImageList.MaleProfilePictureImageList.Images[2],"hi");
-            ChatManager.AddChat("Bill", "Noam", "Noam", DateTime.Now.AddYears(-2), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+            ChatManager.AddChat("Noam Sfadia", "Noam", "Noam", DateTime.Now.AddMonths(-2), ProfilePictureImageList.MaleProfilePictureImageList.Images[2],"hi");
+            ChatManager.AddChat("Bill Gates", "Noam", "Noam", DateTime.Now.AddYears(-2), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
 
 
-            ChatManager.AddChat("Ben", "Noam", "Noam", DateTime.Now.AddDays(-1), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+            ChatManager.AddChat("Ben Raviv", "Noam", "Noam", DateTime.Now.AddDays(-1), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
 
-            ChatManager.AddChat("Gal", "Noam", "Noam", DateTime.Now.AddDays(-4), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+            ChatManager.AddChat("Alon Tamir", "Noam", "Noam", DateTime.Now.AddDays(-4), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
 
-            ChatManager.AddChat("Yuval", "Noam", "Noam", DateTime.Now.AddHours(-2), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+            ChatManager.AddChat("Yuval Gur", "Noam", "Noam", DateTime.Now.AddHours(-2), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+            ChatManager.AddChat("Noam Salomon", "Noam", "Noam", DateTime.Now.AddMonths(-5).AddHours(3), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+            ChatManager.AddChat("Yonathan Gal", "Noam", "Noam", DateTime.Now.AddYears(-1), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
 
+
+            ChatManager.AddChat("Nir Spinzi", "Noam", "Noam", DateTime.Now.AddDays(-7), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+
+            ChatManager.AddChat("Yotam Limor", "Noam", "Noam", DateTime.Now.AddDays(-4), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+
+            ChatManager.AddChat("Yaniv Ilan", "Noam", "Noam", DateTime.Now.AddMonths(-11).AddHours(234).AddMinutes(43), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+            ChatManager.AddChat("Ariel Shiff", "Noam", "Noam", DateTime.Now.AddHours(-3).AddMinutes(3), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+            ChatManager.AddChat("Amir Lavi", "Noam", "Noam", DateTime.Now.AddHours(-6).AddMinutes(4), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
+            ChatManager.AddChat("Omer Drori", "Noam", "Noam", DateTime.Now.AddHours(-2).AddMinutes(-7), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
 
             foreach (Chat chat in ChatManager._chats)
             {
                 if (ContactChatNumber == 0)
-                    heightForChats = ChatSearchPanel.Location.Y + ChatSearchPanel.Height;
+                    heightForChats = 0;
                 else
                     heightForChats = this.ChatControlListOfContacts[ContactChatNumber - 1].Location.Y + this.ChatControlListOfContacts[ContactChatNumber - 1].Size.Height;
                 this.ChatControlListOfContacts.Add(new ChatControl());
                 this.ChatControlListOfContacts[ContactChatNumber].Location = new System.Drawing.Point(0, heightForChats);
-                //this.ChatControlListOfContacts[ContactChatNumber].BackColor = Color.CornflowerBlue;
                 this.ChatControlListOfContacts[ContactChatNumber].Name = chat._chatName;
                 this.ChatControlListOfContacts[ContactChatNumber].TabIndex = 0;
                 this.ChatControlListOfContacts[ContactChatNumber].ChatName.Text = chat._chatName;
@@ -558,41 +575,41 @@ namespace YouChatApp
             TimeLabel.Text = DateTime.Now.ToString();
         }
 
-        private void UserIDTextBox_Enter(object sender, EventArgs e)
-        {
-            if (UserIDTextBox.Text == "YouChat ID")
-            {
-                UserIDTextBox.Text = "";
-                UserIDTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            }
-        }
+        //private void UserIDTextBox_Enter(object sender, EventArgs e)
+        //{
+        //    if (UserIDTextBox.Text == "YouChat ID")
+        //    {
+        //        UserIDTextBox.Text = "";
+        //        UserIDTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
+        //    }
+        //}
 
-        private void UserIDTextBox_Leave(object sender, EventArgs e)
-        {
-            if (UserIDTextBox.Text == "")
-            {
-                UserIDTextBox.Text = "YouChat ID";
-                UserIDTextBox.ForeColor = Color.Silver;
-            }
-        }
+        //private void UserIDTextBox_Leave(object sender, EventArgs e)
+        //{
+        //    if (UserIDTextBox.Text == "")
+        //    {
+        //        UserIDTextBox.Text = "YouChat ID";
+        //        UserIDTextBox.ForeColor = Color.Silver;
+        //    }
+        //}
 
-        private void UserTagLineTextBox_Enter(object sender, EventArgs e)
-        {
-            if (UserTagLineTextBox.Text == "TAGLINE")
-            {
-                UserTagLineTextBox.Text = "";
-                UserTagLineTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            }
-        }
+        //private void UserTagLineTextBox_Enter(object sender, EventArgs e)
+        //{
+        //    if (UserTagLineTextBox.Text == "TAGLINE")
+        //    {
+        //        UserTagLineTextBox.Text = "";
+        //        UserTagLineTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
+        //    }
+        //}
 
-        private void UserTagLineTextBox_Leave(object sender, EventArgs e)
-        {
-            if (UserTagLineTextBox.Text == "")
-            {
-                UserTagLineTextBox.Text = "TAGLINE";
-                UserTagLineTextBox.ForeColor = Color.Silver;
-            }
-        }
+        //private void UserTagLineTextBox_Leave(object sender, EventArgs e)
+        //{
+        //    if (UserTagLineTextBox.Text == "")
+        //    {
+        //        UserTagLineTextBox.Text = "TAGLINE";
+        //        UserTagLineTextBox.ForeColor = Color.Silver;
+        //    }
+        //}
 
         private void MessageTextBox_Enter(object sender, EventArgs e)
         {
@@ -639,22 +656,22 @@ namespace YouChatApp
 
         private void ChatButton_Click(object sender, EventArgs e)
         {
-            GroupCreatorPanel.Visible = false;
+            GroupCreatorBackgroundPanel.Visible = false;
             ContactManagementPanel.Visible = false;
-            ChatPanel.Visible = true;
+            ChatBackgroundPanel.Visible = true;
         }
         private void NewContactCustomButton_Click(object sender, EventArgs e)
         {
-            GroupCreatorPanel.Visible = false;
+            GroupCreatorBackgroundPanel.Visible = false;
             ContactManagementPanel.Visible = true;
-            ChatPanel.Visible = false;
+            ChatBackgroundPanel.Visible = false;
         }
 
         private void NewGroupButton_Click(object sender, EventArgs e)
         {
-            GroupCreatorPanel.Visible = true;
+            GroupCreatorBackgroundPanel.Visible = true;
             ContactManagementPanel.Visible = false;
-            ChatPanel.Visible = false;
+            ChatBackgroundPanel.Visible = false;
         }
 
         private void PhotoFileButton_Click(object sender, EventArgs e)
@@ -714,26 +731,49 @@ namespace YouChatApp
 
         }
 
-        private void RequestSender_Click(object sender, EventArgs e)
-        {
-            string usernameId = UserIDTextBox.Text;
-            string usernameTagLine = UserTagLineTextBox.Text;
-            string userIdDetails = usernameId + "#" + usernameTagLine;
-            ServerCommunication.SendMessage(ServerCommunication.FriendRequestSender, userIdDetails);
-        }
+        //private void RequestSender_Click(object sender, EventArgs e)
+        //{
+        //    string usernameId = UserIDTextBox.Text;
+        //    string usernameTagLine = UserTagLineTextBox.Text;
+        //    string userIdDetails = usernameId + "#" + usernameTagLine;
+        //    ServerCommunication.SendMessage(ServerCommunication.FriendRequestSender, userIdDetails);
+        //}
 
         private void ChatCustomButton_Click(object sender, EventArgs e)
         {
-            GroupCreatorPanel.Visible = false;
+            GroupCreatorBackgroundPanel.Visible = false;
             ContactManagementPanel.Visible = false;
-            ChatPanel.Visible = true;
+            ChatBackgroundPanel.Visible = true;
         }
 
         private void NewGroupCustomButton_Click(object sender, EventArgs e)
         {
-            GroupCreatorPanel.Visible = true;
+            GroupCreatorBackgroundPanel.Visible = true;
             ContactManagementPanel.Visible = false;
-            ChatPanel.Visible = false;
+            ChatBackgroundPanel.Visible = false;
+        }
+
+        private void FriendRequestSenderCustomButton_Click(object sender, EventArgs e)
+        {
+            string usernameId = UserIdCustomTextBox.Text;
+            string usernameTagLine = UserTaglineCustomTextBox.Text;
+            string userIdDetails = usernameId + "#" + usernameTagLine;
+            ServerCommunication.SendMessage(ServerCommunication.FriendRequestSender, userIdDetails);
+        }
+
+        private void FriendRequestFields_TextChangedEvent(object sender, EventArgs e)
+        {
+            bool NameIdField = UserIdCustomTextBox.IsContainingValue();
+            bool TagLineField = UserTaglineCustomTextBox.IsContainingValue();
+            if ((NameIdField) && (TagLineField))
+            {
+                FriendRequestSenderCustomButton.Enabled = true;
+            }
+            else
+            {
+                FriendRequestSenderCustomButton.Enabled = false;
+
+            }
         }
     }
 }

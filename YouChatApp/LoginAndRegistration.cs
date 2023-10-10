@@ -75,7 +75,11 @@ namespace YouChatApp
             ServerCommunication.loginAndRegistration = this;
             smtpHandler = new SmtpHandler();
             UpdatePasswordGeneratorControl.OnTextChangedEventHandler(UpdatePasswordFieldsChecker);
-
+            SetCustomTextBoxsPlaceHolderText();
+        }
+        private void SetCustomTextBoxsPlaceHolderText()//is needed because the textcontent = "" comes after it and restart it...
+        {
+            UpdatePasswordUsernameCustomTextBox.PlaceHolderText = "Enter Username";
         }
 
         /// <summary>

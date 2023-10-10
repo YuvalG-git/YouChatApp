@@ -37,7 +37,7 @@ namespace YouChatApp.AttachedFiles
             //    }
             //}
             string Text = SearchBar.SeacrhBar.TextContent;
-            if (Text.EndsWith(" "))
+            while (Text.EndsWith(" "))
             {
                 Text = Text.Substring(0, Text.Length - 1);
             }
