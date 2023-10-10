@@ -775,5 +775,10 @@ namespace YouChatApp
 
             }
         }
+
+        private void GroupCreatorSearchBar_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

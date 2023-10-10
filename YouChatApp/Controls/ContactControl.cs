@@ -18,7 +18,8 @@ namespace YouChatApp
         {
             InitializeComponent();
         }
-        public event EventHandler OnCheckBoxCheckedChanged;
+        public event EventHandler OnCheckBoxClickAccepted;
+        public event EventHandler OnCheckBoxClickDenied;
 
         public CircularPictureBox ProfilePicture => ProfilePictureCircularPictureBox;
 
@@ -28,7 +29,6 @@ namespace YouChatApp
 
         private Color BorderColorProperty = Color.RoyalBlue;
         private int BorderSizeProperty = 2;
-
         public Color BorderColor
         {
             get 
@@ -67,12 +67,17 @@ namespace YouChatApp
                 else
                 {
                     ServerCommunication.SelectedContacts++;
+                    OnCheckBoxClickAccepted?.Invoke(this, e);
+
                 }
             }
             else
             {
                 ServerCommunication.SelectedContacts--;
+                OnCheckBoxClickDenied?.Invoke(this, e);
+
             }
+
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -86,14 +91,18 @@ namespace YouChatApp
                 Graphics.DrawRectangle(BorderPen, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
             }
         }
-        public void OnCheckBoxCheckedChangedHandler(EventHandler handler)
+        public void OnCheckBoxClickAcceptedHandler(EventHandler handler)
         {
-            OnCheckBoxCheckedChanged += handler;
+            OnCheckBoxClickAccepted += handler;
+        }
+        public void OnCheckBoxClickDeniedHandler(EventHandler handler)
+        {
+            OnCheckBoxClickDenied += handler;
         }
 
         private void ContactSharingCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            OnCheckBoxCheckedChanged?.Invoke(this, e);
+            //OnCheckBoxCheckedChanged?.Invoke(this, e); //was problamtic because occured twice...
 
         }
     }

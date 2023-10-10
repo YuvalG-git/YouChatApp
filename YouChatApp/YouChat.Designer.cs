@@ -37,14 +37,19 @@ namespace YouChatApp
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(YouChat));
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.ContactManagementPanel = new System.Windows.Forms.Panel();
+            this.FriendRequestIdPanel = new System.Windows.Forms.Panel();
+            this.UserIDLabel = new System.Windows.Forms.Label();
             this.FriendRequestPanel = new System.Windows.Forms.Panel();
             this.HashtagLabel = new System.Windows.Forms.Label();
-            this.UserIDLabel = new System.Windows.Forms.Label();
             this.GroupCreatorBackgroundPanel = new System.Windows.Forms.Panel();
+            this.GroupCreatorSearchPanel = new System.Windows.Forms.Panel();
+            this.GroupCreatorPanel = new System.Windows.Forms.Panel();
             this.MessageTextBox = new System.Windows.Forms.TextBox();
             this.ChatLabel = new System.Windows.Forms.Label();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.MessagePanel = new System.Windows.Forms.Panel();
+            this.ChatBackgroundPanel = new System.Windows.Forms.Panel();
+            this.ChatPanel = new System.Windows.Forms.Panel();
             this.ChatSearchPanel = new System.Windows.Forms.Panel();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.TimeLabel = new System.Windows.Forms.Label();
@@ -52,22 +57,17 @@ namespace YouChatApp
             this.ChatParticipantsLabel = new System.Windows.Forms.Label();
             this.LastSeenOnlineLabel = new System.Windows.Forms.Label();
             this.CurrentChatNameLabel = new System.Windows.Forms.Label();
-            this.CurrentPictureChatPictureBox = new System.Windows.Forms.PictureBox();
             this.UploadedPictureOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.OptionsPanel = new System.Windows.Forms.Panel();
             this.DrawingFileButton = new System.Windows.Forms.Button();
             this.DocumentFileButton = new System.Windows.Forms.Button();
             this.EmojiFileButton = new System.Windows.Forms.Button();
             this.UserFileButton = new System.Windows.Forms.Button();
             this.PhotoFileButton = new System.Windows.Forms.Button();
             this.VideoFileButton = new System.Windows.Forms.Button();
+            this.CurrentPictureChatPictureBox = new System.Windows.Forms.PictureBox();
             this.SendMessageButton = new System.Windows.Forms.Button();
             this.ProfileButton = new System.Windows.Forms.Button();
-            this.ChatBackgroundPanel = new System.Windows.Forms.Panel();
-            this.ChatPanel = new System.Windows.Forms.Panel();
-            this.OptionsPanel = new System.Windows.Forms.Panel();
-            this.GroupCreatorPanel = new System.Windows.Forms.Panel();
-            this.GroupCreatorSearchPanel = new System.Windows.Forms.Panel();
-            this.FriendRequestIdPanel = new System.Windows.Forms.Panel();
             this.ChatCustomButton = new YouChatApp.Controls.CustomButton();
             this.NewGroupCustomButton = new YouChatApp.Controls.CustomButton();
             this.NewContactCustomButton = new YouChatApp.Controls.CustomButton();
@@ -75,19 +75,19 @@ namespace YouChatApp
             this.VideoCallCustomButton = new YouChatApp.Controls.CustomButton();
             this.ChatSearchBar = new YouChatApp.Controls.SearchBar();
             this.GroupCreatorSearchBar = new YouChatApp.Controls.SearchBar();
+            this.UserTaglineCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.FriendRequestSenderCustomButton = new YouChatApp.Controls.CustomButton();
             this.UserIdCustomTextBox = new YouChatApp.Controls.CustomTextBox();
-            this.UserTaglineCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.ContactManagementPanel.SuspendLayout();
+            this.FriendRequestIdPanel.SuspendLayout();
             this.GroupCreatorBackgroundPanel.SuspendLayout();
+            this.GroupCreatorSearchPanel.SuspendLayout();
             this.MessagePanel.SuspendLayout();
+            this.ChatBackgroundPanel.SuspendLayout();
             this.ChatSearchPanel.SuspendLayout();
             this.CurrentChatPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CurrentPictureChatPictureBox)).BeginInit();
-            this.ChatBackgroundPanel.SuspendLayout();
             this.OptionsPanel.SuspendLayout();
-            this.GroupCreatorSearchPanel.SuspendLayout();
-            this.FriendRequestIdPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CurrentPictureChatPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ContactManagementPanel
@@ -104,6 +104,25 @@ namespace YouChatApp
             this.ContactManagementPanel.Size = new System.Drawing.Size(340, 825);
             this.ContactManagementPanel.TabIndex = 10;
             this.ContactManagementPanel.Visible = false;
+            // 
+            // FriendRequestIdPanel
+            // 
+            this.FriendRequestIdPanel.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.FriendRequestIdPanel.Controls.Add(this.UserIDLabel);
+            this.FriendRequestIdPanel.Location = new System.Drawing.Point(0, 0);
+            this.FriendRequestIdPanel.Name = "FriendRequestIdPanel";
+            this.FriendRequestIdPanel.Size = new System.Drawing.Size(340, 100);
+            this.FriendRequestIdPanel.TabIndex = 2;
+            // 
+            // UserIDLabel
+            // 
+            this.UserIDLabel.AutoSize = true;
+            this.UserIDLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserIDLabel.Location = new System.Drawing.Point(24, 44);
+            this.UserIDLabel.Name = "UserIDLabel";
+            this.UserIDLabel.Size = new System.Drawing.Size(71, 18);
+            this.UserIDLabel.TabIndex = 0;
+            this.UserIDLabel.Text = "Your ID:";
             // 
             // FriendRequestPanel
             // 
@@ -124,16 +143,6 @@ namespace YouChatApp
             this.HashtagLabel.TabIndex = 23;
             this.HashtagLabel.Text = "#";
             // 
-            // UserIDLabel
-            // 
-            this.UserIDLabel.AutoSize = true;
-            this.UserIDLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UserIDLabel.Location = new System.Drawing.Point(24, 44);
-            this.UserIDLabel.Name = "UserIDLabel";
-            this.UserIDLabel.Size = new System.Drawing.Size(71, 18);
-            this.UserIDLabel.TabIndex = 0;
-            this.UserIDLabel.Text = "Your ID:";
-            // 
             // GroupCreatorBackgroundPanel
             // 
             this.GroupCreatorBackgroundPanel.BackColor = System.Drawing.Color.SkyBlue;
@@ -144,6 +153,23 @@ namespace YouChatApp
             this.GroupCreatorBackgroundPanel.Size = new System.Drawing.Size(340, 825);
             this.GroupCreatorBackgroundPanel.TabIndex = 27;
             this.GroupCreatorBackgroundPanel.Visible = false;
+            // 
+            // GroupCreatorSearchPanel
+            // 
+            this.GroupCreatorSearchPanel.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.GroupCreatorSearchPanel.Controls.Add(this.GroupCreatorSearchBar);
+            this.GroupCreatorSearchPanel.Location = new System.Drawing.Point(0, 0);
+            this.GroupCreatorSearchPanel.Name = "GroupCreatorSearchPanel";
+            this.GroupCreatorSearchPanel.Size = new System.Drawing.Size(340, 100);
+            this.GroupCreatorSearchPanel.TabIndex = 2;
+            // 
+            // GroupCreatorPanel
+            // 
+            this.GroupCreatorPanel.AutoScroll = true;
+            this.GroupCreatorPanel.Location = new System.Drawing.Point(0, 100);
+            this.GroupCreatorPanel.Name = "GroupCreatorPanel";
+            this.GroupCreatorPanel.Size = new System.Drawing.Size(340, 725);
+            this.GroupCreatorPanel.TabIndex = 2;
             // 
             // MessageTextBox
             // 
@@ -180,6 +206,24 @@ namespace YouChatApp
             this.MessagePanel.Name = "MessagePanel";
             this.MessagePanel.Size = new System.Drawing.Size(1435, 850);
             this.MessagePanel.TabIndex = 8;
+            // 
+            // ChatBackgroundPanel
+            // 
+            this.ChatBackgroundPanel.BackColor = System.Drawing.Color.SkyBlue;
+            this.ChatBackgroundPanel.Controls.Add(this.ChatPanel);
+            this.ChatBackgroundPanel.Controls.Add(this.ChatSearchPanel);
+            this.ChatBackgroundPanel.Location = new System.Drawing.Point(30, 15);
+            this.ChatBackgroundPanel.Name = "ChatBackgroundPanel";
+            this.ChatBackgroundPanel.Size = new System.Drawing.Size(340, 825);
+            this.ChatBackgroundPanel.TabIndex = 2;
+            // 
+            // ChatPanel
+            // 
+            this.ChatPanel.AutoScroll = true;
+            this.ChatPanel.Location = new System.Drawing.Point(0, 100);
+            this.ChatPanel.Name = "ChatPanel";
+            this.ChatPanel.Size = new System.Drawing.Size(340, 725);
+            this.ChatPanel.TabIndex = 1;
             // 
             // ChatSearchPanel
             // 
@@ -247,17 +291,21 @@ namespace YouChatApp
             this.CurrentChatNameLabel.TabIndex = 27;
             this.CurrentChatNameLabel.Text = "Name";
             // 
-            // CurrentPictureChatPictureBox
-            // 
-            this.CurrentPictureChatPictureBox.Location = new System.Drawing.Point(7, 7);
-            this.CurrentPictureChatPictureBox.Name = "CurrentPictureChatPictureBox";
-            this.CurrentPictureChatPictureBox.Size = new System.Drawing.Size(60, 60);
-            this.CurrentPictureChatPictureBox.TabIndex = 26;
-            this.CurrentPictureChatPictureBox.TabStop = false;
-            // 
             // UploadedPictureOpenFileDialog
             // 
             this.UploadedPictureOpenFileDialog.FileName = "openFileDialog1";
+            // 
+            // OptionsPanel
+            // 
+            this.OptionsPanel.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.OptionsPanel.Controls.Add(this.ChatCustomButton);
+            this.OptionsPanel.Controls.Add(this.NewGroupCustomButton);
+            this.OptionsPanel.Controls.Add(this.ChatLabel);
+            this.OptionsPanel.Controls.Add(this.NewContactCustomButton);
+            this.OptionsPanel.Location = new System.Drawing.Point(10, 5);
+            this.OptionsPanel.Name = "OptionsPanel";
+            this.OptionsPanel.Size = new System.Drawing.Size(340, 100);
+            this.OptionsPanel.TabIndex = 29;
             // 
             // DrawingFileButton
             // 
@@ -327,6 +375,14 @@ namespace YouChatApp
             this.VideoFileButton.UseVisualStyleBackColor = true;
             this.VideoFileButton.Click += new System.EventHandler(this.VideoFileButton_Click);
             // 
+            // CurrentPictureChatPictureBox
+            // 
+            this.CurrentPictureChatPictureBox.Location = new System.Drawing.Point(7, 7);
+            this.CurrentPictureChatPictureBox.Name = "CurrentPictureChatPictureBox";
+            this.CurrentPictureChatPictureBox.Size = new System.Drawing.Size(60, 60);
+            this.CurrentPictureChatPictureBox.TabIndex = 26;
+            this.CurrentPictureChatPictureBox.TabStop = false;
+            // 
             // SendMessageButton
             // 
             this.SendMessageButton.BackgroundImage = global::YouChatApp.Properties.Resources.sendMessage;
@@ -349,62 +405,6 @@ namespace YouChatApp
             this.ProfileButton.TabIndex = 0;
             this.ProfileButton.UseVisualStyleBackColor = true;
             this.ProfileButton.Click += new System.EventHandler(this.ProfileButton_Click);
-            // 
-            // ChatBackgroundPanel
-            // 
-            this.ChatBackgroundPanel.BackColor = System.Drawing.Color.SkyBlue;
-            this.ChatBackgroundPanel.Controls.Add(this.ChatPanel);
-            this.ChatBackgroundPanel.Controls.Add(this.ChatSearchPanel);
-            this.ChatBackgroundPanel.Location = new System.Drawing.Point(30, 15);
-            this.ChatBackgroundPanel.Name = "ChatBackgroundPanel";
-            this.ChatBackgroundPanel.Size = new System.Drawing.Size(340, 825);
-            this.ChatBackgroundPanel.TabIndex = 2;
-            // 
-            // ChatPanel
-            // 
-            this.ChatPanel.AutoScroll = true;
-            this.ChatPanel.Location = new System.Drawing.Point(0, 100);
-            this.ChatPanel.Name = "ChatPanel";
-            this.ChatPanel.Size = new System.Drawing.Size(340, 725);
-            this.ChatPanel.TabIndex = 1;
-            // 
-            // OptionsPanel
-            // 
-            this.OptionsPanel.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.OptionsPanel.Controls.Add(this.ChatCustomButton);
-            this.OptionsPanel.Controls.Add(this.NewGroupCustomButton);
-            this.OptionsPanel.Controls.Add(this.ChatLabel);
-            this.OptionsPanel.Controls.Add(this.NewContactCustomButton);
-            this.OptionsPanel.Location = new System.Drawing.Point(10, 5);
-            this.OptionsPanel.Name = "OptionsPanel";
-            this.OptionsPanel.Size = new System.Drawing.Size(340, 100);
-            this.OptionsPanel.TabIndex = 29;
-            // 
-            // GroupCreatorPanel
-            // 
-            this.GroupCreatorPanel.AutoScroll = true;
-            this.GroupCreatorPanel.Location = new System.Drawing.Point(0, 100);
-            this.GroupCreatorPanel.Name = "GroupCreatorPanel";
-            this.GroupCreatorPanel.Size = new System.Drawing.Size(340, 725);
-            this.GroupCreatorPanel.TabIndex = 2;
-            // 
-            // GroupCreatorSearchPanel
-            // 
-            this.GroupCreatorSearchPanel.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.GroupCreatorSearchPanel.Controls.Add(this.GroupCreatorSearchBar);
-            this.GroupCreatorSearchPanel.Location = new System.Drawing.Point(0, 0);
-            this.GroupCreatorSearchPanel.Name = "GroupCreatorSearchPanel";
-            this.GroupCreatorSearchPanel.Size = new System.Drawing.Size(340, 100);
-            this.GroupCreatorSearchPanel.TabIndex = 2;
-            // 
-            // FriendRequestIdPanel
-            // 
-            this.FriendRequestIdPanel.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.FriendRequestIdPanel.Controls.Add(this.UserIDLabel);
-            this.FriendRequestIdPanel.Location = new System.Drawing.Point(0, 0);
-            this.FriendRequestIdPanel.Name = "FriendRequestIdPanel";
-            this.FriendRequestIdPanel.Size = new System.Drawing.Size(340, 100);
-            this.FriendRequestIdPanel.TabIndex = 2;
             // 
             // ChatCustomButton
             // 
@@ -524,6 +524,31 @@ namespace YouChatApp
             this.GroupCreatorSearchBar.Name = "GroupCreatorSearchBar";
             this.GroupCreatorSearchBar.Size = new System.Drawing.Size(312, 60);
             this.GroupCreatorSearchBar.TabIndex = 0;
+            this.GroupCreatorSearchBar.Load += new System.EventHandler(this.GroupCreatorSearchBar_Load);
+            // 
+            // UserTaglineCustomTextBox
+            // 
+            this.UserTaglineCustomTextBox.BackColor = System.Drawing.Color.Aqua;
+            this.UserTaglineCustomTextBox.BorderColor = System.Drawing.Color.RoyalBlue;
+            this.UserTaglineCustomTextBox.BorderFocusColor = System.Drawing.Color.MidnightBlue;
+            this.UserTaglineCustomTextBox.BorderRadius = 0;
+            this.UserTaglineCustomTextBox.BorderSize = 2;
+            this.UserTaglineCustomTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.UserTaglineCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.UserTaglineCustomTextBox.IsFocused = false;
+            this.UserTaglineCustomTextBox.Location = new System.Drawing.Point(171, 772);
+            this.UserTaglineCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.UserTaglineCustomTextBox.Multiline = false;
+            this.UserTaglineCustomTextBox.Name = "UserTaglineCustomTextBox";
+            this.UserTaglineCustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.UserTaglineCustomTextBox.PasswordChar = false;
+            this.UserTaglineCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.UserTaglineCustomTextBox.PlaceHolderText = "TAGLINE";
+            this.UserTaglineCustomTextBox.Size = new System.Drawing.Size(90, 31);
+            this.UserTaglineCustomTextBox.TabIndex = 27;
+            this.UserTaglineCustomTextBox.TextContent = "";
+            this.UserTaglineCustomTextBox.UnderlineStyle = true;
+            this.UserTaglineCustomTextBox.TextChangedEvent += new System.EventHandler(this.FriendRequestFields_TextChangedEvent);
             // 
             // FriendRequestSenderCustomButton
             // 
@@ -569,31 +594,6 @@ namespace YouChatApp
             this.UserIdCustomTextBox.UnderlineStyle = true;
             this.UserIdCustomTextBox.TextChangedEvent += new System.EventHandler(this.FriendRequestFields_TextChangedEvent);
             // 
-            // UserTaglineCustomTextBox
-            // 
-            this.UserTaglineCustomTextBox.BackColor = System.Drawing.Color.Aqua;
-            this.UserTaglineCustomTextBox.BorderColor = System.Drawing.Color.RoyalBlue;
-            this.UserTaglineCustomTextBox.BorderFocusColor = System.Drawing.Color.MidnightBlue;
-            this.UserTaglineCustomTextBox.BorderRadius = 0;
-            this.UserTaglineCustomTextBox.BorderSize = 2;
-            this.UserTaglineCustomTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.UserTaglineCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
-            this.UserTaglineCustomTextBox.IsFocused = false;
-            this.UserTaglineCustomTextBox.Location = new System.Drawing.Point(171, 772);
-            this.UserTaglineCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.UserTaglineCustomTextBox.Multiline = false;
-            this.UserTaglineCustomTextBox.Name = "UserTaglineCustomTextBox";
-            this.UserTaglineCustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.UserTaglineCustomTextBox.PasswordChar = false;
-            this.UserTaglineCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
-            this.UserTaglineCustomTextBox.PlaceHolderText = "TAGLINE";
-            this.UserTaglineCustomTextBox.Size = new System.Drawing.Size(90, 31);
-            this.UserTaglineCustomTextBox.TabIndex = 27;
-            this.UserTaglineCustomTextBox.TextContent = "";
-            this.UserTaglineCustomTextBox.UnderlineStyle = true;
-            this.UserTaglineCustomTextBox.TextChangedEvent += new System.EventHandler(this.FriendRequestFields_TextChangedEvent);
-
-            // 
             // YouChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -622,18 +622,18 @@ namespace YouChatApp
             this.Load += new System.EventHandler(this.YouChat_Load);
             this.ContactManagementPanel.ResumeLayout(false);
             this.ContactManagementPanel.PerformLayout();
+            this.FriendRequestIdPanel.ResumeLayout(false);
+            this.FriendRequestIdPanel.PerformLayout();
             this.GroupCreatorBackgroundPanel.ResumeLayout(false);
+            this.GroupCreatorSearchPanel.ResumeLayout(false);
             this.MessagePanel.ResumeLayout(false);
+            this.ChatBackgroundPanel.ResumeLayout(false);
             this.ChatSearchPanel.ResumeLayout(false);
             this.CurrentChatPanel.ResumeLayout(false);
             this.CurrentChatPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CurrentPictureChatPictureBox)).EndInit();
-            this.ChatBackgroundPanel.ResumeLayout(false);
             this.OptionsPanel.ResumeLayout(false);
             this.OptionsPanel.PerformLayout();
-            this.GroupCreatorSearchPanel.ResumeLayout(false);
-            this.FriendRequestIdPanel.ResumeLayout(false);
-            this.FriendRequestIdPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CurrentPictureChatPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
