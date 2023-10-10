@@ -685,7 +685,7 @@ namespace YouChatApp
             // 
             this.ContinueToGroupSettingsCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
             this.ContinueToGroupSettingsCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.ContinueToGroupSettingsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.ContinueArrow;
+            //this.ContinueToGroupSettingsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.ContinueArrow;
             this.ContinueToGroupSettingsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ContinueToGroupSettingsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.ContinueToGroupSettingsCustomButton.BorderRadius = 10;
