@@ -27,10 +27,12 @@ namespace YouChatApp
         public static int heightForMessages = 10;
         public static int heightForChats;
         public static int heightForFriendRequests = 10;
+        public static int heightForContacts;
 
         public static int messageGap = 10;
         public static DateTime Time;
         public static int ContactChatNumber = 0;
+        public static int ContactNumber = 0;
         public static int FriendRequestsNumber = 0;
         public static ResourceSet[] resourceSetArray;
 
@@ -43,9 +45,13 @@ namespace YouChatApp
             ChatControlListOfContacts = new List<ChatControl>();
             ListOfFriendRequestControl = new List<FriendRequestControl>();
             MessageControlListOfLists.Add(new List<MessageControl>());
+            ContactControlList = new List<ContactControl>();
+
             //ProfilePictureImageList.InitializeImageLists();
             SetResourceSetArray();
             ChatSearchBar.AddSearchOnClickHandler(SearchChats);
+            GroupCreatorSearchBar.AddSearchOnClickHandler(SearchContacts);
+
             SetCustomTextBoxsPlaceHolderText();
             ServerCommunication.SendMessage(ServerCommunication.UserDetailsRequest, " ");
 
@@ -259,13 +265,106 @@ namespace YouChatApp
                 this.ChatControlListOfContacts[ContactChatNumber].SetLastMessageTimeLocation();
                 this.ChatControlListOfContacts[ContactChatNumber].ProfilePicture.BackgroundImage = chat._chatProfilePicture;
 
-                //this.ChatControlListOfContacts[ContactChatNumber].Click += new System.EventHandler(this.ChatControl_Click);
+                this.ChatControlListOfContacts[ContactChatNumber].Click += new System.EventHandler(this.ChatControl_Click);
                 this.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
                 this.ChatPanel.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
                 ContactChatNumber++;
 
             }
+            SetContactControlList();
         }
+        private void SetContactControlList()
+        {
+            ContactManager.AddContact("Noam Sfadia", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            ContactManager.AddContact("Noam Salomon", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+
+            ContactManager.AddContact("Alon Tamir", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            ContactManager.AddContact("Ben Raviv", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            ContactManager.AddContact("Yuval Gur", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+
+            foreach (Contact Contact in ContactManager.UserContacts)
+            {
+                if (ContactNumber == 0)
+                    heightForContacts = 0;
+                else
+                    heightForContacts = this.ContactControlList[ContactNumber - 1].Location.Y + this.ContactControlList[ContactNumber - 1].Size.Height;
+                this.ContactControlList.Add(new ContactControl());
+                this.ContactControlList[ContactNumber].Location = new System.Drawing.Point(0, heightForContacts);
+                this.ContactControlList[ContactNumber].Name = Contact.Name;
+                this.ContactControlList[ContactNumber].TabIndex = 0;
+                this.ContactControlList[ContactNumber].ContactName.Text = Contact.Name;
+                this.ContactControlList[ContactNumber].ContactStatus.Text = Contact.Status;
+                this.ContactControlList[ContactNumber].ProfilePicture.Image = Contact.ProfilePicture;
+                this.Controls.Add(this.ContactControlList[ContactNumber]);
+                this.GroupCreatorPanel.Controls.Add(this.ContactControlList[ContactNumber]);
+                ContactNumber++;
+            }
+        }
+        private void SearchContacts(object sender, System.EventArgs e)
+        {
+
+            if (this.SelectedContactsPanel.Controls.Count > 0)
+            {
+                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y + SelectedContactsPanel.Height);
+            }
+            else
+            {
+                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y);
+
+            }
+            string Text = GroupCreatorSearchBar.SeacrhBar.TextContent;
+            while (Text.EndsWith(" "))
+            {
+                Text = Text.Substring(0, Text.Length - 1);
+            }
+            string ContactName;
+            heightForContacts = 0;
+            if (Text.Length == 0)
+            {
+                foreach (ContactControl Contact in ContactControlList)
+                {
+                    Contact.Location = new System.Drawing.Point(0, heightForContacts);
+                    heightForContacts += Contact.Height;
+                    Contact.Visible = true;
+
+                }
+            }
+            else
+            {
+                foreach (ContactControl Contact in ContactControlList) //this works for every contact. maybe it would be better to create for all the contacts a control and then just view the correct ones...
+                {
+                    bool IsVisible = false;
+                    ContactName = Contact.ContactName.Text;
+                    if (Text.ToLower().Contains(" "))
+                    {
+                        if (ContactName.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                        {
+                            Contact.Location = new System.Drawing.Point(0, heightForContacts);
+                            IsVisible = true;
+                        }
+                    }
+                    else
+                    {
+                        string[] NameParts = ContactName.Split(' ');
+                        foreach (string NamePart in NameParts)
+                        {
+                            if (NamePart.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                            {
+                                Contact.Location = new System.Drawing.Point(0, heightForContacts);
+                                IsVisible = true;
+                            }
+                        }
+                    }
+                    if (IsVisible)
+                    {
+                        heightForContacts += Contact.Height;
+                    }
+                    Contact.Visible = IsVisible;
+                }
+            }
+
+        }
+
         private void ChatControl_Click(object sender, EventArgs e)
         {
             //ask for message history from the server in case that was the first press since logging in...
@@ -779,6 +878,11 @@ namespace YouChatApp
         private void GroupCreatorSearchBar_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void GroupCreatorCustomButton_Click(object sender, EventArgs e)
+        {
+            //will create a new group and refresh everything about the last group created...
         }
     }
 }

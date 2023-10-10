@@ -87,6 +87,7 @@ namespace YouChatApp.AttachedFiles
             this.ChosenContactsPanel.Name = "ChosenContactsPanel";
             this.ChosenContactsPanel.Size = new System.Drawing.Size(350, 90);
             this.ChosenContactsPanel.TabIndex = 3;
+            this.ChosenContactsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ChosenContactsPanel_Paint);
             // 
             // SearchBar
             // 
@@ -119,7 +120,7 @@ namespace YouChatApp.AttachedFiles
         #endregion
 
         private System.Windows.Forms.Panel ContactPanel;
-        private List<ContactControl> ContactControlList;
+        private List<ContactSharingControl> ContactControlList;
         private List<ProfileControl> ProfileControlList;
         private System.Windows.Forms.Button SendButton;
         private System.Windows.Forms.Button RestartButton;

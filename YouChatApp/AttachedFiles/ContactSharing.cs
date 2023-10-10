@@ -22,9 +22,8 @@ namespace YouChatApp.AttachedFiles
         public ContactSharing() //can be use for sending messages from other chats as well - maybe i can send a string or int that represents the event and act accordinglly
         {
             InitializeComponent();
-            ContactControlList = new List<ContactControl>();
+            ContactControlList = new List<ContactSharingControl>();
             ProfileControlList = new List<ProfileControl>();
-
             SearchBar.AddSearchOnClickHandler(SearchContacts);
             //passwordGeneratorControl1.OnTextChangedEventHandler(PasswordFieldsValueChecker);
 
@@ -34,6 +33,8 @@ namespace YouChatApp.AttachedFiles
             ChosenContactsPanel.VerticalScroll.Visible = false;
             ChosenContactsPanel.HorizontalScroll.Maximum = 0;
             ChosenContactsPanel.AutoScroll = true;
+            ContactPanel.Location = new System.Drawing.Point(ContactPanel.Location.X, ChosenContactsPanel.Location.Y);
+
         }
         private void AddProfileControl(string name, Image profilePicture)
         {
@@ -65,10 +66,12 @@ namespace YouChatApp.AttachedFiles
             ChosenContactsPanel.Controls.Add(ProfileControlList[ProfileControlNumber]);
             LastProfileControlWidthLocation += ProfileControlList[ProfileControlNumber].Width + 10;
             ProfileControlNumber++;
+            ContactPanel.Location = new System.Drawing.Point(ContactPanel.Location.X, ChosenContactsPanel.Location.Y + ChosenContactsPanel.Height);
+
         }
         private void RemoveProfileControl(string name)
         {
-            foreach(ProfileControl profile in ProfileControlList)
+            foreach (ProfileControl profile in ProfileControlList)
             {
                 if (profile.Name == name)
                 {
@@ -80,7 +83,15 @@ namespace YouChatApp.AttachedFiles
                 }
             }
             RestartProfileControlListLocation();
+            if (this.ChosenContactsPanel.Controls.Count > 0)
+            {
+                ContactPanel.Location = new System.Drawing.Point(ContactPanel.Location.X, ChosenContactsPanel.Location.Y + ChosenContactsPanel.Height);
+            }
+            else
+            {
+                ContactPanel.Location = new System.Drawing.Point(ContactPanel.Location.X, ChosenContactsPanel.Location.Y);
 
+            }
 
         }
         private void RestartProfileControlListLocation()
@@ -123,7 +134,7 @@ namespace YouChatApp.AttachedFiles
             LastContactControlHeightLocation = 0;
             if (Text.Length == 0)
             {
-                foreach (ContactControl Contact in ContactControlList)
+                foreach (ContactSharingControl Contact in ContactControlList)
                 {
                     Contact.Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
                     LastContactControlHeightLocation += Contact.Height + 10;
@@ -133,7 +144,7 @@ namespace YouChatApp.AttachedFiles
             }
             else
             {
-                foreach (ContactControl Contact in ContactControlList) //this works for every contact. maybe it would be better to create for all the contacts a control and then just view the correct ones...
+                foreach (ContactSharingControl Contact in ContactControlList) //this works for every contact. maybe it would be better to create for all the contacts a control and then just view the correct ones...
                 {
                     bool IsVisible = false;
                     ContactName = Contact.ContactName.Text;
@@ -194,7 +205,7 @@ namespace YouChatApp.AttachedFiles
             {
                 if (ContactNumber != 0)
                     LastContactControlHeightLocation = this.ContactControlList[ContactNumber - 1].Location.Y + this.ContactControlList[ContactNumber - 1].Size.Height + 10;
-                this.ContactControlList.Add(new ContactControl());
+                this.ContactControlList.Add(new ContactSharingControl());
                 this.ContactControlList[ContactNumber].Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
                 this.ContactControlList[ContactNumber].Name = Contact.Name;
                 this.ContactControlList[ContactNumber].TabIndex = 0;
@@ -228,7 +239,7 @@ namespace YouChatApp.AttachedFiles
         }
         private void IsChecked(object sender, System.EventArgs e)
         {
-            string ContactName = ((ContactControl)(sender)).ContactName.Text;
+            string ContactName = ((ContactSharingControl)(sender)).ContactName.Text;
             SelectedContactsList.Add(ContactName);
             Contact contact = ContactHandler.ContactManager.GetContact(ContactName);
             Image ContactProfilePicture = contact.ProfilePicture;
@@ -236,13 +247,13 @@ namespace YouChatApp.AttachedFiles
         }
         private void IsNotChecked(object sender, System.EventArgs e)
         {
-            string ContactName = ((ContactControl)(sender)).ContactName.Text;
+            string ContactName = ((ContactSharingControl)(sender)).ContactName.Text;
             SelectedContactsList.Remove(ContactName);
             RemoveProfileControl(ContactName);
         }
         private void RestartButton_Click(object sender, System.EventArgs e)
         {
-            foreach (ContactControl Contact in ContactControlList)
+            foreach (ContactSharingControl Contact in ContactControlList)
             {
                 Contact.ContactSelection.Checked = false;
             }
@@ -253,7 +264,7 @@ namespace YouChatApp.AttachedFiles
         private void SendButton_Click(object sender, System.EventArgs e)
         {
             string ContactNameList = "";
-            foreach (ContactControl Contact in ContactControlList) //maybe i need to add a function here on click on the button that will add this to a string of selected users...
+            foreach (ContactSharingControl Contact in ContactControlList) //maybe i need to add a function here on click on the button that will add this to a string of selected users...
             {
                 if (Contact.ContactSelection.Checked)
                 {
@@ -276,6 +287,16 @@ namespace YouChatApp.AttachedFiles
         private void messageControl1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void ChosenContactsPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void contactControl1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("show");
         }
     }
 }

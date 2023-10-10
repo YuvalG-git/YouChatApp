@@ -105,5 +105,10 @@ namespace YouChatApp
         {
             this.BackColor = _backgroundColor;
         }
+
+        private void ChatControl_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

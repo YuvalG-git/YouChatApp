@@ -3,107 +3,102 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using YouChatApp.Controls;
 
-namespace YouChatApp
+namespace YouChatApp.Controls
 {
     public partial class ContactControl : UserControl
     {
         public ContactControl()
         {
             InitializeComponent();
+            foreach (Control control in this.Controls)
+            {
+                control.Click += new System.EventHandler(this.OnControlClick);
+                control.MouseEnter += new System.EventHandler(this.ContactControl_MouseEnter);
+                control.MouseLeave += new System.EventHandler(this.ContactControl_MouseLeave);
+            }
+ 
         }
-        public event EventHandler OnCheckBoxClickAccepted;
-        public event EventHandler OnCheckBoxClickDenied;
-
         public CircularPictureBox ProfilePicture => ProfilePictureCircularPictureBox;
 
         public System.Windows.Forms.Label ContactName => ContactNameLabel;
 
-        public System.Windows.Forms.CheckBox ContactSelection => ContactSharingCheckBox;
+        public System.Windows.Forms.Label ContactStatus => ContactStatusLabel;
 
-        private Color BorderColorProperty = Color.RoyalBlue;
-        private int BorderSizeProperty = 2;
+        private Color _backgroundColor = Color.Transparent;
+        private Color _onFocusBackgroundColor = Color.CornflowerBlue;
+        private Color _borderColor = Color.CornflowerBlue;
+
         public Color BorderColor
         {
-            get 
-            { 
-                return BorderColorProperty; 
-            }
+            get { return _borderColor; }
             set
             {
-                BorderColorProperty = value;
+                _borderColor = value;
                 this.Invalidate();
             }
         }
-        public int BorderSize
+        public Color BackgroundColor
         {
-            get 
-            { 
-                return BorderSizeProperty;
-            }
+            get { return _backgroundColor; }
             set
             {
-                BorderSizeProperty = value;
+                _backgroundColor = value;
                 this.Invalidate();
             }
         }
-
-        private void ContactSharingCheckBox_Click(object sender, EventArgs e)//todo - make sure it's not check on group creator..
+        public Color OnFocusBackgroundColor
         {
-
-            if (ContactSharingCheckBox.Checked)
+            get { return _onFocusBackgroundColor; }
+            set
             {
-                if (ServerCommunication.SelectedContacts >= 3)
-                {
-                    ContactSharingCheckBox.Checked = false;
-
-                }
-                else
-                {
-                    ServerCommunication.SelectedContacts++;
-                    OnCheckBoxClickAccepted?.Invoke(this, e);
-
-                }
+                _onFocusBackgroundColor = value;
             }
-            else
-            {
-                ServerCommunication.SelectedContacts--;
-                OnCheckBoxClickDenied?.Invoke(this, e);
-
-            }
-
         }
-
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             Graphics Graphics = e.Graphics;
-            using (Pen BorderPen = new Pen(BorderColorProperty, BorderSizeProperty))
+            Color CurrentBorderColor;
+            using (Pen BorderPen = new Pen(_onFocusBackgroundColor, 1))
             {
                 this.Region = new Region(this.ClientRectangle);
                 BorderPen.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                Graphics.DrawRectangle(BorderPen, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
+                Graphics.DrawLine(BorderPen, this.ContactNameLabel.Location.X, this.Height - 1, this.Width, this.Height - 1);
             }
         }
-        public void OnCheckBoxClickAcceptedHandler(EventHandler handler)
+        public void SetToolTip()
         {
-            OnCheckBoxClickAccepted += handler;
-        }
-        public void OnCheckBoxClickDeniedHandler(EventHandler handler)
-        {
-            OnCheckBoxClickDenied += handler;
+            ToolTip.SetToolTip(ContactNameLabel, ContactNameLabel.Text);
+            ToolTip.SetToolTip(ContactStatusLabel, ContactStatusLabel.Text);
         }
 
-        private void ContactSharingCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void ContactNameLabel_Click(object sender, EventArgs e)
         {
-            //OnCheckBoxCheckedChanged?.Invoke(this, e); //was problamtic because occured twice...
 
         }
+
+        private void ContactControl_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void OnControlClick(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
+        private void ContactControl_MouseEnter(object sender, EventArgs e)
+        {
+            this.BackColor = _onFocusBackgroundColor;
+        }
+
+        private void ContactControl_MouseLeave(object sender, EventArgs e)
+        {
+            this.BackColor = _backgroundColor;
+        }
+
     }
 }

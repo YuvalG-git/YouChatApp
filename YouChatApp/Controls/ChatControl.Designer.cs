@@ -40,6 +40,7 @@
             // 
             this.ProfilePictureCircularPictureBox.BackgroundImage = global::YouChatApp.Properties.Resources.AnonymousProfile;
             this.ProfilePictureCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ProfilePictureCircularPictureBox.HasBorder = false;
             this.ProfilePictureCircularPictureBox.Location = new System.Drawing.Point(10, 10);
             this.ProfilePictureCircularPictureBox.Name = "ProfilePictureCircularPictureBox";
             this.ProfilePictureCircularPictureBox.Size = new System.Drawing.Size(60, 60);
@@ -103,6 +104,7 @@
             this.Controls.Add(this.ProfilePictureCircularPictureBox);
             this.Name = "ChatControl";
             this.Size = new System.Drawing.Size(315, 80);
+            this.Enter += new System.EventHandler(this.ChatControl_Enter);
             this.MouseEnter += new System.EventHandler(this.ChatControl_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.ChatControl_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).EndInit();

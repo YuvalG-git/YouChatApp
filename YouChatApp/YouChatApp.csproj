@@ -181,6 +181,12 @@
     <Compile Include="Controls\ContactControl.Designer.cs">
       <DependentUpon>ContactControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ContactSharingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ContactSharingControl.Designer.cs">
+      <DependentUpon>ContactSharingControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CustomButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -242,6 +248,7 @@
     <Compile Include="Controls\ToggleButton.Designer.cs">
       <DependentUpon>ToggleButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ToolStripSetter.cs" />
     <Compile Include="EmojiResourceSet.cs" />
     <Compile Include="Encryption\AESServiceProvider.cs" />
     <Compile Include="Encryption\Encryption.cs" />
@@ -322,11 +329,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>People_Emoji.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Smileys_Emoji.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -381,6 +383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ContactControl.resx">
       <DependentUpon>ContactControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ContactSharingControl.resx">
+      <DependentUpon>ContactSharingControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CustomTextBox.resx">
       <DependentUpon>CustomTextBox.cs</DependentUpon>
@@ -457,7 +462,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Smileys_Emoji.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -12115,6 +12119,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\VideoClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ContinueArrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
