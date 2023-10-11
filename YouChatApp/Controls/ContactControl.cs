@@ -33,6 +33,8 @@ namespace YouChatApp.Controls
         private Color _onFocusBackgroundColor = Color.CornflowerBlue;
         private Color _borderColor = Color.CornflowerBlue;
 
+        private bool _wasSelected = false;
+
         public Color BorderColor
         {
             get { return _borderColor; }
@@ -57,6 +59,14 @@ namespace YouChatApp.Controls
             set
             {
                 _onFocusBackgroundColor = value;
+            }
+        }
+        public bool WasSelected
+        {
+            get { return _wasSelected; }
+            set
+            {
+                _wasSelected = value;
             }
         }
         protected override void OnPaint(PaintEventArgs e)

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using YouChatApp.AttachedFiles;
 using YouChatApp.ContactHandler;
 using YouChatApp.Encryption;
 using static System.Net.Mime.MediaTypeNames;
@@ -129,6 +130,9 @@ namespace YouChatApp
         public static YouChat youChat;
 
         public static InitialProfileSelection InitialProfileSelection;
+
+        public static EmojiKeyboard _emojiKeyboard = null;
+        public static Camera _camera = null;
 
         private static UdpClient UdpClient;
 

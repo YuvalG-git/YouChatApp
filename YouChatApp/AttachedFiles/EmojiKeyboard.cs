@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using Button = System.Windows.Forms.Button;
 
 namespace YouChatApp.AttachedFiles
 {
@@ -25,6 +26,8 @@ namespace YouChatApp.AttachedFiles
         List<Emoji> RichTextBoxContent;
         int EmojiCategories = 9;
         List<List<EmojiObject>> EmojiImagePathListOfLists = new List<List<EmojiObject>>();
+        private bool _isText;
+        public Image ImageToSend { get; set; }
 
         private void InitializeEmojiImagePathListOfLists()
         {
@@ -207,9 +210,10 @@ namespace YouChatApp.AttachedFiles
 
 
         }
-        public EmojiKeyboard()
+        public EmojiKeyboard(bool isText)
         {
             InitializeComponent();
+            _isText = isText;
             EmojiResourceSet.InitializeResourceSetArray(); //probably need this - to ask somebody...
             InitializeEmojiPanelArray();
             //string emojiPath = @"C:\Users\יובל\source\repos\YouChatApp\YouChatApp\EmojiIcons\Smileys\1f600.png"; // This is an example path, make sure to adjust it based on the actual emoji you want to use.
@@ -287,29 +291,43 @@ namespace YouChatApp.AttachedFiles
                 message = message.Substring(0, message.Length - 1);
             return message;
         }
+        public void SendEmoji(PictureBox pictureBox)
+        {
+            ImageToSend = pictureBox.Image;
+            //needs to close if it was for group image otherwise not..
+            this.DialogResult = DialogResult.OK;
 
+            this.Close();
+        }
 
         private void EmojiPictureBox_Click(object sender, EventArgs e)
         {
-            richTextBox1.Select(richTextBox1.Text.Length, 0);
 
-            int IndexToAdd = richTextBox1.SelectionStart;
-            MessageImage messageImage = new MessageImage();
-            Image ResizedImage = ((PictureBox)(sender)).Image;
-            Bitmap bitmap = new Bitmap(ResizedImage, 20, 20);
-            Clipboard.SetDataObject(bitmap);
-            messageImage.EmojiImage = ((PictureBox)(sender)).Image;
-            messageImage.ImageName = ((PictureBox)(sender)).Name;
-            messageImage.OnRichTextBoxImage = Clipboard.GetImage();
-            RichTextBoxContent.Insert(IndexToAdd, messageImage);
-            richTextBox1.Paste(); //the paste does " "
-            Clipboard.Clear();
-            
-            if (richTextBox1.Text[IndexToAdd] == ' ')
-            {
-                richTextBox1.Text.Remove(IndexToAdd, 0);
+            //all of this is gonna be on the youchat form 
+            //i will send the image and it be transformed to bitmap and copied there...
 
-            }
+
+            //richTextBox1.Select(richTextBox1.Text.Length, 0);
+
+            //int IndexToAdd = richTextBox1.SelectionStart;
+            //MessageImage messageImage = new MessageImage();
+            //Image ResizedImage = ((PictureBox)(sender)).Image;
+            //Bitmap bitmap = new Bitmap(ResizedImage, 20, 20);
+            //Clipboard.SetDataObject(bitmap);
+            //messageImage.EmojiImage = ((PictureBox)(sender)).Image;
+            //messageImage.ImageName = ((PictureBox)(sender)).Name;
+            //messageImage.OnRichTextBoxImage = Clipboard.GetImage();
+            //RichTextBoxContent.Insert(IndexToAdd, messageImage);
+            //richTextBox1.Paste(); //the paste does " "
+            //Clipboard.Clear();
+
+            //if (richTextBox1.Text[IndexToAdd] == ' ')
+            //{
+            //    richTextBox1.Text.Remove(IndexToAdd, 0);
+
+            //}
+            SendEmoji(((PictureBox)(sender)));
+
 
             //if (Clipboard.ContainsImage())
             //{

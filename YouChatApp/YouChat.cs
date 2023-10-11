@@ -12,6 +12,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using YouChatApp.AttachedFiles;
 using YouChatApp.ChatHandler;
 using YouChatApp.ContactHandler;
@@ -28,11 +29,15 @@ namespace YouChatApp
         public static int heightForChats;
         public static int heightForFriendRequests = 10;
         public static int heightForContacts;
+        public static int widthForProfileControl = 0;
+
+        Image AnonymousProfile = global::YouChatApp.Properties.Resources.AnonymousProfile; //need to change that to my profile picture...
 
         public static int messageGap = 10;
         public static DateTime Time;
         public static int ContactChatNumber = 0;
         public static int ContactNumber = 0;
+        public static int profileControlNumber = 0;
         public static int FriendRequestsNumber = 0;
         public static ResourceSet[] resourceSetArray;
 
@@ -46,6 +51,7 @@ namespace YouChatApp
             ListOfFriendRequestControl = new List<FriendRequestControl>();
             MessageControlListOfLists.Add(new List<MessageControl>());
             ContactControlList = new List<ContactControl>();
+            ProfileControlList = new List<ProfileControl>();
 
             //ProfilePictureImageList.InitializeImageLists();
             SetResourceSetArray();
@@ -54,6 +60,16 @@ namespace YouChatApp
 
             SetCustomTextBoxsPlaceHolderText();
             ServerCommunication.SendMessage(ServerCommunication.UserDetailsRequest, " ");
+
+
+            SelectedContactsPanel.AutoScroll = false;
+            SelectedContactsPanel.HorizontalScroll.Visible = false;
+            SelectedContactsPanel.VerticalScroll.Visible = false;
+            SelectedContactsPanel.HorizontalScroll.Maximum = 0;
+            SelectedContactsPanel.VerticalScroll.Maximum = 0;
+            SelectedContactsPanel.AutoScroll = true;
+            GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y);
+            GroupCreatorPanel.Size = new Size(GroupCreatorPanel.Width, GroupCreatorPanel.Height + SelectedContactsPanel.Height);
 
         }
         private void SetCustomTextBoxsPlaceHolderText()
@@ -295,21 +311,34 @@ namespace YouChatApp
                 this.ContactControlList[ContactNumber].ContactName.Text = Contact.Name;
                 this.ContactControlList[ContactNumber].ContactStatus.Text = Contact.Status;
                 this.ContactControlList[ContactNumber].ProfilePicture.Image = Contact.ProfilePicture;
+                this.ContactControlList[ContactNumber].Click += new EventHandler(this.ContactControl_Click);
                 this.Controls.Add(this.ContactControlList[ContactNumber]);
                 this.GroupCreatorPanel.Controls.Add(this.ContactControlList[ContactNumber]);
                 ContactNumber++;
             }
         }
+        private void ContactControl_Click(object sender, System.EventArgs e)
+        {
+            string ContactName = ((ContactControl)(sender)).ContactName.Text;
+            Contact contact = ContactHandler.ContactManager.GetContact(ContactName);
+            Image ContactProfilePicture = contact.ProfilePicture;
+            if (!ProfileControlIsExist(ContactName))
+            {
+                ((ContactControl)(sender)).WasSelected = true;
+                AddProfileControl(ContactName, ContactProfilePicture);
+
+            }
+        }
         private void SearchContacts(object sender, System.EventArgs e)
         {
 
-            if (this.SelectedContactsPanel.Controls.Count > 0)
+            if (this.GroupCreatorSearchPanel.Controls.Count > 0)
             {
-                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y + SelectedContactsPanel.Height);
+                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, GroupCreatorSearchPanel.Location.Y + GroupCreatorSearchPanel.Height);
             }
             else
             {
-                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y);
+                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, GroupCreatorSearchPanel.Location.Y);
 
             }
             string Text = GroupCreatorSearchBar.SeacrhBar.TextContent;
@@ -321,48 +350,176 @@ namespace YouChatApp
             heightForContacts = 0;
             if (Text.Length == 0)
             {
-                foreach (ContactControl Contact in ContactControlList)
-                {
-                    Contact.Location = new System.Drawing.Point(0, heightForContacts);
-                    heightForContacts += Contact.Height;
-                    Contact.Visible = true;
-
-                }
+                RestartContactControlListLocation();
+                //foreach (ContactControl Contact in ContactControlList)
+                //{
+                //    if (!Contact.WasSelected)
+                //    {
+                //        Contact.Location = new System.Drawing.Point(0, heightForContacts);
+                //        heightForContacts += Contact.Height;
+                //        Contact.Visible = true;
+                //    }
+                //    else
+                //    {
+                //        Contact.Visible = false;
+                //    }
+                //}
             }
             else
             {
                 foreach (ContactControl Contact in ContactControlList) //this works for every contact. maybe it would be better to create for all the contacts a control and then just view the correct ones...
                 {
                     bool IsVisible = false;
-                    ContactName = Contact.ContactName.Text;
-                    if (Text.ToLower().Contains(" "))
+                    if (!Contact.WasSelected)
                     {
-                        if (ContactName.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                        ContactName = Contact.ContactName.Text;
+                        if (Text.ToLower().Contains(" "))
                         {
-                            Contact.Location = new System.Drawing.Point(0, heightForContacts);
-                            IsVisible = true;
-                        }
-                    }
-                    else
-                    {
-                        string[] NameParts = ContactName.Split(' ');
-                        foreach (string NamePart in NameParts)
-                        {
-                            if (NamePart.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                            if (ContactName.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
                             {
                                 Contact.Location = new System.Drawing.Point(0, heightForContacts);
                                 IsVisible = true;
                             }
                         }
-                    }
-                    if (IsVisible)
-                    {
-                        heightForContacts += Contact.Height;
+                        else
+                        {
+                            string[] NameParts = ContactName.Split(' ');
+                            foreach (string NamePart in NameParts)
+                            {
+                                if (NamePart.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                                {
+                                    Contact.Location = new System.Drawing.Point(0, heightForContacts);
+                                    IsVisible = true;
+                                }
+                            }
+                        }
+                        if (IsVisible)
+                        {
+                            heightForContacts += Contact.Height;
+                        }
                     }
                     Contact.Visible = IsVisible;
                 }
             }
+        }
+        private bool ProfileControlIsExist(string name)
+        {
+            foreach (ProfileControl profile in ProfileControlList)
+            {
+                if (profile.Name == name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void AddProfileControl(string name, Image profilePicture)
+        {
+            Image profilePictureTobeUsed;
+            if (profilePicture != null)
+            {
+                profilePictureTobeUsed = profilePicture;
+            }
+            else
+            {
+                profilePictureTobeUsed = AnonymousProfile;
+            }
+            if (this.SelectedContactsPanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
+            {
+                Control LastControl = this.ProfileControlList[0];
+                this.SelectedContactsPanel.ScrollControlIntoView(LastControl);
+            }
+            else
+            {
+                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y + SelectedContactsPanel.Height);
+                GroupCreatorPanel.Size = new Size(GroupCreatorPanel.Width, GroupCreatorPanel.Height - SelectedContactsPanel.Height);
+            }
+            ProfileControlList.Add(new ProfileControl());
+            ProfileControlList[profileControlNumber].Location = new System.Drawing.Point(widthForProfileControl, 0);
+            ProfileControlList[profileControlNumber].Name = name;
+            ProfileControlList[profileControlNumber].Size = new System.Drawing.Size(90, 90);
+            ProfileControlList[profileControlNumber].TabIndex = 0;
+            ProfileControlList[profileControlNumber].IsCloseVisible = true;
+            ProfileControlList[profileControlNumber].SetProfilePicture(profilePictureTobeUsed);
+            ProfileControlList[profileControlNumber].SetUserName(name);
 
+            ProfileControlList[profileControlNumber].SetToolTip();
+            ProfileControlList[profileControlNumber].OnClickHandler(RemoveProfileControl);
+
+            this.Controls.Add(this.ProfileControlList[profileControlNumber]);
+
+            SelectedContactsPanel.Controls.Add(ProfileControlList[profileControlNumber]);
+            widthForProfileControl += ProfileControlList[profileControlNumber].Width + 10;
+            profileControlNumber++;
+            GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y + SelectedContactsPanel.Height);
+            HandleCurrentChatParticipants();
+            heightForContacts = 0;
+            RestartContactControlListLocation();
+        }
+        private void RemoveProfileControl(object sender, System.EventArgs e)
+        {
+            string ContactName = ((ProfileControl)(sender)).Name;
+            CancelContactControlSelection(ContactName);
+            ProfileControlList.Remove(((ProfileControl)(sender)));
+            SelectedContactsPanel.Controls.Remove(((ProfileControl)(sender)));
+            ((ProfileControl)(sender)).Dispose();
+            profileControlNumber--;
+            RestartProfileControlListLocation();
+            if (this.SelectedContactsPanel.Controls.Count == 0)
+            {
+                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y);
+                GroupCreatorPanel.Size = new Size(GroupCreatorPanel.Width, GroupCreatorPanel.Height + SelectedContactsPanel.Height);
+            }
+            HandleCurrentChatParticipants();
+            heightForContacts = 0;
+            RestartContactControlListLocation();
+
+        }
+        private void CancelContactControlSelection(string ContactName)
+        {
+            foreach (ContactControl contact in ContactControlList)
+            {
+                if (contact.Name == ContactName)
+                {
+                    contact.WasSelected = false;
+                }
+            }
+        }
+        private void RestartProfileControlListLocation()
+        {
+            widthForProfileControl = 0;
+            foreach (ProfileControl profile in ProfileControlList)
+            {
+                profile.Location = new System.Drawing.Point(widthForProfileControl, 0);
+                widthForProfileControl += profile.Width + 10;
+            }
+        }
+        private void RestartContactControlListLocation()
+        {
+            foreach (ContactControl Contact in ContactControlList)
+            {
+                if (!Contact.WasSelected)
+                {
+                    Contact.Location = new System.Drawing.Point(0, heightForContacts);
+                    heightForContacts += Contact.Height;
+                    Contact.Visible = true;
+                }
+                else
+                {
+                    Contact.Visible = false;
+                }
+            }
+        }
+        private void HandleCurrentChatParticipants()
+        {
+            if (this.SelectedContactsPanel.Controls.Count > 2)
+            {
+                ContinueToGroupSettingsCustomButton.Enabled = true;
+            }
+            else
+            {
+                ContinueToGroupSettingsCustomButton.Enabled = false;
+            }
         }
 
         private void ChatControl_Click(object sender, EventArgs e)
@@ -883,6 +1040,111 @@ namespace YouChatApp
         private void GroupCreatorCustomButton_Click(object sender, EventArgs e)
         {
             //will create a new group and refresh everything about the last group created...
+        }
+
+        private void GroupSubjectCustomTextBox_TextChangedEvent(object sender, EventArgs e)
+        {
+            int charLeft = GroupSubjectCustomTextBox.MaxLength - GroupSubjectCustomTextBox.TextContent.Length;
+            GroupSubjectLengthLabel.Text = string.Format("({0})", charLeft);
+            HandleGroupCreationFields();
+        }
+        private void HandleGroupCreationFields()
+        {
+            bool hasGroupIconBeenSelected = (GroupIconCircularPictureBox.BackgroundImage != AnonymousProfile);
+            bool hasGroupSubjectBeenSelected = GroupSubjectCustomTextBox.IsContainingValue();
+            if ((hasGroupIconBeenSelected) && (hasGroupSubjectBeenSelected))
+            {
+                GroupCreatorCustomButton.Enabled = true;
+            }
+            else
+            {
+                GroupCreatorCustomButton.Enabled = false;
+            }
+        }
+        private void GroupIconCircularPictureBox_Click(object sender, EventArgs e)
+        {
+            GroupIconContextMenuStrip.Show(GroupIconCircularPictureBox, new Point(GroupIconCircularPictureBox.Width/2, GroupIconCircularPictureBox.Height * 3 / 4));
+
+            //bool GroupIconCircularPictureBoxHasIcon = (GroupIconCircularPictureBox.BackgroundImage != AnonymousProfile);
+            //Image groupIcon = OpenFileDialogHandler.HandleOpenFileDialog(UploadedPictureOpenFileDialog);
+            //if ((groupIcon == null) && (!GroupIconCircularPictureBoxHasIcon))
+            //{
+            //    groupIcon = AnonymousProfile;
+            //}
+            //if (groupIcon != null)
+            //{
+            //    GroupIconCircularPictureBox.BackgroundImage = groupIcon;
+            //}
+        }
+
+        private void GroupIconCircularPictureBox_BackgroundImageChanged(object sender, EventArgs e)
+        {
+            HandleGroupCreationFields();
+        }
+
+        private void UploadPhotoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool GroupIconCircularPictureBoxHasIcon = (GroupIconCircularPictureBox.BackgroundImage != AnonymousProfile);
+            Image groupIcon = OpenFileDialogHandler.HandleOpenFileDialog(UploadedPictureOpenFileDialog);
+            if ((groupIcon == null) && (!GroupIconCircularPictureBoxHasIcon))
+            {
+                groupIcon = AnonymousProfile;
+            }
+            if (groupIcon != null)
+            {
+                GroupIconCircularPictureBox.BackgroundImage = groupIcon;
+            }
+        }
+
+        private void TakePhotoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ServerCommunication._camera == null)
+            {
+                ServerCommunication._camera = new Camera();
+            }
+
+            DialogResult result = ServerCommunication._camera.ShowDialog();
+
+            // Check if Form2 was closed successfully
+            if (result == DialogResult.OK)
+            {
+                // Retrieve the image from Form2 and update the PictureBox in Form1
+                GroupIconCircularPictureBox.BackgroundImage = ServerCommunication._camera.ImageToSend;
+            }
+        }
+
+        private void EmojiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ServerCommunication._emojiKeyboard == null)
+            {
+                ServerCommunication._emojiKeyboard = new EmojiKeyboard(false);
+            }
+
+            DialogResult result = ServerCommunication._emojiKeyboard.ShowDialog();
+
+            // Check if Form2 was closed successfully
+            if (result == DialogResult.OK)
+            {
+                // Retrieve the image from Form2 and update the PictureBox in Form1
+                GroupIconCircularPictureBox.BackgroundImage = ServerCommunication._emojiKeyboard.ImageToSend;
+            }
+        }
+
+        private void ContinueToGroupSettingsCustomButton_Click(object sender, EventArgs e)
+        {
+            GroupSettingsPanel.Visible = true;
+            GroupCreatorBackgroundPanel.Visible = false;
+        }
+
+        private void ReturnToGroupContactsSelectionCustomButton_Click(object sender, EventArgs e)
+        {
+            GroupSettingsPanel.Visible = false;
+            GroupCreatorBackgroundPanel.Visible = true;
+        }
+
+        private void RestartGroupSubjectCustomButton_Click(object sender, EventArgs e)
+        {
+            GroupSubjectCustomTextBox.TextContent = "";
         }
     }
 }

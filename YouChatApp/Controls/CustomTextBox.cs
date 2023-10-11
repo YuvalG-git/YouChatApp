@@ -235,6 +235,30 @@ namespace YouChatApp.Controls
                 }
             }
         }
+        [Category("YouChat")]
+        public int MaxLength
+        {
+            get
+            {
+                return TextBox.MaxLength;
+            }
+            set
+            {
+                TextBox.MaxLength = value;
+            }
+        }
+        [Category("YouChat")]
+        public bool ReadOnly
+        {
+            get
+            {
+                return TextBox.ReadOnly;
+            }
+            set
+            {
+                TextBox.ReadOnly = value;
+            }
+        }
 
         [Category("YouChat")]
         public string TextContent

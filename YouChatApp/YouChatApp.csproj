@@ -121,6 +121,13 @@
     <Compile Include="AttachedFiles\AudioCall.Designer.cs">
       <DependentUpon>AudioCall.cs</DependentUpon>
     </Compile>
+    <Compile Include="AttachedFiles\Camera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AttachedFiles\Camera.Designer.cs">
+      <DependentUpon>Camera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AttachedFiles\CountDownImageList.cs" />
     <Compile Include="ChatHandler\Chat.cs" />
     <Compile Include="ChatHandler\ChatLastMessageTimeComparer.cs" />
     <Compile Include="ChatHandler\ChatManager.cs" />
@@ -273,7 +280,13 @@
       <DependentUpon>Paint.cs</DependentUpon>
     </Compile>
     <Compile Include="MessageType.cs" />
+    <Compile Include="OpenFileDialogHandler.cs" />
     <Compile Include="PasswordHandler.cs" />
+    <Compile Include="Properties\CountDown.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CountDown.resx</DependentUpon>
+    </Compile>
     <Compile Include="UserProfile\Profile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -329,11 +342,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>People_Emoji.resx</DependentUpon>
     </Compile>
-	<Compile Include="Properties\Resources.Designer.cs">
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>	
+    </Compile>
     <Compile Include="Properties\Smileys_Emoji.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -367,6 +380,9 @@
     </Compile>
     <EmbeddedResource Include="AttachedFiles\AudioCall.resx">
       <DependentUpon>AudioCall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AttachedFiles\Camera.resx">
+      <DependentUpon>Camera.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\ContactSharing.resx">
       <DependentUpon>ContactSharing.cs</DependentUpon>
@@ -425,6 +441,10 @@
     <EmbeddedResource Include="AttachedFiles\Paint.resx">
       <DependentUpon>Paint.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\CountDown.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CountDown.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserProfile\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
     </EmbeddedResource>
@@ -467,7 +487,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-	  <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Smileys_Emoji.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -12128,6 +12148,66 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ContinueArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ContinueArrow1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ReturnBackArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RefreshButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UploadImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CameraFlash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CameraImageTaker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Timer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Timer1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CountDownNumber1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CountDownNumber2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CountDownNumber3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CountDownNumber4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CountDownNumber5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CountDownNumber6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CountDownNumber7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CountDownNumber8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CountDownNumber9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CountDownNumber10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CloseBlackColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CloseRedColor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

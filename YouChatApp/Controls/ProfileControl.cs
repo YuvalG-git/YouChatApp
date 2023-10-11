@@ -18,6 +18,29 @@ namespace YouChatApp.Controls
         {
             InitializeComponent();
         }
+        private Image _redColoredX = global::YouChatApp.Properties.Resources.CloseRedColor;
+        private Image _blackColoredX = global::YouChatApp.Properties.Resources.CloseBlackColor;
+
+        private bool _isCloseVisible = false;
+        public bool IsCloseVisible
+        {
+            get 
+            { 
+                return _isCloseVisible;
+            }
+            set 
+            { 
+                _isCloseVisible = value;
+                RemoveCustomButton.Visible = _isCloseVisible;
+            }
+        }
+        public event EventHandler CloseControl;
+        public void OnClickHandler(EventHandler handler)
+        {
+            CloseControl += handler;
+        }
+
+
         public void SetToolTip()
         {
             if (TextRenderer.MeasureText(UsernameLabel.Text, UsernameLabel.Font).Width > this.ClientSize.Width)
@@ -39,7 +62,23 @@ namespace YouChatApp.Controls
         }
         private void UsernameLabel_Click(object sender, EventArgs e)
         {
+        }
 
+        private void RemoveCustomButton_MouseEnter(object sender, EventArgs e)
+        {
+            RemoveCustomButton.BackgroundImage = _redColoredX;
+
+        }
+
+        private void RemoveCustomButton_MouseLeave(object sender, EventArgs e)
+        {
+            RemoveCustomButton.BackgroundImage = _blackColoredX;
+
+        }
+
+        private void RemoveCustomButton_Click(object sender, EventArgs e)
+        {
+            CloseControl?.Invoke(this, e);
         }
     }
     

@@ -347,7 +347,7 @@ namespace YouChatApp
             // 
             this.LineToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.Line;
             this.LineToolStripMenuItem.Name = "LineToolStripMenuItem";
-            this.LineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LineToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.LineToolStripMenuItem.Text = "Line";
             this.LineToolStripMenuItem.Click += new System.EventHandler(this.LineToolStripMenuItem_Click);
             // 
@@ -355,7 +355,7 @@ namespace YouChatApp
             // 
             this.CircleToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.Circle;
             this.CircleToolStripMenuItem.Name = "CircleToolStripMenuItem";
-            this.CircleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.CircleToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.CircleToolStripMenuItem.Text = "Circle";
             this.CircleToolStripMenuItem.Click += new System.EventHandler(this.CircleToolStripMenuItem_Click);
             // 
@@ -363,7 +363,7 @@ namespace YouChatApp
             // 
             this.RectangleToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.Rectange;
             this.RectangleToolStripMenuItem.Name = "RectangleToolStripMenuItem";
-            this.RectangleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.RectangleToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.RectangleToolStripMenuItem.Text = "Rectangle";
             this.RectangleToolStripMenuItem.Click += new System.EventHandler(this.RectangleToolStripMenuItem_Click);
             // 
@@ -371,7 +371,7 @@ namespace YouChatApp
             // 
             this.TriangleToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.Triangle;
             this.TriangleToolStripMenuItem.Name = "TriangleToolStripMenuItem";
-            this.TriangleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.TriangleToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.TriangleToolStripMenuItem.Text = "Triangle";
             this.TriangleToolStripMenuItem.Click += new System.EventHandler(this.TriangleToolStripMenuItem_Click);
             // 

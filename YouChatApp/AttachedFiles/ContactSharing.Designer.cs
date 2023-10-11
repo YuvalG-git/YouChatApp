@@ -31,12 +31,16 @@ namespace YouChatApp.AttachedFiles
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ContactPanel = new System.Windows.Forms.Panel();
             this.InstructionLabel = new System.Windows.Forms.Label();
             this.RestartButton = new System.Windows.Forms.Button();
             this.SendButton = new System.Windows.Forms.Button();
             this.ChosenContactsPanel = new System.Windows.Forms.Panel();
             this.SearchBar = new YouChatApp.Controls.SearchBar();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.hiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hsdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             // 
             // ContactPanel
@@ -99,6 +103,21 @@ namespace YouChatApp.AttachedFiles
             this.SearchBar.TabIndex = 2;
             this.SearchBar.Load += new System.EventHandler(this.SearchBar_Load);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // hiToolStripMenuItem
+            // 
+            this.hiToolStripMenuItem.Name = "hiToolStripMenuItem";
+            this.hiToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // hsdfToolStripMenuItem
+            // 
+            this.hsdfToolStripMenuItem.Name = "hsdfToolStripMenuItem";
+            this.hsdfToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
             // ContactSharing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -127,5 +146,8 @@ namespace YouChatApp.AttachedFiles
         private System.Windows.Forms.Label InstructionLabel;
         private Controls.SearchBar SearchBar;
         private System.Windows.Forms.Panel ChosenContactsPanel;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem hiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hsdfToolStripMenuItem;
     }
 }

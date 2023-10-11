@@ -117,7 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CountDownNumber1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CountDownNumber1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CountDownNumber10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CountDownNumber10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CountDownNumber2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CountDownNumber2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CountDownNumber3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CountDownNumber3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CountDownNumber4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CountDownNumber4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CountDownNumber5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CountDownNumber5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CountDownNumber6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CountDownNumber6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CountDownNumber7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CountDownNumber7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CountDownNumber8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CountDownNumber8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CountDownNumber9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CountDownNumber9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

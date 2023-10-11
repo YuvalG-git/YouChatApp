@@ -15,10 +15,22 @@ namespace YouChatApp
     public partial class CircularPictureBox : PictureBox
     {
         private bool _hasBorder = false;
+        private int _borderSize = 1;
+        private Color _borderColor = Color.Gray;
         public bool HasBorder
         {
             get { return _hasBorder; }
             set { _hasBorder = value; }
+        }
+        public int BorderSize
+        {
+            get { return _borderSize; }
+            set { _borderSize = value; }
+        }
+        public Color BorderColor
+        {
+            get { return _borderColor; }
+            set { _borderColor = value; }
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -31,7 +43,7 @@ namespace YouChatApp
             //}
             using (GraphicsPath path = new GraphicsPath())
             {
-                using (Pen PenBorder = new Pen(Color.Gray, 1))
+                using (Pen PenBorder = new Pen(_borderColor, _borderSize))
                 {
                     if (_hasBorder)
                     {
