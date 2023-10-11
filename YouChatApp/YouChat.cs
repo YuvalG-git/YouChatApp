@@ -61,16 +61,11 @@ namespace YouChatApp
             SetCustomTextBoxsPlaceHolderText();
             ServerCommunication.SendMessage(ServerCommunication.UserDetailsRequest, " ");
 
+            PanelHandler.DeletePanelScrollBars(SelectedContactsPanel);
+            PanelHandler.DeletePanelHorizontalScrollBar(GroupCreatorPanel);
 
-            SelectedContactsPanel.AutoScroll = false;
-            SelectedContactsPanel.HorizontalScroll.Visible = false;
-            SelectedContactsPanel.VerticalScroll.Visible = false;
-            SelectedContactsPanel.HorizontalScroll.Maximum = 0;
-            SelectedContactsPanel.VerticalScroll.Maximum = 0;
-            SelectedContactsPanel.AutoScroll = true;
             GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y);
             GroupCreatorPanel.Size = new Size(GroupCreatorPanel.Width, GroupCreatorPanel.Height + SelectedContactsPanel.Height);
-
         }
         private void SetCustomTextBoxsPlaceHolderText()
         {
@@ -297,7 +292,12 @@ namespace YouChatApp
             ContactManager.AddContact("Alon Tamir", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
             ContactManager.AddContact("Ben Raviv", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
             ContactManager.AddContact("Yuval Gur", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            ContactManager.AddContact("Yotam Limor", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            ContactManager.AddContact("Yaniv Ilan", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
 
+            ContactManager.AddContact("Ariel Shiff", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            ContactManager.AddContact("Amir Lavi", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            ContactManager.AddContact("Tonathan Gal", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
             foreach (Contact Contact in ContactManager.UserContacts)
             {
                 if (ContactNumber == 0)
@@ -332,13 +332,13 @@ namespace YouChatApp
         private void SearchContacts(object sender, System.EventArgs e)
         {
 
-            if (this.GroupCreatorSearchPanel.Controls.Count > 0)
+            if (this.SelectedContactsPanel.Controls.Count > 0)
             {
-                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, GroupCreatorSearchPanel.Location.Y + GroupCreatorSearchPanel.Height);
+                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y + SelectedContactsPanel.Height);
             }
             else
             {
-                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, GroupCreatorSearchPanel.Location.Y);
+                GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y);
 
             }
             string Text = GroupCreatorSearchBar.SeacrhBar.TextContent;
@@ -426,8 +426,10 @@ namespace YouChatApp
             }
             if (this.SelectedContactsPanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
             {
-                Control LastControl = this.ProfileControlList[0];
-                this.SelectedContactsPanel.ScrollControlIntoView(LastControl);
+                //Control LastControl = this.ProfileControlList[0];
+                //this.SelectedContactsPanel.ScrollControlIntoView(LastControl);
+                PanelHandler.SetPanelToSide(SelectedContactsPanel, ProfileControlList, true);
+
             }
             else
             {
@@ -458,6 +460,7 @@ namespace YouChatApp
         }
         private void RemoveProfileControl(object sender, System.EventArgs e)
         {
+            PanelHandler.SetPanelToSide(GroupCreatorPanel, ContactControlList, true);
             string ContactName = ((ProfileControl)(sender)).Name;
             CancelContactControlSelection(ContactName);
             ProfileControlList.Remove(((ProfileControl)(sender)));
@@ -496,6 +499,7 @@ namespace YouChatApp
         }
         private void RestartContactControlListLocation()
         {
+            PanelHandler.SetPanelToSide(GroupCreatorPanel, ContactControlList, true);
             foreach (ContactControl Contact in ContactControlList)
             {
                 if (!Contact.WasSelected)
@@ -512,7 +516,7 @@ namespace YouChatApp
         }
         private void HandleCurrentChatParticipants()
         {
-            if (this.SelectedContactsPanel.Controls.Count > 2)
+            if (this.SelectedContactsPanel.Controls.Count >= 2)
             {
                 ContinueToGroupSettingsCustomButton.Enabled = true;
             }
@@ -1129,17 +1133,38 @@ namespace YouChatApp
                 GroupIconCircularPictureBox.BackgroundImage = ServerCommunication._emojiKeyboard.ImageToSend;
             }
         }
-
+        private void DisableCloseForProfileControls()
+        {
+            foreach (ProfileControl profile in ProfileControlList)
+            {
+                profile.IsCloseVisible = false;
+            }
+        }
+        private void EnableCloseForProfileControls()
+        {
+            foreach (ProfileControl profile in ProfileControlList)
+            {
+                profile.IsCloseVisible = true;
+            }
+        }
         private void ContinueToGroupSettingsCustomButton_Click(object sender, EventArgs e)
         {
             GroupSettingsPanel.Visible = true;
             GroupCreatorBackgroundPanel.Visible = false;
+            this.GroupSettingsPanel.Controls.Add(this.SelectedContactsPanel);
+            this.SelectedContactsPanel.Location = new Point(0, 100);
+            DisableCloseForProfileControls();
+            PanelHandler.SetPanelToSide(SelectedContactsPanel, ProfileControlList, true);
         }
 
         private void ReturnToGroupContactsSelectionCustomButton_Click(object sender, EventArgs e)
         {
             GroupSettingsPanel.Visible = false;
             GroupCreatorBackgroundPanel.Visible = true;
+            this.GroupCreatorBackgroundPanel.Controls.Add(this.SelectedContactsPanel);
+            this.SelectedContactsPanel.Location = new Point(0, 100);
+            EnableCloseForProfileControls();
+            PanelHandler.SetPanelToSide(SelectedContactsPanel, ProfileControlList, true);
         }
 
         private void RestartGroupSubjectCustomButton_Click(object sender, EventArgs e)

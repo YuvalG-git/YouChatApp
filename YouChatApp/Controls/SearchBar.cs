@@ -15,20 +15,24 @@ namespace YouChatApp.Controls
         public SearchBar()
         {
             InitializeComponent();
+            SearchBarCustomTextBox.PlaceHolderText = "Search...";
         }
         public event EventHandler Search;
         public CustomTextBox SeacrhBar => SearchBarCustomTextBox;
+        private bool _isMouseOverSearchBar = false;
 
-        
 
         private void SearchBar_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void OnSearch(object sender, EventArgs e)
         {
-            Search?.Invoke(this, e);
+            if (_isMouseOverSearchBar)
+            {
+                Search?.Invoke(this, e);
+            }
         }
         public void AddSearchOnClickHandler(EventHandler handler)
         {
@@ -62,6 +66,16 @@ namespace YouChatApp.Controls
             {
                 SearchBarCustomTextBox.BorderFocusColor = value;
             }
+        }
+
+        private void MouseEnter(object sender, EventArgs e)
+        {
+            _isMouseOverSearchBar = true;
+        }
+
+        private void MouseLeave(object sender, EventArgs e)
+        {
+            _isMouseOverSearchBar = false;
         }
     }
 }

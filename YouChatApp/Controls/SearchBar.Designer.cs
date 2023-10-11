@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.SearchPictureBox = new System.Windows.Forms.PictureBox();
-            this.SearchBackgroundCircularPictureBox = new YouChatApp.CircularPictureBox();
             this.SearchBarCustomTextBox = new YouChatApp.Controls.CustomTextBox();
+            this.SearchBackgroundCircularPictureBox = new YouChatApp.CircularPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.SearchPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchBackgroundCircularPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -46,16 +46,8 @@
             this.SearchPictureBox.TabIndex = 1;
             this.SearchPictureBox.TabStop = false;
             this.SearchPictureBox.Click += new System.EventHandler(this.OnSearch);
-            // 
-            // SearchBackgroundCircularPictureBox
-            // 
-            this.SearchBackgroundCircularPictureBox.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.SearchBackgroundCircularPictureBox.Location = new System.Drawing.Point(265, 10);
-            this.SearchBackgroundCircularPictureBox.Name = "SearchBackgroundCircularPictureBox";
-            this.SearchBackgroundCircularPictureBox.Size = new System.Drawing.Size(40, 40);
-            this.SearchBackgroundCircularPictureBox.TabIndex = 2;
-            this.SearchBackgroundCircularPictureBox.TabStop = false;
-            this.SearchBackgroundCircularPictureBox.Click += new System.EventHandler(this.OnSearch);
+            this.SearchPictureBox.MouseEnter += new System.EventHandler(this.MouseEnter);
+            this.SearchPictureBox.MouseLeave += new System.EventHandler(this.MouseLeave);
             // 
             // SearchBarCustomTextBox
             // 
@@ -69,18 +61,38 @@
             this.SearchBarCustomTextBox.IsFocused = false;
             this.SearchBarCustomTextBox.Location = new System.Drawing.Point(5, 15);
             this.SearchBarCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.SearchBarCustomTextBox.MaxLength = 32767;
             this.SearchBarCustomTextBox.Multiline = false;
             this.SearchBarCustomTextBox.Name = "SearchBarCustomTextBox";
             this.SearchBarCustomTextBox.Padding = new System.Windows.Forms.Padding(7);
             this.SearchBarCustomTextBox.PasswordChar = false;
             this.SearchBarCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.SearchBarCustomTextBox.PlaceHolderText = "Search...";
+            this.SearchBarCustomTextBox.ReadOnly = false;
             this.SearchBarCustomTextBox.Size = new System.Drawing.Size(250, 31);
             this.SearchBarCustomTextBox.TabIndex = 3;
+            this.SearchBarCustomTextBox.TabStop = false;
             this.SearchBarCustomTextBox.TextContent = "";
             this.SearchBarCustomTextBox.UnderlineStyle = false;
             this.SearchBarCustomTextBox.TextChangedEvent += new System.EventHandler(this.OnSearch);
             this.SearchBarCustomTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SearchBarCustomTextBox_MouseDown);
+            this.SearchBarCustomTextBox.MouseEnter += new System.EventHandler(this.MouseEnter);
+            this.SearchBarCustomTextBox.MouseLeave += new System.EventHandler(this.MouseLeave);
+            // 
+            // SearchBackgroundCircularPictureBox
+            // 
+            this.SearchBackgroundCircularPictureBox.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.SearchBackgroundCircularPictureBox.BorderColor = System.Drawing.Color.Gray;
+            this.SearchBackgroundCircularPictureBox.BorderSize = 1;
+            this.SearchBackgroundCircularPictureBox.HasBorder = false;
+            this.SearchBackgroundCircularPictureBox.Location = new System.Drawing.Point(265, 10);
+            this.SearchBackgroundCircularPictureBox.Name = "SearchBackgroundCircularPictureBox";
+            this.SearchBackgroundCircularPictureBox.Size = new System.Drawing.Size(40, 40);
+            this.SearchBackgroundCircularPictureBox.TabIndex = 2;
+            this.SearchBackgroundCircularPictureBox.TabStop = false;
+            this.SearchBackgroundCircularPictureBox.Click += new System.EventHandler(this.OnSearch);
+            this.SearchBackgroundCircularPictureBox.MouseEnter += new System.EventHandler(this.MouseEnter);
+            this.SearchBackgroundCircularPictureBox.MouseLeave += new System.EventHandler(this.MouseLeave);
             // 
             // SearchBar
             // 

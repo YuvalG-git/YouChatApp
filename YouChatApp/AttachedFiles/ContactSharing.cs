@@ -28,11 +28,7 @@ namespace YouChatApp.AttachedFiles
             //passwordGeneratorControl1.OnTextChangedEventHandler(PasswordFieldsValueChecker);
 
             SetContactControlList();
-            ChosenContactsPanel.AutoScroll = false;
-            ChosenContactsPanel.HorizontalScroll.Visible = false;
-            ChosenContactsPanel.VerticalScroll.Visible = false;
-            ChosenContactsPanel.HorizontalScroll.Maximum = 0;
-            ChosenContactsPanel.AutoScroll = true;
+            PanelHandler.DeletePanelScrollBars(ChosenContactsPanel);
             ContactPanel.Location = new System.Drawing.Point(ContactPanel.Location.X, ChosenContactsPanel.Location.Y);
 
         }
