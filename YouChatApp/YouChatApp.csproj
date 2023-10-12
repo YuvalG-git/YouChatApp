@@ -12210,5 +12210,8 @@
   <ItemGroup>
     <None Include="Resources\CloseRedColor.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CropImage.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

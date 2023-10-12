@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics.Tracing;
+using System.Drawing.Drawing2D;
 
 namespace YouChatApp.AttachedFiles
 {
@@ -37,11 +38,24 @@ namespace YouChatApp.AttachedFiles
         int CurrentHeight;
         int CameraWidth;
         int CameraHeight;
+        private Rectangle selectionCropRectangle;
+        Bitmap capturedImage;
         private bool isResizing = false;
+        private bool isCropping = false;
         public Camera()
         {
             InitializeComponent();
             TimerOptionComboBox.SelectedIndex = 0;
+            SetSelectionCropRectangle();
+        }
+        private void SetSelectionCropRectangle()
+        {
+            int width = 200;
+            int height = 200;
+            int StartXLocation = (UserImageTakenPictureBox.Width - width) / 2;
+            int StartYLocation = (UserImageTakenPictureBox.Height - height) / 2; ;
+            selectionCropRectangle = new Rectangle(StartXLocation, StartYLocation, width, height);
+
         }
 
 
@@ -184,6 +198,7 @@ namespace YouChatApp.AttachedFiles
         {
             if (CameraIsOpen)
             {
+                isCropping = !isCropping;
                 if (waitingTime == 0)
                 {
                     SetImage();
@@ -205,10 +220,14 @@ namespace YouChatApp.AttachedFiles
         {
             if (UserVideoPictureBox.Image != null)
             {
-                Bitmap capturedImage = (Bitmap)UserVideoPictureBox.Image.Clone();
+                capturedImage = (Bitmap)UserVideoPictureBox.Image.Clone();
+                ImageToSend = capturedImage;
 
                 UserImageTakenPictureBox.Image = capturedImage;
+
                 _isImageTaken = true;
+                UserImageTakenPictureBox.Invalidate();
+
                 SaveImageCustomButton.Enabled = true;
                 //// Create a unique filename for the saved image (e.g., using a timestamp)
                 //string fileName = $"captured_image_{DateTime.Now:yyyyMMddHHmmss}.jpg";
@@ -292,11 +311,77 @@ namespace YouChatApp.AttachedFiles
 
         private void SaveImageCustomButton_Click(object sender, EventArgs e)
         {
-            ImageToSend = UserImageTakenPictureBox.Image;
             //needs to close if it was for group image otherwise not..
             this.DialogResult = DialogResult.OK;
 
             this.Close();
+        }
+
+        private void PictureBoxImage_Paint(object sender, PaintEventArgs e)
+        {
+            // Draw the selection rectangle on the PictureBox
+            if (isCropping)
+            {
+                using (Pen pen = new Pen(Color.Red, 2))
+                {
+                    e.Graphics.DrawRectangle(pen, selectionCropRectangle);
+                }
+            }
+        }
+
+
+
+        private void UserImageTakenPictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (isCropping || _isImageTaken)
+            {
+                using (Pen pen = new Pen(Color.Red, 2))
+                {
+                    e.Graphics.DrawRectangle(pen, selectionCropRectangle);
+                }
+            }
+        }
+
+        private void UserImageTakenPictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            if ((isCropping) && (e.Button == MouseButtons.Left))
+            {
+                // Start selecting the region
+                selectionCropRectangle.X = e.X;
+                selectionCropRectangle.Y = e.Y;
+                UserImageTakenPictureBox.Invalidate();
+            }
+        }
+
+        private void UserImageTakenPictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            //if ((isCropping)&& (e.Button == MouseButtons.Left))
+            //{
+            //    // Resize the selection region
+            //    selectionCropRectangle.Width = e.X - selectionCropRectangle.X;
+            //    selectionCropRectangle.Height = e.Y - selectionCropRectangle.Y;
+            //    UserImageTakenPictureBox.Invalidate();
+            //}
+        }
+
+        private void CropImageCustomButton_Click(object sender, EventArgs e)
+        {
+            //if (originalImage != null)
+            //{
+            //    if (selectionRectangle.Width > 0 && selectionRectangle.Height > 0)
+            //    {
+            //        // Crop the selected region
+            //        Bitmap croppedImage = new Bitmap(selectionRectangle.Width, selectionRectangle.Height);
+            //        using (Graphics g = Graphics.FromImage(croppedImage))
+            //        {
+            //            g.DrawImage(originalImage, 0, 0, selectionRectangle, GraphicsUnit.Pixel);
+            //        }
+
+            //        // Display the cropped image
+            //        PictureBoxCropped.Image = croppedImage;
+            //    }
+            //}
         }
     }
 }

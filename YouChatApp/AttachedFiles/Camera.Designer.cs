@@ -31,26 +31,28 @@
             this.components = new System.ComponentModel.Container();
             this.CameraDeviceComboBox = new System.Windows.Forms.ComboBox();
             this.BackgroundPanel = new System.Windows.Forms.Panel();
-            this.SaveImageCustomButton = new YouChatApp.Controls.CustomButton();
             this.TimerPanel = new System.Windows.Forms.Panel();
             this.TimerLabel = new System.Windows.Forms.Label();
             this.TimerOptionComboBox = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ImageTakerCustomButton = new YouChatApp.Controls.CustomButton();
             this.VideoDevicePanel = new System.Windows.Forms.Panel();
             this.VideoDeviceLabel = new System.Windows.Forms.Label();
-            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
             this.CameraDevicePictureBox = new System.Windows.Forms.PictureBox();
-            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.CameraTimerContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TimerOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TwoSecondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FiveSecondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TenSecondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.WaitingTimeLabel = new System.Windows.Forms.Label();
             this.UserImageTakenPictureBox = new System.Windows.Forms.PictureBox();
             this.UserVideoPictureBox = new System.Windows.Forms.PictureBox();
-            this.WaitingTimeLabel = new System.Windows.Forms.Label();
+            this.CropImageCustomButton = new YouChatApp.Controls.CustomButton();
+            this.SaveImageCustomButton = new YouChatApp.Controls.CustomButton();
+            this.ImageTakerCustomButton = new YouChatApp.Controls.CustomButton();
+            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
+            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
+            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.BackgroundPanel.SuspendLayout();
             this.TimerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -73,6 +75,7 @@
             // BackgroundPanel
             // 
             this.BackgroundPanel.BackColor = System.Drawing.Color.Black;
+            this.BackgroundPanel.Controls.Add(this.CropImageCustomButton);
             this.BackgroundPanel.Controls.Add(this.SaveImageCustomButton);
             this.BackgroundPanel.Controls.Add(this.TimerPanel);
             this.BackgroundPanel.Controls.Add(this.ImageTakerCustomButton);
@@ -82,27 +85,6 @@
             this.BackgroundPanel.Name = "BackgroundPanel";
             this.BackgroundPanel.Size = new System.Drawing.Size(1355, 100);
             this.BackgroundPanel.TabIndex = 7;
-            // 
-            // SaveImageCustomButton
-            // 
-            this.SaveImageCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.SaveImageCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.SaveImageCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.SaveOption;
-            this.SaveImageCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.SaveImageCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.SaveImageCustomButton.BorderRadius = 10;
-            this.SaveImageCustomButton.BorderSize = 0;
-            this.SaveImageCustomButton.Enabled = false;
-            this.SaveImageCustomButton.FlatAppearance.BorderSize = 0;
-            this.SaveImageCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveImageCustomButton.ForeColor = System.Drawing.Color.White;
-            this.SaveImageCustomButton.Location = new System.Drawing.Point(774, 25);
-            this.SaveImageCustomButton.Name = "SaveImageCustomButton";
-            this.SaveImageCustomButton.Size = new System.Drawing.Size(80, 60);
-            this.SaveImageCustomButton.TabIndex = 15;
-            this.SaveImageCustomButton.TextColor = System.Drawing.Color.White;
-            this.SaveImageCustomButton.UseVisualStyleBackColor = false;
-            this.SaveImageCustomButton.Click += new System.EventHandler(this.SaveImageCustomButton_Click);
             // 
             // TimerPanel
             // 
@@ -152,26 +134,6 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
-            // ImageTakerCustomButton
-            // 
-            this.ImageTakerCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.ImageTakerCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.ImageTakerCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.CameraImageTaker;
-            this.ImageTakerCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ImageTakerCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.ImageTakerCustomButton.BorderRadius = 10;
-            this.ImageTakerCustomButton.BorderSize = 0;
-            this.ImageTakerCustomButton.FlatAppearance.BorderSize = 0;
-            this.ImageTakerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ImageTakerCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ImageTakerCustomButton.Location = new System.Drawing.Point(598, 15);
-            this.ImageTakerCustomButton.Name = "ImageTakerCustomButton";
-            this.ImageTakerCustomButton.Size = new System.Drawing.Size(116, 60);
-            this.ImageTakerCustomButton.TabIndex = 14;
-            this.ImageTakerCustomButton.TextColor = System.Drawing.Color.White;
-            this.ImageTakerCustomButton.UseVisualStyleBackColor = false;
-            this.ImageTakerCustomButton.Click += new System.EventHandler(this.ImageTakerCustomButton_Click);
-            // 
             // VideoDevicePanel
             // 
             this.VideoDevicePanel.Controls.Add(this.VideoDeviceLabel);
@@ -194,25 +156,6 @@
             this.VideoDeviceLabel.TabIndex = 9;
             this.VideoDeviceLabel.Text = "Video Device";
             // 
-            // RefreshCameraOptionsCustomButton
-            // 
-            this.RefreshCameraOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshCameraOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshCameraOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
-            this.RefreshCameraOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.RefreshCameraOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.RefreshCameraOptionsCustomButton.BorderRadius = 10;
-            this.RefreshCameraOptionsCustomButton.BorderSize = 0;
-            this.RefreshCameraOptionsCustomButton.FlatAppearance.BorderSize = 0;
-            this.RefreshCameraOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RefreshCameraOptionsCustomButton.ForeColor = System.Drawing.Color.White;
-            this.RefreshCameraOptionsCustomButton.Location = new System.Drawing.Point(162, 30);
-            this.RefreshCameraOptionsCustomButton.Name = "RefreshCameraOptionsCustomButton";
-            this.RefreshCameraOptionsCustomButton.Size = new System.Drawing.Size(30, 30);
-            this.RefreshCameraOptionsCustomButton.TabIndex = 8;
-            this.RefreshCameraOptionsCustomButton.TextColor = System.Drawing.Color.White;
-            this.RefreshCameraOptionsCustomButton.UseVisualStyleBackColor = false;
-            // 
             // CameraDevicePictureBox
             // 
             this.CameraDevicePictureBox.Image = global::YouChatApp.Properties.Resources.CameraLens;
@@ -222,26 +165,6 @@
             this.CameraDevicePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.CameraDevicePictureBox.TabIndex = 3;
             this.CameraDevicePictureBox.TabStop = false;
-            // 
-            // CameraModeCustomButton
-            // 
-            this.CameraModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.CameraModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.CameraModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoOpen;
-            this.CameraModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CameraModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.CameraModeCustomButton.BorderRadius = 10;
-            this.CameraModeCustomButton.BorderSize = 0;
-            this.CameraModeCustomButton.FlatAppearance.BorderSize = 0;
-            this.CameraModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CameraModeCustomButton.ForeColor = System.Drawing.Color.White;
-            this.CameraModeCustomButton.Location = new System.Drawing.Point(393, 15);
-            this.CameraModeCustomButton.Name = "CameraModeCustomButton";
-            this.CameraModeCustomButton.Size = new System.Drawing.Size(80, 60);
-            this.CameraModeCustomButton.TabIndex = 7;
-            this.CameraModeCustomButton.TextColor = System.Drawing.Color.White;
-            this.CameraModeCustomButton.UseVisualStyleBackColor = false;
-            this.CameraModeCustomButton.Click += new System.EventHandler(this.CameraModeCustomButton_Click);
             // 
             // Timer
             // 
@@ -287,6 +210,15 @@
             this.TenSecondToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.TenSecondToolStripMenuItem.Text = "10 Sec";
             // 
+            // WaitingTimeLabel
+            // 
+            this.WaitingTimeLabel.AutoSize = true;
+            this.WaitingTimeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WaitingTimeLabel.Location = new System.Drawing.Point(613, 119);
+            this.WaitingTimeLabel.Name = "WaitingTimeLabel";
+            this.WaitingTimeLabel.Size = new System.Drawing.Size(0, 24);
+            this.WaitingTimeLabel.TabIndex = 15;
+            // 
             // UserImageTakenPictureBox
             // 
             this.UserImageTakenPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -296,6 +228,9 @@
             this.UserImageTakenPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.UserImageTakenPictureBox.TabIndex = 10;
             this.UserImageTakenPictureBox.TabStop = false;
+            this.UserImageTakenPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.UserImageTakenPictureBox_Paint);
+            this.UserImageTakenPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UserImageTakenPictureBox_MouseDown);
+            this.UserImageTakenPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UserImageTakenPictureBox_MouseMove);
             // 
             // UserVideoPictureBox
             // 
@@ -307,20 +242,119 @@
             this.UserVideoPictureBox.TabIndex = 9;
             this.UserVideoPictureBox.TabStop = false;
             // 
-            // WaitingTimeLabel
+            // CropImageCustomButton
             // 
-            this.WaitingTimeLabel.AutoSize = true;
-            this.WaitingTimeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WaitingTimeLabel.Location = new System.Drawing.Point(613, 119);
-            this.WaitingTimeLabel.Name = "WaitingTimeLabel";
-            this.WaitingTimeLabel.Size = new System.Drawing.Size(0, 24);
-            this.WaitingTimeLabel.TabIndex = 15;
+            this.CropImageCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.CropImageCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.CropImageCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.CropImage;
+            this.CropImageCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CropImageCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.CropImageCustomButton.BorderRadius = 10;
+            this.CropImageCustomButton.BorderSize = 0;
+            this.CropImageCustomButton.FlatAppearance.BorderSize = 0;
+            this.CropImageCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CropImageCustomButton.ForeColor = System.Drawing.Color.White;
+            this.CropImageCustomButton.Location = new System.Drawing.Point(880, 25);
+            this.CropImageCustomButton.Name = "CropImageCustomButton";
+            this.CropImageCustomButton.Size = new System.Drawing.Size(80, 60);
+            this.CropImageCustomButton.TabIndex = 16;
+            this.CropImageCustomButton.TextColor = System.Drawing.Color.White;
+            this.CropImageCustomButton.UseVisualStyleBackColor = false;
+            this.CropImageCustomButton.Click += new System.EventHandler(this.CropImageCustomButton_Click);
+            // 
+            // SaveImageCustomButton
+            // 
+            this.SaveImageCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.SaveImageCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.SaveImageCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.SaveOption;
+            this.SaveImageCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SaveImageCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.SaveImageCustomButton.BorderRadius = 10;
+            this.SaveImageCustomButton.BorderSize = 0;
+            this.SaveImageCustomButton.Enabled = false;
+            this.SaveImageCustomButton.FlatAppearance.BorderSize = 0;
+            this.SaveImageCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveImageCustomButton.ForeColor = System.Drawing.Color.White;
+            this.SaveImageCustomButton.Location = new System.Drawing.Point(774, 25);
+            this.SaveImageCustomButton.Name = "SaveImageCustomButton";
+            this.SaveImageCustomButton.Size = new System.Drawing.Size(80, 60);
+            this.SaveImageCustomButton.TabIndex = 15;
+            this.SaveImageCustomButton.TextColor = System.Drawing.Color.White;
+            this.SaveImageCustomButton.UseVisualStyleBackColor = false;
+            this.SaveImageCustomButton.Click += new System.EventHandler(this.SaveImageCustomButton_Click);
+            // 
+            // ImageTakerCustomButton
+            // 
+            this.ImageTakerCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.ImageTakerCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.ImageTakerCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.CameraImageTaker;
+            this.ImageTakerCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ImageTakerCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ImageTakerCustomButton.BorderRadius = 10;
+            this.ImageTakerCustomButton.BorderSize = 0;
+            this.ImageTakerCustomButton.FlatAppearance.BorderSize = 0;
+            this.ImageTakerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ImageTakerCustomButton.ForeColor = System.Drawing.Color.White;
+            this.ImageTakerCustomButton.Location = new System.Drawing.Point(598, 15);
+            this.ImageTakerCustomButton.Name = "ImageTakerCustomButton";
+            this.ImageTakerCustomButton.Size = new System.Drawing.Size(116, 60);
+            this.ImageTakerCustomButton.TabIndex = 14;
+            this.ImageTakerCustomButton.TextColor = System.Drawing.Color.White;
+            this.ImageTakerCustomButton.UseVisualStyleBackColor = false;
+            this.ImageTakerCustomButton.Click += new System.EventHandler(this.ImageTakerCustomButton_Click);
+            // 
+            // RefreshCameraOptionsCustomButton
+            // 
+            this.RefreshCameraOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshCameraOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshCameraOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
+            this.RefreshCameraOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RefreshCameraOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.RefreshCameraOptionsCustomButton.BorderRadius = 10;
+            this.RefreshCameraOptionsCustomButton.BorderSize = 0;
+            this.RefreshCameraOptionsCustomButton.FlatAppearance.BorderSize = 0;
+            this.RefreshCameraOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshCameraOptionsCustomButton.ForeColor = System.Drawing.Color.White;
+            this.RefreshCameraOptionsCustomButton.Location = new System.Drawing.Point(162, 30);
+            this.RefreshCameraOptionsCustomButton.Name = "RefreshCameraOptionsCustomButton";
+            this.RefreshCameraOptionsCustomButton.Size = new System.Drawing.Size(30, 30);
+            this.RefreshCameraOptionsCustomButton.TabIndex = 8;
+            this.RefreshCameraOptionsCustomButton.TextColor = System.Drawing.Color.White;
+            this.RefreshCameraOptionsCustomButton.UseVisualStyleBackColor = false;
+            // 
+            // CameraModeCustomButton
+            // 
+            this.CameraModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.CameraModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.CameraModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoOpen;
+            this.CameraModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CameraModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.CameraModeCustomButton.BorderRadius = 10;
+            this.CameraModeCustomButton.BorderSize = 0;
+            this.CameraModeCustomButton.FlatAppearance.BorderSize = 0;
+            this.CameraModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CameraModeCustomButton.ForeColor = System.Drawing.Color.White;
+            this.CameraModeCustomButton.Location = new System.Drawing.Point(393, 15);
+            this.CameraModeCustomButton.Name = "CameraModeCustomButton";
+            this.CameraModeCustomButton.Size = new System.Drawing.Size(80, 60);
+            this.CameraModeCustomButton.TabIndex = 7;
+            this.CameraModeCustomButton.TextColor = System.Drawing.Color.White;
+            this.CameraModeCustomButton.UseVisualStyleBackColor = false;
+            this.CameraModeCustomButton.Click += new System.EventHandler(this.CameraModeCustomButton_Click);
+            // 
+            // hScrollBar1
+            // 
+            this.hScrollBar1.Location = new System.Drawing.Point(899, 138);
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(80, 17);
+            this.hScrollBar1.TabIndex = 17;
             // 
             // Camera
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1357, 713);
+            this.Controls.Add(this.hScrollBar1);
             this.Controls.Add(this.WaitingTimeLabel);
             this.Controls.Add(this.UserImageTakenPictureBox);
             this.Controls.Add(this.UserVideoPictureBox);
@@ -368,5 +402,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label WaitingTimeLabel;
         private Controls.CustomButton SaveImageCustomButton;
+        private Controls.CustomButton CropImageCustomButton;
+        private System.Windows.Forms.HScrollBar hScrollBar1;
     }
 }
