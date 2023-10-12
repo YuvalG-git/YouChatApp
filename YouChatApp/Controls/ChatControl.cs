@@ -19,6 +19,7 @@ namespace YouChatApp
             InitializeComponent();
             foreach(Control control in this.Controls)
             {
+                control.Click += new System.EventHandler(this.OnControlClick);
                 control.MouseEnter += new System.EventHandler(this.ChatControl_MouseEnter);
                 control.MouseLeave += new System.EventHandler(this.ChatControl_MouseLeave);
             }
@@ -110,5 +111,10 @@ namespace YouChatApp
         {
 
         }
+        private void OnControlClick(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
+
     }
 }

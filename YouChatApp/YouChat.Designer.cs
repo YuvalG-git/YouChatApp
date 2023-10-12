@@ -273,6 +273,7 @@ namespace YouChatApp
             this.ContinueToGroupSettingsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.ContinueToGroupSettingsCustomButton.BorderRadius = 10;
             this.ContinueToGroupSettingsCustomButton.BorderSize = 0;
+            this.ContinueToGroupSettingsCustomButton.Enabled = false;
             this.ContinueToGroupSettingsCustomButton.FlatAppearance.BorderSize = 0;
             this.ContinueToGroupSettingsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ContinueToGroupSettingsCustomButton.ForeColor = System.Drawing.Color.White;
@@ -738,6 +739,7 @@ namespace YouChatApp
             // 
             // CurrentPictureChatPictureBox
             // 
+            this.CurrentPictureChatPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.CurrentPictureChatPictureBox.Location = new System.Drawing.Point(7, 7);
             this.CurrentPictureChatPictureBox.Name = "CurrentPictureChatPictureBox";
             this.CurrentPictureChatPictureBox.Size = new System.Drawing.Size(60, 60);

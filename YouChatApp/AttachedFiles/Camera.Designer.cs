@@ -31,13 +31,29 @@
             this.components = new System.ComponentModel.Container();
             this.CameraDeviceComboBox = new System.Windows.Forms.ComboBox();
             this.BackgroundPanel = new System.Windows.Forms.Panel();
+            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
+            this.CropImageCustomButton = new YouChatApp.Controls.CustomButton();
+            this.SaveImageCustomButton = new YouChatApp.Controls.CustomButton();
             this.TimerPanel = new System.Windows.Forms.Panel();
             this.TimerLabel = new System.Windows.Forms.Label();
+            this.ImageTakerCustomButton = new YouChatApp.Controls.CustomButton();
             this.TimerOptionComboBox = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.VideoDevicePanel = new System.Windows.Forms.Panel();
             this.VideoDeviceLabel = new System.Windows.Forms.Label();
+            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
             this.CameraDevicePictureBox = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.CropYLocationHorizontalScrollBar = new System.Windows.Forms.HScrollBar();
+            this.CropXLocationHorizontalScrollBar = new System.Windows.Forms.HScrollBar();
+            this.CropSizeCustomTextBox = new YouChatApp.Controls.CustomTextBox();
+            this.CropXLocationYustomTextBox = new YouChatApp.Controls.CustomTextBox();
+            this.CropXLocationXustomTextBox = new YouChatApp.Controls.CustomTextBox();
+            this.CropSizeHorizontalScrollBar = new System.Windows.Forms.HScrollBar();
+            this.CropYLocationLabel = new System.Windows.Forms.Label();
+            this.CropXLocationLabel = new System.Windows.Forms.Label();
+            this.CropSizeLabel = new System.Windows.Forms.Label();
+            this.CropLabel = new System.Windows.Forms.Label();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.CameraTimerContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TimerOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,17 +63,12 @@
             this.WaitingTimeLabel = new System.Windows.Forms.Label();
             this.UserImageTakenPictureBox = new System.Windows.Forms.PictureBox();
             this.UserVideoPictureBox = new System.Windows.Forms.PictureBox();
-            this.CropImageCustomButton = new YouChatApp.Controls.CustomButton();
-            this.SaveImageCustomButton = new YouChatApp.Controls.CustomButton();
-            this.ImageTakerCustomButton = new YouChatApp.Controls.CustomButton();
-            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
-            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
-            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.BackgroundPanel.SuspendLayout();
             this.TimerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.VideoDevicePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CameraDevicePictureBox)).BeginInit();
+            this.panel1.SuspendLayout();
             this.CameraTimerContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UserImageTakenPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UserVideoPictureBox)).BeginInit();
@@ -69,31 +80,93 @@
             this.CameraDeviceComboBox.FormattingEnabled = true;
             this.CameraDeviceComboBox.Location = new System.Drawing.Point(35, 32);
             this.CameraDeviceComboBox.Name = "CameraDeviceComboBox";
-            this.CameraDeviceComboBox.Size = new System.Drawing.Size(121, 26);
+            this.CameraDeviceComboBox.Size = new System.Drawing.Size(219, 26);
             this.CameraDeviceComboBox.TabIndex = 0;
             // 
             // BackgroundPanel
             // 
             this.BackgroundPanel.BackColor = System.Drawing.Color.Black;
+            this.BackgroundPanel.Controls.Add(this.CameraModeCustomButton);
             this.BackgroundPanel.Controls.Add(this.CropImageCustomButton);
             this.BackgroundPanel.Controls.Add(this.SaveImageCustomButton);
             this.BackgroundPanel.Controls.Add(this.TimerPanel);
-            this.BackgroundPanel.Controls.Add(this.ImageTakerCustomButton);
             this.BackgroundPanel.Controls.Add(this.VideoDevicePanel);
-            this.BackgroundPanel.Controls.Add(this.CameraModeCustomButton);
+            this.BackgroundPanel.Controls.Add(this.panel1);
             this.BackgroundPanel.Location = new System.Drawing.Point(2, 2);
             this.BackgroundPanel.Name = "BackgroundPanel";
-            this.BackgroundPanel.Size = new System.Drawing.Size(1355, 100);
+            this.BackgroundPanel.Size = new System.Drawing.Size(1355, 120);
             this.BackgroundPanel.TabIndex = 7;
+            // 
+            // CameraModeCustomButton
+            // 
+            this.CameraModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.CameraModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.CameraModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoOpen;
+            this.CameraModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CameraModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.CameraModeCustomButton.BorderRadius = 10;
+            this.CameraModeCustomButton.BorderSize = 0;
+            this.CameraModeCustomButton.FlatAppearance.BorderSize = 0;
+            this.CameraModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CameraModeCustomButton.ForeColor = System.Drawing.Color.White;
+            this.CameraModeCustomButton.Location = new System.Drawing.Point(1146, 30);
+            this.CameraModeCustomButton.Name = "CameraModeCustomButton";
+            this.CameraModeCustomButton.Size = new System.Drawing.Size(80, 60);
+            this.CameraModeCustomButton.TabIndex = 7;
+            this.CameraModeCustomButton.TextColor = System.Drawing.Color.White;
+            this.CameraModeCustomButton.UseVisualStyleBackColor = false;
+            this.CameraModeCustomButton.Click += new System.EventHandler(this.CameraModeCustomButton_Click);
+            // 
+            // CropImageCustomButton
+            // 
+            this.CropImageCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.CropImageCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.CropImageCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.CropImage;
+            this.CropImageCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CropImageCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.CropImageCustomButton.BorderRadius = 10;
+            this.CropImageCustomButton.BorderSize = 0;
+            this.CropImageCustomButton.FlatAppearance.BorderSize = 0;
+            this.CropImageCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CropImageCustomButton.ForeColor = System.Drawing.Color.White;
+            this.CropImageCustomButton.Location = new System.Drawing.Point(344, 35);
+            this.CropImageCustomButton.Name = "CropImageCustomButton";
+            this.CropImageCustomButton.Size = new System.Drawing.Size(80, 60);
+            this.CropImageCustomButton.TabIndex = 16;
+            this.CropImageCustomButton.TextColor = System.Drawing.Color.White;
+            this.CropImageCustomButton.UseVisualStyleBackColor = false;
+            this.CropImageCustomButton.Click += new System.EventHandler(this.CropImageCustomButton_Click);
+            // 
+            // SaveImageCustomButton
+            // 
+            this.SaveImageCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.SaveImageCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.SaveImageCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.SaveOption;
+            this.SaveImageCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SaveImageCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.SaveImageCustomButton.BorderRadius = 10;
+            this.SaveImageCustomButton.BorderSize = 0;
+            this.SaveImageCustomButton.Enabled = false;
+            this.SaveImageCustomButton.FlatAppearance.BorderSize = 0;
+            this.SaveImageCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveImageCustomButton.ForeColor = System.Drawing.Color.White;
+            this.SaveImageCustomButton.Location = new System.Drawing.Point(1232, 30);
+            this.SaveImageCustomButton.Name = "SaveImageCustomButton";
+            this.SaveImageCustomButton.Size = new System.Drawing.Size(80, 60);
+            this.SaveImageCustomButton.TabIndex = 15;
+            this.SaveImageCustomButton.TextColor = System.Drawing.Color.White;
+            this.SaveImageCustomButton.UseVisualStyleBackColor = false;
+            this.SaveImageCustomButton.Click += new System.EventHandler(this.SaveImageCustomButton_Click);
             // 
             // TimerPanel
             // 
             this.TimerPanel.Controls.Add(this.TimerLabel);
+            this.TimerPanel.Controls.Add(this.ImageTakerCustomButton);
             this.TimerPanel.Controls.Add(this.TimerOptionComboBox);
             this.TimerPanel.Controls.Add(this.pictureBox1);
-            this.TimerPanel.Location = new System.Drawing.Point(222, 10);
+            this.TimerPanel.Location = new System.Drawing.Point(777, 10);
             this.TimerPanel.Name = "TimerPanel";
-            this.TimerPanel.Size = new System.Drawing.Size(165, 75);
+            this.TimerPanel.Size = new System.Drawing.Size(316, 75);
             this.TimerPanel.TabIndex = 14;
             // 
             // TimerLabel
@@ -106,6 +179,26 @@
             this.TimerLabel.Size = new System.Drawing.Size(53, 18);
             this.TimerLabel.TabIndex = 9;
             this.TimerLabel.Text = "Timer";
+            // 
+            // ImageTakerCustomButton
+            // 
+            this.ImageTakerCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.ImageTakerCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.ImageTakerCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.CameraImageTaker;
+            this.ImageTakerCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ImageTakerCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ImageTakerCustomButton.BorderRadius = 10;
+            this.ImageTakerCustomButton.BorderSize = 0;
+            this.ImageTakerCustomButton.FlatAppearance.BorderSize = 0;
+            this.ImageTakerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ImageTakerCustomButton.ForeColor = System.Drawing.Color.White;
+            this.ImageTakerCustomButton.Location = new System.Drawing.Point(185, 7);
+            this.ImageTakerCustomButton.Name = "ImageTakerCustomButton";
+            this.ImageTakerCustomButton.Size = new System.Drawing.Size(116, 60);
+            this.ImageTakerCustomButton.TabIndex = 14;
+            this.ImageTakerCustomButton.TextColor = System.Drawing.Color.White;
+            this.ImageTakerCustomButton.UseVisualStyleBackColor = false;
+            this.ImageTakerCustomButton.Click += new System.EventHandler(this.ImageTakerCustomButton_Click);
             // 
             // TimerOptionComboBox
             // 
@@ -140,9 +233,9 @@
             this.VideoDevicePanel.Controls.Add(this.RefreshCameraOptionsCustomButton);
             this.VideoDevicePanel.Controls.Add(this.CameraDeviceComboBox);
             this.VideoDevicePanel.Controls.Add(this.CameraDevicePictureBox);
-            this.VideoDevicePanel.Location = new System.Drawing.Point(3, 10);
+            this.VideoDevicePanel.Location = new System.Drawing.Point(442, 10);
             this.VideoDevicePanel.Name = "VideoDevicePanel";
-            this.VideoDevicePanel.Size = new System.Drawing.Size(200, 75);
+            this.VideoDevicePanel.Size = new System.Drawing.Size(319, 75);
             this.VideoDevicePanel.TabIndex = 13;
             // 
             // VideoDeviceLabel
@@ -156,6 +249,25 @@
             this.VideoDeviceLabel.TabIndex = 9;
             this.VideoDeviceLabel.Text = "Video Device";
             // 
+            // RefreshCameraOptionsCustomButton
+            // 
+            this.RefreshCameraOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshCameraOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshCameraOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
+            this.RefreshCameraOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RefreshCameraOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.RefreshCameraOptionsCustomButton.BorderRadius = 10;
+            this.RefreshCameraOptionsCustomButton.BorderSize = 0;
+            this.RefreshCameraOptionsCustomButton.FlatAppearance.BorderSize = 0;
+            this.RefreshCameraOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshCameraOptionsCustomButton.ForeColor = System.Drawing.Color.White;
+            this.RefreshCameraOptionsCustomButton.Location = new System.Drawing.Point(272, 30);
+            this.RefreshCameraOptionsCustomButton.Name = "RefreshCameraOptionsCustomButton";
+            this.RefreshCameraOptionsCustomButton.Size = new System.Drawing.Size(30, 30);
+            this.RefreshCameraOptionsCustomButton.TabIndex = 8;
+            this.RefreshCameraOptionsCustomButton.TextColor = System.Drawing.Color.White;
+            this.RefreshCameraOptionsCustomButton.UseVisualStyleBackColor = false;
+            // 
             // CameraDevicePictureBox
             // 
             this.CameraDevicePictureBox.Image = global::YouChatApp.Properties.Resources.CameraLens;
@@ -165,6 +277,165 @@
             this.CameraDevicePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.CameraDevicePictureBox.TabIndex = 3;
             this.CameraDevicePictureBox.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.CropYLocationHorizontalScrollBar);
+            this.panel1.Controls.Add(this.CropXLocationHorizontalScrollBar);
+            this.panel1.Controls.Add(this.CropSizeCustomTextBox);
+            this.panel1.Controls.Add(this.CropXLocationYustomTextBox);
+            this.panel1.Controls.Add(this.CropXLocationXustomTextBox);
+            this.panel1.Controls.Add(this.CropSizeHorizontalScrollBar);
+            this.panel1.Controls.Add(this.CropYLocationLabel);
+            this.panel1.Controls.Add(this.CropXLocationLabel);
+            this.panel1.Controls.Add(this.CropSizeLabel);
+            this.panel1.Controls.Add(this.CropLabel);
+            this.panel1.Location = new System.Drawing.Point(10, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(316, 117);
+            this.panel1.TabIndex = 14;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // CropYLocationHorizontalScrollBar
+            // 
+            this.CropYLocationHorizontalScrollBar.Location = new System.Drawing.Point(221, 86);
+            this.CropYLocationHorizontalScrollBar.Name = "CropYLocationHorizontalScrollBar";
+            this.CropYLocationHorizontalScrollBar.Size = new System.Drawing.Size(80, 17);
+            this.CropYLocationHorizontalScrollBar.TabIndex = 25;
+            // 
+            // CropXLocationHorizontalScrollBar
+            // 
+            this.CropXLocationHorizontalScrollBar.Location = new System.Drawing.Point(221, 55);
+            this.CropXLocationHorizontalScrollBar.Name = "CropXLocationHorizontalScrollBar";
+            this.CropXLocationHorizontalScrollBar.Size = new System.Drawing.Size(80, 17);
+            this.CropXLocationHorizontalScrollBar.TabIndex = 24;
+            // 
+            // CropSizeCustomTextBox
+            // 
+            this.CropSizeCustomTextBox.BackColor = System.Drawing.Color.Black;
+            this.CropSizeCustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.CropSizeCustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.CropSizeCustomTextBox.BorderRadius = 0;
+            this.CropSizeCustomTextBox.BorderSize = 2;
+            this.CropSizeCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CropSizeCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.CropSizeCustomTextBox.IsFocused = false;
+            this.CropSizeCustomTextBox.Location = new System.Drawing.Point(135, 12);
+            this.CropSizeCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CropSizeCustomTextBox.MaxLength = 32767;
+            this.CropSizeCustomTextBox.Multiline = false;
+            this.CropSizeCustomTextBox.Name = "CropSizeCustomTextBox";
+            this.CropSizeCustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.CropSizeCustomTextBox.PasswordChar = false;
+            this.CropSizeCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.CropSizeCustomTextBox.PlaceHolderText = "";
+            this.CropSizeCustomTextBox.ReadOnly = false;
+            this.CropSizeCustomTextBox.Size = new System.Drawing.Size(67, 30);
+            this.CropSizeCustomTextBox.TabIndex = 23;
+            this.CropSizeCustomTextBox.TextContent = "";
+            this.CropSizeCustomTextBox.UnderlineStyle = true;
+            // 
+            // CropXLocationYustomTextBox
+            // 
+            this.CropXLocationYustomTextBox.BackColor = System.Drawing.Color.Black;
+            this.CropXLocationYustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.CropXLocationYustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.CropXLocationYustomTextBox.BorderRadius = 0;
+            this.CropXLocationYustomTextBox.BorderSize = 2;
+            this.CropXLocationYustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CropXLocationYustomTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.CropXLocationYustomTextBox.IsFocused = false;
+            this.CropXLocationYustomTextBox.Location = new System.Drawing.Point(105, 73);
+            this.CropXLocationYustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CropXLocationYustomTextBox.MaxLength = 32767;
+            this.CropXLocationYustomTextBox.Multiline = false;
+            this.CropXLocationYustomTextBox.Name = "CropXLocationYustomTextBox";
+            this.CropXLocationYustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.CropXLocationYustomTextBox.PasswordChar = false;
+            this.CropXLocationYustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.CropXLocationYustomTextBox.PlaceHolderText = "";
+            this.CropXLocationYustomTextBox.ReadOnly = false;
+            this.CropXLocationYustomTextBox.Size = new System.Drawing.Size(67, 30);
+            this.CropXLocationYustomTextBox.TabIndex = 22;
+            this.CropXLocationYustomTextBox.TextContent = "";
+            this.CropXLocationYustomTextBox.UnderlineStyle = true;
+            // 
+            // CropXLocationXustomTextBox
+            // 
+            this.CropXLocationXustomTextBox.BackColor = System.Drawing.Color.Black;
+            this.CropXLocationXustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.CropXLocationXustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.CropXLocationXustomTextBox.BorderRadius = 0;
+            this.CropXLocationXustomTextBox.BorderSize = 2;
+            this.CropXLocationXustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CropXLocationXustomTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.CropXLocationXustomTextBox.IsFocused = false;
+            this.CropXLocationXustomTextBox.Location = new System.Drawing.Point(105, 40);
+            this.CropXLocationXustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CropXLocationXustomTextBox.MaxLength = 32767;
+            this.CropXLocationXustomTextBox.Multiline = false;
+            this.CropXLocationXustomTextBox.Name = "CropXLocationXustomTextBox";
+            this.CropXLocationXustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.CropXLocationXustomTextBox.PasswordChar = false;
+            this.CropXLocationXustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.CropXLocationXustomTextBox.PlaceHolderText = "";
+            this.CropXLocationXustomTextBox.ReadOnly = false;
+            this.CropXLocationXustomTextBox.Size = new System.Drawing.Size(67, 30);
+            this.CropXLocationXustomTextBox.TabIndex = 21;
+            this.CropXLocationXustomTextBox.TextContent = "";
+            this.CropXLocationXustomTextBox.UnderlineStyle = true;
+            // 
+            // CropSizeHorizontalScrollBar
+            // 
+            this.CropSizeHorizontalScrollBar.Location = new System.Drawing.Point(221, 27);
+            this.CropSizeHorizontalScrollBar.Name = "CropSizeHorizontalScrollBar";
+            this.CropSizeHorizontalScrollBar.Size = new System.Drawing.Size(80, 17);
+            this.CropSizeHorizontalScrollBar.TabIndex = 17;
+            // 
+            // CropYLocationLabel
+            // 
+            this.CropYLocationLabel.AutoSize = true;
+            this.CropYLocationLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CropYLocationLabel.ForeColor = System.Drawing.Color.White;
+            this.CropYLocationLabel.Location = new System.Drawing.Point(3, 86);
+            this.CropYLocationLabel.Name = "CropYLocationLabel";
+            this.CropYLocationLabel.Size = new System.Drawing.Size(95, 15);
+            this.CropYLocationLabel.TabIndex = 19;
+            this.CropYLocationLabel.Text = "Y Coordinate:";
+            this.CropYLocationLabel.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // CropXLocationLabel
+            // 
+            this.CropXLocationLabel.AutoSize = true;
+            this.CropXLocationLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CropXLocationLabel.ForeColor = System.Drawing.Color.White;
+            this.CropXLocationLabel.Location = new System.Drawing.Point(3, 55);
+            this.CropXLocationLabel.Name = "CropXLocationLabel";
+            this.CropXLocationLabel.Size = new System.Drawing.Size(95, 15);
+            this.CropXLocationLabel.TabIndex = 18;
+            this.CropXLocationLabel.Text = "X Coordinate:";
+            // 
+            // CropSizeLabel
+            // 
+            this.CropSizeLabel.AutoSize = true;
+            this.CropSizeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CropSizeLabel.ForeColor = System.Drawing.Color.White;
+            this.CropSizeLabel.Location = new System.Drawing.Point(3, 27);
+            this.CropSizeLabel.Name = "CropSizeLabel";
+            this.CropSizeLabel.Size = new System.Drawing.Size(110, 15);
+            this.CropSizeLabel.TabIndex = 10;
+            this.CropSizeLabel.Text = "Width && Height: ";
+            // 
+            // CropLabel
+            // 
+            this.CropLabel.AutoSize = true;
+            this.CropLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CropLabel.ForeColor = System.Drawing.Color.White;
+            this.CropLabel.Location = new System.Drawing.Point(0, 0);
+            this.CropLabel.Name = "CropLabel";
+            this.CropLabel.Size = new System.Drawing.Size(47, 18);
+            this.CropLabel.TabIndex = 9;
+            this.CropLabel.Text = "Crop";
             // 
             // Timer
             // 
@@ -222,7 +493,7 @@
             // UserImageTakenPictureBox
             // 
             this.UserImageTakenPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.UserImageTakenPictureBox.Location = new System.Drawing.Point(664, 158);
+            this.UserImageTakenPictureBox.Location = new System.Drawing.Point(696, 212);
             this.UserImageTakenPictureBox.Name = "UserImageTakenPictureBox";
             this.UserImageTakenPictureBox.Size = new System.Drawing.Size(640, 480);
             this.UserImageTakenPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -235,126 +506,18 @@
             // UserVideoPictureBox
             // 
             this.UserVideoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.UserVideoPictureBox.Location = new System.Drawing.Point(8, 158);
+            this.UserVideoPictureBox.Location = new System.Drawing.Point(18, 212);
             this.UserVideoPictureBox.Name = "UserVideoPictureBox";
             this.UserVideoPictureBox.Size = new System.Drawing.Size(640, 480);
             this.UserVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.UserVideoPictureBox.TabIndex = 9;
             this.UserVideoPictureBox.TabStop = false;
             // 
-            // CropImageCustomButton
-            // 
-            this.CropImageCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.CropImageCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.CropImageCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.CropImage;
-            this.CropImageCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CropImageCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.CropImageCustomButton.BorderRadius = 10;
-            this.CropImageCustomButton.BorderSize = 0;
-            this.CropImageCustomButton.FlatAppearance.BorderSize = 0;
-            this.CropImageCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CropImageCustomButton.ForeColor = System.Drawing.Color.White;
-            this.CropImageCustomButton.Location = new System.Drawing.Point(880, 25);
-            this.CropImageCustomButton.Name = "CropImageCustomButton";
-            this.CropImageCustomButton.Size = new System.Drawing.Size(80, 60);
-            this.CropImageCustomButton.TabIndex = 16;
-            this.CropImageCustomButton.TextColor = System.Drawing.Color.White;
-            this.CropImageCustomButton.UseVisualStyleBackColor = false;
-            this.CropImageCustomButton.Click += new System.EventHandler(this.CropImageCustomButton_Click);
-            // 
-            // SaveImageCustomButton
-            // 
-            this.SaveImageCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.SaveImageCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.SaveImageCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.SaveOption;
-            this.SaveImageCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.SaveImageCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.SaveImageCustomButton.BorderRadius = 10;
-            this.SaveImageCustomButton.BorderSize = 0;
-            this.SaveImageCustomButton.Enabled = false;
-            this.SaveImageCustomButton.FlatAppearance.BorderSize = 0;
-            this.SaveImageCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveImageCustomButton.ForeColor = System.Drawing.Color.White;
-            this.SaveImageCustomButton.Location = new System.Drawing.Point(774, 25);
-            this.SaveImageCustomButton.Name = "SaveImageCustomButton";
-            this.SaveImageCustomButton.Size = new System.Drawing.Size(80, 60);
-            this.SaveImageCustomButton.TabIndex = 15;
-            this.SaveImageCustomButton.TextColor = System.Drawing.Color.White;
-            this.SaveImageCustomButton.UseVisualStyleBackColor = false;
-            this.SaveImageCustomButton.Click += new System.EventHandler(this.SaveImageCustomButton_Click);
-            // 
-            // ImageTakerCustomButton
-            // 
-            this.ImageTakerCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.ImageTakerCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.ImageTakerCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.CameraImageTaker;
-            this.ImageTakerCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ImageTakerCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.ImageTakerCustomButton.BorderRadius = 10;
-            this.ImageTakerCustomButton.BorderSize = 0;
-            this.ImageTakerCustomButton.FlatAppearance.BorderSize = 0;
-            this.ImageTakerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ImageTakerCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ImageTakerCustomButton.Location = new System.Drawing.Point(598, 15);
-            this.ImageTakerCustomButton.Name = "ImageTakerCustomButton";
-            this.ImageTakerCustomButton.Size = new System.Drawing.Size(116, 60);
-            this.ImageTakerCustomButton.TabIndex = 14;
-            this.ImageTakerCustomButton.TextColor = System.Drawing.Color.White;
-            this.ImageTakerCustomButton.UseVisualStyleBackColor = false;
-            this.ImageTakerCustomButton.Click += new System.EventHandler(this.ImageTakerCustomButton_Click);
-            // 
-            // RefreshCameraOptionsCustomButton
-            // 
-            this.RefreshCameraOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshCameraOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshCameraOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
-            this.RefreshCameraOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.RefreshCameraOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.RefreshCameraOptionsCustomButton.BorderRadius = 10;
-            this.RefreshCameraOptionsCustomButton.BorderSize = 0;
-            this.RefreshCameraOptionsCustomButton.FlatAppearance.BorderSize = 0;
-            this.RefreshCameraOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RefreshCameraOptionsCustomButton.ForeColor = System.Drawing.Color.White;
-            this.RefreshCameraOptionsCustomButton.Location = new System.Drawing.Point(162, 30);
-            this.RefreshCameraOptionsCustomButton.Name = "RefreshCameraOptionsCustomButton";
-            this.RefreshCameraOptionsCustomButton.Size = new System.Drawing.Size(30, 30);
-            this.RefreshCameraOptionsCustomButton.TabIndex = 8;
-            this.RefreshCameraOptionsCustomButton.TextColor = System.Drawing.Color.White;
-            this.RefreshCameraOptionsCustomButton.UseVisualStyleBackColor = false;
-            // 
-            // CameraModeCustomButton
-            // 
-            this.CameraModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.CameraModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.CameraModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoOpen;
-            this.CameraModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CameraModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.CameraModeCustomButton.BorderRadius = 10;
-            this.CameraModeCustomButton.BorderSize = 0;
-            this.CameraModeCustomButton.FlatAppearance.BorderSize = 0;
-            this.CameraModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CameraModeCustomButton.ForeColor = System.Drawing.Color.White;
-            this.CameraModeCustomButton.Location = new System.Drawing.Point(393, 15);
-            this.CameraModeCustomButton.Name = "CameraModeCustomButton";
-            this.CameraModeCustomButton.Size = new System.Drawing.Size(80, 60);
-            this.CameraModeCustomButton.TabIndex = 7;
-            this.CameraModeCustomButton.TextColor = System.Drawing.Color.White;
-            this.CameraModeCustomButton.UseVisualStyleBackColor = false;
-            this.CameraModeCustomButton.Click += new System.EventHandler(this.CameraModeCustomButton_Click);
-            // 
-            // hScrollBar1
-            // 
-            this.hScrollBar1.Location = new System.Drawing.Point(899, 138);
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(80, 17);
-            this.hScrollBar1.TabIndex = 17;
-            // 
             // Camera
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1357, 713);
-            this.Controls.Add(this.hScrollBar1);
+            this.ClientSize = new System.Drawing.Size(1357, 700);
             this.Controls.Add(this.WaitingTimeLabel);
             this.Controls.Add(this.UserImageTakenPictureBox);
             this.Controls.Add(this.UserVideoPictureBox);
@@ -370,6 +533,8 @@
             this.VideoDevicePanel.ResumeLayout(false);
             this.VideoDevicePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CameraDevicePictureBox)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.CameraTimerContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.UserImageTakenPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UserVideoPictureBox)).EndInit();
@@ -403,6 +568,16 @@
         private System.Windows.Forms.Label WaitingTimeLabel;
         private Controls.CustomButton SaveImageCustomButton;
         private Controls.CustomButton CropImageCustomButton;
-        private System.Windows.Forms.HScrollBar hScrollBar1;
+        private System.Windows.Forms.HScrollBar CropSizeHorizontalScrollBar;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label CropSizeLabel;
+        private System.Windows.Forms.Label CropLabel;
+        private System.Windows.Forms.Label CropXLocationLabel;
+        private System.Windows.Forms.Label CropYLocationLabel;
+        private Controls.CustomTextBox CropSizeCustomTextBox;
+        private Controls.CustomTextBox CropXLocationYustomTextBox;
+        private Controls.CustomTextBox CropXLocationXustomTextBox;
+        private System.Windows.Forms.HScrollBar CropYLocationHorizontalScrollBar;
+        private System.Windows.Forms.HScrollBar CropXLocationHorizontalScrollBar;
     }
 }

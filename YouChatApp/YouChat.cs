@@ -131,6 +131,8 @@ namespace YouChatApp
             }
             string ContactName;
             heightForChats = 0;
+            PanelHandler.SetPanelToSide(ChatPanel, ChatControlListOfContacts, true);
+
             if (Text.Length == 0)
             {
                 foreach (ChatControl chat in ChatControlListOfContacts)
@@ -367,6 +369,7 @@ namespace YouChatApp
             }
             else
             {
+                PanelHandler.SetPanelToSide(GroupCreatorPanel, ContactControlList, true);
                 foreach (ContactControl Contact in ContactControlList) //this works for every contact. maybe it would be better to create for all the contacts a control and then just view the correct ones...
                 {
                     bool IsVisible = false;
@@ -516,7 +519,8 @@ namespace YouChatApp
         }
         private void HandleCurrentChatParticipants()
         {
-            if (this.SelectedContactsPanel.Controls.Count >= 2)
+            const int ParticipantsNuber = 2;
+            if (this.SelectedContactsPanel.Controls.Count >= ParticipantsNuber)
             {
                 ContinueToGroupSettingsCustomButton.Enabled = true;
             }
@@ -534,33 +538,36 @@ namespace YouChatApp
             ContactHandler.Contact contact = ContactHandler.ContactManager.GetContact(username); //will works for users only and not for groups...
             ChatHandler.Chat chat = ChatHandler.ChatManager.GetChat(username); //will works for users only and not for groups...
 
-            CurrentChatNameLabel.Text = contact.Name;
-            CurrentPictureChatPictureBox.BackgroundImage = contact.ProfilePicture;
-            if (contact.OnlineProperty) //todo - handle case the user blocked those options.. //this also not true beacause i am using his property that he let us or not see if he is online and not if he really is online..
+            CurrentChatNameLabel.Text = chat._chatName;
+            CurrentPictureChatPictureBox.BackgroundImage = chat._chatProfilePicture;
+            if (contact != null)
             {
-                //if (contact is online == true)
-                //{
-                //    LastSeenOnlineLabel.Text = "Online"; //should be is online..
-
-                //}
-            }
-            else
-            {
-                if (contact.LastSeenProperty)
+                if (contact.OnlineProperty) //todo - handle case the user blocked those options.. //this also not true beacause i am using his property that he let us or not see if he is online and not if he really is online..
                 {
-                    DateTime ContactLastSeenTime = contact.LastSeenTime;
-                    if (ContactLastSeenTime.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
-                    {
-                        LastSeenOnlineLabel.Text = contact.LastSeenTime.ToString("yyyy-MM-dd");
+                    //if (contact is online == true)
+                    //{
+                    //    LastSeenOnlineLabel.Text = "Online"; //should be is online..
 
-                    }
-                    else
+                    //}
+                }
+                else
+                {
+                    if (contact.LastSeenProperty)
                     {
-                        LastSeenOnlineLabel.Text = contact.LastSeenTime.ToString("yyyy-MM-dd   HH:mm");
+                        DateTime ContactLastSeenTime = contact.LastSeenTime;
+                        if (ContactLastSeenTime.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
+                        {
+                            LastSeenOnlineLabel.Text = contact.LastSeenTime.ToString("yyyy-MM-dd");
 
+                        }
+                        else
+                        {
+                            LastSeenOnlineLabel.Text = contact.LastSeenTime.ToString("yyyy-MM-dd   HH:mm");
+
+                        }
                     }
                 }
-            }
+            } 
         }
 
         private void ProfileButton_Click(object sender, EventArgs e)
