@@ -30,7 +30,7 @@ namespace YouChatApp
         public static int heightForFriendRequests = 10;
         public static int heightForContacts;
         public static int widthForProfileControl = 0;
-
+        private bool _firstTimeEnteringFriendRequestZone = true;
         Image AnonymousProfile = global::YouChatApp.Properties.Resources.AnonymousProfile; //need to change that to my profile picture...
 
         public static int messageGap = 10;
@@ -63,6 +63,7 @@ namespace YouChatApp
 
             PanelHandler.DeletePanelScrollBars(SelectedContactsPanel);
             PanelHandler.DeletePanelHorizontalScrollBar(GroupCreatorPanel);
+            PanelHandler.DeletePanelHorizontalScrollBar(FriendRequestIdPanel);
 
             GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y);
             GroupCreatorPanel.Size = new Size(GroupCreatorPanel.Width, GroupCreatorPanel.Height + SelectedContactsPanel.Height);
@@ -648,16 +649,16 @@ namespace YouChatApp
             string[] ContactsInformation = ChatInformation.Split('#'); //todo check how i can allow the users to send # and more without the split activating - i thing maybe i need to put / or something before 
             string ContactUsername;
             string ContactProfilePictureID;
-            string ContactProfilePictureKind;
-            string ContactProfilePictureNumber;
+            //string ContactProfilePictureKind;
+            //string ContactProfilePictureNumber;
             for (int i = 0; i < ContactsInformation.Length; i++)
             {
                 string[] ContactDetails = ContactsInformation[i].Split('^');
                 ContactUsername = ContactDetails[0];
                 ContactProfilePictureID = ContactDetails[1];
-                string[] ContactProfilePictureInformation = SeparateLettersAndNumbers(ContactProfilePictureID);
-                ContactProfilePictureKind = ContactProfilePictureInformation[0];
-                ContactProfilePictureNumber = ContactProfilePictureInformation[1]; // to understand how to seperate them
+                //string[] ContactProfilePictureInformation = SeparateLettersAndNumbers(ContactProfilePictureID);
+                //ContactProfilePictureKind = ContactProfilePictureInformation[0];
+                //ContactProfilePictureNumber = ContactProfilePictureInformation[1]; // to understand how to seperate them
 
                 if (FriendRequestsNumber == 0)
                     heightForFriendRequests = 0;
@@ -671,29 +672,24 @@ namespace YouChatApp
                 this.ListOfFriendRequestControl[FriendRequestsNumber].ContactName.Text = ContactUsername;
                 this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
                 this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
-
+                this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
                 //todo - for this code i should maybe create a genric method:
-                if (ContactProfilePictureKind == "Male") //need to use that when getting a user imageid - but here i just take from the contacts list - by recieving the contact object and then its profileimage property...
-                {
-                    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[ContactProfilePictureNumber];
-                }
-                else if (ContactProfilePictureKind == "Female")
-                {
-                    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.FemaleProfilePictureImageList.Images[ContactProfilePictureNumber];
+                //if (ContactProfilePictureKind == "Male") //need to use that when getting a user imageid - but here i just take from the contacts list - by recieving the contact object and then its profileimage property...
+                //{
+                //    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[ContactProfilePictureNumber];
+                //}
+                //else if (ContactProfilePictureKind == "Female")
+                //{
+                //    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.FemaleProfilePictureImageList.Images[ContactProfilePictureNumber];
 
-                }
-                else if (ContactProfilePictureKind == "Animal")
-                {
-                    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[ContactProfilePictureNumber];
-
-
-                }
-                this.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
-                this.FriendRequestPanel.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
+                //}
+                //else if (ContactProfilePictureKind == "Animal")
+                //{
+                //    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[ContactProfilePictureNumber];
+                //}
+                this.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
+                this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
                 FriendRequestsNumber++;
-
-
-
             }
         }
         public void HandleFriendRequestApproval(object sender, EventArgs e)
@@ -720,9 +716,8 @@ namespace YouChatApp
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Message.Text = MessageContent;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Time.Text = SendMessageTime;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].ProfilePicture.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture; 
-
-            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].SetBackColorByMessageSender();
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].SetMessageControl();
+            this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].SetBackColorByMessageSender();
             this.Controls.Add(this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber]);
             this.MessagePanel.Controls.Add(this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber]);
 
@@ -929,6 +924,12 @@ namespace YouChatApp
         }
         private void NewContactCustomButton_Click(object sender, EventArgs e)
         {
+            if (_firstTimeEnteringFriendRequestZone)
+            {
+                _firstTimeEnteringFriendRequestZone = false;
+                ServerCommunication.SendMessage(ServerCommunication.PastFriendRequestsRequest, " ");
+
+            }
             GroupCreatorBackgroundPanel.Visible = false;
             ContactManagementPanel.Visible = true;
             ChatBackgroundPanel.Visible = false;
@@ -1022,8 +1023,8 @@ namespace YouChatApp
 
         private void FriendRequestSenderCustomButton_Click(object sender, EventArgs e)
         {
-            string usernameId = UserIdCustomTextBox.Text;
-            string usernameTagLine = UserTaglineCustomTextBox.Text;
+            string usernameId = UserIdCustomTextBox.TextContent;
+            string usernameTagLine = UserTaglineCustomTextBox.TextContent;
             string userIdDetails = usernameId + "#" + usernameTagLine;
             ServerCommunication.SendMessage(ServerCommunication.FriendRequestSender, userIdDetails);
         }

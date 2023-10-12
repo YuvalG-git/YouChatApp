@@ -880,15 +880,12 @@ namespace YouChatApp
         /// </summary>
         /// <param name="number"> Represents the board's size that the player has chosen</param>
         /// <returns> It returns true if all the characters in the string are numeric. OtherWise, it returns false </returns>
-        private bool IsNumeric(string number)
-        {
-            return number.All(char.IsNumber);
-        }
+
         string LastValue = "10";
 
         private void MessageGapTextBox_TextChanged(object sender, EventArgs e)
         {
-            if ((IsNumeric(MessageGapTextBox.Text)))
+            if ((StringHandler.IsNumeric(MessageGapTextBox.Text)))
             {
                 LastValue = MessageGapTextBox.Text;
             }

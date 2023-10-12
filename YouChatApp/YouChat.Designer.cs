@@ -216,10 +216,10 @@ namespace YouChatApp
             // UserIDLabel
             // 
             this.UserIDLabel.AutoSize = true;
-            this.UserIDLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UserIDLabel.Location = new System.Drawing.Point(24, 44);
+            this.UserIDLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserIDLabel.Location = new System.Drawing.Point(20, 38);
             this.UserIDLabel.Name = "UserIDLabel";
-            this.UserIDLabel.Size = new System.Drawing.Size(71, 18);
+            this.UserIDLabel.Size = new System.Drawing.Size(93, 24);
             this.UserIDLabel.TabIndex = 0;
             this.UserIDLabel.Text = "Your ID:";
             // 

@@ -42,6 +42,9 @@ namespace YouChatApp.AttachedFiles
         Bitmap capturedImage;
         private bool isResizing = false;
         private bool isCropping = false;
+        private int _cropSize;
+        private int _cropWidth;
+        private int _cropHeight;
         public Camera()
         {
             InitializeComponent();
@@ -50,11 +53,14 @@ namespace YouChatApp.AttachedFiles
         }
         private void SetSelectionCropRectangle()
         {
-            int width = 200;
-            int height = 200;
-            int StartXLocation = (UserImageTakenPictureBox.Width - width) / 2;
-            int StartYLocation = (UserImageTakenPictureBox.Height - height) / 2; ;
-            selectionCropRectangle = new Rectangle(StartXLocation, StartYLocation, width, height);
+            _cropSize = 200;
+            _cropWidth = (UserImageTakenPictureBox.Width - _cropSize) / 2;
+            _cropHeight = (UserImageTakenPictureBox.Height - _cropSize) / 2;
+            CropSizeCustomTextBox.TextContent = _cropSize.ToString();
+            CropXLocationustomTextBox.TextContent = _cropWidth.ToString();
+            CropYLocationustomTextBox.TextContent = _cropHeight.ToString();
+
+            selectionCropRectangle = new Rectangle(_cropWidth, _cropHeight, _cropSize, _cropSize);
 
         }
 
@@ -393,5 +399,111 @@ namespace YouChatApp.AttachedFiles
         {
 
         }
+
+        private void CropCustomTextBoxFields_TextChangedEvent(object sender, EventArgs e)
+        {
+            if ((isCropping))
+            {
+                selectionCropRectangle.Width = int.Parse(CropSizeCustomTextBox.TextContent);
+                selectionCropRectangle.Height = int.Parse(CropSizeCustomTextBox.TextContent);
+                selectionCropRectangle.X = int.Parse(CropXLocationustomTextBox.TextContent);
+                selectionCropRectangle.Y = int.Parse(CropYLocationustomTextBox.TextContent);
+                UserImageTakenPictureBox.Invalidate();
+            }
+        }
+        private void HandleCropSizeCustomTextBoxValue()
+        {
+            if ((isCropping))
+            {
+                string Text = CropSizeCustomTextBox.TextContent;
+                if ((Text != "") && (StringHandler.IsNumeric(Text)))
+                {
+                    int newSize = int.Parse(Text);
+                    if (newSize < 50)
+                    {
+                        CropSizeHorizontalScrollBar.Value = 50;
+                        CropSizeCustomTextBox.Text = "50";
+                        CropSizeCustomTextBox.SelectText(CropSizeCustomTextBox.TextContent.Length, 0);
+                    }
+                    else if ((newSize > (UserImageTakenPictureBox.Width - selectionCropRectangle.X)) || (newSize > (UserImageTakenPictureBox.Height - selectionCropRectangle.Y)))
+                    {
+                        CropSizeHorizontalScrollBar.Value = UserImageTakenPictureBox.Width - selectionCropRectangle.X;
+                        CropSizeHorizontalScrollBar.Text = (UserImageTakenPictureBox.Width - selectionCropRectangle.X).ToString();
+                        CropSizeCustomTextBox.SelectText(CropSizeCustomTextBox.Text.Length, 0);
+                    }
+                    else
+                    {
+                        CropSizeHorizontalScrollBar.Value = int.Parse(CropSizeCustomTextBox.TextContent);
+                        selectionCropRectangle.Width = int.Parse(CropSizeCustomTextBox.TextContent);
+                        selectionCropRectangle.Height = int.Parse(CropSizeCustomTextBox.TextContent);
+                        UserImageTakenPictureBox.Invalidate();
+                    }
+                }
+            }
+        }
+
+        private void CropSizeCustomTextBox_TextChangedEvent(object sender, EventArgs e)
+        {
+            //if ((isCropping))
+            //{
+            //    string Text = CropSizeCustomTextBox.TextContent;
+            //    if ((Text != "") && (StringHandler.IsNumeric(Text)))
+            //    {
+            //        int newSize = int.Parse(Text);
+            //        if (newSize < 50)
+            //        {
+            //            CropSizeHorizontalScrollBar.Value = 50;
+            //            CropSizeCustomTextBox.Text = "50";
+            //            CropSizeCustomTextBox.SelectText(CropSizeCustomTextBox.TextContent.Length, 0);
+            //        }
+            //        else if((newSize < (UserImageTakenPictureBox.Width - selectionCropRectangle.X)) && (newSize < (UserImageTakenPictureBox.Height - selectionCropRectangle.Y)))
+            //        {
+            //            CropSizeHorizontalScrollBar.Value = UserImageTakenPictureBox.Width - selectionCropRectangle.X;
+            //            CropSizeHorizontalScrollBar.Text = (UserImageTakenPictureBox.Width - selectionCropRectangle.X).ToString();
+            //            CropSizeCustomTextBox.SelectText(CropSizeCustomTextBox.Text.Length, 0);
+            //        }
+            //        else 
+            //        {
+            //            CropSizeHorizontalScrollBar.Value = int.Parse(CropSizeCustomTextBox.TextContent);
+            //            selectionCropRectangle.Width = int.Parse(CropSizeCustomTextBox.TextContent);
+            //            selectionCropRectangle.Height = int.Parse(CropSizeCustomTextBox.TextContent);
+            //            UserImageTakenPictureBox.Invalidate();
+            //        }
+            //    }
+            //}
+
+        }
+
+        private void CropXLocationustomTextBox_TextChangedEvent(object sender, EventArgs e)
+        {
+            if ((isCropping))
+            {
+                selectionCropRectangle.X = int.Parse(CropXLocationustomTextBox.TextContent);
+                UserImageTakenPictureBox.Invalidate();
+            }
+        }
+
+        private void CropYLocationustomTextBox_TextChangedEvent(object sender, EventArgs e)
+        {
+            if ((isCropping))
+            {
+                selectionCropRectangle.Y = int.Parse(CropYLocationustomTextBox.TextContent);
+                UserImageTakenPictureBox.Invalidate();
+            }
+        }
+
+        private void CropSizeCustomTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                HandleCropSizeCustomTextBoxValue();
+            }
+        }
+
+        private void CropSizeCustomTextBox_Leave(object sender, EventArgs e)
+        {
+            HandleCropSizeCustomTextBoxValue();
+        }
+
     }
 }

@@ -42,7 +42,8 @@ namespace YouChatApp
         public const int PasswordUpdateResponse = 55;
         public const int UserConnectionCheckRequest = 56;
         public const int UserConnectionCheckResponse = 57;
-
+        public const int PastFriendRequestsRequest = 58;
+        public const int PastFriendRequestsResponse = 59;
         public const int UserDetailsRequest = 46;
         public const int UserDetailsResponse = 47;
         public const int registerRequest = 1;
@@ -185,7 +186,6 @@ namespace YouChatApp
         public static string ProfileStatus;
 
 
-        public static ProfilePictureImageList profilePictureImageList = new ProfilePictureImageList();
         /// <summary>
         /// The Connect method attempts to establish a TCP/IP connection with a server using the provided IP addressand port: 1500
         /// If the connection attempt fails, a MessageBox is displayed to the user
@@ -437,7 +437,7 @@ namespace YouChatApp
                                 string[] MyContactContent = DecryptedMessageDetails.Split('#');
                                 UserProfile.ProfileDetailsHandler.Name = MyContactContent[0];
                                 UserProfile.ProfileDetailsHandler.ProfilePictureId = MyContactContent[1]; //need to convert it to the image
-                                UserProfile.ProfileDetailsHandler.ProfilePicture = GetImageByImageId(UserProfile.ProfileDetailsHandler.ProfilePictureId);//returns the wrong image for some reason
+                                UserProfile.ProfileDetailsHandler.ProfilePicture = ProfilePictureImageList.GetImageByImageId(UserProfile.ProfileDetailsHandler.ProfilePictureId);//returns the wrong image for some reason
                                                                                                                                                          //it returns the wrong image beacuse of a wrong number of images in the list
                                                                                                                                                          //a soultion might be a object and not a static class...
                                 UserProfile.ProfileDetailsHandler.Status = MyContactContent[2];
@@ -471,6 +471,11 @@ namespace YouChatApp
                                     MessageBox.Show(PasswordMessageResponse4, "Unmatched Details");
                                     loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.RestartUpdatePasswordDetails(); });
                                 }
+                            }
+                            else if (requestNumber == PastFriendRequestsResponse)
+                            {
+                                youChat.Invoke((Action)delegate { youChat.SetListOfFriendRequestControl(DecryptedMessageDetails); });
+
                             }
 
                         }

@@ -110,21 +110,20 @@ namespace YouChatApp
             {
                 IdAsString = ImageId.Replace("Male", "");
                 Id = int.Parse(IdAsString);
-                profilePicture = MaleProfilePictureImageList.Images[Id]; //todo - change beacuse it inserts the wrong image
-                string name = "BoyCharacter" + (Id + 1);
-                profilePicture = Properties.MaleProfilePicture.ResourceManager.GetObject(name) as Image;
+                profilePicture = ProfilePictureImageList.MaleProfilePictureImageList.Images[Id]; //todo - change beacuse it inserts the wrong image
+                //profilePicture = Properties.MaleProfilePicture.ResourceManager.GetObject(name) as Image;
             }
-            else if(ImageId.StartsWith("Female"))
+            else if (ImageId.StartsWith("Female"))
             {
                 IdAsString = ImageId.Replace("Female", "");
                 Id = int.Parse(IdAsString);
-                profilePicture = FemaleProfilePictureImageList.Images[Id];
+                profilePicture = ProfilePictureImageList.FemaleProfilePictureImageList.Images[Id];
             }
             else
             {
                 IdAsString = ImageId.Replace("Animal", "");
                 Id = int.Parse(IdAsString);
-                profilePicture = AnimalProfilePictureImageList.Images[Id];
+                profilePicture = ProfilePictureImageList.AnimalProfilePictureImageList.Images[Id];
             }
             return profilePicture;
         }

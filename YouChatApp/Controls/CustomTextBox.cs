@@ -308,6 +308,13 @@ namespace YouChatApp.Controls
                 }
             }
         }
+        public void SelectText(int start, int length)
+        {
+            TextBox.Select(start, length);
+
+        }
+
+
 
         protected override void OnPaint(PaintEventArgs e)
         {

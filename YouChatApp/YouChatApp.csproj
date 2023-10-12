@@ -288,6 +288,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CountDown.resx</DependentUpon>
     </Compile>
+    <Compile Include="StringHandler.cs" />
     <Compile Include="UserProfile\Profile.cs">
       <SubType>Form</SubType>
     </Compile>

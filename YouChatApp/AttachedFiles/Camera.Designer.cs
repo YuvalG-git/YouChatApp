@@ -47,8 +47,8 @@
             this.CropYLocationHorizontalScrollBar = new System.Windows.Forms.HScrollBar();
             this.CropXLocationHorizontalScrollBar = new System.Windows.Forms.HScrollBar();
             this.CropSizeCustomTextBox = new YouChatApp.Controls.CustomTextBox();
-            this.CropXLocationYustomTextBox = new YouChatApp.Controls.CustomTextBox();
-            this.CropXLocationXustomTextBox = new YouChatApp.Controls.CustomTextBox();
+            this.CropYLocationustomTextBox = new YouChatApp.Controls.CustomTextBox();
+            this.CropXLocationustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.CropSizeHorizontalScrollBar = new System.Windows.Forms.HScrollBar();
             this.CropYLocationLabel = new System.Windows.Forms.Label();
             this.CropXLocationLabel = new System.Windows.Forms.Label();
@@ -63,6 +63,7 @@
             this.WaitingTimeLabel = new System.Windows.Forms.Label();
             this.UserImageTakenPictureBox = new System.Windows.Forms.PictureBox();
             this.UserVideoPictureBox = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.BackgroundPanel.SuspendLayout();
             this.TimerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -283,8 +284,8 @@
             this.panel1.Controls.Add(this.CropYLocationHorizontalScrollBar);
             this.panel1.Controls.Add(this.CropXLocationHorizontalScrollBar);
             this.panel1.Controls.Add(this.CropSizeCustomTextBox);
-            this.panel1.Controls.Add(this.CropXLocationYustomTextBox);
-            this.panel1.Controls.Add(this.CropXLocationXustomTextBox);
+            this.panel1.Controls.Add(this.CropYLocationustomTextBox);
+            this.panel1.Controls.Add(this.CropXLocationustomTextBox);
             this.panel1.Controls.Add(this.CropSizeHorizontalScrollBar);
             this.panel1.Controls.Add(this.CropYLocationLabel);
             this.panel1.Controls.Add(this.CropXLocationLabel);
@@ -334,56 +335,61 @@
             this.CropSizeCustomTextBox.TabIndex = 23;
             this.CropSizeCustomTextBox.TextContent = "";
             this.CropSizeCustomTextBox.UnderlineStyle = true;
+            this.CropSizeCustomTextBox.TextChangedEvent += new System.EventHandler(this.CropSizeCustomTextBox_TextChangedEvent);
+            this.CropSizeCustomTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CropSizeCustomTextBox_KeyDown);
+            this.CropSizeCustomTextBox.Leave += new System.EventHandler(this.CropSizeCustomTextBox_Leave);
             // 
-            // CropXLocationYustomTextBox
+            // CropYLocationustomTextBox
             // 
-            this.CropXLocationYustomTextBox.BackColor = System.Drawing.Color.Black;
-            this.CropXLocationYustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.CropXLocationYustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.CropXLocationYustomTextBox.BorderRadius = 0;
-            this.CropXLocationYustomTextBox.BorderSize = 2;
-            this.CropXLocationYustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CropXLocationYustomTextBox.ForeColor = System.Drawing.Color.DimGray;
-            this.CropXLocationYustomTextBox.IsFocused = false;
-            this.CropXLocationYustomTextBox.Location = new System.Drawing.Point(105, 73);
-            this.CropXLocationYustomTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.CropXLocationYustomTextBox.MaxLength = 32767;
-            this.CropXLocationYustomTextBox.Multiline = false;
-            this.CropXLocationYustomTextBox.Name = "CropXLocationYustomTextBox";
-            this.CropXLocationYustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.CropXLocationYustomTextBox.PasswordChar = false;
-            this.CropXLocationYustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
-            this.CropXLocationYustomTextBox.PlaceHolderText = "";
-            this.CropXLocationYustomTextBox.ReadOnly = false;
-            this.CropXLocationYustomTextBox.Size = new System.Drawing.Size(67, 30);
-            this.CropXLocationYustomTextBox.TabIndex = 22;
-            this.CropXLocationYustomTextBox.TextContent = "";
-            this.CropXLocationYustomTextBox.UnderlineStyle = true;
+            this.CropYLocationustomTextBox.BackColor = System.Drawing.Color.Black;
+            this.CropYLocationustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.CropYLocationustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.CropYLocationustomTextBox.BorderRadius = 0;
+            this.CropYLocationustomTextBox.BorderSize = 2;
+            this.CropYLocationustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CropYLocationustomTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.CropYLocationustomTextBox.IsFocused = false;
+            this.CropYLocationustomTextBox.Location = new System.Drawing.Point(105, 73);
+            this.CropYLocationustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CropYLocationustomTextBox.MaxLength = 32767;
+            this.CropYLocationustomTextBox.Multiline = false;
+            this.CropYLocationustomTextBox.Name = "CropYLocationustomTextBox";
+            this.CropYLocationustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.CropYLocationustomTextBox.PasswordChar = false;
+            this.CropYLocationustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.CropYLocationustomTextBox.PlaceHolderText = "";
+            this.CropYLocationustomTextBox.ReadOnly = false;
+            this.CropYLocationustomTextBox.Size = new System.Drawing.Size(67, 30);
+            this.CropYLocationustomTextBox.TabIndex = 22;
+            this.CropYLocationustomTextBox.TextContent = "";
+            this.CropYLocationustomTextBox.UnderlineStyle = true;
+            this.CropYLocationustomTextBox.TextChangedEvent += new System.EventHandler(this.CropYLocationustomTextBox_TextChangedEvent);
             // 
-            // CropXLocationXustomTextBox
+            // CropXLocationustomTextBox
             // 
-            this.CropXLocationXustomTextBox.BackColor = System.Drawing.Color.Black;
-            this.CropXLocationXustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.CropXLocationXustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.CropXLocationXustomTextBox.BorderRadius = 0;
-            this.CropXLocationXustomTextBox.BorderSize = 2;
-            this.CropXLocationXustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CropXLocationXustomTextBox.ForeColor = System.Drawing.Color.DimGray;
-            this.CropXLocationXustomTextBox.IsFocused = false;
-            this.CropXLocationXustomTextBox.Location = new System.Drawing.Point(105, 40);
-            this.CropXLocationXustomTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.CropXLocationXustomTextBox.MaxLength = 32767;
-            this.CropXLocationXustomTextBox.Multiline = false;
-            this.CropXLocationXustomTextBox.Name = "CropXLocationXustomTextBox";
-            this.CropXLocationXustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.CropXLocationXustomTextBox.PasswordChar = false;
-            this.CropXLocationXustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
-            this.CropXLocationXustomTextBox.PlaceHolderText = "";
-            this.CropXLocationXustomTextBox.ReadOnly = false;
-            this.CropXLocationXustomTextBox.Size = new System.Drawing.Size(67, 30);
-            this.CropXLocationXustomTextBox.TabIndex = 21;
-            this.CropXLocationXustomTextBox.TextContent = "";
-            this.CropXLocationXustomTextBox.UnderlineStyle = true;
+            this.CropXLocationustomTextBox.BackColor = System.Drawing.Color.Black;
+            this.CropXLocationustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.CropXLocationustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.CropXLocationustomTextBox.BorderRadius = 0;
+            this.CropXLocationustomTextBox.BorderSize = 2;
+            this.CropXLocationustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CropXLocationustomTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.CropXLocationustomTextBox.IsFocused = false;
+            this.CropXLocationustomTextBox.Location = new System.Drawing.Point(105, 40);
+            this.CropXLocationustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CropXLocationustomTextBox.MaxLength = 32767;
+            this.CropXLocationustomTextBox.Multiline = false;
+            this.CropXLocationustomTextBox.Name = "CropXLocationustomTextBox";
+            this.CropXLocationustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.CropXLocationustomTextBox.PasswordChar = false;
+            this.CropXLocationustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.CropXLocationustomTextBox.PlaceHolderText = "";
+            this.CropXLocationustomTextBox.ReadOnly = false;
+            this.CropXLocationustomTextBox.Size = new System.Drawing.Size(67, 30);
+            this.CropXLocationustomTextBox.TabIndex = 21;
+            this.CropXLocationustomTextBox.TextContent = "";
+            this.CropXLocationustomTextBox.UnderlineStyle = true;
+            this.CropXLocationustomTextBox.TextChangedEvent += new System.EventHandler(this.CropXLocationustomTextBox_TextChangedEvent);
             // 
             // CropSizeHorizontalScrollBar
             // 
@@ -513,11 +519,19 @@
             this.UserVideoPictureBox.TabIndex = 9;
             this.UserVideoPictureBox.TabStop = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(326, 272);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 26;
+            // 
             // Camera
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1357, 700);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.WaitingTimeLabel);
             this.Controls.Add(this.UserImageTakenPictureBox);
             this.Controls.Add(this.UserVideoPictureBox);
@@ -575,9 +589,10 @@
         private System.Windows.Forms.Label CropXLocationLabel;
         private System.Windows.Forms.Label CropYLocationLabel;
         private Controls.CustomTextBox CropSizeCustomTextBox;
-        private Controls.CustomTextBox CropXLocationYustomTextBox;
-        private Controls.CustomTextBox CropXLocationXustomTextBox;
+        private Controls.CustomTextBox CropYLocationustomTextBox;
+        private Controls.CustomTextBox CropXLocationustomTextBox;
         private System.Windows.Forms.HScrollBar CropYLocationHorizontalScrollBar;
         private System.Windows.Forms.HScrollBar CropXLocationHorizontalScrollBar;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
