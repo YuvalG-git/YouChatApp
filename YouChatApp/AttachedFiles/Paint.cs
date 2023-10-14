@@ -189,6 +189,7 @@ namespace YouChatApp
                 {
                     SetShapes();
 
+
                 }
 
 
@@ -553,7 +554,6 @@ namespace YouChatApp
             {
                 TemporaryGraphics.DrawEllipse(DrawingPen, cX, cY, CursorWidth, CursorHeight);
                 DrawingBoardPictureBox.Image = TemporaryBitMap;
-
             }
             else if (PaintOptionIsChosenList[5])
             {
@@ -561,6 +561,7 @@ namespace YouChatApp
                 DrawingBoardPictureBox.Image = TemporaryBitMap;
 
             }
+            DrawingBoardPictureBox.Invalidate();
         }
         private void Validate(Bitmap Bitmap, Stack<Point> PixelStack, int X, int Y, Color OldColor, Color NewColor)
         {

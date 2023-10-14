@@ -16,6 +16,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics.Tracing;
 using System.Drawing.Drawing2D;
+using System.Net.NetworkInformation;
+using System.Reflection;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace YouChatApp.AttachedFiles
 {
@@ -43,25 +46,40 @@ namespace YouChatApp.AttachedFiles
         private bool isResizing = false;
         private bool isCropping = false;
         private int _cropSize;
-        private int _cropWidth;
-        private int _cropHeight;
+        private int _cropXLocation;
+        private int _cropYLocation;
+        Image imageTaken;
         public Camera()
         {
             InitializeComponent();
             TimerOptionComboBox.SelectedIndex = 0;
             SetSelectionCropRectangle();
+            SetCropControlsEnabledProperty();
+            SetScrollBars();
         }
         private void SetSelectionCropRectangle()
         {
             _cropSize = 200;
-            _cropWidth = (UserImageTakenPictureBox.Width - _cropSize) / 2;
-            _cropHeight = (UserImageTakenPictureBox.Height - _cropSize) / 2;
+            _cropXLocation = (UserImageTakenPictureBox.Width - _cropSize) / 2;
+            _cropYLocation = (UserImageTakenPictureBox.Height - _cropSize) / 2;
             CropSizeCustomTextBox.TextContent = _cropSize.ToString();
-            CropXLocationustomTextBox.TextContent = _cropWidth.ToString();
-            CropYLocationustomTextBox.TextContent = _cropHeight.ToString();
+            CropXLocationustomTextBox.TextContent = _cropXLocation.ToString();
+            CropYLocationustomTextBox.TextContent = _cropYLocation.ToString();
 
-            selectionCropRectangle = new Rectangle(_cropWidth, _cropHeight, _cropSize, _cropSize);
+            selectionCropRectangle = new Rectangle(_cropXLocation, _cropYLocation, _cropSize, _cropSize);
 
+        }
+        private void SetScrollBars()
+        {
+            CropSizeHorizontalScrollBar.Minimum = 50;
+            CropSizeHorizontalScrollBar.Maximum = Math.Min(UserImageTakenPictureBox.Width - _cropXLocation, UserImageTakenPictureBox.Height - _cropYLocation);
+            CropSizeHorizontalScrollBar.Value = _cropSize;
+            CropXLocationHorizontalScrollBar.Minimum = 0;
+            CropXLocationHorizontalScrollBar.Maximum = UserImageTakenPictureBox.Width - _cropSize;
+            CropXLocationHorizontalScrollBar.Value = _cropXLocation;
+            CropYLocationHorizontalScrollBar.Minimum = 0;
+            CropYLocationHorizontalScrollBar.Maximum = UserImageTakenPictureBox.Height - _cropSize;
+            CropYLocationHorizontalScrollBar.Value = _cropYLocation;
         }
 
 
@@ -205,6 +223,7 @@ namespace YouChatApp.AttachedFiles
             if (CameraIsOpen)
             {
                 isCropping = !isCropping;
+                SetCropControlsEnabledProperty();
                 if (waitingTime == 0)
                 {
                     SetImage();
@@ -227,14 +246,13 @@ namespace YouChatApp.AttachedFiles
             if (UserVideoPictureBox.Image != null)
             {
                 capturedImage = (Bitmap)UserVideoPictureBox.Image.Clone();
-                ImageToSend = capturedImage;
+                imageTaken = capturedImage;
 
                 UserImageTakenPictureBox.Image = capturedImage;
 
                 _isImageTaken = true;
                 UserImageTakenPictureBox.Invalidate();
 
-                SaveImageCustomButton.Enabled = true;
                 //// Create a unique filename for the saved image (e.g., using a timestamp)
                 //string fileName = $"captured_image_{DateTime.Now:yyyyMMddHHmmss}.jpg";
 
@@ -311,7 +329,7 @@ namespace YouChatApp.AttachedFiles
             else
             {
                 UserImageTakenPictureBox.Image = CountDownImageList._CountDownImageList.Images[(int)CountDownTimeSpan.TotalSeconds-1];
-                WaitingTimeLabel.Text = $"{CountDownTimeSpan:ss}";
+                //WaitingTimeLabel.Text = $"{CountDownTimeSpan:ss}";
             }
         }
 
@@ -354,9 +372,19 @@ namespace YouChatApp.AttachedFiles
             if ((isCropping) && (e.Button == MouseButtons.Left))
             {
                 // Start selecting the region
-                selectionCropRectangle.X = e.X;
-                selectionCropRectangle.Y = e.Y;
-                UserImageTakenPictureBox.Invalidate();
+                if ((e.X < (UserImageTakenPictureBox.Width - _cropSize)) && (e.Y < (UserImageTakenPictureBox.Height - _cropSize)))
+                {
+                    _cropXLocation = e.X;
+                    _cropYLocation = e.Y;
+                    selectionCropRectangle.X = _cropXLocation;
+                    selectionCropRectangle.Y = _cropYLocation;
+                    CropXLocationustomTextBox.TextContent = _cropXLocation.ToString();
+                    CropYLocationustomTextBox.TextContent = _cropYLocation.ToString();
+                    CropSizeHorizontalScrollBar.Maximum = Math.Min(UserImageTakenPictureBox.Width - _cropXLocation, UserImageTakenPictureBox.Height - _cropYLocation);
+                    CropXLocationHorizontalScrollBar.Value = _cropXLocation;
+                    CropYLocationHorizontalScrollBar.Value = _cropYLocation;
+                    UserImageTakenPictureBox.Invalidate();
+                }
             }
         }
 
@@ -373,21 +401,23 @@ namespace YouChatApp.AttachedFiles
 
         private void CropImageCustomButton_Click(object sender, EventArgs e)
         {
-            //if (originalImage != null)
-            //{
-            //    if (selectionRectangle.Width > 0 && selectionRectangle.Height > 0)
-            //    {
-            //        // Crop the selected region
-            //        Bitmap croppedImage = new Bitmap(selectionRectangle.Width, selectionRectangle.Height);
-            //        using (Graphics g = Graphics.FromImage(croppedImage))
-            //        {
-            //            g.DrawImage(originalImage, 0, 0, selectionRectangle, GraphicsUnit.Pixel);
-            //        }
+            if (imageTaken != null)
+            {
+                if (selectionCropRectangle.Width > 0 && selectionCropRectangle.Height > 0)
+                {
+                    // Crop the selected region
+                    Bitmap croppedImage = new Bitmap(selectionCropRectangle.Width, selectionCropRectangle.Height);
+                    using (Graphics g = Graphics.FromImage(croppedImage))
+                    {
+                        g.DrawImage(imageTaken, 0, 0, selectionCropRectangle, GraphicsUnit.Pixel);
+                    }
 
-            //        // Display the cropped image
-            //        PictureBoxCropped.Image = croppedImage;
-            //    }
-            //}
+                    // Display the cropped image
+                    CroppedImagePictureBox.Image = croppedImage;
+                    ImageToSend = croppedImage;
+                    SaveImageCustomButton.Enabled = true;
+                }
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -411,6 +441,16 @@ namespace YouChatApp.AttachedFiles
                 UserImageTakenPictureBox.Invalidate();
             }
         }
+        private void SetCropControlsEnabledProperty()
+        {
+            CropSizeCustomTextBox.Enabled = isCropping;
+            CropXLocationustomTextBox.Enabled = isCropping;
+            CropYLocationustomTextBox.Enabled = isCropping;
+            CropSizeHorizontalScrollBar.Enabled = isCropping;
+            CropXLocationHorizontalScrollBar.Enabled = isCropping;
+            CropYLocationHorizontalScrollBar.Enabled = isCropping;
+
+        }
         private void HandleCropSizeCustomTextBoxValue()
         {
             if ((isCropping))
@@ -421,23 +461,94 @@ namespace YouChatApp.AttachedFiles
                     int newSize = int.Parse(Text);
                     if (newSize < 50)
                     {
-                        CropSizeHorizontalScrollBar.Value = 50;
-                        CropSizeCustomTextBox.Text = "50";
-                        CropSizeCustomTextBox.SelectText(CropSizeCustomTextBox.TextContent.Length, 0);
+                        _cropSize = 50;
                     }
-                    else if ((newSize > (UserImageTakenPictureBox.Width - selectionCropRectangle.X)) || (newSize > (UserImageTakenPictureBox.Height - selectionCropRectangle.Y)))
+                    else if ((newSize > (UserImageTakenPictureBox.Width - _cropXLocation)) || (newSize > (UserImageTakenPictureBox.Height - _cropYLocation)))
                     {
-                        CropSizeHorizontalScrollBar.Value = UserImageTakenPictureBox.Width - selectionCropRectangle.X;
-                        CropSizeHorizontalScrollBar.Text = (UserImageTakenPictureBox.Width - selectionCropRectangle.X).ToString();
-                        CropSizeCustomTextBox.SelectText(CropSizeCustomTextBox.Text.Length, 0);
+                        _cropSize = Math.Min(UserImageTakenPictureBox.Width - _cropXLocation, UserImageTakenPictureBox.Height - _cropYLocation); ;
                     }
                     else
                     {
-                        CropSizeHorizontalScrollBar.Value = int.Parse(CropSizeCustomTextBox.TextContent);
-                        selectionCropRectangle.Width = int.Parse(CropSizeCustomTextBox.TextContent);
-                        selectionCropRectangle.Height = int.Parse(CropSizeCustomTextBox.TextContent);
-                        UserImageTakenPictureBox.Invalidate();
+                        _cropSize = newSize;
                     }
+                    CropSizeHorizontalScrollBar.Value = _cropSize;
+                    CropSizeCustomTextBox.TextContent = _cropSize.ToString();
+                    CropSizeCustomTextBox.SelectText(CropSizeCustomTextBox.Text.Length, 0);
+                    selectionCropRectangle.Width = _cropSize;
+                    selectionCropRectangle.Height = _cropSize;
+                    CropXLocationHorizontalScrollBar.Maximum = UserImageTakenPictureBox.Width - _cropSize;
+                    CropYLocationHorizontalScrollBar.Maximum = UserImageTakenPictureBox.Height - _cropSize;
+                    UserImageTakenPictureBox.Invalidate();
+                }
+            }
+        }
+        private void HandleCropXLocationCustomTextBoxValue()
+        {
+            if ((isCropping))
+            {
+                string Text = CropXLocationustomTextBox.TextContent;
+                if ((Text != "") && (StringHandler.IsNumeric(Text)))
+                {
+                    int newXLocation = int.Parse(Text);
+                    if (newXLocation < 0)
+                    {
+                        _cropXLocation = 0;
+                        CropSizeHorizontalScrollBar.Maximum = UserImageTakenPictureBox.Height - _cropYLocation;
+
+
+                    }
+                    else if (newXLocation > (UserImageTakenPictureBox.Width - _cropSize))
+                    {
+                        _cropXLocation = UserImageTakenPictureBox.Width - _cropSize;
+                        CropSizeHorizontalScrollBar.Maximum = _cropSize;
+                    }
+                    else
+                    {
+                        _cropXLocation = newXLocation;
+                        CropSizeHorizontalScrollBar.Maximum = Math.Min(UserImageTakenPictureBox.Width - _cropXLocation, UserImageTakenPictureBox.Height - _cropYLocation);
+
+                    }
+                    CropXLocationHorizontalScrollBar.Value = _cropXLocation;
+                    CropXLocationustomTextBox.TextContent = _cropXLocation.ToString();
+                    CropXLocationustomTextBox.SelectText(CropXLocationustomTextBox.Text.Length, 0);
+                    selectionCropRectangle.X = _cropXLocation;
+                    UserImageTakenPictureBox.Invalidate();
+
+                }
+            }
+        }
+        private void HandleCropYLocationCustomTextBoxValue()
+        {
+            if ((isCropping))
+            {
+                string Text = CropYLocationustomTextBox.TextContent;
+                if ((Text != "") && (StringHandler.IsNumeric(Text)))
+                {
+                    int newYLocation = int.Parse(Text);
+                    if (newYLocation < 0)
+                    {
+                        _cropYLocation = 0;
+                        CropSizeHorizontalScrollBar.Maximum = UserImageTakenPictureBox.Width - _cropXLocation;
+
+
+                    }
+                    else if (newYLocation > (UserImageTakenPictureBox.Height - _cropSize))
+                    {
+                        _cropYLocation = UserImageTakenPictureBox.Height - _cropSize;
+                        CropSizeHorizontalScrollBar.Maximum = _cropSize;
+                    }
+                    else
+                    {
+                        _cropYLocation = newYLocation;
+                        CropSizeHorizontalScrollBar.Maximum = Math.Min(UserImageTakenPictureBox.Width - _cropXLocation, UserImageTakenPictureBox.Height - _cropYLocation);
+
+                    }
+                    CropYLocationHorizontalScrollBar.Value = _cropYLocation;
+                    CropYLocationustomTextBox.TextContent = _cropYLocation.ToString();
+                    CropYLocationustomTextBox.SelectText(CropYLocationustomTextBox.Text.Length, 0);
+                    selectionCropRectangle.Y = _cropYLocation;
+                    UserImageTakenPictureBox.Invalidate();
+
                 }
             }
         }
@@ -476,11 +587,11 @@ namespace YouChatApp.AttachedFiles
 
         private void CropXLocationustomTextBox_TextChangedEvent(object sender, EventArgs e)
         {
-            if ((isCropping))
-            {
-                selectionCropRectangle.X = int.Parse(CropXLocationustomTextBox.TextContent);
-                UserImageTakenPictureBox.Invalidate();
-            }
+            //if ((isCropping))
+            //{
+            //    selectionCropRectangle.X = int.Parse(CropXLocationustomTextBox.TextContent);
+            //    UserImageTakenPictureBox.Invalidate();
+            //}
         }
 
         private void CropYLocationustomTextBox_TextChangedEvent(object sender, EventArgs e)
@@ -505,5 +616,119 @@ namespace YouChatApp.AttachedFiles
             HandleCropSizeCustomTextBoxValue();
         }
 
+        private void CropXLocationustomTextBox_Leave(object sender, EventArgs e)
+        {
+            HandleCropXLocationCustomTextBoxValue();
+        }
+
+        private void CropXLocationustomTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                HandleCropXLocationCustomTextBoxValue();
+            }
+        }
+
+        private void CropYLocationustomTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                HandleCropYLocationCustomTextBoxValue();
+            }
+        }
+
+        private void CropYLocationustomTextBox_MouseLeave(object sender, EventArgs e)
+        {
+            HandleCropYLocationCustomTextBoxValue();
+
+        }
+
+        private void CropSizeHorizontalScrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            
+            if ((isCropping))
+            {
+                if (e.Type == ScrollEventType.SmallIncrement)
+                {
+                    HandleLargeChangeValue(CropSizeHorizontalScrollBar);
+                }
+                int newSize = CropSizeHorizontalScrollBar.Value;
+                _cropSize = newSize;
+                CropSizeHorizontalScrollBar.Value = _cropSize;
+                CropSizeCustomTextBox.TextContent = _cropSize.ToString();
+                CropSizeCustomTextBox.SelectText(CropSizeCustomTextBox.Text.Length, 0);
+                selectionCropRectangle.Width = _cropSize;
+                selectionCropRectangle.Height = _cropSize;
+                CropXLocationHorizontalScrollBar.Maximum = UserImageTakenPictureBox.Width - _cropSize;
+                CropYLocationHorizontalScrollBar.Maximum = UserImageTakenPictureBox.Height - _cropSize;
+                UserImageTakenPictureBox.Invalidate();
+            }
+        }
+
+        private void CropXLocationHorizontalScrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            if ((isCropping))
+            {
+                if (e.Type == ScrollEventType.SmallIncrement)
+                {
+                    HandleLargeChangeValue(CropXLocationHorizontalScrollBar);
+                }
+                int newXLocation = CropXLocationHorizontalScrollBar.Value;
+                _cropXLocation = newXLocation;
+                CropSizeHorizontalScrollBar.Maximum = Math.Min(UserImageTakenPictureBox.Width - _cropXLocation, UserImageTakenPictureBox.Height - _cropYLocation);
+                CropXLocationHorizontalScrollBar.Value = _cropXLocation;
+                CropXLocationustomTextBox.TextContent = _cropXLocation.ToString();
+                CropXLocationustomTextBox.SelectText(CropXLocationustomTextBox.Text.Length, 0);
+                selectionCropRectangle.X = _cropXLocation;
+                UserImageTakenPictureBox.Invalidate();
+
+            }
+        }
+
+        private void CropYLocationHorizontalScrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            if ((isCropping))
+            {
+                if (e.Type == ScrollEventType.SmallIncrement)
+                {
+                    HandleLargeChangeValue(CropYLocationHorizontalScrollBar);
+                }
+                int newYLocation = CropYLocationHorizontalScrollBar.Value;
+                _cropYLocation = newYLocation;
+                CropSizeHorizontalScrollBar.Maximum = Math.Min(UserImageTakenPictureBox.Width - _cropXLocation, UserImageTakenPictureBox.Height - _cropYLocation);
+                CropYLocationHorizontalScrollBar.Value = _cropYLocation;
+                CropYLocationustomTextBox.TextContent = _cropYLocation.ToString();
+                CropYLocationustomTextBox.SelectText(CropYLocationustomTextBox.Text.Length, 0);
+                selectionCropRectangle.Y = _cropYLocation;
+                UserImageTakenPictureBox.Invalidate();
+
+            }
+        }
+
+        private void CropSizeHorizontalScrollBar_ValueChanged(object sender, EventArgs e)
+        {
+            HandleLargeChangeValue(CropSizeHorizontalScrollBar);
+        }
+        private void HandleLargeChangeValue(HScrollBar scrollBar)
+        {
+            if (scrollBar.Value < (scrollBar.Maximum - scrollBar.LargeChange))
+            {
+                scrollBar.LargeChange = 10;
+            }
+            else
+            {
+                scrollBar.LargeChange = 1;
+            }
+        }
+
+        private void CropXLocationHorizontalScrollBar_ValueChanged(object sender, EventArgs e)
+        {
+            HandleLargeChangeValue(CropXLocationHorizontalScrollBar);
+        }
+
+        private void CropYLocationHorizontalScrollBar_ValueChanged(object sender, EventArgs e)
+        {
+            HandleLargeChangeValue(CropYLocationHorizontalScrollBar);
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace YouChatApp.AttachedFiles
         Image CameraNotOpen = global::YouChatApp.Properties.Resources.VideoClose;
         Image CameraOpen = global::YouChatApp.Properties.Resources.VideoOpen;
         Image VideoOffImage = global::YouChatApp.Properties.Resources.AnonymousProfile; //need to change that to my profile picture...
-
+        private bool _myVideoIsSmall = true;
         // https://www.flaticon.com/search?author_id=1828&style_id=1236&type=standard&word=conversation
 
         private FilterInfoCollection videoDevices;
@@ -39,6 +39,8 @@ namespace YouChatApp.AttachedFiles
         int CameraHeight;
         private bool isResizing = false;
 
+        private bool _isDragging = false;
+        private Point _lastMousePosition;
         public VideoCall()
         {
             InitializeComponent();
@@ -149,7 +151,15 @@ namespace YouChatApp.AttachedFiles
             }
             else
             {
-                UserVideoPictureBox.Image = VideoOffImage;
+                if (_myVideoIsSmall)
+                {
+                    UserVideoPictureBox.Image = VideoOffImage;
+                }
+                else
+                {
+                    RemoteVideoPictureBox.Image = VideoOffImage;
+
+                }
             }
         }
 
@@ -206,8 +216,14 @@ namespace YouChatApp.AttachedFiles
                 // Send the image over UDP
                 //udpClient.Send(imageBytes, imageBytes.Length, endPoint);
             }
-            UserVideoPictureBox.Image = (System.Drawing.Image)eventArgs.Frame.Clone();
-            RemoteVideoPictureBox.Image = (System.Drawing.Image)eventArgs.Frame.Clone();
+            if (_myVideoIsSmall)
+            {
+                UserVideoPictureBox.Image = (System.Drawing.Image)eventArgs.Frame.Clone();
+            }
+            else
+            {
+                RemoteVideoPictureBox.Image = (System.Drawing.Image)eventArgs.Frame.Clone();
+            }
 
         }
 
@@ -277,6 +293,40 @@ namespace YouChatApp.AttachedFiles
 
         }
 
+        private void UserVideoPictureBox_Click(object sender, EventArgs e)
+        {
+            _myVideoIsSmall = !_myVideoIsSmall;
+        }
+
+        private void UserVideoPictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            //if (e.Button == MouseButtons.Left)
+            //{
+            //    _isDragging = true;
+            //    _lastMousePosition = e.Location;
+            //}
+        }
+
+        private void UserVideoPictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            //if (_isDragging)
+            //{
+
+
+            //    _lastMousePosition = e.Location;
+
+            //    UserVideoPictureBox.Left = e.X + UserVideoPictureBox.Left - _lastMousePosition.X;
+            //    UserVideoPictureBox.Top = e.Y + UserVideoPictureBox.Top - _lastMousePosition.Y;
+            //}
+        }
+
+        private void UserVideoPictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+        //    if (e.Button == MouseButtons.Left)
+        //    {
+        //        _isDragging = false;
+        //    }
+        //}
     }
 
 }

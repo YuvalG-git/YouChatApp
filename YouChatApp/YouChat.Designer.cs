@@ -94,11 +94,11 @@ namespace YouChatApp
             this.DrawingFileButton = new System.Windows.Forms.Button();
             this.DocumentFileButton = new System.Windows.Forms.Button();
             this.EmojiFileButton = new System.Windows.Forms.Button();
-            this.UserFileButton = new System.Windows.Forms.Button();
             this.PhotoFileButton = new System.Windows.Forms.Button();
             this.VideoFileButton = new System.Windows.Forms.Button();
             this.SendMessageButton = new System.Windows.Forms.Button();
             this.ProfileButton = new System.Windows.Forms.Button();
+            this.UserFileCustomButton = new YouChatApp.Controls.CustomButton();
             this.ContactManagementPanel.SuspendLayout();
             this.FriendRequestIdPanel.SuspendLayout();
             this.GroupCreatorBackgroundPanel.SuspendLayout();
@@ -837,17 +837,6 @@ namespace YouChatApp
             this.EmojiFileButton.TabIndex = 24;
             this.EmojiFileButton.UseVisualStyleBackColor = true;
             // 
-            // UserFileButton
-            // 
-            this.UserFileButton.BackgroundImage = global::YouChatApp.Properties.Resources.UserFile;
-            this.UserFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.UserFileButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UserFileButton.Location = new System.Drawing.Point(1721, 962);
-            this.UserFileButton.Name = "UserFileButton";
-            this.UserFileButton.Size = new System.Drawing.Size(40, 40);
-            this.UserFileButton.TabIndex = 25;
-            this.UserFileButton.UseVisualStyleBackColor = true;
-            // 
             // PhotoFileButton
             // 
             this.PhotoFileButton.BackgroundImage = global::YouChatApp.Properties.Resources.PictureFile;
@@ -895,16 +884,36 @@ namespace YouChatApp
             this.ProfileButton.UseVisualStyleBackColor = true;
             this.ProfileButton.Click += new System.EventHandler(this.ProfileButton_Click);
             // 
+            // UserFileCustomButton
+            // 
+            this.UserFileCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
+            this.UserFileCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.UserFileCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.UserFile;
+            this.UserFileCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.UserFileCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.UserFileCustomButton.BorderRadius = 5;
+            this.UserFileCustomButton.BorderSize = 0;
+            this.UserFileCustomButton.FlatAppearance.BorderSize = 0;
+            this.UserFileCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UserFileCustomButton.ForeColor = System.Drawing.Color.White;
+            this.UserFileCustomButton.Location = new System.Drawing.Point(1721, 962);
+            this.UserFileCustomButton.Name = "UserFileCustomButton";
+            this.UserFileCustomButton.Size = new System.Drawing.Size(40, 40);
+            this.UserFileCustomButton.TabIndex = 32;
+            this.UserFileCustomButton.TextColor = System.Drawing.Color.White;
+            this.UserFileCustomButton.UseVisualStyleBackColor = false;
+            this.UserFileCustomButton.Click += new System.EventHandler(this.UserFileCustomButton_Click);
+            // 
             // YouChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1011);
+            this.Controls.Add(this.UserFileCustomButton);
             this.Controls.Add(this.OptionsPanel);
             this.Controls.Add(this.DrawingFileButton);
             this.Controls.Add(this.DocumentFileButton);
             this.Controls.Add(this.EmojiFileButton);
-            this.Controls.Add(this.UserFileButton);
             this.Controls.Add(this.PhotoFileButton);
             this.Controls.Add(this.VideoFileButton);
             this.Controls.Add(this.CurrentChatPanel);
@@ -971,7 +980,6 @@ namespace YouChatApp
         private System.Windows.Forms.Button DocumentFileButton;
         private System.Windows.Forms.Button DrawingFileButton;
         private System.Windows.Forms.Button PhotoFileButton;
-        private System.Windows.Forms.Button UserFileButton;
         private System.Windows.Forms.Button EmojiFileButton;
         private System.Windows.Forms.PictureBox CurrentPictureChatPictureBox;
         private System.Windows.Forms.Label UserIDLabel;
@@ -1020,5 +1028,6 @@ namespace YouChatApp
         private ToolStripMenuItem TakePhotoToolStripMenuItem;
         private ToolStripMenuItem UploadPhotoToolStripMenuItem;
         private ToolStripMenuItem EmojiToolStripMenuItem;
+        private CustomButton UserFileCustomButton;
     }
 }

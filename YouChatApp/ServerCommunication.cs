@@ -133,6 +133,7 @@ namespace YouChatApp
         public static InitialProfileSelection InitialProfileSelection;
 
         public static EmojiKeyboard _emojiKeyboard = null;
+        public static ContactSharing _contactSharing = null;
         public static Camera _camera = null;
 
         private static UdpClient UdpClient;

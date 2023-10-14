@@ -239,6 +239,10 @@
             this.UserVideoPictureBox.TabIndex = 9;
             this.UserVideoPictureBox.TabStop = false;
             this.UserVideoPictureBox.SizeChanged += new System.EventHandler(this.VideoPictureBox_SizeChanged);
+            this.UserVideoPictureBox.Click += new System.EventHandler(this.UserVideoPictureBox_Click);
+            this.UserVideoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseDown);
+            this.UserVideoPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseMove);
+            this.UserVideoPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseUp);
             // 
             // RemoteVideoPictureBox
             // 

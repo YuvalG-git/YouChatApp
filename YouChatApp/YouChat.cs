@@ -647,61 +647,121 @@ namespace YouChatApp
         public void SetListOfFriendRequestControl(string ChatInformation)
         {
             string[] ContactsInformation = ChatInformation.Split('#'); //todo check how i can allow the users to send # and more without the split activating - i thing maybe i need to put / or something before 
-            string ContactUsername;
-            string ContactProfilePictureID;
-            //string ContactProfilePictureKind;
-            //string ContactProfilePictureNumber;
+            //string ContactUsername;
+            //string ContactProfilePictureID;
+            ////string ContactProfilePictureKind;
+            ////string ContactProfilePictureNumber;
             for (int i = 0; i < ContactsInformation.Length; i++)
             {
-                string[] ContactDetails = ContactsInformation[i].Split('^');
-                ContactUsername = ContactDetails[0];
-                ContactProfilePictureID = ContactDetails[1];
-                //string[] ContactProfilePictureInformation = SeparateLettersAndNumbers(ContactProfilePictureID);
-                //ContactProfilePictureKind = ContactProfilePictureInformation[0];
-                //ContactProfilePictureNumber = ContactProfilePictureInformation[1]; // to understand how to seperate them
+                AddFriendRequest(ContactsInformation[i]);
+                //string[] ContactDetails = ContactsInformation[i].Split('^');
+                //ContactUsername = ContactDetails[0];
+                //ContactProfilePictureID = ContactDetails[1];
+                ////string[] ContactProfilePictureInformation = SeparateLettersAndNumbers(ContactProfilePictureID);
+                ////ContactProfilePictureKind = ContactProfilePictureInformation[0];
+                ////ContactProfilePictureNumber = ContactProfilePictureInformation[1]; // to understand how to seperate them
 
-                if (FriendRequestsNumber == 0)
-                    heightForFriendRequests = 0;
-                else
-                    heightForFriendRequests = this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Location.Y + this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Size.Height;
-                this.ListOfFriendRequestControl.Add(new FriendRequestControl());
-                this.ListOfFriendRequestControl[FriendRequestsNumber].Location = new System.Drawing.Point(0, heightForFriendRequests);
-                this.ListOfFriendRequestControl[FriendRequestsNumber].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
-                this.ListOfFriendRequestControl[FriendRequestsNumber].TabIndex = 0;
-                this.ListOfFriendRequestControl[FriendRequestsNumber].BackColor = SystemColors.Control;
-                this.ListOfFriendRequestControl[FriendRequestsNumber].ContactName.Text = ContactUsername;
-                this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
-                this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
-                this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
-                //todo - for this code i should maybe create a genric method:
-                //if (ContactProfilePictureKind == "Male") //need to use that when getting a user imageid - but here i just take from the contacts list - by recieving the contact object and then its profileimage property...
-                //{
-                //    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[ContactProfilePictureNumber];
-                //}
-                //else if (ContactProfilePictureKind == "Female")
-                //{
-                //    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.FemaleProfilePictureImageList.Images[ContactProfilePictureNumber];
+                //if (FriendRequestsNumber == 0)
+                //    heightForFriendRequests = 0;
+                //else
+                //    heightForFriendRequests = this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Location.Y + this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Size.Height;
+                //this.ListOfFriendRequestControl.Add(new FriendRequestControl());
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].Location = new System.Drawing.Point(0, heightForFriendRequests);
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].TabIndex = 0;
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].ContactName.Text = ContactUsername;
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
+                ////todo - for this code i should maybe create a genric method:
+                ////if (ContactProfilePictureKind == "Male") //need to use that when getting a user imageid - but here i just take from the contacts list - by recieving the contact object and then its profileimage property...
+                ////{
+                ////    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[ContactProfilePictureNumber];
+                ////}
+                ////else if (ContactProfilePictureKind == "Female")
+                ////{
+                ////    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.FemaleProfilePictureImageList.Images[ContactProfilePictureNumber];
 
-                //}
-                //else if (ContactProfilePictureKind == "Animal")
+                ////}
+                ////else if (ContactProfilePictureKind == "Animal")
+                ////{
+                ////    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[ContactProfilePictureNumber];
+                ////}
+                //this.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
+                //this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
+                //if (this.FriendRequestPanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
                 //{
-                //    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[ContactProfilePictureNumber];
+                //    PanelHandler.SetPanelToSide(FriendRequestPanel, ListOfFriendRequestControl, true);
                 //}
-                this.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
-                this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
-                FriendRequestsNumber++;
+                //FriendRequestsNumber++;
+            }
+        }
+        public void AddFriendRequest(string FriendRequestContent)
+        {
+            if (this.FriendRequestPanel.Controls.Count > 0)
+            {
+                PanelHandler.SetPanelToSide(FriendRequestPanel, ListOfFriendRequestControl, true);
+            }
+            string[] ContactDetails = FriendRequestContent.Split('^');
+            string ContactUsername = ContactDetails[0];
+            string ContactProfilePictureID = ContactDetails[1];
+            if (FriendRequestsNumber == 0)
+                heightForFriendRequests = 0;
+            else
+                heightForFriendRequests = this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Location.Y + this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Size.Height;
+            this.ListOfFriendRequestControl.Add(new FriendRequestControl());
+            this.ListOfFriendRequestControl[FriendRequestsNumber].Location = new System.Drawing.Point(0, heightForFriendRequests);
+            this.ListOfFriendRequestControl[FriendRequestsNumber].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
+            this.ListOfFriendRequestControl[FriendRequestsNumber].TabIndex = 0;
+            this.ListOfFriendRequestControl[FriendRequestsNumber].ContactName.Text = ContactUsername;
+            this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
+            this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
+            this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
+            this.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
+            this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
+            FriendRequestsNumber++;
+        }
+        private void RestartListOfFriendRequestControlLocation()
+        {
+            PanelHandler.SetPanelToSide(FriendRequestPanel, ListOfFriendRequestControl, true);
+            heightForFriendRequests = 0;
+            foreach (FriendRequestControl friendRequestControl in ListOfFriendRequestControl)
+            {
+                friendRequestControl.Location = new System.Drawing.Point(0, heightForFriendRequests);
+                heightForContacts += friendRequestControl.Height;
             }
         }
         public void HandleFriendRequestApproval(object sender, EventArgs e)
         {
-            //todo -needs to remove it from the list of friend requests...
-            this.ListOfFriendRequestControl.Remove((FriendRequestControl)(sender));
-            //also needs to restart height
-            FriendRequestsNumber--;
+            FriendRequestControl friendRequestControl = ((FriendRequestControl)(sender));
+            HandleFriendRequest(friendRequestControl);
+            string friendRequestResponseDetails = BuildFriendRequestResponseMessageContent(friendRequestControl, ServerCommunication.FriendRequestResponseSender1);
+            ServerCommunication.SendMessage(ServerCommunication.FriendRequestResponseSender, friendRequestResponseDetails);
+
         }
         public void HandleFriendRequestRefusal(object sender, EventArgs e)
         {
+            FriendRequestControl friendRequestControl = ((FriendRequestControl)(sender));
+            HandleFriendRequest(friendRequestControl);
+            string friendRequestResponseDetails = BuildFriendRequestResponseMessageContent(friendRequestControl, ServerCommunication.FriendRequestResponseSender2);
+            ServerCommunication.SendMessage(ServerCommunication.FriendRequestResponseSender, friendRequestResponseDetails);
+
+        }
+        private void HandleFriendRequest(FriendRequestControl friendRequestControl)
+        {
+            //todo -needs to remove it from the list of friend requests...
+            this.ListOfFriendRequestControl.Remove(friendRequestControl);
+            FriendRequestPanel.Controls.Remove(friendRequestControl);
+            friendRequestControl.Dispose();
+            //also needs to restart height
             FriendRequestsNumber--;
+            RestartListOfFriendRequestControlLocation();
+        }
+        private string BuildFriendRequestResponseMessageContent(FriendRequestControl friendRequestControl, string friendRequestStatus)
+        {
+            string friendRequestSenderName = friendRequestControl.ContactName.Text;
+            string friendRequestResponseDetails = friendRequestSenderName + "#" + friendRequestStatus;
+            return friendRequestResponseDetails;
         }
         public void HandleYourMessages(string MessageContent, string SendMessageTime) //maybe i should the same function just with if or something like that (to ask if name == my name...)
         {
@@ -1178,6 +1238,20 @@ namespace YouChatApp
         private void RestartGroupSubjectCustomButton_Click(object sender, EventArgs e)
         {
             GroupSubjectCustomTextBox.TextContent = "";
+        }
+
+        private void UserFileButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UserFileCustomButton_Click(object sender, EventArgs e)
+        {
+            if (ServerCommunication._contactSharing == null)
+            {
+                ServerCommunication._contactSharing = new ContactSharing();
+            }
+            this.Invoke(new Action(() => ServerCommunication._contactSharing.ShowDialog()));
         }
     }
 }

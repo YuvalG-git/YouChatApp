@@ -73,7 +73,6 @@ namespace YouChatApp.Controls
         {
             base.OnPaint(e);
             Graphics Graphics = e.Graphics;
-            Color CurrentBorderColor;
             using (Pen BorderPen = new Pen(_onFocusBackgroundColor, 1))
             {
                 this.Region = new Region(this.ClientRectangle);

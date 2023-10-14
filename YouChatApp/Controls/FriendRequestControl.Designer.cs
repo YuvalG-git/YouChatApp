@@ -100,6 +100,9 @@
             // 
             this.ProfilePictureCircularPictureBox.BackgroundImage = global::YouChatApp.Properties.Resources.AnonymousProfile;
             this.ProfilePictureCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ProfilePictureCircularPictureBox.BorderColor = System.Drawing.Color.Gray;
+            this.ProfilePictureCircularPictureBox.BorderSize = 1;
+            this.ProfilePictureCircularPictureBox.HasBorder = false;
             this.ProfilePictureCircularPictureBox.Image = global::YouChatApp.Properties.Resources.contact;
             this.ProfilePictureCircularPictureBox.Location = new System.Drawing.Point(10, 10);
             this.ProfilePictureCircularPictureBox.Name = "ProfilePictureCircularPictureBox";
@@ -118,6 +121,8 @@
             this.Controls.Add(this.ProfilePictureCircularPictureBox);
             this.Name = "FriendRequestControl";
             this.Size = new System.Drawing.Size(300, 90);
+            this.MouseEnter += new System.EventHandler(this.FriendRequestControl_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.FriendRequestControl_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -26,10 +26,18 @@ namespace YouChatApp.AttachedFiles
             ProfileControlList = new List<ProfileControl>();
             SearchBar.AddSearchOnClickHandler(SearchContacts);
             //passwordGeneratorControl1.OnTextChangedEventHandler(PasswordFieldsValueChecker);
-
+            RestartContactSharing();
             SetContactControlList();
             PanelHandler.DeletePanelScrollBars(ChosenContactsPanel);
             ContactPanel.Location = new System.Drawing.Point(ContactPanel.Location.X, ChosenContactsPanel.Location.Y);
+            ContactPanel.Size = new Size(ContactPanel.Width, ContactPanel.Height + ChosenContactsPanel.Height);
+
+        }
+        private void RestartContactSharing()
+        {
+            SearchBar.SeacrhBar.TextContent = "";
+            SearchBar.SeacrhBar.TextContent = "Search...";
+            Restart();
 
         }
         private void AddProfileControl(string name, Image profilePicture)
@@ -47,6 +55,12 @@ namespace YouChatApp.AttachedFiles
             {
                 Control LastControl = this.ProfileControlList[0];
                 this.ChosenContactsPanel.ScrollControlIntoView(LastControl);
+            }
+            else
+            {
+                ContactPanel.Size = new Size(ContactPanel.Width, ContactPanel.Height - ChosenContactsPanel.Height);
+                RestartCustomButton.Enabled = true;
+                ShareContactsCustomButton.Enabled = true;
             }
             ProfileControlList.Add(new ProfileControl());
             ProfileControlList[ProfileControlNumber].Location = new System.Drawing.Point(LastProfileControlWidthLocation, 0);
@@ -86,9 +100,24 @@ namespace YouChatApp.AttachedFiles
             else
             {
                 ContactPanel.Location = new System.Drawing.Point(ContactPanel.Location.X, ChosenContactsPanel.Location.Y);
-
+                ContactPanel.Size = new Size(ContactPanel.Width, ContactPanel.Height + ChosenContactsPanel.Height);
+                RestartCustomButton.Enabled = false;
+                ShareContactsCustomButton.Enabled = false;
             }
 
+        }
+        private void RemoveAllProfileControls()
+        {
+            foreach (ProfileControl profile in ProfileControlList)
+            {
+                profile.Dispose();
+            }
+            ProfileControlList.Clear();
+            ChosenContactsPanel.Controls.Clear();
+            ProfileControlNumber = 0;
+            LastProfileControlWidthLocation = 0;
+            ContactPanel.Location = new System.Drawing.Point(ContactPanel.Location.X, ChosenContactsPanel.Location.Y);
+            ContactPanel.Size = new Size(ContactPanel.Width, ContactPanel.Height + ChosenContactsPanel.Height);
         }
         private void RestartProfileControlListLocation()
         {
@@ -133,7 +162,7 @@ namespace YouChatApp.AttachedFiles
                 foreach (ContactSharingControl Contact in ContactControlList)
                 {
                     Contact.Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
-                    LastContactControlHeightLocation += Contact.Height + 10;
+                    LastContactControlHeightLocation += Contact.Height;
                     Contact.Visible = true;
 
                 }
@@ -166,7 +195,7 @@ namespace YouChatApp.AttachedFiles
                     }
                     if (IsVisible)
                     {
-                        LastContactControlHeightLocation += Contact.Height + 10;
+                        LastContactControlHeightLocation += Contact.Height;
                     }
                     Contact.Visible = IsVisible;
                 }
@@ -200,12 +229,11 @@ namespace YouChatApp.AttachedFiles
             foreach (Contact Contact in ContactManager.UserContacts)
             {
                 if (ContactNumber != 0)
-                    LastContactControlHeightLocation = this.ContactControlList[ContactNumber - 1].Location.Y + this.ContactControlList[ContactNumber - 1].Size.Height + 10;
+                    LastContactControlHeightLocation = this.ContactControlList[ContactNumber - 1].Location.Y + this.ContactControlList[ContactNumber - 1].Size.Height;
                 this.ContactControlList.Add(new ContactSharingControl());
                 this.ContactControlList[ContactNumber].Location = new System.Drawing.Point(0, LastContactControlHeightLocation);
                 this.ContactControlList[ContactNumber].Name = Contact.Name;
                 this.ContactControlList[ContactNumber].TabIndex = 0;
-                this.ContactControlList[ContactNumber].BackColor = SystemColors.Control;
                 this.ContactControlList[ContactNumber].ContactName.Text = Contact.Name;
                 this.ContactControlList[ContactNumber].ProfilePicture.Image = Contact.ProfilePicture;
 
@@ -295,8 +323,46 @@ namespace YouChatApp.AttachedFiles
             MessageBox.Show("show");
         }
 
+        private void SendCustomButton_Click(object sender, EventArgs e)
+        {
+            string ContactNameList = "";
+            foreach (ContactSharingControl Contact in ContactControlList) //maybe i need to add a function here on click on the button that will add this to a string of selected users...
+            {
+                if (Contact.ContactSelection.Checked)
+                {
+                    ContactNameList += Contact.ContactName.Text + "#";
+                }
+            }
+            if (ContactNameList != "")
+            {
+                ContactNameList += DateTime.Now.ToString("HH:mm");
+                //ServerCommunication.SendMessage(ServerCommunication.SendContactMessage + "$" + ContactNameList);
+                MessageBox.Show(ContactNameList);
+            }
+        }
 
+        private void RestartCustomButton_Click(object sender, EventArgs e)
+        {
+            Restart();
+        }
+        private void Restart()
+        {
+            if (ServerCommunication.SelectedContacts != 0)
+            {
+                foreach (ContactSharingControl Contact in ContactControlList)
+                {
+                    Contact.ContactSelection.Checked = false;
+                }
+                ServerCommunication.SelectedContacts = 0;
+                RemoveAllProfileControls();
+                RestartCustomButton.Enabled = false;
+                ShareContactsCustomButton.Enabled = false;
+            }
+        }
 
-  
+        private void CancelCustomButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

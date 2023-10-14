@@ -89,7 +89,7 @@ namespace YouChatApp
             {
                 this.Region = new Region(this.ClientRectangle);
                 BorderPen.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                Graphics.DrawRectangle(BorderPen, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
+                Graphics.DrawLine(BorderPen, this.ContactNameLabel.Location.X, this.Height - 1, this.Width, this.Height - 1);
             }
         }
         public void OnCheckBoxClickAcceptedHandler(EventHandler handler)

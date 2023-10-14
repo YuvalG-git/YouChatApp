@@ -60,10 +60,9 @@
             this.TwoSecondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FiveSecondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TenSecondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.WaitingTimeLabel = new System.Windows.Forms.Label();
             this.UserImageTakenPictureBox = new System.Windows.Forms.PictureBox();
             this.UserVideoPictureBox = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.CroppedImagePictureBox = new System.Windows.Forms.PictureBox();
             this.BackgroundPanel.SuspendLayout();
             this.TimerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -73,6 +72,7 @@
             this.CameraTimerContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UserImageTakenPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UserVideoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CroppedImagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // CameraDeviceComboBox
@@ -299,17 +299,23 @@
             // 
             // CropYLocationHorizontalScrollBar
             // 
+            this.CropYLocationHorizontalScrollBar.LargeChange = 1;
             this.CropYLocationHorizontalScrollBar.Location = new System.Drawing.Point(221, 86);
             this.CropYLocationHorizontalScrollBar.Name = "CropYLocationHorizontalScrollBar";
             this.CropYLocationHorizontalScrollBar.Size = new System.Drawing.Size(80, 17);
             this.CropYLocationHorizontalScrollBar.TabIndex = 25;
+            this.CropYLocationHorizontalScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.CropYLocationHorizontalScrollBar_Scroll);
+            this.CropYLocationHorizontalScrollBar.ValueChanged += new System.EventHandler(this.CropYLocationHorizontalScrollBar_ValueChanged);
             // 
             // CropXLocationHorizontalScrollBar
             // 
+            this.CropXLocationHorizontalScrollBar.LargeChange = 1;
             this.CropXLocationHorizontalScrollBar.Location = new System.Drawing.Point(221, 55);
             this.CropXLocationHorizontalScrollBar.Name = "CropXLocationHorizontalScrollBar";
             this.CropXLocationHorizontalScrollBar.Size = new System.Drawing.Size(80, 17);
             this.CropXLocationHorizontalScrollBar.TabIndex = 24;
+            this.CropXLocationHorizontalScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.CropXLocationHorizontalScrollBar_Scroll);
+            this.CropXLocationHorizontalScrollBar.ValueChanged += new System.EventHandler(this.CropXLocationHorizontalScrollBar_ValueChanged);
             // 
             // CropSizeCustomTextBox
             // 
@@ -364,6 +370,8 @@
             this.CropYLocationustomTextBox.TextContent = "";
             this.CropYLocationustomTextBox.UnderlineStyle = true;
             this.CropYLocationustomTextBox.TextChangedEvent += new System.EventHandler(this.CropYLocationustomTextBox_TextChangedEvent);
+            this.CropYLocationustomTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CropYLocationustomTextBox_KeyDown);
+            this.CropYLocationustomTextBox.MouseLeave += new System.EventHandler(this.CropYLocationustomTextBox_MouseLeave);
             // 
             // CropXLocationustomTextBox
             // 
@@ -390,13 +398,18 @@
             this.CropXLocationustomTextBox.TextContent = "";
             this.CropXLocationustomTextBox.UnderlineStyle = true;
             this.CropXLocationustomTextBox.TextChangedEvent += new System.EventHandler(this.CropXLocationustomTextBox_TextChangedEvent);
+            this.CropXLocationustomTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CropXLocationustomTextBox_KeyDown);
+            this.CropXLocationustomTextBox.Leave += new System.EventHandler(this.CropXLocationustomTextBox_Leave);
             // 
             // CropSizeHorizontalScrollBar
             // 
+            this.CropSizeHorizontalScrollBar.LargeChange = 1;
             this.CropSizeHorizontalScrollBar.Location = new System.Drawing.Point(221, 27);
             this.CropSizeHorizontalScrollBar.Name = "CropSizeHorizontalScrollBar";
             this.CropSizeHorizontalScrollBar.Size = new System.Drawing.Size(80, 17);
             this.CropSizeHorizontalScrollBar.TabIndex = 17;
+            this.CropSizeHorizontalScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.CropSizeHorizontalScrollBar_Scroll);
+            this.CropSizeHorizontalScrollBar.ValueChanged += new System.EventHandler(this.CropSizeHorizontalScrollBar_ValueChanged);
             // 
             // CropYLocationLabel
             // 
@@ -487,19 +500,10 @@
             this.TenSecondToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.TenSecondToolStripMenuItem.Text = "10 Sec";
             // 
-            // WaitingTimeLabel
-            // 
-            this.WaitingTimeLabel.AutoSize = true;
-            this.WaitingTimeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WaitingTimeLabel.Location = new System.Drawing.Point(613, 119);
-            this.WaitingTimeLabel.Name = "WaitingTimeLabel";
-            this.WaitingTimeLabel.Size = new System.Drawing.Size(0, 24);
-            this.WaitingTimeLabel.TabIndex = 15;
-            // 
             // UserImageTakenPictureBox
             // 
             this.UserImageTakenPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.UserImageTakenPictureBox.Location = new System.Drawing.Point(696, 212);
+            this.UserImageTakenPictureBox.Location = new System.Drawing.Point(684, 152);
             this.UserImageTakenPictureBox.Name = "UserImageTakenPictureBox";
             this.UserImageTakenPictureBox.Size = new System.Drawing.Size(640, 480);
             this.UserImageTakenPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -512,27 +516,29 @@
             // UserVideoPictureBox
             // 
             this.UserVideoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.UserVideoPictureBox.Location = new System.Drawing.Point(18, 212);
+            this.UserVideoPictureBox.Location = new System.Drawing.Point(18, 152);
             this.UserVideoPictureBox.Name = "UserVideoPictureBox";
             this.UserVideoPictureBox.Size = new System.Drawing.Size(640, 480);
             this.UserVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.UserVideoPictureBox.TabIndex = 9;
             this.UserVideoPictureBox.TabStop = false;
             // 
-            // textBox1
+            // CroppedImagePictureBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(326, 272);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 26;
+            this.CroppedImagePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CroppedImagePictureBox.Location = new System.Drawing.Point(498, 546);
+            this.CroppedImagePictureBox.Name = "CroppedImagePictureBox";
+            this.CroppedImagePictureBox.Size = new System.Drawing.Size(360, 360);
+            this.CroppedImagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.CroppedImagePictureBox.TabIndex = 11;
+            this.CroppedImagePictureBox.TabStop = false;
             // 
             // Camera
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1357, 700);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.WaitingTimeLabel);
+            this.ClientSize = new System.Drawing.Size(1357, 1061);
+            this.Controls.Add(this.CroppedImagePictureBox);
             this.Controls.Add(this.UserImageTakenPictureBox);
             this.Controls.Add(this.UserVideoPictureBox);
             this.Controls.Add(this.BackgroundPanel);
@@ -552,8 +558,8 @@
             this.CameraTimerContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.UserImageTakenPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UserVideoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CroppedImagePictureBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -579,7 +585,6 @@
         private System.Windows.Forms.Label TimerLabel;
         private System.Windows.Forms.ComboBox TimerOptionComboBox;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label WaitingTimeLabel;
         private Controls.CustomButton SaveImageCustomButton;
         private Controls.CustomButton CropImageCustomButton;
         private System.Windows.Forms.HScrollBar CropSizeHorizontalScrollBar;
@@ -593,6 +598,6 @@
         private Controls.CustomTextBox CropXLocationustomTextBox;
         private System.Windows.Forms.HScrollBar CropYLocationHorizontalScrollBar;
         private System.Windows.Forms.HScrollBar CropXLocationHorizontalScrollBar;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.PictureBox CroppedImagePictureBox;
     }
 }
