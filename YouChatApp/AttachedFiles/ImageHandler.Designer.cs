@@ -30,41 +30,23 @@
         {
             this.components = new System.ComponentModel.Container();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.LoadedImagePictureBox = new System.Windows.Forms.PictureBox();
-            this.UploadedPictureRotationButton = new System.Windows.Forms.Button();
             this.UploadedPictureOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            ((System.ComponentModel.ISupportInitialize)(this.LoadedImagePictureBox)).BeginInit();
+            this.UploadedPictureRotationButton = new System.Windows.Forms.Button();
+            this.LoadedImagePictureBox = new System.Windows.Forms.PictureBox();
+            this.customRichTextBox1 = new YouChatApp.Controls.CustomRichTextBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadedImagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // LoadedImagePictureBox
-            // 
-            this.LoadedImagePictureBox.Location = new System.Drawing.Point(177, 99);
-            this.LoadedImagePictureBox.Name = "LoadedImagePictureBox";
-            this.LoadedImagePictureBox.Size = new System.Drawing.Size(400, 339);
-            this.LoadedImagePictureBox.TabIndex = 1;
-            this.LoadedImagePictureBox.TabStop = false;
-            // 
-            // UploadedPictureRotationButton
-            // 
-            this.UploadedPictureRotationButton.BackgroundImage = global::YouChatApp.Properties.Resources.RotatePicture;
-            this.UploadedPictureRotationButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.UploadedPictureRotationButton.Location = new System.Drawing.Point(615, 56);
-            this.UploadedPictureRotationButton.Name = "UploadedPictureRotationButton";
-            this.UploadedPictureRotationButton.Size = new System.Drawing.Size(75, 62);
-            this.UploadedPictureRotationButton.TabIndex = 2;
-            this.UploadedPictureRotationButton.UseVisualStyleBackColor = true;
-            this.UploadedPictureRotationButton.Click += new System.EventHandler(this.UploadedPictureRotationButton_Click);
             // 
             // UploadedPictureOpenFileDialog
             // 
@@ -108,11 +90,50 @@
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // UploadedPictureRotationButton
+            // 
+            this.UploadedPictureRotationButton.BackgroundImage = global::YouChatApp.Properties.Resources.RotatePicture;
+            this.UploadedPictureRotationButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.UploadedPictureRotationButton.Location = new System.Drawing.Point(615, 56);
+            this.UploadedPictureRotationButton.Name = "UploadedPictureRotationButton";
+            this.UploadedPictureRotationButton.Size = new System.Drawing.Size(75, 62);
+            this.UploadedPictureRotationButton.TabIndex = 2;
+            this.UploadedPictureRotationButton.UseVisualStyleBackColor = true;
+            this.UploadedPictureRotationButton.Click += new System.EventHandler(this.UploadedPictureRotationButton_Click);
+            // 
+            // LoadedImagePictureBox
+            // 
+            this.LoadedImagePictureBox.Location = new System.Drawing.Point(177, 99);
+            this.LoadedImagePictureBox.Name = "LoadedImagePictureBox";
+            this.LoadedImagePictureBox.Size = new System.Drawing.Size(400, 339);
+            this.LoadedImagePictureBox.TabIndex = 1;
+            this.LoadedImagePictureBox.TabStop = false;
+            // 
+            // customRichTextBox1
+            // 
+            this.customRichTextBox1.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.customRichTextBox1.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.customRichTextBox1.BorderRadius = 4;
+            this.customRichTextBox1.BorderSize = 2;
+            this.customRichTextBox1.IsFocused = false;
+            this.customRichTextBox1.Location = new System.Drawing.Point(44, 108);
+            this.customRichTextBox1.MaxLength = 2147483647;
+            this.customRichTextBox1.Multiline = true;
+            this.customRichTextBox1.Name = "customRichTextBox1";
+            this.customRichTextBox1.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.customRichTextBox1.PlaceHolderText = "";
+            this.customRichTextBox1.ReadOnly = false;
+            this.customRichTextBox1.Size = new System.Drawing.Size(100, 103);
+            this.customRichTextBox1.TabIndex = 5;
+            this.customRichTextBox1.TextContent = "";
+            this.customRichTextBox1.UnderlineStyle = true;
+            // 
             // ImageHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.customRichTextBox1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.UploadedPictureRotationButton);
             this.Controls.Add(this.menuStrip1);
@@ -120,9 +141,9 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ImageHandler";
             this.Text = "ImageHandler";
-            ((System.ComponentModel.ISupportInitialize)(this.LoadedImagePictureBox)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadedImagePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,5 +160,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private Controls.CustomRichTextBox customRichTextBox1;
     }
 }

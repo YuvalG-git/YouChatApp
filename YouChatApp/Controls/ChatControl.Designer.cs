@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ProfilePictureCircularPictureBox = new YouChatApp.CircularPictureBox();
             this.ChatNameLabel = new System.Windows.Forms.Label();
             this.LastMessageLabel = new System.Windows.Forms.Label();
             this.TimeLabel = new System.Windows.Forms.Label();
             this.OptionalMessageOrAddUserButton = new System.Windows.Forms.Button();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -40,6 +42,8 @@
             // 
             this.ProfilePictureCircularPictureBox.BackgroundImage = global::YouChatApp.Properties.Resources.AnonymousProfile;
             this.ProfilePictureCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ProfilePictureCircularPictureBox.BorderColor = System.Drawing.Color.Gray;
+            this.ProfilePictureCircularPictureBox.BorderSize = 1;
             this.ProfilePictureCircularPictureBox.HasBorder = false;
             this.ProfilePictureCircularPictureBox.Location = new System.Drawing.Point(10, 10);
             this.ProfilePictureCircularPictureBox.Name = "ProfilePictureCircularPictureBox";
@@ -120,5 +124,6 @@
         private System.Windows.Forms.Label LastMessageLabel;
         private System.Windows.Forms.Label TimeLabel;
         private System.Windows.Forms.Button OptionalMessageOrAddUserButton;
+        private System.Windows.Forms.ToolTip ToolTip;
     }
 }

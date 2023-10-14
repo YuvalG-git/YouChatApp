@@ -28,21 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ChatNameLabel = new System.Windows.Forms.Label();
             this.FriendMessageLabel = new System.Windows.Forms.Label();
             this.DenyFriendRequestCustomButton = new YouChatApp.Controls.CustomButton();
             this.AddFriendCustomButton = new YouChatApp.Controls.CustomButton();
             this.ProfilePictureCircularPictureBox = new YouChatApp.CircularPictureBox();
+            this.TimeLabel = new System.Windows.Forms.Label();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ChatNameLabel
             // 
-            this.ChatNameLabel.AutoSize = true;
+            this.ChatNameLabel.AutoEllipsis = true;
             this.ChatNameLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChatNameLabel.Location = new System.Drawing.Point(80, 15);
             this.ChatNameLabel.Name = "ChatNameLabel";
-            this.ChatNameLabel.Size = new System.Drawing.Size(63, 22);
+            this.ChatNameLabel.Size = new System.Drawing.Size(129, 22);
             this.ChatNameLabel.TabIndex = 1;
             this.ChatNameLabel.Text = "Name";
             // 
@@ -68,7 +71,7 @@
             this.DenyFriendRequestCustomButton.FlatAppearance.BorderSize = 0;
             this.DenyFriendRequestCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DenyFriendRequestCustomButton.ForeColor = System.Drawing.Color.White;
-            this.DenyFriendRequestCustomButton.Location = new System.Drawing.Point(210, 55);
+            this.DenyFriendRequestCustomButton.Location = new System.Drawing.Point(220, 55);
             this.DenyFriendRequestCustomButton.Name = "DenyFriendRequestCustomButton";
             this.DenyFriendRequestCustomButton.Size = new System.Drawing.Size(30, 30);
             this.DenyFriendRequestCustomButton.TabIndex = 6;
@@ -110,17 +113,28 @@
             this.ProfilePictureCircularPictureBox.TabIndex = 0;
             this.ProfilePictureCircularPictureBox.TabStop = false;
             // 
+            // TimeLabel
+            // 
+            this.TimeLabel.AutoSize = true;
+            this.TimeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeLabel.Location = new System.Drawing.Point(235, 15);
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(39, 15);
+            this.TimeLabel.TabIndex = 7;
+            this.TimeLabel.Text = "Time";
+            // 
             // FriendRequestControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.TimeLabel);
             this.Controls.Add(this.DenyFriendRequestCustomButton);
             this.Controls.Add(this.AddFriendCustomButton);
             this.Controls.Add(this.FriendMessageLabel);
             this.Controls.Add(this.ChatNameLabel);
             this.Controls.Add(this.ProfilePictureCircularPictureBox);
             this.Name = "FriendRequestControl";
-            this.Size = new System.Drawing.Size(300, 90);
+            this.Size = new System.Drawing.Size(290, 90);
             this.MouseEnter += new System.EventHandler(this.FriendRequestControl_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.FriendRequestControl_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).EndInit();
@@ -136,5 +150,7 @@
         private System.Windows.Forms.Label FriendMessageLabel;
         private CustomButton AddFriendCustomButton;
         private CustomButton DenyFriendRequestCustomButton;
+        private System.Windows.Forms.Label TimeLabel;
+        private System.Windows.Forms.ToolTip ToolTip;
     }
 }

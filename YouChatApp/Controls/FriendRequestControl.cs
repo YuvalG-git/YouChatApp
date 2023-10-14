@@ -66,11 +66,13 @@ namespace YouChatApp.Controls
         public CircularPictureBox ProfilePicture => ProfilePictureCircularPictureBox;
 
         public System.Windows.Forms.Label ContactName => ChatNameLabel;
+        public System.Windows.Forms.Label FriendRequestTime => TimeLabel;
+
 
         private void AddFriendCustomButton_Click(object sender, EventArgs e)
         {
-            string FriendRequestResponseContent = ChatNameLabel.Text + "#" + ServerCommunication.FriendRequestResponseSender1;
-            ServerCommunication.SendMessage(ServerCommunication.FriendRequestResponseSender, FriendRequestResponseContent);
+            //string FriendRequestResponseContent = ChatNameLabel.Text + "#" + ServerCommunication.FriendRequestResponseSender1;
+            //ServerCommunication.SendMessage(ServerCommunication.FriendRequestResponseSender, FriendRequestResponseContent);
             OnFriendRequestApproval?.Invoke(this, e);
 
 
@@ -82,14 +84,14 @@ namespace YouChatApp.Controls
 
         private void DenyFriendRequestCustomButton_Click(object sender, EventArgs e)
         {
-            string FriendRequestResponseContent = ChatNameLabel.Text + "#" + ServerCommunication.FriendRequestResponseSender2;
-            ServerCommunication.SendMessage(ServerCommunication.FriendRequestResponseSender, FriendRequestResponseContent);
+            //string FriendRequestResponseContent = ChatNameLabel.Text + "#" + ServerCommunication.FriendRequestResponseSender2;
+            //ServerCommunication.SendMessage(ServerCommunication.FriendRequestResponseSender, FriendRequestResponseContent);
             OnFriendRequestRefusal?.Invoke(this, e);
 
         }
         public void OnFriendRequestRefusalHandler(EventHandler handler)
         {
-            OnFriendRequestApproval += handler;
+            OnFriendRequestRefusal += handler;
         }
 
         private void FriendRequestControl_MouseEnter(object sender, EventArgs e)
@@ -100,6 +102,16 @@ namespace YouChatApp.Controls
         private void FriendRequestControl_MouseLeave(object sender, EventArgs e)
         {
             this.BackgroundColor = _backgroundColor;
+
+        }
+        public void SetFriendRequestTimeLocation()
+        {
+            this.TimeLabel.Location = new System.Drawing.Point(this.Width - TimeLabel.Size.Width - 5, TimeLabel.Location.Y);
+
+        }
+        public void SetToolTip()
+        {
+            ToolTipSetter.SetToolTip(ChatNameLabel, ToolTip);
 
         }
     }

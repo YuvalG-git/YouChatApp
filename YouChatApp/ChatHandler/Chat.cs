@@ -72,31 +72,32 @@ namespace YouChatApp.ChatHandler
         }
         public string GetLastMessageTime()
         {
-            DateTime CurrentDate = DateTime.Now;
-            DateTime yesterdayDate = DateTime.Now.AddDays(-1);
-            DateTime lastWeekDate = DateTime.Now.AddDays(-7);
+            //DateTime CurrentDate = DateTime.Now;
+            //DateTime yesterdayDate = DateTime.Now.AddDays(-1);
+            //DateTime lastWeekDate = DateTime.Now.AddDays(-7);
 
-            if (_lastMessageTime.Date == CurrentDate.Date)
-            {
-                return _lastMessageTime.ToString("HH:mm");
-            }
-            else if(_lastMessageTime.Date == yesterdayDate.Date)
-            {
-                return "yesterday";
+            //if (_lastMessageTime.Date == CurrentDate.Date)
+            //{
+            //    return _lastMessageTime.ToString("HH:mm");
+            //}
+            //else if(_lastMessageTime.Date == yesterdayDate.Date)
+            //{
+            //    return "yesterday";
 
-            }
-            else if ((_lastMessageTime.Date >= lastWeekDate.Date) && (_lastMessageTime.Date < yesterdayDate.Date))
-            {
-                return _lastMessageTime.DayOfWeek.ToString();
-            }
-            else if (_lastMessageTime.Year == CurrentDate.Year)
-            {
-                return _lastMessageTime.ToString("MM/dd");
-            }
-            else
-            {
-                return _lastMessageTime.ToString("dd/MM/yyyy");
-            }
+            //}
+            //else if ((_lastMessageTime.Date >= lastWeekDate.Date) && (_lastMessageTime.Date < yesterdayDate.Date))
+            //{
+            //    return _lastMessageTime.DayOfWeek.ToString();
+            //}
+            //else if (_lastMessageTime.Year == CurrentDate.Year)
+            //{
+            //    return _lastMessageTime.ToString("MM/dd");
+            //}
+            //else
+            //{
+            //    return _lastMessageTime.ToString("dd/MM/yyyy");
+            //}
+            return TimeHandler.GetFormatTime(_lastMessageTime);
         }
         public void SetLastMessageTime(DateTime lastMessageSentTime)
         {

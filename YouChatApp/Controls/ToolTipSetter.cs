@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace YouChatApp.Controls
 {
-    internal class ToolStripSetter
+    internal class ToolTipSetter
     {
-        public static void SetToolStrip(Control control, ToolTip toolTip)
+        public static void SetToolTipBySpaceOver(Control control, ToolTip toolTip)
         {
             if (TextRenderer.MeasureText(control.Text, control.Font).Width > control.Width)
             {
@@ -19,6 +19,10 @@ namespace YouChatApp.Controls
             {
                 toolTip.SetToolTip(control, null);
             }
+        }
+        public static void SetToolTip(Control control, ToolTip toolTip)
+        {
+            toolTip.SetToolTip(control, control.Text);
         }
     }
 }

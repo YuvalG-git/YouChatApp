@@ -43,14 +43,15 @@ namespace YouChatApp.Controls
 
         public void SetToolTip()
         {
-            if (TextRenderer.MeasureText(UsernameLabel.Text, UsernameLabel.Font).Width > this.ClientSize.Width)
-            {
-                ToolTip.SetToolTip(UsernameLabel, UsernameLabel.Text);
-            }
-            else
-            {
-                ToolTip.SetToolTip(UsernameLabel, null); // Clear the tooltip if not needed
-            }
+            //if (TextRenderer.MeasureText(UsernameLabel.Text, UsernameLabel.Font).Width > this.ClientSize.Width)
+            //{
+            //    ToolTip.SetToolTip(UsernameLabel, UsernameLabel.Text);
+            //}
+            //else
+            //{
+            //    ToolTip.SetToolTip(UsernameLabel, null); // Clear the tooltip if not needed
+            //}
+            ToolTipSetter.SetToolTipBySpaceOver(UsernameLabel, ToolTip);
         }
         public void SetProfilePicture(Image image)
         {

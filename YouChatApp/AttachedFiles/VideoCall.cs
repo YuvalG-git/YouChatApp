@@ -185,7 +185,7 @@ namespace YouChatApp.AttachedFiles
         private void HandleAudioDeviceChange(object sender, EventArrivedEventArgs e)
         {
             // Refresh the camera list when a hardware change is detected.
-            BeginInvoke(new Action(RefreshCameraList));
+            BeginInvoke(new Action(RefreshAudioList));
         }
         private void RefreshCameraList()
         {
@@ -295,16 +295,15 @@ namespace YouChatApp.AttachedFiles
 
         private void UserVideoPictureBox_Click(object sender, EventArgs e)
         {
-            _myVideoIsSmall = !_myVideoIsSmall;
         }
 
         private void UserVideoPictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-            //if (e.Button == MouseButtons.Left)
-            //{
-            //    _isDragging = true;
-            //    _lastMousePosition = e.Location;
-            //}
+            if (e.Button == MouseButtons.Left)
+            {
+                _isDragging = true;
+                _lastMousePosition = e.Location;
+            }
         }
 
         private void UserVideoPictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -312,21 +311,105 @@ namespace YouChatApp.AttachedFiles
             //if (_isDragging)
             //{
 
-
-            //    _lastMousePosition = e.Location;
-
             //    UserVideoPictureBox.Left = e.X + UserVideoPictureBox.Left - _lastMousePosition.X;
             //    UserVideoPictureBox.Top = e.Y + UserVideoPictureBox.Top - _lastMousePosition.Y;
+            //    if (RemoteVideoPictureBox != null && UserVideoPictureBox.Bounds.IntersectsWith(RemoteVideoPictureBox.Bounds))
+            //    {
+            //        // Determine which side the UserVideoPictureBox should snap to
+            //        int centerX = RemoteVideoPictureBox.Left + RemoteVideoPictureBox.Width / 2;
+            //        int centerY = RemoteVideoPictureBox.Top + RemoteVideoPictureBox.Height / 2;
+
+            //        if (e.X < centerX)
+            //        {
+            //            // Snap to the left side
+            //            UserVideoPictureBox.Left = RemoteVideoPictureBox.Left - UserVideoPictureBox.Width;
+            //        }
+            //        else
+            //        {
+            //            // Snap to the right side
+            //            UserVideoPictureBox.Left = RemoteVideoPictureBox.Right;
+            //        }
+            //    }
             //}
+            //if (_isDragging)
+            //{
+            //    UserVideoPictureBox.Left = e.X + UserVideoPictureBox.Left - _lastMousePosition.X;
+            //    UserVideoPictureBox.Top = e.Y + UserVideoPictureBox.Top - _lastMousePosition.Y;
+
+            //    // Check for containment within the boundaries of the target PictureBox (e.g., TargetPictureBox)
+            //    PictureBox targetPictureBox = RemoteVideoPictureBox; // Replace with the actual name of your target PictureBox
+            //    if (targetPictureBox != null)
+            //    {
+            //        if (UserVideoPictureBox.Left < targetPictureBox.Left)
+            //        {
+            //            UserVideoPictureBox.Left = targetPictureBox.Left;
+            //        }
+            //        if (UserVideoPictureBox.Top < targetPictureBox.Top)
+            //        {
+            //            UserVideoPictureBox.Top = targetPictureBox.Top;
+            //        }
+            //        if (UserVideoPictureBox.Right > targetPictureBox.Right)
+            //        {
+            //            UserVideoPictureBox.Left = targetPictureBox.Right - UserVideoPictureBox.Width;
+            //        }
+            //        if (UserVideoPictureBox.Bottom > targetPictureBox.Bottom)
+            //        {
+            //            UserVideoPictureBox.Top = targetPictureBox.Bottom - UserVideoPictureBox.Height;
+            //        }
+            //    }
+            //}
+            if (_isDragging)
+            {
+                // Calculate the new position without moving it immediately
+                int newLeft = e.X + UserVideoPictureBox.Left - _lastMousePosition.X;
+                int newTop = e.Y + UserVideoPictureBox.Top - _lastMousePosition.Y;
+
+                // Check for containment within the boundaries of the target PictureBox (e.g., TargetPictureBox)
+                PictureBox targetPictureBox = RemoteVideoPictureBox; // Replace with the actual name of your target PictureBox
+                if (targetPictureBox != null)
+                {
+                    if (newLeft < targetPictureBox.Left)
+                    {
+                        newLeft = targetPictureBox.Left;
+                    }
+                    if (newTop < targetPictureBox.Top)
+                    {
+                        newTop = targetPictureBox.Top;
+                    }
+                    if (newLeft + UserVideoPictureBox.Width > targetPictureBox.Right)
+                    {
+                        newLeft = targetPictureBox.Right - UserVideoPictureBox.Width;
+                    }
+                    if (newTop + UserVideoPictureBox.Height > targetPictureBox.Bottom)
+                    {
+                        newTop = targetPictureBox.Bottom - UserVideoPictureBox.Height;
+                    }
+                }
+
+                // Update the PictureBox location only if it's within bounds
+                UserVideoPictureBox.Left = newLeft;
+                UserVideoPictureBox.Top = newTop;
+            }
         }
 
         private void UserVideoPictureBox_MouseUp(object sender, MouseEventArgs e)
         {
-        //    if (e.Button == MouseButtons.Left)
-        //    {
-        //        _isDragging = false;
-        //    }
-        //}
+            if (e.Button == MouseButtons.Left)
+            {
+                _isDragging = false;
+            }
+        }
+
+        private void UserVideoPictureBox_DoubleClick(object sender, EventArgs e)
+        {
+            _myVideoIsSmall = !_myVideoIsSmall;
+
+        }
+
+        private void RefreshCameraOptionsCustomButton_Click(object sender, EventArgs e)
+        {
+            RefreshCameraList();
+        }
     }
 
 }

@@ -206,6 +206,12 @@
     <Compile Include="Controls\CustomComboBox.Designer.cs">
       <DependentUpon>CustomComboBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CustomRichTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomRichTextBox.Designer.cs">
+      <DependentUpon>CustomRichTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CustomTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -255,7 +261,7 @@
     <Compile Include="Controls\ToggleButton.Designer.cs">
       <DependentUpon>ToggleButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ToolStripSetter.cs" />
+    <Compile Include="Controls\ToolTipSetter.cs" />
     <Compile Include="EmojiResourceSet.cs" />
     <Compile Include="Encryption\AESServiceProvider.cs" />
     <Compile Include="Encryption\Encryption.cs" />
@@ -289,6 +295,7 @@
       <DependentUpon>CountDown.resx</DependentUpon>
     </Compile>
     <Compile Include="StringHandler.cs" />
+    <Compile Include="TimeHandler.cs" />
     <Compile Include="UserProfile\Profile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -409,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ContactSharingControl.resx">
       <DependentUpon>ContactSharingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CustomRichTextBox.resx">
+      <DependentUpon>CustomRichTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CustomTextBox.resx">
       <DependentUpon>CustomTextBox.cs</DependentUpon>

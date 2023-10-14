@@ -39,5 +39,10 @@ namespace YouChatApp.AttachedFiles
                 LoadedImagePictureBox.BackgroundImage = RotatedPicture;
             }
         }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

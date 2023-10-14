@@ -84,6 +84,12 @@ namespace YouChatApp
             this.TimeLabel.Location = new System.Drawing.Point(this.Width - TimeLabel.Size.Width - 5, TimeLabel.Location.Y);
 
         }
+        public void SetToolTip()
+        {
+            ToolTipSetter.SetToolTip(ChatNameLabel, ToolTip);
+            ToolTipSetter.SetToolTip(LastMessageLabel, ToolTip);
+
+        }
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);

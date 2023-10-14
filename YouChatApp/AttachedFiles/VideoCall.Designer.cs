@@ -40,11 +40,11 @@
             this.AudioInputDeviceLabel = new System.Windows.Forms.Label();
             this.VideoDevicePanel = new System.Windows.Forms.Panel();
             this.VideoDeviceLabel = new System.Windows.Forms.Label();
-            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
             this.CameraDevicePictureBox = new System.Windows.Forms.PictureBox();
-            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
             this.UserVideoPictureBox = new System.Windows.Forms.PictureBox();
             this.RemoteVideoPictureBox = new System.Windows.Forms.PictureBox();
+            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
+            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
             this.BackgroundPanel.SuspendLayout();
             this.AudioOutputPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AudioOutputDevicePictureBox)).BeginInit();
@@ -180,6 +180,43 @@
             this.VideoDeviceLabel.TabIndex = 9;
             this.VideoDeviceLabel.Text = "Video Device";
             // 
+            // CameraDevicePictureBox
+            // 
+            this.CameraDevicePictureBox.Image = global::YouChatApp.Properties.Resources.CameraLens;
+            this.CameraDevicePictureBox.Location = new System.Drawing.Point(3, 32);
+            this.CameraDevicePictureBox.Name = "CameraDevicePictureBox";
+            this.CameraDevicePictureBox.Size = new System.Drawing.Size(26, 26);
+            this.CameraDevicePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CameraDevicePictureBox.TabIndex = 3;
+            this.CameraDevicePictureBox.TabStop = false;
+            // 
+            // UserVideoPictureBox
+            // 
+            this.UserVideoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.UserVideoPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.UserVideoPictureBox.Location = new System.Drawing.Point(479, 489);
+            this.UserVideoPictureBox.Name = "UserVideoPictureBox";
+            this.UserVideoPictureBox.Size = new System.Drawing.Size(240, 180);
+            this.UserVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.UserVideoPictureBox.TabIndex = 9;
+            this.UserVideoPictureBox.TabStop = false;
+            this.UserVideoPictureBox.SizeChanged += new System.EventHandler(this.VideoPictureBox_SizeChanged);
+            this.UserVideoPictureBox.Click += new System.EventHandler(this.UserVideoPictureBox_Click);
+            this.UserVideoPictureBox.DoubleClick += new System.EventHandler(this.UserVideoPictureBox_DoubleClick);
+            this.UserVideoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseDown);
+            this.UserVideoPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseMove);
+            this.UserVideoPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseUp);
+            // 
+            // RemoteVideoPictureBox
+            // 
+            this.RemoteVideoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.RemoteVideoPictureBox.Location = new System.Drawing.Point(79, 189);
+            this.RemoteVideoPictureBox.Name = "RemoteVideoPictureBox";
+            this.RemoteVideoPictureBox.Size = new System.Drawing.Size(640, 480);
+            this.RemoteVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.RemoteVideoPictureBox.TabIndex = 10;
+            this.RemoteVideoPictureBox.TabStop = false;
+            // 
             // RefreshCameraOptionsCustomButton
             // 
             this.RefreshCameraOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
@@ -198,16 +235,7 @@
             this.RefreshCameraOptionsCustomButton.TabIndex = 8;
             this.RefreshCameraOptionsCustomButton.TextColor = System.Drawing.Color.White;
             this.RefreshCameraOptionsCustomButton.UseVisualStyleBackColor = false;
-            // 
-            // CameraDevicePictureBox
-            // 
-            this.CameraDevicePictureBox.Image = global::YouChatApp.Properties.Resources.CameraLens;
-            this.CameraDevicePictureBox.Location = new System.Drawing.Point(3, 32);
-            this.CameraDevicePictureBox.Name = "CameraDevicePictureBox";
-            this.CameraDevicePictureBox.Size = new System.Drawing.Size(26, 26);
-            this.CameraDevicePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.CameraDevicePictureBox.TabIndex = 3;
-            this.CameraDevicePictureBox.TabStop = false;
+            this.RefreshCameraOptionsCustomButton.Click += new System.EventHandler(this.RefreshCameraOptionsCustomButton_Click);
             // 
             // CameraModeCustomButton
             // 
@@ -228,31 +256,6 @@
             this.CameraModeCustomButton.TextColor = System.Drawing.Color.White;
             this.CameraModeCustomButton.UseVisualStyleBackColor = false;
             this.CameraModeCustomButton.Click += new System.EventHandler(this.CameraModeCustomButton_Click);
-            // 
-            // UserVideoPictureBox
-            // 
-            this.UserVideoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.UserVideoPictureBox.Location = new System.Drawing.Point(479, 489);
-            this.UserVideoPictureBox.Name = "UserVideoPictureBox";
-            this.UserVideoPictureBox.Size = new System.Drawing.Size(240, 180);
-            this.UserVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.UserVideoPictureBox.TabIndex = 9;
-            this.UserVideoPictureBox.TabStop = false;
-            this.UserVideoPictureBox.SizeChanged += new System.EventHandler(this.VideoPictureBox_SizeChanged);
-            this.UserVideoPictureBox.Click += new System.EventHandler(this.UserVideoPictureBox_Click);
-            this.UserVideoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseDown);
-            this.UserVideoPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseMove);
-            this.UserVideoPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseUp);
-            // 
-            // RemoteVideoPictureBox
-            // 
-            this.RemoteVideoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RemoteVideoPictureBox.Location = new System.Drawing.Point(79, 189);
-            this.RemoteVideoPictureBox.Name = "RemoteVideoPictureBox";
-            this.RemoteVideoPictureBox.Size = new System.Drawing.Size(640, 480);
-            this.RemoteVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.RemoteVideoPictureBox.TabIndex = 10;
-            this.RemoteVideoPictureBox.TabStop = false;
             // 
             // VideoCall
             // 
