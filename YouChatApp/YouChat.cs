@@ -711,24 +711,41 @@ namespace YouChatApp
             DateTime FriendRequestTime;
             if (DateTime.TryParse(FriendRequestDateTimeAsString, out FriendRequestTime))
             {
-                if (FriendRequestsNumber == 0)
-                    heightForFriendRequests = 0;
-                else
-                    heightForFriendRequests = this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Location.Y + this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Size.Height;
-                this.ListOfFriendRequestControl.Add(new FriendRequestControl());
-                this.ListOfFriendRequestControl[FriendRequestsNumber].Location = new System.Drawing.Point(0, heightForFriendRequests);
-                this.ListOfFriendRequestControl[FriendRequestsNumber].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
-                this.ListOfFriendRequestControl[FriendRequestsNumber].TabIndex = 0;
-                this.ListOfFriendRequestControl[FriendRequestsNumber].ContactName.Text = ContactUsername;
-                this.ListOfFriendRequestControl[FriendRequestsNumber].FriendRequestTime.Text = TimeHandler.GetFormatTime(FriendRequestTime);
-                this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
-                this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
-                this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
-                this.ListOfFriendRequestControl[FriendRequestsNumber].SetFriendRequestTimeLocation();
-                this.ListOfFriendRequestControl[FriendRequestsNumber].SetToolTip();
-                this.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
-                this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
+                //if (FriendRequestsNumber == 0)
+                //    heightForFriendRequests = 0;
+                //else
+                //    heightForFriendRequests = this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Location.Y + this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Size.Height;
+                //this.ListOfFriendRequestControl.Add(new FriendRequestControl());
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].Location = new System.Drawing.Point(0, heightForFriendRequests);
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].TabIndex = 0;
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].ContactName.Text = ContactUsername;
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].FriendRequestTime.Text = TimeHandler.GetFormatTime(FriendRequestTime);
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].SetFriendRequestTimeLocation();
+                //this.ListOfFriendRequestControl[FriendRequestsNumber].SetToolTip();
+                //this.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
+                //this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
+                //FriendRequestsNumber++;
+
+
+                this.ListOfFriendRequestControl.Insert(0,new FriendRequestControl());
+                this.ListOfFriendRequestControl[0].Location = new System.Drawing.Point(0, 0);
+                this.ListOfFriendRequestControl[0].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
+                this.ListOfFriendRequestControl[0].TabIndex = 0;
+                this.ListOfFriendRequestControl[0].ContactName.Text = ContactUsername;
+                this.ListOfFriendRequestControl[0].FriendRequestTime.Text = TimeHandler.GetFormatTime(FriendRequestTime);
+                this.ListOfFriendRequestControl[0].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
+                this.ListOfFriendRequestControl[0].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
+                this.ListOfFriendRequestControl[0].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
+                this.ListOfFriendRequestControl[0].SetFriendRequestTimeLocation();
+                this.ListOfFriendRequestControl[0].SetToolTip();
+                this.Controls.Add(this.ListOfFriendRequestControl[0]);
+                this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[0]);
                 FriendRequestsNumber++;
+                RestartListOfFriendRequestControlLocation();
             }
             else
             {
@@ -1021,9 +1038,8 @@ namespace YouChatApp
         {
             if (_firstTimeEnteringFriendRequestZone)
             {
-                //_firstTimeEnteringFriendRequestZone = false;
-                //ServerCommunication.SendMessage(ServerCommunication.PastFriendRequestsRequest, " ");
-                SetListOfFriendRequestControl("Yuval^Animal4#Ben^Animal5#Dan^Animal2#Omer^Animal4#Shai^Animal7#Amir^Animal11#Yuval^Animal4#Ben^Animal5#Dan^Animal2#Omer^Animal4#Shai^Animal7#Amir^Animal11");
+                _firstTimeEnteringFriendRequestZone = false;
+                ServerCommunication.SendMessage(ServerCommunication.PastFriendRequestsRequest, " ");
             }
             GroupCreatorBackgroundPanel.Visible = false;
             ContactManagementPanel.Visible = true;
