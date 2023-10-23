@@ -539,7 +539,7 @@ namespace YouChatApp
             string username = ((ChatControl)(sender)).ChatName.Text;
             ContactHandler.Contact contact = ContactHandler.ContactManager.GetContact(username); //will works for users only and not for groups...
             ChatHandler.Chat chat = ChatHandler.ChatManager.GetChat(username); //will works for users only and not for groups...
-
+            ChatHandler.ChatManager.CurrentChatName = username;
             CurrentChatNameLabel.Text = chat._chatName;
             CurrentPictureChatPictureBox.BackgroundImage = chat._chatProfilePicture;
             if (contact != null)
@@ -1303,6 +1303,24 @@ namespace YouChatApp
                 ServerCommunication._contactSharing = new ContactSharing();
             }
             this.Invoke(new Action(() => ServerCommunication._contactSharing.ShowDialog()));
+        }
+
+        private void VideoCallCustomButton_Click(object sender, EventArgs e)
+        {
+            string chatName = CurrentChatNameLabel.Text;
+            ServerCommunication._waitingForm = new WaitingForm();
+            this.Invoke(new Action(() => ServerCommunication._waitingForm.ShowDialog()));
+            ServerCommunication.SendMessage(ServerCommunication.VideoCallRequest, chatName);
+           
+        }
+
+        private void DrawingFileCustomButton_Click(object sender, EventArgs e)
+        {
+            if (ServerCommunication._paint == null)
+            {
+                ServerCommunication._paint = new Paint();
+            }
+            this.Invoke(new Action(() => ServerCommunication._paint.ShowDialog()));
         }
     }
 }

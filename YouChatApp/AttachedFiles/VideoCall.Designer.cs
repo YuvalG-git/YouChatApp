@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.CameraDeviceComboBox = new System.Windows.Forms.ComboBox();
             this.AudioInputDeviceComboBox = new System.Windows.Forms.ComboBox();
             this.BackgroundPanel = new System.Windows.Forms.Panel();
@@ -40,11 +41,12 @@
             this.AudioInputDeviceLabel = new System.Windows.Forms.Label();
             this.VideoDevicePanel = new System.Windows.Forms.Panel();
             this.VideoDeviceLabel = new System.Windows.Forms.Label();
+            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
             this.CameraDevicePictureBox = new System.Windows.Forms.PictureBox();
+            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
             this.UserVideoPictureBox = new System.Windows.Forms.PictureBox();
             this.RemoteVideoPictureBox = new System.Windows.Forms.PictureBox();
-            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
-            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.BackgroundPanel.SuspendLayout();
             this.AudioOutputPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AudioOutputDevicePictureBox)).BeginInit();
@@ -58,20 +60,20 @@
             // 
             // CameraDeviceComboBox
             // 
-            this.CameraDeviceComboBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CameraDeviceComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CameraDeviceComboBox.FormattingEnabled = true;
             this.CameraDeviceComboBox.Location = new System.Drawing.Point(35, 32);
             this.CameraDeviceComboBox.Name = "CameraDeviceComboBox";
-            this.CameraDeviceComboBox.Size = new System.Drawing.Size(121, 26);
+            this.CameraDeviceComboBox.Size = new System.Drawing.Size(121, 28);
             this.CameraDeviceComboBox.TabIndex = 0;
             // 
             // AudioInputDeviceComboBox
             // 
-            this.AudioInputDeviceComboBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AudioInputDeviceComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AudioInputDeviceComboBox.FormattingEnabled = true;
             this.AudioInputDeviceComboBox.Location = new System.Drawing.Point(35, 32);
             this.AudioInputDeviceComboBox.Name = "AudioInputDeviceComboBox";
-            this.AudioInputDeviceComboBox.Size = new System.Drawing.Size(121, 26);
+            this.AudioInputDeviceComboBox.Size = new System.Drawing.Size(121, 28);
             this.AudioInputDeviceComboBox.TabIndex = 6;
             this.AudioInputDeviceComboBox.SelectedIndexChanged += new System.EventHandler(this.AudioDeviceComboBox_SelectedIndexChanged);
             // 
@@ -109,21 +111,21 @@
             // 
             // AudioOutputDeviceComboBox
             // 
-            this.AudioOutputDeviceComboBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AudioOutputDeviceComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AudioOutputDeviceComboBox.FormattingEnabled = true;
             this.AudioOutputDeviceComboBox.Location = new System.Drawing.Point(35, 32);
             this.AudioOutputDeviceComboBox.Name = "AudioOutputDeviceComboBox";
-            this.AudioOutputDeviceComboBox.Size = new System.Drawing.Size(121, 26);
+            this.AudioOutputDeviceComboBox.Size = new System.Drawing.Size(121, 28);
             this.AudioOutputDeviceComboBox.TabIndex = 6;
             // 
             // AudioOutputDeviceLabel
             // 
             this.AudioOutputDeviceLabel.AutoSize = true;
-            this.AudioOutputDeviceLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AudioOutputDeviceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AudioOutputDeviceLabel.ForeColor = System.Drawing.Color.White;
             this.AudioOutputDeviceLabel.Location = new System.Drawing.Point(0, 0);
             this.AudioOutputDeviceLabel.Name = "AudioOutputDeviceLabel";
-            this.AudioOutputDeviceLabel.Size = new System.Drawing.Size(172, 18);
+            this.AudioOutputDeviceLabel.Size = new System.Drawing.Size(155, 20);
             this.AudioOutputDeviceLabel.TabIndex = 9;
             this.AudioOutputDeviceLabel.Text = "Audio Output Device";
             // 
@@ -150,11 +152,11 @@
             // AudioInputDeviceLabel
             // 
             this.AudioInputDeviceLabel.AutoSize = true;
-            this.AudioInputDeviceLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AudioInputDeviceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AudioInputDeviceLabel.ForeColor = System.Drawing.Color.White;
             this.AudioInputDeviceLabel.Location = new System.Drawing.Point(0, 0);
             this.AudioInputDeviceLabel.Name = "AudioInputDeviceLabel";
-            this.AudioInputDeviceLabel.Size = new System.Drawing.Size(158, 18);
+            this.AudioInputDeviceLabel.Size = new System.Drawing.Size(143, 20);
             this.AudioInputDeviceLabel.TabIndex = 9;
             this.AudioInputDeviceLabel.Text = "Audio Input Device";
             // 
@@ -172,13 +174,33 @@
             // VideoDeviceLabel
             // 
             this.VideoDeviceLabel.AutoSize = true;
-            this.VideoDeviceLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VideoDeviceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VideoDeviceLabel.ForeColor = System.Drawing.Color.White;
             this.VideoDeviceLabel.Location = new System.Drawing.Point(0, 0);
             this.VideoDeviceLabel.Name = "VideoDeviceLabel";
-            this.VideoDeviceLabel.Size = new System.Drawing.Size(112, 18);
+            this.VideoDeviceLabel.Size = new System.Drawing.Size(102, 20);
             this.VideoDeviceLabel.TabIndex = 9;
             this.VideoDeviceLabel.Text = "Video Device";
+            // 
+            // RefreshCameraOptionsCustomButton
+            // 
+            this.RefreshCameraOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshCameraOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshCameraOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
+            this.RefreshCameraOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RefreshCameraOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.RefreshCameraOptionsCustomButton.BorderRadius = 10;
+            this.RefreshCameraOptionsCustomButton.BorderSize = 0;
+            this.RefreshCameraOptionsCustomButton.FlatAppearance.BorderSize = 0;
+            this.RefreshCameraOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshCameraOptionsCustomButton.ForeColor = System.Drawing.Color.White;
+            this.RefreshCameraOptionsCustomButton.Location = new System.Drawing.Point(162, 30);
+            this.RefreshCameraOptionsCustomButton.Name = "RefreshCameraOptionsCustomButton";
+            this.RefreshCameraOptionsCustomButton.Size = new System.Drawing.Size(30, 30);
+            this.RefreshCameraOptionsCustomButton.TabIndex = 8;
+            this.RefreshCameraOptionsCustomButton.TextColor = System.Drawing.Color.White;
+            this.RefreshCameraOptionsCustomButton.UseVisualStyleBackColor = false;
+            this.RefreshCameraOptionsCustomButton.Click += new System.EventHandler(this.RefreshCameraOptionsCustomButton_Click);
             // 
             // CameraDevicePictureBox
             // 
@@ -189,6 +211,26 @@
             this.CameraDevicePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.CameraDevicePictureBox.TabIndex = 3;
             this.CameraDevicePictureBox.TabStop = false;
+            // 
+            // CameraModeCustomButton
+            // 
+            this.CameraModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.CameraModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.CameraModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoOpen;
+            this.CameraModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CameraModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.CameraModeCustomButton.BorderRadius = 10;
+            this.CameraModeCustomButton.BorderSize = 0;
+            this.CameraModeCustomButton.FlatAppearance.BorderSize = 0;
+            this.CameraModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CameraModeCustomButton.ForeColor = System.Drawing.Color.White;
+            this.CameraModeCustomButton.Location = new System.Drawing.Point(696, 18);
+            this.CameraModeCustomButton.Name = "CameraModeCustomButton";
+            this.CameraModeCustomButton.Size = new System.Drawing.Size(80, 60);
+            this.CameraModeCustomButton.TabIndex = 7;
+            this.CameraModeCustomButton.TextColor = System.Drawing.Color.White;
+            this.CameraModeCustomButton.UseVisualStyleBackColor = false;
+            this.CameraModeCustomButton.Click += new System.EventHandler(this.CameraModeCustomButton_Click);
             // 
             // UserVideoPictureBox
             // 
@@ -216,46 +258,6 @@
             this.RemoteVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.RemoteVideoPictureBox.TabIndex = 10;
             this.RemoteVideoPictureBox.TabStop = false;
-            // 
-            // RefreshCameraOptionsCustomButton
-            // 
-            this.RefreshCameraOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshCameraOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshCameraOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
-            this.RefreshCameraOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.RefreshCameraOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.RefreshCameraOptionsCustomButton.BorderRadius = 10;
-            this.RefreshCameraOptionsCustomButton.BorderSize = 0;
-            this.RefreshCameraOptionsCustomButton.FlatAppearance.BorderSize = 0;
-            this.RefreshCameraOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RefreshCameraOptionsCustomButton.ForeColor = System.Drawing.Color.White;
-            this.RefreshCameraOptionsCustomButton.Location = new System.Drawing.Point(162, 30);
-            this.RefreshCameraOptionsCustomButton.Name = "RefreshCameraOptionsCustomButton";
-            this.RefreshCameraOptionsCustomButton.Size = new System.Drawing.Size(30, 30);
-            this.RefreshCameraOptionsCustomButton.TabIndex = 8;
-            this.RefreshCameraOptionsCustomButton.TextColor = System.Drawing.Color.White;
-            this.RefreshCameraOptionsCustomButton.UseVisualStyleBackColor = false;
-            this.RefreshCameraOptionsCustomButton.Click += new System.EventHandler(this.RefreshCameraOptionsCustomButton_Click);
-            // 
-            // CameraModeCustomButton
-            // 
-            this.CameraModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.CameraModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.CameraModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoOpen;
-            this.CameraModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CameraModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.CameraModeCustomButton.BorderRadius = 10;
-            this.CameraModeCustomButton.BorderSize = 0;
-            this.CameraModeCustomButton.FlatAppearance.BorderSize = 0;
-            this.CameraModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CameraModeCustomButton.ForeColor = System.Drawing.Color.White;
-            this.CameraModeCustomButton.Location = new System.Drawing.Point(696, 18);
-            this.CameraModeCustomButton.Name = "CameraModeCustomButton";
-            this.CameraModeCustomButton.Size = new System.Drawing.Size(80, 60);
-            this.CameraModeCustomButton.TabIndex = 7;
-            this.CameraModeCustomButton.TextColor = System.Drawing.Color.White;
-            this.CameraModeCustomButton.UseVisualStyleBackColor = false;
-            this.CameraModeCustomButton.Click += new System.EventHandler(this.CameraModeCustomButton_Click);
             // 
             // VideoCall
             // 
@@ -304,5 +306,6 @@
         private System.Windows.Forms.PictureBox AudioOutputDevicePictureBox;
         private System.Windows.Forms.ComboBox AudioOutputDeviceComboBox;
         private System.Windows.Forms.Label AudioOutputDeviceLabel;
+        private System.Windows.Forms.ToolTip ToolTip;
     }
 }

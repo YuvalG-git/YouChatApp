@@ -303,6 +303,36 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Chat1 {
+            get {
+                object obj = ResourceManager.GetObject("Chat1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ChatImage {
+            get {
+                object obj = ResourceManager.GetObject("ChatImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ChatInCircle {
+            get {
+                object obj = ResourceManager.GetObject("ChatInCircle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Circle {
             get {
                 object obj = ResourceManager.GetObject("Circle", resourceCulture);
@@ -386,6 +416,36 @@ namespace YouChatApp.Properties {
         internal static System.Drawing.Bitmap CropImage {
             get {
                 object obj = ResourceManager.GetObject("CropImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DeclineCall {
+            get {
+                object obj = ResourceManager.GetObject("DeclineCall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DeclineCallFinalImage {
+            get {
+                object obj = ResourceManager.GetObject("DeclineCallFinalImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DeclineCallImage {
+            get {
+                object obj = ResourceManager.GetObject("DeclineCallImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -556,6 +616,26 @@ namespace YouChatApp.Properties {
         internal static System.Drawing.Bitmap ItalicText {
             get {
                 object obj = ResourceManager.GetObject("ItalicText", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap JoinCall {
+            get {
+                object obj = ResourceManager.GetObject("JoinCall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap JoinCallImage {
+            get {
+                object obj = ResourceManager.GetObject("JoinCallImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1033,6 +1113,16 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap vecteezy_red_decline_call_icon_decline_phone_call_button_handset_23122076 {
+            get {
+                object obj = ResourceManager.GetObject("vecteezy_red-decline-call-icon-decline-phone-call-button-handset_23122076", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap VideoCall {
             get {
                 object obj = ResourceManager.GetObject("VideoCall", resourceCulture);
@@ -1066,6 +1156,16 @@ namespace YouChatApp.Properties {
         internal static System.Drawing.Bitmap VideoOpen {
             get {
                 object obj = ResourceManager.GetObject("VideoOpen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WaitingGif {
+            get {
+                object obj = ResourceManager.GetObject("WaitingGif", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

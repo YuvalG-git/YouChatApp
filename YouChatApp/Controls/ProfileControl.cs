@@ -67,14 +67,15 @@ namespace YouChatApp.Controls
 
         private void RemoveCustomButton_MouseEnter(object sender, EventArgs e)
         {
+            RemoveCustomButton.BackColor = Color.Transparent;
             RemoveCustomButton.BackgroundImage = _redColoredX;
 
         }
 
         private void RemoveCustomButton_MouseLeave(object sender, EventArgs e)
         {
+            RemoveCustomButton.BackColor = Color.Transparent;
             RemoveCustomButton.BackgroundImage = _blackColoredX;
-
         }
 
         private void RemoveCustomButton_Click(object sender, EventArgs e)

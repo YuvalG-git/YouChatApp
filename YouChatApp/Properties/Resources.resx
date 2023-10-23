@@ -133,11 +133,17 @@
   <data name="RefreshButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RefreshButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="BackgroundColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BackgroundColor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="UndoNotPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UndoNotPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Circle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChatImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChatImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExclamationMark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ExclamationMark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,8 +151,8 @@
   <data name="CaptchaBackground1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CaptchaBackground1.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ItalicText" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ItalicText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="approve" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\approve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Redo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Redo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -166,17 +172,23 @@
   <data name="Foward" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Foward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CaptchaBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CaptchaBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="vecteezy_red-decline-call-icon-decline-phone-call-button-handset_23122076" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vecteezy_red-decline-call-icon-decline-phone-call-button-handset_23122076.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ResetPasseword" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ResetPasseword.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="JoinCall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JoinCall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ReturnBackArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ReturnBackArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BackgroundColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BackgroundColor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Sharing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sharing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Share" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Share.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CameraImageTaker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CameraImageTaker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -189,6 +201,9 @@
   </data>
   <data name="UnderlineText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UnderlineText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JoinCallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JoinCallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CameraVideoOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CameraVideoOpen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,9 +235,6 @@
   <data name="CropImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CropImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Share" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Share.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="1f600" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\EmojiIcons\Smileys\1f600.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -241,8 +253,8 @@
   <data name="Rotate180" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Rotate180.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Timer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Timer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="VideoCall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VideoCall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Triangle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Triangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -259,11 +271,11 @@
   <data name="VideoOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VideoOpen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FlipHorizontally" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FlipHorizontally.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MenuBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MenuBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="returnArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\returnArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -276,6 +288,9 @@
   </data>
   <data name="logout" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CaptchaBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CaptchaBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -298,23 +313,26 @@
   <data name="SendOption" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SendOption.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="VideoCall" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\VideoCall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ItalicText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ItalicText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Text" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="DeclineCallFinalImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeclineCallFinalImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UserProfile2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UserProfile2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MenuBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MenuBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FlipHorizontally" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FlipHorizontally.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1f6001" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\EmojiIcons\Smileys\1f600.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Timer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Timer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaveOption" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveOption.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -330,6 +348,9 @@
   </data>
   <data name="CloseBlackColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CloseBlackColor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawingFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DrawingFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Microphone" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Microphone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -367,14 +388,17 @@
   <data name="StrikeoutText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StrikeoutText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sendMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sendMessage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="DeclineCallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeclineCallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DrawingFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DrawingFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="DeclineCall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeclineCall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BoldText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BoldText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Chat1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Chat1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StrikeoutText1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StrikeoutText1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -394,14 +418,20 @@
   <data name="reset" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\reset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="WaitingGif" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WaitingGif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PictureUploader" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PictureUploader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="approve" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\approve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Text" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Timer1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Timer1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sendMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sendMessage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RotateLeft90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RotateLeft90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -421,7 +451,7 @@
   <data name="EmojiFile1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EmojiFile1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sharing" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sharing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChatInCircle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChatInCircle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

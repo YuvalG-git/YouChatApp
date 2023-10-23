@@ -91,7 +91,6 @@ namespace YouChatApp
             this.TakePhotoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UploadPhotoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EmojiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DrawingFileButton = new System.Windows.Forms.Button();
             this.DocumentFileButton = new System.Windows.Forms.Button();
             this.EmojiFileButton = new System.Windows.Forms.Button();
             this.PhotoFileButton = new System.Windows.Forms.Button();
@@ -99,6 +98,7 @@ namespace YouChatApp
             this.SendMessageButton = new System.Windows.Forms.Button();
             this.ProfileButton = new System.Windows.Forms.Button();
             this.UserFileCustomButton = new YouChatApp.Controls.CustomButton();
+            this.DrawingFileCustomButton = new YouChatApp.Controls.CustomButton();
             this.ContactManagementPanel.SuspendLayout();
             this.FriendRequestIdPanel.SuspendLayout();
             this.GroupCreatorBackgroundPanel.SuspendLayout();
@@ -167,6 +167,7 @@ namespace YouChatApp
             this.FriendRequestSenderCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.FriendRequestSenderCustomButton.BorderRadius = 10;
             this.FriendRequestSenderCustomButton.BorderSize = 0;
+            this.FriendRequestSenderCustomButton.Circular = false;
             this.FriendRequestSenderCustomButton.FlatAppearance.BorderSize = 0;
             this.FriendRequestSenderCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FriendRequestSenderCustomButton.ForeColor = System.Drawing.Color.White;
@@ -216,10 +217,10 @@ namespace YouChatApp
             // UserIDLabel
             // 
             this.UserIDLabel.AutoSize = true;
-            this.UserIDLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserIDLabel.Font = new System.Drawing.Font("Gadugi", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UserIDLabel.Location = new System.Drawing.Point(20, 38);
             this.UserIDLabel.Name = "UserIDLabel";
-            this.UserIDLabel.Size = new System.Drawing.Size(93, 24);
+            this.UserIDLabel.Size = new System.Drawing.Size(93, 25);
             this.UserIDLabel.TabIndex = 0;
             this.UserIDLabel.Text = "Your ID:";
             // 
@@ -235,10 +236,10 @@ namespace YouChatApp
             // HashtagLabel
             // 
             this.HashtagLabel.AutoSize = true;
-            this.HashtagLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HashtagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HashtagLabel.Location = new System.Drawing.Point(151, 775);
             this.HashtagLabel.Name = "HashtagLabel";
-            this.HashtagLabel.Size = new System.Drawing.Size(25, 28);
+            this.HashtagLabel.Size = new System.Drawing.Size(26, 29);
             this.HashtagLabel.TabIndex = 23;
             this.HashtagLabel.Text = "#";
             // 
@@ -273,6 +274,7 @@ namespace YouChatApp
             this.ContinueToGroupSettingsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.ContinueToGroupSettingsCustomButton.BorderRadius = 10;
             this.ContinueToGroupSettingsCustomButton.BorderSize = 0;
+            this.ContinueToGroupSettingsCustomButton.Circular = false;
             this.ContinueToGroupSettingsCustomButton.Enabled = false;
             this.ContinueToGroupSettingsCustomButton.FlatAppearance.BorderSize = 0;
             this.ContinueToGroupSettingsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -315,7 +317,7 @@ namespace YouChatApp
             // 
             // MessageTextBox
             // 
-            this.MessageTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MessageTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MessageTextBox.ForeColor = System.Drawing.Color.Silver;
             this.MessageTextBox.Location = new System.Drawing.Point(465, 969);
             this.MessageTextBox.Multiline = true;
@@ -332,10 +334,10 @@ namespace YouChatApp
             // ChatLabel
             // 
             this.ChatLabel.AutoSize = true;
-            this.ChatLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChatLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChatLabel.Location = new System.Drawing.Point(128, 31);
             this.ChatLabel.Name = "ChatLabel";
-            this.ChatLabel.Size = new System.Drawing.Size(129, 37);
+            this.ChatLabel.Size = new System.Drawing.Size(126, 37);
             this.ChatLabel.TabIndex = 4;
             this.ChatLabel.Text = "CHATS";
             // 
@@ -348,6 +350,7 @@ namespace YouChatApp
             this.ChatCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.ChatCustomButton.BorderRadius = 5;
             this.ChatCustomButton.BorderSize = 0;
+            this.ChatCustomButton.Circular = false;
             this.ChatCustomButton.FlatAppearance.BorderSize = 0;
             this.ChatCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ChatCustomButton.ForeColor = System.Drawing.Color.White;
@@ -369,6 +372,7 @@ namespace YouChatApp
             this.NewGroupCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.NewGroupCustomButton.BorderRadius = 5;
             this.NewGroupCustomButton.BorderSize = 0;
+            this.NewGroupCustomButton.Circular = false;
             this.NewGroupCustomButton.FlatAppearance.BorderSize = 0;
             this.NewGroupCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NewGroupCustomButton.ForeColor = System.Drawing.Color.White;
@@ -390,6 +394,7 @@ namespace YouChatApp
             this.NewContactCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.NewContactCustomButton.BorderRadius = 5;
             this.NewContactCustomButton.BorderSize = 0;
+            this.NewContactCustomButton.Circular = false;
             this.NewContactCustomButton.FlatAppearance.BorderSize = 0;
             this.NewContactCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NewContactCustomButton.ForeColor = System.Drawing.Color.White;
@@ -512,9 +517,10 @@ namespace YouChatApp
             this.RestartGroupSubjectCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.RestartGroupSubjectCustomButton.BorderRadius = 10;
             this.RestartGroupSubjectCustomButton.BorderSize = 0;
+            this.RestartGroupSubjectCustomButton.Circular = false;
             this.RestartGroupSubjectCustomButton.FlatAppearance.BorderSize = 0;
             this.RestartGroupSubjectCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RestartGroupSubjectCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RestartGroupSubjectCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RestartGroupSubjectCustomButton.ForeColor = System.Drawing.Color.White;
             this.RestartGroupSubjectCustomButton.Location = new System.Drawing.Point(135, 150);
             this.RestartGroupSubjectCustomButton.Name = "RestartGroupSubjectCustomButton";
@@ -531,7 +537,7 @@ namespace YouChatApp
             this.GroupSubjectCustomTextBox.BorderFocusColor = System.Drawing.Color.MidnightBlue;
             this.GroupSubjectCustomTextBox.BorderRadius = 0;
             this.GroupSubjectCustomTextBox.BorderSize = 2;
-            this.GroupSubjectCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupSubjectCustomTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupSubjectCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.GroupSubjectCustomTextBox.IsFocused = false;
             this.GroupSubjectCustomTextBox.Location = new System.Drawing.Point(20, 50);
@@ -553,30 +559,30 @@ namespace YouChatApp
             // GroupSubjectLengthLabel
             // 
             this.GroupSubjectLengthLabel.AutoSize = true;
-            this.GroupSubjectLengthLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupSubjectLengthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupSubjectLengthLabel.Location = new System.Drawing.Point(150, 20);
             this.GroupSubjectLengthLabel.Name = "GroupSubjectLengthLabel";
-            this.GroupSubjectLengthLabel.Size = new System.Drawing.Size(64, 18);
+            this.GroupSubjectLengthLabel.Size = new System.Drawing.Size(59, 20);
             this.GroupSubjectLengthLabel.TabIndex = 30;
             this.GroupSubjectLengthLabel.Text = "Length";
             // 
             // GroupSubjectLabel
             // 
             this.GroupSubjectLabel.AutoSize = true;
-            this.GroupSubjectLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupSubjectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupSubjectLabel.Location = new System.Drawing.Point(20, 20);
             this.GroupSubjectLabel.Name = "GroupSubjectLabel";
-            this.GroupSubjectLabel.Size = new System.Drawing.Size(128, 18);
+            this.GroupSubjectLabel.Size = new System.Drawing.Size(116, 20);
             this.GroupSubjectLabel.TabIndex = 29;
             this.GroupSubjectLabel.Text = "Group Subject:";
             // 
             // GroupIconLabel
             // 
             this.GroupIconLabel.AutoSize = true;
-            this.GroupIconLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupIconLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupIconLabel.Location = new System.Drawing.Point(20, 220);
             this.GroupIconLabel.Name = "GroupIconLabel";
-            this.GroupIconLabel.Size = new System.Drawing.Size(102, 18);
+            this.GroupIconLabel.Size = new System.Drawing.Size(93, 20);
             this.GroupIconLabel.TabIndex = 30;
             this.GroupIconLabel.Text = "Group Icon:";
             // 
@@ -593,10 +599,10 @@ namespace YouChatApp
             // GroupCreatorSettingsHeadlineLabel
             // 
             this.GroupCreatorSettingsHeadlineLabel.AutoSize = true;
-            this.GroupCreatorSettingsHeadlineLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupCreatorSettingsHeadlineLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupCreatorSettingsHeadlineLabel.Location = new System.Drawing.Point(125, 31);
             this.GroupCreatorSettingsHeadlineLabel.Name = "GroupCreatorSettingsHeadlineLabel";
-            this.GroupCreatorSettingsHeadlineLabel.Size = new System.Drawing.Size(191, 37);
+            this.GroupCreatorSettingsHeadlineLabel.Size = new System.Drawing.Size(190, 37);
             this.GroupCreatorSettingsHeadlineLabel.TabIndex = 31;
             this.GroupCreatorSettingsHeadlineLabel.Text = "NEW CHAT";
             // 
@@ -609,6 +615,7 @@ namespace YouChatApp
             this.ReturnToGroupContactsSelectionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.ReturnToGroupContactsSelectionCustomButton.BorderRadius = 10;
             this.ReturnToGroupContactsSelectionCustomButton.BorderSize = 0;
+            this.ReturnToGroupContactsSelectionCustomButton.Circular = false;
             this.ReturnToGroupContactsSelectionCustomButton.FlatAppearance.BorderSize = 0;
             this.ReturnToGroupContactsSelectionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ReturnToGroupContactsSelectionCustomButton.ForeColor = System.Drawing.Color.White;
@@ -628,9 +635,10 @@ namespace YouChatApp
             this.GroupCreatorCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.GroupCreatorCustomButton.BorderRadius = 10;
             this.GroupCreatorCustomButton.BorderSize = 0;
+            this.GroupCreatorCustomButton.Circular = false;
             this.GroupCreatorCustomButton.FlatAppearance.BorderSize = 0;
             this.GroupCreatorCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GroupCreatorCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupCreatorCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupCreatorCustomButton.ForeColor = System.Drawing.Color.White;
             this.GroupCreatorCustomButton.Location = new System.Drawing.Point(95, 765);
             this.GroupCreatorCustomButton.Name = "GroupCreatorCustomButton";
@@ -649,10 +657,10 @@ namespace YouChatApp
             // TimeLabel
             // 
             this.TimeLabel.AutoSize = true;
-            this.TimeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TimeLabel.Location = new System.Drawing.Point(10, 10);
             this.TimeLabel.Name = "TimeLabel";
-            this.TimeLabel.Size = new System.Drawing.Size(0, 18);
+            this.TimeLabel.Size = new System.Drawing.Size(0, 20);
             this.TimeLabel.TabIndex = 20;
             // 
             // CurrentChatPanel
@@ -678,6 +686,7 @@ namespace YouChatApp
             this.AudioCallCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.AudioCallCustomButton.BorderRadius = 5;
             this.AudioCallCustomButton.BorderSize = 0;
+            this.AudioCallCustomButton.Circular = false;
             this.AudioCallCustomButton.FlatAppearance.BorderSize = 0;
             this.AudioCallCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AudioCallCustomButton.ForeColor = System.Drawing.Color.White;
@@ -697,6 +706,7 @@ namespace YouChatApp
             this.VideoCallCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.VideoCallCustomButton.BorderRadius = 5;
             this.VideoCallCustomButton.BorderSize = 0;
+            this.VideoCallCustomButton.Circular = false;
             this.VideoCallCustomButton.FlatAppearance.BorderSize = 0;
             this.VideoCallCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VideoCallCustomButton.ForeColor = System.Drawing.Color.White;
@@ -706,34 +716,35 @@ namespace YouChatApp
             this.VideoCallCustomButton.TabIndex = 30;
             this.VideoCallCustomButton.TextColor = System.Drawing.Color.White;
             this.VideoCallCustomButton.UseVisualStyleBackColor = false;
+            this.VideoCallCustomButton.Click += new System.EventHandler(this.VideoCallCustomButton_Click);
             // 
             // ChatParticipantsLabel
             // 
             this.ChatParticipantsLabel.AutoSize = true;
-            this.ChatParticipantsLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChatParticipantsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChatParticipantsLabel.Location = new System.Drawing.Point(148, 41);
             this.ChatParticipantsLabel.Name = "ChatParticipantsLabel";
-            this.ChatParticipantsLabel.Size = new System.Drawing.Size(101, 18);
+            this.ChatParticipantsLabel.Size = new System.Drawing.Size(87, 20);
             this.ChatParticipantsLabel.TabIndex = 29;
             this.ChatParticipantsLabel.Text = "yuval, yuval";
             // 
             // LastSeenOnlineLabel
             // 
             this.LastSeenOnlineLabel.AutoSize = true;
-            this.LastSeenOnlineLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastSeenOnlineLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LastSeenOnlineLabel.Location = new System.Drawing.Point(83, 41);
             this.LastSeenOnlineLabel.Name = "LastSeenOnlineLabel";
-            this.LastSeenOnlineLabel.Size = new System.Drawing.Size(59, 18);
+            this.LastSeenOnlineLabel.Size = new System.Drawing.Size(54, 20);
             this.LastSeenOnlineLabel.TabIndex = 28;
             this.LastSeenOnlineLabel.Text = "Online";
             // 
             // CurrentChatNameLabel
             // 
             this.CurrentChatNameLabel.AutoSize = true;
-            this.CurrentChatNameLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CurrentChatNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CurrentChatNameLabel.Location = new System.Drawing.Point(82, 7);
             this.CurrentChatNameLabel.Name = "CurrentChatNameLabel";
-            this.CurrentChatNameLabel.Size = new System.Drawing.Size(69, 24);
+            this.CurrentChatNameLabel.Size = new System.Drawing.Size(68, 25);
             this.CurrentChatNameLabel.TabIndex = 27;
             this.CurrentChatNameLabel.Text = "Name";
             // 
@@ -774,52 +785,41 @@ namespace YouChatApp
             this.UploadPhotoToolStripMenuItem,
             this.EmojiToolStripMenuItem});
             this.GroupIconContextMenuStrip.Name = "GroupIconContextMenuStrip";
-            this.GroupIconContextMenuStrip.Size = new System.Drawing.Size(199, 118);
+            this.GroupIconContextMenuStrip.Size = new System.Drawing.Size(190, 118);
             // 
             // TakePhotoToolStripMenuItem
             // 
-            this.TakePhotoToolStripMenuItem.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TakePhotoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TakePhotoToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.CameraFlash;
             this.TakePhotoToolStripMenuItem.Name = "TakePhotoToolStripMenuItem";
-            this.TakePhotoToolStripMenuItem.Size = new System.Drawing.Size(198, 38);
+            this.TakePhotoToolStripMenuItem.Size = new System.Drawing.Size(189, 38);
             this.TakePhotoToolStripMenuItem.Text = "Take Photo";
             this.TakePhotoToolStripMenuItem.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             this.TakePhotoToolStripMenuItem.Click += new System.EventHandler(this.TakePhotoToolStripMenuItem_Click);
             // 
             // UploadPhotoToolStripMenuItem
             // 
-            this.UploadPhotoToolStripMenuItem.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UploadPhotoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UploadPhotoToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.UploadImage;
             this.UploadPhotoToolStripMenuItem.Name = "UploadPhotoToolStripMenuItem";
-            this.UploadPhotoToolStripMenuItem.Size = new System.Drawing.Size(198, 38);
+            this.UploadPhotoToolStripMenuItem.Size = new System.Drawing.Size(189, 38);
             this.UploadPhotoToolStripMenuItem.Text = "Upload Photo";
             this.UploadPhotoToolStripMenuItem.Click += new System.EventHandler(this.UploadPhotoToolStripMenuItem_Click);
             // 
             // EmojiToolStripMenuItem
             // 
-            this.EmojiToolStripMenuItem.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmojiToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EmojiToolStripMenuItem.Image = global::YouChatApp.Properties.Resources._1f6001;
             this.EmojiToolStripMenuItem.Name = "EmojiToolStripMenuItem";
-            this.EmojiToolStripMenuItem.Size = new System.Drawing.Size(198, 38);
+            this.EmojiToolStripMenuItem.Size = new System.Drawing.Size(189, 38);
             this.EmojiToolStripMenuItem.Text = "Emoji";
             this.EmojiToolStripMenuItem.Click += new System.EventHandler(this.EmojiToolStripMenuItem_Click);
-            // 
-            // DrawingFileButton
-            // 
-            this.DrawingFileButton.BackgroundImage = global::YouChatApp.Properties.Resources.DrawingFile;
-            this.DrawingFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DrawingFileButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DrawingFileButton.Location = new System.Drawing.Point(1857, 963);
-            this.DrawingFileButton.Name = "DrawingFileButton";
-            this.DrawingFileButton.Size = new System.Drawing.Size(40, 40);
-            this.DrawingFileButton.TabIndex = 22;
-            this.DrawingFileButton.UseVisualStyleBackColor = true;
             // 
             // DocumentFileButton
             // 
             this.DocumentFileButton.BackgroundImage = global::YouChatApp.Properties.Resources.DocumentFile;
             this.DocumentFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DocumentFileButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DocumentFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DocumentFileButton.Location = new System.Drawing.Point(1675, 962);
             this.DocumentFileButton.Name = "DocumentFileButton";
             this.DocumentFileButton.Size = new System.Drawing.Size(40, 40);
@@ -830,7 +830,7 @@ namespace YouChatApp
             // 
             this.EmojiFileButton.BackgroundImage = global::YouChatApp.Properties.Resources.EmojiFile;
             this.EmojiFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.EmojiFileButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmojiFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EmojiFileButton.Location = new System.Drawing.Point(1629, 962);
             this.EmojiFileButton.Name = "EmojiFileButton";
             this.EmojiFileButton.Size = new System.Drawing.Size(40, 40);
@@ -841,7 +841,7 @@ namespace YouChatApp
             // 
             this.PhotoFileButton.BackgroundImage = global::YouChatApp.Properties.Resources.PictureFile;
             this.PhotoFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PhotoFileButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PhotoFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PhotoFileButton.Location = new System.Drawing.Point(1767, 962);
             this.PhotoFileButton.Name = "PhotoFileButton";
             this.PhotoFileButton.Size = new System.Drawing.Size(40, 40);
@@ -853,7 +853,7 @@ namespace YouChatApp
             // 
             this.VideoFileButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoFile;
             this.VideoFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.VideoFileButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VideoFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VideoFileButton.Location = new System.Drawing.Point(1813, 962);
             this.VideoFileButton.Name = "VideoFileButton";
             this.VideoFileButton.Size = new System.Drawing.Size(40, 40);
@@ -893,6 +893,7 @@ namespace YouChatApp
             this.UserFileCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.UserFileCustomButton.BorderRadius = 5;
             this.UserFileCustomButton.BorderSize = 0;
+            this.UserFileCustomButton.Circular = false;
             this.UserFileCustomButton.FlatAppearance.BorderSize = 0;
             this.UserFileCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UserFileCustomButton.ForeColor = System.Drawing.Color.White;
@@ -904,14 +905,35 @@ namespace YouChatApp
             this.UserFileCustomButton.UseVisualStyleBackColor = false;
             this.UserFileCustomButton.Click += new System.EventHandler(this.UserFileCustomButton_Click);
             // 
+            // DrawingFileCustomButton
+            // 
+            this.DrawingFileCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
+            this.DrawingFileCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.DrawingFileCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.DrawingFile;
+            this.DrawingFileCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DrawingFileCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.DrawingFileCustomButton.BorderRadius = 5;
+            this.DrawingFileCustomButton.BorderSize = 0;
+            this.DrawingFileCustomButton.Circular = false;
+            this.DrawingFileCustomButton.FlatAppearance.BorderSize = 0;
+            this.DrawingFileCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DrawingFileCustomButton.ForeColor = System.Drawing.Color.White;
+            this.DrawingFileCustomButton.Location = new System.Drawing.Point(1859, 963);
+            this.DrawingFileCustomButton.Name = "DrawingFileCustomButton";
+            this.DrawingFileCustomButton.Size = new System.Drawing.Size(40, 40);
+            this.DrawingFileCustomButton.TabIndex = 33;
+            this.DrawingFileCustomButton.TextColor = System.Drawing.Color.White;
+            this.DrawingFileCustomButton.UseVisualStyleBackColor = false;
+            this.DrawingFileCustomButton.Click += new System.EventHandler(this.DrawingFileCustomButton_Click);
+            // 
             // YouChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1011);
+            this.Controls.Add(this.DrawingFileCustomButton);
             this.Controls.Add(this.UserFileCustomButton);
             this.Controls.Add(this.OptionsPanel);
-            this.Controls.Add(this.DrawingFileButton);
             this.Controls.Add(this.DocumentFileButton);
             this.Controls.Add(this.EmojiFileButton);
             this.Controls.Add(this.PhotoFileButton);
@@ -978,7 +1000,6 @@ namespace YouChatApp
         private System.Windows.Forms.Panel CurrentChatPanel;
         private System.Windows.Forms.Button VideoFileButton;
         private System.Windows.Forms.Button DocumentFileButton;
-        private System.Windows.Forms.Button DrawingFileButton;
         private System.Windows.Forms.Button PhotoFileButton;
         private System.Windows.Forms.Button EmojiFileButton;
         private System.Windows.Forms.PictureBox CurrentPictureChatPictureBox;
@@ -1029,5 +1050,6 @@ namespace YouChatApp
         private ToolStripMenuItem UploadPhotoToolStripMenuItem;
         private ToolStripMenuItem EmojiToolStripMenuItem;
         private CustomButton UserFileCustomButton;
+        private CustomButton DrawingFileCustomButton;
     }
 }

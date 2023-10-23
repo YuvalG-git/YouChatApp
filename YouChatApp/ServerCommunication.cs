@@ -44,6 +44,12 @@ namespace YouChatApp
         public const int UserConnectionCheckResponse = 57;
         public const int PastFriendRequestsRequest = 58;
         public const int PastFriendRequestsResponse = 59;
+        public const int BlockBeginning = 60;
+        public const int BlockEnding = 61;
+        public const int VideoCallRequest = 62;
+        public const int VideoCallResponse = 63;
+        public const int VideoCallResponseSender = 64;
+        public const int VideoCallResponseReciever = 65;
         public const int UserDetailsRequest = 46;
         public const int UserDetailsResponse = 47;
         public const int registerRequest = 1;
@@ -108,6 +114,10 @@ namespace YouChatApp
         const string PasswordMessageResponse4 = "Your past details aren't matching";
         public const string FriendRequestResponseSender1 = "Approval";
         public const string FriendRequestResponseSender2 = "Rejection";
+        const string VideoCallResponse1 = "Your friend is offline. Please try to call again.";
+        const string VideoCallResponse2 = "You have been asked to join a call";
+        public const string VideoCallResponseResult1 = "Joining the video call";
+        public const string VideoCallResponseResult2 = "Declining the video call";
 
         /// <summary>
         /// Object which represents the server's TCP client
@@ -135,6 +145,10 @@ namespace YouChatApp
         public static EmojiKeyboard _emojiKeyboard = null;
         public static ContactSharing _contactSharing = null;
         public static Camera _camera = null;
+        public static VideoCall _videoCall;
+        public static WaitingForm _waitingForm;
+        public static CallInvitation _callInvitation;
+        public static Paint _paint = null;
 
         private static UdpClient UdpClient;
 
@@ -478,11 +492,60 @@ namespace YouChatApp
                                 youChat.Invoke((Action)delegate { youChat.SetListOfFriendRequestControl(DecryptedMessageDetails); });
 
                             }
+                            else if (requestNumber == BlockBeginning)
+                            {
+                                string[] BlockContent = DecryptedMessageDetails.Split('#');
+                                string timeAsString = BlockContent[1];
+                                string message = BlockContent[0] + " for ";
+                                double time = double.Parse(timeAsString);
+                                if (time < 1)
+                                {
+                                    message += (time * 60) + " Seconds";
+                                }
+                                else
+                                {
+                                    message += (time) + " minute";
+                                    if (time != 1)
+                                    {
+                                        message += "s";
+                                    }
+                                }
+                                MessageBox.Show(message, "Ban.");
 
-                        }
+                                loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.HandleBan(time); });
+                            }
+                            else if (requestNumber == BlockEnding)
+                            {
+                                loginAndRegistration.Invoke((Action)delegate { loginAndRegistration.CancelBan(); });
 
-                       
+                            }
+                            else if (requestNumber == VideoCallResponse)
+                            {
+                                if (DecryptedMessageDetails == VideoCallResponse1)
+                                {
+                                    _waitingForm.Invoke((Action)delegate { _waitingForm.Hide(); });
+                                }
+                                else
+                                {
+                                    string[] messageInfo = DecryptedMessageDetails.Split('#');
+                                    string friendName = messageInfo[1];
+                                    _callInvitation = new CallInvitation(friendName);
+                                    _callInvitation.Invoke((Action)delegate { _callInvitation.Show(); }); //will it work?
+                                }
+                            }
+                            else if (requestNumber == VideoCallResponseReciever)
+                            {
+                                if (DecryptedMessageDetails == VideoCallResponseResult1)
+                                {
+                                    //open the video call form
+                                }
+                                else
+                                {
+                                    //close the waiting form and return to youchat form
 
+                                }
+                            }
+                        }                          
                     }
                     if (isConnected)
                     {

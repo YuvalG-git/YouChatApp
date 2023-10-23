@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,10 +15,25 @@ namespace YouChatApp.Controls
 {
     public partial class CustomButton : Button
     {
+        //private SoundPlayer player = new SoundPlayer(@"C:\Users\Yuval\Downloads\ClickSoundEffect.wav");
+        private SoundPlayer player = new SoundPlayer(Properties.Audio.ClickSoundEffect);
+
         private int BorderSizeProperty = 0;
         private int BorderRadiusProperty = 10;
         private Color BorderColorProperty = Color.PaleVioletRed;
 
+        private bool isCircular = false;
+
+        [Category("YouChat")]
+        public bool Circular
+        {
+            get { return isCircular; }
+            set
+            {
+                isCircular = value;
+                this.Invalidate();
+            }
+        }
         [Category("YouChat")]
         public int BorderSize
         {
@@ -103,47 +119,80 @@ namespace YouChatApp.Controls
 
             Rectangle RectangleSurface = new Rectangle(0, 0, this.Width, this.Height);
             Rectangle RectangleBorder = new Rectangle(1, 1, this.Width - 1, this.Height - 1);
-
-            if (BorderRadiusProperty > 2)
+            if (isCircular)
             {
-                using (GraphicsPath PathSurface = GraphicsHandler.GetFigurePath(RectangleSurface, BorderRadiusProperty))
-                {
-                    using (GraphicsPath PathBorder = GraphicsHandler.GetFigurePath(RectangleBorder, BorderRadiusProperty - 1))
-                    {
-                        using (Pen PenSurface = new Pen(this.Parent.BackColor, 2))
-                        {
-                            using (Pen PenBorder = new Pen(BorderColorProperty, BorderSizeProperty))
-                            {
-                                PenBorder.Alignment = PenAlignment.Inset;
-                                this.Region = new Region(PathSurface);
-                                Pevent.Graphics.DrawPath(PenSurface, PathSurface);
-                                if (BorderSizeProperty >= 1)
-                                {
-                                    Pevent.Graphics.DrawPath(PenBorder, PathBorder);
+                //this.Region = new Region(RectangleSurface);
+                //using (Pen PenBorder = new Pen(BorderColorProperty, BorderSizeProperty))
+                //{
+                //    PenBorder.Alignment = PenAlignment.Inset;
+                //    Pevent.Graphics.DrawEllipse(PenBorder, 0, 0, ClientSize.Width, ClientSize.Height);
+            
+                //}
 
+                using (GraphicsPath path = new GraphicsPath())
+                {
+                    using (Pen PenBorder = new Pen(BorderColorProperty, BorderSizeProperty))
+                    {
+                        PenBorder.Alignment = PenAlignment.Inset;
+                        Pevent.Graphics.DrawEllipse(PenBorder, 1, 1, ClientSize.Width - 2, ClientSize.Height - 2);
+                        path.AddEllipse(0, 0, ClientSize.Width, ClientSize.Height);
+                        Region = new Region(path);
+                        base.OnPaint(Pevent);
+
+                    }
+
+
+                }
+            }
+            else
+            {
+                if (BorderRadiusProperty > 2)
+                {
+                    using (GraphicsPath PathSurface = GraphicsHandler.GetFigurePath(RectangleSurface, BorderRadiusProperty))
+                    {
+                        using (GraphicsPath PathBorder = GraphicsHandler.GetFigurePath(RectangleBorder, BorderRadiusProperty - 1))
+                        {
+                            using (Pen PenSurface = new Pen(this.Parent.BackColor, 2))
+                            {
+                                using (Pen PenBorder = new Pen(BorderColorProperty, BorderSizeProperty))
+                                {
+                                    PenBorder.Alignment = PenAlignment.Inset;
+                                    this.Region = new Region(PathSurface);
+                                    Pevent.Graphics.DrawPath(PenSurface, PathSurface);
+                                    if (BorderSizeProperty >= 1)
+                                    {
+                                        Pevent.Graphics.DrawPath(PenBorder, PathBorder);
+
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-            else
-            {
-                this.Region = new Region(RectangleSurface);
-                if (BorderSizeProperty >= 1)
+                else
                 {
-                    using (Pen PenBorder = new Pen(BorderColorProperty, BorderSizeProperty))
+                    this.Region = new Region(RectangleSurface);
+                    if (BorderSizeProperty >= 1)
                     {
-                        PenBorder.Alignment = PenAlignment.Inset;
-                        Pevent.Graphics.DrawRectangle(PenBorder, 0, 0, this.Width - 1, this.Height - 1);
+                        using (Pen PenBorder = new Pen(BorderColorProperty, BorderSizeProperty))
+                        {
+                            PenBorder.Alignment = PenAlignment.Inset;
+                            Pevent.Graphics.DrawRectangle(PenBorder, 0, 0, this.Width - 1, this.Height - 1);
+                        }
                     }
                 }
             }
+            
         }
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
             this.Parent.BackColorChanged += new EventHandler(ContainerBackColorChanged);
+        }
+        protected override void OnClick(EventArgs e)
+        {
+            player.Play();
+            base.OnClick(e);
         }
         private void ContainerBackColorChanged(object sender, EventArgs e)
         {

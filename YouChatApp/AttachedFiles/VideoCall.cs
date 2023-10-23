@@ -14,6 +14,8 @@ using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using NAudio.Wave;
+using System.Diagnostics.Tracing;
+using YouChatApp.UserProfile;
 
 namespace YouChatApp.AttachedFiles
 {
@@ -41,6 +43,10 @@ namespace YouChatApp.AttachedFiles
 
         private bool _isDragging = false;
         private Point _lastMousePosition;
+
+        private string _friendName;
+        private string _videoToolTipContent;
+        private string _friendVideoToolTipContent;
         public VideoCall()
         {
             InitializeComponent();
@@ -55,6 +61,13 @@ namespace YouChatApp.AttachedFiles
             InitializeAudioList();
             CurrentWidth = this.Width;
             CurrentHeight = this.Height;
+            VideoAndAudioServerCommunication.ConnectUdp("10.100.102.3",this);
+            _friendName = ChatHandler.ChatManager.CurrentChatName;
+            _videoToolTipContent = "Your Video";
+            _friendVideoToolTipContent = _friendName + "'s Video";
+            ToolTip.SetToolTip(UserVideoPictureBox, _videoToolTipContent);
+            ToolTip.SetToolTip(RemoteVideoPictureBox, _friendVideoToolTipContent);
+
             //videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             //if (videoDevices.Count == 0)
             //{
@@ -214,6 +227,7 @@ namespace YouChatApp.AttachedFiles
                 byte[] imageBytes = stream.ToArray();
 
                 // Send the image over UDP
+                VideoAndAudioServerCommunication.SendBytes(imageBytes);
                 //udpClient.Send(imageBytes, imageBytes.Length, endPoint);
             }
             if (_myVideoIsSmall)
@@ -403,12 +417,37 @@ namespace YouChatApp.AttachedFiles
         private void UserVideoPictureBox_DoubleClick(object sender, EventArgs e)
         {
             _myVideoIsSmall = !_myVideoIsSmall;
+            if (_myVideoIsSmall)
+            {
+                ToolTip.SetToolTip(UserVideoPictureBox, _videoToolTipContent);
+                ToolTip.SetToolTip(RemoteVideoPictureBox, _friendVideoToolTipContent);
+            }
+            else
+            {
+                ToolTip.SetToolTip(UserVideoPictureBox, _friendVideoToolTipContent);
+                ToolTip.SetToolTip(RemoteVideoPictureBox, _videoToolTipContent);
+            }
 
         }
 
         private void RefreshCameraOptionsCustomButton_Click(object sender, EventArgs e)
         {
             RefreshCameraList();
+        }
+
+
+
+        public void HandleReceivedImage(Image receivedImage)
+        {
+
+            if (_myVideoIsSmall)
+            {
+                RemoteVideoPictureBox.Image = receivedImage;
+            }
+            else
+            {
+                UserVideoPictureBox.Image = receivedImage;
+            }
         }
     }
 

@@ -121,6 +121,12 @@
     <Compile Include="AttachedFiles\AudioCall.Designer.cs">
       <DependentUpon>AudioCall.cs</DependentUpon>
     </Compile>
+    <Compile Include="AttachedFiles\CallInvitation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AttachedFiles\CallInvitation.Designer.cs">
+      <DependentUpon>CallInvitation.cs</DependentUpon>
+    </Compile>
     <Compile Include="AttachedFiles\Camera.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,13 @@
       <DependentUpon>Camera.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachedFiles\CountDownImageList.cs" />
+    <Compile Include="AttachedFiles\PaintHandler\Drawing.cs" />
+    <Compile Include="AttachedFiles\WaitingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AttachedFiles\WaitingForm.Designer.cs">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChatHandler\Chat.cs" />
     <Compile Include="ChatHandler\ChatLastMessageTimeComparer.cs" />
     <Compile Include="ChatHandler\ChatManager.cs" />
@@ -279,16 +292,21 @@
     <Compile Include="LoginAndRegistration.Designer.cs">
       <DependentUpon>LoginAndRegistration.cs</DependentUpon>
     </Compile>
-    <Compile Include="AttachedFiles\Paint.cs">
+    <Compile Include="AttachedFiles\PaintHandler\Paint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AttachedFiles\Paint.Designer.cs">
+    <Compile Include="AttachedFiles\PaintHandler\Paint.Designer.cs">
       <DependentUpon>Paint.cs</DependentUpon>
     </Compile>
     <Compile Include="MessageType.cs" />
     <Compile Include="OpenFileDialogHandler.cs" />
     <Compile Include="PanelHandler.cs" />
     <Compile Include="PasswordHandler.cs" />
+    <Compile Include="Properties\Audio.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Audio.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\CountDown.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -390,6 +408,9 @@
     <EmbeddedResource Include="AttachedFiles\AudioCall.resx">
       <DependentUpon>AudioCall.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AttachedFiles\CallInvitation.resx">
+      <DependentUpon>CallInvitation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\Camera.resx">
       <DependentUpon>Camera.cs</DependentUpon>
     </EmbeddedResource>
@@ -407,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\VideoCall.resx">
       <DependentUpon>VideoCall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AttachedFiles\WaitingForm.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ChatControl.resx">
       <DependentUpon>ChatControl.cs</DependentUpon>
@@ -450,8 +474,12 @@
     <EmbeddedResource Include="Controls\MessageControl.resx">
       <DependentUpon>MessageControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AttachedFiles\Paint.resx">
+    <EmbeddedResource Include="AttachedFiles\PaintHandler\Paint.resx">
       <DependentUpon>Paint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Audio.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Audio.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\CountDown.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -12229,6 +12257,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Sharing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ClickSoundEffect.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WaitingGif.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeclineCall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeclineCallImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JoinCall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JoinCallImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vecteezy_red-decline-call-icon-decline-phone-call-button-handset_23122076.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeclineCallFinalImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Chat1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ChatImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ChatInCircle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

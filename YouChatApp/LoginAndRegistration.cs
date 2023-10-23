@@ -81,7 +81,21 @@ namespace YouChatApp
         {
             UpdatePasswordUsernameCustomTextBox.PlaceHolderText = "Enter Username";
         }
+        public void HandleBan(double time)
+        {
+            LoginGroupBox.Enabled = false;
+            CountDownTimeLabel.Visible = true;
+            CountDownTimeLabel.Text = time.ToString();
 
+            CountDownTimeSpan = TimeSpan.FromMinutes(time);
+            CountDownTimer.Start();
+        }
+        public void CancelBan()
+        {
+            LoginGroupBox.Enabled = true;
+            CountDownTimeLabel.Visible = false;
+
+        }
         /// <summary>
         /// The method "OpenColorChoiceForm" sets the "name" variable in the ClientClass to the value entered in the "usernameloginTextbox" field
         /// It then hides the current form and creates a new instance of the ColorChoice form
@@ -397,7 +411,7 @@ namespace YouChatApp
             CountDownTimeSpan -= TimerTickTimeSpan;
             if (CountDownTimeSpan.TotalMilliseconds <= 0)
             {
-                CaptchaCountDownTimer.Stop();
+                CountDownTimer.Stop();
                 CountDownTimeLabel.Text = "Countdown Complete!";
                 LoginGroupBox.Enabled = true;
                 CaptchaLoginTextBox.Text = "";
@@ -571,7 +585,7 @@ namespace YouChatApp
         //}
         private void CreateCaptchaFailureWaitingTimeQueue() //todo to use this code again in the second captcha test
         {
-            TimerTickTimeSpan = TimeSpan.FromMilliseconds(CaptchaCountDownTimer.Interval);
+            TimerTickTimeSpan = TimeSpan.FromMilliseconds(CountDownTimer.Interval);
             CaptchaFailureWaitingTimeQueue = new Queue<double>();
             double[] WaitingTimeArray = { 0.25, 0.5, 1, 2, 3, 5, 10, 15, 20, 30 };
             foreach (double time in WaitingTimeArray)
@@ -1235,7 +1249,7 @@ namespace YouChatApp
                     CountDownTimeSpan = TimeSpan.FromMinutes(CountDownTime);
                     MessageBox.Show("Captcha Failed\nTry again in " + CountDownTimeSpan.ToString(@"mm\:ss"));
 
-                    CaptchaCountDownTimer.Start();
+                    CountDownTimer.Start();
                     CountDownTimeLabel.Visible = true;
                     LoginGroupBox.Enabled = false;
                 }
@@ -1327,6 +1341,11 @@ namespace YouChatApp
             UpdatePasswordGeneratorControl.Enabled = true;
             UpdatePasswordUsernameCustomTextBox.Enabled = true;
             UpdatePasswordButton.Enabled = true;
+        }
+
+        private void CountDownTimeLabel_Click(object sender, EventArgs e)
+        {
+
         }
 
         private double CalculateRotationAngle(Point clickPoint)
