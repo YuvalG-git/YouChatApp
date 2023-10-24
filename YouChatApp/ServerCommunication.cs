@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Messaging;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
@@ -50,6 +53,8 @@ namespace YouChatApp
         public const int VideoCallResponse = 63;
         public const int VideoCallResponseSender = 64;
         public const int VideoCallResponseReciever = 65;
+        public const int GroupCreatorRequest = 66;
+        public const int GroupCreatorResponse = 67;
         public const int UserDetailsRequest = 46;
         public const int UserDetailsResponse = 47;
         public const int registerRequest = 1;
@@ -626,19 +631,23 @@ namespace YouChatApp
                 }
             }
         }
-        public static void SendMessageAndImage(string message, Image image)
+        public static void SendMessageAndImage(int messageId, string messageContent, Image image)
         {
             if (isConnected)
             {
                 try
                 {
+                    string message = messageId + "$";
+    
+
+                    string EncryptedMessageContent = Encryption.Encryption.EncryptData(SymmetricKey, messageContent);
+                    byte[] EncryptedImage = Encryption.Encryption.EncryptData(SymmetricKey, image);
+                    message += EncryptedMessageContent;
                     NetworkStream ns = Client.GetStream();
-
                     // Send data to the client
-                    byte[] bytesToSend = System.Text.Encoding.ASCII.GetBytes(message);
-                    ns.Write(bytesToSend, 0, bytesToSend.Length);
-                    image.Save(ns, System.Drawing.Imaging.ImageFormat.Jpeg);
-
+                    byte[] StringBytesToSend = System.Text.Encoding.ASCII.GetBytes(message);
+                    ns.Write(StringBytesToSend, 0, StringBytesToSend.Length);
+                    ns.Write(EncryptedImage, 0, EncryptedImage.Length);
                     ns.Flush();
                 }
                 catch (Exception ex)

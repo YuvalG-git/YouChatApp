@@ -134,6 +134,12 @@
       <DependentUpon>Camera.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachedFiles\CountDownImageList.cs" />
+    <Compile Include="AttachedFiles\ImageViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AttachedFiles\ImageViewer.Designer.cs">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="AttachedFiles\PaintHandler\Drawing.cs" />
     <Compile Include="AttachedFiles\WaitingForm.cs">
       <SubType>Form</SubType>
@@ -425,6 +431,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\ImageHandler.resx">
       <DependentUpon>ImageHandler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AttachedFiles\ImageViewer.resx">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\VideoCall.resx">
       <DependentUpon>VideoCall.cs</DependentUpon>

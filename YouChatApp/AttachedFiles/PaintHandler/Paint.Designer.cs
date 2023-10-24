@@ -148,13 +148,14 @@ namespace YouChatApp
             // TextContentTextBox
             // 
             this.TextContentTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextContentTextBox.Location = new System.Drawing.Point(664, 0);
+            this.TextContentTextBox.Location = new System.Drawing.Point(664, 86);
             this.TextContentTextBox.Multiline = true;
             this.TextContentTextBox.Name = "TextContentTextBox";
             this.TextContentTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.TextContentTextBox.Size = new System.Drawing.Size(136, 36);
             this.TextContentTextBox.TabIndex = 3;
             this.TextContentTextBox.Visible = false;
+            this.TextContentTextBox.Leave += new System.EventHandler(this.TextContentTextBox_Leave);
             this.TextContentTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TextContentTextBox_MouseDown);
             this.TextContentTextBox.MouseLeave += new System.EventHandler(this.TextContentTextBox_MouseLeave);
             // 
@@ -507,11 +508,13 @@ namespace YouChatApp
             "72"});
             this.TextSizeToolStripComboBox.Name = "TextSizeToolStripComboBox";
             this.TextSizeToolStripComboBox.Size = new System.Drawing.Size(121, 25);
+            this.TextSizeToolStripComboBox.Click += new System.EventHandler(this.TextSizeToolStripComboBox_Click);
             // 
             // FontToolStripComboBox
             // 
             this.FontToolStripComboBox.Name = "FontToolStripComboBox";
             this.FontToolStripComboBox.Size = new System.Drawing.Size(121, 25);
+            this.FontToolStripComboBox.Click += new System.EventHandler(this.FontToolStripComboBox_Click);
             // 
             // BoldtoolStripButton
             // 
@@ -563,6 +566,7 @@ namespace YouChatApp
             this.DrawingBoardPictureBox.Size = new System.Drawing.Size(800, 366);
             this.DrawingBoardPictureBox.TabIndex = 2;
             this.DrawingBoardPictureBox.TabStop = false;
+            this.DrawingBoardPictureBox.Click += new System.EventHandler(this.DrawingBoardPictureBox_Click);
             this.DrawingBoardPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawingBoardPictureBox_Paint);
             this.DrawingBoardPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DrawingBoardPictureBox_MouseClick);
             this.DrawingBoardPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DrawingBoardPictureBox_MouseDown);

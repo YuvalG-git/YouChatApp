@@ -119,8 +119,9 @@ namespace YouChatApp
             RedoToolStripButton.Enabled = false;
 
             currentCanvasIndex = 0;
-            Drawing drawing = new Drawing(DrawingWidth, DrawingHeight, DrawingBoardPictureBox.Image);
-            //Drawing drawing = new Drawing(DrawingWidth, DrawingHeight, DrawingBitMap);
+            //Drawing drawing = new Drawing(DrawingWidth, DrawingHeight, DrawingBoardPictureBox.Image);
+            Image currentImage = new Bitmap(DrawingBitMap);
+            Drawing drawing = new Drawing(DrawingWidth, DrawingHeight, currentImage);
 
             LastCanvasUpdates.Insert(0, drawing);
         }
@@ -157,7 +158,6 @@ namespace YouChatApp
         private void DrawingBoardPictureBox_MouseUp(object sender, MouseEventArgs e) //was used for both mousedown and mouse up...
         {
             IsCursorMoving = false;
-            IsDrawing = false;
             CursorX = -1;
             CursorY = -1;
             CursorWidth = X - cX;
@@ -181,7 +181,11 @@ namespace YouChatApp
                 DrawingBoardPictureBox.Image = DrawingBitMap;
 
             }
-            InsertDrawing();
+            if (IsDrawing)
+            {
+                InsertDrawing();
+            }
+            IsDrawing = false;
         }
         private void DrawingBoardPictureBox_MouseMove(object sender, MouseEventArgs e)
         {
@@ -284,7 +288,7 @@ namespace YouChatApp
             if (PaintDialogResult == DialogResult.OK)
             {
                 Image DrawingBoardBackgroundImage = DrawingBoardPictureBox.BackgroundImage;
-                Image DrawingBoardImage = DrawingBoardPictureBox.Image;
+                Image DrawingBoardImage = DrawingBoardPictureBox.Image; //todo - needs to save a bitmap for only the drawing and for everything this way i will be able to do this..
                 Bitmap MergedBitmap = new Bitmap(DrawingWidth, DrawingHeight);
 
                 if (DrawingBoardPictureBox.BackgroundImage != null)
@@ -461,47 +465,74 @@ namespace YouChatApp
 
         private void TextContentTextBox_MouseLeave(object sender, EventArgs e) //maybe to switch this with mouse click anywhere else...
         {
-            if (IsTextContentTextBoxEntered)
-            {
-                IsTextContentTextBoxEntered = false;
-                string Text = TextContentTextBox.Text;
-                if (Text != "")
-                {
-                    string Font = FontToolStripComboBox.Text;
-                    string SizeAsString = TextSizeToolStripComboBox.Text;
-                    int Size = int.Parse(SizeAsString);
-                    FontStyle FontStyle = FontStyle.Regular; // Start with regular style
+            //if (IsTextContentTextBoxEntered)
+            //{
+            //    IsTextContentTextBoxEntered = false;
+            //    string Text = TextContentTextBox.Text;
+            //    if (Text != "")
+            //    {
+            //        string Font = FontToolStripComboBox.Text;
+            //        string SizeAsString = TextSizeToolStripComboBox.Text;
+            //        int Size = int.Parse(SizeAsString);
+            //        FontStyle FontStyle = FontStyle.Regular; // Start with regular style
 
-                    // Apply styles based on boolean values
-                    if (IsTextBold)
-                        FontStyle |= FontStyle.Bold;
+            //        // Apply styles based on boolean values
+            //        if (IsTextBold)
+            //            FontStyle |= FontStyle.Bold;
 
-                    if (IsTextItalic)
-                        FontStyle |= FontStyle.Italic;
+            //        if (IsTextItalic)
+            //            FontStyle |= FontStyle.Italic;
 
-                    if (IsTextUnderline)
-                        FontStyle |= FontStyle.Underline;
+            //        if (IsTextUnderline)
+            //            FontStyle |= FontStyle.Underline;
 
-                    if (IsTextStrikeout)
-                        FontStyle |= FontStyle.Strikeout;
+            //        if (IsTextStrikeout)
+            //            FontStyle |= FontStyle.Strikeout;
 
-                    Font DrawFont = new Font(Font, Size, FontStyle);
-                    SolidBrush drawBrush = new SolidBrush(BrushColor);
-                    Graphics.DrawString(Text, DrawFont, drawBrush, TextContentTextBox.Location.X, TextContentTextBox.Location.Y);
-                    DrawingBoardPictureBox.Image = DrawingBitMap;
+            //        Font DrawFont = new Font(Font, Size, FontStyle);
+            //        SolidBrush drawBrush = new SolidBrush(BrushColor);
+            //        Graphics.DrawString(Text, DrawFont, drawBrush, TextContentTextBox.Location.X, TextContentTextBox.Location.Y);
+            //        DrawingBoardPictureBox.Image = DrawingBitMap;
 
-                }
-                TextContentTextBox.Text = "";
-                TextContentTextBox.Visible = false;
-                PaintOptionIsChosenList[2] = false;
-                TextToolStrip.Visible = false;//needs to add a method of refreshing some of the things maybe?
+            //    }
+            //    TextContentTextBox.Text = "";
+            //    TextContentTextBox.Visible = false;
+            //    PaintOptionIsChosenList[2] = false;
+            //    TextToolStrip.Visible = false;//needs to add a method of refreshing some of the things maybe?
 
-            }
+            //}
         }
 
         private void TextContentTextBox_MouseDown(object sender, MouseEventArgs e)
         {
             IsTextContentTextBoxEntered = true;
+        }
+        private void ChangeTextContentTextBoxFont(FontStyle fontStyle)
+        {
+            Font originalFont = TextContentTextBox.Font; // The original font
+            FontStyle style = fontStyle; // The style you want to remove
+            FontStyle newStyle;
+            // Check if the style to remove is present in the original font
+            if (originalFont.Style.HasFlag(style))
+            {
+                // Remove the specified style from the original font style
+                newStyle = originalFont.Style & ~style;
+
+            }
+            else
+            {
+                newStyle = originalFont.Style | style;
+
+
+            }
+
+            // Create a new font with the modified style
+            Font newFont = new Font(originalFont, newStyle);
+
+            // Use the newFont as needed
+
+            // Don't forget to dispose of the newFont when you're done
+            TextContentTextBox.Font = newFont;
         }
 
 
@@ -512,13 +543,14 @@ namespace YouChatApp
             if (IsTextBold)
             {
                 BoldtoolStripButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+      
             }
             else
             {
                 BoldtoolStripButton.BackColor = System.Drawing.SystemColors.Control;
+
             }
-
-
+            ChangeTextContentTextBoxFont(FontStyle.Bold);
         }
 
         private void ItalicToolStripButton_Click(object sender, EventArgs e)
@@ -532,7 +564,10 @@ namespace YouChatApp
             {
                 ItalicToolStripButton.BackColor = System.Drawing.SystemColors.Control;
             }
+            ChangeTextContentTextBoxFont(FontStyle.Italic);
+
         }
+
 
         private void UnderlineToolStripButton_Click(object sender, EventArgs e)
         {
@@ -545,6 +580,8 @@ namespace YouChatApp
             {
                 UnderlineToolStripButton.BackColor = System.Drawing.SystemColors.Control;
             }
+            ChangeTextContentTextBoxFont(FontStyle.Underline);
+
         }
 
         private void StrikeoutToolStripButton_Click(object sender, EventArgs e)
@@ -558,6 +595,8 @@ namespace YouChatApp
             {
                 StrikeoutToolStripButton.BackColor = System.Drawing.SystemColors.Control;
             }
+            ChangeTextContentTextBoxFont(FontStyle.Strikeout);
+
         }
 
         private void DrawingBoardPictureBox_Paint(object sender, PaintEventArgs e) //todo - add a way that when drawing shapes, the current shape size and all will be shown - code below should have worked but it doesnt - maybe because the way i am using grapics
@@ -579,7 +618,10 @@ namespace YouChatApp
             //DrawingBoardPictureBox.Image = currentCanvas;
             //DrawingBoardPictureBox.Image = DrawingBitMap;
             TemporaryBitMap = new Bitmap(DrawingBitMap);
+            //Graphics graphics = Graphics.FromImage(TemporaryBitMap);
+            TemporaryGraphics = Graphics.FromImage(TemporaryBitMap);
 
+            //    DrawingBoardPictureBox.Image = DrawingBitMap;
             if (PaintOptionIsChosenList[3])
             {
                 TemporaryGraphics.DrawLine(DrawingPen, cX, cY, X, Y);
@@ -807,10 +849,128 @@ namespace YouChatApp
             Drawing drawing = LastCanvasUpdates[currentCanvasIndex];
             DrawingBoardPictureBox.Width = drawing.Width;
             DrawingBoardPictureBox.Height = drawing.Height;
-            DrawingBoardPictureBox.Image = drawing.DrawingImage;
             DrawingBitMap = (Bitmap)drawing.DrawingImage;
-            //Graphics.DrawImage(drawing.DrawingImage, new Point(0, 0));
+            Graphics = Graphics.FromImage(DrawingBitMap);
 
+            DrawingBoardPictureBox.Image = DrawingBitMap;
+
+
+        }
+
+        private void TextContentTextBox_Leave(object sender, EventArgs e) //maybe when pressing enter and than to a add a tooltip explaining this
+        {
+            //if (IsTextContentTextBoxEntered)
+            //{
+            //    IsTextContentTextBoxEntered = false;
+            //    string Text = TextContentTextBox.Text;
+            //    if (Text != "")
+            //    {
+            //        string Font = FontToolStripComboBox.Text;
+            //        string SizeAsString = TextSizeToolStripComboBox.Text;
+            //        int Size = int.Parse(SizeAsString);
+            //        FontStyle FontStyle = FontStyle.Regular; // Start with regular style
+
+            //        // Apply styles based on boolean values
+            //        if (IsTextBold)
+            //            FontStyle |= FontStyle.Bold;
+
+            //        if (IsTextItalic)
+            //            FontStyle |= FontStyle.Italic;
+
+            //        if (IsTextUnderline)
+            //            FontStyle |= FontStyle.Underline;
+
+            //        if (IsTextStrikeout)
+            //            FontStyle |= FontStyle.Strikeout;
+
+            //        Font DrawFont = new Font(Font, Size, FontStyle);
+            //        SolidBrush drawBrush = new SolidBrush(BrushColor);
+            //        Graphics.DrawString(Text, DrawFont, drawBrush, TextContentTextBox.Location.X, TextContentTextBox.Location.Y);
+            //        DrawingBoardPictureBox.Image = DrawingBitMap;
+
+            //    }
+            //    TextContentTextBox.Text = "";
+            //    TextContentTextBox.Visible = false;
+            //    PaintOptionIsChosenList[2] = false;
+            //    TextToolStrip.Visible = false;//needs to add a method of refreshing some of the things maybe?
+
+            //}
+        }
+
+        private void FontToolStripComboBox_Click(object sender, EventArgs e)
+        {
+            string newFontName = FontToolStripComboBox.Text;
+
+            Font originalFont = TextContentTextBox.Font; // The original font
+
+            // Create a new font with the desired font name
+            Font newFont = new Font(newFontName, originalFont.Size, originalFont.Style);
+            // Create a new font with the modified style
+
+            // Use the newFont as needed
+
+            // Don't forget to dispose of the newFont when you're done
+            TextContentTextBox.Font = newFont;
+        }
+
+        private void TextSizeToolStripComboBox_Click(object sender, EventArgs e)
+        {
+            string SizeAsString = TextSizeToolStripComboBox.Text;
+            int newSize = int.Parse(SizeAsString);
+            Font originalFont = TextContentTextBox.Font; // The original font
+
+            // Create a new font with the desired font name
+            Font newFont = new Font(originalFont.FontFamily, newSize, originalFont.Style);
+            // Create a new font with the modified style
+
+            // Use the newFont as needed
+
+            // Don't forget to dispose of the newFont when you're done
+            TextContentTextBox.Font = newFont;
+        }
+
+        private void DrawingBoardPictureBox_Click(object sender, EventArgs e)
+        {
+            if (TextContentTextBox.Visible)
+            {
+                if (IsTextContentTextBoxEntered)
+                {
+                    IsTextContentTextBoxEntered = false;
+                    string Text = TextContentTextBox.Text;
+                    if (Text != "")
+                    {
+                        string Font = FontToolStripComboBox.Text;
+                        string SizeAsString = TextSizeToolStripComboBox.Text;
+                        int Size = int.Parse(SizeAsString);
+                        FontStyle FontStyle = FontStyle.Regular; // Start with regular style
+
+                        // Apply styles based on boolean values
+                        if (IsTextBold)
+                            FontStyle |= FontStyle.Bold;
+
+                        if (IsTextItalic)
+                            FontStyle |= FontStyle.Italic;
+
+                        if (IsTextUnderline)
+                            FontStyle |= FontStyle.Underline;
+
+                        if (IsTextStrikeout)
+                            FontStyle |= FontStyle.Strikeout;
+
+                        Font DrawFont = new Font(Font, Size, FontStyle);
+                        SolidBrush drawBrush = new SolidBrush(BrushColor);
+
+                        Graphics.DrawString(Text, DrawFont, drawBrush, TextContentTextBox.Location.X, TextContentTextBox.Location.Y);
+                        DrawingBoardPictureBox.Image = DrawingBitMap;
+
+                    }
+                    TextContentTextBox.Text = "";
+                    TextContentTextBox.Visible = false;
+                    PaintOptionIsChosenList[2] = false;
+                    TextToolStrip.Visible = false;//needs to add a method of refreshing some of the things maybe?
+
+                }
+            }
         }
 
         private void ChangeBackgroundColor(Color BackgroundColor)

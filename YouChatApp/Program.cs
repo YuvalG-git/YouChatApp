@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YouChatApp.AttachedFiles;
@@ -21,7 +22,7 @@ namespace YouChatApp
             //Application.Run(new InitialProfileSelection());
 
             //Application.Run(new Profile());
-            Application.Run(new Paint());
+            //Application.Run(new Paint());
             //Application.Run(new ContactSharing());
             //Application.Run(new Document());
             //Application.Run(new ImageHandler());
@@ -31,6 +32,8 @@ namespace YouChatApp
             //Application.Run(new Camera());
             //Application.Run(new WaitingForm());
             //Application.Run(new CallInvitation("Yuval"));
+            Application.Run(new ImageViewer(Properties.MaleProfilePicture.BoyCharacter16));
+
             //Application.Run(new YouChat());
 
         }

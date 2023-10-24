@@ -1163,6 +1163,15 @@ namespace YouChatApp
         private void GroupCreatorCustomButton_Click(object sender, EventArgs e)
         {
             //will create a new group and refresh everything about the last group created...
+            string groupSubject = GroupSubjectCustomTextBox.TextContent;
+            Image groupIcon = GroupIconCircularPictureBox.BackgroundImage;
+            string groupContacts = UserProfile.ProfileDetailsHandler.Name;//the first which is who created the group will be the manager...
+            foreach (ProfileControl profileControl in ProfileControlList)
+            {
+                groupContacts += "^" + profileControl.Name;
+            }
+            string groupCreatorContents = GroupSubjectCustomTextBox.TextContent + "#" + groupContacts;
+            ServerCommunication.SendMessageAndImage(ServerCommunication.GroupCreatorRequest, groupCreatorContents, groupIcon);
         }
 
         private void GroupSubjectCustomTextBox_TextChangedEvent(object sender, EventArgs e)
