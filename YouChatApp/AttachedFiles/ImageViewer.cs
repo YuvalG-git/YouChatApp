@@ -30,20 +30,12 @@ namespace YouChatApp.AttachedFiles
             InitializeComponent();
             _imageToView = ImageToView;
             drawingImage = (Bitmap)_imageToView;
-            //ImagePictureBox.Image = _imageToView;
             imageRect = new RectangleF(Point.Empty, drawingImage.Size);
-            //ImagePictureBox.SetStyle(ControlStyles.Selectable | ControlStyles.UserMouse, true);
-            ImagePictureBox.BorderStyle = BorderStyle.FixedSingle;
-            ImagePictureBox.Location = new Point(10, 10);
             ImagePictureBox.MouseWheel += canvas_MouseWheel;
             ImagePictureBox.MouseMove += canvas_MouseMove;
             ImagePictureBox.MouseDown += canvas_MouseDown;
             ImagePictureBox.MouseUp += canvas_MouseUp;
             ImagePictureBox.Paint += canvas_Paint;
-            //ImagePictureBox.Size = ImagePictureBox.Image.Size;
-            //BackgroundPanel.Size = ImagePictureBox.Size;
-            //BackgroundPanel.Location = new Point(0, 0);
-            //this.Size = new Size(BackgroundPanel.Width, BackgroundPanel.Height);
         }
 
         private void ImageViewer_MouseWheel(object sender, MouseEventArgs e)
@@ -177,6 +169,26 @@ namespace YouChatApp.AttachedFiles
             ImagePictureBox.Focus();
 
         }
+        private void RotationTrackBar_Scroll(object sender, EventArgs e)
+        {
+            rotationAngle = RotationTrackBar.Value;
+            RotationAngleValueLabel.Text = rotationAngle.ToString();
+            ImagePictureBox.Invalidate();
+            ImagePictureBox.Focus();
+        }
+
+        private void ImageViewer_Deactivate(object sender, EventArgs e)
+        {
+            rotationAngle = 0.0f;
+            zoomFactor = 1.0f;
+            zoomStep = .05f;
+            imageRect = RectangleF.Empty;
+            imageLocation = PointF.Empty;
+            mouseLocation = PointF.Empty;
+            drawingImage = null;
+            zoomMode = ZoomMode.ImageLocation;
+            this.Hide();
+        }
 
         #region Drawing Methods
 
@@ -219,14 +231,6 @@ namespace YouChatApp.AttachedFiles
                                          rect.Y - (scaledOffset.Y - mouseOffset.Y));
             rect.Location = position;
             return rect;
-            
-        }
-
-        private void RotationTrackBar_Scroll(object sender, EventArgs e)
-        {
-            rotationAngle = RotationTrackBar.Value;
-            ImagePictureBox.Invalidate();
-            ImagePictureBox.Focus();
         }
     }
     #endregion

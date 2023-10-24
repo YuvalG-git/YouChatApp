@@ -44,5 +44,12 @@ namespace YouChatApp.AttachedFiles
         {
 
         }
+
+        private void LoadedImagePictureBox_Click(object sender, EventArgs e)
+        {
+            ImageViewer image = new ImageViewer(Properties.MaleProfilePicture.BoyCharacter16);
+            image.Show();
+
+        }
     }
 }

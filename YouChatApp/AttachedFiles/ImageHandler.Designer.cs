@@ -108,6 +108,7 @@
             this.LoadedImagePictureBox.Size = new System.Drawing.Size(400, 339);
             this.LoadedImagePictureBox.TabIndex = 1;
             this.LoadedImagePictureBox.TabStop = false;
+            this.LoadedImagePictureBox.Click += new System.EventHandler(this.LoadedImagePictureBox_Click);
             // 
             // customRichTextBox1
             // 

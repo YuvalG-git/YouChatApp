@@ -90,11 +90,14 @@ namespace YouChatApp.AttachedFiles
 
             if (videoDevices.Count == 0)
             {
+                CameraModeCustomButton.Enabled = false;
                 MessageBox.Show("No video devices found.");
                 return;
             }
             else
             {
+                CameraModeCustomButton.Enabled = true;
+
                 CameraDeviceComboBox.Items.Clear(); // Clear existing items.
 
                 foreach (FilterInfo device in videoDevices)
@@ -149,11 +152,6 @@ namespace YouChatApp.AttachedFiles
             // Refresh the camera list when a hardware change is detected.
             BeginInvoke(new Action(RefreshCameraList));
         }
-        private void HandleAudioDeviceChange(object sender, EventArrivedEventArgs e)
-        {
-            // Refresh the camera list when a hardware change is detected.
-            BeginInvoke(new Action(RefreshCameraList));
-        }
         private void RefreshCameraList()
         {
             InitializeCameraList(); // Refresh the camera list.
@@ -180,13 +178,17 @@ namespace YouChatApp.AttachedFiles
                 CameraIsOpen = true;
             else
                 CameraIsOpen = false;
-            if (CameraIsOpen == true)
+            if (CameraIsOpen)
             {
                 CameraModeCustomButton.BackgroundImage = CameraNotOpen;
+                ToolTip.SetToolTip(CameraModeCustomButton, "To stop video");
+                CameraOpenTimer.Start();
             }
             else
             {
                 CameraModeCustomButton.BackgroundImage = CameraOpen;
+                ToolTip.SetToolTip(CameraModeCustomButton, "To start video");
+                ImageTakerCustomButton.Enabled = false;
             }
             StartVideoSource();
         }
@@ -222,8 +224,9 @@ namespace YouChatApp.AttachedFiles
         {
             if (CameraIsOpen)
             {
-                isCropping = !isCropping;
-                SetCropControlsEnabledProperty();
+                isCropping = false;
+                SaveImageCustomButton.Enabled = true;
+
                 if (waitingTime == 0)
                 {
                     SetImage();
@@ -232,13 +235,14 @@ namespace YouChatApp.AttachedFiles
                 {
                     _isImageTaken = false;
                     SaveImageCustomButton.Enabled = false;
-
+                    UserImageTakenPictureBox.BackColor = Color.LightGray;
                     CountDownTimeSpan = TimeSpan.FromSeconds(waitingTime);
                     TimerTickTimeSpan = TimeSpan.FromMilliseconds(Timer.Interval);
                     UserImageTakenPictureBox.Image = CountDownImageList._CountDownImageList.Images[(int)CountDownTimeSpan.TotalSeconds - 1];
 
                     Timer.Start();
                 }
+                SetCropControlsEnabledProperty();
             }
         }
         private void SetImage()
@@ -251,6 +255,8 @@ namespace YouChatApp.AttachedFiles
                 UserImageTakenPictureBox.Image = capturedImage;
 
                 _isImageTaken = true;
+                isCropping = true;
+
                 UserImageTakenPictureBox.Invalidate();
 
                 //// Create a unique filename for the saved image (e.g., using a timestamp)
@@ -315,6 +321,38 @@ namespace YouChatApp.AttachedFiles
         }
         TimeSpan TimerTickTimeSpan;
         TimeSpan CountDownTimeSpan;
+        private void Camera_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (UserImageTakenPictureBox.Bounds.Contains(Cursor.Position))
+            {
+                if (isCropping)
+                {
+                    int newSize;
+                    if (e.Delta > 0)
+                    {
+                        // Zoom in
+                        newSize = (int)(_cropSize * 1.1);
+                    }
+                    else
+                    {
+                        // Zoom out
+                        newSize = (int)(_cropSize / 1.1);
+                    }
+                    if ((newSize <= (UserImageTakenPictureBox.Width - _cropXLocation)) && (newSize <= (UserImageTakenPictureBox.Height - _cropYLocation)) && (newSize >= CropSizeHorizontalScrollBar.Minimum) && (newSize >= CropSizeHorizontalScrollBar.Minimum))
+                    {
+                        _cropSize = newSize;
+                        CropSizeHorizontalScrollBar.Value = _cropSize;
+                        CropSizeCustomTextBox.TextContent = _cropSize.ToString();
+                        CropSizeCustomTextBox.SelectText(CropSizeCustomTextBox.Text.Length, 0);
+                        selectionCropRectangle.Width = _cropSize;
+                        selectionCropRectangle.Height = _cropSize;
+                        CropXLocationHorizontalScrollBar.Maximum = UserImageTakenPictureBox.Width - _cropSize;
+                        CropYLocationHorizontalScrollBar.Maximum = UserImageTakenPictureBox.Height - _cropSize;
+                        UserImageTakenPictureBox.Invalidate();
+                    }    
+                }
+            }
+        }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -322,8 +360,9 @@ namespace YouChatApp.AttachedFiles
             if (CountDownTimeSpan.TotalMilliseconds <= 0)
             {
                 Timer.Stop();
+                UserImageTakenPictureBox.BackColor = Color.Black;
                 SetImage();
-
+                SetCropControlsEnabledProperty();
 
             }
             else
@@ -332,6 +371,13 @@ namespace YouChatApp.AttachedFiles
                 //WaitingTimeLabel.Text = $"{CountDownTimeSpan:ss}";
             }
         }
+        private void CameraOpenTimer_Tick(object sender, EventArgs e)
+        {
+            ImageTakerCustomButton.Enabled = true;
+
+            CameraOpenTimer.Stop();
+        }
+
 
         private void SaveImageCustomButton_Click(object sender, EventArgs e)
         {
@@ -413,11 +459,17 @@ namespace YouChatApp.AttachedFiles
                     }
 
                     // Display the cropped image
-                    CroppedImagePictureBox.Image = croppedImage;
+                    OpenCroppedImageViewer(croppedImage);
+                    //CroppedImagePictureBox.Image = croppedImage;
                     ImageToSend = croppedImage;
                     SaveImageCustomButton.Enabled = true;
                 }
             }
+        }
+        private void OpenCroppedImageViewer(Image imageToView)
+        {
+            ImageViewer image = new ImageViewer(imageToView);
+            image.Show();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -449,7 +501,7 @@ namespace YouChatApp.AttachedFiles
             CropSizeHorizontalScrollBar.Enabled = isCropping;
             CropXLocationHorizontalScrollBar.Enabled = isCropping;
             CropYLocationHorizontalScrollBar.Enabled = isCropping;
-
+            CropImageCustomButton.Enabled = isCropping;
         }
         private void HandleCropSizeCustomTextBoxValue()
         {
@@ -729,6 +781,34 @@ namespace YouChatApp.AttachedFiles
         private void CropYLocationHorizontalScrollBar_ValueChanged(object sender, EventArgs e)
         {
             HandleLargeChangeValue(CropYLocationHorizontalScrollBar);
+        }
+
+        private void CroppedImagePictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UserVideoPictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RefreshCameraOptionsCustomButton_Click(object sender, EventArgs e)
+        {
+            InitializeCameraList(); // Refresh the camera list.
+
+        }
+
+        private void UserImageTakenPictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ReturnCustomButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.None;
+
+            this.Close();
         }
     }
 }

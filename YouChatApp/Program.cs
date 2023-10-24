@@ -29,10 +29,10 @@ namespace YouChatApp
             //Application.Run(new EmojiKeyboard());
             //Application.Run(new VideoCall());
             //Application.Run(new AudioCall());
-            //Application.Run(new Camera());
+            Application.Run(new Camera());
             //Application.Run(new WaitingForm());
             //Application.Run(new CallInvitation("Yuval"));
-            Application.Run(new ImageViewer(Properties.MaleProfilePicture.BoyCharacter16));
+            //Application.Run(new ImageViewer(Properties.MaleProfilePicture.BoyCharacter16));
 
             //Application.Run(new YouChat());
 
