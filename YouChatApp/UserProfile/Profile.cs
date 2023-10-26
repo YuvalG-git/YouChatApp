@@ -33,10 +33,10 @@ namespace YouChatApp
             InitializeComponent();
             YouChat = youChat;
             MaleImages = new Queue<Image>();
-            DirectoryInfo di = new DirectoryInfo(@"C:\\Users\\יובל\\Documents\\יא2 יובל\\הנדסת תוכנה\\avatars"); // give a path    
-            FileInfo[] finfos = di.GetFiles("*.jpg", SearchOption.AllDirectories);
-            foreach (FileInfo fi in finfos)
-                MaleImages.Enqueue(Image.FromFile(fi.FullName));
+            //DirectoryInfo di = new DirectoryInfo(@"C:\\Users\\יובל\\Documents\\יא2 יובל\\הנדסת תוכנה\\avatars"); // give a path    
+            //FileInfo[] finfos = di.GetFiles("*.jpg", SearchOption.AllDirectories);
+            //foreach (FileInfo fi in finfos)
+             //   MaleImages.Enqueue(Image.FromFile(fi.FullName));
             SetProfileAvatarMatrix();
             ProfilePictureKindButtonsCreator();
             ChatSettingsOptionButtonCreator();

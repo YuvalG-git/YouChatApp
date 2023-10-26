@@ -583,6 +583,16 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FriendMicrophoneClosed {
+            get {
+                object obj = ResourceManager.GetObject("FriendMicrophoneClosed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap group {
             get {
                 object obj = ResourceManager.GetObject("group", resourceCulture);
@@ -606,6 +616,16 @@ namespace YouChatApp.Properties {
         internal static System.Drawing.Bitmap Headphone {
             get {
                 object obj = ResourceManager.GetObject("Headphone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageAnalysis {
+            get {
+                object obj = ResourceManager.GetObject("ImageAnalysis", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -676,6 +696,26 @@ namespace YouChatApp.Properties {
         internal static System.Drawing.Bitmap Microphone {
             get {
                 object obj = ResourceManager.GetObject("Microphone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MicrophoneClose {
+            get {
+                object obj = ResourceManager.GetObject("MicrophoneClose", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MicrophoneOpen {
+            get {
+                object obj = ResourceManager.GetObject("MicrophoneOpen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

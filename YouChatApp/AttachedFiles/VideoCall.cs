@@ -22,9 +22,19 @@ namespace YouChatApp.AttachedFiles
     public partial class VideoCall : Form
     {
         bool CameraIsOpen = false;
+        bool MicrophoneIsOpen = false;
         Image CameraNotOpen = global::YouChatApp.Properties.Resources.VideoClose;
         Image CameraOpen = global::YouChatApp.Properties.Resources.VideoOpen;
-        Image VideoOffImage = global::YouChatApp.Properties.Resources.AnonymousProfile; //need to change that to my profile picture...
+        Image MicrophoneNotOpen = global::YouChatApp.Properties.Resources.MicrophoneClose;
+        Image MicrophoneOpen = global::YouChatApp.Properties.Resources.MicrophoneOpen;
+        Image VideoOffImage;
+        Image FriendVideoOffImage = global::YouChatApp.Properties.Resources.AnonymousProfile; //need to change that to my profile picture...
+
+        Image FriendMicrophoneOffImage = global::YouChatApp.Properties.Resources.FriendMicrophoneClosed;
+
+        private DateTime callStartTime;
+        private double zoomFactor; // Adjust this to your desired zoom factor
+
         private bool _myVideoIsSmall = true;
         // https://www.flaticon.com/search?author_id=1828&style_id=1236&type=standard&word=conversation
 
@@ -50,6 +60,7 @@ namespace YouChatApp.AttachedFiles
         public VideoCall()
         {
             InitializeComponent();
+            VideoOffImage = ProfileDetailsHandler.ProfilePicture;
             //string username = "yuval"; //the user that i try to call to...
             //ServerCommunication.SendMessage(ServerCommunication.UserConnectionCheckRequest,username);
         }
@@ -63,10 +74,17 @@ namespace YouChatApp.AttachedFiles
             CurrentHeight = this.Height;
             VideoAndAudioServerCommunication.ConnectUdp("10.100.102.3",this);
             _friendName = ChatHandler.ChatManager.CurrentChatName;
+            FriendNameLabel.Text = _friendName;
+            FriendNameLabel.Location = new Point((CallDetailsPanel.Width - FriendNameLabel.Width) /2, FriendNameLabel.Location.Y);
+            CallTimeLabel.Location = new Point((CallDetailsPanel.Width - CallTimeLabel.Width) / 2, CallTimeLabel.Location.Y);
+
             _videoToolTipContent = "Your Video";
             _friendVideoToolTipContent = _friendName + "'s Video";
             ToolTip.SetToolTip(UserVideoPictureBox, _videoToolTipContent);
             ToolTip.SetToolTip(RemoteVideoPictureBox, _friendVideoToolTipContent);
+            CallEnderCustomButton.BorderRadius = 40;
+            callStartTime = DateTime.Now;
+            CallTimeTimer.Start();
 
             //videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             //if (videoDevices.Count == 0)
@@ -157,7 +175,7 @@ namespace YouChatApp.AttachedFiles
 
             videoSource = new VideoCaptureDevice(videoDevices[CameraDeviceComboBox.SelectedIndex].MonikerString);
             videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
-
+            //where to put it:
             if (CameraIsOpen)
             {
                 videoSource.Start();
@@ -230,15 +248,29 @@ namespace YouChatApp.AttachedFiles
                 VideoAndAudioServerCommunication.SendBytes(imageBytes);
                 //udpClient.Send(imageBytes, imageBytes.Length, endPoint);
             }
+            Image currentVideoFrame = (System.Drawing.Image)eventArgs.Frame.Clone();
+            using (Graphics graphics = Graphics.FromImage(currentVideoFrame)) //this will be used for the friends vide and mot here for my own...
+            {
+                // Draw the video frame on the context
+                graphics.DrawImage(currentVideoFrame, 0, 0, currentVideoFrame.Width, currentVideoFrame.Height);
+
+                // Draw the overlay image on the context
+                graphics.DrawImage(FriendMicrophoneOffImage, 0, 0,50,50); // Adjust the position as needed
+            }
+            int videoPictureBoxWidth;
             if (_myVideoIsSmall)
             {
-                UserVideoPictureBox.Image = (System.Drawing.Image)eventArgs.Frame.Clone();
+                UserVideoPictureBox.Image = currentVideoFrame;
+                videoPictureBoxWidth = UserVideoPictureBox.Width;
             }
             else
             {
-                RemoteVideoPictureBox.Image = (System.Drawing.Image)eventArgs.Frame.Clone();
-            }
+                RemoteVideoPictureBox.Image = currentVideoFrame;
+                videoPictureBoxWidth = RemoteVideoPictureBox.Width;
 
+            }
+            //zoomFactor = currentVideoFrame.Width / videoPictureBoxWidth;
+            //DisplayCroppedBackground(currentVideoFrame);
         }
 
         private void CameraModeCustomButton_Click(object sender, EventArgs e)
@@ -416,18 +448,7 @@ namespace YouChatApp.AttachedFiles
 
         private void UserVideoPictureBox_DoubleClick(object sender, EventArgs e)
         {
-            _myVideoIsSmall = !_myVideoIsSmall;
-            if (_myVideoIsSmall)
-            {
-                ToolTip.SetToolTip(UserVideoPictureBox, _videoToolTipContent);
-                ToolTip.SetToolTip(RemoteVideoPictureBox, _friendVideoToolTipContent);
-            }
-            else
-            {
-                ToolTip.SetToolTip(UserVideoPictureBox, _friendVideoToolTipContent);
-                ToolTip.SetToolTip(RemoteVideoPictureBox, _videoToolTipContent);
-            }
-
+            HandleDoubleClick();
         }
 
         private void RefreshCameraOptionsCustomButton_Click(object sender, EventArgs e)
@@ -449,6 +470,135 @@ namespace YouChatApp.AttachedFiles
                 UserVideoPictureBox.Image = receivedImage;
             }
         }
+
+        private void DeclineCallCustomButton_Click(object sender, EventArgs e)
+        {
+            CallTimeTimer.Stop();
+            //send message to other user that call is over..
+            this.Close();
+
+        }
+
+        private void MicrophoneModeCustomButton_Click(object sender, EventArgs e)
+        {
+            if (MicrophoneIsOpen == false)
+                MicrophoneIsOpen = true;
+            else
+                MicrophoneIsOpen = false;
+            if (MicrophoneIsOpen == true)
+            {
+                MicrophoneModeCustomButton.BackgroundImage = MicrophoneNotOpen;
+            }
+            else
+            {
+                MicrophoneModeCustomButton.BackgroundImage = MicrophoneOpen;
+            }
+            //StartAudioSource();
+            
+        }
+
+        private void RemoteVideoPictureBox_DoubleClick(object sender, EventArgs e)
+        {
+            HandleDoubleClick();
+        }
+        private void HandleDoubleClick()
+        {
+            _myVideoIsSmall = !_myVideoIsSmall;
+            if (_myVideoIsSmall)
+            {
+                ToolTip.SetToolTip(UserVideoPictureBox, _videoToolTipContent);
+                ToolTip.SetToolTip(RemoteVideoPictureBox, _friendVideoToolTipContent);
+                //FriendClosedMicrophonePictureBox.Location = new Point(RemoteVideoPictureBox.Location.X + 1, RemoteVideoPictureBox.Location.Y + 1);
+            }
+            else
+            {
+                ToolTip.SetToolTip(UserVideoPictureBox, _friendVideoToolTipContent);
+                ToolTip.SetToolTip(RemoteVideoPictureBox, _videoToolTipContent);
+                //FriendClosedMicrophonePictureBox.Location = new Point(UserVideoPictureBox.Location.X + 1, UserVideoPictureBox.Location.Y + 1);
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CallTimeTimer_Tick(object sender, EventArgs e)
+        {
+            TimeSpan callDuration = DateTime.Now - callStartTime;
+
+            string formattedDuration = string.Empty;
+
+            if (callDuration.Hours > 0)
+            {
+                formattedDuration = $"{callDuration.Hours:D2}:{callDuration.Minutes:D2}:{callDuration.Seconds:D2}";
+            }
+            else
+            {
+                formattedDuration = $"{callDuration.Minutes:D2}:{callDuration.Seconds:D2}";
+            }
+
+            CallTimeLabel.Text = formattedDuration;
+            CallTimeLabel.Location = new Point((CallDetailsPanel.Width - CallTimeLabel.Width) / 2, CallTimeLabel.Location.Y);
+
+        }
+
+        private void RefreshAudioOptionsCustomButtons_Click(object sender, EventArgs e)
+        {
+            RefreshAudioList();
+        }
+        private void DisplayCroppedBackground(Image capturedFrame)
+        {
+            ////should replace the code downward with this:
+
+
+            ////// Ensure that the cropping region is within the bounds of the image
+            ////cropX = Math.Max(0, cropX);
+            ////cropY = Math.Max(0, cropY);
+            ////cropWidth = Math.Min(capturedFrame.Width - cropX, cropWidth);
+            ////cropHeight = Math.Min(capturedFrame.Height - cropY, cropHeight);
+
+            ////// Create a cropped image
+            ////Bitmap croppedImage = new Bitmap(cropWidth, cropHeight);
+            ////using (Graphics g = Graphics.FromImage(croppedImage))
+            ////{
+            ////    g.DrawImage(capturedFrame, new Rectangle(0, 0, cropWidth, cropHeight), new Rectangle(cropX, cropY, cropWidth, cropHeight), GraphicsUnit.Pixel);
+            ////}
+
+
+
+
+            //// Load the captured frame
+            ////Point location = this.PointToClient(FriendClosedMicrophonePictureBox.Location);
+            ////Point pictureBoxLocation = FriendClosedMicrophonePictureBox.PointToScreen(Point.Empty);
+            ////Point realPictureBoxLocation = this.PointToClient(pictureBoxLocation);
+            //Point pictureBoxLocationOnForm = new Point(VideoPanel.Location.X + FriendClosedMicrophonePictureBox.Location.X, VideoPanel.Location.Y + FriendClosedMicrophonePictureBox.Location.Y);
+            //int cropX = (int)(pictureBoxLocationOnForm.X);
+            //int cropY = (int)(pictureBoxLocationOnForm.Y);
+            //int cropWidth = (int)(FriendClosedMicrophonePictureBox.Width * zoomFactor);
+            //int cropHeight = (int)(FriendClosedMicrophonePictureBox.Height * zoomFactor);
+            //cropX = Math.Max(0, cropX);
+            //cropY = Math.Max(0, cropY);
+            //cropWidth = Math.Min(capturedFrame.Width - cropX, cropWidth);
+            //cropHeight = Math.Min(capturedFrame.Height - cropY, cropHeight);
+
+            //// Define the cropping region (adjust coordinates and size as needed)
+            ////Rectangle cropRegion = new Rectangle(pictureBoxLocationOnForm.X, pictureBoxLocationOnForm.Y, FriendClosedMicrophonePictureBox.Width, FriendClosedMicrophonePictureBox.Height);
+
+            //// Crop the specific region from the captured frame
+            //Bitmap croppedImage = new Bitmap(cropWidth, cropHeight);
+            //using (Graphics g = Graphics.FromImage(croppedImage))
+            //{
+            //    g.DrawImage(capturedFrame, new Rectangle(0, 0, cropWidth, cropHeight), new Rectangle(cropX, cropY, cropWidth, cropHeight), GraphicsUnit.Pixel);
+            //}
+
+            //// Set the cropped image as the background
+            //FriendClosedMicrophonePictureBox.BackgroundImage = croppedImage;
+
+            //// Dispose of the original captured frame
+            //capturedFrame.Dispose();
+        }
+
     }
 
 }

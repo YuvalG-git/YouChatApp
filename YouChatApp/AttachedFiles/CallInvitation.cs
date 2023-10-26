@@ -13,7 +13,7 @@ namespace YouChatApp.AttachedFiles
 {
     public partial class CallInvitation : Form
     {
-        string _friendName;
+        private string _friendName;
         public CallInvitation(string friendName)
         {
             InitializeComponent();
@@ -22,7 +22,8 @@ namespace YouChatApp.AttachedFiles
             //Image friendImage = friendContact.ProfilePicture;
             //FriendCircularPictureBox.Image = friendImage;
             _friendName = friendName;
-            ContentLabel.Text = _friendName + "is calling you";
+            ContentLabel.Text = _friendName + " is calling you";
+            ContentLabel.Location = new System.Drawing.Point((FriendInformationPanel.Width - ContentLabel.Width)/2, ContentLabel.Location.Y);
         }
 
         private void FriendCircularPictureBox_Click(object sender, EventArgs e)
@@ -51,6 +52,14 @@ namespace YouChatApp.AttachedFiles
         {
             string messageContent = messageInformation + "#" + _friendName;
             ServerCommunication.SendMessage(ServerCommunication.VideoCallResponseSender, messageContent);
+        }
+
+        private void CallInvitation_Load(object sender, EventArgs e)
+        {
+            JoinCallCustomButton.BorderRadius = 40;
+            DeclineCallCustomButton.BorderRadius = 40;
+            MessageSenderCustomButton.BorderRadius = 40;
+
         }
     }
 }

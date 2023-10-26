@@ -46,18 +46,18 @@
             // 
             this.ContentLabel.AutoSize = true;
             this.ContentLabel.Font = new System.Drawing.Font("Impact", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ContentLabel.Location = new System.Drawing.Point(138, 25);
+            this.ContentLabel.Location = new System.Drawing.Point(124, 25);
             this.ContentLabel.Name = "ContentLabel";
-            this.ContentLabel.Size = new System.Drawing.Size(63, 26);
+            this.ContentLabel.Size = new System.Drawing.Size(91, 26);
             this.ContentLabel.TabIndex = 1;
-            this.ContentLabel.Text = "label1";
+            this.ContentLabel.Text = "message";
             // 
             // FriendInformationPanel
             // 
             this.FriendInformationPanel.BackColor = System.Drawing.Color.RoyalBlue;
             this.FriendInformationPanel.Controls.Add(this.FriendCircularPictureBox);
             this.FriendInformationPanel.Controls.Add(this.ContentLabel);
-            this.FriendInformationPanel.Location = new System.Drawing.Point(233, 24);
+            this.FriendInformationPanel.Location = new System.Drawing.Point(10, 10);
             this.FriendInformationPanel.Name = "FriendInformationPanel";
             this.FriendInformationPanel.Size = new System.Drawing.Size(350, 300);
             this.FriendInformationPanel.TabIndex = 4;
@@ -83,13 +83,13 @@
             this.MessageSenderCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.ChatInCircle;
             this.MessageSenderCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.MessageSenderCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.MessageSenderCustomButton.BorderRadius = 40;
+            this.MessageSenderCustomButton.BorderRadius = 20;
             this.MessageSenderCustomButton.BorderSize = 0;
             this.MessageSenderCustomButton.Circular = false;
             this.MessageSenderCustomButton.FlatAppearance.BorderSize = 0;
             this.MessageSenderCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MessageSenderCustomButton.ForeColor = System.Drawing.Color.White;
-            this.MessageSenderCustomButton.Location = new System.Drawing.Point(244, 17);
+            this.MessageSenderCustomButton.Location = new System.Drawing.Point(245, 10);
             this.MessageSenderCustomButton.Name = "MessageSenderCustomButton";
             this.MessageSenderCustomButton.Padding = new System.Windows.Forms.Padding(5);
             this.MessageSenderCustomButton.Size = new System.Drawing.Size(80, 80);
@@ -106,13 +106,13 @@
             this.DeclineCallCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.DeclineCallFinalImage;
             this.DeclineCallCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.DeclineCallCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.DeclineCallCustomButton.BorderRadius = 40;
+            this.DeclineCallCustomButton.BorderRadius = 20;
             this.DeclineCallCustomButton.BorderSize = 0;
             this.DeclineCallCustomButton.Circular = false;
             this.DeclineCallCustomButton.FlatAppearance.BorderSize = 0;
             this.DeclineCallCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeclineCallCustomButton.ForeColor = System.Drawing.Color.White;
-            this.DeclineCallCustomButton.Location = new System.Drawing.Point(132, 17);
+            this.DeclineCallCustomButton.Location = new System.Drawing.Point(25, 10);
             this.DeclineCallCustomButton.Name = "DeclineCallCustomButton";
             this.DeclineCallCustomButton.Size = new System.Drawing.Size(80, 80);
             this.DeclineCallCustomButton.TabIndex = 3;
@@ -128,12 +128,13 @@
             this.JoinCallCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.JoinCallImage;
             this.JoinCallCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.JoinCallCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.JoinCallCustomButton.BorderRadius = 40;
+            this.JoinCallCustomButton.BorderRadius = 20;
             this.JoinCallCustomButton.BorderSize = 0;
             this.JoinCallCustomButton.Circular = false;
             this.JoinCallCustomButton.FlatAppearance.BorderSize = 0;
             this.JoinCallCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.JoinCallCustomButton.Location = new System.Drawing.Point(28, 17);
+            this.JoinCallCustomButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.JoinCallCustomButton.Location = new System.Drawing.Point(135, 10);
             this.JoinCallCustomButton.Name = "JoinCallCustomButton";
             this.JoinCallCustomButton.Size = new System.Drawing.Size(80, 80);
             this.JoinCallCustomButton.TabIndex = 2;
@@ -144,11 +145,11 @@
             // 
             // OptionPanel
             // 
-            this.OptionPanel.BackColor = System.Drawing.Color.Silver;
+            this.OptionPanel.BackColor = System.Drawing.Color.Black;
             this.OptionPanel.Controls.Add(this.JoinCallCustomButton);
             this.OptionPanel.Controls.Add(this.MessageSenderCustomButton);
             this.OptionPanel.Controls.Add(this.DeclineCallCustomButton);
-            this.OptionPanel.Location = new System.Drawing.Point(233, 338);
+            this.OptionPanel.Location = new System.Drawing.Point(10, 310);
             this.OptionPanel.Name = "OptionPanel";
             this.OptionPanel.Size = new System.Drawing.Size(350, 100);
             this.OptionPanel.TabIndex = 6;
@@ -157,11 +158,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.DarkGray;
+            this.ClientSize = new System.Drawing.Size(370, 420);
             this.Controls.Add(this.OptionPanel);
             this.Controls.Add(this.FriendInformationPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CallInvitation";
             this.Text = "CallInvitation";
+            this.Load += new System.EventHandler(this.CallInvitation_Load);
             this.FriendInformationPanel.ResumeLayout(false);
             this.FriendInformationPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FriendCircularPictureBox)).EndInit();

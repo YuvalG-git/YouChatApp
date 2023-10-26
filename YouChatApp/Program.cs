@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -27,12 +28,12 @@ namespace YouChatApp
             //Application.Run(new Document());
             //Application.Run(new ImageHandler());
             //Application.Run(new EmojiKeyboard());
-            //Application.Run(new VideoCall());
+            Application.Run(new VideoCall());
             //Application.Run(new AudioCall());
-            Application.Run(new Camera());
+            //Application.Run(new Camera());
             //Application.Run(new WaitingForm());
             //Application.Run(new CallInvitation("Yuval"));
-            //Application.Run(new ImageViewer(Properties.MaleProfilePicture.BoyCharacter16));
+            //Application.Run(new ImageViewer(new Bitmap("C:\\Users\\Yuval\\Downloads\\3f82f9ff-3986-4830-858f-35afc6c6b4e5.png")));
 
             //Application.Run(new YouChat());
 

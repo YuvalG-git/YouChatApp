@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace YouChatApp.AttachedFiles
 {
@@ -161,10 +162,21 @@ namespace YouChatApp.AttachedFiles
         }
         private void ZoomRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            var rad = sender as RadioButton;
-            if (rad.Checked)
+            var selectedRadioButton = sender as RadioButton;
+            if (selectedRadioButton.Checked)
             {
-                zoomMode = (ZoomMode)int.Parse(rad.Tag.ToString());
+                zoomMode = (ZoomMode)int.Parse(selectedRadioButton.Tag.ToString());
+            }
+            foreach (RadioButton radioButton in ZoomMethodGroupBox.Controls.OfType<RadioButton>())
+            {
+                if (radioButton != selectedRadioButton)
+                {
+                    radioButton.ForeColor = Color.White;
+                }
+                else
+                {
+                    radioButton.ForeColor = Color.LimeGreen;
+                }
             }
             ImagePictureBox.Focus();
 

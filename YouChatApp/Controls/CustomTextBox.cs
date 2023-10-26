@@ -248,6 +248,18 @@ namespace YouChatApp.Controls
             }
         }
         [Category("YouChat")]
+        public HorizontalAlignment TextAlign
+        {
+            get
+            {
+                return TextBox.TextAlign;
+            }
+            set
+            {
+                TextBox.TextAlign = value;
+            }
+        }
+        [Category("YouChat")]
         public bool ReadOnly
         {
             get
