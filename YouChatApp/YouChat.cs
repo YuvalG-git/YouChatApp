@@ -69,6 +69,7 @@ namespace YouChatApp
             GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y);
             GroupCreatorPanel.Size = new Size(GroupCreatorPanel.Width, GroupCreatorPanel.Height + SelectedContactsPanel.Height);
         }
+
         private void SetCustomTextBoxsPlaceHolderText()
         {
             UserIdCustomTextBox.PlaceHolderText = "YouChat ID";
@@ -91,6 +92,31 @@ namespace YouChatApp
                 //maybe i can send the needed location when i send the image name... this way i wouldn't need to check all of them
                 // i can send something like that: "¥2¥_43af"
             }
+        }
+        public void OnEmojiPress(object sender, PictureBoxEventArgs e)
+        {
+            PictureBox EmojiPictureBox = e.pictureBox;
+            Image EmojiImage = EmojiPictureBox.Image;
+            MessageRichTextBox.Select(MessageRichTextBox.Text.Length, 0);
+
+            int IndexToAdd = MessageRichTextBox.SelectionStart;
+            MessageImage messageImage = new MessageImage();
+            Image ResizedImage = EmojiImage;
+            Bitmap bitmap = new Bitmap(ResizedImage, 20, 20);
+            Clipboard.SetDataObject(bitmap);
+            messageImage.EmojiImage = EmojiImage;
+            messageImage.ImageName = EmojiPictureBox.Name;
+            messageImage.OnRichTextBoxImage = Clipboard.GetImage();
+            MessageRichTextBox.Paste(); //the paste does " "
+            Clipboard.Clear();
+
+            if (MessageRichTextBox.Text[IndexToAdd] == ' ')
+            {
+                MessageRichTextBox.Text.Remove(IndexToAdd, 0);
+
+            }
+            pictureBox1.BackgroundImage = EmojiImage;
+            // Do something with the background image here
         }
 
         private string[] SeparateLettersAndNumbers(string Text)
@@ -461,7 +487,7 @@ namespace YouChatApp
             GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y + SelectedContactsPanel.Height);
             HandleCurrentChatParticipants();
             heightForContacts = 0;
-            RestartContactControlListLocation();
+            RestartContactControlListLocation(); //there is a problem here
         }
         private void RemoveProfileControl(object sender, System.EventArgs e)
         {
@@ -478,10 +504,9 @@ namespace YouChatApp
                 GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y);
                 GroupCreatorPanel.Size = new Size(GroupCreatorPanel.Width, GroupCreatorPanel.Height + SelectedContactsPanel.Height);
             }
-            HandleCurrentChatParticipants();
             heightForContacts = 0;
             RestartContactControlListLocation();
-
+            HandleCurrentChatParticipants();
         }
         private void CancelContactControlSelection(string ContactName)
         {
@@ -581,33 +606,33 @@ namespace YouChatApp
 
         private void SendMessageButton_Click(object sender, EventArgs e)
         {
-            if (MessageTextBox.Text != "")
-            {
-                string Message = MessageTextBox.Text;
-                string SendMessageTime = DateTime.Now.ToString("HH:mm");
-                string MessageContant = Message + "#" + SendMessageTime;
-                HandleYourMessages(Message, SendMessageTime);
-                ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest, MessageContant);
-                //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + MessageContant);
-                MessageTextBox.Text = "Here You Write Your Message";
-                MessageTextBox.ForeColor = Color.Silver;
-            }
-            //else if (LoadedPicturePictureBox.BackgroundImage != null)
+            //if (MessageTextBox.Text != "")
             //{
-            //    //ServerCommunication.SendImage(ServerCommunication.sendMessageRequest + "$" + MessageContant); need to figure out how to send a message as well - not nesserally perhaps - could use the username from the server and take the time the message got to the server...
-
+            //    string Message = MessageTextBox.Text;
+            //    string SendMessageTime = DateTime.Now.ToString("HH:mm");
+            //    string MessageContant = Message + "#" + SendMessageTime;
+            //    HandleYourMessages(Message, SendMessageTime);
+            //    ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest, MessageContant);
+            //    //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + MessageContant);
+            //    MessageTextBox.Text = "Here You Write Your Message";
+            //    MessageTextBox.ForeColor = Color.Silver;
             //}
+            ////else if (LoadedPicturePictureBox.BackgroundImage != null)
+            ////{
+            ////    //ServerCommunication.SendImage(ServerCommunication.sendMessageRequest + "$" + MessageContant); need to figure out how to send a message as well - not nesserally perhaps - could use the username from the server and take the time the message got to the server...
+
+            ////}
 
         }
 
         private void MessageTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (MessageTextBox.Text != "")
+            if (MessageRichTextBox.Text != "")
             {
-                SendMessageButton.Enabled = true;
+                MessageSenderCustomButton.Enabled = true;
             }
             else
-                SendMessageButton.Enabled = false;
+                MessageSenderCustomButton.Enabled = false;
         }
 
         //public void Message(string MessageInfo)
@@ -985,21 +1010,23 @@ namespace YouChatApp
         //    }
         //}
 
-        private void MessageTextBox_Enter(object sender, EventArgs e)
+
+        private void MessageRichTextBox_Enter(object sender, EventArgs e)
         {
-            if (MessageTextBox.Text == "Here You Write Your Message")
+            if (MessageRichTextBox.Text == "Here You Write Your Message")
             {
-                MessageTextBox.Text = "";
-                MessageTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
+                MessageRichTextBox.Text = "";
+                MessageRichTextBox.ForeColor = Color.White;
             }
         }
+    
 
-        private void MessageTextBox_Leave(object sender, EventArgs e)
+        private void MessageRichTextBox_Leave(object sender, EventArgs e)
         {
-            if (MessageTextBox.Text == "")
+            if (MessageRichTextBox.Text == "")
             {
-                MessageTextBox.Text = "Here You Write Your Message";
-                MessageTextBox.ForeColor = Color.Silver;
+                MessageRichTextBox.Text = "Here You Write Your Message";
+                MessageRichTextBox.ForeColor = Color.Silver;
             }
         }
 
@@ -1010,22 +1037,21 @@ namespace YouChatApp
 
         }
 
-        private void MessageTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void MessageRichTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
             {
-                MessageTextBox.Text = "Here You Write Your Message";
-                MessageTextBox.ForeColor = Color.Silver;
+                MessageRichTextBox.Text = "Here You Write Your Message";
+                MessageRichTextBox.ForeColor = Color.Silver;
             }
-            else if ((e.KeyCode == Keys.Enter) && (MessageTextBox.Text != "") && (ProfileDetailsHandler.EnterKeyPressed))
+            else if ((e.KeyCode == Keys.Enter) && (MessageRichTextBox.Text != "") && (ProfileDetailsHandler.EnterKeyPressed))
             {
-                string message = MessageTextBox.Text;
+                string message = MessageRichTextBox.Text;
                 //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + message);
                 ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest, message);
-                MessageTextBox.Text = "Here You Write Your Message";
-                MessageTextBox.ForeColor = Color.Silver;
+                MessageRichTextBox.Text = "Here You Write Your Message";
+                MessageRichTextBox.ForeColor = Color.Silver;
             }
-
         }
 
         private void ChatButton_Click(object sender, EventArgs e)
@@ -1330,6 +1356,52 @@ namespace YouChatApp
                 ServerCommunication._paint = new Paint();
             }
             this.Invoke(new Action(() => ServerCommunication._paint.ShowDialog()));
+        }
+
+        private void EmojiFileButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EmojiKeyBoardCustomButton_Click(object sender, EventArgs e)
+        {
+            if (ServerCommunication._emojiKeyboard == null)
+            {
+                ServerCommunication._emojiKeyboard = new EmojiKeyboard(false);
+            }
+            this.Invoke(new Action(() => ServerCommunication._emojiKeyboard.Show()));
+
+        }
+
+        private void MessageSenderCustomButton_Click(object sender, EventArgs e)
+        {
+            if (MessageRichTextBox.Text != "")
+            {
+                string Message = MessageRichTextBox.Text;
+                string SendMessageTime = DateTime.Now.ToString("HH:mm");
+                string MessageContant = Message + "#" + SendMessageTime;
+                HandleYourMessages(Message, SendMessageTime);
+                ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest, MessageContant);
+                //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + MessageContant);
+                MessageRichTextBox.Text = "Here You Write Your Message";
+                MessageRichTextBox.ForeColor = Color.Silver;
+            }
+            //else if (LoadedPicturePictureBox.BackgroundImage != null)
+            //{
+            //    //ServerCommunication.SendImage(ServerCommunication.sendMessageRequest + "$" + MessageContant); need to figure out how to send a message as well - not nesserally perhaps - could use the username from the server and take the time the message got to the server...
+
+            //}
+            // Check if Form2 is open and not disposed before trying to close it
+            EmojiKeyboard emojiKeyboard = ServerCommunication._emojiKeyboard;
+            if (emojiKeyboard != null && !emojiKeyboard.IsDisposed && emojiKeyboard.Visible)
+            {
+                emojiKeyboard.Hide();
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

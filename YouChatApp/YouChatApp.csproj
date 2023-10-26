@@ -137,6 +137,7 @@
       <DependentUpon>Camera.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachedFiles\CountDownImageList.cs" />
+    <Compile Include="AttachedFiles\ImageEventArgs.cs" />
     <Compile Include="AttachedFiles\ImageViewer.cs">
       <SubType>Form</SubType>
     </Compile>

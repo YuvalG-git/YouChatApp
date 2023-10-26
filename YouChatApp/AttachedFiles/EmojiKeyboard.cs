@@ -21,6 +21,9 @@ namespace YouChatApp.AttachedFiles
 {
     public partial class EmojiKeyboard : Form
     {
+
+        public event EventHandler<PictureBoxEventArgs> EmojiPress; // Event to notify Form2
+
         int ControlWidth = 791;
         int ControlHeight = 406; //maybe in the future to use size based on the form's size
         List<Emoji> RichTextBoxContent;
@@ -213,6 +216,7 @@ namespace YouChatApp.AttachedFiles
         public EmojiKeyboard(bool isText)
         {
             InitializeComponent();
+            this.TopMost = true;
             _isText = isText;
             EmojiResourceSet.InitializeResourceSetArray(); //probably need this - to ask somebody...
             InitializeEmojiPanelArray();
@@ -224,6 +228,7 @@ namespace YouChatApp.AttachedFiles
             InitializeEmojiTabPageArray();
             InitializeEmojiPictureBoxList();
             RichTextBoxContent = new List<Emoji>();
+            EmojiPress += ServerCommunication.youChat.OnEmojiPress;
         }
 
 
@@ -326,7 +331,15 @@ namespace YouChatApp.AttachedFiles
             //    richTextBox1.Text.Remove(IndexToAdd, 0);
 
             //}
-            SendEmoji(((PictureBox)(sender)));
+            PictureBox pictureBox = sender as PictureBox;
+            if (true)
+            {
+                EmojiPress?.Invoke(this, new PictureBoxEventArgs(pictureBox));
+            }
+            else
+            {
+                SendEmoji(pictureBox);
+            }
 
 
             //if (Clipboard.ContainsImage())
