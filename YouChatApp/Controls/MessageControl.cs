@@ -68,7 +68,7 @@ namespace YouChatApp
                 this.Width = NewWidth;
                 int TimeLabelYCoordination = MessageLabel.Height + MessageLabel.Location.Y + 5;
                 int TimeLabelXCoordination = MessageLabel.Width + MessageLabel.Location.X - TimeLabel.Width + 5;
-                TimeLabel.Location = new System.Drawing.Point(TimeLabelXCoordination, TimeLabelYCoordination);
+                TimeLabel.Location = new System.Drawing.Point(TimeLabelXCoordination, TimeLabelYCoordination); //todo fix the height when sending multiline for the whole control,timelabel and menubutton
                 this.Height = TimeLabel.Height + TimeLabel.Location.Y + 10;
                 this.Size = new System.Drawing.Size(this.Width, this.Height);
                 int MenuBarPictureBoxYCoordination = (this.Height - MenuBarPictureBox.Height) / 2;

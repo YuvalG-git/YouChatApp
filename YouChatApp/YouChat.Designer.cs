@@ -626,6 +626,7 @@ namespace YouChatApp
             this.GroupCreatorCustomButton.BorderRadius = 10;
             this.GroupCreatorCustomButton.BorderSize = 0;
             this.GroupCreatorCustomButton.Circular = false;
+            this.GroupCreatorCustomButton.Enabled = false;
             this.GroupCreatorCustomButton.FlatAppearance.BorderSize = 0;
             this.GroupCreatorCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GroupCreatorCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

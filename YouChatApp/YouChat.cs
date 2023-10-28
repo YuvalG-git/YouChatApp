@@ -19,6 +19,8 @@ using YouChatApp.ChatHandler;
 using YouChatApp.ContactHandler;
 using YouChatApp.Controls;
 using YouChatApp.UserProfile;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace YouChatApp
 {
@@ -529,11 +531,12 @@ namespace YouChatApp
         }
         private void RestartContactControlListLocation()
         {
-            PanelHandler.SetPanelToSide(GroupCreatorPanel, ContactControlList, true);
+            //PanelHandler.SetPanelToSide(GroupCreatorPanel, ContactControlList, true);
             foreach (ContactControl Contact in ContactControlList)
             {
                 if (!Contact.WasSelected)
                 {
+                    PanelHandler.SetPanelToSide(GroupCreatorPanel, ContactControlList, true); //i use it here due to an error (some times it made a space between them..
                     Contact.Location = new System.Drawing.Point(0, heightForContacts);
                     heightForContacts += Contact.Height;
                     Contact.Visible = true;
@@ -1191,13 +1194,28 @@ namespace YouChatApp
             //will create a new group and refresh everything about the last group created...
             string groupSubject = GroupSubjectCustomTextBox.TextContent;
             Image groupIcon = GroupIconCircularPictureBox.BackgroundImage;
-            string groupContacts = UserProfile.ProfileDetailsHandler.Name;//the first which is who created the group will be the manager...
+            List<string> groupParticipants = new List<string>();
+            groupParticipants.Add("*" + ProfileDetailsHandler.Name); //the first which is who created the group will be the manager...
             foreach (ProfileControl profileControl in ProfileControlList)
             {
-                groupContacts += "^" + profileControl.Name;
+                groupParticipants.Add(profileControl.Name);
             }
-            string groupCreatorContents = GroupSubjectCustomTextBox.TextContent + "#" + groupContacts;
-            ServerCommunication.SendMessageAndImage(ServerCommunication.GroupCreatorRequest, groupCreatorContents, groupIcon);
+            byte[] groupIconBytes;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                //chatProfilePicture.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg); 
+                groupIcon.Save(ms, groupIcon.RawFormat);
+                groupIconBytes = ms.ToArray();
+            }
+            ChatCreator chatCreator = new ChatCreator(groupSubject, groupParticipants, groupIconBytes);
+            string chatDetailsJson = JsonConvert.SerializeObject(chatCreator);
+            string EncryptedMessageContent = Encryption.Encryption.EncryptData(ServerCommunication.SymmetricKey, chatDetailsJson);
+            string DecryptedMessageDetails = Encryption.Encryption.DecryptData(ServerCommunication.SymmetricKey, EncryptedMessageContent);
+
+            ChatCreator newChat = JsonConvert.DeserializeObject<ChatCreator>(chatDetailsJson);
+            //ServerCommunication.SendMessage(ServerCommunication.GroupCreatorRequest, chatDetailsJson);
+            GroupCreatorCustomButton.Enabled = false;
+            //needs to close everything that is connected to opening groups..
         }
 
         private void GroupSubjectCustomTextBox_TextChangedEvent(object sender, EventArgs e)
@@ -1208,7 +1226,7 @@ namespace YouChatApp
         }
         private void HandleGroupCreationFields()
         {
-            bool hasGroupIconBeenSelected = (GroupIconCircularPictureBox.BackgroundImage != AnonymousProfile);
+            bool hasGroupIconBeenSelected = (GroupIconCircularPictureBox.BackgroundImage != null);
             bool hasGroupSubjectBeenSelected = GroupSubjectCustomTextBox.IsContainingValue();
             if ((hasGroupIconBeenSelected) && (hasGroupSubjectBeenSelected))
             {
@@ -1275,9 +1293,9 @@ namespace YouChatApp
         {
             if (ServerCommunication._emojiKeyboard == null)
             {
-                ServerCommunication._emojiKeyboard = new EmojiKeyboard(false);
+                ServerCommunication._emojiKeyboard = new EmojiKeyboard();
             }
-
+            ServerCommunication._emojiKeyboard._isText = false;
             DialogResult result = ServerCommunication._emojiKeyboard.ShowDialog();
 
             // Check if Form2 was closed successfully
@@ -1367,8 +1385,9 @@ namespace YouChatApp
         {
             if (ServerCommunication._emojiKeyboard == null)
             {
-                ServerCommunication._emojiKeyboard = new EmojiKeyboard(false);
+                ServerCommunication._emojiKeyboard = new EmojiKeyboard();
             }
+            ServerCommunication._emojiKeyboard._isText = true;
             this.Invoke(new Action(() => ServerCommunication._emojiKeyboard.Show()));
 
         }

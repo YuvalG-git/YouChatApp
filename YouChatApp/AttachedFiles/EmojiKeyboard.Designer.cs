@@ -43,9 +43,9 @@ namespace YouChatApp.AttachedFiles
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.TabImageList = new System.Windows.Forms.ImageList(this.components);
+            this.EmojiTimer = new System.Windows.Forms.Timer(this.components);
             this.EmojiTabControl.SuspendLayout();
             this.TabPage1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +54,7 @@ namespace YouChatApp.AttachedFiles
             this.EmojiTabControl.Controls.Add(this.TabPage1);
             this.EmojiTabControl.Controls.Add(this.TabPage2);
             this.EmojiTabControl.Controls.Add(this.tabPage3);
-            this.EmojiTabControl.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmojiTabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EmojiTabControl.HotTrack = true;
             this.EmojiTabControl.ImageList = this.TabImageList;
             this.EmojiTabControl.ItemSize = new System.Drawing.Size(20, 36);
@@ -172,6 +172,10 @@ namespace YouChatApp.AttachedFiles
             this.TabImageList.Images.SetKeyName(7, "1f523.png");
             this.TabImageList.Images.SetKeyName(8, "1f3f4.png");
             // 
+            // EmojiTimer
+            // 
+            this.EmojiTimer.Interval = 1000;
+            // 
             // EmojiKeyboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -182,7 +186,6 @@ namespace YouChatApp.AttachedFiles
             this.Text = "EmojiKeyboard";
             this.EmojiTabControl.ResumeLayout(false);
             this.TabPage1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -201,8 +204,13 @@ namespace YouChatApp.AttachedFiles
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.ImageList TabImageList;
         private List<System.Windows.Forms.PictureBox>[] EmojiPictureBoxArrayOfLists;
+        private List<System.Windows.Forms.Panel> PeopleEmojiPanelList;
+        private List<List<System.Windows.Forms.PictureBox>> PeopleEmojiPictureBoxListOfLists;
+
+
         private WebBrowser webBrowser1;
         private FlowLayoutPanel flowLayoutPanel1;
         private Button button2;
+        private Timer EmojiTimer;
     }
 }

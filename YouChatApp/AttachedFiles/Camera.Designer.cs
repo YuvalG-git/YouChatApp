@@ -496,6 +496,7 @@
             this.ImageTakerCustomButton.ForeColor = System.Drawing.Color.White;
             this.ImageTakerCustomButton.Location = new System.Drawing.Point(590, 10);
             this.ImageTakerCustomButton.Name = "ImageTakerCustomButton";
+            this.ImageTakerCustomButton.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             this.ImageTakerCustomButton.Size = new System.Drawing.Size(120, 70);
             this.ImageTakerCustomButton.TabIndex = 14;
             this.ImageTakerCustomButton.TextColor = System.Drawing.Color.White;

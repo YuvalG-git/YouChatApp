@@ -152,6 +152,7 @@
       <DependentUpon>WaitingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ChatHandler\Chat.cs" />
+    <Compile Include="ChatHandler\ChatCreator.cs" />
     <Compile Include="ChatHandler\ChatLastMessageTimeComparer.cs" />
     <Compile Include="ChatHandler\ChatManager.cs" />
     <Compile Include="ChatHandler\GroupChat.cs" />

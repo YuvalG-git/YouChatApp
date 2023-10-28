@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AForge;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,15 +22,17 @@ namespace YouChatApp.AttachedFiles
 {
     public partial class EmojiKeyboard : Form
     {
-
+        Dictionary<PictureBox, Panel> ButtonToPanelConnectionMap = new Dictionary<PictureBox, Panel>();
+        readonly int PictureBoxGap = 4;
+        readonly int PictureBoxSize = 36;
         public event EventHandler<PictureBoxEventArgs> EmojiPress; // Event to notify Form2
-
         int ControlWidth = 791;
         int ControlHeight = 406; //maybe in the future to use size based on the form's size
         List<Emoji> RichTextBoxContent;
         int EmojiCategories = 9;
         List<List<EmojiObject>> EmojiImagePathListOfLists = new List<List<EmojiObject>>();
-        private bool _isText;
+        public bool _isText;
+        private Panel lastVisiblePeopleEmojiPanel;
         public Image ImageToSend { get; set; }
 
         private void InitializeEmojiImagePathListOfLists()
@@ -39,8 +42,9 @@ namespace YouChatApp.AttachedFiles
             EmojiObject EmojiToBeInserted;
             Image EmojiToBeInsertedImage;
             string EmojiToBeInsertedName;
-            string EmojiToBeInsertedID;
-            string EmojiToBeInsertedColorID;
+            string EmojiToBeInsertedID = "";
+            string EmojiToBeInsertedColorID = "";
+            int counter = 0;
             if (ResourceSet != null)
             {
                 foreach (DictionaryEntry entry in ResourceSet)
@@ -58,88 +62,261 @@ namespace YouChatApp.AttachedFiles
                     {
                         EmojiToBeInsertedImage = (Image)entry.Value;
                         EmojiToBeInsertedName = resourceName;
-                        foreach (List<EmojiObject> EmojiPack in EmojiImagePathListOfLists)
+                        if ((ResourceNameCodeContent[0] == "1f9d1") || (ResourceNameCodeContent[0] == "1f468") || (ResourceNameCodeContent[0] == "1f469"))
                         {
-                            foreach (EmojiObject Emoji in EmojiPack)
+                            if (ResourceNameLength == 1)
                             {
-                                if (ResourceNameLength == 1)
+                                EmojiToBeInsertedID = ResourceNameCodeContent[0];
+                                EmojiToBeInsertedColorID = "no color";
+
+                            }
+                            else if (ResourceNameLength == 2)
+                            {
+                                EmojiToBeInsertedID = ResourceNameCodeContent[0];
+                                EmojiToBeInsertedColorID = ResourceNameCodeContent[1];
+                            }
+                            else if (ResourceNameLength == 3)
+                            {
+                                EmojiToBeInsertedID = ResourceNameCodeContent[0] + "#" + ResourceNameCodeContent[2];
+                                EmojiToBeInsertedColorID = "no color";
+                            }
+                            else if (ResourceNameLength == 4)
+                            {
+                                if ((ResourceNameCodeContent[2] == "2695") || (ResourceNameCodeContent[2] == "2696") || (ResourceNameCodeContent[2] == "2708"))
                                 {
-                                    if (Emoji.EmojiID == ResourceNameCode)
-                                    {
-                                        EmojiToBeInsertedID = ResourceNameCode;
-                                        EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
-                                        EmojiPack.Insert(0, EmojiToBeInserted); //insert as first
-                                        WasHandled = true;
-                                    }
+                                    EmojiToBeInsertedID = ResourceNameCodeContent[0] + "#" + ResourceNameCodeContent[2];
+                                    EmojiToBeInsertedColorID = "no color";
                                 }
-                                else if (ResourceNameLength == 2)
+                                else
                                 {
-                                    if (Emoji.EmojiID == ResourceNameCodeContent[0])
-                                    {
-                                        EmojiToBeInsertedID = ResourceNameCodeContent[0];
-                                        EmojiToBeInsertedColorID = ResourceNameCodeContent[1];
-                                        EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
-                                        InsertToListByABC(EmojiPack, EmojiToBeInsertedColorID, EmojiToBeInserted);
-                                        WasHandled = true;
-                                    }
-                                }
-                                else if (ResourceNameLength == 4)
-                                {
-                                    if (Emoji.EmojiID == ResourceNameCodeContent[0])
-                                    {
-                                        EmojiToBeInsertedID = ResourceNameCodeContent[0];
-                                        EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
-                                        EmojiPack.Insert(0, EmojiToBeInserted); //insert as first
-                                        WasHandled = true;
-                                    }
-                                }
-                                else if (ResourceNameLength == 5)
-                                {
-                                    if (Emoji.EmojiID == ResourceNameCodeContent[0])
-                                    {
-                                        EmojiToBeInsertedID = ResourceNameCodeContent[0];
-                                        EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
-                                        EmojiPack.Insert(0, EmojiToBeInserted); //insert as first
-                                        WasHandled = true;
-                                    }
-                                }
-                                if (!WasHandled)
-                                {
-                                    EmojiToBeInsertedID = ResourceNameCode;
-                                    EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
-                                    List<EmojiObject> NewEmojiListToBeInserted = new List<EmojiObject>();
-                                    NewEmojiListToBeInserted.Add(EmojiToBeInserted);
-                                    EmojiImagePathListOfLists.Add(NewEmojiListToBeInserted);
+                                    EmojiToBeInsertedID = ResourceNameCodeContent[0] + "#" + ResourceNameCodeContent[3];
+                                    EmojiToBeInsertedColorID = ResourceNameCodeContent[1];
                                 }
                             }
+                            else if (ResourceNameLength == 5)
+                            {
+                                if (ResourceNameCodeContent[2] == "1f91d")
+                                {
+                                    EmojiToBeInsertedID = ResourceNameCodeContent[0] + "#" + ResourceNameCodeContent[2];
+                                    EmojiToBeInsertedColorID = "no color";
+                                }
+                                else
+                                {
+                                    EmojiToBeInsertedID = ResourceNameCodeContent[0] + "#" + ResourceNameCodeContent[3];
+                                    EmojiToBeInsertedColorID = ResourceNameCodeContent[1];
+                                }
+                            }
+                            else if (ResourceNameLength == 7)
+                            {
+                                EmojiToBeInsertedID = ResourceNameCodeContent[0] + "#" + ResourceNameCodeContent[3];
+                                EmojiToBeInsertedColorID = ResourceNameCodeContent[1] + "#" + ResourceNameCodeContent[6];
+                            }
+                            else if (ResourceNameLength == 8)
+                            {
+                                EmojiToBeInsertedID = ResourceNameCodeContent[0] + "#" + ResourceNameCodeContent[3];
+                                EmojiToBeInsertedColorID = ResourceNameCodeContent[1] + "#" + ResourceNameCodeContent[7];
+                            }
+                            else if (ResourceNameLength == 10)
+                            {
+                                EmojiToBeInsertedID = ResourceNameCodeContent[0] + "#" + ResourceNameCodeContent[3] + "#" + ResourceNameCodeContent[6];
+                                EmojiToBeInsertedColorID = ResourceNameCodeContent[1] + "#" + ResourceNameCodeContent[9];
+                            }
+                        }
+                        else
+                        {
+                            if (ResourceNameLength == 1)
+                            {
+                                EmojiToBeInsertedID = ResourceNameCodeContent[0];
+                                EmojiToBeInsertedColorID = "no color";
+
+                            }
+                            else if (ResourceNameLength == 2)
+                            {
+                                EmojiToBeInsertedID = ResourceNameCodeContent[0];
+                                EmojiToBeInsertedColorID = ResourceNameCodeContent[1];
+                            }
+                            else if (ResourceNameLength == 4)
+                            {
+                                EmojiToBeInsertedID = ResourceNameCodeContent[0] + "#" + ResourceNameCodeContent[2];
+                                EmojiToBeInsertedColorID = "no color";
+                            }
+                            else if (ResourceNameLength == 5)
+                            {
+                                EmojiToBeInsertedID = ResourceNameCodeContent[0] + "#" + ResourceNameCodeContent[3];
+                                EmojiToBeInsertedColorID = ResourceNameCodeContent[1];
+                            }
+                        }
+                        foreach (List<EmojiObject> EmojiPack in EmojiImagePathListOfLists)
+                        {
+                            EmojiObject Emoji = EmojiPack[0];
+                            if (Emoji.EmojiID == EmojiToBeInsertedID)
+                            {
+                                EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, EmojiToBeInsertedColorID, ResourceNameLength);
+                                InsertToListByABC(EmojiPack, EmojiToBeInsertedColorID, EmojiToBeInserted);
+                                WasHandled = true;
+                            }
+                        
+                        }
+                        if (!WasHandled)
+                        {
+                            EmojiToBeInserted = new EmojiObject(EmojiToBeInsertedImage, EmojiToBeInsertedName, EmojiToBeInsertedID, ResourceNameLength);
+                            List<EmojiObject> NewEmojiListToBeInserted = new List<EmojiObject> { EmojiToBeInserted };
+                            EmojiImagePathListOfLists.Add(NewEmojiListToBeInserted);
                         }
                     }
-                   
-                    //1- regular emoji
-                    //2 - colored regular emoji
-                    //4 - special amoji
-                    //5 - colored special emoji
-                    // the second one is the one i should be comparing
 
                 }
+                
             }
+            SetPeopleEmojiTab();
+        }
+        //1- regular emoji
+        //2 - colored regular emoji
+        //4 - special amoji
+        //5 - colored special emoji
+        // the second one is the one i should be comparing
+
+        private void SetPeopleEmojiTab()
+        {
+            PeopleEmojiPictureBoxListOfLists = new List<List<PictureBox>>();
+            int EmojiPictureBoxCount = 0;
+            int PanelCount = 0;
+            int PeopleEmojiPictureBoxCount = 0;
+            int x = 0;
+            int y = 0;
+            int xForPeopleEmoji = 0;
+            int yForPeopleEmoji = 0;
+            int PeopleEmojiLayers = 1;
+            int maxXValue = EmojiCategoryTabPage[1].Size.Width - (2 * PictureBoxSize + PictureBoxGap);
+            int maxXValueForPeopleEmoji;
+            int PeopleEmojiPanelXLocation;
+            int PeopleEmojiPanelYLocation;
+            foreach (List<EmojiObject> EmojiPack in EmojiImagePathListOfLists)
+            {
+                EmojiObject Emoji = EmojiPack[0];
+                this.EmojiPictureBoxArrayOfLists[1].Add(new PictureBox());
+                EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].Name = Emoji.EmojiName;
+                EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].Image = Emoji.EmojiImage;
+                EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].Location = new System.Drawing.Point(x, y);
+                EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].Size = new Size(PictureBoxSize, PictureBoxSize);
+                EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+                EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].Padding = new System.Windows.Forms.Padding(2);
+                EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].MouseEnter += new System.EventHandler(EmojiPictureBox_MouseEnter);
+                EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].MouseLeave += new System.EventHandler(EmojiPictureBox_MouseLeave);
+                this.Controls.Add(this.EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount]);
+                this.EmojiCategoryTabPage[1].Controls.Add(this.EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount]);
+                this.EmojiCategoryPanel[1].Controls.Add(this.EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount]);
+                if (EmojiPack.Count > 1)
+                {
+                    EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].Click += new System.EventHandler(SpecialEmojiPictureBox_Click);
+
+                    if (EmojiPack.Count == 6)
+                    {
+                        maxXValueForPeopleEmoji = PictureBoxSize * 6 + PictureBoxGap * 5;
+  
+
+                        this.PeopleEmojiPanelList.Add(new Panel());
+
+                        PeopleEmojiPanelList[PanelCount].Name = "Panel" + Emoji.EmojiName;
+
+                        PeopleEmojiPanelList[PanelCount].Size = new Size(maxXValueForPeopleEmoji, PictureBoxSize);
+                        PeopleEmojiPanelList[PanelCount].Visible = false;
+                        PeopleEmojiPanelList[PanelCount].BorderStyle = BorderStyle.FixedSingle;
+
+                        this.Controls.Add(this.PeopleEmojiPanelList[PanelCount]);
+                        ButtonToPanelConnectionMap.Add(EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount], PeopleEmojiPanelList[PanelCount]);
+
+                        PeopleEmojiPictureBoxListOfLists.Add(new List<PictureBox>());
+                        PeopleEmojiPictureBoxCount = 0;
+                        foreach (EmojiObject emojiObject in EmojiPack)
+                        {
+                            this.PeopleEmojiPictureBoxListOfLists[PanelCount].Add(new PictureBox());
+                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Name = emojiObject.EmojiName;
+                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Image = emojiObject.EmojiImage;
+                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Size = new Size(PictureBoxSize, PictureBoxSize);
+                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Padding = new System.Windows.Forms.Padding(2);
+                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Click += new System.EventHandler(EmojiPictureBox_Click);
+                            this.Controls.Add(this.PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount]);
+                            this.PeopleEmojiPanelList[PanelCount].Controls.Add(PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount]);
+
+                            if (xForPeopleEmoji < maxXValueForPeopleEmoji)
+                                xForPeopleEmoji += PictureBoxSize + PictureBoxGap;
+                            else
+                            {
+                                yForPeopleEmoji += PictureBoxSize + PictureBoxGap;
+                                PeopleEmojiLayers++;
+                                xForPeopleEmoji = PictureBoxGap;
+                            }
+                            PeopleEmojiPictureBoxCount++;
+
+                        }
+                        PanelCount++;
+                    }
+                    
+                }
+                else
+                {
+                    EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].Click += new System.EventHandler(EmojiPictureBox_Click);
+
+                }
+
+                if (x < maxXValue)
+                    x += PictureBoxSize + PictureBoxGap;
+                else
+                {
+                    y += PictureBoxSize + PictureBoxGap;
+                    x = 0;
+                }
+                EmojiPictureBoxCount++;
+            }
+        }
+        private bool IsMouseOverButtonOrPanel(Button button, Panel panel)
+        {
+            return button.ClientRectangle.Contains(button.PointToClient(MousePosition)) ||
+                   panel.ClientRectangle.Contains(panel.PointToClient(MousePosition));
         }
 
         private void InsertToListByABC(List<EmojiObject> EmojiPack, string SpecialId, EmojiObject EmojiToBeInserted)
         {
-            Boolean WasInserted = false;
-            for (int i = 0; (i < EmojiPack.Count) && (!WasInserted); i++)
+            if (SpecialId == "no color")
             {
-                if (EmojiPack[i].EmojiColorID != "first")
+                EmojiPack.Insert(0, EmojiToBeInserted); //insert as first
+            }
+            else
+            {
+                Boolean WasInserted = false;
+                int index = 0;
+                for (int i = 0; (i < EmojiPack.Count) && (!WasInserted); i++)
                 {
-                    if (IsFirstStringFirstInABC(SpecialId, EmojiPack[i].EmojiColorID))
+                    if (EmojiPack[i].EmojiColorID != "no color")
                     {
-                        EmojiPack.Insert(i, EmojiToBeInserted); 
-                        WasInserted = true;
+                        if (IsFirstStringFirstInABC(SpecialId, EmojiPack[i].EmojiColorID))
+                        {
+                            index = i;
+                            WasInserted = true;
+                        }
                     }
                 }
+                if (ContainKeyWord(EmojiPack))
+                {
+                    index++;
+                }
+                EmojiPack.Insert(index, EmojiToBeInserted);
             }
         }
+        private bool ContainKeyWord(List<EmojiObject> EmojiPack)
+        {
+            for (int i = 0; (i < EmojiPack.Count); i++)
+            {
+                if (EmojiPack[i].EmojiColorID == "no color")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         private bool IsFirstStringFirstInABC (string String1, string String2)
         {
@@ -213,11 +390,11 @@ namespace YouChatApp.AttachedFiles
 
 
         }
-        public EmojiKeyboard(bool isText)
+        public EmojiKeyboard()
         {
             InitializeComponent();
             this.TopMost = true;
-            _isText = isText;
+            PeopleEmojiPanelList = new List<Panel>();
             EmojiResourceSet.InitializeResourceSetArray(); //probably need this - to ask somebody...
             InitializeEmojiPanelArray();
             //string emojiPath = @"C:\Users\יובל\source\repos\YouChatApp\YouChatApp\EmojiIcons\Smileys\1f600.png"; // This is an example path, make sure to adjust it based on the actual emoji you want to use.
@@ -228,7 +405,9 @@ namespace YouChatApp.AttachedFiles
             InitializeEmojiTabPageArray();
             InitializeEmojiPictureBoxList();
             RichTextBoxContent = new List<Emoji>();
-            EmojiPress += ServerCommunication.youChat.OnEmojiPress;
+
+            if (ServerCommunication.youChat != null ) 
+                EmojiPress += ServerCommunication.youChat.OnEmojiPress;
         }
 
 
@@ -304,6 +483,54 @@ namespace YouChatApp.AttachedFiles
 
             this.Close();
         }
+        private void SpecialEmojiPictureBox_Click(object sender, EventArgs e)
+        {
+            //foreach (Panel panel1 in PeopleEmojiPanelList)
+            //{
+            //    panel1.Visible = false;
+            //}
+            if (lastVisiblePeopleEmojiPanel != null)
+            {
+                lastVisiblePeopleEmojiPanel.Visible = false;
+
+            }
+            PictureBox pictureBox = sender as PictureBox;
+            Panel panel = ButtonToPanelConnectionMap[pictureBox];
+            lastVisiblePeopleEmojiPanel = panel;
+            System.Drawing.Point pictureBoxRealLocation = pictureBox.Location;
+            if (pictureBox.Parent != null && pictureBox.Parent is Panel) //panel location
+            {
+                System.Drawing.Point panelLocation = pictureBox.Parent.Location;
+                pictureBoxRealLocation.Offset(panelLocation.X, panelLocation.Y);
+            }
+            if (pictureBox.Parent.Parent != null && pictureBox.Parent.Parent is TabPage) //tabpage location
+            {
+                System.Drawing.Point tabPageLocation = pictureBox.Parent.Parent.Location; 
+                pictureBoxRealLocation.Offset(tabPageLocation.X, tabPageLocation.Y);
+            }
+            int pictureBoxRealXLocation = pictureBoxRealLocation.X;
+            int pictureBoxRealYLocation = pictureBoxRealLocation.Y;
+            panel.Location = new System.Drawing.Point(pictureBox.Location.X + ((PictureBoxSize + PictureBoxGap-  panel.Width) / 2), pictureBoxRealYLocation - panel.Height);
+            panel.Visible = true;
+            int x = 0;
+            int y = 0;
+            foreach (Control control in panel.Controls)
+            {
+                if (control is PictureBox)
+                {
+                    control.Location = new System.Drawing.Point(x, y);
+
+                }
+                if (x < panel.Width - PictureBoxGap - PictureBoxSize)
+                    x += PictureBoxSize + PictureBoxGap;
+                else
+                {
+                    y += PictureBoxSize + PictureBoxGap;
+                    x = 0;
+                }
+            }    
+            panel.BringToFront();
+        }
 
         private void EmojiPictureBox_Click(object sender, EventArgs e)
         {
@@ -332,7 +559,7 @@ namespace YouChatApp.AttachedFiles
 
             //}
             PictureBox pictureBox = sender as PictureBox;
-            if (true)
+            if (_isText)
             {
                 EmojiPress?.Invoke(this, new PictureBoxEventArgs(pictureBox));
             }
@@ -419,8 +646,7 @@ namespace YouChatApp.AttachedFiles
             int count = 0;
             int x = 0;
             int y = 0;
-            int PictureBoxSize = 36;
-            int PictureBoxGap = 4;
+
             int maxXValue = EmojiCategoryTabPage[TabNumber].Size.Width - (2 * PictureBoxSize + PictureBoxGap);
             ResourceSet ResourceSet = EmojiResourceSet.resourceSetArray[TabNumber];
 
@@ -459,15 +685,13 @@ namespace YouChatApp.AttachedFiles
                         this.EmojiPictureBoxArrayOfLists[TabNumber].Add(new PictureBox());
                         EmojiPictureBoxArrayOfLists[TabNumber][count].Name = resourceName;
                         EmojiPictureBoxArrayOfLists[TabNumber][count].Image = (Image)entry.Value;
-                        EmojiPictureBoxArrayOfLists[TabNumber][count].Location = new Point(x, y);
+                        EmojiPictureBoxArrayOfLists[TabNumber][count].Location = new System.Drawing.Point(x, y);
                         EmojiPictureBoxArrayOfLists[TabNumber][count].Size = new Size(PictureBoxSize, PictureBoxSize);
                         EmojiPictureBoxArrayOfLists[TabNumber][count].SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
                         EmojiPictureBoxArrayOfLists[TabNumber][count].Padding = new System.Windows.Forms.Padding(2);
                         EmojiPictureBoxArrayOfLists[TabNumber][count].Click += new System.EventHandler(EmojiPictureBox_Click);
                         EmojiPictureBoxArrayOfLists[TabNumber][count].MouseEnter += new System.EventHandler(EmojiPictureBox_MouseEnter);
                         EmojiPictureBoxArrayOfLists[TabNumber][count].MouseLeave += new System.EventHandler(EmojiPictureBox_MouseLeave);
-
-
                         this.Controls.Add(this.EmojiPictureBoxArrayOfLists[TabNumber][count]);
                         this.EmojiCategoryTabPage[TabNumber].Controls.Add(this.EmojiPictureBoxArrayOfLists[TabNumber][count]);
                         this.EmojiCategoryPanel[TabNumber].Controls.Add(this.EmojiPictureBoxArrayOfLists[TabNumber][count]);
@@ -485,14 +709,44 @@ namespace YouChatApp.AttachedFiles
             }
 
         }
+        private void HandleBackgroundColor(PictureBox pictureBox, bool isOnMouseEnter)
+        {
+            if (isOnMouseEnter)
+            {
+                pictureBox.BackColor = System.Drawing.Color.LightGray;
+            }
+            else
+            {
+                pictureBox.BackColor = Color.Transparent;
 
+            }
+        }
+        private void SpecialEmojiPictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = sender as PictureBox;
+            HandleBackgroundColor(pictureBox, true);
+            Panel panel = ButtonToPanelConnectionMap[pictureBox];
+            panel.Location = new System.Drawing.Point(pictureBox.Location.X, pictureBox.Location.Y - panel.Height);
+            panel.Visible = true;
+            panel.BringToFront();
+        }
+        private void SpecialEmojiPictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = sender as PictureBox;
+            HandleBackgroundColor(pictureBox, false);
+            Panel panel = ButtonToPanelConnectionMap[pictureBox];
+            panel.Visible = false;
+            panel.SendToBack();
+        }
         private void EmojiPictureBox_MouseEnter(object sender, EventArgs e)
         {
-            ((PictureBox)(sender)).BackColor = System.Drawing.Color.LightGray;
+            PictureBox pictureBox = sender as PictureBox;
+            HandleBackgroundColor(pictureBox, true);
         }
         private void EmojiPictureBox_MouseLeave(object sender, EventArgs e)
         {
-            ((PictureBox)(sender)).BackColor = Color.Transparent;
+            PictureBox pictureBox = sender as PictureBox;
+            HandleBackgroundColor(pictureBox, false);
         }
 
         private void richTextBox1_ContentsResized(object sender, ContentsResizedEventArgs e)
