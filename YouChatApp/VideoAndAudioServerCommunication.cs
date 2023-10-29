@@ -24,8 +24,11 @@ namespace YouChatApp
             _udpIsOn = true;
             //UdpClient.Connect(ip, 1501);
             udpClient = new UdpClient();
-            remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 12345);
-            ReceiveImageUDP();
+            remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 12000);
+            udpClient.Connect(remoteEndPoint);
+            udpClient.BeginReceive(new AsyncCallback(ReceiveVideoUdpMessage), null);//starts async listen too screen/camera sharing.
+
+            //ReceiveImageUDP();
         }
 
 
@@ -112,7 +115,7 @@ namespace YouChatApp
             {
                 try
                 {
-                    udpClient.Send(data, data.Length, remoteEndPoint);
+                    udpClient.Send(data, data.Length/*, remoteEndPoint*/);
 
 
                     // Send data to the client
@@ -143,18 +146,36 @@ namespace YouChatApp
         }
         public static void ReceiveImageUDP()
         {
-            //while (true)
-            //{
-            //    // Receive the image from the server
-            //    byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
+            while (true)
+            {
+                // Receive the image from the server
+                byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
 
-            //    // Convert bytes to image
-            //    using (MemoryStream ms = new MemoryStream(receivedData))
-            //    {
-            //        Image receivedImage = Image.FromStream(ms);
-            //        _videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); });
-            //    }
-            //}
+                // Convert bytes to image
+                using (MemoryStream ms = new MemoryStream(receivedData))
+                {
+                    Image receivedImage = Image.FromStream(ms);
+                    _videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); });
+                }
+            }
+        }
+        public static void ReceiveVideoUdpMessage(IAsyncResult ar)
+        {
+            while (true)
+            {
+                if (_udpIsOn)
+                {
+                    // Receive the image from the server
+                    byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
+
+                    // Convert bytes to image
+                    using (MemoryStream ms = new MemoryStream(receivedData))
+                    {
+                        Image receivedImage = Image.FromStream(ms);
+                        _videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); });
+                    }
+                }
+            }
         }
 
         // Close the UDP client when done

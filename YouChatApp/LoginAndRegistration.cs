@@ -520,6 +520,10 @@ namespace YouChatApp
             else
                 registButton.Enabled = false;
         }
+        private void CheckUsernameField()
+        {
+            //string username = 
+        }
 
         /// <summary>
         /// The "LoginRegistPage_FormClosing" event handler sends a disconnect request message to the server
@@ -1370,6 +1374,11 @@ namespace YouChatApp
                 // Handle any exceptions, e.g., if the default web browser is not available
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void PasswordExclamationButton_Click(object sender, EventArgs e)
+        {
+
         }
 
         private double CalculateRotationAngle(Point clickPoint)

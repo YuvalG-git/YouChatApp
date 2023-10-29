@@ -19,6 +19,10 @@ namespace YouChatApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    ServerCommunication.Connect("10.100.102.3");
+            //}
             //Application.Run(new LoginAndRegistration());
             //Application.Run(new InitialProfileSelection());
 
@@ -27,8 +31,8 @@ namespace YouChatApp
             //Application.Run(new ContactSharing());
             //Application.Run(new Document());
             //Application.Run(new ImageHandler());
-            Application.Run(new EmojiKeyboard());
-            //Application.Run(new VideoCall());
+            //Application.Run(new EmojiKeyboard());
+            Application.Run(new VideoCall());
             //Application.Run(new AudioCall());
             //Application.Run(new Camera());
             //Application.Run(new WaitingForm());

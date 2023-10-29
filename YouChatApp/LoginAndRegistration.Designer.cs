@@ -231,6 +231,7 @@ namespace YouChatApp
             this.PasswordExclamationButton.TabIndex = 26;
             this.PasswordExclamationButton.UseVisualStyleBackColor = true;
             this.PasswordExclamationButton.Visible = false;
+            this.PasswordExclamationButton.Click += new System.EventHandler(this.PasswordExclamationButton_Click);
             // 
             // PasswordRequirementsLabel
             // 
