@@ -35,7 +35,7 @@ namespace YouChatApp
         public static int widthForProfileControl = 0;
         private bool _firstTimeEnteringFriendRequestZone = true;
         Image AnonymousProfile = global::YouChatApp.Properties.Resources.AnonymousProfile; //need to change that to my profile picture...
-
+        ChatCreator newChat;
         public static int messageGap = 10;
         public static DateTime Time;
         public static int ContactChatNumber = 0;
@@ -1212,12 +1212,22 @@ namespace YouChatApp
             string EncryptedMessageContent = Encryption.Encryption.EncryptData(ServerCommunication.SymmetricKey, chatDetailsJson);
             string DecryptedMessageDetails = Encryption.Encryption.DecryptData(ServerCommunication.SymmetricKey, EncryptedMessageContent);
 
-            ChatCreator newChat = JsonConvert.DeserializeObject<ChatCreator>(chatDetailsJson);
-            //ServerCommunication.SendMessage(ServerCommunication.GroupCreatorRequest, chatDetailsJson);
+            newChat = JsonConvert.DeserializeObject<ChatCreator>(chatDetailsJson);
+            ServerCommunication.SendMessage(ServerCommunication.GroupCreatorRequest, chatDetailsJson);
             GroupCreatorCustomButton.Enabled = false;
             //needs to close everything that is connected to opening groups..
         }
-
+        public void HandleGroupCreation()
+        {
+            AddGroup(newChat);
+            newChat = null;
+            //this is for me
+            //needs to take the data of the created group and create a new chat object plus to add it to 
+        }
+        public void AddGroup(ChatCreator chat)
+        {
+            //to add to chat list and to add the visuallity to the chat list on youchat platform...
+        }
         private void GroupSubjectCustomTextBox_TextChangedEvent(object sender, EventArgs e)
         {
             int charLeft = GroupSubjectCustomTextBox.MaxLength - GroupSubjectCustomTextBox.TextContent.Length;

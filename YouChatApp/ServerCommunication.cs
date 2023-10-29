@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using YouChatApp.AttachedFiles;
+using YouChatApp.ChatHandler;
 using YouChatApp.ContactHandler;
 using YouChatApp.Encryption;
 using static System.Net.Mime.MediaTypeNames;
@@ -123,6 +125,7 @@ namespace YouChatApp
         const string VideoCallResponse2 = "You have been asked to join a call";
         public const string VideoCallResponseResult1 = "Joining the video call";
         public const string VideoCallResponseResult2 = "Declining the video call";
+        const string GroupCreatorResponse1 = "Group was successfully created";
 
         /// <summary>
         /// Object which represents the server's TCP client
@@ -547,6 +550,20 @@ namespace YouChatApp
                                 else
                                 {
                                     //close the waiting form and return to youchat form
+
+                                }
+                            }
+                            else if (requestNumber == GroupCreatorResponse)
+                            {
+                                if (DecryptedMessageDetails == GroupCreatorResponse1)
+                                {
+                                    MessageBox.Show(DecryptedMessageDetails, "Successful Group Creation");
+                                }
+                                else
+                                {
+                                    ChatCreator newChat = JsonConvert.DeserializeObject<ChatCreator>(DecryptedMessageDetails);
+
+                                    youChat.Invoke((Action)delegate { youChat.AddGroup(newChat); });
 
                                 }
                             }

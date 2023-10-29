@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
@@ -26,8 +27,8 @@ namespace YouChatApp.AttachedFiles
         readonly int PictureBoxGap = 4;
         readonly int PictureBoxSize = 36;
         public event EventHandler<PictureBoxEventArgs> EmojiPress; // Event to notify Form2
-        int ControlWidth = 791;
-        int ControlHeight = 406; //maybe in the future to use size based on the form's size
+        int ControlWidth;
+        int ControlHeight; //maybe in the future to use size based on the form's size
         List<Emoji> RichTextBoxContent;
         int EmojiCategories = 9;
         List<List<EmojiObject>> EmojiImagePathListOfLists = new List<List<EmojiObject>>();
@@ -187,8 +188,8 @@ namespace YouChatApp.AttachedFiles
             int xForPeopleEmoji = 0;
             int yForPeopleEmoji = 0;
             int PeopleEmojiLayers = 1;
-            int maxXValue = EmojiCategoryTabPage[1].Size.Width - (2 * PictureBoxSize + PictureBoxGap);
-            int maxXValueForPeopleEmoji;
+            int maxXValue = EmojiCategoryTabPage[1].Size.Width - (2 * PictureBoxSize + PictureBoxGap) - 10;
+            int maxXValueForPeopleEmoji = 100;
             int PeopleEmojiPanelXLocation;
             int PeopleEmojiPanelYLocation;
             foreach (List<EmojiObject> EmojiPack in EmojiImagePathListOfLists)
@@ -209,51 +210,54 @@ namespace YouChatApp.AttachedFiles
                 if (EmojiPack.Count > 1)
                 {
                     EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount].Click += new System.EventHandler(SpecialEmojiPictureBox_Click);
+                    this.PeopleEmojiPanelList.Add(new Panel());
 
                     if (EmojiPack.Count == 6)
                     {
                         maxXValueForPeopleEmoji = PictureBoxSize * 6 + PictureBoxGap * 5;
-  
-
-                        this.PeopleEmojiPanelList.Add(new Panel());
-
-                        PeopleEmojiPanelList[PanelCount].Name = "Panel" + Emoji.EmojiName;
-
-                        PeopleEmojiPanelList[PanelCount].Size = new Size(maxXValueForPeopleEmoji, PictureBoxSize);
-                        PeopleEmojiPanelList[PanelCount].Visible = false;
-                        PeopleEmojiPanelList[PanelCount].BorderStyle = BorderStyle.FixedSingle;
-
-                        this.Controls.Add(this.PeopleEmojiPanelList[PanelCount]);
-                        ButtonToPanelConnectionMap.Add(EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount], PeopleEmojiPanelList[PanelCount]);
-
-                        PeopleEmojiPictureBoxListOfLists.Add(new List<PictureBox>());
-                        PeopleEmojiPictureBoxCount = 0;
-                        foreach (EmojiObject emojiObject in EmojiPack)
-                        {
-                            this.PeopleEmojiPictureBoxListOfLists[PanelCount].Add(new PictureBox());
-                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Name = emojiObject.EmojiName;
-                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Image = emojiObject.EmojiImage;
-                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Size = new Size(PictureBoxSize, PictureBoxSize);
-                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Padding = new System.Windows.Forms.Padding(2);
-                            PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Click += new System.EventHandler(EmojiPictureBox_Click);
-                            this.Controls.Add(this.PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount]);
-                            this.PeopleEmojiPanelList[PanelCount].Controls.Add(PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount]);
-
-                            if (xForPeopleEmoji < maxXValueForPeopleEmoji)
-                                xForPeopleEmoji += PictureBoxSize + PictureBoxGap;
-                            else
-                            {
-                                yForPeopleEmoji += PictureBoxSize + PictureBoxGap;
-                                PeopleEmojiLayers++;
-                                xForPeopleEmoji = PictureBoxGap;
-                            }
-                            PeopleEmojiPictureBoxCount++;
-
-                        }
-                        PanelCount++;
+                        PeopleEmojiLayers = 1;
                     }
-                    
+                    else //if (EmojiPack.Count % 5 == 0)
+                    {
+                        maxXValueForPeopleEmoji = PictureBoxSize * 5 + PictureBoxGap * 4;
+                        PeopleEmojiLayers = EmojiPack.Count / 5;
+                    }
+
+                    PeopleEmojiPanelList[PanelCount].Name = "Panel" + Emoji.EmojiName;
+
+                    PeopleEmojiPanelList[PanelCount].Size = new Size(maxXValueForPeopleEmoji, PictureBoxSize * PeopleEmojiLayers + PictureBoxGap * (PeopleEmojiLayers -1));
+                    PeopleEmojiPanelList[PanelCount].Visible = false;
+                    PeopleEmojiPanelList[PanelCount].BorderStyle = BorderStyle.FixedSingle;
+
+                    this.Controls.Add(this.PeopleEmojiPanelList[PanelCount]);
+                    ButtonToPanelConnectionMap.Add(EmojiPictureBoxArrayOfLists[1][EmojiPictureBoxCount], PeopleEmojiPanelList[PanelCount]);
+
+                    PeopleEmojiPictureBoxListOfLists.Add(new List<PictureBox>());
+                    PeopleEmojiPictureBoxCount = 0;
+                    foreach (EmojiObject emojiObject in EmojiPack)
+                    {
+                        this.PeopleEmojiPictureBoxListOfLists[PanelCount].Add(new PictureBox());
+                        PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Name = emojiObject.EmojiName;
+                        PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Image = emojiObject.EmojiImage;
+                        PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Size = new Size(PictureBoxSize, PictureBoxSize);
+                        PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+                        PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Padding = new System.Windows.Forms.Padding(2);
+                        PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount].Click += new System.EventHandler(EmojiPictureBox_Click);
+                        this.Controls.Add(this.PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount]);
+                        this.PeopleEmojiPanelList[PanelCount].Controls.Add(PeopleEmojiPictureBoxListOfLists[PanelCount][PeopleEmojiPictureBoxCount]);
+
+                        if (xForPeopleEmoji < maxXValueForPeopleEmoji)
+                            xForPeopleEmoji += PictureBoxSize + PictureBoxGap;
+                        else
+                        {
+                            yForPeopleEmoji += PictureBoxSize + PictureBoxGap;
+                            xForPeopleEmoji = PictureBoxGap;
+                        }
+                        PeopleEmojiPictureBoxCount++;
+
+                    }
+                    PanelCount++;
+
                 }
                 else
                 {
@@ -347,8 +351,8 @@ namespace YouChatApp.AttachedFiles
             {
                 EmojiCategoryPanel[i] = new System.Windows.Forms.Panel();
                 this.EmojiCategoryPanel[i].AutoScroll = true;
-                this.EmojiCategoryPanel[i].Location = new System.Drawing.Point(4, 40);
-                this.EmojiCategoryPanel[i].Size = new System.Drawing.Size(ControlWidth, ControlHeight);
+                this.EmojiCategoryPanel[i].Location = new System.Drawing.Point(3, 40);
+                this.EmojiCategoryPanel[i].Size = new System.Drawing.Size(ControlWidth - 4, ControlHeight - 40);
                 this.EmojiCategoryPanel[i].TabIndex = 8;
                 this.Controls.Add(this.EmojiCategoryPanel[i]);
             }
@@ -374,6 +378,7 @@ namespace YouChatApp.AttachedFiles
                 this.EmojiCategoryTabPage[i].Size = new System.Drawing.Size(ControlWidth, ControlHeight);
                 this.EmojiCategoryTabPage[i].TabIndex = EmojiCategories;
                 this.EmojiCategoryTabPage[i].UseVisualStyleBackColor = true;
+                this.EmojiCategoryTabPage[i].BackColor = Color.LightBlue;
                 this.EmojiCategoryTabPage[i].Controls.Add(this.EmojiCategoryPanel[i]);
                 this.EmojiTabControl.Controls.Add(this.EmojiCategoryTabPage[i]);
 
@@ -387,13 +392,13 @@ namespace YouChatApp.AttachedFiles
             this.EmojiCategoryTabPage[6].Name = "Objects";
             this.EmojiCategoryTabPage[7].Name = "Symbols";
             this.EmojiCategoryTabPage[8].Name = "Flags";
-
-
         }
         public EmojiKeyboard()
         {
             InitializeComponent();
             this.TopMost = true;
+            ControlWidth = EmojiTabControl.Width;
+            ControlHeight = EmojiTabControl.Height; //maybe in the future to use size based on the form's size
             PeopleEmojiPanelList = new List<Panel>();
             EmojiResourceSet.InitializeResourceSetArray(); //probably need this - to ask somebody...
             InitializeEmojiPanelArray();
@@ -510,7 +515,42 @@ namespace YouChatApp.AttachedFiles
             }
             int pictureBoxRealXLocation = pictureBoxRealLocation.X;
             int pictureBoxRealYLocation = pictureBoxRealLocation.Y;
-            panel.Location = new System.Drawing.Point(pictureBox.Location.X + ((PictureBoxSize + PictureBoxGap-  panel.Width) / 2), pictureBoxRealYLocation - panel.Height);
+            panel.Location = new System.Drawing.Point(pictureBoxRealXLocation + ((PictureBoxSize + PictureBoxGap-  panel.Width) / 2), pictureBoxRealYLocation - panel.Height);
+            if (!EmojiCategoryPanel[1].ClientRectangle.Contains(panel.Bounds))
+            {
+                // The second panel is partially or completely outside the first panel
+                // Find the closest first panel border and move the second panel there
+
+                int newX = panel.Left;
+                int newY = panel.Top;
+
+                // Check the left border
+                if (panel.Left < EmojiCategoryPanel[1].Left)
+                {
+                    newX = EmojiCategoryPanel[1].Left;
+                }
+
+                // Check the top border
+                if (panel.Top < EmojiCategoryPanel[1].Top)
+                {
+                    newY = EmojiCategoryPanel[1].Top;
+                }
+
+                // Check the right border
+                if (panel.Right > EmojiCategoryPanel[1].Right)
+                {
+                    newX = EmojiCategoryPanel[1].Right - panel.Width;
+                }
+
+                // Check the bottom border
+                if (panel.Bottom > EmojiCategoryPanel[1].Bottom)
+                {
+                    newY = EmojiCategoryPanel[1].Bottom - panel.Height;
+                }
+
+                // Move the second panel to the new position
+                panel.Location = new System.Drawing.Point(newX, newY);
+            }
             panel.Visible = true;
             int x = 0;
             int y = 0;
@@ -923,6 +963,11 @@ namespace YouChatApp.AttachedFiles
         }
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void rickrollbutton_Click(object sender, EventArgs e)
         {
 
         }

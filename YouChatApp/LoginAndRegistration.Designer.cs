@@ -127,6 +127,7 @@ namespace YouChatApp
             this.UpdatePasswordButton = new System.Windows.Forms.Button();
             this.UpdatePasswordUsernameLabel = new System.Windows.Forms.Label();
             this.PasswordUpdateLabel = new System.Windows.Forms.Label();
+            this.EasterEggCustomButton = new YouChatApp.Controls.CustomButton();
             this.RegistrationGroupBox.SuspendLayout();
             this.LoginGroupBox.SuspendLayout();
             this.CaptchaWordTestPanel.SuspendLayout();
@@ -186,6 +187,7 @@ namespace YouChatApp
             this.ChangeEmailOptionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.ChangeEmailOptionCustomButton.BorderRadius = 10;
             this.ChangeEmailOptionCustomButton.BorderSize = 0;
+            this.ChangeEmailOptionCustomButton.Circular = false;
             this.ChangeEmailOptionCustomButton.FlatAppearance.BorderSize = 0;
             this.ChangeEmailOptionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ChangeEmailOptionCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -205,6 +207,7 @@ namespace YouChatApp
             this.NewSMTPCodeOptionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.NewSMTPCodeOptionCustomButton.BorderRadius = 10;
             this.NewSMTPCodeOptionCustomButton.BorderSize = 0;
+            this.NewSMTPCodeOptionCustomButton.Circular = false;
             this.NewSMTPCodeOptionCustomButton.FlatAppearance.BorderSize = 0;
             this.NewSMTPCodeOptionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NewSMTPCodeOptionCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1294,6 +1297,7 @@ namespace YouChatApp
             this.UpdatePasswordUsernameCustomTextBox.ReadOnly = false;
             this.UpdatePasswordUsernameCustomTextBox.Size = new System.Drawing.Size(228, 35);
             this.UpdatePasswordUsernameCustomTextBox.TabIndex = 32;
+            this.UpdatePasswordUsernameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.UpdatePasswordUsernameCustomTextBox.TextContent = "";
             this.UpdatePasswordUsernameCustomTextBox.UnderlineStyle = true;
             this.UpdatePasswordUsernameCustomTextBox.TextChangedEvent += new System.EventHandler(this.UpdatePasswordFieldsChecker);
@@ -1355,12 +1359,32 @@ namespace YouChatApp
             this.PasswordUpdateLabel.Text = "UPDATE PASSWORD";
             this.PasswordUpdateLabel.Click += new System.EventHandler(this.PasswordUpdateLabel_Click);
             // 
+            // EasterEggCustomButton
+            // 
+            this.EasterEggCustomButton.BackColor = System.Drawing.Color.Transparent;
+            this.EasterEggCustomButton.BackgroundColor = System.Drawing.Color.Transparent;
+            this.EasterEggCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.EasterEggCustomButton.BorderRadius = 0;
+            this.EasterEggCustomButton.BorderSize = 0;
+            this.EasterEggCustomButton.Circular = false;
+            this.EasterEggCustomButton.FlatAppearance.BorderSize = 0;
+            this.EasterEggCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EasterEggCustomButton.ForeColor = System.Drawing.Color.White;
+            this.EasterEggCustomButton.Location = new System.Drawing.Point(0, 0);
+            this.EasterEggCustomButton.Name = "EasterEggCustomButton";
+            this.EasterEggCustomButton.Size = new System.Drawing.Size(20, 20);
+            this.EasterEggCustomButton.TabIndex = 39;
+            this.EasterEggCustomButton.TextColor = System.Drawing.Color.White;
+            this.EasterEggCustomButton.UseVisualStyleBackColor = false;
+            this.EasterEggCustomButton.Click += new System.EventHandler(this.EasterEggCustomButton_Click);
+            // 
             // LoginAndRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(1382, 1036);
+            this.Controls.Add(this.EasterEggCustomButton);
             this.Controls.Add(this.PasswordUpdateGroupBox);
             this.Controls.Add(this.CaptchaImageTestPanel);
             this.Controls.Add(this.ResetPasswordGroupBox);
@@ -1493,6 +1517,7 @@ namespace YouChatApp
         private Controls.PasswordGeneratorControl UpdatePasswordGeneratorControl;
         private Controls.CustomTextBox UpdatePasswordUsernameCustomTextBox;
         public System.Windows.Forms.Label UpdatePasswordUsernameLabel;
+        private Controls.CustomButton EasterEggCustomButton;
     }
 }
 

@@ -35,6 +35,7 @@ namespace YouChatApp.AttachedFiles
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmojiKeyboard));
             this.EmojiTabControl = new System.Windows.Forms.TabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
+            this.rickrollbutton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button2 = new System.Windows.Forms.Button();
             this.TabPage2 = new System.Windows.Forms.TabPage();
@@ -62,12 +63,14 @@ namespace YouChatApp.AttachedFiles
             this.EmojiTabControl.Multiline = true;
             this.EmojiTabControl.Name = "EmojiTabControl";
             this.EmojiTabControl.SelectedIndex = 0;
-            this.EmojiTabControl.Size = new System.Drawing.Size(799, 450);
+            this.EmojiTabControl.Size = new System.Drawing.Size(884, 462);
             this.EmojiTabControl.TabIndex = 0;
             // 
             // TabPage1
             // 
+            this.TabPage1.BackColor = System.Drawing.Color.LightBlue;
             this.TabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TabPage1.Controls.Add(this.rickrollbutton);
             this.TabPage1.Controls.Add(this.flowLayoutPanel1);
             this.TabPage1.Controls.Add(this.button2);
             this.TabPage1.ImageIndex = 0;
@@ -75,9 +78,18 @@ namespace YouChatApp.AttachedFiles
             this.TabPage1.Location = new System.Drawing.Point(4, 40);
             this.TabPage1.Name = "TabPage1";
             this.TabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPage1.Size = new System.Drawing.Size(791, 406);
+            this.TabPage1.Size = new System.Drawing.Size(876, 418);
             this.TabPage1.TabIndex = 0;
-            this.TabPage1.UseVisualStyleBackColor = true;
+            // 
+            // rickrollbutton
+            // 
+            this.rickrollbutton.Location = new System.Drawing.Point(351, 47);
+            this.rickrollbutton.Name = "rickrollbutton";
+            this.rickrollbutton.Size = new System.Drawing.Size(137, 79);
+            this.rickrollbutton.TabIndex = 1;
+            this.rickrollbutton.Text = "button3";
+            this.rickrollbutton.UseVisualStyleBackColor = true;
+            this.rickrollbutton.Click += new System.EventHandler(this.rickrollbutton_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -108,7 +120,7 @@ namespace YouChatApp.AttachedFiles
             this.TabPage2.Location = new System.Drawing.Point(4, 40);
             this.TabPage2.Name = "TabPage2";
             this.TabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPage2.Size = new System.Drawing.Size(791, 406);
+            this.TabPage2.Size = new System.Drawing.Size(876, 417);
             this.TabPage2.TabIndex = 1;
             this.TabPage2.UseVisualStyleBackColor = true;
             // 
@@ -121,7 +133,7 @@ namespace YouChatApp.AttachedFiles
             this.tabPage3.Location = new System.Drawing.Point(4, 40);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(791, 406);
+            this.tabPage3.Size = new System.Drawing.Size(876, 417);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
@@ -180,7 +192,7 @@ namespace YouChatApp.AttachedFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 461);
             this.Controls.Add(this.EmojiTabControl);
             this.Name = "EmojiKeyboard";
             this.Text = "EmojiKeyboard";
@@ -212,5 +224,6 @@ namespace YouChatApp.AttachedFiles
         private FlowLayoutPanel flowLayoutPanel1;
         private Button button2;
         private Timer EmojiTimer;
+        private Button rickrollbutton;
     }
 }

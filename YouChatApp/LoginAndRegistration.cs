@@ -18,6 +18,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Threading;
+using System.Diagnostics;
 
 namespace YouChatApp
 {
@@ -26,7 +27,7 @@ namespace YouChatApp
         const int RegistrationMessage = 1;
         const int LoginMessage = 2;
         const int PasswordRenewalMessage = 3;
-
+        string[] links = new string[2] { "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "https://www.youtube.com/watch?v=11GKqZPi41s" };
         /// <summary>
         /// Declares a variable of type RulesPage
         /// </summary>
@@ -1346,6 +1347,29 @@ namespace YouChatApp
         private void CountDownTimeLabel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void EasterEggCustomButton_Click(object sender, EventArgs e)
+        {
+            // Replace this URL with the YouTube link you want to open
+            // Create a Random object to generate random numbers
+            Random random = new Random();
+
+            // Generate a random index within the range of the array
+            int randomIndex = random.Next(0, links.Length);
+
+            // Get the random string from the array
+            string youtubeUrl = links[randomIndex];
+            try
+            {
+                // Open the default web browser with the YouTube URL
+                Process.Start(youtubeUrl);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions, e.g., if the default web browser is not available
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private double CalculateRotationAngle(Point clickPoint)
