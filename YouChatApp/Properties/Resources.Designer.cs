@@ -663,6 +663,16 @@ namespace YouChatApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LeftScrollArrow {
+            get {
+                object obj = ResourceManager.GetObject("LeftScrollArrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Line {
             get {
                 object obj = ResourceManager.GetObject("Line", resourceCulture);
@@ -876,6 +886,16 @@ namespace YouChatApp.Properties {
         internal static System.Drawing.Bitmap ReturnBackArrow {
             get {
                 object obj = ResourceManager.GetObject("ReturnBackArrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RightScrollArrow {
+            get {
+                object obj = ResourceManager.GetObject("RightScrollArrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

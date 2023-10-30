@@ -255,7 +255,7 @@ namespace YouChatApp.AttachedFiles
                 graphics.DrawImage(currentVideoFrame, 0, 0, currentVideoFrame.Width, currentVideoFrame.Height);
 
                 // Draw the overlay image on the context
-                graphics.DrawImage(FriendMicrophoneOffImage, 0, 0,50,50); // Adjust the position as needed
+                graphics.DrawImage(FriendMicrophoneOffImage, 0, 0,50,50); // todo - to handle the case when my camera hides the microphone symbol - can do it by simply using if and setting the symbol on the button right corner...
             }
             int videoPictureBoxWidth;
             if (_myVideoIsSmall)

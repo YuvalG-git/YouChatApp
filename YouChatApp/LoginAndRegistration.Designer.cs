@@ -34,8 +34,6 @@ namespace YouChatApp
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginAndRegistration));
             this.RegistrationGroupBox = new System.Windows.Forms.GroupBox();
             this.ChangeEmailOptionCustomButton = new YouChatApp.Controls.CustomButton();
-            this.NewSMTPCodeOptionCustomButton = new YouChatApp.Controls.CustomButton();
-            this.PasswordExclamationButton = new System.Windows.Forms.Button();
             this.PasswordRequirementsLabel = new System.Windows.Forms.Label();
             this.NonArrivalSmtpCodeLinkLabel = new System.Windows.Forms.LinkLabel();
             this.ChangeEmailOptionLabel = new System.Windows.Forms.Label();
@@ -65,13 +63,10 @@ namespace YouChatApp
             this.usernameLabel = new System.Windows.Forms.Label();
             this.registLabel = new System.Windows.Forms.Label();
             this.usernameTextbox = new System.Windows.Forms.TextBox();
-            this.RegisterReturnToStarterScreenButton = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.LoginGroupBox = new System.Windows.Forms.GroupBox();
-            this.LoginNewSmtpCodeSenderButton = new System.Windows.Forms.Button();
             this.CaptchaWordTestPanel = new System.Windows.Forms.Panel();
             this.CheckWordCaptchaButton = new System.Windows.Forms.Button();
-            this.RestartCaptchaButton = new System.Windows.Forms.Button();
             this.CaptchaLoginLabel = new System.Windows.Forms.Label();
             this.CaptchaLoginTextBox = new System.Windows.Forms.TextBox();
             this.CaptchaLabel = new System.Windows.Forms.Label();
@@ -81,7 +76,6 @@ namespace YouChatApp
             this.LoginSmtpCodeTextBox = new System.Windows.Forms.TextBox();
             this.LoginCodeLabel = new System.Windows.Forms.Label();
             this.ForgottenPasswordLabel = new System.Windows.Forms.Label();
-            this.ViewPasswordButton = new System.Windows.Forms.Button();
             this.RegisterScreenButton = new System.Windows.Forms.Button();
             this.NoAccountLabel = new System.Windows.Forms.Label();
             this.loginButton = new System.Windows.Forms.Button();
@@ -93,8 +87,6 @@ namespace YouChatApp
             this.CaptchaImageTestPanel = new System.Windows.Forms.Panel();
             this.CaptchaImageCheckerButton = new System.Windows.Forms.Button();
             this.CaptchaPicturesScoreLabel = new System.Windows.Forms.Label();
-            this.CaptchaCircularPictureBox = new YouChatApp.CircularPictureBox();
-            this.CaptchaPictureBox = new System.Windows.Forms.PictureBox();
             this.CountDownTimeLabel = new System.Windows.Forms.Label();
             this.YouChatHeadlineLabel = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -103,13 +95,10 @@ namespace YouChatApp
             this.ResetPasswordVerificationButton = new System.Windows.Forms.Button();
             this.NewPasswordTextBox = new System.Windows.Forms.TextBox();
             this.NewPasswordSaverButton = new System.Windows.Forms.Button();
-            this.ResetPasswordReturnToStarterScreenButton = new System.Windows.Forms.Button();
             this.TimeLabel = new System.Windows.Forms.Label();
             this.TimeTimer = new System.Windows.Forms.Timer(this.components);
             this.CountDownTimer = new System.Windows.Forms.Timer(this.components);
             this.ResetPasswordGroupBox = new System.Windows.Forms.GroupBox();
-            this.NewSmtpCodeSenderButton = new System.Windows.Forms.Button();
-            this.ResetNewPasswordButton = new System.Windows.Forms.Button();
             this.NewPasswordLabel = new System.Windows.Forms.Label();
             this.ResetPasswordCodeLabel = new System.Windows.Forms.Label();
             this.EmailResetPasswordTextBox = new System.Windows.Forms.TextBox();
@@ -123,19 +112,40 @@ namespace YouChatApp
             this.UpdatePasswordGeneratorControl = new YouChatApp.Controls.PasswordGeneratorControl();
             this.UpdatePasswordUsernameCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.ExpiredPasswordLabel = new System.Windows.Forms.Label();
-            this.UpdatePasswordReturnToStarterScreenButton = new System.Windows.Forms.Button();
             this.UpdatePasswordButton = new System.Windows.Forms.Button();
             this.UpdatePasswordUsernameLabel = new System.Windows.Forms.Label();
             this.PasswordUpdateLabel = new System.Windows.Forms.Label();
             this.EasterEggCustomButton = new YouChatApp.Controls.CustomButton();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.PersonalVerificationQuestionsPanel = new System.Windows.Forms.Panel();
+            this.ApproveVerificationInformationCustomButton = new YouChatApp.Controls.CustomButton();
+            this.VerificationQuestionNumberLabel = new System.Windows.Forms.Label();
+            this.VerificationQuestionLabel = new System.Windows.Forms.Label();
+            this.VerificationAnswerLabel = new System.Windows.Forms.Label();
+            this.RightScrollCustomButton = new YouChatApp.Controls.CustomButton();
+            this.LeftScrollCustomButton = new YouChatApp.Controls.CustomButton();
+            this.UpdatePasswordReturnToStarterScreenButton = new System.Windows.Forms.Button();
+            this.CaptchaCircularPictureBox = new YouChatApp.CircularPictureBox();
+            this.CaptchaPictureBox = new System.Windows.Forms.PictureBox();
+            this.NewSmtpCodeSenderButton = new System.Windows.Forms.Button();
+            this.ResetPasswordReturnToStarterScreenButton = new System.Windows.Forms.Button();
+            this.ResetNewPasswordButton = new System.Windows.Forms.Button();
+            this.LoginNewSmtpCodeSenderButton = new System.Windows.Forms.Button();
+            this.RestartCaptchaButton = new System.Windows.Forms.Button();
+            this.ViewPasswordButton = new System.Windows.Forms.Button();
+            this.NewSMTPCodeOptionCustomButton = new YouChatApp.Controls.CustomButton();
+            this.PasswordExclamationButton = new System.Windows.Forms.Button();
+            this.RegisterReturnToStarterScreenButton = new System.Windows.Forms.Button();
+            this.VerificationAnswerTextBox = new YouChatApp.Controls.CustomTextBox();
             this.RegistrationGroupBox.SuspendLayout();
             this.LoginGroupBox.SuspendLayout();
             this.CaptchaWordTestPanel.SuspendLayout();
             this.CaptchaImageTestPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).BeginInit();
             this.ResetPasswordGroupBox.SuspendLayout();
             this.PasswordUpdateGroupBox.SuspendLayout();
+            this.PersonalVerificationQuestionsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // RegistrationGroupBox
@@ -199,39 +209,6 @@ namespace YouChatApp
             this.ChangeEmailOptionCustomButton.Text = "AnotherCode";
             this.ChangeEmailOptionCustomButton.TextColor = System.Drawing.Color.White;
             this.ChangeEmailOptionCustomButton.UseVisualStyleBackColor = false;
-            // 
-            // NewSMTPCodeOptionCustomButton
-            // 
-            this.NewSMTPCodeOptionCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.NewSMTPCodeOptionCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.NewSMTPCodeOptionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.NewSMTPCodeOptionCustomButton.BorderRadius = 10;
-            this.NewSMTPCodeOptionCustomButton.BorderSize = 0;
-            this.NewSMTPCodeOptionCustomButton.Circular = false;
-            this.NewSMTPCodeOptionCustomButton.FlatAppearance.BorderSize = 0;
-            this.NewSMTPCodeOptionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NewSMTPCodeOptionCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewSMTPCodeOptionCustomButton.ForeColor = System.Drawing.Color.White;
-            this.NewSMTPCodeOptionCustomButton.Image = global::YouChatApp.Properties.Resources.Resend;
-            this.NewSMTPCodeOptionCustomButton.Location = new System.Drawing.Point(180, 528);
-            this.NewSMTPCodeOptionCustomButton.Name = "NewSMTPCodeOptionCustomButton";
-            this.NewSMTPCodeOptionCustomButton.Size = new System.Drawing.Size(150, 40);
-            this.NewSMTPCodeOptionCustomButton.TabIndex = 34;
-            this.NewSMTPCodeOptionCustomButton.Text = "AnotherCode";
-            this.NewSMTPCodeOptionCustomButton.TextColor = System.Drawing.Color.White;
-            this.NewSMTPCodeOptionCustomButton.UseVisualStyleBackColor = false;
-            // 
-            // PasswordExclamationButton
-            // 
-            this.PasswordExclamationButton.BackgroundImage = global::YouChatApp.Properties.Resources.ExclamationMark;
-            this.PasswordExclamationButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PasswordExclamationButton.Location = new System.Drawing.Point(404, 120);
-            this.PasswordExclamationButton.Name = "PasswordExclamationButton";
-            this.PasswordExclamationButton.Size = new System.Drawing.Size(30, 30);
-            this.PasswordExclamationButton.TabIndex = 26;
-            this.PasswordExclamationButton.UseVisualStyleBackColor = true;
-            this.PasswordExclamationButton.Visible = false;
-            this.PasswordExclamationButton.Click += new System.EventHandler(this.PasswordExclamationButton_Click);
             // 
             // PasswordRequirementsLabel
             // 
@@ -625,20 +602,6 @@ namespace YouChatApp
             this.toolTip.SetToolTip(this.usernameTextbox, "Don\'t use \'#\'");
             this.usernameTextbox.TextChanged += new System.EventHandler(this.registerDetails);
             // 
-            // RegisterReturnToStarterScreenButton
-            // 
-            this.RegisterReturnToStarterScreenButton.BackColor = System.Drawing.SystemColors.Control;
-            this.RegisterReturnToStarterScreenButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
-            this.RegisterReturnToStarterScreenButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RegisterReturnToStarterScreenButton.Location = new System.Drawing.Point(12, 19);
-            this.RegisterReturnToStarterScreenButton.Name = "RegisterReturnToStarterScreenButton";
-            this.RegisterReturnToStarterScreenButton.Size = new System.Drawing.Size(46, 29);
-            this.RegisterReturnToStarterScreenButton.TabIndex = 18;
-            this.toolTip.SetToolTip(this.RegisterReturnToStarterScreenButton, "Return to home screen");
-            this.RegisterReturnToStarterScreenButton.UseVisualStyleBackColor = true;
-            this.RegisterReturnToStarterScreenButton.Visible = false;
-            this.RegisterReturnToStarterScreenButton.Click += new System.EventHandler(this.ReturnToStarterScreen_Click);
-            // 
             // LoginGroupBox
             // 
             this.LoginGroupBox.Controls.Add(this.LoginNewSmtpCodeSenderButton);
@@ -662,19 +625,6 @@ namespace YouChatApp
             this.LoginGroupBox.Size = new System.Drawing.Size(245, 650);
             this.LoginGroupBox.TabIndex = 14;
             this.LoginGroupBox.TabStop = false;
-            // 
-            // LoginNewSmtpCodeSenderButton
-            // 
-            this.LoginNewSmtpCodeSenderButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
-            this.LoginNewSmtpCodeSenderButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.LoginNewSmtpCodeSenderButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.LoginNewSmtpCodeSenderButton.Location = new System.Drawing.Point(201, 266);
-            this.LoginNewSmtpCodeSenderButton.Name = "LoginNewSmtpCodeSenderButton";
-            this.LoginNewSmtpCodeSenderButton.Size = new System.Drawing.Size(40, 40);
-            this.LoginNewSmtpCodeSenderButton.TabIndex = 40;
-            this.LoginNewSmtpCodeSenderButton.UseMnemonic = false;
-            this.LoginNewSmtpCodeSenderButton.UseVisualStyleBackColor = true;
-            this.LoginNewSmtpCodeSenderButton.Visible = false;
             // 
             // CaptchaWordTestPanel
             // 
@@ -702,19 +652,6 @@ namespace YouChatApp
             this.toolTip.SetToolTip(this.CheckWordCaptchaButton, "Press to login to the server");
             this.CheckWordCaptchaButton.UseVisualStyleBackColor = true;
             this.CheckWordCaptchaButton.Click += new System.EventHandler(this.CheckWordCaptchaButton_Click);
-            // 
-            // RestartCaptchaButton
-            // 
-            this.RestartCaptchaButton.BackgroundImage = global::YouChatApp.Properties.Resources.Restart;
-            this.RestartCaptchaButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.RestartCaptchaButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.RestartCaptchaButton.Location = new System.Drawing.Point(193, 3);
-            this.RestartCaptchaButton.Name = "RestartCaptchaButton";
-            this.RestartCaptchaButton.Size = new System.Drawing.Size(40, 40);
-            this.RestartCaptchaButton.TabIndex = 23;
-            this.RestartCaptchaButton.UseMnemonic = false;
-            this.RestartCaptchaButton.UseVisualStyleBackColor = true;
-            this.RestartCaptchaButton.Click += new System.EventHandler(this.RestartCaptchaButton_Click);
             // 
             // CaptchaLoginLabel
             // 
@@ -818,19 +755,6 @@ namespace YouChatApp
             this.ForgottenPasswordLabel.Size = new System.Drawing.Size(213, 32);
             this.ForgottenPasswordLabel.TabIndex = 24;
             this.ForgottenPasswordLabel.Text = "Forgot Your Password?\r\nTo reset the password, press here!\r\n";
-            // 
-            // ViewPasswordButton
-            // 
-            this.ViewPasswordButton.BackgroundImage = global::YouChatApp.Properties.Resources.showPassword;
-            this.ViewPasswordButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ViewPasswordButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ViewPasswordButton.Location = new System.Drawing.Point(223, 95);
-            this.ViewPasswordButton.Name = "ViewPasswordButton";
-            this.ViewPasswordButton.Size = new System.Drawing.Size(22, 23);
-            this.ViewPasswordButton.TabIndex = 18;
-            this.ViewPasswordButton.UseMnemonic = false;
-            this.ViewPasswordButton.UseVisualStyleBackColor = true;
-            this.ViewPasswordButton.Click += new System.EventHandler(this.ViewPasswordButton_Click);
             // 
             // RegisterScreenButton
             // 
@@ -956,30 +880,6 @@ namespace YouChatApp
             this.CaptchaPicturesScoreLabel.TabIndex = 26;
             this.CaptchaPicturesScoreLabel.Text = "Score:";
             // 
-            // CaptchaCircularPictureBox
-            // 
-            this.CaptchaCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CaptchaCircularPictureBox.BorderColor = System.Drawing.Color.Gray;
-            this.CaptchaCircularPictureBox.BorderSize = 1;
-            this.CaptchaCircularPictureBox.HasBorder = false;
-            this.CaptchaCircularPictureBox.Location = new System.Drawing.Point(30, 15);
-            this.CaptchaCircularPictureBox.Name = "CaptchaCircularPictureBox";
-            this.CaptchaCircularPictureBox.Size = new System.Drawing.Size(150, 150);
-            this.CaptchaCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.CaptchaCircularPictureBox.TabIndex = 35;
-            this.CaptchaCircularPictureBox.TabStop = false;
-            this.CaptchaCircularPictureBox.Click += new System.EventHandler(this.CaptchaCircularPictureBox_Click);
-            // 
-            // CaptchaPictureBox
-            // 
-            this.CaptchaPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CaptchaPictureBox.Location = new System.Drawing.Point(30, 15);
-            this.CaptchaPictureBox.Name = "CaptchaPictureBox";
-            this.CaptchaPictureBox.Size = new System.Drawing.Size(150, 150);
-            this.CaptchaPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.CaptchaPictureBox.TabIndex = 36;
-            this.CaptchaPictureBox.TabStop = false;
-            // 
             // CountDownTimeLabel
             // 
             this.CountDownTimeLabel.AutoSize = true;
@@ -1076,19 +976,6 @@ namespace YouChatApp
             this.NewPasswordSaverButton.Visible = false;
             this.NewPasswordSaverButton.Click += new System.EventHandler(this.NewPasswordSaverButton_Click);
             // 
-            // ResetPasswordReturnToStarterScreenButton
-            // 
-            this.ResetPasswordReturnToStarterScreenButton.BackColor = System.Drawing.SystemColors.Control;
-            this.ResetPasswordReturnToStarterScreenButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
-            this.ResetPasswordReturnToStarterScreenButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ResetPasswordReturnToStarterScreenButton.Location = new System.Drawing.Point(6, 16);
-            this.ResetPasswordReturnToStarterScreenButton.Name = "ResetPasswordReturnToStarterScreenButton";
-            this.ResetPasswordReturnToStarterScreenButton.Size = new System.Drawing.Size(46, 29);
-            this.ResetPasswordReturnToStarterScreenButton.TabIndex = 30;
-            this.toolTip.SetToolTip(this.ResetPasswordReturnToStarterScreenButton, "Return to home screen");
-            this.ResetPasswordReturnToStarterScreenButton.UseVisualStyleBackColor = true;
-            this.ResetPasswordReturnToStarterScreenButton.Click += new System.EventHandler(this.ResetPasswordReturnToStarterScreenButton_Click);
-            // 
             // TimeLabel
             // 
             this.TimeLabel.AutoSize = true;
@@ -1130,34 +1017,6 @@ namespace YouChatApp
             this.ResetPasswordGroupBox.TabIndex = 24;
             this.ResetPasswordGroupBox.TabStop = false;
             this.ResetPasswordGroupBox.Visible = false;
-            // 
-            // NewSmtpCodeSenderButton
-            // 
-            this.NewSmtpCodeSenderButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
-            this.NewSmtpCodeSenderButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.NewSmtpCodeSenderButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.NewSmtpCodeSenderButton.Location = new System.Drawing.Point(134, 194);
-            this.NewSmtpCodeSenderButton.Name = "NewSmtpCodeSenderButton";
-            this.NewSmtpCodeSenderButton.Size = new System.Drawing.Size(40, 40);
-            this.NewSmtpCodeSenderButton.TabIndex = 35;
-            this.NewSmtpCodeSenderButton.UseMnemonic = false;
-            this.NewSmtpCodeSenderButton.UseVisualStyleBackColor = true;
-            this.NewSmtpCodeSenderButton.Visible = false;
-            this.NewSmtpCodeSenderButton.Click += new System.EventHandler(this.NewSmtpCodeSenderButton_Click);
-            // 
-            // ResetNewPasswordButton
-            // 
-            this.ResetNewPasswordButton.BackgroundImage = global::YouChatApp.Properties.Resources.Restart;
-            this.ResetNewPasswordButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ResetNewPasswordButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ResetNewPasswordButton.Location = new System.Drawing.Point(235, 282);
-            this.ResetNewPasswordButton.Name = "ResetNewPasswordButton";
-            this.ResetNewPasswordButton.Size = new System.Drawing.Size(40, 40);
-            this.ResetNewPasswordButton.TabIndex = 24;
-            this.ResetNewPasswordButton.UseMnemonic = false;
-            this.ResetNewPasswordButton.UseVisualStyleBackColor = true;
-            this.ResetNewPasswordButton.Visible = false;
-            this.ResetNewPasswordButton.Click += new System.EventHandler(this.ResetNewPasswordButton_Click);
             // 
             // NewPasswordLabel
             // 
@@ -1314,17 +1173,6 @@ namespace YouChatApp
             this.ExpiredPasswordLabel.TabIndex = 31;
             this.ExpiredPasswordLabel.Text = "Your password has expired.\r\nPlease choose another password.";
             // 
-            // UpdatePasswordReturnToStarterScreenButton
-            // 
-            this.UpdatePasswordReturnToStarterScreenButton.BackColor = System.Drawing.SystemColors.Control;
-            this.UpdatePasswordReturnToStarterScreenButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
-            this.UpdatePasswordReturnToStarterScreenButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.UpdatePasswordReturnToStarterScreenButton.Location = new System.Drawing.Point(6, 16);
-            this.UpdatePasswordReturnToStarterScreenButton.Name = "UpdatePasswordReturnToStarterScreenButton";
-            this.UpdatePasswordReturnToStarterScreenButton.Size = new System.Drawing.Size(46, 29);
-            this.UpdatePasswordReturnToStarterScreenButton.TabIndex = 30;
-            this.UpdatePasswordReturnToStarterScreenButton.UseVisualStyleBackColor = true;
-            // 
             // UpdatePasswordButton
             // 
             this.UpdatePasswordButton.Enabled = false;
@@ -1379,12 +1227,360 @@ namespace YouChatApp
             this.EasterEggCustomButton.UseVisualStyleBackColor = false;
             this.EasterEggCustomButton.Click += new System.EventHandler(this.EasterEggCustomButton_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "What was your first pet’s name?",
+            "What’s the name of the city where you were born?",
+            "What was your childhood nickname?",
+            "What’s the name of the city where your parents met?",
+            "What’s the first name of your oldest cousin?",
+            "What’s the name of the first school you attended? ",
+            "What is your favorite book?",
+            "What was the make and model of your first car?",
+            "What is your favorite vacation destination?",
+            "Who was your childhood best friend?",
+            "What is the name of your favorite teacher in school?",
+            "What is the middle name of your youngest sibling?",
+            "What is the name of your favorite childhood toy?",
+            "What is the name of the street you grew up on?",
+            "What is your mother\'s maiden name?",
+            "What is the name of the first company you worked for?",
+            "What is your favorite color?",
+            "What is your favorite season?",
+            "What is your favorite food?",
+            "What is your favorite movie?",
+            "What is your favorite animal?",
+            "What is your favorite sport?",
+            "What is your favorite holiday?",
+            "What is your favorite hobby?",
+            "What is your favorite fruit?",
+            "What is your favorite childhood cartoon character?",
+            "What is the name of your first stuffed animal?",
+            "What is your favorite type of music?",
+            "What is your favorite TV show?",
+            "What is your favorite ice cream flavor?",
+            "What is your favorite childhood game?",
+            "What is the name of the street you grew up on?",
+            "What is your favorite fictional character?",
+            "What is your favorite historical figure?",
+            "What is the name of the first school you attended?",
+            "What is your favorite superhero?",
+            "What is the name of your favorite childhood book?",
+            "What is your favorite type of vehicle (e.g., car, bicycle)?",
+            "What is your favorite city to visit?",
+            "What is your favorite restaurant?",
+            "What is your favorite flower?",
+            "What is your favorite clothing brand?",
+            "What is your favorite drink (non-alcoholic)?",
+            "What is your favorite board game?",
+            "What is the name of your favorite childhood teacher?",
+            "What is your favorite type of dessert?"});
+            this.comboBox1.Location = new System.Drawing.Point(65, 59);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 40;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // PersonalVerificationQuestionsPanel
+            // 
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationAnswerTextBox);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.RightScrollCustomButton);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.comboBox1);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.LeftScrollCustomButton);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationAnswerLabel);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationQuestionLabel);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationQuestionNumberLabel);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.ApproveVerificationInformationCustomButton);
+            this.PersonalVerificationQuestionsPanel.Location = new System.Drawing.Point(561, 753);
+            this.PersonalVerificationQuestionsPanel.Name = "PersonalVerificationQuestionsPanel";
+            this.PersonalVerificationQuestionsPanel.Size = new System.Drawing.Size(270, 235);
+            this.PersonalVerificationQuestionsPanel.TabIndex = 41;
+            // 
+            // ApproveVerificationInformationCustomButton
+            // 
+            this.ApproveVerificationInformationCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.ApproveVerificationInformationCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.ApproveVerificationInformationCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ApproveVerificationInformationCustomButton.BorderRadius = 10;
+            this.ApproveVerificationInformationCustomButton.BorderSize = 0;
+            this.ApproveVerificationInformationCustomButton.Circular = false;
+            this.ApproveVerificationInformationCustomButton.FlatAppearance.BorderSize = 0;
+            this.ApproveVerificationInformationCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ApproveVerificationInformationCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApproveVerificationInformationCustomButton.ForeColor = System.Drawing.Color.White;
+            this.ApproveVerificationInformationCustomButton.Location = new System.Drawing.Point(61, 188);
+            this.ApproveVerificationInformationCustomButton.Name = "ApproveVerificationInformationCustomButton";
+            this.ApproveVerificationInformationCustomButton.Size = new System.Drawing.Size(150, 40);
+            this.ApproveVerificationInformationCustomButton.TabIndex = 0;
+            this.ApproveVerificationInformationCustomButton.Text = "Continue";
+            this.ApproveVerificationInformationCustomButton.TextColor = System.Drawing.Color.White;
+            this.ApproveVerificationInformationCustomButton.UseVisualStyleBackColor = false;
+            // 
+            // VerificationQuestionNumberLabel
+            // 
+            this.VerificationQuestionNumberLabel.AutoSize = true;
+            this.VerificationQuestionNumberLabel.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerificationQuestionNumberLabel.Location = new System.Drawing.Point(33, 19);
+            this.VerificationQuestionNumberLabel.Name = "VerificationQuestionNumberLabel";
+            this.VerificationQuestionNumberLabel.Size = new System.Drawing.Size(36, 21);
+            this.VerificationQuestionNumberLabel.TabIndex = 1;
+            this.VerificationQuestionNumberLabel.Text = "1/5";
+            // 
+            // VerificationQuestionLabel
+            // 
+            this.VerificationQuestionLabel.AutoSize = true;
+            this.VerificationQuestionLabel.Location = new System.Drawing.Point(10, 62);
+            this.VerificationQuestionLabel.Name = "VerificationQuestionLabel";
+            this.VerificationQuestionLabel.Size = new System.Drawing.Size(49, 13);
+            this.VerificationQuestionLabel.TabIndex = 2;
+            this.VerificationQuestionLabel.Text = "Quesion:";
+            // 
+            // VerificationAnswerLabel
+            // 
+            this.VerificationAnswerLabel.AutoSize = true;
+            this.VerificationAnswerLabel.Location = new System.Drawing.Point(10, 96);
+            this.VerificationAnswerLabel.Name = "VerificationAnswerLabel";
+            this.VerificationAnswerLabel.Size = new System.Drawing.Size(45, 13);
+            this.VerificationAnswerLabel.TabIndex = 3;
+            this.VerificationAnswerLabel.Text = "Answer:";
+            // 
+            // RightScrollCustomButton
+            // 
+            this.RightScrollCustomButton.BackColor = System.Drawing.Color.Transparent;
+            this.RightScrollCustomButton.BackgroundColor = System.Drawing.Color.Transparent;
+            this.RightScrollCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.RightScrollArrow;
+            this.RightScrollCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.RightScrollCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.RightScrollCustomButton.BorderRadius = 0;
+            this.RightScrollCustomButton.BorderSize = 0;
+            this.RightScrollCustomButton.Circular = false;
+            this.RightScrollCustomButton.FlatAppearance.BorderSize = 0;
+            this.RightScrollCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RightScrollCustomButton.ForeColor = System.Drawing.Color.White;
+            this.RightScrollCustomButton.Location = new System.Drawing.Point(7, 15);
+            this.RightScrollCustomButton.Name = "RightScrollCustomButton";
+            this.RightScrollCustomButton.Size = new System.Drawing.Size(30, 30);
+            this.RightScrollCustomButton.TabIndex = 5;
+            this.RightScrollCustomButton.TextColor = System.Drawing.Color.White;
+            this.RightScrollCustomButton.UseVisualStyleBackColor = false;
+            // 
+            // LeftScrollCustomButton
+            // 
+            this.LeftScrollCustomButton.BackColor = System.Drawing.Color.Transparent;
+            this.LeftScrollCustomButton.BackgroundColor = System.Drawing.Color.Transparent;
+            this.LeftScrollCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.LeftScrollArrow;
+            this.LeftScrollCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.LeftScrollCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.LeftScrollCustomButton.BorderRadius = 0;
+            this.LeftScrollCustomButton.BorderSize = 0;
+            this.LeftScrollCustomButton.Circular = false;
+            this.LeftScrollCustomButton.FlatAppearance.BorderSize = 0;
+            this.LeftScrollCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LeftScrollCustomButton.ForeColor = System.Drawing.Color.White;
+            this.LeftScrollCustomButton.Location = new System.Drawing.Point(64, 15);
+            this.LeftScrollCustomButton.Name = "LeftScrollCustomButton";
+            this.LeftScrollCustomButton.Size = new System.Drawing.Size(30, 30);
+            this.LeftScrollCustomButton.TabIndex = 4;
+            this.LeftScrollCustomButton.TextColor = System.Drawing.Color.White;
+            this.LeftScrollCustomButton.UseVisualStyleBackColor = false;
+            // 
+            // UpdatePasswordReturnToStarterScreenButton
+            // 
+            this.UpdatePasswordReturnToStarterScreenButton.BackColor = System.Drawing.SystemColors.Control;
+            this.UpdatePasswordReturnToStarterScreenButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
+            this.UpdatePasswordReturnToStarterScreenButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.UpdatePasswordReturnToStarterScreenButton.Location = new System.Drawing.Point(6, 16);
+            this.UpdatePasswordReturnToStarterScreenButton.Name = "UpdatePasswordReturnToStarterScreenButton";
+            this.UpdatePasswordReturnToStarterScreenButton.Size = new System.Drawing.Size(46, 29);
+            this.UpdatePasswordReturnToStarterScreenButton.TabIndex = 30;
+            this.UpdatePasswordReturnToStarterScreenButton.UseVisualStyleBackColor = true;
+            // 
+            // CaptchaCircularPictureBox
+            // 
+            this.CaptchaCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CaptchaCircularPictureBox.BorderColor = System.Drawing.Color.Gray;
+            this.CaptchaCircularPictureBox.BorderSize = 1;
+            this.CaptchaCircularPictureBox.HasBorder = false;
+            this.CaptchaCircularPictureBox.Location = new System.Drawing.Point(30, 15);
+            this.CaptchaCircularPictureBox.Name = "CaptchaCircularPictureBox";
+            this.CaptchaCircularPictureBox.Size = new System.Drawing.Size(150, 150);
+            this.CaptchaCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CaptchaCircularPictureBox.TabIndex = 35;
+            this.CaptchaCircularPictureBox.TabStop = false;
+            this.CaptchaCircularPictureBox.Click += new System.EventHandler(this.CaptchaCircularPictureBox_Click);
+            // 
+            // CaptchaPictureBox
+            // 
+            this.CaptchaPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CaptchaPictureBox.Location = new System.Drawing.Point(30, 15);
+            this.CaptchaPictureBox.Name = "CaptchaPictureBox";
+            this.CaptchaPictureBox.Size = new System.Drawing.Size(150, 150);
+            this.CaptchaPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CaptchaPictureBox.TabIndex = 36;
+            this.CaptchaPictureBox.TabStop = false;
+            // 
+            // NewSmtpCodeSenderButton
+            // 
+            this.NewSmtpCodeSenderButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
+            this.NewSmtpCodeSenderButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.NewSmtpCodeSenderButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.NewSmtpCodeSenderButton.Location = new System.Drawing.Point(134, 194);
+            this.NewSmtpCodeSenderButton.Name = "NewSmtpCodeSenderButton";
+            this.NewSmtpCodeSenderButton.Size = new System.Drawing.Size(40, 40);
+            this.NewSmtpCodeSenderButton.TabIndex = 35;
+            this.NewSmtpCodeSenderButton.UseMnemonic = false;
+            this.NewSmtpCodeSenderButton.UseVisualStyleBackColor = true;
+            this.NewSmtpCodeSenderButton.Visible = false;
+            this.NewSmtpCodeSenderButton.Click += new System.EventHandler(this.NewSmtpCodeSenderButton_Click);
+            // 
+            // ResetPasswordReturnToStarterScreenButton
+            // 
+            this.ResetPasswordReturnToStarterScreenButton.BackColor = System.Drawing.SystemColors.Control;
+            this.ResetPasswordReturnToStarterScreenButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
+            this.ResetPasswordReturnToStarterScreenButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ResetPasswordReturnToStarterScreenButton.Location = new System.Drawing.Point(6, 16);
+            this.ResetPasswordReturnToStarterScreenButton.Name = "ResetPasswordReturnToStarterScreenButton";
+            this.ResetPasswordReturnToStarterScreenButton.Size = new System.Drawing.Size(46, 29);
+            this.ResetPasswordReturnToStarterScreenButton.TabIndex = 30;
+            this.toolTip.SetToolTip(this.ResetPasswordReturnToStarterScreenButton, "Return to home screen");
+            this.ResetPasswordReturnToStarterScreenButton.UseVisualStyleBackColor = true;
+            this.ResetPasswordReturnToStarterScreenButton.Click += new System.EventHandler(this.ResetPasswordReturnToStarterScreenButton_Click);
+            // 
+            // ResetNewPasswordButton
+            // 
+            this.ResetNewPasswordButton.BackgroundImage = global::YouChatApp.Properties.Resources.Restart;
+            this.ResetNewPasswordButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ResetNewPasswordButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ResetNewPasswordButton.Location = new System.Drawing.Point(235, 282);
+            this.ResetNewPasswordButton.Name = "ResetNewPasswordButton";
+            this.ResetNewPasswordButton.Size = new System.Drawing.Size(40, 40);
+            this.ResetNewPasswordButton.TabIndex = 24;
+            this.ResetNewPasswordButton.UseMnemonic = false;
+            this.ResetNewPasswordButton.UseVisualStyleBackColor = true;
+            this.ResetNewPasswordButton.Visible = false;
+            this.ResetNewPasswordButton.Click += new System.EventHandler(this.ResetNewPasswordButton_Click);
+            // 
+            // LoginNewSmtpCodeSenderButton
+            // 
+            this.LoginNewSmtpCodeSenderButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
+            this.LoginNewSmtpCodeSenderButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.LoginNewSmtpCodeSenderButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.LoginNewSmtpCodeSenderButton.Location = new System.Drawing.Point(201, 266);
+            this.LoginNewSmtpCodeSenderButton.Name = "LoginNewSmtpCodeSenderButton";
+            this.LoginNewSmtpCodeSenderButton.Size = new System.Drawing.Size(40, 40);
+            this.LoginNewSmtpCodeSenderButton.TabIndex = 40;
+            this.LoginNewSmtpCodeSenderButton.UseMnemonic = false;
+            this.LoginNewSmtpCodeSenderButton.UseVisualStyleBackColor = true;
+            this.LoginNewSmtpCodeSenderButton.Visible = false;
+            // 
+            // RestartCaptchaButton
+            // 
+            this.RestartCaptchaButton.BackgroundImage = global::YouChatApp.Properties.Resources.Restart;
+            this.RestartCaptchaButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RestartCaptchaButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.RestartCaptchaButton.Location = new System.Drawing.Point(193, 3);
+            this.RestartCaptchaButton.Name = "RestartCaptchaButton";
+            this.RestartCaptchaButton.Size = new System.Drawing.Size(40, 40);
+            this.RestartCaptchaButton.TabIndex = 23;
+            this.RestartCaptchaButton.UseMnemonic = false;
+            this.RestartCaptchaButton.UseVisualStyleBackColor = true;
+            this.RestartCaptchaButton.Click += new System.EventHandler(this.RestartCaptchaButton_Click);
+            // 
+            // ViewPasswordButton
+            // 
+            this.ViewPasswordButton.BackgroundImage = global::YouChatApp.Properties.Resources.showPassword;
+            this.ViewPasswordButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ViewPasswordButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ViewPasswordButton.Location = new System.Drawing.Point(223, 95);
+            this.ViewPasswordButton.Name = "ViewPasswordButton";
+            this.ViewPasswordButton.Size = new System.Drawing.Size(22, 23);
+            this.ViewPasswordButton.TabIndex = 18;
+            this.ViewPasswordButton.UseMnemonic = false;
+            this.ViewPasswordButton.UseVisualStyleBackColor = true;
+            this.ViewPasswordButton.Click += new System.EventHandler(this.ViewPasswordButton_Click);
+            // 
+            // NewSMTPCodeOptionCustomButton
+            // 
+            this.NewSMTPCodeOptionCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.NewSMTPCodeOptionCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.NewSMTPCodeOptionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.NewSMTPCodeOptionCustomButton.BorderRadius = 10;
+            this.NewSMTPCodeOptionCustomButton.BorderSize = 0;
+            this.NewSMTPCodeOptionCustomButton.Circular = false;
+            this.NewSMTPCodeOptionCustomButton.FlatAppearance.BorderSize = 0;
+            this.NewSMTPCodeOptionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewSMTPCodeOptionCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewSMTPCodeOptionCustomButton.ForeColor = System.Drawing.Color.White;
+            this.NewSMTPCodeOptionCustomButton.Image = global::YouChatApp.Properties.Resources.Resend;
+            this.NewSMTPCodeOptionCustomButton.Location = new System.Drawing.Point(180, 528);
+            this.NewSMTPCodeOptionCustomButton.Name = "NewSMTPCodeOptionCustomButton";
+            this.NewSMTPCodeOptionCustomButton.Size = new System.Drawing.Size(150, 40);
+            this.NewSMTPCodeOptionCustomButton.TabIndex = 34;
+            this.NewSMTPCodeOptionCustomButton.Text = "AnotherCode";
+            this.NewSMTPCodeOptionCustomButton.TextColor = System.Drawing.Color.White;
+            this.NewSMTPCodeOptionCustomButton.UseVisualStyleBackColor = false;
+            // 
+            // PasswordExclamationButton
+            // 
+            this.PasswordExclamationButton.BackgroundImage = global::YouChatApp.Properties.Resources.ExclamationMark;
+            this.PasswordExclamationButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PasswordExclamationButton.Location = new System.Drawing.Point(404, 120);
+            this.PasswordExclamationButton.Name = "PasswordExclamationButton";
+            this.PasswordExclamationButton.Size = new System.Drawing.Size(30, 30);
+            this.PasswordExclamationButton.TabIndex = 26;
+            this.PasswordExclamationButton.UseVisualStyleBackColor = true;
+            this.PasswordExclamationButton.Visible = false;
+            this.PasswordExclamationButton.Click += new System.EventHandler(this.PasswordExclamationButton_Click);
+            // 
+            // RegisterReturnToStarterScreenButton
+            // 
+            this.RegisterReturnToStarterScreenButton.BackColor = System.Drawing.SystemColors.Control;
+            this.RegisterReturnToStarterScreenButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
+            this.RegisterReturnToStarterScreenButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.RegisterReturnToStarterScreenButton.Location = new System.Drawing.Point(12, 19);
+            this.RegisterReturnToStarterScreenButton.Name = "RegisterReturnToStarterScreenButton";
+            this.RegisterReturnToStarterScreenButton.Size = new System.Drawing.Size(46, 29);
+            this.RegisterReturnToStarterScreenButton.TabIndex = 18;
+            this.toolTip.SetToolTip(this.RegisterReturnToStarterScreenButton, "Return to home screen");
+            this.RegisterReturnToStarterScreenButton.UseVisualStyleBackColor = true;
+            this.RegisterReturnToStarterScreenButton.Visible = false;
+            this.RegisterReturnToStarterScreenButton.Click += new System.EventHandler(this.ReturnToStarterScreen_Click);
+            // 
+            // VerificationAnswerTextBox
+            // 
+            this.VerificationAnswerTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.VerificationAnswerTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.VerificationAnswerTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.VerificationAnswerTextBox.BorderRadius = 0;
+            this.VerificationAnswerTextBox.BorderSize = 2;
+            this.VerificationAnswerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerificationAnswerTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.VerificationAnswerTextBox.IsFocused = false;
+            this.VerificationAnswerTextBox.Location = new System.Drawing.Point(61, 96);
+            this.VerificationAnswerTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.VerificationAnswerTextBox.MaxLength = 32767;
+            this.VerificationAnswerTextBox.Multiline = false;
+            this.VerificationAnswerTextBox.Name = "VerificationAnswerTextBox";
+            this.VerificationAnswerTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.VerificationAnswerTextBox.PasswordChar = false;
+            this.VerificationAnswerTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.VerificationAnswerTextBox.PlaceHolderText = "Enter Username";
+            this.VerificationAnswerTextBox.ReadOnly = false;
+            this.VerificationAnswerTextBox.Size = new System.Drawing.Size(188, 35);
+            this.VerificationAnswerTextBox.TabIndex = 34;
+            this.VerificationAnswerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.VerificationAnswerTextBox.TextContent = "";
+            this.VerificationAnswerTextBox.UnderlineStyle = false;
+            // 
             // LoginAndRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(1382, 1036);
+            this.Controls.Add(this.PersonalVerificationQuestionsPanel);
             this.Controls.Add(this.EasterEggCustomButton);
             this.Controls.Add(this.PasswordUpdateGroupBox);
             this.Controls.Add(this.CaptchaImageTestPanel);
@@ -1409,12 +1605,14 @@ namespace YouChatApp
             this.CaptchaWordTestPanel.PerformLayout();
             this.CaptchaImageTestPanel.ResumeLayout(false);
             this.CaptchaImageTestPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).EndInit();
             this.ResetPasswordGroupBox.ResumeLayout(false);
             this.ResetPasswordGroupBox.PerformLayout();
             this.PasswordUpdateGroupBox.ResumeLayout(false);
             this.PasswordUpdateGroupBox.PerformLayout();
+            this.PersonalVerificationQuestionsPanel.ResumeLayout(false);
+            this.PersonalVerificationQuestionsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1519,6 +1717,15 @@ namespace YouChatApp
         private Controls.CustomTextBox UpdatePasswordUsernameCustomTextBox;
         public System.Windows.Forms.Label UpdatePasswordUsernameLabel;
         private Controls.CustomButton EasterEggCustomButton;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Panel PersonalVerificationQuestionsPanel;
+        private System.Windows.Forms.Label VerificationQuestionLabel;
+        private System.Windows.Forms.Label VerificationQuestionNumberLabel;
+        private Controls.CustomButton ApproveVerificationInformationCustomButton;
+        private System.Windows.Forms.Label VerificationAnswerLabel;
+        private Controls.CustomButton LeftScrollCustomButton;
+        private Controls.CustomButton RightScrollCustomButton;
+        private Controls.CustomTextBox VerificationAnswerTextBox;
     }
 }
 

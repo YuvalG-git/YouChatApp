@@ -187,9 +187,6 @@
   <data name="ReturnBackArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ReturnBackArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChatInCircle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ChatInCircle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Share" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Share.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -247,8 +244,8 @@
   <data name="1f600" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\EmojiIcons\Smileys\1f600.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dontShowPassword" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dontShowPassword.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UserProfile1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UserProfile1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -295,8 +292,8 @@
   <data name="Line" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logout" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FriendMicrophoneClosed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FriendMicrophoneClosed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ChatImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ChatImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -331,6 +328,9 @@
   <data name="BackgroundColor2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BackgroundColor2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LeftScrollArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LeftScrollArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="UserProfile2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UserProfile2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -349,6 +349,9 @@
   <data name="SaveOption" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveOption.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="dontShowPassword" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dontShowPassword.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CameraVideoClose" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CameraVideoClose.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -361,8 +364,8 @@
   <data name="CloseBlackColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CloseBlackColor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Microphone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Microphone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CaptchaBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CaptchaBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CameraFlash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CameraFlash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -376,8 +379,8 @@
   <data name="colors" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\colors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Microphone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Microphone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PictureFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PictureFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -430,6 +433,9 @@
   <data name="ImageAnalysis" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ImageAnalysis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PictureUploader" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PictureUploader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -439,8 +445,8 @@
   <data name="Timer1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Timer1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CaptchaBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CaptchaBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChatInCircle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChatInCircle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sendMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sendMessage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -463,7 +469,7 @@
   <data name="WaitingGif" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WaitingGif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FriendMicrophoneClosed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FriendMicrophoneClosed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="RightScrollArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RightScrollArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

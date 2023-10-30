@@ -325,6 +325,12 @@
     </Compile>
     <Compile Include="StringHandler.cs" />
     <Compile Include="TimeHandler.cs" />
+    <Compile Include="tryform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tryform.Designer.cs">
+      <DependentUpon>tryform.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserProfile\Profile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -498,6 +504,9 @@
     <EmbeddedResource Include="Properties\CountDown.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CountDown.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tryform.resx">
+      <DependentUpon>tryform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserProfile\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
@@ -12316,6 +12325,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\FriendMicrophoneClosed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftScrollArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightScrollArrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

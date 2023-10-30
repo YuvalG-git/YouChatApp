@@ -1381,6 +1381,11 @@ namespace YouChatApp
 
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            VerificationAnswerTextBox.TextContent = "";
+        }
+
         private double CalculateRotationAngle(Point clickPoint)
         {
             double deltaX = clickPoint.X - CaptchaCircularPictureBox.Width / 2;
