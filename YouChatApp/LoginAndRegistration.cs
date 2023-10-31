@@ -19,6 +19,7 @@ using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Threading;
 using System.Diagnostics;
+using YouChatApp.VerificationQuestion;
 
 namespace YouChatApp
 {
@@ -39,6 +40,7 @@ namespace YouChatApp
         Boolean passwordIsShown = false;
 
         //private const string SiteKey = "6LdNtZMnAAAAABqAjpD4ZeVBU3zQTKG0_euLI83-";  
+        public static VerificationQuestionDetails[] VerificationQuestionDetails;
 
         int NumberOfFailedCaptchaTests = 0;
         Queue<double> CaptchaFailureWaitingTimeQueue;
@@ -52,7 +54,7 @@ namespace YouChatApp
         TimeSpan TimerTickTimeSpan;
         List<int> NumbersList;
         SmtpHandler smtpHandler;
-
+        int VerificationQuestionNumber = 1;
         DateTime CountDownDateTime = new DateTime();
         TimeSpan CountDownTimeSpan;
 
@@ -77,6 +79,9 @@ namespace YouChatApp
             smtpHandler = new SmtpHandler();
             UpdatePasswordGeneratorControl.OnTextChangedEventHandler(UpdatePasswordFieldsChecker);
             SetCustomTextBoxsPlaceHolderText();
+            VerificationQuestionDetails = new VerificationQuestionDetails[5];
+            VerificationQuestionCustomComboBox.SelectedIndex = 0;
+            VerificationQuestionCustomComboBox.Items.Insert(1, "hay");
         }
         private void SetCustomTextBoxsPlaceHolderText()//is needed because the textcontent = "" comes after it and restart it...
         {
@@ -1378,12 +1383,113 @@ namespace YouChatApp
 
         private void PasswordExclamationButton_Click(object sender, EventArgs e)
         {
-
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //if (VerificationQuestionDetails[VerificationQuestionNumber - 1] != null)
+            //{
+            //    VerificationAnswerTextBox.TextContent = VerificationQuestionDetails[VerificationQuestionNumber - 1].Answer;
+
+            //}
+            //else
+            //{
+            //    VerificationAnswerTextBox.TextContent = "";
+            //}
             VerificationAnswerTextBox.TextContent = "";
+            HandleQuestionVerification();
+
+        }
+        private void HandleQuestionVerification() //instead of all those methods i can make a method that gets a bool that will represents the needed values and the name of the button to enable..
+        {
+            if ((VerificationQuestionCustomComboBox.SelectedIndex) != 0 &&(VerificationAnswerTextBox.TextContent != ""))
+            {
+                ApproveVerificationInformationCustomButton.Enabled = true;
+            }
+            else
+            {
+                ApproveVerificationInformationCustomButton.Enabled = false;
+            }
+        }
+
+        private void VerificationAnswerTextBox_TextChangedEvent(object sender, EventArgs e)
+        {
+            HandleQuestionVerification();
+
+        }
+
+        private void ApproveVerificationInformationCustomButton_Click(object sender, EventArgs e)
+        {
+            if (VerificationQuestionNumber < 5)
+            {
+                string question = VerificationQuestionCustomComboBox.Text;
+                string answer = VerificationAnswerTextBox.TextContent;
+                int questionIndex = VerificationQuestionCustomComboBox.SelectedIndex;
+                VerificationQuestionDetails[VerificationQuestionNumber - 1] = new VerificationQuestionDetails(question, answer, questionIndex);
+                VerificationQuestionCustomComboBox.Items.RemoveAt(questionIndex);
+                VerificationQuestionCustomComboBox.SelectedIndex = 0;
+                VerificationQuestionNumber++;
+                VerificationQuestionNumberLabel.Text = VerificationQuestionNumber + "/5";
+                RightScrollCustomButton.Enabled = true;
+            }
+            else
+            {
+                //ask are you sure you wanna save...
+            }
+        }
+
+        private void RightScrollCustomButton_Click(object sender, EventArgs e)
+        {
+            VerificationQuestionNumber--;
+            if (VerificationQuestionNumber == 1)
+            {
+                RightScrollCustomButton.Enabled = false;
+
+            }
+            //if ((VerificationQuestionNumber!= 5) &&(VerificationQuestionDetails[VerificationQuestionNumber] != null))
+            //{
+            //    LeftScrollCustomButton.Enabled = true;
+            //}
+            if ((VerificationQuestionNumber != 1) && (VerificationQuestionDetails[VerificationQuestionNumber - 1] != null))
+            {
+                LeftScrollCustomButton.Enabled = true;
+            }
+            else
+            {
+                LeftScrollCustomButton.Enabled = false;
+
+            }
+            HandleVerificationScroll();
+
+        }
+
+        private void LeftScrollCustomButton_Click(object sender, EventArgs e)
+        {
+            VerificationQuestionNumber++;
+            if ((VerificationQuestionNumber != 1) && (VerificationQuestionDetails[VerificationQuestionNumber - 2] != null))
+            {
+                LeftScrollCustomButton.Enabled = true;
+            }
+            else
+            {
+                LeftScrollCustomButton.Enabled = false;
+
+            }
+            RightScrollCustomButton.Enabled = true;
+            HandleVerificationScroll();
+        }
+        private void HandleVerificationScroll()
+        {
+            VerificationQuestionNumberLabel.Text = VerificationQuestionNumber + "/5";
+            VerificationQuestionDetails verificationQuestionDetails = VerificationQuestionDetails[VerificationQuestionNumber - 1];
+            VerificationQuestionCustomComboBox.Items.Insert(verificationQuestionDetails.Index, verificationQuestionDetails.Question);
+            VerificationQuestionCustomComboBox.SelectedValue = verificationQuestionDetails.Question;
+            VerificationQuestionCustomComboBox.Text = verificationQuestionDetails.Question;
+
+            VerificationAnswerTextBox.TextContent = verificationQuestionDetails.Answer; //doesnt work for some reason - maybe i should a bool mentioning it is for going back to selected answer
+            //probably the problem is because i said when the combobox value changed i should restart the text;
+
+            //i also needs to delete the object because the question and answer are changing...
         }
 
         private double CalculateRotationAngle(Point clickPoint)

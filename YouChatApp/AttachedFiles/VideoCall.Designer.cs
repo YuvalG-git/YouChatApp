@@ -289,7 +289,7 @@
             this.CameraModeCustomButton.FlatAppearance.BorderSize = 0;
             this.CameraModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CameraModeCustomButton.ForeColor = System.Drawing.Color.White;
-            this.CameraModeCustomButton.Location = new System.Drawing.Point(79, 22);
+            this.CameraModeCustomButton.Location = new System.Drawing.Point(18, 20);
             this.CameraModeCustomButton.Name = "CameraModeCustomButton";
             this.CameraModeCustomButton.Size = new System.Drawing.Size(80, 60);
             this.CameraModeCustomButton.TabIndex = 7;
@@ -310,7 +310,7 @@
             this.MicrophoneModeCustomButton.FlatAppearance.BorderSize = 0;
             this.MicrophoneModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MicrophoneModeCustomButton.ForeColor = System.Drawing.Color.White;
-            this.MicrophoneModeCustomButton.Location = new System.Drawing.Point(176, 22);
+            this.MicrophoneModeCustomButton.Location = new System.Drawing.Point(115, 20);
             this.MicrophoneModeCustomButton.Name = "MicrophoneModeCustomButton";
             this.MicrophoneModeCustomButton.Size = new System.Drawing.Size(80, 60);
             this.MicrophoneModeCustomButton.TabIndex = 16;

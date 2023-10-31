@@ -230,6 +230,12 @@
     <Compile Include="Controls\CustomComboBox.Designer.cs">
       <DependentUpon>CustomComboBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CustomPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomPictureBox.Designer.cs">
+      <DependentUpon>CustomPictureBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CustomRichTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -415,6 +421,8 @@
     </Compile>
     <Compile Include="SmtpHandler.cs" />
     <Compile Include="UserProfile\ProfileDetailsHandler.cs" />
+    <Compile Include="VerificationQuestion\VerificationQuestionHandler.cs" />
+    <Compile Include="VerificationQuestion\VerificationQuestionDetails.cs" />
     <Compile Include="VideoAndAudioServerCommunication.cs" />
     <Compile Include="YouChat.cs">
       <SubType>Form</SubType>

@@ -28,8 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.customComboBox1 = new YouChatApp.Controls.CustomComboBox();
             this.SuspendLayout();
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(427, 182);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 2;
             // 
             // customComboBox1
             // 
@@ -37,7 +46,7 @@
             this.customComboBox1.BorderColor = System.Drawing.Color.MediumSlateBlue;
             this.customComboBox1.BorderSize = 1;
             this.customComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.customComboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.customComboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.customComboBox1.ForeColor = System.Drawing.Color.DimGray;
             this.customComboBox1.IconColor = System.Drawing.Color.MediumSlateBlue;
             this.customComboBox1.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
@@ -46,7 +55,7 @@
             this.customComboBox1.MinimumSize = new System.Drawing.Size(200, 30);
             this.customComboBox1.Name = "customComboBox1";
             this.customComboBox1.Padding = new System.Windows.Forms.Padding(1);
-            this.customComboBox1.Size = new System.Drawing.Size(200, 30);
+            this.customComboBox1.Size = new System.Drawing.Size(200, 111);
             this.customComboBox1.TabIndex = 0;
             this.customComboBox1.TextContent = "";
             // 
@@ -55,6 +64,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.customComboBox1);
             this.Name = "tryform";
             this.Text = "tryform";
@@ -65,5 +75,6 @@
         #endregion
 
         private Controls.CustomComboBox customComboBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

@@ -120,7 +120,7 @@ namespace YouChatApp.Controls
             {
                 base.Font = value;
                 LabelText.Font = value;
-                ComboBoxList.Font = value;
+                //ComboBoxList.Font = value;
                 if (this.DesignMode)
                 {
                     UpdateControlHeight();
