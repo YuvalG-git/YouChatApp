@@ -20,6 +20,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Threading;
 using System.Diagnostics;
 using YouChatApp.VerificationQuestion;
+using System.Data.SqlClient;
 
 namespace YouChatApp
 {
@@ -1420,21 +1421,28 @@ namespace YouChatApp
 
         private void ApproveVerificationInformationCustomButton_Click(object sender, EventArgs e)
         {
-            if (VerificationQuestionNumber < 5)
+            string question = VerificationQuestionCustomComboBox.Text;
+            string answer = VerificationAnswerTextBox.TextContent;
+            int questionIndex = VerificationQuestionCustomComboBox.SelectedIndex;
+            VerificationQuestionDetails[VerificationQuestionNumber - 1] = new VerificationQuestionDetails(question, answer, questionIndex);
+            VerificationQuestionCustomComboBox.Items.RemoveAt(questionIndex);
+            VerificationQuestionCustomComboBox.SelectedIndex = 0;
+            VerificationQuestionNumber++;
+            VerificationQuestionNumberLabel.Text = VerificationQuestionNumber + "/5";
+            RightScrollCustomButton.Enabled = true;
+            if (VerificationQuestionNumber == 6)
             {
-                string question = VerificationQuestionCustomComboBox.Text;
-                string answer = VerificationAnswerTextBox.TextContent;
-                int questionIndex = VerificationQuestionCustomComboBox.SelectedIndex;
-                VerificationQuestionDetails[VerificationQuestionNumber - 1] = new VerificationQuestionDetails(question, answer, questionIndex);
-                VerificationQuestionCustomComboBox.Items.RemoveAt(questionIndex);
-                VerificationQuestionCustomComboBox.SelectedIndex = 0;
-                VerificationQuestionNumber++;
-                VerificationQuestionNumberLabel.Text = VerificationQuestionNumber + "/5";
-                RightScrollCustomButton.Enabled = true;
-            }
-            else
-            {
-                //ask are you sure you wanna save...
+                StringBuilder verificationQuestionInformation = new StringBuilder();
+                this.PersonalVerificationQuestionsPanel.Visible = false;
+                this.PersonalVerificationQuestionResultsLabel.Visible = true;
+                foreach (VerificationQuestionDetails verificationQuestion in VerificationQuestionDetails)
+                {
+                    verificationQuestionInformation.Append(verificationQuestion.Question + "\n");
+                    verificationQuestionInformation.Append(verificationQuestion.Answer + "\n\n");
+
+
+                }
+                PersonalVerificationQuestionResultsLabel.Text = verificationQuestionInformation.ToString();
             }
         }
 

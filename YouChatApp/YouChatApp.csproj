@@ -151,6 +151,7 @@
     <Compile Include="AttachedFiles\WaitingForm.Designer.cs">
       <DependentUpon>WaitingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UdpServerCommunication\AudioServerCommunication.cs" />
     <Compile Include="ChatHandler\Chat.cs" />
     <Compile Include="ChatHandler\ChatCreator.cs" />
     <Compile Include="ChatHandler\ChatLastMessageTimeComparer.cs" />
@@ -292,6 +293,7 @@
       <DependentUpon>ToggleButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ToolTipSetter.cs" />
+    <Compile Include="ConvertHandler.cs" />
     <Compile Include="EmojiResourceSet.cs" />
     <Compile Include="Encryption\AESServiceProvider.cs" />
     <Compile Include="Encryption\Encryption.cs" />
@@ -423,7 +425,7 @@
     <Compile Include="UserProfile\ProfileDetailsHandler.cs" />
     <Compile Include="VerificationQuestion\VerificationQuestionHandler.cs" />
     <Compile Include="VerificationQuestion\VerificationQuestionDetails.cs" />
-    <Compile Include="VideoAndAudioServerCommunication.cs" />
+    <Compile Include="UdpServerCommunication\VideoServerCommunication.cs" />
     <Compile Include="YouChat.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -38,7 +38,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.UploadedPictureRotationButton = new System.Windows.Forms.Button();
             this.LoadedImagePictureBox = new System.Windows.Forms.PictureBox();
-            this.MessageRichTextBox = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoadedImagePictureBox)).BeginInit();
             this.SuspendLayout();
@@ -110,24 +109,11 @@
             this.LoadedImagePictureBox.TabStop = false;
             this.LoadedImagePictureBox.Click += new System.EventHandler(this.LoadedImagePictureBox_Click);
             // 
-            // MessageRichTextBox
-            // 
-            this.MessageRichTextBox.BackColor = System.Drawing.Color.Black;
-            this.MessageRichTextBox.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MessageRichTextBox.ForeColor = System.Drawing.Color.Silver;
-            this.MessageRichTextBox.Location = new System.Drawing.Point(12, 202);
-            this.MessageRichTextBox.Name = "MessageRichTextBox";
-            this.MessageRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.MessageRichTextBox.Size = new System.Drawing.Size(743, 54);
-            this.MessageRichTextBox.TabIndex = 39;
-            this.MessageRichTextBox.Text = "Here You Write Your Message";
-            // 
             // ImageHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.MessageRichTextBox);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.UploadedPictureRotationButton);
             this.Controls.Add(this.menuStrip1);
@@ -154,6 +140,5 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.RichTextBox MessageRichTextBox;
     }
 }

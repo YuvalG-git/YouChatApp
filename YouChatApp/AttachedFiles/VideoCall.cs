@@ -68,11 +68,13 @@ namespace YouChatApp.AttachedFiles
         private void VideoCall_Load(object sender, EventArgs e)
         {
             InitializeCameraList(); // Load the initial camera devices when the form loads.
-            InitializeCameraChangeDetection(); // Start monitoring camera changes.
             InitializeAudioList();
+            InitializeCameraChangeDetection(); // Start monitoring camera changes.
             CurrentWidth = this.Width;
             CurrentHeight = this.Height;
-            VideoAndAudioServerCommunication.ConnectUdp("10.100.102.3",this);
+            VideoServerCommunication.ConnectUdp("10.100.102.3",this);
+            AudioServerCommunication.ConnectUdp("10.100.102.3", this);
+
             _friendName = ChatHandler.ChatManager.CurrentChatName;
             FriendNameLabel.Text = _friendName;
             FriendNameLabel.Location = new Point((CallDetailsPanel.Width - FriendNameLabel.Width) /2, FriendNameLabel.Location.Y);
@@ -245,7 +247,7 @@ namespace YouChatApp.AttachedFiles
                 byte[] imageBytes = stream.ToArray();
 
                 // Send the image over UDP
-                VideoAndAudioServerCommunication.SendBytes(imageBytes);
+                VideoServerCommunication.SendVideo(imageBytes);
                 //udpClient.Send(imageBytes, imageBytes.Length, endPoint);
             }
             Image currentVideoFrame = (System.Drawing.Image)eventArgs.Frame.Clone();
@@ -599,6 +601,10 @@ namespace YouChatApp.AttachedFiles
             //capturedFrame.Dispose();
         }
 
+        private void CameraDeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
