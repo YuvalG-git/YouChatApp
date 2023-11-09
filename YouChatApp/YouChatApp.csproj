@@ -12,6 +12,9 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,11 +27,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -151,6 +151,63 @@
     <Compile Include="AttachedFiles\WaitingForm.Designer.cs">
       <DependentUpon>WaitingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CaptchaCodeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CaptchaCodeControl.Designer.cs">
+      <DependentUpon>CaptchaCodeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CaptchaRotatingImageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CaptchaRotatingImageControl.Designer.cs">
+      <DependentUpon>CaptchaRotatingImageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CustomDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomDateTimePicker.Designer.cs">
+      <DependentUpon>CustomDateTimePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PersonalVerificationAnswersControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PersonalVerificationAnswersControl.Designer.cs">
+      <DependentUpon>PersonalVerificationAnswersControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PersonalVerificationQuestionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PersonalVerificationQuestionsControl.Designer.cs">
+      <DependentUpon>PersonalVerificationQuestionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageHandler.cs" />
+    <Compile Include="ImageRotationHandler.cs" />
+    <Compile Include="JsonClasses\RegistrationInformation.cs" />
+    <Compile Include="LoginForms\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForms\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForms\PasswordReset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForms\PasswordReset.Designer.cs">
+      <DependentUpon>PasswordReset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForms\PasswordUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForms\PasswordUpdate.Designer.cs">
+      <DependentUpon>PasswordUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForms\Registration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForms\Registration.Designer.cs">
+      <DependentUpon>Registration.cs</DependentUpon>
+    </Compile>
     <Compile Include="UdpServerCommunication\AudioServerCommunication.cs" />
     <Compile Include="ChatHandler\Chat.cs" />
     <Compile Include="ChatHandler\ChatCreator.cs" />
@@ -180,11 +237,11 @@
     <Compile Include="AttachedFiles\EmojiKeyboard.Designer.cs">
       <DependentUpon>EmojiKeyboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="AttachedFiles\ImageHandler.cs">
+    <Compile Include="AttachedFiles\ImageSender.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AttachedFiles\ImageHandler.Designer.cs">
-      <DependentUpon>ImageHandler.cs</DependentUpon>
+    <Compile Include="AttachedFiles\ImageSender.Designer.cs">
+      <DependentUpon>ImageSender.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachedFiles\EmojiInterface.cs" />
     <Compile Include="AttachedFiles\MessageImage.cs" />
@@ -450,8 +507,8 @@
     <EmbeddedResource Include="AttachedFiles\EmojiKeyboard.resx">
       <DependentUpon>EmojiKeyboard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AttachedFiles\ImageHandler.resx">
-      <DependentUpon>ImageHandler.cs</DependentUpon>
+    <EmbeddedResource Include="AttachedFiles\ImageSender.resx">
+      <DependentUpon>ImageSender.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\ImageViewer.resx">
       <DependentUpon>ImageViewer.cs</DependentUpon>
@@ -461,6 +518,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\WaitingForm.resx">
       <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CaptchaCodeControl.resx">
+      <DependentUpon>CaptchaCodeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CaptchaRotatingImageControl.resx">
+      <DependentUpon>CaptchaRotatingImageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ChatControl.resx">
       <DependentUpon>ChatControl.cs</DependentUpon>
@@ -482,6 +545,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PasswordGeneratorControl.resx">
       <DependentUpon>PasswordGeneratorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PersonalVerificationAnswersControl.resx">
+      <DependentUpon>PersonalVerificationAnswersControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PersonalVerificationQuestionsControl.resx">
+      <DependentUpon>PersonalVerificationQuestionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ProfileControl.resx">
       <DependentUpon>ProfileControl.cs</DependentUpon>
@@ -506,6 +575,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\PaintHandler\Paint.resx">
       <DependentUpon>Paint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForms\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForms\PasswordReset.resx">
+      <DependentUpon>PasswordReset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForms\PasswordUpdate.resx">
+      <DependentUpon>PasswordUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForms\Registration.resx">
+      <DependentUpon>Registration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Audio.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -12341,6 +12422,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\RightScrollArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CalendarWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CalendarDark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

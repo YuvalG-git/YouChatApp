@@ -53,12 +53,8 @@ namespace YouChatApp
                     path.AddEllipse(0, 0, ClientSize.Width, ClientSize.Height);
                     Region = new Region(path);
                     base.OnPaint(e);
-
                 }
-
-
             }
-
         }
     }
 }

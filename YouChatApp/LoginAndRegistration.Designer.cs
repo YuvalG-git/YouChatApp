@@ -136,11 +136,11 @@ namespace YouChatApp
             this.VerificationQuestionLabel = new System.Windows.Forms.Label();
             this.VerificationQuestionNumberLabel = new System.Windows.Forms.Label();
             this.ApproveVerificationInformationCustomButton = new YouChatApp.Controls.CustomButton();
-            this.EasterEggCustomButton = new YouChatApp.Controls.CustomButton();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.PersonalVerificationResultsPanel = new System.Windows.Forms.Panel();
+            this.VerificationInformationChangerCustomButton = new YouChatApp.Controls.CustomButton();
             this.VerificationInformationSaverCustomButton = new YouChatApp.Controls.CustomButton();
             this.PersonalVerificationQuestionResultsLabel = new System.Windows.Forms.Label();
-            this.VerificationInformationChangerCustomButton = new YouChatApp.Controls.CustomButton();
+            this.EasterEggCustomButton = new YouChatApp.Controls.CustomButton();
             this.RegistrationGroupBox.SuspendLayout();
             this.LoginGroupBox.SuspendLayout();
             this.CaptchaWordTestPanel.SuspendLayout();
@@ -150,7 +150,7 @@ namespace YouChatApp
             this.ResetPasswordGroupBox.SuspendLayout();
             this.PasswordUpdateGroupBox.SuspendLayout();
             this.PersonalVerificationQuestionsPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.PersonalVerificationResultsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // RegistrationGroupBox
@@ -754,7 +754,7 @@ namespace YouChatApp
             // 
             // CaptchaLabel
             // 
-            this.CaptchaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CaptchaLabel.Font = new System.Drawing.Font("Lucida Handwriting", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CaptchaLabel.ImageList = this.CaptchaImageList;
             this.CaptchaLabel.Location = new System.Drawing.Point(3, 0);
             this.CaptchaLabel.Name = "CaptchaLabel";
@@ -1139,7 +1139,7 @@ namespace YouChatApp
             this.ResetPasswordGroupBox.Controls.Add(this.UsernameResetPasswordLabel);
             this.ResetPasswordGroupBox.Controls.Add(this.ResetPasswordLabel);
             this.ResetPasswordGroupBox.Controls.Add(this.UsernameResetPasswordTextBox);
-            this.ResetPasswordGroupBox.Location = new System.Drawing.Point(895, 20);
+            this.ResetPasswordGroupBox.Location = new System.Drawing.Point(901, 20);
             this.ResetPasswordGroupBox.Name = "ResetPasswordGroupBox";
             this.ResetPasswordGroupBox.Size = new System.Drawing.Size(327, 383);
             this.ResetPasswordGroupBox.TabIndex = 24;
@@ -1285,8 +1285,10 @@ namespace YouChatApp
             // 
             // UpdatePasswordGeneratorControl
             // 
+            this.UpdatePasswordGeneratorControl.ConfirmPasswordVisible = true;
             this.UpdatePasswordGeneratorControl.Location = new System.Drawing.Point(22, 178);
             this.UpdatePasswordGeneratorControl.Name = "UpdatePasswordGeneratorControl";
+            this.UpdatePasswordGeneratorControl.NewPasswordTextContent = "New Password";
             this.UpdatePasswordGeneratorControl.OldPasswordVisible = true;
             this.UpdatePasswordGeneratorControl.Size = new System.Drawing.Size(288, 188);
             this.UpdatePasswordGeneratorControl.TabIndex = 33;
@@ -1569,6 +1571,70 @@ namespace YouChatApp
             this.ApproveVerificationInformationCustomButton.UseVisualStyleBackColor = false;
             this.ApproveVerificationInformationCustomButton.Click += new System.EventHandler(this.ApproveVerificationInformationCustomButton_Click);
             // 
+            // PersonalVerificationResultsPanel
+            // 
+            this.PersonalVerificationResultsPanel.Controls.Add(this.VerificationInformationChangerCustomButton);
+            this.PersonalVerificationResultsPanel.Controls.Add(this.VerificationInformationSaverCustomButton);
+            this.PersonalVerificationResultsPanel.Controls.Add(this.PersonalVerificationQuestionResultsLabel);
+            this.PersonalVerificationResultsPanel.Location = new System.Drawing.Point(3, 761);
+            this.PersonalVerificationResultsPanel.Name = "PersonalVerificationResultsPanel";
+            this.PersonalVerificationResultsPanel.Size = new System.Drawing.Size(270, 301);
+            this.PersonalVerificationResultsPanel.TabIndex = 42;
+            this.PersonalVerificationResultsPanel.Visible = false;
+            // 
+            // VerificationInformationChangerCustomButton
+            // 
+            this.VerificationInformationChangerCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.VerificationInformationChangerCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.VerificationInformationChangerCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.VerificationInformationChangerCustomButton.BorderRadius = 10;
+            this.VerificationInformationChangerCustomButton.BorderSize = 0;
+            this.VerificationInformationChangerCustomButton.Circular = false;
+            this.VerificationInformationChangerCustomButton.FlatAppearance.BorderSize = 0;
+            this.VerificationInformationChangerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VerificationInformationChangerCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerificationInformationChangerCustomButton.ForeColor = System.Drawing.Color.White;
+            this.VerificationInformationChangerCustomButton.Location = new System.Drawing.Point(37, 248);
+            this.VerificationInformationChangerCustomButton.Name = "VerificationInformationChangerCustomButton";
+            this.VerificationInformationChangerCustomButton.Size = new System.Drawing.Size(77, 40);
+            this.VerificationInformationChangerCustomButton.TabIndex = 37;
+            this.VerificationInformationChangerCustomButton.Text = "change";
+            this.VerificationInformationChangerCustomButton.TextColor = System.Drawing.Color.White;
+            this.VerificationInformationChangerCustomButton.UseVisualStyleBackColor = false;
+            this.VerificationInformationChangerCustomButton.Click += new System.EventHandler(this.VerificationInformationChangerCustomButton_Click);
+            // 
+            // VerificationInformationSaverCustomButton
+            // 
+            this.VerificationInformationSaverCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.VerificationInformationSaverCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.VerificationInformationSaverCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.VerificationInformationSaverCustomButton.BorderRadius = 10;
+            this.VerificationInformationSaverCustomButton.BorderSize = 0;
+            this.VerificationInformationSaverCustomButton.Circular = false;
+            this.VerificationInformationSaverCustomButton.FlatAppearance.BorderSize = 0;
+            this.VerificationInformationSaverCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VerificationInformationSaverCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerificationInformationSaverCustomButton.ForeColor = System.Drawing.Color.White;
+            this.VerificationInformationSaverCustomButton.Location = new System.Drawing.Point(162, 248);
+            this.VerificationInformationSaverCustomButton.Name = "VerificationInformationSaverCustomButton";
+            this.VerificationInformationSaverCustomButton.Size = new System.Drawing.Size(77, 40);
+            this.VerificationInformationSaverCustomButton.TabIndex = 0;
+            this.VerificationInformationSaverCustomButton.Text = "Save";
+            this.VerificationInformationSaverCustomButton.TextColor = System.Drawing.Color.White;
+            this.VerificationInformationSaverCustomButton.UseVisualStyleBackColor = false;
+            this.VerificationInformationSaverCustomButton.Click += new System.EventHandler(this.VerificationInformationSaverCustomButton_Click);
+            // 
+            // PersonalVerificationQuestionResultsLabel
+            // 
+            this.PersonalVerificationQuestionResultsLabel.AutoSize = true;
+            this.PersonalVerificationQuestionResultsLabel.Enabled = false;
+            this.PersonalVerificationQuestionResultsLabel.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PersonalVerificationQuestionResultsLabel.Location = new System.Drawing.Point(13, 22);
+            this.PersonalVerificationQuestionResultsLabel.Name = "PersonalVerificationQuestionResultsLabel";
+            this.PersonalVerificationQuestionResultsLabel.Size = new System.Drawing.Size(101, 21);
+            this.PersonalVerificationQuestionResultsLabel.TabIndex = 36;
+            this.PersonalVerificationQuestionResultsLabel.Text = "question results";
+            // 
             // EasterEggCustomButton
             // 
             this.EasterEggCustomButton.BackColor = System.Drawing.Color.Transparent;
@@ -1588,77 +1654,13 @@ namespace YouChatApp
             this.EasterEggCustomButton.UseVisualStyleBackColor = false;
             this.EasterEggCustomButton.Click += new System.EventHandler(this.EasterEggCustomButton_Click);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.VerificationInformationChangerCustomButton);
-            this.panel1.Controls.Add(this.VerificationInformationSaverCustomButton);
-            this.panel1.Controls.Add(this.PersonalVerificationQuestionResultsLabel);
-            this.panel1.Location = new System.Drawing.Point(3, 761);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(270, 301);
-            this.panel1.TabIndex = 42;
-            // 
-            // VerificationInformationSaverCustomButton
-            // 
-            this.VerificationInformationSaverCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.VerificationInformationSaverCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.VerificationInformationSaverCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.VerificationInformationSaverCustomButton.BorderRadius = 10;
-            this.VerificationInformationSaverCustomButton.BorderSize = 0;
-            this.VerificationInformationSaverCustomButton.Circular = false;
-            this.VerificationInformationSaverCustomButton.Enabled = false;
-            this.VerificationInformationSaverCustomButton.FlatAppearance.BorderSize = 0;
-            this.VerificationInformationSaverCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VerificationInformationSaverCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationInformationSaverCustomButton.ForeColor = System.Drawing.Color.White;
-            this.VerificationInformationSaverCustomButton.Location = new System.Drawing.Point(158, 181);
-            this.VerificationInformationSaverCustomButton.Name = "VerificationInformationSaverCustomButton";
-            this.VerificationInformationSaverCustomButton.Size = new System.Drawing.Size(77, 40);
-            this.VerificationInformationSaverCustomButton.TabIndex = 0;
-            this.VerificationInformationSaverCustomButton.Text = "Save";
-            this.VerificationInformationSaverCustomButton.TextColor = System.Drawing.Color.White;
-            this.VerificationInformationSaverCustomButton.UseVisualStyleBackColor = false;
-            // 
-            // PersonalVerificationQuestionResultsLabel
-            // 
-            this.PersonalVerificationQuestionResultsLabel.AutoSize = true;
-            this.PersonalVerificationQuestionResultsLabel.Enabled = false;
-            this.PersonalVerificationQuestionResultsLabel.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PersonalVerificationQuestionResultsLabel.Location = new System.Drawing.Point(13, 15);
-            this.PersonalVerificationQuestionResultsLabel.Name = "PersonalVerificationQuestionResultsLabel";
-            this.PersonalVerificationQuestionResultsLabel.Size = new System.Drawing.Size(101, 21);
-            this.PersonalVerificationQuestionResultsLabel.TabIndex = 36;
-            this.PersonalVerificationQuestionResultsLabel.Text = "question results";
-            this.PersonalVerificationQuestionResultsLabel.Visible = false;
-            // 
-            // VerificationInformationChangerCustomButton
-            // 
-            this.VerificationInformationChangerCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.VerificationInformationChangerCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.VerificationInformationChangerCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.VerificationInformationChangerCustomButton.BorderRadius = 10;
-            this.VerificationInformationChangerCustomButton.BorderSize = 0;
-            this.VerificationInformationChangerCustomButton.Circular = false;
-            this.VerificationInformationChangerCustomButton.Enabled = false;
-            this.VerificationInformationChangerCustomButton.FlatAppearance.BorderSize = 0;
-            this.VerificationInformationChangerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VerificationInformationChangerCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationInformationChangerCustomButton.ForeColor = System.Drawing.Color.White;
-            this.VerificationInformationChangerCustomButton.Location = new System.Drawing.Point(40, 181);
-            this.VerificationInformationChangerCustomButton.Name = "VerificationInformationChangerCustomButton";
-            this.VerificationInformationChangerCustomButton.Size = new System.Drawing.Size(77, 40);
-            this.VerificationInformationChangerCustomButton.TabIndex = 37;
-            this.VerificationInformationChangerCustomButton.Text = "change";
-            this.VerificationInformationChangerCustomButton.TextColor = System.Drawing.Color.White;
-            this.VerificationInformationChangerCustomButton.UseVisualStyleBackColor = false;
-            // 
             // LoginAndRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(1382, 1061);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.PersonalVerificationResultsPanel);
             this.Controls.Add(this.PersonalVerificationQuestionsPanel);
             this.Controls.Add(this.EasterEggCustomButton);
             this.Controls.Add(this.PasswordUpdateGroupBox);
@@ -1692,8 +1694,8 @@ namespace YouChatApp
             this.PasswordUpdateGroupBox.PerformLayout();
             this.PersonalVerificationQuestionsPanel.ResumeLayout(false);
             this.PersonalVerificationQuestionsPanel.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.PersonalVerificationResultsPanel.ResumeLayout(false);
+            this.PersonalVerificationResultsPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1807,7 +1809,7 @@ namespace YouChatApp
         private Controls.CustomButton LeftScrollCustomButton;
         private Controls.CustomButton RightScrollCustomButton;
         private Controls.CustomTextBox VerificationAnswerTextBox;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel PersonalVerificationResultsPanel;
         private Controls.CustomButton VerificationInformationChangerCustomButton;
         private Controls.CustomButton VerificationInformationSaverCustomButton;
         private System.Windows.Forms.Label PersonalVerificationQuestionResultsLabel;

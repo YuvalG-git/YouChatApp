@@ -100,6 +100,7 @@ namespace YouChatApp
             this.ImageFileCustomButton = new YouChatApp.Controls.CustomButton();
             this.UserFileCustomButton = new YouChatApp.Controls.CustomButton();
             this.DrawingFileCustomButton = new YouChatApp.Controls.CustomButton();
+            this.TakenImageFile = new YouChatApp.Controls.CustomButton();
             this.ContactManagementPanel.SuspendLayout();
             this.FriendRequestIdPanel.SuspendLayout();
             this.GroupCreatorBackgroundPanel.SuspendLayout();
@@ -399,6 +400,7 @@ namespace YouChatApp
             // MessagePanel
             // 
             this.MessagePanel.AutoScroll = true;
+            this.MessagePanel.Controls.Add(this.TakenImageFile);
             this.MessagePanel.Controls.Add(this.ChatBackgroundPanel);
             this.MessagePanel.Controls.Add(this.GroupCreatorBackgroundPanel);
             this.MessagePanel.Controls.Add(this.GroupSettingsPanel);
@@ -972,6 +974,26 @@ namespace YouChatApp
             this.DrawingFileCustomButton.UseVisualStyleBackColor = false;
             this.DrawingFileCustomButton.Click += new System.EventHandler(this.DrawingFileCustomButton_Click);
             // 
+            // TakenImageFile
+            // 
+            this.TakenImageFile.BackColor = System.Drawing.Color.RoyalBlue;
+            this.TakenImageFile.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.TakenImageFile.BackgroundImage = global::YouChatApp.Properties.Resources.CameraImageTaker;
+            this.TakenImageFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.TakenImageFile.BorderColor = System.Drawing.Color.Black;
+            this.TakenImageFile.BorderRadius = 5;
+            this.TakenImageFile.BorderSize = 0;
+            this.TakenImageFile.Circular = false;
+            this.TakenImageFile.FlatAppearance.BorderSize = 0;
+            this.TakenImageFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TakenImageFile.ForeColor = System.Drawing.Color.White;
+            this.TakenImageFile.Location = new System.Drawing.Point(1270, 790);
+            this.TakenImageFile.Name = "TakenImageFile";
+            this.TakenImageFile.Size = new System.Drawing.Size(50, 50);
+            this.TakenImageFile.TabIndex = 40;
+            this.TakenImageFile.TextColor = System.Drawing.Color.White;
+            this.TakenImageFile.UseVisualStyleBackColor = false;
+            // 
             // YouChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1094,5 +1116,6 @@ namespace YouChatApp
         private Panel MessageOptionsPanel;
         private CustomButton MessageSenderCustomButton;
         private RichTextBox MessageRichTextBox;
+        private CustomButton TakenImageFile;
     }
 }

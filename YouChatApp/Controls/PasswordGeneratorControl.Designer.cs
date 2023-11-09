@@ -72,6 +72,7 @@
             this.Controls.Add(this.OldPasswordLabel);
             this.Name = "PasswordGeneratorControl";
             this.Size = new System.Drawing.Size(310, 209);
+            this.Load += new System.EventHandler(this.PasswordGeneratorControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

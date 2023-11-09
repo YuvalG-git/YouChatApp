@@ -21,9 +21,25 @@ namespace YouChatApp.Controls
 
         private bool[] PasswordIsShownArray;
         private bool OldPasswordVisibleProperty = true;
+        private bool ConfirmPasswordVisibleProperty = true;
+        private string NewPasswordTextContentProperty = "New Password";
+
         private bool IsCurrentOldPasswordVisible = true;
         private int HeightDifference = 60;
         private bool AllFieldsHaveValue = false;
+        public string NewPasswordTextContent
+        {
+            get
+            {
+                return NewPasswordTextContentProperty;
+            }
+            set
+            {
+                NewPasswordTextContentProperty = value;
+                NewPasswordLabel.Text = NewPasswordTextContentProperty + ":";
+                PasswordTextBoxArray[1].PlaceHolderText = "Enter " + NewPasswordTextContentProperty;
+            }
+        }
         public bool OldPasswordVisible
         {
             get 
@@ -34,6 +50,18 @@ namespace YouChatApp.Controls
             {
                 OldPasswordVisibleProperty = value;
                 SetCase();
+            }
+        }
+        public bool ConfirmPasswordVisible
+        {
+            get
+            {
+                return ConfirmPasswordVisibleProperty;
+            }
+            set
+            {
+                ConfirmPasswordVisibleProperty = value;
+                SetConfirmPassword();
             }
         }
         public PasswordGeneratorControl(/*bool IsOldPasswordVisible*/)
@@ -186,6 +214,7 @@ namespace YouChatApp.Controls
                     this.ConfirmPasswordLabel.Location = new System.Drawing.Point(this.ConfirmPasswordLabel.Location.X, this.NewPasswordLabel.Location.Y);
 
                     this.NewPasswordLabel.Location = new System.Drawing.Point(this.NewPasswordLabel.Location.X, this.OldPasswordLabel.Location.Y);
+                    this.Height -= (OldPasswordLabel.Height + PasswordTextBoxArray[0].Height);
                 }
                 else
                 {
@@ -195,9 +224,27 @@ namespace YouChatApp.Controls
                     this.PasswordViewerButtonArray[2].Location = new System.Drawing.Point(this.PasswordViewerButtonArray[2].Location.X, this.PasswordViewerButtonArray[2].Location.Y + HeightDifference);
                     this.NewPasswordLabel.Location = new System.Drawing.Point(this.NewPasswordLabel.Location.X, this.ConfirmPasswordLabel.Location.Y);
                     this.ConfirmPasswordLabel.Location = new System.Drawing.Point(this.ConfirmPasswordLabel.Location.X, this.ConfirmPasswordLabel.Location.Y + HeightDifference);
+                    this.Height += (OldPasswordLabel.Height + PasswordTextBoxArray[0].Height);
+
                 }
             }
            
+
+        }
+        private void SetConfirmPassword()
+        {
+            this.ConfirmPasswordLabel.Visible = ConfirmPasswordVisibleProperty;
+            this.PasswordViewerButtonArray[2].Visible = ConfirmPasswordVisibleProperty;
+            this.PasswordTextBoxArray[2].Visible = ConfirmPasswordVisibleProperty;
+            if (!ConfirmPasswordVisibleProperty)
+            {
+                this.Height -= (ConfirmPasswordLabel.Height + PasswordTextBoxArray[2].Height);
+            }
+            else
+            {
+                this.Height += (ConfirmPasswordLabel.Height + PasswordTextBoxArray[2].Height);
+            }
+
 
         }
         public bool IsSamePassword()
@@ -214,6 +261,11 @@ namespace YouChatApp.Controls
         public string GetNewPassword()
         {
             return PasswordTextBoxArray[1].Text; //will need to make sure if this password is similar to the password the server returned to me after logging in...
+        }
+
+        private void PasswordGeneratorControl_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

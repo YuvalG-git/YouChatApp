@@ -16,5 +16,10 @@ namespace YouChatApp.Controls
         {
             InitializeComponent();
         }
+
+        private void SmtpCodeCustomTextBox_TextChangedEvent(object sender, EventArgs e)
+        {
+
+        }
     }
 }

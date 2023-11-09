@@ -23,9 +23,9 @@ namespace YouChatApp
             //{
             //    ServerCommunication.Connect("10.100.102.3");
             //}
-            Application.Run(new LoginAndRegistration());
+            //Application.Run(new LoginAndRegistration());
             //Application.Run(new InitialProfileSelection());
-            //Application.Run(new tryform());
+            Application.Run(new tryform());
 
             //Application.Run(new Profile());
             //Application.Run(new Paint());

@@ -21,6 +21,9 @@ using System.Threading;
 using System.Diagnostics;
 using YouChatApp.VerificationQuestion;
 using System.Data.SqlClient;
+using YouChatApp.JsonClasses;
+using Newtonsoft.Json;
+using YouChatApp.ChatHandler;
 
 namespace YouChatApp
 {
@@ -41,8 +44,8 @@ namespace YouChatApp
         Boolean passwordIsShown = false;
 
         //private const string SiteKey = "6LdNtZMnAAAAABqAjpD4ZeVBU3zQTKG0_euLI83-";  
-        public static VerificationQuestionDetails[] VerificationQuestionDetails;
-
+        //public static VerificationQuestionDetails[] VerificationQuestionDetails;
+        private VerificationQuestionHandler VerificationQuestionHandler;
         int NumberOfFailedCaptchaTests = 0;
         Queue<double> CaptchaFailureWaitingTimeQueue;
         double CountDownTime;
@@ -80,7 +83,8 @@ namespace YouChatApp
             smtpHandler = new SmtpHandler();
             UpdatePasswordGeneratorControl.OnTextChangedEventHandler(UpdatePasswordFieldsChecker);
             SetCustomTextBoxsPlaceHolderText();
-            VerificationQuestionDetails = new VerificationQuestionDetails[5];
+            //VerificationQuestionDetails = new VerificationQuestionDetails[5];
+            VerificationQuestionHandler = new VerificationQuestionHandler(5);
             VerificationQuestionCustomComboBox.SelectedIndex = 0;
             VerificationQuestionCustomComboBox.Items.Insert(1, "hay");
         }
@@ -295,7 +299,11 @@ namespace YouChatApp
                 if (CodeTextBox.Text == smtpHandler.GetSmtpCode())
                 {
                     MessageBox.Show("good job");
-                    string RegistrationDate = DateTime.Today.ToString("yyyy-MM-dd"); ;
+                    string RegistrationDate = DateTime.Today.ToString("yyyy-MM-dd");
+                    List<string[]> VerificationQuestionsAndAnswers = GenerateVerificationQuestionListOfArrays();
+                    RegistrationInformation registrationInformation = new RegistrationInformation(username, password, firstname, lastname, email, city, Gender, BirthDateDateTimePicker.Value, DateTime.Today, VerificationQuestionsAndAnswers);
+                    string chatDetailsJson = JsonConvert.SerializeObject(registrationInformation);
+
                     string userDetails = username + "#" + password + "#" + firstname + "#" + lastname + "#" + email + "#" + city + "#" + dateOfBirth + "#" + Gender + "#" + RegistrationDate; //to add in the server side the handle of theRegistrat
                     ServerCommunication.SendMessage(ServerCommunication.registerRequest, userDetails);
                     //ServerCommunication.SendMessage(ServerCommunication.registerRequest + "$" + userDetails + "$" + userDetails.Length);
@@ -310,6 +318,21 @@ namespace YouChatApp
                 }
             }
 
+        }
+        private List<string[]> GenerateVerificationQuestionListOfArrays()
+        {
+            List<string[]> VerificationQuestionsAndAnswers = new List<string[]>();
+            VerificationQuestionDetails verificationQuestionDetails;
+            string Question;
+            string Answer;
+            for (int i = 0; i < 5; i++)
+            {
+                verificationQuestionDetails = VerificationQuestionHandler.VerificationQuestionDetails[i];
+                Question = verificationQuestionDetails.Question;
+                Answer = verificationQuestionDetails.Answer;
+                VerificationQuestionsAndAnswers.Add(new string[] { Question, Answer });
+            }
+            return VerificationQuestionsAndAnswers;
         }
 
         private void CheckLegalEmailAddress()
@@ -521,7 +544,7 @@ namespace YouChatApp
         }
         private void RegistButtonSetEnabled()
         {
-            if ((usernameTextbox.Text != "") && (passwordTextbox.Text != "") && (firstnameTextbox.Text != "") && (lastnameTextbox.Text != "") && (emailTextbox.Text != "") && (cityTextbox.Text != "") && (BirthDateDateTimePicker.CustomFormat != " ") && (RadioButtonIsChecked()))
+            if ((usernameTextbox.Text != "") && (passwordTextbox.Text != "") && (firstnameTextbox.Text != "") && (lastnameTextbox.Text != "") && (emailTextbox.Text != "") && (cityTextbox.Text != "") && (BirthDateDateTimePicker.CustomFormat != " ") && (RadioButtonIsChecked()) && (VerificationQuestionHandler.wasSelected))
                 registButton.Enabled = true;
             else
                 registButton.Enabled = false;
@@ -1424,18 +1447,28 @@ namespace YouChatApp
             string question = VerificationQuestionCustomComboBox.Text;
             string answer = VerificationAnswerTextBox.TextContent;
             int questionIndex = VerificationQuestionCustomComboBox.SelectedIndex;
-            VerificationQuestionDetails[VerificationQuestionNumber - 1] = new VerificationQuestionDetails(question, answer, questionIndex);
+            VerificationQuestionHandler.VerificationQuestionDetails[VerificationQuestionNumber - 1] = new VerificationQuestionDetails(question, answer, questionIndex);
             VerificationQuestionCustomComboBox.Items.RemoveAt(questionIndex);
-            VerificationQuestionCustomComboBox.SelectedIndex = 0;
             VerificationQuestionNumber++;
-            VerificationQuestionNumberLabel.Text = VerificationQuestionNumber + "/5";
-            RightScrollCustomButton.Enabled = true;
-            if (VerificationQuestionNumber == 6)
+            if (VerificationQuestionNumber != 6)
+            {
+                if (VerificationQuestionHandler.VerificationQuestionDetails[VerificationQuestionNumber - 1] != null)
+                {
+                    HandleVerificationScroll();
+                }
+                else
+                {
+                    VerificationQuestionCustomComboBox.SelectedIndex = 0;
+                    VerificationQuestionNumberLabel.Text = VerificationQuestionNumber + "/5";
+                }
+                RightScrollCustomButton.Enabled = true;
+            }
+            else
             {
                 StringBuilder verificationQuestionInformation = new StringBuilder();
                 this.PersonalVerificationQuestionsPanel.Visible = false;
-                this.PersonalVerificationQuestionResultsLabel.Visible = true;
-                foreach (VerificationQuestionDetails verificationQuestion in VerificationQuestionDetails)
+                this.PersonalVerificationResultsPanel.Visible = true;
+                foreach (VerificationQuestionDetails verificationQuestion in VerificationQuestionHandler.VerificationQuestionDetails)
                 {
                     verificationQuestionInformation.Append(verificationQuestion.Question + "\n");
                     verificationQuestionInformation.Append(verificationQuestion.Answer + "\n\n");
@@ -1454,19 +1487,19 @@ namespace YouChatApp
                 RightScrollCustomButton.Enabled = false;
 
             }
-            //if ((VerificationQuestionNumber!= 5) &&(VerificationQuestionDetails[VerificationQuestionNumber] != null))
-            //{
-            //    LeftScrollCustomButton.Enabled = true;
-            //}
-            if ((VerificationQuestionNumber != 1) && (VerificationQuestionDetails[VerificationQuestionNumber - 1] != null))
+            if ((VerificationQuestionNumber != 5) && (VerificationQuestionHandler.VerificationQuestionDetails[VerificationQuestionNumber] != null))
             {
                 LeftScrollCustomButton.Enabled = true;
             }
-            else
-            {
-                LeftScrollCustomButton.Enabled = false;
+            //if ((VerificationQuestionNumber != 1) && (VerificationQuestionDetails[VerificationQuestionNumber - 1] != null))
+            //{
+            //    LeftScrollCustomButton.Enabled = true;
+            //}
+            //else
+            //{
+            //    LeftScrollCustomButton.Enabled = false;
 
-            }
+            //}
             HandleVerificationScroll();
 
         }
@@ -1474,22 +1507,26 @@ namespace YouChatApp
         private void LeftScrollCustomButton_Click(object sender, EventArgs e)
         {
             VerificationQuestionNumber++;
-            if ((VerificationQuestionNumber != 1) && (VerificationQuestionDetails[VerificationQuestionNumber - 2] != null))
-            {
-                LeftScrollCustomButton.Enabled = true;
-            }
-            else
+            if ((VerificationQuestionNumber == 5) || (VerificationQuestionHandler.VerificationQuestionDetails[VerificationQuestionNumber] == null))
             {
                 LeftScrollCustomButton.Enabled = false;
-
             }
+            //if ((VerificationQuestionNumber != 1) && (VerificationQuestionDetails[VerificationQuestionNumber - 2] != null))
+            //{
+            //    LeftScrollCustomButton.Enabled = true;
+            //}
+            //else
+            //{
+            //    LeftScrollCustomButton.Enabled = false;
+
+            //}
             RightScrollCustomButton.Enabled = true;
             HandleVerificationScroll();
         }
         private void HandleVerificationScroll()
         {
             VerificationQuestionNumberLabel.Text = VerificationQuestionNumber + "/5";
-            VerificationQuestionDetails verificationQuestionDetails = VerificationQuestionDetails[VerificationQuestionNumber - 1];
+            VerificationQuestionDetails verificationQuestionDetails =VerificationQuestionHandler.VerificationQuestionDetails[VerificationQuestionNumber - 1];
             VerificationQuestionCustomComboBox.Items.Insert(verificationQuestionDetails.Index, verificationQuestionDetails.Question);
             VerificationQuestionCustomComboBox.SelectedValue = verificationQuestionDetails.Question;
             VerificationQuestionCustomComboBox.Text = verificationQuestionDetails.Question;
@@ -1498,6 +1535,24 @@ namespace YouChatApp
             //probably the problem is because i said when the combobox value changed i should restart the text;
 
             //i also needs to delete the object because the question and answer are changing...
+        }
+
+        private void VerificationInformationChangerCustomButton_Click(object sender, EventArgs e)
+        {
+            VerificationQuestionNumber = 1;
+            this.PersonalVerificationQuestionsPanel.Visible = true;
+            this.PersonalVerificationResultsPanel.Visible = false;
+            LeftScrollCustomButton.Enabled = true;
+            RightScrollCustomButton.Enabled = false;
+
+            HandleVerificationScroll();
+
+        }
+
+        private void VerificationInformationSaverCustomButton_Click(object sender, EventArgs e)
+        {
+            VerificationQuestionHandler.wasSelected = true;
+            RegistButtonSetEnabled();
         }
 
         private double CalculateRotationAngle(Point clickPoint)

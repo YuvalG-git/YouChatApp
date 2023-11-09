@@ -9,7 +9,6 @@ namespace YouChatApp.AttachedFiles
 {
     internal interface Emoji
     {
-
     }
 
 
