@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.SmtpCodeLabel = new System.Windows.Forms.Label();
+            this.CaptchaCodeLabel = new System.Windows.Forms.Label();
             this.VerifyCustomButton = new YouChatApp.Controls.CustomButton();
             this.SmtpCodeCustomTextBox = new YouChatApp.Controls.CustomTextBox();
-            this.SmtpCodeLabel = new System.Windows.Forms.Label();
             this.RestartSmtpCodeCustomButton = new YouChatApp.Controls.CustomButton();
-            this.CaptchaCodeLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // SmtpCodeLabel
+            // 
+            this.SmtpCodeLabel.AutoSize = true;
+            this.SmtpCodeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SmtpCodeLabel.Location = new System.Drawing.Point(35, 65);
+            this.SmtpCodeLabel.Name = "SmtpCodeLabel";
+            this.SmtpCodeLabel.Size = new System.Drawing.Size(64, 22);
+            this.SmtpCodeLabel.TabIndex = 49;
+            this.SmtpCodeLabel.Text = "Code:";
+            // 
+            // CaptchaCodeLabel
+            // 
+            this.CaptchaCodeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CaptchaCodeLabel.Location = new System.Drawing.Point(30, 10);
+            this.CaptchaCodeLabel.Name = "CaptchaCodeLabel";
+            this.CaptchaCodeLabel.Size = new System.Drawing.Size(290, 50);
+            this.CaptchaCodeLabel.TabIndex = 47;
+            this.CaptchaCodeLabel.Text = "Verification Code";
+            this.CaptchaCodeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // VerifyCustomButton
             // 
@@ -43,6 +63,7 @@
             this.VerifyCustomButton.BorderRadius = 10;
             this.VerifyCustomButton.BorderSize = 0;
             this.VerifyCustomButton.Circular = false;
+            this.VerifyCustomButton.Enabled = false;
             this.VerifyCustomButton.FlatAppearance.BorderSize = 0;
             this.VerifyCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VerifyCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -54,6 +75,7 @@
             this.VerifyCustomButton.Text = "Verify";
             this.VerifyCustomButton.TextColor = System.Drawing.Color.White;
             this.VerifyCustomButton.UseVisualStyleBackColor = false;
+            this.VerifyCustomButton.Click += new System.EventHandler(this.VerifyCustomButton_Click);
             // 
             // SmtpCodeCustomTextBox
             // 
@@ -77,20 +99,11 @@
             this.SmtpCodeCustomTextBox.ReadOnly = false;
             this.SmtpCodeCustomTextBox.Size = new System.Drawing.Size(230, 33);
             this.SmtpCodeCustomTextBox.TabIndex = 50;
+            this.SmtpCodeCustomTextBox.TabStop = false;
             this.SmtpCodeCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.SmtpCodeCustomTextBox.TextContent = "";
             this.SmtpCodeCustomTextBox.UnderlineStyle = true;
             this.SmtpCodeCustomTextBox.TextChangedEvent += new System.EventHandler(this.SmtpCodeCustomTextBox_TextChangedEvent);
-            // 
-            // SmtpCodeLabel
-            // 
-            this.SmtpCodeLabel.AutoSize = true;
-            this.SmtpCodeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SmtpCodeLabel.Location = new System.Drawing.Point(35, 65);
-            this.SmtpCodeLabel.Name = "SmtpCodeLabel";
-            this.SmtpCodeLabel.Size = new System.Drawing.Size(64, 22);
-            this.SmtpCodeLabel.TabIndex = 49;
-            this.SmtpCodeLabel.Text = "Code:";
             // 
             // RestartSmtpCodeCustomButton
             // 
@@ -111,16 +124,7 @@
             this.RestartSmtpCodeCustomButton.TabIndex = 48;
             this.RestartSmtpCodeCustomButton.TextColor = System.Drawing.Color.White;
             this.RestartSmtpCodeCustomButton.UseVisualStyleBackColor = false;
-            // 
-            // CaptchaCodeLabel
-            // 
-            this.CaptchaCodeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CaptchaCodeLabel.Location = new System.Drawing.Point(30, 10);
-            this.CaptchaCodeLabel.Name = "CaptchaCodeLabel";
-            this.CaptchaCodeLabel.Size = new System.Drawing.Size(290, 50);
-            this.CaptchaCodeLabel.TabIndex = 47;
-            this.CaptchaCodeLabel.Text = "Verification Code";
-            this.CaptchaCodeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.RestartSmtpCodeCustomButton.Click += new System.EventHandler(this.RestartSmtpCodeCustomButton_Click);
             // 
             // SmtpControl
             // 

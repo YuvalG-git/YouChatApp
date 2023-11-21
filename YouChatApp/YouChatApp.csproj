@@ -181,33 +181,10 @@
     <Compile Include="Controls\PersonalVerificationQuestionsControl.Designer.cs">
       <DependentUpon>PersonalVerificationQuestionsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="EnumHandler.cs" />
     <Compile Include="ImageHandler.cs" />
     <Compile Include="ImageRotationHandler.cs" />
     <Compile Include="JsonClasses\RegistrationInformation.cs" />
-    <Compile Include="LoginForms\Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoginForms\Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LoginForms\PasswordReset.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoginForms\PasswordReset.Designer.cs">
-      <DependentUpon>PasswordReset.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LoginForms\PasswordUpdate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoginForms\PasswordUpdate.Designer.cs">
-      <DependentUpon>PasswordUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LoginForms\Registration.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoginForms\Registration.Designer.cs">
-      <DependentUpon>Registration.cs</DependentUpon>
-    </Compile>
     <Compile Include="UdpServerCommunication\AudioServerCommunication.cs" />
     <Compile Include="ChatHandler\Chat.cs" />
     <Compile Include="ChatHandler\ChatCreator.cs" />
@@ -396,6 +373,30 @@
     <Compile Include="tryform.Designer.cs">
       <DependentUpon>tryform.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserAuthentication\Forms\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserAuthentication\Forms\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserAuthentication\Forms\PasswordRestart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserAuthentication\Forms\PasswordRestart.Designer.cs">
+      <DependentUpon>PasswordRestart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserAuthentication\Forms\PasswordUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserAuthentication\Forms\PasswordUpdate.Designer.cs">
+      <DependentUpon>PasswordUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserAuthentication\Forms\Registration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserAuthentication\Forms\Registration.Designer.cs">
+      <DependentUpon>Registration.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserProfile\Profile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -575,18 +576,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\PaintHandler\Paint.resx">
       <DependentUpon>Paint.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoginForms\Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoginForms\PasswordReset.resx">
-      <DependentUpon>PasswordReset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoginForms\PasswordUpdate.resx">
-      <DependentUpon>PasswordUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoginForms\Registration.resx">
-      <DependentUpon>Registration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Audio.resx">
       <Generator>ResXFileCodeGenerator</Generator>

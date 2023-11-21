@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace YouChatApp.LoginForms
+namespace YouChatApp.UserAuthentication.Forms
 {
-    public partial class Login : Form
+    public partial class PasswordUpdate : Form
     {
-        public Login()
+        public PasswordUpdate()
         {
             InitializeComponent();
         }

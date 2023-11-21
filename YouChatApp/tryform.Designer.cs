@@ -28,13 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.smtpControl1 = new YouChatApp.Controls.SmtpControl();
             this.SuspendLayout();
+            // 
+            // smtpControl1
+            // 
+            this.smtpControl1.ControlType = YouChatApp.EnumHandler.UserAuthentication_Enum.PasswordUpdate;
+            this.smtpControl1.Location = new System.Drawing.Point(79, 65);
+            this.smtpControl1.Name = "smtpControl1";
+            this.smtpControl1.Size = new System.Drawing.Size(350, 190);
+            this.smtpControl1.TabIndex = 0;
             // 
             // tryform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 684);
+            this.Controls.Add(this.smtpControl1);
             this.Name = "tryform";
             this.Text = "tryform";
             this.ResumeLayout(false);
@@ -42,5 +52,7 @@
         }
 
         #endregion
+
+        private Controls.SmtpControl smtpControl1;
     }
 }

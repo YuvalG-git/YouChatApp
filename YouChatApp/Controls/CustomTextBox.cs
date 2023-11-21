@@ -290,6 +290,10 @@ namespace YouChatApp.Controls
             set
             {
                 TextBox.Text = value;
+                if (TextBox.Text == "")
+                {
+                    SetPlaceHolder();
+                }
             }
         }
 
@@ -305,6 +309,10 @@ namespace YouChatApp.Controls
                     TextBox.UseSystemPasswordChar = false;
                 }
             }
+        }
+        public void PlaceHolderSetter()
+        {
+            SetPlaceHolder();
         }
 
         private void RemovePlaceHolder()

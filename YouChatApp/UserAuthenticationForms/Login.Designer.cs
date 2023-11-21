@@ -1,4 +1,4 @@
-﻿namespace YouChatApp.LoginForms
+﻿namespace YouChatApp.UserAuthenticationForms
 {
     partial class Login
     {
