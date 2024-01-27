@@ -176,7 +176,14 @@ namespace YouChatApp.AttachedFiles
         //4 - special amoji
         //5 - colored special emoji
         // the second one is the one i should be comparing
-
+        private void closePeopleEmojiPanel()
+        {
+            if (lastVisiblePeopleEmojiPanel != null)
+            {
+                lastVisiblePeopleEmojiPanel.Visible = false;
+                lastVisiblePeopleEmojiPanel = null;
+            }
+        }
         private void SetPeopleEmojiTab()
         {
             PeopleEmojiPictureBoxListOfLists = new List<List<PictureBox>>();
@@ -365,6 +372,9 @@ namespace YouChatApp.AttachedFiles
             this.EmojiCategoryPanel[6].Name = "ObjectsEmojiPanel";
             this.EmojiCategoryPanel[7].Name = "SymbolsEmojiPanel";
             this.EmojiCategoryPanel[8].Name = "FlagsEmojiPanel";
+            this.EmojiCategoryPanel[1].Scroll += EmojiPeoplePanel_Scroll;
+            this.EmojiCategoryPanel[1].MouseWheel += EmojiPeoplePanel_MouseWheel;
+
         }
         public void InitializeEmojiTabPageArray()
         {
@@ -487,6 +497,14 @@ namespace YouChatApp.AttachedFiles
             this.DialogResult = DialogResult.OK;
 
             this.Close();
+        }
+        private void EmojiPeoplePanel_Scroll(object sender, ScrollEventArgs e)
+        {
+            closePeopleEmojiPanel();
+        }
+        private void EmojiPeoplePanel_MouseWheel(object sender, MouseEventArgs e)
+        {
+            closePeopleEmojiPanel();
         }
         private void SpecialEmojiPictureBox_Click(object sender, EventArgs e)
         {

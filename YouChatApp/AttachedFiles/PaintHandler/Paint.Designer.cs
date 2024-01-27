@@ -53,7 +53,6 @@ namespace YouChatApp
             this.RedoToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.UndoToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.MultiColorOptionToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.FillToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.BackgroundColorToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.PencilToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.EraserToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -69,11 +68,11 @@ namespace YouChatApp
             this.FlipVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FlipHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TextToolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
+            this.FirstTextColorOptionToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.SecondTextColorOptionToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.ThirdTextColorOptionToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.FourthTextColorOptionToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.TextMultiColorOptionToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.TextSizeToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.FontToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.BoldtoolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -82,10 +81,12 @@ namespace YouChatApp
             this.StrikeoutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.DrawingBoardPictureBox = new System.Windows.Forms.PictureBox();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.BackgroundPanel = new System.Windows.Forms.Panel();
             this.PaintMenuStrip.SuspendLayout();
             this.PaintToolStrip.SuspendLayout();
             this.TextToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingBoardPictureBox)).BeginInit();
+            this.BackgroundPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // PaintMenuStrip
@@ -148,13 +149,15 @@ namespace YouChatApp
             // TextContentTextBox
             // 
             this.TextContentTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextContentTextBox.Location = new System.Drawing.Point(664, 86);
+            this.TextContentTextBox.Location = new System.Drawing.Point(430, 182);
             this.TextContentTextBox.Multiline = true;
             this.TextContentTextBox.Name = "TextContentTextBox";
             this.TextContentTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.TextContentTextBox.Size = new System.Drawing.Size(136, 36);
+            this.TextContentTextBox.Size = new System.Drawing.Size(180, 36);
             this.TextContentTextBox.TabIndex = 3;
             this.TextContentTextBox.Visible = false;
+            this.TextContentTextBox.TextChanged += new System.EventHandler(this.TextContentTextBox_TextChanged);
+            this.TextContentTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextContentTextBox_KeyPress);
             this.TextContentTextBox.Leave += new System.EventHandler(this.TextContentTextBox_Leave);
             this.TextContentTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TextContentTextBox_MouseDown);
             this.TextContentTextBox.MouseLeave += new System.EventHandler(this.TextContentTextBox_MouseLeave);
@@ -239,7 +242,6 @@ namespace YouChatApp
             this.FourthColorOptionToolStripButton,
             this.MultiColorOptionToolStripButton,
             this.PenSizeToolStripDropDownButton,
-            this.FillToolStripButton,
             this.BackgroundColorToolStripButton,
             this.PencilToolStripButton,
             this.EraserToolStripButton,
@@ -283,16 +285,6 @@ namespace YouChatApp
             this.MultiColorOptionToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.MultiColorOptionToolStripButton.Text = "Colors";
             this.MultiColorOptionToolStripButton.Click += new System.EventHandler(this.MultiColorOptionToolStripButton_Click);
-            // 
-            // FillToolStripButton
-            // 
-            this.FillToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.FillToolStripButton.Image = global::YouChatApp.Properties.Resources.BackgroundColor;
-            this.FillToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.FillToolStripButton.Name = "FillToolStripButton";
-            this.FillToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.FillToolStripButton.Text = "Fill";
-            this.FillToolStripButton.Click += new System.EventHandler(this.FillToolStripButton_Click);
             // 
             // BackgroundColorToolStripButton
             // 
@@ -428,11 +420,11 @@ namespace YouChatApp
             // TextToolStrip
             // 
             this.TextToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton3,
-            this.toolStripButton4,
-            this.toolStripButton5,
-            this.toolStripButton6,
-            this.toolStripButton7,
+            this.FirstTextColorOptionToolStripButton,
+            this.SecondTextColorOptionToolStripButton,
+            this.ThirdTextColorOptionToolStripButton,
+            this.FourthTextColorOptionToolStripButton,
+            this.TextMultiColorOptionToolStripButton,
             this.TextSizeToolStripComboBox,
             this.FontToolStripComboBox,
             this.BoldtoolStripButton,
@@ -446,46 +438,51 @@ namespace YouChatApp
             this.TextToolStrip.Text = "toolStrip1";
             this.TextToolStrip.Visible = false;
             // 
-            // toolStripButton3
+            // FirstTextColorOptionToolStripButton
             // 
-            this.toolStripButton3.BackColor = System.Drawing.Color.Black;
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.FirstTextColorOptionToolStripButton.BackColor = System.Drawing.Color.Black;
+            this.FirstTextColorOptionToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.FirstTextColorOptionToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.FirstTextColorOptionToolStripButton.Name = "FirstTextColorOptionToolStripButton";
+            this.FirstTextColorOptionToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.FirstTextColorOptionToolStripButton.Click += new System.EventHandler(this.TextColorChange);
             // 
-            // toolStripButton4
+            // SecondTextColorOptionToolStripButton
             // 
-            this.toolStripButton4.BackColor = System.Drawing.Color.Red;
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
+            this.SecondTextColorOptionToolStripButton.BackColor = System.Drawing.Color.Red;
+            this.SecondTextColorOptionToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SecondTextColorOptionToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SecondTextColorOptionToolStripButton.Name = "SecondTextColorOptionToolStripButton";
+            this.SecondTextColorOptionToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.SecondTextColorOptionToolStripButton.Click += new System.EventHandler(this.TextColorChange);
             // 
-            // toolStripButton5
+            // ThirdTextColorOptionToolStripButton
             // 
-            this.toolStripButton5.BackColor = System.Drawing.Color.Green;
-            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(23, 22);
+            this.ThirdTextColorOptionToolStripButton.BackColor = System.Drawing.Color.Green;
+            this.ThirdTextColorOptionToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ThirdTextColorOptionToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ThirdTextColorOptionToolStripButton.Name = "ThirdTextColorOptionToolStripButton";
+            this.ThirdTextColorOptionToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.ThirdTextColorOptionToolStripButton.Click += new System.EventHandler(this.TextColorChange);
             // 
-            // toolStripButton6
+            // FourthTextColorOptionToolStripButton
             // 
-            this.toolStripButton6.BackColor = System.Drawing.Color.Blue;
-            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(23, 22);
+            this.FourthTextColorOptionToolStripButton.BackColor = System.Drawing.Color.Blue;
+            this.FourthTextColorOptionToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.FourthTextColorOptionToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.FourthTextColorOptionToolStripButton.Name = "FourthTextColorOptionToolStripButton";
+            this.FourthTextColorOptionToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.FourthTextColorOptionToolStripButton.Click += new System.EventHandler(this.TextColorChange);
             // 
-            // toolStripButton7
+            // TextMultiColorOptionToolStripButton
             // 
-            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton7.Image = global::YouChatApp.Properties.Resources.colors;
-            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton7.Text = "Colors";
+            this.TextMultiColorOptionToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TextMultiColorOptionToolStripButton.Image = global::YouChatApp.Properties.Resources.colors;
+            this.TextMultiColorOptionToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TextMultiColorOptionToolStripButton.Name = "TextMultiColorOptionToolStripButton";
+            this.TextMultiColorOptionToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.TextMultiColorOptionToolStripButton.Text = "Colors";
+            this.TextMultiColorOptionToolStripButton.Click += new System.EventHandler(this.TextMultiColorOptionToolStripButton_Click);
             // 
             // TextSizeToolStripComboBox
             // 
@@ -508,12 +505,14 @@ namespace YouChatApp
             "72"});
             this.TextSizeToolStripComboBox.Name = "TextSizeToolStripComboBox";
             this.TextSizeToolStripComboBox.Size = new System.Drawing.Size(121, 25);
+            this.TextSizeToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.TextSizeToolStripComboBox_SelectedIndexChanged);
             this.TextSizeToolStripComboBox.Click += new System.EventHandler(this.TextSizeToolStripComboBox_Click);
             // 
             // FontToolStripComboBox
             // 
             this.FontToolStripComboBox.Name = "FontToolStripComboBox";
             this.FontToolStripComboBox.Size = new System.Drawing.Size(121, 25);
+            this.FontToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.FontToolStripComboBox_SelectedIndexChanged);
             this.FontToolStripComboBox.Click += new System.EventHandler(this.FontToolStripComboBox_Click);
             // 
             // BoldtoolStripButton
@@ -558,12 +557,13 @@ namespace YouChatApp
             // 
             // DrawingBoardPictureBox
             // 
+            this.DrawingBoardPictureBox.BackColor = System.Drawing.SystemColors.Control;
             this.DrawingBoardPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.DrawingBoardPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DrawingBoardPictureBox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.DrawingBoardPictureBox.Location = new System.Drawing.Point(0, 86);
+            this.DrawingBoardPictureBox.Location = new System.Drawing.Point(5, 5);
             this.DrawingBoardPictureBox.Name = "DrawingBoardPictureBox";
-            this.DrawingBoardPictureBox.Size = new System.Drawing.Size(800, 366);
+            this.DrawingBoardPictureBox.Padding = new System.Windows.Forms.Padding(2);
+            this.DrawingBoardPictureBox.Size = new System.Drawing.Size(790, 790);
             this.DrawingBoardPictureBox.TabIndex = 2;
             this.DrawingBoardPictureBox.TabStop = false;
             this.DrawingBoardPictureBox.Click += new System.EventHandler(this.DrawingBoardPictureBox_Click);
@@ -573,18 +573,29 @@ namespace YouChatApp
             this.DrawingBoardPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DrawingBoardPictureBox_MouseMove);
             this.DrawingBoardPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DrawingBoardPictureBox_MouseUp);
             // 
+            // BackgroundPanel
+            // 
+            this.BackgroundPanel.BackColor = System.Drawing.Color.Black;
+            this.BackgroundPanel.Controls.Add(this.TextContentTextBox);
+            this.BackgroundPanel.Controls.Add(this.DrawingBoardPictureBox);
+            this.BackgroundPanel.Location = new System.Drawing.Point(0, 80);
+            this.BackgroundPanel.Name = "BackgroundPanel";
+            this.BackgroundPanel.Size = new System.Drawing.Size(800, 800);
+            this.BackgroundPanel.TabIndex = 5;
+            // 
             // Paint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 880);
             this.Controls.Add(this.TextToolStrip);
-            this.Controls.Add(this.TextContentTextBox);
-            this.Controls.Add(this.DrawingBoardPictureBox);
             this.Controls.Add(this.PaintToolStrip);
             this.Controls.Add(this.PaintMenuStrip);
+            this.Controls.Add(this.BackgroundPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.PaintMenuStrip;
+            this.MaximumSize = new System.Drawing.Size(816, 919);
+            this.MinimumSize = new System.Drawing.Size(816, 919);
             this.Name = "Paint";
             this.Text = "Paint";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Paint_FormClosing);
@@ -595,6 +606,8 @@ namespace YouChatApp
             this.TextToolStrip.ResumeLayout(false);
             this.TextToolStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingBoardPictureBox)).EndInit();
+            this.BackgroundPanel.ResumeLayout(false);
+            this.BackgroundPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -640,13 +653,12 @@ namespace YouChatApp
         private System.Windows.Forms.ToolStripMenuItem FlipVerticalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem FlipHorizontalToolStripMenuItem;
         private System.Windows.Forms.ToolStrip PaintToolStrip;
-        private System.Windows.Forms.ToolStripButton FillToolStripButton;
         private System.Windows.Forms.ToolStrip TextToolStrip;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
-        private System.Windows.Forms.ToolStripButton toolStripButton5;
-        private System.Windows.Forms.ToolStripButton toolStripButton6;
-        private System.Windows.Forms.ToolStripButton toolStripButton7;
+        private System.Windows.Forms.ToolStripButton FirstTextColorOptionToolStripButton;
+        private System.Windows.Forms.ToolStripButton SecondTextColorOptionToolStripButton;
+        private System.Windows.Forms.ToolStripButton ThirdTextColorOptionToolStripButton;
+        private System.Windows.Forms.ToolStripButton FourthTextColorOptionToolStripButton;
+        private System.Windows.Forms.ToolStripButton TextMultiColorOptionToolStripButton;
         private System.Windows.Forms.ToolStripButton ItalicToolStripButton;
         private System.Windows.Forms.ToolStripButton StrikeoutToolStripButton;
         private System.Windows.Forms.ToolStripComboBox FontToolStripComboBox;
@@ -654,5 +666,6 @@ namespace YouChatApp
         private System.Windows.Forms.ToolStripButton UnderlineToolStripButton;
         private System.Windows.Forms.ToolStripComboBox TextSizeToolStripComboBox;
         private System.Windows.Forms.FontDialog fontDialog1;
+        private System.Windows.Forms.Panel BackgroundPanel;
     }
 }

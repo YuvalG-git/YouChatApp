@@ -588,6 +588,18 @@
     <EmbeddedResource Include="tryform.resx">
       <DependentUpon>tryform.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserAuthentication\Forms\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAuthentication\Forms\PasswordRestart.resx">
+      <DependentUpon>PasswordRestart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAuthentication\Forms\PasswordUpdate.resx">
+      <DependentUpon>PasswordUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAuthentication\Forms\Registration.resx">
+      <DependentUpon>Registration.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserProfile\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
     </EmbeddedResource>

@@ -1284,6 +1284,10 @@ namespace YouChatApp
 
         private void TakePhotoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            HandleImageTaking();
+        }
+        private void HandleImageTaking()
+        {
             if (ServerCommunication._camera == null)
             {
                 ServerCommunication._camera = new Camera();
@@ -1430,6 +1434,12 @@ namespace YouChatApp
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void TakenImageFile_Click(object sender, EventArgs e)
+        {
+            HandleImageTaking();
 
         }
     }

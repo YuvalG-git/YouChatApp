@@ -16,5 +16,10 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             InitializeComponent();
         }
+
+        private void UpdatePasswordButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

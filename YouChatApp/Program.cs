@@ -33,12 +33,13 @@ namespace YouChatApp
             //Application.Run(new Document());
             //Application.Run(new ImageHandler());
             //Application.Run(new EmojiKeyboard());
-            Application.Run(new VideoCall());
+            //Application.Run(new VideoCall());
             //Application.Run(new AudioCall());
             //Application.Run(new Camera());
             //Application.Run(new WaitingForm());
             //Application.Run(new CallInvitation("Yuval"));
             //Application.Run(new ImageViewer(new Bitmap("C:\\Users\\Yuval\\Downloads\\3f82f9ff-3986-4830-858f-35afc6c6b4e5.png")));
+            Application.Run(new UserAuthentication.Forms.Registration());
 
             //Application.Run(new YouChat());
 

@@ -133,7 +133,8 @@ namespace YouChatApp.AttachedFiles
 
         private void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
         {
-            AudioServerCommunication.SendAudio(e.Buffer, e.BytesRecorded);
+            if (!isMuted)
+                AudioServerCommunication.SendAudio(e.Buffer, e.BytesRecorded);
         }
 
         public void Stop()
@@ -177,7 +178,7 @@ namespace YouChatApp.AttachedFiles
             waveIn.DataAvailable += WaveIn_DataAvailable;
             Start();
             waveOut = new WaveOut();
-            this.provider = new BufferedWaveProvider(new WaveFormat(44100, 16, 2));
+            this.provider = new BufferedWaveProvider(new WaveFormat(44100, 16, 1));
             this.provider.DiscardOnBufferOverflow = true;
             this._waveOut = new DirectSoundOut();
             this._waveOut.Init(provider);

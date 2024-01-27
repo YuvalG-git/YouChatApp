@@ -76,19 +76,28 @@ namespace YouChatApp.Controls
         private void InitializePasswordViewerButtonArray()
         {
             int height = 30;
-            PasswordViewerButtonArray = new System.Windows.Forms.Button[3];
+            PasswordViewerButtonArray = new CustomButton[3];
             for (int i = 0; i < PasswordViewerButtonArray.Length; i++)
             {
-                PasswordViewerButtonArray[i] = new System.Windows.Forms.Button();
+                PasswordViewerButtonArray[i] = new CustomButton();
                 this.PasswordViewerButtonArray[i].BackgroundImage = passwordNotShown;
                 this.PasswordViewerButtonArray[i].BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
                 this.PasswordViewerButtonArray[i].FlatAppearance.BorderColor = System.Drawing.Color.Black;
+                this.PasswordViewerButtonArray[i].BackColor = System.Drawing.Color.MediumSlateBlue;
+                this.PasswordViewerButtonArray[i].BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+                this.PasswordViewerButtonArray[i].BorderColor = System.Drawing.Color.PaleVioletRed;
                 this.PasswordViewerButtonArray[i].Location = new System.Drawing.Point(250, height);
+                this.PasswordViewerButtonArray[i].BorderRadius = 3;
+                this.PasswordViewerButtonArray[i].BorderSize = 0;
+                this.PasswordViewerButtonArray[i].Circular = false;
+                this.PasswordViewerButtonArray[i].FlatAppearance.BorderSize = 0;
+                this.PasswordViewerButtonArray[i].FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                this.PasswordViewerButtonArray[i].ForeColor = System.Drawing.Color.White;
                 this.PasswordViewerButtonArray[i].Name = "ViewPasswordButtonNumber" + (i+1);
                 this.PasswordViewerButtonArray[i].Size = new System.Drawing.Size(22, 23);
                 this.PasswordViewerButtonArray[i].TabIndex = 18;
                 this.PasswordViewerButtonArray[i].UseMnemonic = false;
-                this.PasswordViewerButtonArray[i].UseVisualStyleBackColor = true;
+                this.PasswordViewerButtonArray[i].UseVisualStyleBackColor = false;
                 this.PasswordViewerButtonArray[i].Click += new System.EventHandler(this.PasswordViewerButton_Click);
                 this.Controls.Add(this.PasswordViewerButtonArray[i]);
                 height += HeightDifference;

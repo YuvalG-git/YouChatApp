@@ -211,11 +211,7 @@ namespace YouChatApp
                 else
                 {
                     SetShapes();
-
-
                 }
-
-
             }
             else
             {
@@ -314,6 +310,7 @@ namespace YouChatApp
         private void DeleteOptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteCanvas();
+            InsertDrawing();
         }
         private void DeleteCanvas()
         {
@@ -342,6 +339,23 @@ namespace YouChatApp
             }
         }
 
+        private void TextMultiColorOptionToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (PaintColorDialog.ShowDialog() == DialogResult.OK)
+            {
+                ToolStripButton ButtonToMoveToBegining = TextToolStrip.Items[ColoredButtons - 1] as ToolStripButton;
+
+                if (ButtonToMoveToBegining != null)
+                {
+                    TextToolStrip.Items.Remove(ButtonToMoveToBegining); // Remove the button from its current position
+                    TextToolStrip.Items.Insert(0, ButtonToMoveToBegining); // Insert the button at the first position
+                }
+                BrushColor = PaintColorDialog.Color; ;
+                ButtonToMoveToBegining.BackColor = BrushColor;
+                TextContentTextBox.ForeColor = BrushColor;
+            }
+        }
+
         private void SetPenSizeList()
         {
             //todo to create a list of pen size buttons and add them to the pensize headline...
@@ -362,7 +376,7 @@ namespace YouChatApp
                     // Draw the ellipse centered at (e.X, e.Y)
                     Graphics.DrawEllipse(DrawingPen, left, top, PenSize, PenSize);
                     DrawingBoardPictureBox.Image = DrawingBitMap;
-
+                    InsertDrawing();
                 }//maybe i need to use a timer and after mouse down to count  a second or something
                 else if (PaintOptionIsChosenList[2])
                 {
@@ -370,9 +384,10 @@ namespace YouChatApp
                     //after leaving the textbox need to make it untouchable or else (better option) make a way to get rid of the border...
                     //AddNewTextContentTextBox();
                     TextContentTextBox.Visible = true;
-                    Point CursorLocation = this.PointToClient(((Control)sender).PointToScreen(e.Location));
+                    //Point CursorLocation = this.PointToClient(((Control)sender).PointToScreen(e.Location));
 
-                    TextContentTextBox.Location = new System.Drawing.Point(CursorLocation.X, CursorLocation.Y);
+                    //TextContentTextBox.Location = new System.Drawing.Point(CursorLocation.X, CursorLocation.Y);
+                    TextContentTextBox.Location = new System.Drawing.Point(e.X, e.Y);
                 }
                 else if (PaintOptionIsChosenList[7])
                 {
@@ -743,11 +758,15 @@ namespace YouChatApp
         private void RotateRight90ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DrawingBoardPictureBox.Image = RotateImage90DegreesRight((Bitmap)DrawingBoardPictureBox.Image);
+            InsertDrawing();
+
         }
 
         private void FlipVerticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DrawingBoardPictureBox.Image = FlipImageVertically((Bitmap)DrawingBoardPictureBox.Image);
+            InsertDrawing();
+
         }
 
         private Bitmap FlipImageHorizontally(Bitmap original)
@@ -801,18 +820,21 @@ namespace YouChatApp
         private void FlipHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DrawingBoardPictureBox.Image = FlipImageHorizontally((Bitmap)DrawingBoardPictureBox.Image);
+            InsertDrawing();
 
         }
 
         private void RotateLeft90ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DrawingBoardPictureBox.Image = RotateImage90DegreesLeft((Bitmap)DrawingBoardPictureBox.Image);
+            InsertDrawing();
 
         }
 
         private void Rotate180ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DrawingBoardPictureBox.Image = RotateImage180Degrees((Bitmap)DrawingBoardPictureBox.Image);
+            InsertDrawing();
 
         }
 
@@ -899,21 +921,14 @@ namespace YouChatApp
 
         private void FontToolStripComboBox_Click(object sender, EventArgs e)
         {
-            string newFontName = FontToolStripComboBox.Text;
 
-            Font originalFont = TextContentTextBox.Font; // The original font
-
-            // Create a new font with the desired font name
-            Font newFont = new Font(newFontName, originalFont.Size, originalFont.Style);
-            // Create a new font with the modified style
-
-            // Use the newFont as needed
-
-            // Don't forget to dispose of the newFont when you're done
-            TextContentTextBox.Font = newFont;
         }
 
         private void TextSizeToolStripComboBox_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void TextSizeToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string SizeAsString = TextSizeToolStripComboBox.Text;
             int newSize = int.Parse(SizeAsString);
@@ -927,10 +942,67 @@ namespace YouChatApp
 
             // Don't forget to dispose of the newFont when you're done
             TextContentTextBox.Font = newFont;
+            TextContentTextBox.Refresh();
+            AdjustTextBoxHeight(TextContentTextBox);
+            AdjustTextBoxWidth(TextContentTextBox);
+        }
+
+        private void FontToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string newFontName = FontToolStripComboBox.Text;
+
+            Font originalFont = TextContentTextBox.Font; // The original font
+
+            // Create a new font with the desired font name
+            Font newFont = new Font(newFontName, originalFont.Size, originalFont.Style);
+            // Create a new font with the modified style
+
+            // Use the newFont as needed
+
+            // Don't forget to dispose of the newFont when you're done
+            TextContentTextBox.Font = newFont;
+            TextContentTextBox.Refresh();
+            AdjustTextBoxHeight(TextContentTextBox);
+            AdjustTextBoxWidth(TextContentTextBox);
+        }
+
+        private void TextContentTextBox_TextChanged(object sender, EventArgs e)
+        {
+            AdjustTextBoxHeight((System.Windows.Forms.TextBox)(sender));
+            AdjustTextBoxWidth((System.Windows.Forms.TextBox)(sender));
+        }
+        private void AdjustTextBoxHeight(System.Windows.Forms.TextBox textBox)
+        {
+            // Calculate the preferred height based on the text and the width
+            int preferredHeight = TextRenderer.MeasureText(textBox.Text, textBox.Font, new System.Drawing.Size(textBox.Width, int.MaxValue), TextFormatFlags.WordBreak).Height;
+
+            // Set the new height, ensuring a minimum height
+            textBox.Height = Math.Max(preferredHeight, textBox.Font.Height + 2); // Adding some padding
+        }
+        private void AdjustTextBoxWidth(System.Windows.Forms.TextBox textBox)
+        {
+            // Limit the width to a maximum value (e.g., 300)
+            int maxWidth = BackgroundPanel.Width + BackgroundPanel.Location.X - textBox.Location.X;
+            int minWidth = 100;
+            // Calculate the preferred width based on the text length
+            int preferredWidth = TextRenderer.MeasureText(textBox.Text, textBox.Font).Width;
+            // Set the width of the TextBox, ensuring it doesn't exceed the maximum width
+            textBox.Width = Math.Min(preferredWidth, maxWidth);
+            textBox.Width = Math.Max(minWidth, Math.Min(preferredWidth, maxWidth));
+            textBox.Multiline = (preferredWidth > maxWidth);
+
         }
 
         private void DrawingBoardPictureBox_Click(object sender, EventArgs e)
         {
+            //System.Drawing.Point TextContentTextBoxRealLocation = TextContentTextBox.Location;
+            //if (TextContentTextBox.Parent != null && TextContentTextBox.Parent is Panel) //panel location
+            //{
+            //    System.Drawing.Point panelLocation = TextContentTextBox.Parent.Location;
+            //    TextContentTextBoxRealLocation.Offset(panelLocation.X, panelLocation.Y);
+            //}
+            //int pictureBoxRealXLocation = TextContentTextBoxRealLocation.X;
+            //int pictureBoxRealYLocation = TextContentTextBoxRealLocation.Y;
             if (TextContentTextBox.Visible)
             {
                 if (IsTextContentTextBoxEntered)
@@ -968,9 +1040,28 @@ namespace YouChatApp
                     TextContentTextBox.Visible = false;
                     PaintOptionIsChosenList[2] = false;
                     TextToolStrip.Visible = false;//needs to add a method of refreshing some of the things maybe?
-
+                    InsertDrawing();
                 }
             }
+        }
+
+        private void TextColorChange(object sender, EventArgs e)
+        {
+            BrushColor = ((ToolStripButton)(sender)).BackColor;
+            TextContentTextBox.ForeColor = BrushColor;
+        }
+
+        private void TextContentTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //// Check if the Enter key is pressed
+            //if (e.KeyChar == (char)Keys.Enter)
+            //{
+            //    // Insert a line break
+            //    int selectionStart = TextContentTextBox.SelectionStart;
+            //    TextContentTextBox.Text = TextContentTextBox.Text.Insert(selectionStart, "\r\n");
+            //    TextContentTextBox.SelectionStart = selectionStart + 2; // Move the caret after the inserted line break
+            //    e.Handled = true; // Suppress the Enter key
+            //}
         }
 
         private void ChangeBackgroundColor(Color BackgroundColor)
