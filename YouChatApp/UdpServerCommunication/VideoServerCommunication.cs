@@ -70,7 +70,7 @@ namespace YouChatApp
         }
 
         // Close the UDP client when done
-        public void Close()
+        public static void Close()
         {
             _udpIsOn = false;
             udpClient.Close();

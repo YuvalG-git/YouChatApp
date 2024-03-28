@@ -15,7 +15,7 @@ namespace YouChatApp
         public InitialProfileSelection(bool IsPhaseOne)
         {
             InitializeComponent();
-            ServerCommunication.BeginRead();
+            ServerCommunication.MessageBeginRead();
             //ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
             ProfilePictureControl.AddButtonClickHandler(SetConfirmButtonEnabled);
             if (IsPhaseOne)
@@ -313,8 +313,8 @@ namespace YouChatApp
         public void OpenApp()
         {
             this.Hide();
-            ServerCommunication.youChat = new YouChat();
-            this.Invoke(new Action(() => ServerCommunication.youChat.ShowDialog()));
+            ServerCommunication._youChat = new YouChat();
+            this.Invoke(new Action(() => ServerCommunication._youChat.ShowDialog()));
         }
 
         private void SetPhaseOne()

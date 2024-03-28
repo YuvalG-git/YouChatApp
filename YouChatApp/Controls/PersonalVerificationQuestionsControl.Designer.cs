@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.VerificationQuestionCustomComboBox = new System.Windows.Forms.ComboBox();
             this.VerificationQuestionNumberLabel = new System.Windows.Forms.Label();
             this.PersonalVerificationQuestionsPanel = new System.Windows.Forms.Panel();
+            this.VerificationQuestionCustomComboBox = new YouChatApp.Controls.CustomComboBox();
             this.ApproveVerificationInformationCustomButton = new YouChatApp.Controls.CustomButton();
             this.VerificationAnswerLabel = new System.Windows.Forms.Label();
             this.VerificationAnswerTextBox = new YouChatApp.Controls.CustomTextBox();
@@ -49,10 +49,39 @@
             this.PersonalVerificationResultsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
+            // VerificationQuestionNumberLabel
+            // 
+            this.VerificationQuestionNumberLabel.AutoSize = true;
+            this.VerificationQuestionNumberLabel.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerificationQuestionNumberLabel.Location = new System.Drawing.Point(30, 15);
+            this.VerificationQuestionNumberLabel.Name = "VerificationQuestionNumberLabel";
+            this.VerificationQuestionNumberLabel.Size = new System.Drawing.Size(36, 21);
+            this.VerificationQuestionNumberLabel.TabIndex = 1;
+            this.VerificationQuestionNumberLabel.Text = "1/5";
+            // 
+            // PersonalVerificationQuestionsPanel
+            // 
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationQuestionCustomComboBox);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.ApproveVerificationInformationCustomButton);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationAnswerLabel);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationAnswerTextBox);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationQuestionLabel);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.RightScrollCustomButton);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationQuestionNumberLabel);
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.LeftScrollCustomButton);
+            this.PersonalVerificationQuestionsPanel.Location = new System.Drawing.Point(0, 40);
+            this.PersonalVerificationQuestionsPanel.Name = "PersonalVerificationQuestionsPanel";
+            this.PersonalVerificationQuestionsPanel.Size = new System.Drawing.Size(400, 255);
+            this.PersonalVerificationQuestionsPanel.TabIndex = 43;
+            // 
             // VerificationQuestionCustomComboBox
             // 
+            this.VerificationQuestionCustomComboBox.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.VerificationQuestionCustomComboBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.VerificationQuestionCustomComboBox.BorderSize = 1;
             this.VerificationQuestionCustomComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.VerificationQuestionCustomComboBox.FormattingEnabled = true;
+            this.VerificationQuestionCustomComboBox.ForeColor = System.Drawing.Color.DimGray;
+            this.VerificationQuestionCustomComboBox.IconColor = System.Drawing.Color.MediumSlateBlue;
             this.VerificationQuestionCustomComboBox.Items.AddRange(new object[] {
             "Select a quesion 😊",
             "What was your first pet’s name?",
@@ -101,36 +130,17 @@
             "What is your favorite board game?",
             "What is the name of your favorite childhood teacher?",
             "What is your favorite type of dessert?"});
-            this.VerificationQuestionCustomComboBox.Location = new System.Drawing.Point(124, 55);
+            this.VerificationQuestionCustomComboBox.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
+            this.VerificationQuestionCustomComboBox.ListTextColor = System.Drawing.Color.DimGray;
+            this.VerificationQuestionCustomComboBox.Location = new System.Drawing.Point(22, 81);
+            this.VerificationQuestionCustomComboBox.MinimumSize = new System.Drawing.Size(200, 30);
             this.VerificationQuestionCustomComboBox.Name = "VerificationQuestionCustomComboBox";
-            this.VerificationQuestionCustomComboBox.Size = new System.Drawing.Size(254, 21);
-            this.VerificationQuestionCustomComboBox.TabIndex = 40;
-            this.VerificationQuestionCustomComboBox.SelectedIndexChanged += new System.EventHandler(this.VerificationQuestionCustomComboBox_SelectedIndexChanged);
-            // 
-            // VerificationQuestionNumberLabel
-            // 
-            this.VerificationQuestionNumberLabel.AutoSize = true;
-            this.VerificationQuestionNumberLabel.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationQuestionNumberLabel.Location = new System.Drawing.Point(30, 15);
-            this.VerificationQuestionNumberLabel.Name = "VerificationQuestionNumberLabel";
-            this.VerificationQuestionNumberLabel.Size = new System.Drawing.Size(36, 21);
-            this.VerificationQuestionNumberLabel.TabIndex = 1;
-            this.VerificationQuestionNumberLabel.Text = "1/5";
-            // 
-            // PersonalVerificationQuestionsPanel
-            // 
-            this.PersonalVerificationQuestionsPanel.Controls.Add(this.ApproveVerificationInformationCustomButton);
-            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationAnswerLabel);
-            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationAnswerTextBox);
-            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationQuestionLabel);
-            this.PersonalVerificationQuestionsPanel.Controls.Add(this.RightScrollCustomButton);
-            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationQuestionCustomComboBox);
-            this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationQuestionNumberLabel);
-            this.PersonalVerificationQuestionsPanel.Controls.Add(this.LeftScrollCustomButton);
-            this.PersonalVerificationQuestionsPanel.Location = new System.Drawing.Point(0, 40);
-            this.PersonalVerificationQuestionsPanel.Name = "PersonalVerificationQuestionsPanel";
-            this.PersonalVerificationQuestionsPanel.Size = new System.Drawing.Size(400, 200);
-            this.PersonalVerificationQuestionsPanel.TabIndex = 43;
+            this.VerificationQuestionCustomComboBox.Padding = new System.Windows.Forms.Padding(1);
+            this.VerificationQuestionCustomComboBox.SelectedValue = null;
+            this.VerificationQuestionCustomComboBox.Size = new System.Drawing.Size(356, 41);
+            this.VerificationQuestionCustomComboBox.TabIndex = 47;
+            this.VerificationQuestionCustomComboBox.TextContent = "";
+            this.VerificationQuestionCustomComboBox.OnSelectedIndexChanged += new System.EventHandler(this.VerificationQuestionCustomComboBox_OnSelectedIndexChanged);
             // 
             // ApproveVerificationInformationCustomButton
             // 
@@ -145,7 +155,7 @@
             this.ApproveVerificationInformationCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ApproveVerificationInformationCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApproveVerificationInformationCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ApproveVerificationInformationCustomButton.Location = new System.Drawing.Point(125, 150);
+            this.ApproveVerificationInformationCustomButton.Location = new System.Drawing.Point(125, 202);
             this.ApproveVerificationInformationCustomButton.Name = "ApproveVerificationInformationCustomButton";
             this.ApproveVerificationInformationCustomButton.Size = new System.Drawing.Size(150, 40);
             this.ApproveVerificationInformationCustomButton.TabIndex = 0;
@@ -158,7 +168,7 @@
             // 
             this.VerificationAnswerLabel.AutoSize = true;
             this.VerificationAnswerLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationAnswerLabel.Location = new System.Drawing.Point(19, 99);
+            this.VerificationAnswerLabel.Location = new System.Drawing.Point(19, 125);
             this.VerificationAnswerLabel.Name = "VerificationAnswerLabel";
             this.VerificationAnswerLabel.Size = new System.Drawing.Size(74, 18);
             this.VerificationAnswerLabel.TabIndex = 44;
@@ -174,7 +184,7 @@
             this.VerificationAnswerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerificationAnswerTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.VerificationAnswerTextBox.IsFocused = false;
-            this.VerificationAnswerTextBox.Location = new System.Drawing.Point(124, 99);
+            this.VerificationAnswerTextBox.Location = new System.Drawing.Point(22, 150);
             this.VerificationAnswerTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.VerificationAnswerTextBox.MaxLength = 32767;
             this.VerificationAnswerTextBox.Multiline = false;
@@ -182,9 +192,9 @@
             this.VerificationAnswerTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
             this.VerificationAnswerTextBox.PasswordChar = false;
             this.VerificationAnswerTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
-            this.VerificationAnswerTextBox.PlaceHolderText = "Enter Username";
+            this.VerificationAnswerTextBox.PlaceHolderText = "Enter Answer";
             this.VerificationAnswerTextBox.ReadOnly = false;
-            this.VerificationAnswerTextBox.Size = new System.Drawing.Size(254, 35);
+            this.VerificationAnswerTextBox.Size = new System.Drawing.Size(356, 35);
             this.VerificationAnswerTextBox.TabIndex = 34;
             this.VerificationAnswerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.VerificationAnswerTextBox.TextContent = "";
@@ -195,7 +205,7 @@
             // 
             this.VerificationQuestionLabel.AutoSize = true;
             this.VerificationQuestionLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationQuestionLabel.Location = new System.Drawing.Point(19, 54);
+            this.VerificationQuestionLabel.Location = new System.Drawing.Point(19, 55);
             this.VerificationQuestionLabel.Name = "VerificationQuestionLabel";
             this.VerificationQuestionLabel.Size = new System.Drawing.Size(85, 18);
             this.VerificationQuestionLabel.TabIndex = 43;
@@ -335,8 +345,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.PersonalVerificationQuestionHeadlineLabel);
             this.Controls.Add(this.PersonalVerificationQuestionsPanel);
+            this.Controls.Add(this.PersonalVerificationQuestionHeadlineLabel);
             this.Controls.Add(this.PersonalVerificationResultsPanel);
             this.Name = "PersonalVerificationQuestionsControl";
             this.Size = new System.Drawing.Size(400, 440);
@@ -352,7 +362,6 @@
         #endregion
         private CustomTextBox VerificationAnswerTextBox;
         private CustomButton RightScrollCustomButton;
-        private System.Windows.Forms.ComboBox VerificationQuestionCustomComboBox;
         private CustomButton LeftScrollCustomButton;
         private System.Windows.Forms.Label VerificationQuestionNumberLabel;
         private CustomButton ApproveVerificationInformationCustomButton;
@@ -366,5 +375,6 @@
         private System.Windows.Forms.Label PersonalVerificationQuestionHeadlineLabel;
         private System.Windows.Forms.ToolTip ToolTip;
         private System.Windows.Forms.Label PersonalVerificationQuestionResultsLabel;
+        private CustomComboBox VerificationQuestionCustomComboBox;
     }
 }

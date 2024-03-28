@@ -9,10 +9,19 @@ using YouChatApp.Properties;
 
 namespace YouChatApp.AttachedFiles
 {
+    /// <summary>
+    /// The class represents a collection of countdown images used for a camera backward timer.
+    /// </summary>
     internal class CountDownImageList
     {
+        /// <summary>
+        /// Gets the image list containing countdown images.
+        /// </summary>
         public static ImageList _CountDownImageList { get; private set; }
 
+        /// <summary>
+        /// The method initializes the <see cref="CountDownImageList"/> class.
+        /// </summary>
         static CountDownImageList()
         {
             _CountDownImageList = new ImageList();
@@ -20,8 +29,11 @@ namespace YouChatApp.AttachedFiles
             _CountDownImageList.ImageSize = new Size(124, 124);
             _CountDownImageList.ColorDepth = ColorDepth.Depth32Bit;
             LoadImagesFromResources();
-
         }
+
+        /// <summary>
+        /// Loads countdown images from resources and adds them to the image list.
+        /// </summary>
         private static void LoadImagesFromResources()
         {
             List<string> ImageNames = new List<string>();

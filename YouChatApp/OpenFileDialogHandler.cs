@@ -10,7 +10,6 @@ namespace YouChatApp
 {
     internal class OpenFileDialogHandler
     {
-        private static OpenFileDialog _openFileDialog;
         private static string _openFileDialogFilter = "jpg Files(*.jpg)|*.jpg|PNG Files (*.png)|*.png|Bitmap Files (*.bmp)|*.bmp|All Files (*.*)|*.*";
         public static Image HandleOpenFileDialog(OpenFileDialog openFileDialog)
         {

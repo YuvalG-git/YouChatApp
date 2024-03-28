@@ -421,8 +421,8 @@ namespace YouChatApp.AttachedFiles
             InitializeEmojiPictureBoxList();
             RichTextBoxContent = new List<Emoji>();
 
-            if (ServerCommunication.youChat != null ) 
-                EmojiPress += ServerCommunication.youChat.OnEmojiPress;
+            if (ServerCommunication._youChat != null ) 
+                EmojiPress += ServerCommunication._youChat.OnEmojiPress;
         }
 
 

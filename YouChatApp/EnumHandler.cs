@@ -15,6 +15,9 @@ namespace YouChatApp
             PasswordUpdate,
             PasswordRestart
         }
+        /// <summary>
+        /// Enum used to ...
+        /// </summary>
         public enum SmtpMessageType_Enum
         {
             RegistrationMessage,

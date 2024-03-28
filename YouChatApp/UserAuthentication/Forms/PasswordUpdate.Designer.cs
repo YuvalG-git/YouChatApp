@@ -40,21 +40,22 @@
             // UpdatePasswordGeneratorControl
             // 
             this.UpdatePasswordGeneratorControl.ConfirmPasswordVisible = true;
-            this.UpdatePasswordGeneratorControl.Location = new System.Drawing.Point(17, 215);
+            this.UpdatePasswordGeneratorControl.Location = new System.Drawing.Point(20, 185);
             this.UpdatePasswordGeneratorControl.Name = "UpdatePasswordGeneratorControl";
             this.UpdatePasswordGeneratorControl.NewPasswordTextContent = "New Password";
             this.UpdatePasswordGeneratorControl.OldPasswordVisible = true;
-            this.UpdatePasswordGeneratorControl.Size = new System.Drawing.Size(288, 188);
+            this.UpdatePasswordGeneratorControl.Size = new System.Drawing.Size(340, 190);
             this.UpdatePasswordGeneratorControl.TabIndex = 33;
+            this.UpdatePasswordGeneratorControl.Load += new System.EventHandler(this.UpdatePasswordGeneratorControl_Load);
             // 
             // ExpiredPasswordLabel
             // 
             this.ExpiredPasswordLabel.AutoSize = true;
-            this.ExpiredPasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExpiredPasswordLabel.Location = new System.Drawing.Point(13, 74);
+            this.ExpiredPasswordLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExpiredPasswordLabel.Location = new System.Drawing.Point(30, 80);
             this.ExpiredPasswordLabel.Name = "ExpiredPasswordLabel";
             this.ExpiredPasswordLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ExpiredPasswordLabel.Size = new System.Drawing.Size(248, 40);
+            this.ExpiredPasswordLabel.Size = new System.Drawing.Size(255, 34);
             this.ExpiredPasswordLabel.TabIndex = 31;
             this.ExpiredPasswordLabel.Text = "Your password has expired.\r\nPlease choose another password.";
             // 
@@ -62,7 +63,7 @@
             // 
             this.PasswordUpdateLabel.AutoSize = true;
             this.PasswordUpdateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PasswordUpdateLabel.Location = new System.Drawing.Point(88, 20);
+            this.PasswordUpdateLabel.Location = new System.Drawing.Point(100, 20);
             this.PasswordUpdateLabel.Name = "PasswordUpdateLabel";
             this.PasswordUpdateLabel.Size = new System.Drawing.Size(290, 31);
             this.PasswordUpdateLabel.TabIndex = 1;
@@ -78,7 +79,7 @@
             this.UsernameCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UsernameCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.UsernameCustomTextBox.IsFocused = false;
-            this.UsernameCustomTextBox.Location = new System.Drawing.Point(17, 151);
+            this.UsernameCustomTextBox.Location = new System.Drawing.Point(30, 150);
             this.UsernameCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.UsernameCustomTextBox.MaxLength = 32767;
             this.UsernameCustomTextBox.Multiline = false;
@@ -88,17 +89,18 @@
             this.UsernameCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.UsernameCustomTextBox.PlaceHolderText = "Enter Username";
             this.UsernameCustomTextBox.ReadOnly = false;
-            this.UsernameCustomTextBox.Size = new System.Drawing.Size(228, 33);
+            this.UsernameCustomTextBox.Size = new System.Drawing.Size(225, 33);
             this.UsernameCustomTextBox.TabIndex = 45;
             this.UsernameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.UsernameCustomTextBox.TextContent = "";
             this.UsernameCustomTextBox.UnderlineStyle = true;
+            this.UsernameCustomTextBox.TextChangedEvent += new System.EventHandler(this.UpdatePasswordFieldsChecker);
             // 
             // UsernameLabel
             // 
             this.UsernameLabel.AutoSize = true;
             this.UsernameLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UsernameLabel.Location = new System.Drawing.Point(14, 129);
+            this.UsernameLabel.Location = new System.Drawing.Point(30, 130);
             this.UsernameLabel.Name = "UsernameLabel";
             this.UsernameLabel.Size = new System.Drawing.Size(95, 18);
             this.UsernameLabel.TabIndex = 44;
@@ -117,7 +119,7 @@
             this.LoginReturnerCustomButton.FlatAppearance.BorderSize = 0;
             this.LoginReturnerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LoginReturnerCustomButton.ForeColor = System.Drawing.Color.White;
-            this.LoginReturnerCustomButton.Location = new System.Drawing.Point(17, 20);
+            this.LoginReturnerCustomButton.Location = new System.Drawing.Point(20, 20);
             this.LoginReturnerCustomButton.Name = "LoginReturnerCustomButton";
             this.LoginReturnerCustomButton.Size = new System.Drawing.Size(60, 30);
             this.LoginReturnerCustomButton.TabIndex = 48;
@@ -132,23 +134,25 @@
             this.UpdatePasswordCustomButton.BorderRadius = 10;
             this.UpdatePasswordCustomButton.BorderSize = 0;
             this.UpdatePasswordCustomButton.Circular = false;
+            this.UpdatePasswordCustomButton.Enabled = false;
             this.UpdatePasswordCustomButton.FlatAppearance.BorderSize = 0;
             this.UpdatePasswordCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UpdatePasswordCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UpdatePasswordCustomButton.ForeColor = System.Drawing.Color.White;
-            this.UpdatePasswordCustomButton.Location = new System.Drawing.Point(94, 409);
+            this.UpdatePasswordCustomButton.Location = new System.Drawing.Point(150, 385);
             this.UpdatePasswordCustomButton.Name = "UpdatePasswordCustomButton";
             this.UpdatePasswordCustomButton.Size = new System.Drawing.Size(110, 40);
             this.UpdatePasswordCustomButton.TabIndex = 49;
             this.UpdatePasswordCustomButton.Text = "Update";
             this.UpdatePasswordCustomButton.TextColor = System.Drawing.Color.White;
             this.UpdatePasswordCustomButton.UseVisualStyleBackColor = false;
+            this.UpdatePasswordCustomButton.Click += new System.EventHandler(this.UpdatePasswordCustomButton_Click);
             // 
             // PasswordUpdate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(404, 436);
             this.Controls.Add(this.UpdatePasswordCustomButton);
             this.Controls.Add(this.LoginReturnerCustomButton);
             this.Controls.Add(this.UsernameCustomTextBox);

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.smtpControl1 = new YouChatApp.Controls.SmtpControl();
+            this.personalVerificationAnswersControl1 = new YouChatApp.Controls.PersonalVerificationAnswersControl();
             this.SuspendLayout();
             // 
             // smtpControl1
@@ -39,11 +40,19 @@
             this.smtpControl1.Size = new System.Drawing.Size(350, 190);
             this.smtpControl1.TabIndex = 0;
             // 
+            // personalVerificationAnswersControl1
+            // 
+            this.personalVerificationAnswersControl1.Location = new System.Drawing.Point(388, 194);
+            this.personalVerificationAnswersControl1.Name = "personalVerificationAnswersControl1";
+            this.personalVerificationAnswersControl1.Size = new System.Drawing.Size(400, 387);
+            this.personalVerificationAnswersControl1.TabIndex = 1;
+            // 
             // tryform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 684);
+            this.Controls.Add(this.personalVerificationAnswersControl1);
             this.Controls.Add(this.smtpControl1);
             this.Name = "tryform";
             this.Text = "tryform";
@@ -54,5 +63,6 @@
         #endregion
 
         private Controls.SmtpControl smtpControl1;
+        private Controls.PersonalVerificationAnswersControl personalVerificationAnswersControl1;
     }
 }

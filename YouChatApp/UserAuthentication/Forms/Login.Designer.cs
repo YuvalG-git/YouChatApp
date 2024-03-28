@@ -39,6 +39,7 @@
             this.SignUpCustomButton = new YouChatApp.Controls.CustomButton();
             this.SignUpLabel = new System.Windows.Forms.Label();
             this.LoginLabel = new System.Windows.Forms.Label();
+            this.personalVerificationAnswersControl1 = new YouChatApp.Controls.PersonalVerificationAnswersControl();
             this.SuspendLayout();
             // 
             // ForgottenPasswordLabel
@@ -100,6 +101,7 @@
             this.ResetPasswordCustomButton.Text = "Reset Password";
             this.ResetPasswordCustomButton.TextColor = System.Drawing.Color.White;
             this.ResetPasswordCustomButton.UseVisualStyleBackColor = false;
+            this.ResetPasswordCustomButton.Click += new System.EventHandler(this.ResetPasswordCustomButton_Click);
             // 
             // PasswordGeneratorControl
             // 
@@ -172,6 +174,7 @@
             this.SignUpCustomButton.Text = "Sign Up";
             this.SignUpCustomButton.TextColor = System.Drawing.Color.White;
             this.SignUpCustomButton.UseVisualStyleBackColor = false;
+            this.SignUpCustomButton.Click += new System.EventHandler(this.SignUpCustomButton_Click);
             // 
             // SignUpLabel
             // 
@@ -193,11 +196,19 @@
             this.LoginLabel.TabIndex = 50;
             this.LoginLabel.Text = "LOGIN";
             // 
+            // personalVerificationAnswersControl1
+            // 
+            this.personalVerificationAnswersControl1.Location = new System.Drawing.Point(781, 169);
+            this.personalVerificationAnswersControl1.Name = "personalVerificationAnswersControl1";
+            this.personalVerificationAnswersControl1.Size = new System.Drawing.Size(400, 240);
+            this.personalVerificationAnswersControl1.TabIndex = 51;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 689);
+            this.ClientSize = new System.Drawing.Size(1223, 689);
+            this.Controls.Add(this.personalVerificationAnswersControl1);
             this.Controls.Add(this.LoginLabel);
             this.Controls.Add(this.SignUpLabel);
             this.Controls.Add(this.SignUpCustomButton);
@@ -228,5 +239,6 @@
         private Controls.CustomButton SignUpCustomButton;
         private System.Windows.Forms.Label SignUpLabel;
         public System.Windows.Forms.Label LoginLabel;
+        private Controls.PersonalVerificationAnswersControl personalVerificationAnswersControl1;
     }
 }

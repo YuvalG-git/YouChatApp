@@ -133,8 +133,12 @@ namespace YouChatApp.AttachedFiles
 
         private void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
         {
-            if (!isMuted)
-                AudioServerCommunication.SendAudio(e.Buffer, e.BytesRecorded);
+            //if (!isMuted)
+            //    AudioServerCommunication.SendAudio(e.Buffer, e.BytesRecorded);
+            //waveOut.Init(new RawSourceWaveStream(new MemoryStream(e.Buffer), new WaveFormat(44100, 16, 2)));
+            //waveOut.Play();
+            provider.AddSamples(e.Buffer, 0, e.Buffer.Length);
+            _waveOut.Play();
         }
 
         public void Stop()
@@ -161,13 +165,13 @@ namespace YouChatApp.AttachedFiles
 
             // Add your NAudio playback logic here
             // For example:
+            
 
-
-            waveOut.Init(new RawSourceWaveStream(new MemoryStream(receivedData), new WaveFormat(44100, 16, 1)));
+            waveOut.Init(new RawSourceWaveStream(new MemoryStream(receivedData), new WaveFormat(44100, 16, 2)));
             waveOut.Play();
 
-            //provider.AddSamples(receivedData, 0, receivedData.Length);
-            //_waveOut.Play();
+            provider.AddSamples(receivedData, 0, receivedData.Length);
+            _waveOut.Play();
         }
 
         private void AudioCall_Load(object sender, EventArgs e)
@@ -178,7 +182,7 @@ namespace YouChatApp.AttachedFiles
             waveIn.DataAvailable += WaveIn_DataAvailable;
             Start();
             waveOut = new WaveOut();
-            this.provider = new BufferedWaveProvider(new WaveFormat(44100, 16, 1));
+            this.provider = new BufferedWaveProvider(new WaveFormat(44100, 16, 2));
             this.provider.DiscardOnBufferOverflow = true;
             this._waveOut = new DirectSoundOut();
             this._waveOut.Init(provider);
@@ -205,6 +209,7 @@ namespace YouChatApp.AttachedFiles
         private void AudioInputDeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             waveIn.DeviceNumber = AudioInputDeviceComboBox.SelectedIndex;
+            sourceStream.DeviceNumber = AudioInputDeviceComboBox.SelectedIndex;
         }
 
         private void AudioOutputDeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)

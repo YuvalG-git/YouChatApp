@@ -42,7 +42,7 @@ namespace YouChatApp
             ChatSettingsOptionButtonCreator();
             PrivacySettingsOptionButtonCreator();
             SetPrivacySettingsChoicesArray();
-            ServerCommunication.profile = this;
+            ServerCommunication._profile = this;
             //ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
             SetProperties();
 
@@ -177,7 +177,7 @@ namespace YouChatApp
             PrivacySettingsOptionButtonCreator();
             SetPrivacySettingsChoicesArray();
             ChatSettingsOptionButtonCreator();
-            ServerCommunication.profile = this;
+            ServerCommunication._profile = this;
             //ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
 
         }
@@ -354,7 +354,7 @@ namespace YouChatApp
         }
         private void Profile_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.Invoke(new Action(() => ServerCommunication.youChat.SetProfileButtonEnabled()));
+            this.Invoke(new Action(() => ServerCommunication._youChat.SetProfileButtonEnabled()));
 
         }
 

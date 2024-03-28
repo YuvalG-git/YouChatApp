@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace YouChatApp.Controls
@@ -19,6 +13,7 @@ namespace YouChatApp.Controls
         private Image passwordShown = global::YouChatApp.Properties.Resources.dontShowPassword;
         public event EventHandler TextChangedEvent;
 
+        private PasswordHandler passwordHandler;
         private bool[] PasswordIsShownArray;
         private bool OldPasswordVisibleProperty = true;
         private bool ConfirmPasswordVisibleProperty = true;
@@ -70,6 +65,7 @@ namespace YouChatApp.Controls
             InitializePasswordTextBoxArray();
             InitializePasswordViewerButtonArray();
             InitializePasswordIsShownArray();
+            setPasswordExclamationCustomButtonLocation();
             //SetCase(IsOldPasswordVisible);
         }
 
@@ -118,7 +114,11 @@ namespace YouChatApp.Controls
                 this.PasswordTextBoxArray[i].UnderlineStyle = true;
                 this.PasswordTextBoxArray[i].PasswordChar = true;
                 this.PasswordTextBoxArray[i].PlaceHolderText = "Enter New Password";
-                this.PasswordTextBoxArray[i].TextChangedEvent += new System.EventHandler(this.CheckPasswordFieldsValue);
+                if (i!= 1)
+                    this.PasswordTextBoxArray[i].TextChangedEvent += new System.EventHandler(this.PasswordTextBoxLocation0And2_TextChangedEvent);
+                else
+                    this.PasswordTextBoxArray[i].TextChangedEvent += new System.EventHandler(this.PasswordTextBoxLocation1_TextChangedEvent);
+
 
                 this.Controls.Add(this.PasswordTextBoxArray[i]);
 
@@ -129,11 +129,57 @@ namespace YouChatApp.Controls
             this.PasswordTextBoxArray[1].Name = "NewPasswordTextBox";
             this.PasswordTextBoxArray[2].Name = "ConfirmPasswordTextBox";
             this.PasswordTextBoxArray[0].PlaceHolderText = "Enter Old Password";
+            InitializePasswordHandler();
+            this.PasswordTextBoxArray[1].Leave += new System.EventHandler(this.PasswordTextBox_Leave);
+        }
+        private void setPasswordExclamationCustomButtonLocation()
+        {
+            PasswordExclamationCustomButton.Location = new Point(PasswordExclamationCustomButton.Location.X, PasswordTextBoxArray[1].Location.Y - 14);
+        }
+        private void InitializePasswordHandler()
+        {
+            passwordHandler = new PasswordHandler();
+        }
+        private void HandlePasswordTextBoxContent()
+        {
+            if (PasswordTextBoxArray[1].isPlaceHolder())
+            {
+                PasswordTextBoxArray[1].BorderColor = Color.MediumSlateBlue;
+            }
+            else
+            {
+                string CurrentPassword = PasswordTextBoxArray[1].TextContent;
+                passwordHandler.CheckPassword(CurrentPassword);
+                PasswordTextBoxArray[1].BorderColor = passwordHandler.PasswordInformationColor;
 
+                if (passwordHandler.PasswordStrength != "That's a strong password")
+                {
+                    PasswordExclamationCustomButton.Visible = true;
+                    ToolTip.SetToolTip(PasswordExclamationCustomButton, passwordHandler.PasswordStrength + "\n" + passwordHandler.PasswordInformation);
+                }
+                else
+                {
+                    PasswordExclamationCustomButton.Visible = false;
+                }
+            }
+        }
+        private void PasswordTextBox_Leave(object sender, EventArgs e)
+        {
+            HandlePasswordTextBoxContent();
 
         }
-        private void CheckPasswordFieldsValue(object sender, EventArgs e)
+        private void PasswordTextBoxLocation0And2_TextChangedEvent(object sender, EventArgs e)
         {
+            CheckPasswordFieldsValue(e);
+        }
+        private void PasswordTextBoxLocation1_TextChangedEvent(object sender, EventArgs e)
+        {
+            CheckPasswordFieldsValue(e);
+            HandlePasswordTextBoxContent();
+        }
+        private void CheckPasswordFieldsValue(EventArgs e)
+        {
+
             if ((IsContainingValue(PasswordTextBoxArray[1])) && (IsContainingValue(PasswordTextBoxArray[2])) && ((IsContainingValue(PasswordTextBoxArray[0])) || !OldPasswordVisibleProperty))
             {
                 AllFieldsHaveValue = true;
@@ -143,7 +189,7 @@ namespace YouChatApp.Controls
                 AllFieldsHaveValue = false;
 
             }
-            
+
             TextChangedEvent?.Invoke(this, e);
         }
         private bool IsContainingValue(CustomTextBox PasswordTextBox)
@@ -237,7 +283,9 @@ namespace YouChatApp.Controls
 
                 }
             }
-           
+            setPasswordExclamationCustomButtonLocation();
+
+
 
         }
         private void SetConfirmPassword()
@@ -253,13 +301,16 @@ namespace YouChatApp.Controls
             {
                 this.Height += (ConfirmPasswordLabel.Height + PasswordTextBoxArray[2].Height);
             }
+            setPasswordExclamationCustomButtonLocation();
 
 
         }
         public bool IsSamePassword()
         {
-            string NewPasswordText = PasswordTextBoxArray[1].Text;
-            string ConfirmPasswordText = PasswordTextBoxArray[2].Text;
+            if (PasswordTextBoxArray[1].BorderColor != Color.LimeGreen)
+                return false;
+            string NewPasswordText = PasswordTextBoxArray[1].TextContent;
+            string ConfirmPasswordText = PasswordTextBoxArray[2].TextContent;
             return (NewPasswordText == ConfirmPasswordText);
         }
 

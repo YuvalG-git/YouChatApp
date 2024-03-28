@@ -47,7 +47,7 @@ namespace YouChatApp
         public YouChat()
         {
             InitializeComponent();
-            ServerCommunication.BeginRead();
+            ServerCommunication.MessageBeginRead();
             MessageLabels = new List<Label>();
             MessageControlListOfLists = new List<List<MessageControl>>();
             ChatControlListOfContacts = new List<ChatControl>();

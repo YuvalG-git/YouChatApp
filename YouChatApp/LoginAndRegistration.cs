@@ -115,14 +115,14 @@ namespace YouChatApp
         public void OpenApp()
         {
             this.Hide();
-            ServerCommunication.youChat = new YouChat();
-            this.Invoke(new Action(() => ServerCommunication.youChat.ShowDialog()));
+            ServerCommunication._youChat = new YouChat();
+            this.Invoke(new Action(() => ServerCommunication._youChat.ShowDialog()));
         }
         public void OpenInitialProfileSelection(Boolean IsPhaseOne)
         {
             this.Hide();
-            ServerCommunication.InitialProfileSelection = new InitialProfileSelection(IsPhaseOne);
-            this.Invoke(new Action(() => ServerCommunication.InitialProfileSelection.ShowDialog()));
+            ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
+            this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
         }
 
         private void SetCaptchaCode()
@@ -141,69 +141,69 @@ namespace YouChatApp
 
         }
 
-        private string CheckPassword(string Password)
+        private void CheckPassword(string Password)
         {
-            string PasswordAcceptanceText = "";
-            List<string> CharsNotInPassword = new List<string>();
-            if (PasswordHandler.CharNumber(Password) < 8)
-            {
-                CharsNotInPassword.Add("eight characters");
-            }
-            if (!PasswordHandler.ContainLowercase(Password))
-            {
-                CharsNotInPassword.Add("one lowercase");
-            }
-            if (!PasswordHandler.ContainUppercase(Password))
-            {
-                CharsNotInPassword.Add("one uppercase");
+            //string PasswordAcceptanceText = "";
+            //List<string> CharsNotInPassword = new List<string>();
+            //if (PasswordHandler.CharNumber(Password) < 8)
+            //{
+            //    CharsNotInPassword.Add("eight characters");
+            //}
+            //if (!PasswordHandler.ContainLowercase(Password))
+            //{
+            //    CharsNotInPassword.Add("one lowercase");
+            //}
+            //if (!PasswordHandler.ContainUppercase(Password))
+            //{
+            //    CharsNotInPassword.Add("one uppercase");
 
-            }
-            if (!PasswordHandler.ContainDigit(Password))
-            {
-                CharsNotInPassword.Add("one digit");
+            //}
+            //if (!PasswordHandler.ContainDigit(Password))
+            //{
+            //    CharsNotInPassword.Add("one digit");
 
-            }
-            if (!PasswordHandler.ContainSpecial(Password))
-            {
-                CharsNotInPassword.Add("one special symbol");
-            }
-            if (CharsNotInPassword.Count == 0)
-            {
-                PasswordAcceptanceText = "That's a strong password";
-                //change color to green
-            }
-            else 
-            {
-                PasswordAcceptanceText = "Your password must contain at least ";
-                if (CharsNotInPassword.Count == 1)
-                {
-                    PasswordAcceptanceText += CharsNotInPassword[0];
-                    //change color to yellow
-                    //maybe add a line of : "that a Medium password and weak"
+            //}
+            //if (!PasswordHandler.ContainSpecial(Password))
+            //{
+            //    CharsNotInPassword.Add("one special symbol");
+            //}
+            //if (CharsNotInPassword.Count == 0)
+            //{
+            //    PasswordAcceptanceText = "That's a strong password";
+            //    //change color to green
+            //}
+            //else 
+            //{
+            //    PasswordAcceptanceText = "Your password must contain at least ";
+            //    if (CharsNotInPassword.Count == 1)
+            //    {
+            //        PasswordAcceptanceText += CharsNotInPassword[0];
+            //        //change color to yellow
+            //        //maybe add a line of : "that a Medium password and weak"
 
-                }
-                else
-                {
-                    int NumberOfInsertedMissingCharRequirement = 0;
-                    foreach (string MissingCharRequirement in CharsNotInPassword)
-                    {
-                        PasswordAcceptanceText += MissingCharRequirement;
-                        if (CharsNotInPassword.Count - 2 == NumberOfInsertedMissingCharRequirement)
-                        {
-                            PasswordAcceptanceText += " and ";
+            //    }
+            //    else
+            //    {
+            //        int NumberOfInsertedMissingCharRequirement = 0;
+            //        foreach (string MissingCharRequirement in CharsNotInPassword)
+            //        {
+            //            PasswordAcceptanceText += MissingCharRequirement;
+            //            if (CharsNotInPassword.Count - 2 == NumberOfInsertedMissingCharRequirement)
+            //            {
+            //                PasswordAcceptanceText += " and ";
 
-                        }
-                        else if ((CharsNotInPassword.Count - 1 > NumberOfInsertedMissingCharRequirement))
-                        {
-                            PasswordAcceptanceText += ", ";
+            //            }
+            //            else if ((CharsNotInPassword.Count - 1 > NumberOfInsertedMissingCharRequirement))
+            //            {
+            //                PasswordAcceptanceText += ", ";
 
-                        }
-                        NumberOfInsertedMissingCharRequirement++;
-                    }
-                }
+            //            }
+            //            NumberOfInsertedMissingCharRequirement++;
+            //        }
+            //    }
 
-            }
-            return PasswordAcceptanceText;
+            //}
+            //return PasswordAcceptanceText;
 
         }
         public void HandlePasswordUpdateCase()
@@ -937,9 +937,6 @@ namespace YouChatApp
         }
 
 
-        private Point rotationPoint;
-
-
         private void LoadImage()
         {
             CurrentPictureIndex = NumbersForCaptchaPictures.Dequeue();
@@ -1073,35 +1070,35 @@ namespace YouChatApp
 
         private void passwordTextbox_Leave(object sender, EventArgs e)
         {
-            string CurrentPassword = passwordTextbox.Text;
-            PasswordHandler.CheckPassword(CurrentPassword);
-            PasswordRequirementsLabel.Text = PasswordHandler.PasswordStrength;
-            PasswordRequirementsLabel.BackColor = PasswordHandler.PasswordInformationColor;
+            //string CurrentPassword = passwordTextbox.Text;
+            //PasswordHandler.CheckPassword(CurrentPassword);
+            //PasswordRequirementsLabel.Text = PasswordHandler.PasswordStrength;
+            //PasswordRequirementsLabel.BackColor = PasswordHandler.PasswordInformationColor;
 
-            //PasswordRequirementsLabel.Text = CheckPassword(CurrentPassword);
-            //string CheckedPasswordResult = PasswordRequirementsLabel.Text;
+            ////PasswordRequirementsLabel.Text = CheckPassword(CurrentPassword);
+            ////string CheckedPasswordResult = PasswordRequirementsLabel.Text;
 
-            //if (CheckedPasswordResult == "That's a strong password")
+            ////if (CheckedPasswordResult == "That's a strong password")
+            ////{
+            ////    PasswordRequirementsLabel.ForeColor = Color.Green;
+            ////}
+            ////else if(!CheckedPasswordResult.Contains("and"))
+            ////{
+            ////    PasswordRequirementsLabel.ForeColor = Color.Yellow;
+            ////}
+            ////else 
+            ////{
+            ////    PasswordRequirementsLabel.ForeColor = Color.Red;
+            ////}
+            //if (PasswordHandler.PasswordStrength != "That's a strong password")
             //{
-            //    PasswordRequirementsLabel.ForeColor = Color.Green;
+            //    PasswordExclamationButton.Visible = true;
             //}
-            //else if(!CheckedPasswordResult.Contains("and"))
+            //else
             //{
-            //    PasswordRequirementsLabel.ForeColor = Color.Yellow;
-            //}
-            //else 
-            //{
-            //    PasswordRequirementsLabel.ForeColor = Color.Red;
-            //}
-            if (PasswordHandler.PasswordStrength != "That's a strong password")
-            {
-                PasswordExclamationButton.Visible = true;
-            }
-            else
-            {
-                PasswordExclamationButton.Visible = false;
+            //    PasswordExclamationButton.Visible = false;
 
-            }
+            //}
         }
 
         private void RotateBothPictureBoxsRandomlly()
@@ -1568,8 +1565,8 @@ namespace YouChatApp
         public void SetProfileDetails(bool IsPhaseOne)
         {
             this.Hide();
-            ServerCommunication.InitialProfileSelection = new InitialProfileSelection(IsPhaseOne); 
-            this.Invoke(new Action(() => ServerCommunication.InitialProfileSelection.ShowDialog()));
+            ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne); 
+            this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
         }
 
     }

@@ -184,6 +184,7 @@
     <Compile Include="EnumHandler.cs" />
     <Compile Include="ImageHandler.cs" />
     <Compile Include="ImageRotationHandler.cs" />
+    <Compile Include="JsonClasses\PersonalVerificationAnswers.cs" />
     <Compile Include="JsonClasses\RegistrationInformation.cs" />
     <Compile Include="UdpServerCommunication\AudioServerCommunication.cs" />
     <Compile Include="ChatHandler\Chat.cs" />
@@ -354,7 +355,7 @@
     <Compile Include="MessageType.cs" />
     <Compile Include="OpenFileDialogHandler.cs" />
     <Compile Include="PanelHandler.cs" />
-    <Compile Include="PasswordHandler.cs" />
+    <Compile Include="UserAuthentication\HandlerClasses\PasswordHandler.cs" />
     <Compile Include="Properties\Audio.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

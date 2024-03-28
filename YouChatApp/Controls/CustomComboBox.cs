@@ -153,6 +153,18 @@ namespace YouChatApp.Controls
                 }
             }
         }
+
+        public object SelectedValue
+        {
+            get
+            {
+                return ComboBoxList.SelectedValue;
+            }
+            set
+            {
+                ComboBoxList.SelectedValue = value;
+            }
+        }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Localizable(true)]
@@ -231,6 +243,7 @@ namespace YouChatApp.Controls
         private Button ButtonIcon;
 
         public event EventHandler OnSelectedIndexChanged;
+        public event EventHandler OnTextUpdate;
 
         public CustomComboBox()
         {
@@ -245,6 +258,7 @@ namespace YouChatApp.Controls
             ComboBoxList.Font = new Font(this.Font.Name, 10F);
             ComboBoxList.ForeColor = ListTextColorProperty;
             ComboBoxList.SelectedIndexChanged += new EventHandler(ComboBoxList_SelectedIndexChanged);
+            ComboBoxList.TextUpdate += new EventHandler(ComboBoxList_TextUpdate); ;
             ComboBoxList.TextChanged += new EventHandler(ComboBoxList_TextChanged);
 
             ButtonIcon.Dock = DockStyle.Right;
@@ -348,6 +362,15 @@ namespace YouChatApp.Controls
         private void ComboBoxList_TextChanged(object sender, EventArgs e)
         {
             LabelText.Text = ComboBoxList.Text;
+        }
+        private void ComboBoxList_TextUpdate(object sender, EventArgs e)
+        {
+            if (OnTextUpdate != null)
+            {
+                OnTextUpdate.Invoke(sender, e);
+            }
+            LabelText.Text = ComboBoxList.Text;
+
         }
 
         private void ComboBoxList_SelectedIndexChanged(object sender, EventArgs e)

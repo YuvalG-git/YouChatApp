@@ -312,6 +312,7 @@ namespace YouChatApp.AttachedFiles
                 watcher.Stop();
                 watcher.Dispose();
             }
+            VideoServerCommunication.Close();
         }
 
         private void VideoPictureBox_SizeChanged(object sender, EventArgs e)

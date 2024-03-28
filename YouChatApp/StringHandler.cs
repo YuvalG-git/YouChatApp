@@ -8,28 +8,20 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace YouChatApp
 {
+    /// <summary>
+    /// The class provides methods for handling and validating strings.
+    /// </summary>
     internal class StringHandler
     {
-        //public static bool IsNumeric(string number)
-        //{
-        //    return number.All(char.IsNumber);
-        //}
-        //public static  bool IsAlpha(string text)
-        //{
-        //    return text.All(char.IsLetter);
-
-        //}
-        //public static bool IsAlphanumeric(string text)
-        //{
-        //    //return number.All(char.IsLetterOrDigit);
-        //    return text.All(Char => char.IsLetterOrDigit(Char) || char.IsWhiteSpace(Char));
-
-        //}
+        /// <summary>
+        /// The method checks if the given string consists of only numeric characters.
+        /// </summary>
+        /// <param name="number">The string to check.</param>
+        /// <returns>True if the string is numeric, false otherwise.</returns>
         public static bool IsNumeric(string number)
         {
             foreach (char charValue in number)
             {
-                // Check if the character is not a letter.
                 if (!char.IsNumber(charValue))
                 {
                     return false;
@@ -37,6 +29,12 @@ namespace YouChatApp
             }
             return true;
         }
+
+        /// <summary>
+        /// The method checks if the given string consists of only alphabetical characters.
+        /// </summary>
+        /// <param name="text">The string to check.</param>
+        /// <returns>True if the string is alphabetical, false otherwise.</returns>
         public static bool IsAlpha(string text)
         {
             foreach (char charValue in text)
@@ -48,7 +46,29 @@ namespace YouChatApp
             }
             return true;
         }
-    
+
+        /// <summary>
+        /// The method checks if the given string consists of only alphabetical characters or whitespaces.
+        /// </summary>
+        /// <param name="text">The string to check.</param>
+        /// <returns>True if the string is alphabetical or contains only whitespaces, false otherwise.</returns>
+        public static bool IsAlphaOrWhiteSpace(string text)
+        {
+            foreach (char charValue in text)
+            {
+                if (!char.IsLetter(charValue) && !char.IsWhiteSpace(charValue))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// The method checks if the given string consists of only alphanumeric characters or whitespaces.
+        /// </summary>
+        /// <param name="text">The string to check.</param>
+        /// <returns>True if the string is alphanumeric or contains only whitespaces, false otherwise.</returns>
         public static bool IsAlphanumeric(string text)
         {
             foreach (char charValue in text)
@@ -57,28 +77,26 @@ namespace YouChatApp
                 {
                     return false;
                 }
-            }   
-            return true; 
+            }
+            return true;
         }
-        //static bool IsAlphanumeric(string input)
-        //{
-        //    // Define a regular expression pattern that matches only letters and numbers.
-        //    string pattern = "^[a-zA-Z0-9]+$";
 
-        //    // Use Regex.IsMatch to check if the input matches the pattern.
-        //    return Regex.IsMatch(input, pattern);
-        //}
-        //public static bool IsAlphanumeric(string input)
-        //{
-        //    foreach (char c in input)
-        //    {
-        //        // Check if the character is not a letter or a digit.
-        //        if (!char.IsLetterOrDigit(c))
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return true;
-        //}
+        /// <summary>
+        /// The method calculates the length of the given string excluding whitespaces.
+        /// </summary>
+        /// <param name="text">The string to calculate the length for.</param>
+        /// <returns>The length of the string excluding whitespaces.</returns>
+        public static int LengthWithoutWhiteSpace(string text)
+        {
+            int count = 0;
+            foreach (char charValue in text)
+            {
+                if (!char.IsWhiteSpace(charValue))
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
     }
 }

@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.OldPasswordLabel = new System.Windows.Forms.Label();
             this.NewPasswordLabel = new System.Windows.Forms.Label();
             this.ConfirmPasswordLabel = new System.Windows.Forms.Label();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.PasswordExclamationCustomButton = new YouChatApp.Controls.CustomButton();
             this.SuspendLayout();
             // 
             // OldPasswordLabel
@@ -63,15 +66,37 @@
             this.ConfirmPasswordLabel.TabIndex = 3;
             this.ConfirmPasswordLabel.Text = "Confirm Password:";
             // 
+            // PasswordExclamationCustomButton
+            // 
+            this.PasswordExclamationCustomButton.BackColor = System.Drawing.Color.IndianRed;
+            this.PasswordExclamationCustomButton.BackgroundColor = System.Drawing.Color.IndianRed;
+            this.PasswordExclamationCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.ExclamationMark;
+            this.PasswordExclamationCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.PasswordExclamationCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.PasswordExclamationCustomButton.BorderRadius = 20;
+            this.PasswordExclamationCustomButton.BorderSize = 0;
+            this.PasswordExclamationCustomButton.Circular = false;
+            this.PasswordExclamationCustomButton.FlatAppearance.BorderSize = 0;
+            this.PasswordExclamationCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PasswordExclamationCustomButton.ForeColor = System.Drawing.Color.White;
+            this.PasswordExclamationCustomButton.Location = new System.Drawing.Point(280, 70);
+            this.PasswordExclamationCustomButton.Name = "PasswordExclamationCustomButton";
+            this.PasswordExclamationCustomButton.Size = new System.Drawing.Size(50, 40);
+            this.PasswordExclamationCustomButton.TabIndex = 71;
+            this.PasswordExclamationCustomButton.TextColor = System.Drawing.Color.White;
+            this.PasswordExclamationCustomButton.UseVisualStyleBackColor = false;
+            this.PasswordExclamationCustomButton.Visible = false;
+            // 
             // PasswordGeneratorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.PasswordExclamationCustomButton);
             this.Controls.Add(this.ConfirmPasswordLabel);
             this.Controls.Add(this.NewPasswordLabel);
             this.Controls.Add(this.OldPasswordLabel);
             this.Name = "PasswordGeneratorControl";
-            this.Size = new System.Drawing.Size(310, 209);
+            this.Size = new System.Drawing.Size(350, 209);
             this.Load += new System.EventHandler(this.PasswordGeneratorControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -86,5 +111,7 @@
         private CustomButton[] PasswordViewerButtonArray;
         private System.Windows.Forms.Label NewPasswordLabel;
         private System.Windows.Forms.Label ConfirmPasswordLabel;
+        private CustomButton PasswordExclamationCustomButton;
+        private System.Windows.Forms.ToolTip ToolTip;
     }
 }

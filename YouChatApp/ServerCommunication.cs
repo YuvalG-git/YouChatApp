@@ -18,6 +18,7 @@ using YouChatApp.AttachedFiles;
 using YouChatApp.ChatHandler;
 using YouChatApp.ContactHandler;
 using YouChatApp.Encryption;
+using YouChatApp.UserAuthentication.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -127,35 +128,104 @@ namespace YouChatApp
         public const string VideoCallResponseResult2 = "Declining the video call";
         const string GroupCreatorResponse1 = "Group was successfully created";
 
-        /// <summary>
-        /// Object which represents the server's TCP client
-        /// </summary>
-        private static TcpClient Client { get; set; }
+        //TCP Sockets:
 
         /// <summary>
-        /// Byte array which represents the data received from the server
+        /// Object which represents the server's TCP client for sending text messages
         /// </summary>
-        private static byte[] Data;
+        private static TcpClient MessageClient { get; set; }
+
+        /// <summary>
+        /// Object which represents the server's TCP client for sending files
+        /// </summary>
+        private static TcpClient FileClient { get; set; }
+
+        /// <summary>
+        /// Byte arrays which represent the data received from the server 
+        /// MessageData is used for messages received from the MessageClient socket, and FileData for messages received from the FileClient socket
+        /// </summary>
+        private static byte[] MessageData;
+        private static byte[] FileData;
+
 
         public static int SelectedContacts = 0;
+
+
+        //Form Instances
 
         /// <summary>
         /// Declares a variable of type LoginRegistPage which represents the loginRegistPage form's object and is used to perform actions on the form
         /// </summary>
         public static LoginAndRegistration loginAndRegistration;
 
-        public static Profile profile;
+        /// <summary>
+        /// Declares a variable of type Login which represents the _login form's object and is used to perform actions on this form
+        /// </summary>
+        public static Login _login;
 
-        public static YouChat youChat;
+        /// <summary>
+        /// Declares a variable of type Registration which represents the _registration form's object and is used to perform actions on this form
+        /// </summary>
+        public static Registration _registration;
 
-        public static InitialProfileSelection InitialProfileSelection;
+        /// <summary>
+        /// Declares a variable of type PasswordUpdate which represents the _passwordUpdate form's object and is used to perform actions on this form
+        /// </summary>
+        public static PasswordUpdate _passwordUpdate;
 
+        /// <summary>
+        /// Declares a variable of type PasswordRestart which represents the _passwordRestart form's object and is used to perform actions on this form
+        /// </summary>
+        public static PasswordRestart _passwordRestart;
+
+        /// <summary>
+        /// Declares a variable of type Profile which represents the _profile form's object and is used to perform actions on this form
+        /// </summary>
+        public static Profile _profile;
+
+        /// <summary>
+        /// Declares a variable of type YouChat which represents the _youChat form's object and is used to perform actions on this form
+        /// </summary>
+        public static YouChat _youChat;
+
+        /// <summary>
+        /// Declares a variable of type InitialProfileSelection which represents the _initialProfileSelection form's object and is used to perform actions on this form
+        /// </summary>
+        public static InitialProfileSelection _initialProfileSelection;
+
+        /// <summary>
+        /// Declares a variable of type EmojiKeyboard which represents the _emojiKeyboard form's object and is used to perform actions on this form
+        /// </summary>
         public static EmojiKeyboard _emojiKeyboard = null;
+
+        /// <summary>
+        /// Declares a variable of type ContactSharing which represents the _contactSharing form's object and is used to perform actions on this form
+        /// </summary>
         public static ContactSharing _contactSharing = null;
+
+        /// <summary>
+        /// Declares a variable of type Camera which represents the _camera form's object and is used to perform actions on this form
+        /// </summary>
         public static Camera _camera = null;
+
+        /// <summary>
+        /// Declares a variable of type VideoCall which represents the _videoCall form's object and is used to perform actions on this form
+        /// </summary>
         public static VideoCall _videoCall;
+
+        /// <summary>
+        /// Declares a variable of type WaitingForm which represents the _waitingForm form's object and is used to perform actions on this form
+        /// </summary>
         public static WaitingForm _waitingForm;
+
+        /// <summary>
+        /// Declares a variable of type CallInvitation which represents the _callInvitation form's object and is used to perform actions on this form
+        /// </summary>
         public static CallInvitation _callInvitation;
+
+        /// <summary>
+        /// Declares a variable of type Paint which represents the _paint form's object and is used to perform actions on this form
+        /// </summary>
         public static Paint _paint = null;
 
         private static UdpClient UdpClient;
@@ -219,10 +289,14 @@ namespace YouChatApp
         /// <returns>It returns true if the connection is successful. Otherwise, it returns false</returns>
         public static bool Connect(string ip)
         {
-            Client = new TcpClient();
+            MessageClient = new TcpClient();
+            FileClient = new TcpClient();
+
             try
             {
-                Client.Connect(ip, 1500); //todo - to change the server ip to my computer ip
+                MessageClient.Connect(ip, 1500); //todo - to change the server ip to my computer ip
+                FileClient.Connect(ip, 1500); //todo - to change the server ip to my computer ip
+
             }
             catch
             {
@@ -233,37 +307,37 @@ namespace YouChatApp
             PrivateKey = Rsa.GetPrivateKey();
             //SendMessage(EncryptionClientPublicKeySender + "$" + Rsa.GetPublicKey());
             SendMessage(EncryptionClientPublicKeySender, Rsa.GetPublicKey());
-            if (!Client.Connected)
+            if (!MessageClient.Connected)
                 return false;
-            Data = new byte[Client.ReceiveBufferSize];
+            MessageData = new byte[MessageClient.ReceiveBufferSize];
             // BeginRead will begin async read from the NetworkStream
             // This allows the server to remain responsive and continue accepting new connections from other clients
             // When reading complete control will be transfered to the ReviveMessage() function.
-            Client.GetStream().BeginRead(Data,
-                                          0,
-                                          System.Convert.ToInt32(Client.ReceiveBufferSize),
-                                          ReceiveMessage,
-                                          null);
+            MessageBeginRead();
             return true;
         }
 
-        public static void ConnectUdp(string ip)
-        {
-            UdpIsOn = true;
-            UdpClient.Connect(ip, 1501);
-        }
 
 
         /// <summary>
         /// The BeginRead method initiates an asynchronous read operation on the network stream associated with the client
         /// It reads data into the Data buffer and calls the ReceiveMessage method when the read operation is complete       
         /// </summary>
-        public static void BeginRead()
+        public static void MessageBeginRead()
         {
-            Client.GetStream().BeginRead(Data,
+            MessageClient.GetStream().BeginRead(MessageData,
                                                       0,
-                                                      System.Convert.ToInt32(Client.ReceiveBufferSize),
+                                                      System.Convert.ToInt32(MessageClient.ReceiveBufferSize),
                                                       ReceiveMessage,
+                                                      null);
+        }
+
+        public static void FileBeginRead()
+        {
+            FileClient.GetStream().BeginRead(FileData,
+                                                      0,
+                                                      System.Convert.ToInt32(FileClient.ReceiveBufferSize),
+                                                      ReceiveFile,
                                                       null);
         }
 
@@ -293,15 +367,15 @@ namespace YouChatApp
         /// <param name="ar">IAsyncResult Interface</param>
         private static void ReceiveMessage(IAsyncResult ar)
         {
-            if (Client != null)
+            if (MessageClient != null)
             {
                 int bytesRead;
                 try
                 {
-                    lock (Client.GetStream())
+                    lock (MessageClient.GetStream())
                     {
                         // call EndRead to handle the end of an async read.
-                        bytesRead = Client.GetStream().EndRead(ar);
+                        bytesRead = MessageClient.GetStream().EndRead(ar);
                     }
                     // if bytesread<1 -> the client disconnected
                     if (bytesRead < 1)
@@ -312,7 +386,7 @@ namespace YouChatApp
                     }
                     else // client still connected
                     {
-                        string incomingData = System.Text.Encoding.ASCII.GetString(Data, 0, bytesRead);
+                        string incomingData = System.Text.Encoding.ASCII.GetString(MessageData, 0, bytesRead);
                         string[] messageToArray = incomingData.Split('$');
                         int requestNumber = Convert.ToInt32(messageToArray[0]);
                         string messageDetails = messageToArray[1];
@@ -393,7 +467,7 @@ namespace YouChatApp
                             }
                             else if (requestNumber == sendMessageResponse)
                             {
-                                youChat.Invoke((Action)delegate { youChat.HandleMessagesByOthers(DecryptedMessageDetails); });
+                                _youChat.Invoke((Action)delegate { _youChat.HandleMessagesByOthers(DecryptedMessageDetails); });
                             }
                             else if (requestNumber == ResetPasswordResponse)
                             {
@@ -419,17 +493,17 @@ namespace YouChatApp
                             }
                             else if (requestNumber == ContactInformationResponse)
                             {
-                                youChat.Invoke((Action)delegate { youChat.SetChatControlListOfContacts(DecryptedMessageDetails); });
+                                _youChat.Invoke((Action)delegate { _youChat.SetChatControlListOfContacts(DecryptedMessageDetails); });
                             }
                             else if (requestNumber == UploadProfilePictureResponse)
                             {
                                 ProfilePictureId = DecryptedMessageDetails;
-                                InitialProfileSelection.Invoke((Action)delegate { InitialProfileSelection.SetPhaseTwo(); });
+                                _initialProfileSelection.Invoke((Action)delegate { _initialProfileSelection.SetPhaseTwo(); });
                             }
                             else if (requestNumber == UploadStatusResponse)
                             {
                                 ProfileStatus = DecryptedMessageDetails;
-                                InitialProfileSelection.Invoke((Action)delegate { InitialProfileSelection.OpenApp(); });
+                                _initialProfileSelection.Invoke((Action)delegate { _initialProfileSelection.OpenApp(); });
                             }
                             else if(requestNumber == InitialProfileSettingsCheckResponse)
                             {
@@ -473,7 +547,7 @@ namespace YouChatApp
                                 UserProfile.ProfileDetailsHandler.EnterKeyPressed = bool.Parse(MyContactContent[9]);
                                 UserProfile.ProfileDetailsHandler.TagLine = MyContactContent[10];
 
-                                youChat.Invoke((Action)delegate { youChat.SetProfilePicture(); });
+                                _youChat.Invoke((Action)delegate { _youChat.SetProfilePicture(); });
 
                                 //needs to restart everything according to it...
 
@@ -497,7 +571,7 @@ namespace YouChatApp
                             }
                             else if (requestNumber == PastFriendRequestsResponse)
                             {
-                                youChat.Invoke((Action)delegate { youChat.SetListOfFriendRequestControl(DecryptedMessageDetails); });
+                                _youChat.Invoke((Action)delegate { _youChat.SetListOfFriendRequestControl(DecryptedMessageDetails); });
 
                             }
                             else if (requestNumber == BlockBeginning)
@@ -563,7 +637,7 @@ namespace YouChatApp
                                 {
                                     ChatCreator newChat = JsonConvert.DeserializeObject<ChatCreator>(DecryptedMessageDetails);
 
-                                    youChat.Invoke((Action)delegate { youChat.AddGroup(newChat); });
+                                    _youChat.Invoke((Action)delegate { _youChat.AddGroup(newChat); });
 
                                 }
                             }
@@ -571,10 +645,72 @@ namespace YouChatApp
                     }
                     if (isConnected)
                     {
-                        lock (Client.GetStream())
+                        lock (MessageClient.GetStream())
                         {
                             // continue reading from the client
-                            Client.GetStream().BeginRead(Data, 0, System.Convert.ToInt32(Client.ReceiveBufferSize), ReceiveMessage, null);
+                            MessageClient.GetStream().BeginRead(MessageData, 0, System.Convert.ToInt32(MessageClient.ReceiveBufferSize), ReceiveMessage, null);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ask somebody for help\n\n" + ex, "Error");
+                }
+            }
+        }
+        /// <summary>
+        /// The ReceiveMessage method recieves and handles the incomming stream
+        /// </summary>
+        /// <param name="ar">IAsyncResult Interface</param>
+        private static void ReceiveFile(IAsyncResult ar)
+        {
+            if (MessageClient != null)
+            {
+                int bytesRead;
+                try
+                {
+                    lock (MessageClient.GetStream())
+                    {
+                        // call EndRead to handle the end of an async read.
+                        bytesRead = MessageClient.GetStream().EndRead(ar);
+                    }
+                    // if bytesread<1 -> the client disconnected
+                    if (bytesRead < 1)
+                    {
+                        MessageBox.Show("Server is down.", "Server Communication");
+                        Disconnect();
+                        return;
+                    }
+                    else // client still connected
+                    {
+                        string incomingData = System.Text.Encoding.ASCII.GetString(MessageData, 0, bytesRead);
+                        string[] messageToArray = incomingData.Split('$');
+                        int requestNumber = Convert.ToInt32(messageToArray[0]);
+                        string messageDetails = messageToArray[1];
+                        string DecryptedMessageDetails;
+                        if (requestNumber == EncryptionServerPublicKeyReciever)
+                        {
+                            ServerPublicKey = messageDetails; //maybe i should make the publickey as bytes and not string and then do the switch to string just after that...
+                        }
+                        else if (requestNumber == EncryptionSymmetricKeyReciever)//gets Symmetrical Key
+                        {
+                            DecryptedMessageDetails = Rsa.Decrypt(messageDetails, PrivateKey);
+                            SymmetricKey = DecryptedMessageDetails;
+                        }
+                        else
+                        {
+                            DecryptedMessageDetails = Encryption.Encryption.DecryptData(SymmetricKey, messageDetails);
+                            if (requestNumber == registerResponse)
+                            {
+                                if (isConnected)
+                                {
+                                    lock (MessageClient.GetStream())
+                                    {
+                                        // continue reading from the client
+                                        MessageClient.GetStream().BeginRead(MessageData, 0, System.Convert.ToInt32(MessageClient.ReceiveBufferSize), ReceiveMessage, null);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -633,7 +769,7 @@ namespace YouChatApp
                         string EncryptedMessageContent = Encryption.Encryption.EncryptData(SymmetricKey, messageContent);
                         message += EncryptedMessageContent;
                     }
-                    NetworkStream ns = Client.GetStream();
+                    NetworkStream ns = MessageClient.GetStream();
 
                     // Send data to the client
                     byte[] bytesToSend = System.Text.Encoding.ASCII.GetBytes(message);
@@ -660,7 +796,7 @@ namespace YouChatApp
                     string EncryptedMessageContent = Encryption.Encryption.EncryptData(SymmetricKey, messageContent);
                     byte[] EncryptedImage = Encryption.Encryption.EncryptData(SymmetricKey, image);
                     message += EncryptedMessageContent;
-                    NetworkStream ns = Client.GetStream();
+                    NetworkStream ns = MessageClient.GetStream();
                     // Send data to the client
                     byte[] StringBytesToSend = System.Text.Encoding.ASCII.GetBytes(message);
                     ns.Write(StringBytesToSend, 0, StringBytesToSend.Length);
@@ -679,7 +815,7 @@ namespace YouChatApp
             {
                 try
                 {
-                    NetworkStream ns = Client.GetStream();
+                    NetworkStream ns = MessageClient.GetStream();
 
                     image.Save(ns, System.Drawing.Imaging.ImageFormat.Jpeg);
                     ns.Close();
@@ -697,13 +833,13 @@ namespace YouChatApp
         /// </summary>
         public static void Disconnect()
         {
-            if (Client != null)
+            if (MessageClient != null)
             {
                 try
                 {
-                    Client.GetStream().Close();
-                    Client.Close();
-                    Client = null;
+                    MessageClient.GetStream().Close();
+                    MessageClient.Close();
+                    MessageClient = null;
                 }
                 catch (Exception ex)
                 {
