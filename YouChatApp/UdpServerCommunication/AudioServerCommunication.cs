@@ -101,7 +101,7 @@ namespace YouChatApp
                     {
                         //_videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); });
                     }
-                    else
+                    if (_audioCall != null)
                     {
                         _audioCall.Invoke((Action)delegate { _audioCall.ReceiveAudioData(receivedData); });
 
@@ -111,7 +111,7 @@ namespace YouChatApp
         }
 
         // Close the UDP client when done
-        public void Close()
+        public static void Close()
         {
             _udpIsOn = false;
             udpClient.Close();

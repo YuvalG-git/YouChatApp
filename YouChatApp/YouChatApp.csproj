@@ -118,10 +118,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttachedFiles\AudioCall.cs">
+    <Compile Include="AudioHandler\AudioCall.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AttachedFiles\AudioCall.Designer.cs">
+    <Compile Include="AudioHandler\AudioCall.Designer.cs">
       <DependentUpon>AudioCall.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachedFiles\CallInvitation.cs">
@@ -151,6 +151,7 @@
     <Compile Include="AttachedFiles\WaitingForm.Designer.cs">
       <DependentUpon>WaitingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AudioHandler\AudioHandler.cs" />
     <Compile Include="Controls\CaptchaCodeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -491,7 +492,7 @@
     <Compile Include="YouChat.Designer.cs">
       <DependentUpon>YouChat.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AttachedFiles\AudioCall.resx">
+    <EmbeddedResource Include="AudioHandler\AudioCall.resx">
       <DependentUpon>AudioCall.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\CallInvitation.resx">

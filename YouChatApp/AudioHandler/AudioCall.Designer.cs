@@ -70,7 +70,7 @@
             // 
             this.MicrophoneModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
             this.MicrophoneModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.MicrophoneModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.MicrophoneOpen;
+            this.MicrophoneModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.MicrophoneClose;
             this.MicrophoneModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.MicrophoneModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.MicrophoneModeCustomButton.BorderRadius = 10;
