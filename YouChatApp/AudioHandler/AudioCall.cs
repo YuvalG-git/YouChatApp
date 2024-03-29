@@ -14,38 +14,47 @@ using System.IO;
 using System.Management;
 using AForge.Video;
 using NAudio.CoreAudioApi;
+using YouChatApp.Controls;
 
 namespace YouChatApp.AttachedFiles
 {
     public partial class AudioCall : Form
     {
-        private bool isMuted;
-        private List<WaveInCapabilities> inputDevices;
+        /// <summary>
+        /// Gets or sets a value indicating whether the microphone is muted.
+        /// </summary>
+        private bool isMyMicrophoneMuted;
+
+        /// <summary>
+        /// The watcher for management events. Used for updating the input and output audio devices connected to the computer.
+        /// </summary>
         private ManagementEventWatcher watcher;
-        public DirectSoundOut _waveOut;//object incharge of playing audio wave
-        private BufferedWaveProvider provider;//incharge of converting the byte array of audio to
-        private WaveIn sourceStream;//incarge of recoring audio //todo - to use this in order to fix sound...
-        List<Guid> _outputDeviceGuids;
-        Image MicrophoneNotOpen = global::YouChatApp.Properties.Resources.MicrophoneClose;
-        Image MicrophoneOpen = global::YouChatApp.Properties.Resources.MicrophoneOpen;
-      
+
+        /// <summary>
+        /// The DirectSoundOut instance for audio playback. Used for playing the received audio.
+        /// </summary>
+        public DirectSoundOut audioWaveOut;
+
+        /// <summary>
+        /// The BufferedWaveProvider for audio playback. Responsible for converting the byte array of audio to playable audio through the WaveOut.
+        /// </summary>
+        private BufferedWaveProvider audioBufferedWaveProvider;
+
+        /// <summary>
+        /// The WaveIn instance for audio capture. Responsible for recording audio.
+        /// </summary>
+        private WaveIn audioSourceStream;
+
+        /// <summary>
+        /// The list of output audio device GUIDs.
+        /// </summary>
+        private List<Guid> outputAudioDeviceGuids;
+
         public AudioCall()
         {
             InitializeComponent();
-
-            isMuted = false;
+            isMyMicrophoneMuted = false;
             CallEnderCustomButton.BorderRadius = 40;
-        }
-
-        private void InitializeAudioOutputDeviceList()
-        {
-            _outputDeviceGuids = new List<Guid>();
-            foreach (var deviceInfo in DirectSoundOut.Devices)
-            {
-                _outputDeviceGuids.Add(deviceInfo.Guid);
-                AudioOutputDeviceComboBox.Items.Add(deviceInfo.Description); //can tell it to delete the first (the computers main)
-            }
-            AudioOutputDeviceComboBox.SelectedIndex = 0;
         }
         private void InitializeAudioDevicesChangeDetection()
         {
@@ -67,113 +76,70 @@ namespace YouChatApp.AttachedFiles
         }
         private void RefreshAudioList()
         {
-            AudioHandler.AudioHandler.InitializeAudioInputDeviceList(AudioInputDeviceComboBox, sourceStream);
-            AudioHandler.AudioHandler.InitializeAudioOutputDeviceList(AudioOutputDeviceComboBox, _outputDeviceGuids);
-            InitializeAudioOutputDeviceList();
+            AudioHandler.AudioHandler.InitializeAudioInputDeviceList(AudioInputDeviceComboBox, audioSourceStream);
+            AudioHandler.AudioHandler.InitializeAudioOutputDeviceList(AudioOutputDeviceComboBox, outputAudioDeviceGuids);
         }
 
 
 
         private void sourceStream_DataAvailable(object sender, NAudio.Wave.WaveInEventArgs e)
         {
-            if (sourceStream == null) return;
-            try
-            {
-                if (!isMuted)
-                    AudioServerCommunication.SendAudio(e.Buffer, e.BytesRecorded);
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            AudioHandler.AudioHandler.HandleSourceStreamDataAvailable(e, audioSourceStream, isMyMicrophoneMuted);
         }
         public void ReceiveAudioData(byte[] receivedData)
         {
-            if (_waveOut != null)
-            {
-                provider.AddSamples(receivedData, 0, receivedData.Length);
-                _waveOut.Play();
-            }
+            AudioHandler.AudioHandler.HandleReceivedAudioData(receivedData, audioWaveOut, audioBufferedWaveProvider);
+        }
+        private void HandleWaveOut()
+        {
+            AudioHandler.AudioHandler.HandleWaveOutPhaseOne(audioWaveOut);
+
+
+            int selectedDeviceIndex = AudioOutputDeviceComboBox.SelectedIndex;
+            audioWaveOut = new DirectSoundOut(outputAudioDeviceGuids[selectedDeviceIndex]); //to add here -1 if deleting computer main
+
+            AudioHandler.AudioHandler.HandleWaveOutPhaseTwo(audioWaveOut,audioBufferedWaveProvider);
+
         }
 
         private void AudioCall_Load(object sender, EventArgs e)
         {
             AudioServerCommunication.ConnectUdp("10.100.102.3", this);
-            this.provider = new BufferedWaveProvider(new WaveFormat(44100, 16, 2));
-            this.provider.DiscardOnBufferOverflow = true;
-            InitializeAudioOutputDeviceList();
-            StartAudioRecording();
-            AudioHandler.AudioHandler.InitializeAudioInputDeviceList(AudioInputDeviceComboBox, sourceStream);
+            WaveFormat waveFormat = new WaveFormat(44100, 16, 2);
+            audioBufferedWaveProvider = new BufferedWaveProvider(waveFormat);
+            outputAudioDeviceGuids = new List<Guid>();
+
+            audioBufferedWaveProvider.DiscardOnBufferOverflow = true;
+            AudioHandler.AudioHandler.InitializeAudioOutputDeviceList(AudioOutputDeviceComboBox, outputAudioDeviceGuids);
+            AudioHandler.AudioHandler.StartAudioRecording(AudioInputDeviceComboBox, ref audioSourceStream, sourceStream_DataAvailable);
+            AudioHandler.AudioHandler.InitializeAudioInputDeviceList(AudioInputDeviceComboBox, audioSourceStream);
             InitializeAudioDevicesChangeDetection(); // Start monitoring camera changes.
-        }
-        public void StartAudioRecording()
-        {
-            sourceStream = new NAudio.Wave.WaveIn();
-            sourceStream.DeviceNumber = AudioInputDeviceComboBox.SelectedIndex;
-            sourceStream.WaveFormat = new NAudio.Wave.WaveFormat(44100,
-            NAudio.Wave.WaveIn.GetCapabilities(AudioInputDeviceComboBox.SelectedIndex).Channels);
-            sourceStream.DataAvailable += new EventHandler<NAudio.Wave.WaveInEventArgs>(sourceStream_DataAvailable);
-            sourceStream.StartRecording();
         }
 
         private void AudioCall_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (sourceStream != null)
-                sourceStream.StopRecording();
-            
-            if (_waveOut != null)
-            {
-                _waveOut.Stop();
-                _waveOut.Dispose();
-            }
-            // Stop monitoring hardware changes.
-            if (watcher != null)
-            {
-                watcher.Stop();
-                watcher.Dispose();
-            }
+            AudioHandler.AudioHandler.HandleFormClosing(audioSourceStream, audioWaveOut, watcher);
         }
 
         private void AudioInputDeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (sourceStream != null)
-                sourceStream.DeviceNumber = AudioInputDeviceComboBox.SelectedIndex;
+            AudioHandler.AudioHandler.HandleAudioInputDeviceComboBoxSelectedIndexChanged(audioSourceStream, AudioInputDeviceComboBox);
         }
 
         private void AudioOutputDeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             HandleWaveOut();
-        }
-        private void HandleWaveOut()
-        {
-            if (_waveOut != null)
-            {
-                _waveOut.Stop();
-                _waveOut.Dispose();
-            }
-
-            int selectedDeviceIndex = AudioOutputDeviceComboBox.SelectedIndex;
-            _waveOut = new DirectSoundOut(_outputDeviceGuids[selectedDeviceIndex]); //to add here -1 if deleting computer main
-
-            this._waveOut.Init(provider);
-            this._waveOut.Play();
+            //AudioHandler.AudioHandler.HandleWaveOut(_waveOut, AudioOutputDeviceComboBox, _outputDeviceGuids, provider);
         }
 
         private void MicrophoneModeCustomButton_Click(object sender, EventArgs e)
         {
+            AudioHandler.AudioHandler.HandleMicrophoneModeCustomButtonClick(ref audioSourceStream, ref isMyMicrophoneMuted, MicrophoneModeCustomButton, AudioInputDeviceComboBox, sourceStream_DataAvailable);
+        }
 
-            if (!isMuted)
-            {
-                MicrophoneModeCustomButton.BackgroundImage = MicrophoneOpen;
-                sourceStream.StopRecording();
-            }
-            else
-            {
-                MicrophoneModeCustomButton.BackgroundImage = MicrophoneNotOpen;
-                sourceStream.StartRecording();
-            }
-            isMuted = !isMuted;
+        private void CallEnderCustomButton_Click(object sender, EventArgs e)
+        {
+            AudioHandler.AudioHandler.HandleFormClosing(audioSourceStream, audioWaveOut, watcher);
         }
     }
 }

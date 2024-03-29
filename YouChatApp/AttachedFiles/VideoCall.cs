@@ -21,6 +21,37 @@ namespace YouChatApp.AttachedFiles
 {
     public partial class VideoCall : Form
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether the microphone is muted.
+        /// </summary>
+        private bool isMyMicrophoneMuted;
+
+        /// <summary>
+        /// The watcher for management events. Used for updating the input and output audio devices connected to the computer.
+        /// </summary>
+        private ManagementEventWatcher watcher;
+
+        /// <summary>
+        /// The DirectSoundOut instance for audio playback. Used for playing the received audio.
+        /// </summary>
+        public DirectSoundOut audioWaveOut;
+
+        /// <summary>
+        /// The BufferedWaveProvider for audio playback. Responsible for converting the byte array of audio to playable audio through the WaveOut.
+        /// </summary>
+        private BufferedWaveProvider audioBufferedWaveProvider;
+
+        /// <summary>
+        /// The WaveIn instance for audio capture. Responsible for recording audio.
+        /// </summary>
+        private WaveIn audioSourceStream;
+
+        /// <summary>
+        /// The list of output audio device GUIDs.
+        /// </summary>
+        private List<Guid> outputAudioDeviceGuids;
+
+
         bool CameraIsOpen = false;
         bool MicrophoneIsOpen = false;
         Image CameraNotOpen = global::YouChatApp.Properties.Resources.VideoClose;
@@ -38,13 +69,13 @@ namespace YouChatApp.AttachedFiles
         private bool _myVideoIsSmall = true;
         // https://www.flaticon.com/search?author_id=1828&style_id=1236&type=standard&word=conversation
 
-        private FilterInfoCollection videoDevices;
-        private VideoCaptureDevice videoSource;
-        private List<WaveInCapabilities> inputDevices;
-        private List<WaveOutCapabilities> outputDevices;
-        private WaveInEvent waveIn;
+        //private FilterInfoCollection videoDevices;
+        //private VideoCaptureDevice videoSource;
+        //private List<WaveInCapabilities> inputDevices;
+        //private List<WaveOutCapabilities> outputDevices;
+        //private WaveInEvent waveIn;
 
-        private ManagementEventWatcher watcher;
+        //private ManagementEventWatcher watcher;
         int CurrentWidth;
         int CurrentHeight;
         int CameraWidth;
@@ -61,6 +92,8 @@ namespace YouChatApp.AttachedFiles
         {
             InitializeComponent();
             VideoOffImage = ProfileDetailsHandler.ProfilePicture;
+            isMyMicrophoneMuted = false;
+            CallEnderCustomButton.BorderRadius = 40;
             //string username = "yuval"; //the user that i try to call to...
             //ServerCommunication.SendMessage(ServerCommunication.UserConnectionCheckRequest,username);
         }
@@ -69,7 +102,7 @@ namespace YouChatApp.AttachedFiles
         {
             InitializeCameraList(); // Load the initial camera devices when the form loads.
             InitializeAudioList();
-            InitializeCameraChangeDetection(); // Start monitoring camera changes.
+            InitializeVideoAndAudioChangeDetection(); // Start monitoring camera changes.
             CurrentWidth = this.Width;
             CurrentHeight = this.Height;
             VideoServerCommunication.ConnectUdp("10.100.102.3",this);
@@ -87,24 +120,6 @@ namespace YouChatApp.AttachedFiles
             CallEnderCustomButton.BorderRadius = 40;
             callStartTime = DateTime.Now;
             CallTimeTimer.Start();
-
-            //videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            //if (videoDevices.Count == 0)
-            //{
-            //    MessageBox.Show("No video devices found.");
-            //    return;
-            //}
-            //else
-            //{
-            //    foreach (FilterInfo device in videoDevices)
-            //    {
-            //        CameraDeviceComboBox.Items.Add(device.Name);
-            //    }
-            //}
-
-            //videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
-            //videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
-            //videoSource.Start();
         }
         private void InitializeAudioList()
         {
@@ -196,7 +211,7 @@ namespace YouChatApp.AttachedFiles
             }
         }
 
-        private void InitializeCameraChangeDetection()
+        private void InitializeVideoAndAudioChangeDetection()
         {
             // Create a management event watcher to monitor hardware changes.
             watcher = new ManagementEventWatcher();
@@ -543,7 +558,6 @@ namespace YouChatApp.AttachedFiles
 
             CallTimeLabel.Text = formattedDuration;
             CallTimeLabel.Location = new Point((CallDetailsPanel.Width - CallTimeLabel.Width) / 2, CallTimeLabel.Location.Y);
-
         }
 
         private void RefreshAudioOptionsCustomButtons_Click(object sender, EventArgs e)

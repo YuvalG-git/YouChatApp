@@ -275,6 +275,7 @@
             this.CallEnderCustomButton.TabIndex = 17;
             this.CallEnderCustomButton.TextColor = System.Drawing.Color.White;
             this.CallEnderCustomButton.UseVisualStyleBackColor = false;
+            this.CallEnderCustomButton.Click += new System.EventHandler(this.CallEnderCustomButton_Click);
             // 
             // AudioCall
             // 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YouChatApp.AttachedFiles;
 using System.Drawing;
+using System.Threading;
 
 namespace YouChatApp
 {
@@ -50,25 +51,6 @@ namespace YouChatApp
         /// </summary>
 
 
-        public static void SendAudio(string message)
-        {
-            if (_udpIsOn)
-            {
-                try
-                {
-                    byte[] data = Encoding.ASCII.GetBytes(message);
-                    udpClient.Send(data, data.Length, remoteEndPoint);
-
-
-                    // Send data to the client
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error sending data: {ex.Message}");
-                }
-            }
-
-        }
 
         public static void SendAudio(byte[] data, int dataLength)
         {
@@ -95,16 +77,37 @@ namespace YouChatApp
                 if (_udpIsOn)
                 {
                     // Receive the image from the server
-                    byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
-
-                    if (_videoCall != null) //maybe i should use interface for this... in order to not check each time but just
+                    try
                     {
-                        //_videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); });
+                        byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
+                        if (_videoCall != null) //maybe i should use interface for this... in order to not check each time but just
+                        {
+                            //_videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); });
+                        }
+                        else if (_audioCall != null)
+                        {
+                            _audioCall.Invoke((Action)delegate { _audioCall.ReceiveAudioData(receivedData); });
+
+                        }
                     }
-                    if (_audioCall != null)
+                    catch (SocketException ex)
                     {
-                        _audioCall.Invoke((Action)delegate { _audioCall.ReceiveAudioData(receivedData); });
-
+                        if (ex.ErrorCode == 10004) // WSACancelBlockingCall
+                        {
+                            // Handle the WSACancelBlockingCall exception
+                            // For example, log the error or take appropriate action
+                            Console.WriteLine("WSACancelBlockingCall exception occurred: " + ex.Message);
+                        }
+                        else
+                        {
+                            // Handle other SocketException errors
+                            Console.WriteLine("SocketException occurred: " + ex.Message);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle other exceptions
+                        Console.WriteLine("Exception occurred: " + ex.Message);
                     }
                 }
             }
@@ -113,8 +116,12 @@ namespace YouChatApp
         // Close the UDP client when done
         public static void Close()
         {
-            _udpIsOn = false;
-            udpClient.Close();
+            if (udpClient != null)
+            {
+                _udpIsOn = false;
+                udpClient.Close();
+                udpClient.Dispose();
+            }
         }
     }
 }

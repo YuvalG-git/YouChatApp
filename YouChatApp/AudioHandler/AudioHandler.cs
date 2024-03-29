@@ -32,7 +32,6 @@ namespace YouChatApp.AudioHandler
         }
         public static void InitializeAudioOutputDeviceList(ComboBox AudioOutputDeviceComboBox, List<Guid> _outputDeviceGuids)
         {
-            _outputDeviceGuids = new List<Guid>();
             foreach (var deviceInfo in DirectSoundOut.Devices)
             {
                 _outputDeviceGuids.Add(deviceInfo.Guid);
@@ -42,7 +41,7 @@ namespace YouChatApp.AudioHandler
         }
      
 
-        public static void StartAudioRecording(ComboBox AudioInputDeviceComboBox, WaveIn sourceStream, EventHandler<NAudio.Wave.WaveInEventArgs> sourceStream_DataAvailable)
+        public static void StartAudioRecording(ComboBox AudioInputDeviceComboBox, ref WaveIn sourceStream, EventHandler<NAudio.Wave.WaveInEventArgs> sourceStream_DataAvailable)
         {
             sourceStream = new NAudio.Wave.WaveIn();
             sourceStream.DeviceNumber = AudioInputDeviceComboBox.SelectedIndex;
@@ -53,19 +52,33 @@ namespace YouChatApp.AudioHandler
         }
         public static void HandleFormClosing(WaveIn sourceStream, DirectSoundOut _waveOut, ManagementEventWatcher watcher)
         {
-            if (sourceStream != null)
-                sourceStream.StopRecording();
+            AudioServerCommunication.Close();
 
             if (_waveOut != null)
             {
                 _waveOut.Stop();
                 _waveOut.Dispose();
             }
+            if (sourceStream != null)
+                sourceStream.StopRecording();
             // Stop monitoring hardware changes.
             if (watcher != null)
             {
                 watcher.Stop();
                 watcher.Dispose();
+            }
+        }
+        public static void HandleSourceStreamDataAvailable(NAudio.Wave.WaveInEventArgs e, WaveIn sourceStream, bool isMuted)
+        {
+            if (sourceStream == null) return;
+            try
+            {
+                if (!isMuted)
+                    AudioServerCommunication.SendAudio(e.Buffer, e.BytesRecorded);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
         public static void HandleAudioInputDeviceComboBoxSelectedIndexChanged(WaveIn sourceStream, ComboBox AudioInputDeviceComboBox)
@@ -81,34 +94,41 @@ namespace YouChatApp.AudioHandler
                 _waveOut.Play();
             }
         }
-        public static void HandleWaveOut(DirectSoundOut _waveOut, ComboBox AudioOutputDeviceComboBox, List<Guid> _outputDeviceGuids, BufferedWaveProvider provider)
+        public static void HandleWaveOutPhaseOne(DirectSoundOut _waveOut)
         {
-
             if (_waveOut != null)
             {
                 _waveOut.Stop();
                 _waveOut.Dispose();
             }
-
-            int selectedDeviceIndex = AudioOutputDeviceComboBox.SelectedIndex;
-            _waveOut = new DirectSoundOut(_outputDeviceGuids[selectedDeviceIndex]); //to add here -1 if deleting computer main
-
+        }
+        public static void HandleWaveOutPhaseTwo(DirectSoundOut _waveOut, BufferedWaveProvider provider)
+        {
             _waveOut.Init(provider);
             _waveOut.Play();
         }
-        public static void HandleMicrophoneModeCustomButtonClick(WaveIn sourceStream, bool isMuted, CustomButton MicrophoneModeCustomButton)
+        public static void HandleMicrophoneModeCustomButtonClick(ref WaveIn sourceStream, ref bool isMuted, CustomButton MicrophoneModeCustomButton, ComboBox AudioInputDeviceComboBox, EventHandler<NAudio.Wave.WaveInEventArgs> sourceStream_DataAvailable)
         {
-            if (!isMuted)
+            try
             {
-                MicrophoneModeCustomButton.BackgroundImage = MicrophoneOpen;
-                sourceStream.StopRecording();
+                if (!isMuted)
+                {
+                    MicrophoneModeCustomButton.BackgroundImage = MicrophoneOpen;
+                    sourceStream.StopRecording();
+                }
+                else
+                {
+                    MicrophoneModeCustomButton.BackgroundImage = MicrophoneNotOpen;
+                    //sourceStream.StartRecording();
+                    StartAudioRecording(AudioInputDeviceComboBox, ref sourceStream, sourceStream_DataAvailable); //was a problen with "sourceStream.StartRecording();" because sometimes the process didn't work and it hasn't started recording so i decided to "recreate" the object
+                }
+                isMuted = !isMuted; // Toggle the mute state
             }
-            else
+            catch (Exception ex)
             {
-                MicrophoneModeCustomButton.BackgroundImage = MicrophoneNotOpen;
-                sourceStream.StartRecording();
+                // Handle the exception (e.g., log the error)
+                Console.WriteLine("Error starting or stopping recording: " + ex.Message);
             }
-            isMuted = !isMuted;
         }
     }
 }
