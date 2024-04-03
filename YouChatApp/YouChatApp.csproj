@@ -118,6 +118,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttachedFiles\CallTimer.cs" />
     <Compile Include="AudioHandler\AudioCall.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,9 +183,18 @@
     <Compile Include="Controls\PersonalVerificationQuestionsControl.Designer.cs">
       <DependentUpon>PersonalVerificationQuestionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="EnumHandler.cs" />
+    <Compile Include="Controls\ProfileStatusControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ProfileStatusControl.Designer.cs">
+      <DependentUpon>ProfileStatusControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnumHandler\EnumConverter.cs" />
+    <Compile Include="EnumHandler\EnumHandler.cs" />
     <Compile Include="ImageHandler.cs" />
     <Compile Include="ImageRotationHandler.cs" />
+    <Compile Include="JsonClasses\JsonObject.cs" />
+    <Compile Include="JsonClasses\LoginDetails.cs" />
     <Compile Include="JsonClasses\PersonalVerificationAnswers.cs" />
     <Compile Include="JsonClasses\RegistrationInformation.cs" />
     <Compile Include="UdpServerCommunication\AudioServerCommunication.cs" />
@@ -560,6 +570,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ProfilePictureControl.resx">
       <DependentUpon>ProfilePictureControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ProfileStatusControl.resx">
+      <DependentUpon>ProfileStatusControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SearchBar.resx">
       <DependentUpon>SearchBar.cs</DependentUpon>

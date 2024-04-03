@@ -40,6 +40,9 @@ namespace YouChatApp.Controls
         private void RestartSmtpCodeCustomButton_Click(object sender, EventArgs e)
         {
             SmtpCodeCustomTextBox.TextContent = "";
+            EmailNotificationLabel.Visible = false;
+            SmtpCodeCustomTextBox.Enabled = false;
+            VerifyCustomButton.Enabled = false;
             switch (controlType) //to send the message according to the form i am currently in...
             {
                 case EnumHandler.UserAuthentication_Enum.Login:
@@ -55,7 +58,14 @@ namespace YouChatApp.Controls
 
         private void VerifyCustomButton_Click(object sender, EventArgs e)
         {
-
+            string enteredSmtpCode = SmtpCodeCustomTextBox.TextContent;
+            //to send the code to compare in server side...
+        }
+        public void HandleCode() //todo - use alert the server sent the email...
+        {
+            EmailNotificationLabel.Visible = true;
+            SmtpCodeCustomTextBox.Enabled = true;
+            VerifyCustomButton.Enabled = true;
         }
     }
 }

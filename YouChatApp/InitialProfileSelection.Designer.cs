@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ConfirmButton = new System.Windows.Forms.Button();
-            this.ProfilePictureGroupBox = new System.Windows.Forms.GroupBox();
             this.ProfilePictureControl = new YouChatApp.Controls.ProfilePictureControl();
             this.StatusGroupBox = new System.Windows.Forms.GroupBox();
             this.CharNumberLabel = new System.Windows.Forms.Label();
@@ -37,40 +35,19 @@
             this.RefreshTextButton = new System.Windows.Forms.Button();
             this.ProfileSettingsHeadlineLabel = new System.Windows.Forms.Label();
             this.ConfirmCustomButton = new YouChatApp.Controls.CustomButton();
-            this.ProfilePictureGroupBox.SuspendLayout();
             this.StatusGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ConfirmButton
-            // 
-            this.ConfirmButton.Enabled = false;
-            this.ConfirmButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfirmButton.Location = new System.Drawing.Point(676, 698);
-            this.ConfirmButton.Name = "ConfirmButton";
-            this.ConfirmButton.Size = new System.Drawing.Size(94, 29);
-            this.ConfirmButton.TabIndex = 0;
-            this.ConfirmButton.Text = "Confirm";
-            this.ConfirmButton.UseVisualStyleBackColor = true;
-            this.ConfirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
-            // 
-            // ProfilePictureGroupBox
-            // 
-            this.ProfilePictureGroupBox.AutoSize = true;
-            this.ProfilePictureGroupBox.Controls.Add(this.ProfilePictureControl);
-            this.ProfilePictureGroupBox.Location = new System.Drawing.Point(24, 19);
-            this.ProfilePictureGroupBox.Name = "ProfilePictureGroupBox";
-            this.ProfilePictureGroupBox.Size = new System.Drawing.Size(575, 622);
-            this.ProfilePictureGroupBox.TabIndex = 1;
-            this.ProfilePictureGroupBox.TabStop = false;
-            // 
             // ProfilePictureControl
             // 
-            this.ProfilePictureControl.Location = new System.Drawing.Point(23, 33);
+            this.ProfilePictureControl.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.ProfilePictureControl.Location = new System.Drawing.Point(60, 62);
             this.ProfilePictureControl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.ProfilePictureControl.MaximumSize = new System.Drawing.Size(570, 580);
+            this.ProfilePictureControl.MinimumSize = new System.Drawing.Size(570, 580);
             this.ProfilePictureControl.Name = "ProfilePictureControl";
-            this.ProfilePictureControl.Size = new System.Drawing.Size(545, 561);
+            this.ProfilePictureControl.Size = new System.Drawing.Size(570, 580);
             this.ProfilePictureControl.TabIndex = 1;
-            this.ProfilePictureControl.Click += new System.EventHandler(this.ProfilePictureControl_Click);
             // 
             // StatusGroupBox
             // 
@@ -138,6 +115,7 @@
             this.ConfirmCustomButton.BorderRadius = 10;
             this.ConfirmCustomButton.BorderSize = 0;
             this.ConfirmCustomButton.Circular = false;
+            this.ConfirmCustomButton.Enabled = false;
             this.ConfirmCustomButton.FlatAppearance.BorderSize = 0;
             this.ConfirmCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ConfirmCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -149,20 +127,19 @@
             this.ConfirmCustomButton.Text = "Confirm";
             this.ConfirmCustomButton.TextColor = System.Drawing.Color.White;
             this.ConfirmCustomButton.UseVisualStyleBackColor = false;
+            this.ConfirmCustomButton.Click += new System.EventHandler(this.ConfirmCustomButton_Click);
             // 
             // InitialProfileSelection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1225, 755);
+            this.Controls.Add(this.ProfilePictureControl);
             this.Controls.Add(this.ConfirmCustomButton);
             this.Controls.Add(this.ProfileSettingsHeadlineLabel);
             this.Controls.Add(this.StatusGroupBox);
-            this.Controls.Add(this.ProfilePictureGroupBox);
-            this.Controls.Add(this.ConfirmButton);
             this.Name = "InitialProfileSelection";
             this.Text = "InitialProfileSelection";
-            this.ProfilePictureGroupBox.ResumeLayout(false);
             this.StatusGroupBox.ResumeLayout(false);
             this.StatusGroupBox.PerformLayout();
             this.ResumeLayout(false);
@@ -171,11 +148,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button ConfirmButton;
         private System.Windows.Forms.Button[,] ProfileAvatarMatrix;
         private System.Windows.Forms.Button[] ProfilePictureKindSelectionButtons;
-        private System.Windows.Forms.GroupBox ProfilePictureGroupBox;
         private System.Windows.Forms.GroupBox StatusGroupBox;
         private System.Windows.Forms.Button RefreshTextButton;
         private System.Windows.Forms.TextBox ProfileStatusTextBox;

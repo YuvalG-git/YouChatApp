@@ -53,13 +53,13 @@ namespace YouChatApp.AttachedFiles
 
 
         bool CameraIsOpen = false;
-        bool MicrophoneIsOpen = false;
         Image CameraNotOpen = global::YouChatApp.Properties.Resources.VideoClose;
         Image CameraOpen = global::YouChatApp.Properties.Resources.VideoOpen;
         Image MicrophoneNotOpen = global::YouChatApp.Properties.Resources.MicrophoneClose;
         Image MicrophoneOpen = global::YouChatApp.Properties.Resources.MicrophoneOpen;
         Image VideoOffImage;
         Image FriendVideoOffImage = global::YouChatApp.Properties.Resources.AnonymousProfile; //need to change that to my profile picture...
+        Image MyVideoOffImage = global::YouChatApp.Properties.Resources.AnonymousProfile; //need to change that to my profile picture...
 
         Image FriendMicrophoneOffImage = global::YouChatApp.Properties.Resources.FriendMicrophoneClosed;
 
@@ -69,13 +69,8 @@ namespace YouChatApp.AttachedFiles
         private bool _myVideoIsSmall = true;
         // https://www.flaticon.com/search?author_id=1828&style_id=1236&type=standard&word=conversation
 
-        //private FilterInfoCollection videoDevices;
-        //private VideoCaptureDevice videoSource;
-        //private List<WaveInCapabilities> inputDevices;
-        //private List<WaveOutCapabilities> outputDevices;
-        //private WaveInEvent waveIn;
-
-        //private ManagementEventWatcher watcher;
+        private FilterInfoCollection videoDevices;
+        private VideoCaptureDevice videoSource;
         int CurrentWidth;
         int CurrentHeight;
         int CameraWidth;
@@ -88,27 +83,46 @@ namespace YouChatApp.AttachedFiles
         private string _friendName;
         private string _videoToolTipContent;
         private string _friendVideoToolTipContent;
-        public VideoCall()
+        private bool isFriendMicrophoneMuted;
+
+        CallTimer timer;
+        public VideoCall(string name, Image profilePicture)
         {
             InitializeComponent();
             VideoOffImage = ProfileDetailsHandler.ProfilePicture;
             isMyMicrophoneMuted = false;
             CallEnderCustomButton.BorderRadius = 40;
+            _friendName = name;
+            FriendNameLabel.Text = name;
+            FriendVideoOffImage = profilePicture;
+            RemoteVideoPictureBox.BackgroundImage = profilePicture;
+            //MyVideoOffImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
+            MyVideoOffImage = profilePicture;
+
+            UserVideoPictureBox.BackgroundImage = MyVideoOffImage;
             //string username = "yuval"; //the user that i try to call to...
             //ServerCommunication.SendMessage(ServerCommunication.UserConnectionCheckRequest,username);
         }
 
         private void VideoCall_Load(object sender, EventArgs e)
         {
+            VideoServerCommunication.ConnectUdp("10.100.102.3", this);
+            AudioServerCommunication.ConnectUdp("10.100.102.3", this);
             InitializeCameraList(); // Load the initial camera devices when the form loads.
-            InitializeAudioList();
-            InitializeVideoAndAudioChangeDetection(); // Start monitoring camera changes.
+            WaveFormat waveFormat = new WaveFormat(44100, 16, 2);
+            audioBufferedWaveProvider = new BufferedWaveProvider(waveFormat);
+            outputAudioDeviceGuids = new List<Guid>();
+
+            audioBufferedWaveProvider.DiscardOnBufferOverflow = true;
+            AudioHandler.AudioHandler.InitializeAudioOutputDeviceList(AudioOutputDeviceComboBox, outputAudioDeviceGuids);
+            AudioHandler.AudioHandler.StartAudioRecording(AudioInputDeviceComboBox, ref audioSourceStream, sourceStream_DataAvailable);
+            AudioHandler.AudioHandler.InitializeAudioInputDeviceList(AudioInputDeviceComboBox, audioSourceStream);
+            InitializeVideoAndAudioChangeDetection(); // Start monitoring camera changes.            InitializeVideoAndAudioChangeDetection(); // Start monitoring camera changes.
             CurrentWidth = this.Width;
             CurrentHeight = this.Height;
-            VideoServerCommunication.ConnectUdp("10.100.102.3",this);
-            AudioServerCommunication.ConnectUdp("10.100.102.3", this);
 
-            _friendName = ChatHandler.ChatManager.CurrentChatName;
+
+            //_friendName = ChatHandler.ChatManager.CurrentChatName;
             FriendNameLabel.Text = _friendName;
             FriendNameLabel.Location = new Point((CallDetailsPanel.Width - FriendNameLabel.Width) /2, FriendNameLabel.Location.Y);
             CallTimeLabel.Location = new Point((CallDetailsPanel.Width - CallTimeLabel.Width) / 2, CallTimeLabel.Location.Y);
@@ -118,30 +132,7 @@ namespace YouChatApp.AttachedFiles
             ToolTip.SetToolTip(UserVideoPictureBox, _videoToolTipContent);
             ToolTip.SetToolTip(RemoteVideoPictureBox, _friendVideoToolTipContent);
             CallEnderCustomButton.BorderRadius = 40;
-            callStartTime = DateTime.Now;
-            CallTimeTimer.Start();
-        }
-        private void InitializeAudioList()
-        {
-            inputDevices = new List<WaveInCapabilities>();
-            for (int i = 0; i < WaveIn.DeviceCount; i++)
-            {
-                inputDevices.Add(WaveIn.GetCapabilities(i));
-            }
-            foreach (WaveInCapabilities device in inputDevices)
-            {
-                AudioInputDeviceComboBox.Items.Add(device.ProductName);
-            }
-            // Enumerate available output devices (speakers)
-            outputDevices = new List<WaveOutCapabilities>();
-            for (int i = 0; i < WaveOut.DeviceCount; i++)
-            {
-                outputDevices.Add(WaveOut.GetCapabilities(i));
-            }
-            foreach (WaveOutCapabilities device in outputDevices)
-            {
-                AudioOutputDeviceComboBox.Items.Add(device.ProductName);
-            }
+            timer = new CallTimer(CallTimeTimer);
         }
 
         private void InitializeCameraList()
@@ -241,9 +232,28 @@ namespace YouChatApp.AttachedFiles
         }
         private void RefreshAudioList()
         {
-            InitializeAudioList(); // Refresh the camera list.
+            AudioHandler.AudioHandler.InitializeAudioInputDeviceList(AudioInputDeviceComboBox, audioSourceStream);
+            AudioHandler.AudioHandler.InitializeAudioOutputDeviceList(AudioOutputDeviceComboBox, outputAudioDeviceGuids);
         }
+        private void sourceStream_DataAvailable(object sender, NAudio.Wave.WaveInEventArgs e)
+        {
+            AudioHandler.AudioHandler.HandleSourceStreamDataAvailable(e, audioSourceStream, isMyMicrophoneMuted);
+        }
+        public void ReceiveAudioData(byte[] receivedData)
+        {
+            AudioHandler.AudioHandler.HandleReceivedAudioData(receivedData, audioWaveOut, audioBufferedWaveProvider);
+        }
+        private void HandleWaveOut()
+        {
+            AudioHandler.AudioHandler.HandleWaveOutPhaseOne(audioWaveOut);
 
+
+            int selectedDeviceIndex = AudioOutputDeviceComboBox.SelectedIndex;
+            audioWaveOut = new DirectSoundOut(outputAudioDeviceGuids[selectedDeviceIndex]); //to add here -1 if deleting computer main
+
+            AudioHandler.AudioHandler.HandleWaveOutPhaseTwo(audioWaveOut, audioBufferedWaveProvider);
+
+        }
 
         private void StartStreaming()
         {
@@ -307,27 +317,40 @@ namespace YouChatApp.AttachedFiles
             StartVideoSource();
         }
 
-        private void AudioDeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
+        private void AudioInputDeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AudioHandler.AudioHandler.HandleAudioInputDeviceComboBoxSelectedIndexChanged(audioSourceStream, AudioInputDeviceComboBox);
         }
+
+        private void AudioOutputDeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            HandleWaveOut();
+        }
+
+        private void MicrophoneModeCustomButton_Click(object sender, EventArgs e)
+        {
+            AudioHandler.AudioHandler.HandleMicrophoneModeCustomButtonClick(ref audioSourceStream, ref isMyMicrophoneMuted, MicrophoneModeCustomButton, AudioInputDeviceComboBox, sourceStream_DataAvailable);
+        }
+
+
 
         private void VideoCall_FormClosing(object sender, FormClosingEventArgs e)
         {
+            HandleFormClosing();
+        }
+        private void HandleFormClosing()
+        {
+            AudioHandler.AudioHandler.HandleFormClosing(audioSourceStream, audioWaveOut, watcher);
+            VideoServerCommunication.Close();
+
             if (videoSource != null && videoSource.IsRunning)
             {
                 videoSource.SignalToStop();
                 videoSource.WaitForStop();
             }
-
-
-            // Stop monitoring hardware changes.
-            if (watcher != null)
-            {
-                watcher.Stop();
-                watcher.Dispose();
-            }
-            VideoServerCommunication.Close();
+            timer.StopTimer();
+            //send message to other user that call is over..
         }
 
         private void VideoPictureBox_SizeChanged(object sender, EventArgs e)
@@ -372,56 +395,6 @@ namespace YouChatApp.AttachedFiles
 
         private void UserVideoPictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-            //if (_isDragging)
-            //{
-
-            //    UserVideoPictureBox.Left = e.X + UserVideoPictureBox.Left - _lastMousePosition.X;
-            //    UserVideoPictureBox.Top = e.Y + UserVideoPictureBox.Top - _lastMousePosition.Y;
-            //    if (RemoteVideoPictureBox != null && UserVideoPictureBox.Bounds.IntersectsWith(RemoteVideoPictureBox.Bounds))
-            //    {
-            //        // Determine which side the UserVideoPictureBox should snap to
-            //        int centerX = RemoteVideoPictureBox.Left + RemoteVideoPictureBox.Width / 2;
-            //        int centerY = RemoteVideoPictureBox.Top + RemoteVideoPictureBox.Height / 2;
-
-            //        if (e.X < centerX)
-            //        {
-            //            // Snap to the left side
-            //            UserVideoPictureBox.Left = RemoteVideoPictureBox.Left - UserVideoPictureBox.Width;
-            //        }
-            //        else
-            //        {
-            //            // Snap to the right side
-            //            UserVideoPictureBox.Left = RemoteVideoPictureBox.Right;
-            //        }
-            //    }
-            //}
-            //if (_isDragging)
-            //{
-            //    UserVideoPictureBox.Left = e.X + UserVideoPictureBox.Left - _lastMousePosition.X;
-            //    UserVideoPictureBox.Top = e.Y + UserVideoPictureBox.Top - _lastMousePosition.Y;
-
-            //    // Check for containment within the boundaries of the target PictureBox (e.g., TargetPictureBox)
-            //    PictureBox targetPictureBox = RemoteVideoPictureBox; // Replace with the actual name of your target PictureBox
-            //    if (targetPictureBox != null)
-            //    {
-            //        if (UserVideoPictureBox.Left < targetPictureBox.Left)
-            //        {
-            //            UserVideoPictureBox.Left = targetPictureBox.Left;
-            //        }
-            //        if (UserVideoPictureBox.Top < targetPictureBox.Top)
-            //        {
-            //            UserVideoPictureBox.Top = targetPictureBox.Top;
-            //        }
-            //        if (UserVideoPictureBox.Right > targetPictureBox.Right)
-            //        {
-            //            UserVideoPictureBox.Left = targetPictureBox.Right - UserVideoPictureBox.Width;
-            //        }
-            //        if (UserVideoPictureBox.Bottom > targetPictureBox.Bottom)
-            //        {
-            //            UserVideoPictureBox.Top = targetPictureBox.Bottom - UserVideoPictureBox.Height;
-            //        }
-            //    }
-            //}
             if (_isDragging)
             {
                 // Calculate the new position without moving it immediately
@@ -491,28 +464,8 @@ namespace YouChatApp.AttachedFiles
 
         private void DeclineCallCustomButton_Click(object sender, EventArgs e)
         {
-            CallTimeTimer.Stop();
-            //send message to other user that call is over..
+            HandleFormClosing();
             this.Close();
-
-        }
-
-        private void MicrophoneModeCustomButton_Click(object sender, EventArgs e)
-        {
-            if (MicrophoneIsOpen == false)
-                MicrophoneIsOpen = true;
-            else
-                MicrophoneIsOpen = false;
-            if (MicrophoneIsOpen == true)
-            {
-                MicrophoneModeCustomButton.BackgroundImage = MicrophoneNotOpen;
-            }
-            else
-            {
-                MicrophoneModeCustomButton.BackgroundImage = MicrophoneOpen;
-            }
-            //StartAudioSource();
-            
         }
 
         private void RemoteVideoPictureBox_DoubleClick(object sender, EventArgs e)
@@ -543,20 +496,21 @@ namespace YouChatApp.AttachedFiles
 
         private void CallTimeTimer_Tick(object sender, EventArgs e)
         {
-            TimeSpan callDuration = DateTime.Now - callStartTime;
+            timer.HandleTimerTick(CallTimeLabel);
+            //TimeSpan callDuration = DateTime.Now - callStartTime;
 
-            string formattedDuration = string.Empty;
+            //string formattedDuration = string.Empty;
 
-            if (callDuration.Hours > 0)
-            {
-                formattedDuration = $"{callDuration.Hours:D2}:{callDuration.Minutes:D2}:{callDuration.Seconds:D2}";
-            }
-            else
-            {
-                formattedDuration = $"{callDuration.Minutes:D2}:{callDuration.Seconds:D2}";
-            }
+            //if (callDuration.Hours > 0)
+            //{
+            //    formattedDuration = $"{callDuration.Hours:D2}:{callDuration.Minutes:D2}:{callDuration.Seconds:D2}";
+            //}
+            //else
+            //{
+            //    formattedDuration = $"{callDuration.Minutes:D2}:{callDuration.Seconds:D2}";
+            //}
 
-            CallTimeLabel.Text = formattedDuration;
+            //CallTimeLabel.Text = formattedDuration;
             CallTimeLabel.Location = new Point((CallDetailsPanel.Width - CallTimeLabel.Width) / 2, CallTimeLabel.Location.Y);
         }
 
@@ -620,6 +574,7 @@ namespace YouChatApp.AttachedFiles
         {
 
         }
+
     }
 
 }

@@ -33,20 +33,14 @@
             this.AudioInputDeviceComboBox = new System.Windows.Forms.ComboBox();
             this.BackgroundPanel = new System.Windows.Forms.Panel();
             this.AudioOutputDeviceGroupBox = new System.Windows.Forms.GroupBox();
-            this.RefreshAudioOutputOptionsCustomButton = new YouChatApp.Controls.CustomButton();
             this.AudioOutputDeviceComboBox = new System.Windows.Forms.ComboBox();
             this.AudioOutputDevicePictureBox = new System.Windows.Forms.PictureBox();
             this.AudioInputDeviceGroupBox = new System.Windows.Forms.GroupBox();
-            this.RefreshAudioInputOptionsCustomButton = new YouChatApp.Controls.CustomButton();
             this.AudioInputDevicePictureBox = new System.Windows.Forms.PictureBox();
             this.VideoDeviceGroupBox = new System.Windows.Forms.GroupBox();
             this.CameraDevicePictureBox = new System.Windows.Forms.PictureBox();
-            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.CallEnderCustomButton = new YouChatApp.Controls.CustomButton();
             this.MethodsPanel = new System.Windows.Forms.Panel();
-            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
-            this.MicrophoneModeCustomButton = new YouChatApp.Controls.CustomButton();
             this.UserVideoPictureBox = new System.Windows.Forms.PictureBox();
             this.RemoteVideoPictureBox = new System.Windows.Forms.PictureBox();
             this.CallDetailsPanel = new System.Windows.Forms.Panel();
@@ -55,6 +49,12 @@
             this.CallTimeTimer = new System.Windows.Forms.Timer(this.components);
             this.VideoPanel = new System.Windows.Forms.Panel();
             this.CallDetailsBackgroundPanel = new System.Windows.Forms.Panel();
+            this.CameraModeCustomButton = new YouChatApp.Controls.CustomButton();
+            this.MicrophoneModeCustomButton = new YouChatApp.Controls.CustomButton();
+            this.CallEnderCustomButton = new YouChatApp.Controls.CustomButton();
+            this.RefreshAudioOutputOptionsCustomButton = new YouChatApp.Controls.CustomButton();
+            this.RefreshAudioInputOptionsCustomButton = new YouChatApp.Controls.CustomButton();
+            this.RefreshCameraOptionsCustomButton = new YouChatApp.Controls.CustomButton();
             this.BackgroundPanel.SuspendLayout();
             this.AudioOutputDeviceGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AudioOutputDevicePictureBox)).BeginInit();
@@ -87,7 +87,7 @@
             this.AudioInputDeviceComboBox.Name = "AudioInputDeviceComboBox";
             this.AudioInputDeviceComboBox.Size = new System.Drawing.Size(145, 28);
             this.AudioInputDeviceComboBox.TabIndex = 6;
-            this.AudioInputDeviceComboBox.SelectedIndexChanged += new System.EventHandler(this.AudioDeviceComboBox_SelectedIndexChanged);
+            this.AudioInputDeviceComboBox.SelectedIndexChanged += new System.EventHandler(this.AudioInputDeviceComboBox_SelectedIndexChanged);
             // 
             // BackgroundPanel
             // 
@@ -114,27 +114,6 @@
             this.AudioOutputDeviceGroupBox.TabStop = false;
             this.AudioOutputDeviceGroupBox.Text = "Audio Output Device";
             // 
-            // RefreshAudioOutputOptionsCustomButton
-            // 
-            this.RefreshAudioOutputOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshAudioOutputOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshAudioOutputOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
-            this.RefreshAudioOutputOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.RefreshAudioOutputOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.RefreshAudioOutputOptionsCustomButton.BorderRadius = 17;
-            this.RefreshAudioOutputOptionsCustomButton.BorderSize = 0;
-            this.RefreshAudioOutputOptionsCustomButton.Circular = false;
-            this.RefreshAudioOutputOptionsCustomButton.FlatAppearance.BorderSize = 0;
-            this.RefreshAudioOutputOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RefreshAudioOutputOptionsCustomButton.ForeColor = System.Drawing.Color.White;
-            this.RefreshAudioOutputOptionsCustomButton.Location = new System.Drawing.Point(185, 60);
-            this.RefreshAudioOutputOptionsCustomButton.Name = "RefreshAudioOutputOptionsCustomButton";
-            this.RefreshAudioOutputOptionsCustomButton.Size = new System.Drawing.Size(35, 35);
-            this.RefreshAudioOutputOptionsCustomButton.TabIndex = 10;
-            this.RefreshAudioOutputOptionsCustomButton.TextColor = System.Drawing.Color.White;
-            this.RefreshAudioOutputOptionsCustomButton.UseVisualStyleBackColor = false;
-            this.RefreshAudioOutputOptionsCustomButton.Click += new System.EventHandler(this.RefreshAudioOptionsCustomButtons_Click);
-            // 
             // AudioOutputDeviceComboBox
             // 
             this.AudioOutputDeviceComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -143,6 +122,7 @@
             this.AudioOutputDeviceComboBox.Name = "AudioOutputDeviceComboBox";
             this.AudioOutputDeviceComboBox.Size = new System.Drawing.Size(145, 28);
             this.AudioOutputDeviceComboBox.TabIndex = 6;
+            this.AudioOutputDeviceComboBox.SelectedIndexChanged += new System.EventHandler(this.AudioOutputDeviceComboBox_SelectedIndexChanged);
             // 
             // AudioOutputDevicePictureBox
             // 
@@ -167,27 +147,6 @@
             this.AudioInputDeviceGroupBox.TabIndex = 20;
             this.AudioInputDeviceGroupBox.TabStop = false;
             this.AudioInputDeviceGroupBox.Text = "Audio Input Device";
-            // 
-            // RefreshAudioInputOptionsCustomButton
-            // 
-            this.RefreshAudioInputOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshAudioInputOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshAudioInputOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
-            this.RefreshAudioInputOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.RefreshAudioInputOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.RefreshAudioInputOptionsCustomButton.BorderRadius = 17;
-            this.RefreshAudioInputOptionsCustomButton.BorderSize = 0;
-            this.RefreshAudioInputOptionsCustomButton.Circular = false;
-            this.RefreshAudioInputOptionsCustomButton.FlatAppearance.BorderSize = 0;
-            this.RefreshAudioInputOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RefreshAudioInputOptionsCustomButton.ForeColor = System.Drawing.Color.White;
-            this.RefreshAudioInputOptionsCustomButton.Location = new System.Drawing.Point(185, 60);
-            this.RefreshAudioInputOptionsCustomButton.Name = "RefreshAudioInputOptionsCustomButton";
-            this.RefreshAudioInputOptionsCustomButton.Size = new System.Drawing.Size(35, 35);
-            this.RefreshAudioInputOptionsCustomButton.TabIndex = 9;
-            this.RefreshAudioInputOptionsCustomButton.TextColor = System.Drawing.Color.White;
-            this.RefreshAudioInputOptionsCustomButton.UseVisualStyleBackColor = false;
-            this.RefreshAudioInputOptionsCustomButton.Click += new System.EventHandler(this.RefreshAudioOptionsCustomButtons_Click);
             // 
             // AudioInputDevicePictureBox
             // 
@@ -223,49 +182,6 @@
             this.CameraDevicePictureBox.TabIndex = 3;
             this.CameraDevicePictureBox.TabStop = false;
             // 
-            // RefreshCameraOptionsCustomButton
-            // 
-            this.RefreshCameraOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshCameraOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.RefreshCameraOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
-            this.RefreshCameraOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.RefreshCameraOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.RefreshCameraOptionsCustomButton.BorderRadius = 17;
-            this.RefreshCameraOptionsCustomButton.BorderSize = 0;
-            this.RefreshCameraOptionsCustomButton.Circular = false;
-            this.RefreshCameraOptionsCustomButton.FlatAppearance.BorderSize = 0;
-            this.RefreshCameraOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RefreshCameraOptionsCustomButton.ForeColor = System.Drawing.Color.White;
-            this.RefreshCameraOptionsCustomButton.Location = new System.Drawing.Point(185, 60);
-            this.RefreshCameraOptionsCustomButton.Name = "RefreshCameraOptionsCustomButton";
-            this.RefreshCameraOptionsCustomButton.Size = new System.Drawing.Size(35, 35);
-            this.RefreshCameraOptionsCustomButton.TabIndex = 8;
-            this.RefreshCameraOptionsCustomButton.TextColor = System.Drawing.Color.White;
-            this.RefreshCameraOptionsCustomButton.UseVisualStyleBackColor = false;
-            this.RefreshCameraOptionsCustomButton.Click += new System.EventHandler(this.RefreshCameraOptionsCustomButton_Click);
-            // 
-            // CallEnderCustomButton
-            // 
-            this.CallEnderCustomButton.BackColor = System.Drawing.Color.LightSlateGray;
-            this.CallEnderCustomButton.BackgroundColor = System.Drawing.Color.LightSlateGray;
-            this.CallEnderCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.DeclineCallFinalImage;
-            this.CallEnderCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CallEnderCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.CallEnderCustomButton.BorderRadius = 20;
-            this.CallEnderCustomButton.BorderSize = 0;
-            this.CallEnderCustomButton.Circular = false;
-            this.CallEnderCustomButton.FlatAppearance.BorderSize = 0;
-            this.CallEnderCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CallEnderCustomButton.ForeColor = System.Drawing.Color.White;
-            this.CallEnderCustomButton.Location = new System.Drawing.Point(630, 10);
-            this.CallEnderCustomButton.Name = "CallEnderCustomButton";
-            this.CallEnderCustomButton.Size = new System.Drawing.Size(80, 80);
-            this.CallEnderCustomButton.TabIndex = 17;
-            this.CallEnderCustomButton.TextColor = System.Drawing.Color.White;
-            this.ToolTip.SetToolTip(this.CallEnderCustomButton, "To decline the call");
-            this.CallEnderCustomButton.UseVisualStyleBackColor = false;
-            this.CallEnderCustomButton.Click += new System.EventHandler(this.DeclineCallCustomButton_Click);
-            // 
             // MethodsPanel
             // 
             this.MethodsPanel.BackColor = System.Drawing.Color.Black;
@@ -276,48 +192,6 @@
             this.MethodsPanel.Name = "MethodsPanel";
             this.MethodsPanel.Size = new System.Drawing.Size(720, 100);
             this.MethodsPanel.TabIndex = 16;
-            // 
-            // CameraModeCustomButton
-            // 
-            this.CameraModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.CameraModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.CameraModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoOpen;
-            this.CameraModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.CameraModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.CameraModeCustomButton.BorderRadius = 10;
-            this.CameraModeCustomButton.BorderSize = 0;
-            this.CameraModeCustomButton.Circular = false;
-            this.CameraModeCustomButton.FlatAppearance.BorderSize = 0;
-            this.CameraModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CameraModeCustomButton.ForeColor = System.Drawing.Color.White;
-            this.CameraModeCustomButton.Location = new System.Drawing.Point(20, 20);
-            this.CameraModeCustomButton.Name = "CameraModeCustomButton";
-            this.CameraModeCustomButton.Size = new System.Drawing.Size(80, 60);
-            this.CameraModeCustomButton.TabIndex = 7;
-            this.CameraModeCustomButton.TextColor = System.Drawing.Color.White;
-            this.CameraModeCustomButton.UseVisualStyleBackColor = false;
-            this.CameraModeCustomButton.Click += new System.EventHandler(this.CameraModeCustomButton_Click);
-            // 
-            // MicrophoneModeCustomButton
-            // 
-            this.MicrophoneModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.MicrophoneModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.MicrophoneModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.MicrophoneOpen;
-            this.MicrophoneModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.MicrophoneModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.MicrophoneModeCustomButton.BorderRadius = 10;
-            this.MicrophoneModeCustomButton.BorderSize = 0;
-            this.MicrophoneModeCustomButton.Circular = false;
-            this.MicrophoneModeCustomButton.FlatAppearance.BorderSize = 0;
-            this.MicrophoneModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MicrophoneModeCustomButton.ForeColor = System.Drawing.Color.White;
-            this.MicrophoneModeCustomButton.Location = new System.Drawing.Point(120, 20);
-            this.MicrophoneModeCustomButton.Name = "MicrophoneModeCustomButton";
-            this.MicrophoneModeCustomButton.Size = new System.Drawing.Size(80, 60);
-            this.MicrophoneModeCustomButton.TabIndex = 16;
-            this.MicrophoneModeCustomButton.TextColor = System.Drawing.Color.White;
-            this.MicrophoneModeCustomButton.UseVisualStyleBackColor = false;
-            this.MicrophoneModeCustomButton.Click += new System.EventHandler(this.MicrophoneModeCustomButton_Click);
             // 
             // UserVideoPictureBox
             // 
@@ -405,6 +279,133 @@
             this.CallDetailsBackgroundPanel.Name = "CallDetailsBackgroundPanel";
             this.CallDetailsBackgroundPanel.Size = new System.Drawing.Size(330, 105);
             this.CallDetailsBackgroundPanel.TabIndex = 20;
+            // 
+            // CameraModeCustomButton
+            // 
+            this.CameraModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.CameraModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.CameraModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoOpen;
+            this.CameraModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CameraModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.CameraModeCustomButton.BorderRadius = 10;
+            this.CameraModeCustomButton.BorderSize = 0;
+            this.CameraModeCustomButton.Circular = false;
+            this.CameraModeCustomButton.FlatAppearance.BorderSize = 0;
+            this.CameraModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CameraModeCustomButton.ForeColor = System.Drawing.Color.White;
+            this.CameraModeCustomButton.Location = new System.Drawing.Point(20, 20);
+            this.CameraModeCustomButton.Name = "CameraModeCustomButton";
+            this.CameraModeCustomButton.Size = new System.Drawing.Size(80, 60);
+            this.CameraModeCustomButton.TabIndex = 7;
+            this.CameraModeCustomButton.TextColor = System.Drawing.Color.White;
+            this.CameraModeCustomButton.UseVisualStyleBackColor = false;
+            this.CameraModeCustomButton.Click += new System.EventHandler(this.CameraModeCustomButton_Click);
+            // 
+            // MicrophoneModeCustomButton
+            // 
+            this.MicrophoneModeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.MicrophoneModeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.MicrophoneModeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.MicrophoneClose;
+            this.MicrophoneModeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.MicrophoneModeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.MicrophoneModeCustomButton.BorderRadius = 10;
+            this.MicrophoneModeCustomButton.BorderSize = 0;
+            this.MicrophoneModeCustomButton.Circular = false;
+            this.MicrophoneModeCustomButton.FlatAppearance.BorderSize = 0;
+            this.MicrophoneModeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MicrophoneModeCustomButton.ForeColor = System.Drawing.Color.White;
+            this.MicrophoneModeCustomButton.Location = new System.Drawing.Point(120, 20);
+            this.MicrophoneModeCustomButton.Name = "MicrophoneModeCustomButton";
+            this.MicrophoneModeCustomButton.Size = new System.Drawing.Size(80, 60);
+            this.MicrophoneModeCustomButton.TabIndex = 16;
+            this.MicrophoneModeCustomButton.TextColor = System.Drawing.Color.White;
+            this.MicrophoneModeCustomButton.UseVisualStyleBackColor = false;
+            this.MicrophoneModeCustomButton.Click += new System.EventHandler(this.MicrophoneModeCustomButton_Click);
+            // 
+            // CallEnderCustomButton
+            // 
+            this.CallEnderCustomButton.BackColor = System.Drawing.Color.LightSlateGray;
+            this.CallEnderCustomButton.BackgroundColor = System.Drawing.Color.LightSlateGray;
+            this.CallEnderCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.DeclineCallFinalImage;
+            this.CallEnderCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CallEnderCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.CallEnderCustomButton.BorderRadius = 20;
+            this.CallEnderCustomButton.BorderSize = 0;
+            this.CallEnderCustomButton.Circular = false;
+            this.CallEnderCustomButton.FlatAppearance.BorderSize = 0;
+            this.CallEnderCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CallEnderCustomButton.ForeColor = System.Drawing.Color.White;
+            this.CallEnderCustomButton.Location = new System.Drawing.Point(630, 10);
+            this.CallEnderCustomButton.Name = "CallEnderCustomButton";
+            this.CallEnderCustomButton.Size = new System.Drawing.Size(80, 80);
+            this.CallEnderCustomButton.TabIndex = 17;
+            this.CallEnderCustomButton.TextColor = System.Drawing.Color.White;
+            this.ToolTip.SetToolTip(this.CallEnderCustomButton, "To decline the call");
+            this.CallEnderCustomButton.UseVisualStyleBackColor = false;
+            this.CallEnderCustomButton.Click += new System.EventHandler(this.DeclineCallCustomButton_Click);
+            // 
+            // RefreshAudioOutputOptionsCustomButton
+            // 
+            this.RefreshAudioOutputOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshAudioOutputOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshAudioOutputOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
+            this.RefreshAudioOutputOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RefreshAudioOutputOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.RefreshAudioOutputOptionsCustomButton.BorderRadius = 17;
+            this.RefreshAudioOutputOptionsCustomButton.BorderSize = 0;
+            this.RefreshAudioOutputOptionsCustomButton.Circular = false;
+            this.RefreshAudioOutputOptionsCustomButton.FlatAppearance.BorderSize = 0;
+            this.RefreshAudioOutputOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshAudioOutputOptionsCustomButton.ForeColor = System.Drawing.Color.White;
+            this.RefreshAudioOutputOptionsCustomButton.Location = new System.Drawing.Point(185, 60);
+            this.RefreshAudioOutputOptionsCustomButton.Name = "RefreshAudioOutputOptionsCustomButton";
+            this.RefreshAudioOutputOptionsCustomButton.Size = new System.Drawing.Size(35, 35);
+            this.RefreshAudioOutputOptionsCustomButton.TabIndex = 10;
+            this.RefreshAudioOutputOptionsCustomButton.TextColor = System.Drawing.Color.White;
+            this.RefreshAudioOutputOptionsCustomButton.UseVisualStyleBackColor = false;
+            this.RefreshAudioOutputOptionsCustomButton.Click += new System.EventHandler(this.RefreshAudioOptionsCustomButtons_Click);
+            // 
+            // RefreshAudioInputOptionsCustomButton
+            // 
+            this.RefreshAudioInputOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshAudioInputOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshAudioInputOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
+            this.RefreshAudioInputOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RefreshAudioInputOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.RefreshAudioInputOptionsCustomButton.BorderRadius = 17;
+            this.RefreshAudioInputOptionsCustomButton.BorderSize = 0;
+            this.RefreshAudioInputOptionsCustomButton.Circular = false;
+            this.RefreshAudioInputOptionsCustomButton.FlatAppearance.BorderSize = 0;
+            this.RefreshAudioInputOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshAudioInputOptionsCustomButton.ForeColor = System.Drawing.Color.White;
+            this.RefreshAudioInputOptionsCustomButton.Location = new System.Drawing.Point(185, 60);
+            this.RefreshAudioInputOptionsCustomButton.Name = "RefreshAudioInputOptionsCustomButton";
+            this.RefreshAudioInputOptionsCustomButton.Size = new System.Drawing.Size(35, 35);
+            this.RefreshAudioInputOptionsCustomButton.TabIndex = 9;
+            this.RefreshAudioInputOptionsCustomButton.TextColor = System.Drawing.Color.White;
+            this.RefreshAudioInputOptionsCustomButton.UseVisualStyleBackColor = false;
+            this.RefreshAudioInputOptionsCustomButton.Click += new System.EventHandler(this.RefreshAudioOptionsCustomButtons_Click);
+            // 
+            // RefreshCameraOptionsCustomButton
+            // 
+            this.RefreshCameraOptionsCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshCameraOptionsCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.RefreshCameraOptionsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
+            this.RefreshCameraOptionsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RefreshCameraOptionsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.RefreshCameraOptionsCustomButton.BorderRadius = 17;
+            this.RefreshCameraOptionsCustomButton.BorderSize = 0;
+            this.RefreshCameraOptionsCustomButton.Circular = false;
+            this.RefreshCameraOptionsCustomButton.FlatAppearance.BorderSize = 0;
+            this.RefreshCameraOptionsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshCameraOptionsCustomButton.ForeColor = System.Drawing.Color.White;
+            this.RefreshCameraOptionsCustomButton.Location = new System.Drawing.Point(185, 60);
+            this.RefreshCameraOptionsCustomButton.Name = "RefreshCameraOptionsCustomButton";
+            this.RefreshCameraOptionsCustomButton.Size = new System.Drawing.Size(35, 35);
+            this.RefreshCameraOptionsCustomButton.TabIndex = 8;
+            this.RefreshCameraOptionsCustomButton.TextColor = System.Drawing.Color.White;
+            this.RefreshCameraOptionsCustomButton.UseVisualStyleBackColor = false;
+            this.RefreshCameraOptionsCustomButton.Click += new System.EventHandler(this.RefreshCameraOptionsCustomButton_Click);
             // 
             // VideoCall
             // 

@@ -57,13 +57,37 @@ namespace YouChatApp
                 if (_udpIsOn)
                 {
                     // Receive the image from the server
-                    byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
-
-                    // Convert bytes to image
-                    using (MemoryStream ms = new MemoryStream(receivedData))
+                    try
                     {
-                        Image receivedImage = Image.FromStream(ms);
-                        _videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); });
+                        if (_videoCall != null)
+                        {
+                            byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
+
+                            using (MemoryStream ms = new MemoryStream(receivedData))
+                            {
+                                Image receivedImage = Image.FromStream(ms);
+                                _videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); }); //todo System.ObjectDisposedException excteption comes... needs to handle better
+                            }
+                        }
+                    }
+                    catch (SocketException ex)
+                    {
+                        if (ex.ErrorCode == 10004) // WSACancelBlockingCall
+                        {
+                            // Handle the WSACancelBlockingCall exception
+                            // For example, log the error or take appropriate action
+                            Console.WriteLine("WSACancelBlockingCall exception occurred: " + ex.Message);
+                        }
+                        else
+                        {
+                            // Handle other SocketException errors
+                            Console.WriteLine("SocketException occurred: " + ex.Message);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle other exceptions
+                        Console.WriteLine("Exception occurred: " + ex.Message);
                     }
                 }
             }
@@ -72,8 +96,12 @@ namespace YouChatApp
         // Close the UDP client when done
         public static void Close()
         {
-            _udpIsOn = false;
-            udpClient.Close();
+            if (udpClient != null)
+            {
+                _udpIsOn = false;
+                udpClient.Close();
+                udpClient.Dispose();
+            }
         }
     }
 }

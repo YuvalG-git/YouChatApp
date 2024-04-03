@@ -12,44 +12,62 @@ namespace YouChatApp.AttachedFiles
 {
     public partial class ImageSender : Form
     {
+        private Image uploadedImage;
         public ImageSender()
         {
             InitializeComponent();
-            UploadedPictureOpenFileDialog.InitialDirectory = Application.StartupPath;
-            UploadedPictureOpenFileDialog.Filter = "*.png|*.png|*.jpg|*.jpg";
-            if (UploadedPictureOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                LoadedImagePictureBox.BackgroundImage = Image.FromFile(UploadedPictureOpenFileDialog.FileName);
-            }
         }
 
-        private void UploadedPictureRotationButton_Click(object sender, EventArgs e)
-        {
-            if (LoadedImagePictureBox.BackgroundImage != null)
-            {
-                Bitmap RotatedPicture = new Bitmap(LoadedImagePictureBox.BackgroundImage.Width, LoadedImagePictureBox.BackgroundImage.Height);
-                using (Graphics graphics = Graphics.FromImage(RotatedPicture))
-                {
-                    graphics.TranslateTransform(RotatedPicture.Width / 2, RotatedPicture.Height / 2);
-                    graphics.RotateTransform((float)90);
-                    graphics.TranslateTransform(-RotatedPicture.Width / 2, -RotatedPicture.Height / 2);
-                    graphics.DrawImage(LoadedImagePictureBox.BackgroundImage, new PointF(0, 0));
-                }
 
-                LoadedImagePictureBox.BackgroundImage = RotatedPicture;
-            }
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void LoadedImagePictureBox_Click(object sender, EventArgs e)
         {
-            ImageViewer image = new ImageViewer(Properties.MaleProfilePicture.BoyCharacter16);
-            image.Show();
+            Image image = LoadedImagePictureBox.BackgroundImage;
+            if (image != null)
+            {
+                ImageViewer imageViewer = new ImageViewer(image);
+                imageViewer.Show();
+            }
+        }
 
+        private void LoadPictureCustomButton_Click(object sender, EventArgs e)
+        {
+            Image selectedImage = OpenFileDialogHandler.HandleOpenFileDialog(UploadedPictureOpenFileDialog);
+            uploadedImage = selectedImage;
+            LoadedImagePictureBox.BackgroundImage = uploadedImage;
+            RestartPictureCustomButton.Enabled = true;
+            SendPictureCustomButton.Enabled = true;
+        }
+
+        private void RestartPictureCustomButton_Click(object sender, EventArgs e)
+        {
+            uploadedImage = null;
+            LoadedImagePictureBox.BackgroundImage = null;
+            RestartPictureCustomButton.Enabled = false;
+            SendPictureCustomButton.Enabled = false;
+        }
+
+        private void SendPictureCustomButton_Click(object sender, EventArgs e)
+        {
+            //to return to the main chat and send the image...
+            HandleClosing();
+
+        }
+
+        private void ReturnCustomButton_Click(object sender, EventArgs e)
+        {
+            HandleClosing();
+        }
+        private void HandleClosing()
+        {
+            this.Close();
+            this.Dispose();
+            ServerCommunication._imageSender = null;
+        }
+
+        private void ImageSender_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ServerCommunication._imageSender = null;
         }
     }
 }

@@ -34,7 +34,8 @@ namespace YouChatApp.AttachedFiles
         private void JoinCallCustomButton_Click(object sender, EventArgs e)
         {
             HandleOptionButtonClick(ServerCommunication.VideoCallResponseResult1);
-            ServerCommunication._videoCall = new VideoCall();
+            ServerCommunication._videoCall = new VideoCall("Pogur", new Bitmap("C:\\Users\\Yuval\\Downloads\\3f82f9ff-3986-4830-858f-35afc6c6b4e5.png"));
+//todo to change in the future...
             this.Invoke(new Action(() => ServerCommunication._videoCall.Show()));
         }
 

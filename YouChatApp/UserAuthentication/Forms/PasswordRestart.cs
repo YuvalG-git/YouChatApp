@@ -21,6 +21,8 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             InitializeComponent();
             smtpHandler = new SmtpHandler();
+            PasswordGeneratorControl.OnTextChangedEventHandler(UpdatePasswordFieldsChecker);
+
         }
 
 
@@ -57,6 +59,19 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             SendResetPasswordEmailThroughSmtpProtocol();
         }
+        private void UpdatePasswordFieldsChecker(object sender, EventArgs e)
+        {
+            bool PasswordFields = PasswordGeneratorControl.DoesAllFieldsHaveValue() && PasswordGeneratorControl.IsSamePassword();
+            bool UsernameField = UsernameCustomTextBox.IsContainingValue();
+            if ((PasswordFields) && (UsernameField))
+            {
+                PasswordReplacerCustomButton.Enabled = true;
+            }
+            else
+            {
+                PasswordReplacerCustomButton.Enabled = false;
+            }
+        }
 
         public void HandleMatchingUsernameAndEmailAddress()
         {
@@ -89,6 +104,28 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             this.Close();
             ServerCommunication._passwordRestart = null;
+        }
+
+        private void PasswordGeneratorControl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CodeSenderCustomButton_Click(object sender, EventArgs e)
+        {
+            string Username = UsernameCustomTextBox.TextContent;
+            string Email = EmailAddressCustomTextBox.TextContent;
+            string UserResetPasswordDetails = Username + "#" + Email;
+            ServerCommunication.SendMessage(ServerCommunication.ResetPasswordRequest, UserResetPasswordDetails);
+        }
+
+        private void PasswordReplacerCustomButton_Click(object sender, EventArgs e)
+        {
+            //if the password is good...
+            string username = UsernameCustomTextBox.TextContent;
+            string newPassword = PasswordGeneratorControl.NewPasswordTextContent;
+            string userDetails = username + "#" + newPassword;
+            ServerCommunication.SendMessage(ServerCommunication.PasswordRenewalMessageRequest, userDetails);
         }
     }
 }

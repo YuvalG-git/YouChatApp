@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace YouChatApp.ChatHandler
 {
-    internal class Chat
+    internal abstract class Chat
     {
         public string _chatName { get; set; }
         //public List<ContactHandler.Contact> _chatParticipants{ get; set; } //could be nice to save this but the problem is that could be users that arent my friends.. so for now i will use string
@@ -50,53 +50,11 @@ namespace YouChatApp.ChatHandler
         {
             this._chatName = Name;
         }
-        public void addParticipant(string chatParticipant)
+        public Chat()
         {
-            this._chatParticipants.Add(chatParticipant); //needs to make sure he isnt already there...
-
-        }
-        public void removeParticipant(string chatParticipant)
-        {
-            this._chatParticipants.Remove(chatParticipant); //needs to make sure he isnt already there...
-
-        }
-        public void addManager(string chatParticipant)
-        {
-            this._chatParticipants.Add(chatParticipant); //needs to make sure he isnt already there...
-
-        }
-        public void removeManager(string chatParticipant)
-        {
-            this._chatParticipants.Remove(chatParticipant); //needs to make sure he isnt already there...
-
         }
         public string GetLastMessageTime()
         {
-            //DateTime CurrentDate = DateTime.Now;
-            //DateTime yesterdayDate = DateTime.Now.AddDays(-1);
-            //DateTime lastWeekDate = DateTime.Now.AddDays(-7);
-
-            //if (_lastMessageTime.Date == CurrentDate.Date)
-            //{
-            //    return _lastMessageTime.ToString("HH:mm");
-            //}
-            //else if(_lastMessageTime.Date == yesterdayDate.Date)
-            //{
-            //    return "yesterday";
-
-            //}
-            //else if ((_lastMessageTime.Date >= lastWeekDate.Date) && (_lastMessageTime.Date < yesterdayDate.Date))
-            //{
-            //    return _lastMessageTime.DayOfWeek.ToString();
-            //}
-            //else if (_lastMessageTime.Year == CurrentDate.Year)
-            //{
-            //    return _lastMessageTime.ToString("MM/dd");
-            //}
-            //else
-            //{
-            //    return _lastMessageTime.ToString("dd/MM/yyyy");
-            //}
             return TimeHandler.GetFormatTime(_lastMessageTime);
         }
         public void SetLastMessageTime(DateTime lastMessageSentTime)

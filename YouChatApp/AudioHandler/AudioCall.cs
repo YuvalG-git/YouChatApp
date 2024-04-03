@@ -50,11 +50,14 @@ namespace YouChatApp.AttachedFiles
         /// </summary>
         private List<Guid> outputAudioDeviceGuids;
 
-        public AudioCall()
+        CallTimer timer;
+        public AudioCall(string name, Image profilePicture)
         {
             InitializeComponent();
             isMyMicrophoneMuted = false;
             CallEnderCustomButton.BorderRadius = 40;
+            FriendNameLabel.Text = name;
+            ContactProfilePicture.BackgroundImage = profilePicture;
         }
         private void InitializeAudioDevicesChangeDetection()
         {
@@ -104,11 +107,12 @@ namespace YouChatApp.AttachedFiles
 
         private void AudioCall_Load(object sender, EventArgs e)
         {
+
             AudioServerCommunication.ConnectUdp("10.100.102.3", this);
             WaveFormat waveFormat = new WaveFormat(44100, 16, 2);
             audioBufferedWaveProvider = new BufferedWaveProvider(waveFormat);
             outputAudioDeviceGuids = new List<Guid>();
-
+            timer = new CallTimer(CallTimeTimer);
             audioBufferedWaveProvider.DiscardOnBufferOverflow = true;
             AudioHandler.AudioHandler.InitializeAudioOutputDeviceList(AudioOutputDeviceComboBox, outputAudioDeviceGuids);
             AudioHandler.AudioHandler.StartAudioRecording(AudioInputDeviceComboBox, ref audioSourceStream, sourceStream_DataAvailable);
@@ -118,6 +122,7 @@ namespace YouChatApp.AttachedFiles
 
         private void AudioCall_FormClosing(object sender, FormClosingEventArgs e)
         {
+            timer.StopTimer();
             AudioHandler.AudioHandler.HandleFormClosing(audioSourceStream, audioWaveOut, watcher);
         }
 
@@ -140,6 +145,16 @@ namespace YouChatApp.AttachedFiles
         private void CallEnderCustomButton_Click(object sender, EventArgs e)
         {
             AudioHandler.AudioHandler.HandleFormClosing(audioSourceStream, audioWaveOut, watcher);
+        }
+
+        private void CallTimeLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CallTimeTimer_Tick(object sender, EventArgs e)
+        {
+            timer.HandleTimerTick(CallTimeLabel);
         }
     }
 }

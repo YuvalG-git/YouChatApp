@@ -18,7 +18,7 @@ namespace YouChatApp.Controls
         string CurrentTypeOfProfilePicture = "";
         Boolean ProfilePictureMatrixIsStandart = true;
         Boolean FirstProfilePictureMatrixUpload = true;
-        int StartedX = 30;
+        const int StartedX = 30;
         bool UsedForInitialProfile = true;
 
         public event EventHandler ButtonClick;
@@ -26,71 +26,96 @@ namespace YouChatApp.Controls
         public string GetImageNameID()
         {
             CurrentImageIndex = GetIndexFromName(ImageChosenAtTheMomentId[1]).ToString();
-            return ImageChosenAtTheMomentId[0].Substring(0, ImageChosenAtTheMomentId[0].Length - "SelectionButton".Length) + CurrentImageIndex;
+            return ImageChosenAtTheMomentId[0].Substring(0, ImageChosenAtTheMomentId[0].Length - "SelectionCustomButton".Length) + CurrentImageIndex;
         }
 
         public ProfilePictureControl()
         {
             InitializeComponent();
             //ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
-            ProfilePictureKindButtonsCreator();
+            ProfilePictureKindCustomButtonsCreator();
             SetProfileAvatarMatrix();
 
         }
-        private void ProfilePictureKindButtonsCreator()
+        private void ProfilePictureKindCustomButtonsCreator()
         {
-            ProfilePictureKindSelectionButtons = new Button[3];
-            int x = StartedX;
-            for (int i = 0; i < ProfilePictureKindSelectionButtons.GetLength(0); i++)
-            {
-                ProfilePictureKindSelectionButtons[i] = new Button();
-                this.ProfilePictureKindSelectionButtons[i].Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                this.ProfilePictureKindSelectionButtons[i].Location = new System.Drawing.Point(x, 10);
-                this.ProfilePictureKindSelectionButtons[i].Size = new System.Drawing.Size(120, 35);
-                this.ProfilePictureKindSelectionButtons[i].TabIndex = 16;
-                this.ProfilePictureKindSelectionButtons[i].UseVisualStyleBackColor = true;
-                this.Controls.Add(this.ProfilePictureKindSelectionButtons[i]);
-                this.ProfilePictureKindSelectionButtons[i].Click += new System.EventHandler(ProfilePictureKindOption_Click);
+            ProfilePictureKindSelectionCustomButtons = new CustomButton[3];
 
-                x += 150;
+            int x = StartedX;
+            int widthSize = 150;
+            for (int i = 0; i < ProfilePictureKindSelectionCustomButtons.GetLength(0); i++)
+            {
+                ProfilePictureKindSelectionCustomButtons[i] = new CustomButton();
+                this.ProfilePictureKindSelectionCustomButtons[i].BackColor = System.Drawing.Color.MediumSlateBlue;
+                this.ProfilePictureKindSelectionCustomButtons[i].BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+                this.ProfilePictureKindSelectionCustomButtons[i].BorderColor = System.Drawing.Color.Green;
+                this.ProfilePictureKindSelectionCustomButtons[i].BorderRadius = 10;
+                this.ProfilePictureKindSelectionCustomButtons[i].BorderSize = 0;
+                this.ProfilePictureKindSelectionCustomButtons[i].Circular = false;
+                this.ProfilePictureKindSelectionCustomButtons[i].FlatAppearance.BorderSize = 0;
+                this.ProfilePictureKindSelectionCustomButtons[i].FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                this.ProfilePictureKindSelectionCustomButtons[i].Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                this.ProfilePictureKindSelectionCustomButtons[i].ForeColor = System.Drawing.Color.White;
+                this.ProfilePictureKindSelectionCustomButtons[i].Location = new System.Drawing.Point(x, 50);
+                this.ProfilePictureKindSelectionCustomButtons[i].Size = new System.Drawing.Size(widthSize, 40);
+                this.ProfilePictureKindSelectionCustomButtons[i].TabIndex = 41;
+                this.ProfilePictureKindSelectionCustomButtons[i].TextColor = System.Drawing.Color.White;
+                this.ProfilePictureKindSelectionCustomButtons[i].UseVisualStyleBackColor = false;
+                this.Controls.Add(this.ProfilePictureKindSelectionCustomButtons[i]);
+                this.ProfilePictureKindSelectionCustomButtons[i].Click += new System.EventHandler(ProfilePictureKindOption_Click);
+
+                x += widthSize + 30;
             }
-            this.ProfilePictureKindSelectionButtons[0].Name = "MaleSelectionButton";
-            this.ProfilePictureKindSelectionButtons[0].Text = "Male Icons";
-            this.ProfilePictureKindSelectionButtons[1].Name = "FemaleSelectionButton";
-            this.ProfilePictureKindSelectionButtons[1].Text = "Female Icons";
-            this.ProfilePictureKindSelectionButtons[2].Name = "AnimalSelectionButton";
-            this.ProfilePictureKindSelectionButtons[2].Text = "Animal Icons";
+            this.ProfilePictureKindSelectionCustomButtons[0].Name = "MaleSelectionCustomButton";
+            this.ProfilePictureKindSelectionCustomButtons[0].Text = "Male Icons";
+            this.ProfilePictureKindSelectionCustomButtons[1].Name = "FemaleSelectionCustomButton";
+            this.ProfilePictureKindSelectionCustomButtons[1].Text = "Female Icons";
+            this.ProfilePictureKindSelectionCustomButtons[2].Name = "AnimalSelectionCustomButton";
+            this.ProfilePictureKindSelectionCustomButtons[2].Text = "Animal Icons";
         }
 
         private void SetProfileAvatarMatrix()
         {
-            ProfileAvatarMatrix = new Button[6, 5];
-            int x = 30, y = 60;
-            for (int i = 0; i < ProfileAvatarMatrix.GetLength(0); i++)
+            ProfileAvatarMatrixOfCustomButtons = new CustomButton[6, 5];
+            int size = 75;
+            int ProfileAvatarMatrixOfCustomButtonsXCoordinateLength = ProfileAvatarMatrixOfCustomButtons.GetLength(1);
+            int xConstant = (this.Width - (size * ProfileAvatarMatrixOfCustomButtonsXCoordinateLength) - (10 * (ProfileAvatarMatrixOfCustomButtonsXCoordinateLength - 1))) / 2;
+            int x = xConstant, y = ProfilePictureKindSelectionCustomButtons[0].Height + ProfilePictureKindSelectionCustomButtons[0].Location.Y + 10; 
+            for (int i = 0; i < ProfileAvatarMatrixOfCustomButtons.GetLength(0); i++)
             {
-                for (int j = 0; j < ProfileAvatarMatrix.GetLength(1); j++)
+                for (int j = 0; j < ProfileAvatarMatrixOfCustomButtonsXCoordinateLength; j++)
                 {
-                    if (!((i == ProfileAvatarMatrix.GetLength(0) - 1) && ((j == 0) || (j == ProfileAvatarMatrix.GetLength(1) - 1))))
+                    if (!((i == ProfileAvatarMatrixOfCustomButtons.GetLength(0) - 1) && ((j == 0) || (j == ProfileAvatarMatrixOfCustomButtonsXCoordinateLength - 1))))
                     {
                         string name = i.ToString() + "," + j.ToString();
-                        ProfileAvatarMatrix[i, j] = new System.Windows.Forms.Button();
-                        this.ProfileAvatarMatrix[i, j].Location = new System.Drawing.Point(x, y);
-                        this.ProfileAvatarMatrix[i, j].Name = name;
-                        this.ProfileAvatarMatrix[i, j].Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177))); ;
-                        this.ProfileAvatarMatrix[i, j].Size = new System.Drawing.Size(75, 75);
-                        this.ProfileAvatarMatrix[i, j].TabIndex = 0;
-                        this.ProfileAvatarMatrix[i, j].Text = "";
-                        this.ProfileAvatarMatrix[i, j].BackColor = SystemColors.Control;
-                        this.ProfileAvatarMatrix[i, j].UseVisualStyleBackColor = true;
-                        this.ProfileAvatarMatrix[i, j].BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-                        this.ProfileAvatarMatrix[i, j].Visible = false;
-                        this.Controls.Add(this.ProfileAvatarMatrix[i, j]);
-                        this.ProfileAvatarMatrix[i, j].Click += new System.EventHandler(ProfilePictureOption_Click);
+                        ProfileAvatarMatrixOfCustomButtons[i, j] = new CustomButton();
+                        this.ProfileAvatarMatrixOfCustomButtons[i,j].BackColor = SystemColors.ButtonShadow;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].BackgroundColor = SystemColors.ButtonShadow;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].BorderColor = System.Drawing.Color.Green;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].BorderRadius = 10;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].BorderSize = 0;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].Circular = false;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].Enabled = false;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].Name = name;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].Text = "";
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].Visible = false;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].FlatAppearance.BorderSize = 0;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].ForeColor = System.Drawing.Color.White;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].Location = new System.Drawing.Point(x, y);
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].Size = new System.Drawing.Size(size, size);
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].TabIndex = 0;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].TextColor = System.Drawing.Color.White;
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].UseVisualStyleBackColor = false;
+                        this.Controls.Add(this.ProfileAvatarMatrixOfCustomButtons[i, j]);
+                        this.ProfileAvatarMatrixOfCustomButtons[i, j].Click += new System.EventHandler(ProfilePictureOption_Click);
                     }
-                    x += 85;
+                    x += size + 10;
                 }
-                x = 30;
-                y += 85;
+                x = xConstant;
+                y += size + 10;
             }
         }
         private int GetIndexFromName(string Name)
@@ -100,8 +125,8 @@ namespace YouChatApp.Controls
             string columnAsString = NameParts[1];
             int row = int.Parse(rowAsString);
             int column = int.Parse(columnAsString);
-            int lastRow = ProfileAvatarMatrix.GetLength(0) - 1;
-            int index = (row * ProfileAvatarMatrix.GetLength(1)) + column;
+            int lastRow = ProfileAvatarMatrixOfCustomButtons.GetLength(0) - 1;
+            int index = (row * ProfileAvatarMatrixOfCustomButtons.GetLength(1)) + column;
             if (row == lastRow)
             {
                 index -= 1;
@@ -111,28 +136,32 @@ namespace YouChatApp.Controls
         private void ProfilePictureOption_Click(object sender, EventArgs e)
         {
             Boolean wasCurrentlyChosen = false;
-            if (((Button)(sender)).FlatStyle == System.Windows.Forms.FlatStyle.Flat)
+            CustomButton currentButton = sender as CustomButton;
+            if (currentButton.FlatStyle == System.Windows.Forms.FlatStyle.Flat)
             {
                 wasCurrentlyChosen = true;
             }
-            foreach (Button AvatarProfilePicture in ProfileAvatarMatrix)
+            foreach (CustomButton AvatarProfilePicture in ProfileAvatarMatrixOfCustomButtons)
             {
                 if (AvatarProfilePicture != null)
                 {
                     AvatarProfilePicture.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
                     AvatarProfilePicture.UseVisualStyleBackColor = true;
+                    AvatarProfilePicture.BorderSize = 0;
                 }
             }//לחשוב אם אני רוצה לאחר אישור התמונה להעלים את הבחירה בתמונה (במקרה כזה להעתיק את קטע הקוד הזה ולהעביר אותו לפעולה) ואז לזמן את הפעולה גם כאן וגם לאחר לחיצה על כפתור האישור
             // אחרת לדאוג שמלכתחילה שפותחים את החלון, תמונת הפרופיל הנוכחית מופיעה מיוחד...
             if (!wasCurrentlyChosen)
             {
-                ((Button)(sender)).FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-                ((Button)(sender)).FlatAppearance.BorderColor = Color.Green;
-                ((Button)(sender)).FlatAppearance.BorderSize = 2;
-                ((Button)(sender)).BackColor = System.Drawing.SystemColors.ButtonShadow;
-                ImageChosenAtTheMoment = ((Button)(sender)).BackgroundImage;
+                currentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                currentButton.BorderColor = System.Drawing.Color.Green;
+                currentButton.BorderSize = 3;
+                currentButton.BackColor = System.Drawing.SystemColors.ButtonShadow;
+                currentButton.BackgroundColor = System.Drawing.SystemColors.ButtonShadow;
+
+                ImageChosenAtTheMoment = currentButton.BackgroundImage;
                 ImageChosenAtTheMomentId[0] = CurrentTypeOfProfilePicture;
-                ImageChosenAtTheMomentId[1] = ((Button)(sender)).Name;
+                ImageChosenAtTheMomentId[1] = currentButton.Name;
                 if (UsedForInitialProfile)
                 {
                     //this.Invoke(new Action(() => InitialProfileSelection.SetConfirmButtonEnabledToTrue())); //need to change the enabled of confirmbutton on form...
@@ -141,7 +170,7 @@ namespace YouChatApp.Controls
             }
             else
             {
-                ImageChosenAtTheMoment =null;
+                ImageChosenAtTheMoment = null;
                 ImageChosenAtTheMomentId[0] = "";
                 ImageChosenAtTheMomentId[1] = "";
                 if (UsedForInitialProfile)
@@ -151,8 +180,6 @@ namespace YouChatApp.Controls
                 }
             }
             ButtonClick?.Invoke(this, e);
-
-
         }
         public void AddButtonClickHandler(EventHandler handler)
         {
@@ -161,11 +188,36 @@ namespace YouChatApp.Controls
 
         private void SetMaleProfilePictureOption()
         {
+            //int location = 0;
+            //int LastRow = ProfileAvatarMatrix.GetLength(0) - 1;
+            //string lastRowAsString = LastRow.ToString();
+            //Boolean wasChanged = false;
+            //foreach (Button AvatarProfilePicture in ProfileAvatarMatrix)
+            //{
+            //    if (AvatarProfilePicture != null)
+            //    {
+            //        AvatarProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[location];
+            //        //AvatarProfilePicture.BackgroundImage = MaleImageList.Images[location];
+            //        location++;
+            //        if ((!ProfilePictureMatrixIsStandart) && (AvatarProfilePicture.Name.StartsWith(lastRowAsString)))
+            //        {
+            //            wasChanged = true;
+            //            if (AvatarProfilePicture.Name.EndsWith("3"))
+            //            {
+            //                AvatarProfilePicture.Visible = true;
+            //            }
+            //            else
+            //            {
+            //                AvatarProfilePicture.Location = new System.Drawing.Point(AvatarProfilePicture.Location.X - 41, AvatarProfilePicture.Location.Y);
+            //            }
+            //        }
+            //    }
+
             int location = 0;
-            int LastRow = ProfileAvatarMatrix.GetLength(0) - 1;
+            int LastRow = ProfileAvatarMatrixOfCustomButtons.GetLength(0) - 1;
             string lastRowAsString = LastRow.ToString();
             Boolean wasChanged = false;
-            foreach (Button AvatarProfilePicture in ProfileAvatarMatrix)
+            foreach (CustomButton AvatarProfilePicture in ProfileAvatarMatrixOfCustomButtons)
             {
                 if (AvatarProfilePicture != null)
                 {
@@ -194,10 +246,10 @@ namespace YouChatApp.Controls
         private void SetFemaleProfilePictureOption()
         {
             int location = 0;
-            int LastRow = ProfileAvatarMatrix.GetLength(0) - 1;
+            int LastRow = ProfileAvatarMatrixOfCustomButtons.GetLength(0) - 1;
             string lastRowAsString = LastRow.ToString();
             Boolean wasChanged = false;
-            foreach (Button AvatarProfilePicture in ProfileAvatarMatrix)
+            foreach (CustomButton AvatarProfilePicture in ProfileAvatarMatrixOfCustomButtons)
             {
                 if (AvatarProfilePicture != null)
                 {
@@ -224,11 +276,10 @@ namespace YouChatApp.Controls
         private void SetAnimalProfilePictureOption()
         {
             int location = 0;
-            int LastRow = ProfileAvatarMatrix.GetLength(0) - 1;
+            int LastRow = ProfileAvatarMatrixOfCustomButtons.GetLength(0) - 1;
             string lastRowAsString = LastRow.ToString();
             Boolean wasChanged = false;
-
-            foreach (Button AvatarProfilePicture in ProfileAvatarMatrix)
+            foreach (CustomButton AvatarProfilePicture in ProfileAvatarMatrixOfCustomButtons)
             {
                 if (AvatarProfilePicture != null)
                 {
@@ -263,17 +314,22 @@ namespace YouChatApp.Controls
                 SetProfilePictrueMatrixVisible();
             }
             RestartProfilePictureSelection();
-            ((Button)(sender)).FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            ((Button)(sender)).FlatAppearance.BorderColor = Color.Green;
-            ((Button)(sender)).FlatAppearance.BorderSize = 2;
-            ((Button)(sender)).BackColor = System.Drawing.SystemColors.ButtonShadow;
-            ((Button)(sender)).Enabled = false;
-            CurrentTypeOfProfilePicture = ((Button)(sender)).Name;
-            if (CurrentTypeOfProfilePicture == "MaleSelectionButton")
+            CustomButton currentButton = sender as CustomButton;
+            currentButton.BorderSize = 3;
+            currentButton.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            currentButton.BackgroundColor = System.Drawing.SystemColors.ButtonShadow;
+            currentButton.Enabled = false;
+            //((Button)(sender)).FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            //((Button)(sender)).FlatAppearance.BorderColor = Color.Green;
+            //((Button)(sender)).FlatAppearance.BorderSize = 2;
+            //((Button)(sender)).BackColor = System.Drawing.SystemColors.ButtonShadow;
+            //((Button)(sender)).Enabled = false;
+            CurrentTypeOfProfilePicture = currentButton.Name;
+            if (CurrentTypeOfProfilePicture == "MaleSelectionCustomButton")
             {
                 SetMaleProfilePictureOption();
             }
-            else if (CurrentTypeOfProfilePicture == "FemaleSelectionButton")
+            else if (CurrentTypeOfProfilePicture == "FemaleSelectionCustomButton")
             {
                 SetFemaleProfilePictureOption();
             }
@@ -290,7 +346,14 @@ namespace YouChatApp.Controls
 
         private void SetProfilePictrueMatrixVisible()
         {
-            foreach (Button AvatarProfilePicture in ProfileAvatarMatrix)
+            //foreach (Button AvatarProfilePicture in ProfileAvatarMatrix)
+            //{
+            //    if (AvatarProfilePicture != null)
+            //    {
+            //        AvatarProfilePicture.Visible = true;
+            //    }
+            //}
+            foreach (CustomButton AvatarProfilePicture in ProfileAvatarMatrixOfCustomButtons)
             {
                 if (AvatarProfilePicture != null)
                 {
@@ -301,44 +364,78 @@ namespace YouChatApp.Controls
 
         private void RestartProfilePictureSelection()
         {
-            foreach (Button ProfilePictureKind in ProfilePictureKindSelectionButtons)
+            foreach (CustomButton ProfilePictureKind in ProfilePictureKindSelectionCustomButtons)
             {
-                ProfilePictureKind.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-                ProfilePictureKind.UseVisualStyleBackColor = true;
+                ProfilePictureKind.BorderSize = 0;
+                ProfilePictureKind.BackColor = System.Drawing.Color.MediumSlateBlue;
+                ProfilePictureKind.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
                 ProfilePictureKind.Enabled = true;
             }
+            //foreach (Button ProfilePictureKind in ProfilePictureKindSelectionButtons)
+            //{
+            //    ProfilePictureKind.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            //    ProfilePictureKind.UseVisualStyleBackColor = true;
+            //    ProfilePictureKind.Enabled = true;
+            //}
         }
         private void RestartProfilePicture()
         {
-            foreach (Button ProfilePicture in ProfileAvatarMatrix)
+            foreach (CustomButton ProfilePicture in ProfileAvatarMatrixOfCustomButtons)
             {
                 if (ProfilePicture != null)
                 {
                     ProfilePicture.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
                     ProfilePicture.UseVisualStyleBackColor = true;
+                    ProfilePicture.BorderSize = 0;
                     ProfilePicture.Enabled = true;
                 }
             }
+            //foreach (Button ProfilePicture in ProfileAvatarMatrix)
+            //{
+            //    if (ProfilePicture != null)
+            //    {
+            //        ProfilePicture.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            //        ProfilePicture.UseVisualStyleBackColor = true;
+            //        ProfilePicture.Enabled = true;
+            //    }
+            //}
         }
         private void ImageWasChosen()
         {
+            //if (CurrentTypeOfProfilePicture == ImageChosenAtTheMomentId[0])
+            //{
+            //    foreach (Button ProfilePicture in ProfileAvatarMatrix)
+            //    {
+            //        if (ProfilePicture != null)
+            //        {
+            //            if (ProfilePicture.Name == ImageChosenAtTheMomentId[1])
+            //            {
+            //                ProfilePicture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            //                ProfilePicture.FlatAppearance.BorderColor = Color.Green;
+            //                ProfilePicture.FlatAppearance.BorderSize = 2;
+            //                ProfilePicture.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            //            }
+            //        }
+            //    }
+            //}
             if (CurrentTypeOfProfilePicture == ImageChosenAtTheMomentId[0])
             {
-                foreach (Button ProfilePicture in ProfileAvatarMatrix)
+                foreach (CustomButton ProfilePicture in ProfileAvatarMatrixOfCustomButtons)
                 {
                     if (ProfilePicture != null)
                     {
                         if (ProfilePicture.Name == ImageChosenAtTheMomentId[1])
                         {
                             ProfilePicture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-                            ProfilePicture.FlatAppearance.BorderColor = Color.Green;
-                            ProfilePicture.FlatAppearance.BorderSize = 2;
+                            ProfilePicture.BorderColor = System.Drawing.Color.Green;
+                            ProfilePicture.BorderSize = 3;
                             ProfilePicture.BackColor = System.Drawing.SystemColors.ButtonShadow;
+                            ProfilePicture.BackgroundColor = System.Drawing.SystemColors.ButtonShadow;
                         }
                     }
                 }
             }
-           
+
         }
     }
 }

@@ -19,15 +19,15 @@ namespace YouChatApp.ChatHandler
         }
         public static void AddChat(string name, string chatParticipants, string chatManagers, DateTime lastMessageTime, Image chatProfilePicture, string lastMessageContent)
         {
-            Chat newChat = new Chat(name, chatParticipants, chatManagers, lastMessageTime, chatProfilePicture, lastMessageContent);
+            Chat newChat = new GroupChat(name, chatParticipants, chatManagers, lastMessageTime, chatProfilePicture, lastMessageContent);
             //UserContacts.Add(NewContact);
             InsertByLastMessageTime(newChat);
         }
         public static void AddChat(string Name)
         {
-            Chat newChat = new Chat(Name);
+            //Chat newChat = new GroupChat(Name);
             //UserContacts.Add(NewContact);
-            InsertByLastMessageTime(newChat);
+            //InsertByLastMessageTime(newChat);
         }
         private static void InsertByLastMessageTime(Chat chat)
         {

@@ -40,14 +40,8 @@
             this.StatusTextPanel = new System.Windows.Forms.Panel();
             this.CurrentStatusLabel = new System.Windows.Forms.Label();
             this.CharNumberLabel = new System.Windows.Forms.Label();
-            this.RefreshTextButton = new System.Windows.Forms.Button();
-            this.SaveTextButton = new System.Windows.Forms.Button();
             this.ProfilePicturePanel = new System.Windows.Forms.Panel();
-            this.PictureUploaderButton = new System.Windows.Forms.Button();
-            this.ProfilePictureUploaderPictureBox = new System.Windows.Forms.PictureBox();
-            this.CurrentProfilePicturePictureBox = new System.Windows.Forms.PictureBox();
             this.CurrentProfilePictureLabel = new System.Windows.Forms.Label();
-            this.SaveProfilePictureButton = new System.Windows.Forms.Button();
             this.PrivacySettingsPanel = new System.Windows.Forms.Panel();
             this.NobodyOptionRadioButton = new System.Windows.Forms.RadioButton();
             this.ContactsOptionRadioButton = new System.Windows.Forms.RadioButton();
@@ -65,16 +59,22 @@
             this.MessageGapScrollBar = new System.Windows.Forms.HScrollBar();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ChatSettingsSelectionButton = new System.Windows.Forms.Button();
+            this.PictureUploaderButton = new System.Windows.Forms.Button();
+            this.ProfilePictureUploaderPictureBox = new System.Windows.Forms.PictureBox();
+            this.CurrentProfilePicturePictureBox = new System.Windows.Forms.PictureBox();
+            this.SaveProfilePictureButton = new System.Windows.Forms.Button();
+            this.RefreshTextButton = new System.Windows.Forms.Button();
+            this.SaveTextButton = new System.Windows.Forms.Button();
             this.LackOfLogOutApprovalButton = new System.Windows.Forms.Button();
             this.LogOutApprovalButton = new System.Windows.Forms.Button();
             this.DisconnentButton = new System.Windows.Forms.Button();
             this.StatusPanel.SuspendLayout();
             this.StatusTextPanel.SuspendLayout();
             this.ProfilePicturePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureUploaderPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CurrentProfilePicturePictureBox)).BeginInit();
             this.PrivacySettingsPanel.SuspendLayout();
             this.ChatSettingsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureUploaderPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CurrentProfilePicturePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ProfileHeadlineLabel
@@ -193,28 +193,6 @@
             this.CharNumberLabel.TabIndex = 7;
             this.CharNumberLabel.Text = "0/150";
             // 
-            // RefreshTextButton
-            // 
-            this.RefreshTextButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
-            this.RefreshTextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RefreshTextButton.Location = new System.Drawing.Point(172, 241);
-            this.RefreshTextButton.Name = "RefreshTextButton";
-            this.RefreshTextButton.Size = new System.Drawing.Size(75, 49);
-            this.RefreshTextButton.TabIndex = 5;
-            this.RefreshTextButton.UseVisualStyleBackColor = true;
-            this.RefreshTextButton.Click += new System.EventHandler(this.RefreshTextButton_Click);
-            // 
-            // SaveTextButton
-            // 
-            this.SaveTextButton.BackgroundImage = global::YouChatApp.Properties.Resources.approve;
-            this.SaveTextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.SaveTextButton.Location = new System.Drawing.Point(72, 241);
-            this.SaveTextButton.Name = "SaveTextButton";
-            this.SaveTextButton.Size = new System.Drawing.Size(75, 49);
-            this.SaveTextButton.TabIndex = 4;
-            this.SaveTextButton.UseVisualStyleBackColor = true;
-            this.SaveTextButton.Click += new System.EventHandler(this.SaveTextButton_Click);
-            // 
             // ProfilePicturePanel
             // 
             this.ProfilePicturePanel.Controls.Add(this.PictureUploaderButton);
@@ -228,37 +206,6 @@
             this.ProfilePicturePanel.TabIndex = 15;
             this.ProfilePicturePanel.Visible = false;
             // 
-            // PictureUploaderButton
-            // 
-            this.PictureUploaderButton.BackgroundImage = global::YouChatApp.Properties.Resources.PictureUploader;
-            this.PictureUploaderButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.PictureUploaderButton.Location = new System.Drawing.Point(69, 443);
-            this.PictureUploaderButton.Name = "PictureUploaderButton";
-            this.PictureUploaderButton.Size = new System.Drawing.Size(75, 63);
-            this.PictureUploaderButton.TabIndex = 19;
-            this.PictureUploaderButton.UseVisualStyleBackColor = true;
-            this.PictureUploaderButton.Click += new System.EventHandler(this.PictureUploaderButton_Click);
-            // 
-            // ProfilePictureUploaderPictureBox
-            // 
-            this.ProfilePictureUploaderPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ProfilePictureUploaderPictureBox.Location = new System.Drawing.Point(34, 280);
-            this.ProfilePictureUploaderPictureBox.Name = "ProfilePictureUploaderPictureBox";
-            this.ProfilePictureUploaderPictureBox.Size = new System.Drawing.Size(145, 157);
-            this.ProfilePictureUploaderPictureBox.TabIndex = 17;
-            this.ProfilePictureUploaderPictureBox.TabStop = false;
-            // 
-            // CurrentProfilePicturePictureBox
-            // 
-            this.CurrentProfilePicturePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CurrentProfilePicturePictureBox.Image = global::YouChatApp.Properties.Resources.BoyCharacter1;
-            this.CurrentProfilePicturePictureBox.Location = new System.Drawing.Point(19, 43);
-            this.CurrentProfilePicturePictureBox.Name = "CurrentProfilePicturePictureBox";
-            this.CurrentProfilePicturePictureBox.Size = new System.Drawing.Size(184, 105);
-            this.CurrentProfilePicturePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.CurrentProfilePicturePictureBox.TabIndex = 18;
-            this.CurrentProfilePicturePictureBox.TabStop = false;
-            // 
             // CurrentProfilePictureLabel
             // 
             this.CurrentProfilePictureLabel.AutoSize = true;
@@ -268,18 +215,6 @@
             this.CurrentProfilePictureLabel.Size = new System.Drawing.Size(196, 18);
             this.CurrentProfilePictureLabel.TabIndex = 7;
             this.CurrentProfilePictureLabel.Text = "Current Profile Picture: ";
-            // 
-            // SaveProfilePictureButton
-            // 
-            this.SaveProfilePictureButton.BackgroundImage = global::YouChatApp.Properties.Resources.approve;
-            this.SaveProfilePictureButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.SaveProfilePictureButton.Enabled = false;
-            this.SaveProfilePictureButton.Location = new System.Drawing.Point(69, 171);
-            this.SaveProfilePictureButton.Name = "SaveProfilePictureButton";
-            this.SaveProfilePictureButton.Size = new System.Drawing.Size(75, 63);
-            this.SaveProfilePictureButton.TabIndex = 17;
-            this.SaveProfilePictureButton.UseVisualStyleBackColor = true;
-            this.SaveProfilePictureButton.Click += new System.EventHandler(this.SaveProfilePictureButton_Click);
             // 
             // PrivacySettingsPanel
             // 
@@ -533,6 +468,71 @@
             this.ChatSettingsSelectionButton.UseVisualStyleBackColor = true;
             this.ChatSettingsSelectionButton.Click += new System.EventHandler(this.ChatSettingsSelectionButton_Click);
             // 
+            // PictureUploaderButton
+            // 
+            this.PictureUploaderButton.BackgroundImage = global::YouChatApp.Properties.Resources.PictureUploader;
+            this.PictureUploaderButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.PictureUploaderButton.Location = new System.Drawing.Point(69, 443);
+            this.PictureUploaderButton.Name = "PictureUploaderButton";
+            this.PictureUploaderButton.Size = new System.Drawing.Size(75, 63);
+            this.PictureUploaderButton.TabIndex = 19;
+            this.PictureUploaderButton.UseVisualStyleBackColor = true;
+            this.PictureUploaderButton.Click += new System.EventHandler(this.PictureUploaderButton_Click);
+            // 
+            // ProfilePictureUploaderPictureBox
+            // 
+            this.ProfilePictureUploaderPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ProfilePictureUploaderPictureBox.Location = new System.Drawing.Point(34, 280);
+            this.ProfilePictureUploaderPictureBox.Name = "ProfilePictureUploaderPictureBox";
+            this.ProfilePictureUploaderPictureBox.Size = new System.Drawing.Size(145, 157);
+            this.ProfilePictureUploaderPictureBox.TabIndex = 17;
+            this.ProfilePictureUploaderPictureBox.TabStop = false;
+            // 
+            // CurrentProfilePicturePictureBox
+            // 
+            this.CurrentProfilePicturePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CurrentProfilePicturePictureBox.Image = global::YouChatApp.Properties.Resources.BoyCharacter1;
+            this.CurrentProfilePicturePictureBox.Location = new System.Drawing.Point(19, 43);
+            this.CurrentProfilePicturePictureBox.Name = "CurrentProfilePicturePictureBox";
+            this.CurrentProfilePicturePictureBox.Size = new System.Drawing.Size(184, 105);
+            this.CurrentProfilePicturePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.CurrentProfilePicturePictureBox.TabIndex = 18;
+            this.CurrentProfilePicturePictureBox.TabStop = false;
+            // 
+            // SaveProfilePictureButton
+            // 
+            this.SaveProfilePictureButton.BackgroundImage = global::YouChatApp.Properties.Resources.approve;
+            this.SaveProfilePictureButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SaveProfilePictureButton.Enabled = false;
+            this.SaveProfilePictureButton.Location = new System.Drawing.Point(69, 171);
+            this.SaveProfilePictureButton.Name = "SaveProfilePictureButton";
+            this.SaveProfilePictureButton.Size = new System.Drawing.Size(75, 63);
+            this.SaveProfilePictureButton.TabIndex = 17;
+            this.SaveProfilePictureButton.UseVisualStyleBackColor = true;
+            this.SaveProfilePictureButton.Click += new System.EventHandler(this.SaveProfilePictureButton_Click);
+            // 
+            // RefreshTextButton
+            // 
+            this.RefreshTextButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
+            this.RefreshTextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.RefreshTextButton.Location = new System.Drawing.Point(172, 241);
+            this.RefreshTextButton.Name = "RefreshTextButton";
+            this.RefreshTextButton.Size = new System.Drawing.Size(75, 49);
+            this.RefreshTextButton.TabIndex = 5;
+            this.RefreshTextButton.UseVisualStyleBackColor = true;
+            this.RefreshTextButton.Click += new System.EventHandler(this.RefreshTextButton_Click);
+            // 
+            // SaveTextButton
+            // 
+            this.SaveTextButton.BackgroundImage = global::YouChatApp.Properties.Resources.approve;
+            this.SaveTextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SaveTextButton.Location = new System.Drawing.Point(72, 241);
+            this.SaveTextButton.Name = "SaveTextButton";
+            this.SaveTextButton.Size = new System.Drawing.Size(75, 49);
+            this.SaveTextButton.TabIndex = 4;
+            this.SaveTextButton.UseVisualStyleBackColor = true;
+            this.SaveTextButton.Click += new System.EventHandler(this.SaveTextButton_Click);
+            // 
             // LackOfLogOutApprovalButton
             // 
             this.LackOfLogOutApprovalButton.BackgroundImage = global::YouChatApp.Properties.Resources.no;
@@ -599,12 +599,12 @@
             this.StatusTextPanel.PerformLayout();
             this.ProfilePicturePanel.ResumeLayout(false);
             this.ProfilePicturePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureUploaderPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CurrentProfilePicturePictureBox)).EndInit();
             this.PrivacySettingsPanel.ResumeLayout(false);
             this.PrivacySettingsPanel.PerformLayout();
             this.ChatSettingsPanel.ResumeLayout(false);
             this.ChatSettingsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureUploaderPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CurrentProfilePicturePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -10,13 +10,20 @@ namespace YouChatApp
 {
     internal class OpenFileDialogHandler
     {
-        private static string _openFileDialogFilter = "jpg Files(*.jpg)|*.jpg|PNG Files (*.png)|*.png|Bitmap Files (*.bmp)|*.bmp|All Files (*.*)|*.*";
+        private const string _openFileDialogFilter = "jpg Files(*.jpg)|*.jpg|PNG Files (*.png)|*.png|Bitmap Files (*.bmp)|*.bmp";
+        private static string _openFileDialogInitialDirectory = GetPicturesFolderPath();
+        private static string GetPicturesFolderPath()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        }
+
         public static Image HandleOpenFileDialog(OpenFileDialog openFileDialog)
         {
             string ImageLocation = "";
             Image image = null;
             try
             {
+                openFileDialog.InitialDirectory = _openFileDialogInitialDirectory;
                 openFileDialog.Filter = _openFileDialogFilter;
                 if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {

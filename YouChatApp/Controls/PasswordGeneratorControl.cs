@@ -17,6 +17,8 @@ namespace YouChatApp.Controls
         private bool[] PasswordIsShownArray;
         private bool OldPasswordVisibleProperty = true;
         private bool ConfirmPasswordVisibleProperty = true;
+        private bool PasswordExclamationVisibleProperty = true;
+
         private string NewPasswordTextContentProperty = "New Password";
 
         private bool IsCurrentOldPasswordVisible = true;
@@ -57,6 +59,18 @@ namespace YouChatApp.Controls
             {
                 ConfirmPasswordVisibleProperty = value;
                 SetConfirmPassword();
+            }
+        }
+
+        public bool PasswordExclamationVisible
+        {
+            get
+            {
+                return PasswordExclamationVisibleProperty;
+            }
+            set
+            {
+                PasswordExclamationVisibleProperty = value;
             }
         }
         public PasswordGeneratorControl(/*bool IsOldPasswordVisible*/)
@@ -142,26 +156,29 @@ namespace YouChatApp.Controls
         }
         private void HandlePasswordTextBoxContent()
         {
-            if (PasswordTextBoxArray[1].isPlaceHolder())
+            if (PasswordExclamationVisibleProperty)
             {
-                PasswordTextBoxArray[1].BorderColor = Color.MediumSlateBlue;
-            }
-            else
-            {
-                string CurrentPassword = PasswordTextBoxArray[1].TextContent;
-                passwordHandler.CheckPassword(CurrentPassword);
-                PasswordTextBoxArray[1].BorderColor = passwordHandler.PasswordInformationColor;
-
-                if (passwordHandler.PasswordStrength != "That's a strong password")
+                if (PasswordTextBoxArray[1].isPlaceHolder())
                 {
-                    PasswordExclamationCustomButton.Visible = true;
-                    ToolTip.SetToolTip(PasswordExclamationCustomButton, passwordHandler.PasswordStrength + "\n" + passwordHandler.PasswordInformation);
+                    PasswordTextBoxArray[1].BorderColor = Color.MediumSlateBlue;
                 }
                 else
                 {
-                    PasswordExclamationCustomButton.Visible = false;
+                    string CurrentPassword = PasswordTextBoxArray[1].TextContent;
+                    passwordHandler.CheckPassword(CurrentPassword);
+                    PasswordTextBoxArray[1].BorderColor = passwordHandler.PasswordInformationColor;
+
+                    if (passwordHandler.PasswordStrength != "That's a strong password")
+                    {
+                        PasswordExclamationCustomButton.Visible = true;
+                        ToolTip.SetToolTip(PasswordExclamationCustomButton, passwordHandler.PasswordStrength + "\n" + passwordHandler.PasswordInformation);
+                    }
+                    else
+                    {
+                        PasswordExclamationCustomButton.Visible = false;
+                    }
                 }
-            }
+            }  
         }
         private void PasswordTextBox_Leave(object sender, EventArgs e)
         {
@@ -180,7 +197,7 @@ namespace YouChatApp.Controls
         private void CheckPasswordFieldsValue(EventArgs e)
         {
 
-            if ((IsContainingValue(PasswordTextBoxArray[1])) && (IsContainingValue(PasswordTextBoxArray[2])) && ((IsContainingValue(PasswordTextBoxArray[0])) || !OldPasswordVisibleProperty))
+            if ((IsContainingValue(PasswordTextBoxArray[1])) && ((IsContainingValue(PasswordTextBoxArray[2])) || !ConfirmPasswordVisibleProperty) && ((IsContainingValue(PasswordTextBoxArray[0])) || !OldPasswordVisibleProperty))
             {
                 AllFieldsHaveValue = true;
             }
@@ -316,11 +333,11 @@ namespace YouChatApp.Controls
 
         public string GetOldPassword()
         {
-            return PasswordTextBoxArray[0].Text; //will need to make sure if this password is similar to the password the server returned to me after logging in...
+            return PasswordTextBoxArray[0].TextContent; //will need to make sure if this password is similar to the password the server returned to me after logging in...
         }
         public string GetNewPassword()
         {
-            return PasswordTextBoxArray[1].Text; //will need to make sure if this password is similar to the password the server returned to me after logging in...
+            return PasswordTextBoxArray[1].TextContent; //will need to make sure if this password is similar to the password the server returned to me after logging in...
         }
 
         private void PasswordGeneratorControl_Load(object sender, EventArgs e)

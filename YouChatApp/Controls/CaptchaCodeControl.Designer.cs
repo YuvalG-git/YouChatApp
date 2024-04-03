@@ -106,6 +106,7 @@
             this.CaptchaCodeCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.CaptchaCodeCustomTextBox.TextContent = "";
             this.CaptchaCodeCustomTextBox.UnderlineStyle = true;
+            this.CaptchaCodeCustomTextBox.TextChangedEvent += new System.EventHandler(this.CaptchaCodeCustomTextBox_TextChangedEvent);
             // 
             // CaptchaCheckerCustomButton
             // 
@@ -115,6 +116,7 @@
             this.CaptchaCheckerCustomButton.BorderRadius = 10;
             this.CaptchaCheckerCustomButton.BorderSize = 0;
             this.CaptchaCheckerCustomButton.Circular = false;
+            this.CaptchaCheckerCustomButton.Enabled = false;
             this.CaptchaCheckerCustomButton.FlatAppearance.BorderSize = 0;
             this.CaptchaCheckerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CaptchaCheckerCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

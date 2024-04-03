@@ -149,6 +149,8 @@ namespace YouChatApp
         public void SetProfilePicture()
         {
             ProfileButton.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
+            ProfileCustomButton.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
+
             UserIDLabel.Text += " " + UserProfile.ProfileDetailsHandler.Name + "#" + UserProfile.ProfileDetailsHandler.TagLine;
             ServerCommunication.SendMessage(ServerCommunication.FriendsProfileDetailsRequest, " ");
         }
@@ -672,6 +674,8 @@ namespace YouChatApp
         public void SetProfileButtonEnabled()
         {
             ProfileButton.Enabled = true;
+            ProfileCustomButton.Enabled = true;
+
         }
         public void SetListOfFriendRequestControl(string ChatInformation)
         {
@@ -1403,7 +1407,6 @@ namespace YouChatApp
             }
             ServerCommunication._emojiKeyboard._isText = true;
             this.Invoke(new Action(() => ServerCommunication._emojiKeyboard.Show()));
-
         }
 
         private void MessageSenderCustomButton_Click(object sender, EventArgs e)
@@ -1440,6 +1443,27 @@ namespace YouChatApp
         private void TakenImageFile_Click(object sender, EventArgs e)
         {
             HandleImageTaking();
+
+        }
+
+        private void ImageFileCustomButton_Click(object sender, EventArgs e)
+        {
+            if (ServerCommunication._imageSender == null)
+            {
+                ServerCommunication._imageSender = new ImageSender();
+            }
+            this.Invoke(new Action(() => ServerCommunication._imageSender.ShowDialog()));
+        }
+
+        private void ProfileCustomButton_Click(object sender, EventArgs e)
+        {
+            profile = new Profile(this);
+            profile.Show();
+            ProfileCustomButton.Enabled = false;
+        }
+
+        private void MessageOptionsPanel_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

@@ -28,117 +28,150 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.UploadedPictureOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.UploadedPictureRotationButton = new System.Windows.Forms.Button();
             this.LoadedImagePictureBox = new System.Windows.Forms.PictureBox();
-            this.menuStrip1.SuspendLayout();
+            this.SettingsPanel = new System.Windows.Forms.Panel();
+            this.RestartPictureCustomButton = new YouChatApp.Controls.CustomButton();
+            this.SendPictureCustomButton = new YouChatApp.Controls.CustomButton();
+            this.LoadPictureCustomButton = new YouChatApp.Controls.CustomButton();
+            this.ReturnCustomButton = new YouChatApp.Controls.CustomButton();
             ((System.ComponentModel.ISupportInitialize)(this.LoadedImagePictureBox)).BeginInit();
+            this.SettingsPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // UploadedPictureOpenFileDialog
-            // 
-            this.UploadedPictureOpenFileDialog.FileName = "openFileDialog1";
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 3;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.saveToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(800, 25);
-            this.toolStrip1.TabIndex = 4;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // UploadedPictureRotationButton
-            // 
-            this.UploadedPictureRotationButton.BackgroundImage = global::YouChatApp.Properties.Resources.RotatePicture;
-            this.UploadedPictureRotationButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.UploadedPictureRotationButton.Location = new System.Drawing.Point(615, 56);
-            this.UploadedPictureRotationButton.Name = "UploadedPictureRotationButton";
-            this.UploadedPictureRotationButton.Size = new System.Drawing.Size(75, 62);
-            this.UploadedPictureRotationButton.TabIndex = 2;
-            this.UploadedPictureRotationButton.UseVisualStyleBackColor = true;
-            this.UploadedPictureRotationButton.Click += new System.EventHandler(this.UploadedPictureRotationButton_Click);
             // 
             // LoadedImagePictureBox
             // 
-            this.LoadedImagePictureBox.Location = new System.Drawing.Point(177, 99);
+            this.LoadedImagePictureBox.BackColor = System.Drawing.Color.Black;
+            this.LoadedImagePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.LoadedImagePictureBox.Location = new System.Drawing.Point(10, 10);
             this.LoadedImagePictureBox.Name = "LoadedImagePictureBox";
-            this.LoadedImagePictureBox.Size = new System.Drawing.Size(400, 339);
+            this.LoadedImagePictureBox.Size = new System.Drawing.Size(560, 400);
             this.LoadedImagePictureBox.TabIndex = 1;
             this.LoadedImagePictureBox.TabStop = false;
             this.LoadedImagePictureBox.Click += new System.EventHandler(this.LoadedImagePictureBox_Click);
             // 
-            // ImageHandler
+            // SettingsPanel
+            // 
+            this.SettingsPanel.BackColor = System.Drawing.Color.Black;
+            this.SettingsPanel.Controls.Add(this.ReturnCustomButton);
+            this.SettingsPanel.Controls.Add(this.RestartPictureCustomButton);
+            this.SettingsPanel.Controls.Add(this.SendPictureCustomButton);
+            this.SettingsPanel.Controls.Add(this.LoadPictureCustomButton);
+            this.SettingsPanel.Location = new System.Drawing.Point(0, 431);
+            this.SettingsPanel.Name = "SettingsPanel";
+            this.SettingsPanel.Size = new System.Drawing.Size(585, 100);
+            this.SettingsPanel.TabIndex = 40;
+            // 
+            // RestartPictureCustomButton
+            // 
+            this.RestartPictureCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.RestartPictureCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.RestartPictureCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.RestartPictureCustomButton.BorderRadius = 10;
+            this.RestartPictureCustomButton.BorderSize = 0;
+            this.RestartPictureCustomButton.Circular = false;
+            this.RestartPictureCustomButton.Enabled = false;
+            this.RestartPictureCustomButton.FlatAppearance.BorderSize = 0;
+            this.RestartPictureCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RestartPictureCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RestartPictureCustomButton.ForeColor = System.Drawing.Color.White;
+            this.RestartPictureCustomButton.Location = new System.Drawing.Point(245, 30);
+            this.RestartPictureCustomButton.Name = "RestartPictureCustomButton";
+            this.RestartPictureCustomButton.Size = new System.Drawing.Size(150, 40);
+            this.RestartPictureCustomButton.TabIndex = 41;
+            this.RestartPictureCustomButton.Text = "RestartPicture";
+            this.RestartPictureCustomButton.TextColor = System.Drawing.Color.White;
+            this.RestartPictureCustomButton.UseVisualStyleBackColor = false;
+            this.RestartPictureCustomButton.Click += new System.EventHandler(this.RestartPictureCustomButton_Click);
+            // 
+            // SendPictureCustomButton
+            // 
+            this.SendPictureCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.SendPictureCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.SendPictureCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.SendPictureCustomButton.BorderRadius = 10;
+            this.SendPictureCustomButton.BorderSize = 0;
+            this.SendPictureCustomButton.Circular = false;
+            this.SendPictureCustomButton.Enabled = false;
+            this.SendPictureCustomButton.FlatAppearance.BorderSize = 0;
+            this.SendPictureCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SendPictureCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SendPictureCustomButton.ForeColor = System.Drawing.Color.White;
+            this.SendPictureCustomButton.Location = new System.Drawing.Point(415, 30);
+            this.SendPictureCustomButton.Name = "SendPictureCustomButton";
+            this.SendPictureCustomButton.Size = new System.Drawing.Size(150, 40);
+            this.SendPictureCustomButton.TabIndex = 40;
+            this.SendPictureCustomButton.Text = "Send Picture";
+            this.SendPictureCustomButton.TextColor = System.Drawing.Color.White;
+            this.SendPictureCustomButton.UseVisualStyleBackColor = false;
+            this.SendPictureCustomButton.Click += new System.EventHandler(this.SendPictureCustomButton_Click);
+            // 
+            // LoadPictureCustomButton
+            // 
+            this.LoadPictureCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.LoadPictureCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.LoadPictureCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.LoadPictureCustomButton.BorderRadius = 10;
+            this.LoadPictureCustomButton.BorderSize = 0;
+            this.LoadPictureCustomButton.Circular = false;
+            this.LoadPictureCustomButton.FlatAppearance.BorderSize = 0;
+            this.LoadPictureCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LoadPictureCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadPictureCustomButton.ForeColor = System.Drawing.Color.White;
+            this.LoadPictureCustomButton.Location = new System.Drawing.Point(75, 30);
+            this.LoadPictureCustomButton.Name = "LoadPictureCustomButton";
+            this.LoadPictureCustomButton.Size = new System.Drawing.Size(150, 40);
+            this.LoadPictureCustomButton.TabIndex = 39;
+            this.LoadPictureCustomButton.Text = "Load Picture";
+            this.LoadPictureCustomButton.TextColor = System.Drawing.Color.White;
+            this.LoadPictureCustomButton.UseVisualStyleBackColor = false;
+            this.LoadPictureCustomButton.Click += new System.EventHandler(this.LoadPictureCustomButton_Click);
+            // 
+            // ReturnCustomButton
+            // 
+            this.ReturnCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.ReturnCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.ReturnCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
+            this.ReturnCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ReturnCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ReturnCustomButton.BorderRadius = 10;
+            this.ReturnCustomButton.BorderSize = 0;
+            this.ReturnCustomButton.Circular = false;
+            this.ReturnCustomButton.FlatAppearance.BorderSize = 0;
+            this.ReturnCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReturnCustomButton.ForeColor = System.Drawing.Color.White;
+            this.ReturnCustomButton.Location = new System.Drawing.Point(11, 30);
+            this.ReturnCustomButton.Name = "ReturnCustomButton";
+            this.ReturnCustomButton.Size = new System.Drawing.Size(50, 40);
+            this.ReturnCustomButton.TabIndex = 41;
+            this.ReturnCustomButton.TextColor = System.Drawing.Color.White;
+            this.ReturnCustomButton.UseVisualStyleBackColor = false;
+            this.ReturnCustomButton.Click += new System.EventHandler(this.ReturnCustomButton_Click);
+            // 
+            // ImageSender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.UploadedPictureRotationButton);
-            this.Controls.Add(this.menuStrip1);
+            this.BackColor = System.Drawing.Color.DimGray;
+            this.ClientSize = new System.Drawing.Size(580, 529);
             this.Controls.Add(this.LoadedImagePictureBox);
-            this.MainMenuStrip = this.menuStrip1;
-            this.Name = "ImageHandler";
+            this.Controls.Add(this.SettingsPanel);
+            this.Name = "ImageSender";
             this.Text = "ImageHandler";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageSender_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.LoadedImagePictureBox)).EndInit();
+            this.SettingsPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.PictureBox LoadedImagePictureBox;
-        private System.Windows.Forms.Button UploadedPictureRotationButton;
         private System.Windows.Forms.OpenFileDialog UploadedPictureOpenFileDialog;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.Panel SettingsPanel;
+        private Controls.CustomButton LoadPictureCustomButton;
+        private Controls.CustomButton SendPictureCustomButton;
+        private Controls.CustomButton RestartPictureCustomButton;
+        private Controls.CustomButton ReturnCustomButton;
     }
 }

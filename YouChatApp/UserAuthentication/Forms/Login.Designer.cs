@@ -34,12 +34,13 @@
             this.ResetPasswordCustomButton = new YouChatApp.Controls.CustomButton();
             this.PasswordGeneratorControl = new YouChatApp.Controls.PasswordGeneratorControl();
             this.UsernameCustomTextBox = new YouChatApp.Controls.CustomTextBox();
-            this.captchaCodeControl1 = new YouChatApp.Controls.CaptchaCodeControl();
-            this.captchaRotatingImageControl1 = new YouChatApp.Controls.CaptchaRotatingImageControl();
+            this.CaptchaCodeControl = new YouChatApp.Controls.CaptchaCodeControl();
+            this.CaptchaRotatingImageControl = new YouChatApp.Controls.CaptchaRotatingImageControl();
             this.SignUpCustomButton = new YouChatApp.Controls.CustomButton();
             this.SignUpLabel = new System.Windows.Forms.Label();
             this.LoginLabel = new System.Windows.Forms.Label();
-            this.personalVerificationAnswersControl1 = new YouChatApp.Controls.PersonalVerificationAnswersControl();
+            this.PersonalVerificationAnswersControl = new YouChatApp.Controls.PersonalVerificationAnswersControl();
+            this.smtpControl1 = new YouChatApp.Controls.SmtpControl();
             this.SuspendLayout();
             // 
             // ForgottenPasswordLabel
@@ -70,6 +71,7 @@
             this.LoginCustomButton.BorderRadius = 10;
             this.LoginCustomButton.BorderSize = 0;
             this.LoginCustomButton.Circular = false;
+            this.LoginCustomButton.Enabled = false;
             this.LoginCustomButton.FlatAppearance.BorderSize = 0;
             this.LoginCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LoginCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -81,6 +83,7 @@
             this.LoginCustomButton.Text = "Login";
             this.LoginCustomButton.TextColor = System.Drawing.Color.White;
             this.LoginCustomButton.UseVisualStyleBackColor = false;
+            this.LoginCustomButton.Click += new System.EventHandler(this.LoginCustomButton_Click);
             // 
             // ResetPasswordCustomButton
             // 
@@ -110,8 +113,11 @@
             this.PasswordGeneratorControl.Name = "PasswordGeneratorControl";
             this.PasswordGeneratorControl.NewPasswordTextContent = "Password";
             this.PasswordGeneratorControl.OldPasswordVisible = false;
+            this.PasswordGeneratorControl.PasswordExclamationVisible = false;
             this.PasswordGeneratorControl.Size = new System.Drawing.Size(310, 72);
             this.PasswordGeneratorControl.TabIndex = 44;
+            this.PasswordGeneratorControl.TextChangedEvent += new System.EventHandler(this.LoginFieldsTextChangedEvent);
+            this.PasswordGeneratorControl.Load += new System.EventHandler(this.PasswordGeneratorControl_Load);
             // 
             // UsernameCustomTextBox
             // 
@@ -138,22 +144,23 @@
             this.UsernameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.UsernameCustomTextBox.TextContent = "";
             this.UsernameCustomTextBox.UnderlineStyle = true;
+            this.UsernameCustomTextBox.TextChangedEvent += new System.EventHandler(this.LoginFieldsTextChangedEvent);
             // 
-            // captchaCodeControl1
+            // CaptchaCodeControl
             // 
-            this.captchaCodeControl1.AutoSize = true;
-            this.captchaCodeControl1.Location = new System.Drawing.Point(515, 28);
-            this.captchaCodeControl1.Name = "captchaCodeControl1";
-            this.captchaCodeControl1.Size = new System.Drawing.Size(260, 250);
-            this.captchaCodeControl1.TabIndex = 46;
+            this.CaptchaCodeControl.AutoSize = true;
+            this.CaptchaCodeControl.Location = new System.Drawing.Point(515, 28);
+            this.CaptchaCodeControl.Name = "CaptchaCodeControl";
+            this.CaptchaCodeControl.Size = new System.Drawing.Size(260, 250);
+            this.CaptchaCodeControl.TabIndex = 46;
             // 
-            // captchaRotatingImageControl1
+            // CaptchaRotatingImageControl
             // 
-            this.captchaRotatingImageControl1.AutoSize = true;
-            this.captchaRotatingImageControl1.Location = new System.Drawing.Point(515, 285);
-            this.captchaRotatingImageControl1.Name = "captchaRotatingImageControl1";
-            this.captchaRotatingImageControl1.Size = new System.Drawing.Size(260, 330);
-            this.captchaRotatingImageControl1.TabIndex = 47;
+            this.CaptchaRotatingImageControl.AutoSize = true;
+            this.CaptchaRotatingImageControl.Location = new System.Drawing.Point(515, 285);
+            this.CaptchaRotatingImageControl.Name = "CaptchaRotatingImageControl";
+            this.CaptchaRotatingImageControl.Size = new System.Drawing.Size(260, 330);
+            this.CaptchaRotatingImageControl.TabIndex = 47;
             // 
             // SignUpCustomButton
             // 
@@ -167,7 +174,7 @@
             this.SignUpCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SignUpCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignUpCustomButton.ForeColor = System.Drawing.Color.White;
-            this.SignUpCustomButton.Location = new System.Drawing.Point(190, 516);
+            this.SignUpCustomButton.Location = new System.Drawing.Point(184, 627);
             this.SignUpCustomButton.Name = "SignUpCustomButton";
             this.SignUpCustomButton.Size = new System.Drawing.Size(150, 40);
             this.SignUpCustomButton.TabIndex = 48;
@@ -180,7 +187,7 @@
             // 
             this.SignUpLabel.AutoSize = true;
             this.SignUpLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SignUpLabel.Location = new System.Drawing.Point(167, 470);
+            this.SignUpLabel.Location = new System.Drawing.Point(161, 581);
             this.SignUpLabel.Name = "SignUpLabel";
             this.SignUpLabel.Size = new System.Drawing.Size(179, 34);
             this.SignUpLabel.TabIndex = 49;
@@ -196,24 +203,35 @@
             this.LoginLabel.TabIndex = 50;
             this.LoginLabel.Text = "LOGIN";
             // 
-            // personalVerificationAnswersControl1
+            // PersonalVerificationAnswersControl
             // 
-            this.personalVerificationAnswersControl1.Location = new System.Drawing.Point(781, 169);
-            this.personalVerificationAnswersControl1.Name = "personalVerificationAnswersControl1";
-            this.personalVerificationAnswersControl1.Size = new System.Drawing.Size(400, 240);
-            this.personalVerificationAnswersControl1.TabIndex = 51;
+            this.PersonalVerificationAnswersControl.Location = new System.Drawing.Point(781, 169);
+            this.PersonalVerificationAnswersControl.MaximumSize = new System.Drawing.Size(400, 380);
+            this.PersonalVerificationAnswersControl.MinimumSize = new System.Drawing.Size(400, 380);
+            this.PersonalVerificationAnswersControl.Name = "PersonalVerificationAnswersControl";
+            this.PersonalVerificationAnswersControl.Size = new System.Drawing.Size(400, 380);
+            this.PersonalVerificationAnswersControl.TabIndex = 51;
+            // 
+            // smtpControl1
+            // 
+            this.smtpControl1.ControlType = YouChatApp.EnumHandler.UserAuthentication_Enum.Login;
+            this.smtpControl1.Location = new System.Drawing.Point(81, 377);
+            this.smtpControl1.Name = "smtpControl1";
+            this.smtpControl1.Size = new System.Drawing.Size(350, 190);
+            this.smtpControl1.TabIndex = 52;
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1223, 689);
-            this.Controls.Add(this.personalVerificationAnswersControl1);
+            this.Controls.Add(this.smtpControl1);
+            this.Controls.Add(this.PersonalVerificationAnswersControl);
             this.Controls.Add(this.LoginLabel);
             this.Controls.Add(this.SignUpLabel);
             this.Controls.Add(this.SignUpCustomButton);
-            this.Controls.Add(this.captchaRotatingImageControl1);
-            this.Controls.Add(this.captchaCodeControl1);
+            this.Controls.Add(this.CaptchaRotatingImageControl);
+            this.Controls.Add(this.CaptchaCodeControl);
             this.Controls.Add(this.LoginCustomButton);
             this.Controls.Add(this.ResetPasswordCustomButton);
             this.Controls.Add(this.PasswordGeneratorControl);
@@ -234,11 +252,12 @@
         private Controls.PasswordGeneratorControl PasswordGeneratorControl;
         private Controls.CustomButton ResetPasswordCustomButton;
         private Controls.CustomButton LoginCustomButton;
-        private Controls.CaptchaCodeControl captchaCodeControl1;
-        private Controls.CaptchaRotatingImageControl captchaRotatingImageControl1;
+        private Controls.CaptchaCodeControl CaptchaCodeControl;
+        private Controls.CaptchaRotatingImageControl CaptchaRotatingImageControl;
         private Controls.CustomButton SignUpCustomButton;
         private System.Windows.Forms.Label SignUpLabel;
         public System.Windows.Forms.Label LoginLabel;
-        private Controls.PersonalVerificationAnswersControl personalVerificationAnswersControl1;
+        private Controls.PersonalVerificationAnswersControl PersonalVerificationAnswersControl;
+        private Controls.SmtpControl smtpControl1;
     }
 }

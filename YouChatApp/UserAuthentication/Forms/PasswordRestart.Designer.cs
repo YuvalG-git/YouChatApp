@@ -92,6 +92,7 @@
             this.PasswordReplacerCustomButton.BorderRadius = 10;
             this.PasswordReplacerCustomButton.BorderSize = 0;
             this.PasswordReplacerCustomButton.Circular = false;
+            this.PasswordReplacerCustomButton.Enabled = false;
             this.PasswordReplacerCustomButton.FlatAppearance.BorderSize = 0;
             this.PasswordReplacerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PasswordReplacerCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -104,6 +105,7 @@
             this.PasswordReplacerCustomButton.TextColor = System.Drawing.Color.White;
             this.PasswordReplacerCustomButton.UseVisualStyleBackColor = false;
             this.PasswordReplacerCustomButton.Visible = false;
+            this.PasswordReplacerCustomButton.Click += new System.EventHandler(this.PasswordReplacerCustomButton_Click);
             // 
             // RestartCodeCustomButton
             // 
@@ -169,6 +171,7 @@
             this.CodeCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.CodeCustomTextBox.PlaceHolderText = "Enter Code";
             this.CodeCustomTextBox.ReadOnly = false;
+            this.CodeCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.CodeCustomTextBox.Size = new System.Drawing.Size(173, 33);
             this.CodeCustomTextBox.TabIndex = 56;
             this.CodeCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -184,9 +187,11 @@
             this.PasswordGeneratorControl.Name = "PasswordGeneratorControl";
             this.PasswordGeneratorControl.NewPasswordTextContent = "New Password";
             this.PasswordGeneratorControl.OldPasswordVisible = false;
+            this.PasswordGeneratorControl.PasswordExclamationVisible = true;
             this.PasswordGeneratorControl.Size = new System.Drawing.Size(335, 135);
             this.PasswordGeneratorControl.TabIndex = 36;
             this.PasswordGeneratorControl.Visible = false;
+            this.PasswordGeneratorControl.Load += new System.EventHandler(this.PasswordGeneratorControl_Load);
             // 
             // CodeSenderCustomButton
             // 
@@ -208,6 +213,7 @@
             this.CodeSenderCustomButton.Text = "Send Code";
             this.CodeSenderCustomButton.TextColor = System.Drawing.Color.White;
             this.CodeSenderCustomButton.UseVisualStyleBackColor = false;
+            this.CodeSenderCustomButton.Click += new System.EventHandler(this.CodeSenderCustomButton_Click);
             // 
             // EmailAddressCustomTextBox
             // 
@@ -229,6 +235,7 @@
             this.EmailAddressCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.EmailAddressCustomTextBox.PlaceHolderText = "Enter Email Address";
             this.EmailAddressCustomTextBox.ReadOnly = false;
+            this.EmailAddressCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.EmailAddressCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.EmailAddressCustomTextBox.TabIndex = 53;
             this.EmailAddressCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -256,6 +263,7 @@
             this.UsernameCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.UsernameCustomTextBox.PlaceHolderText = "Enter Username";
             this.UsernameCustomTextBox.ReadOnly = false;
+            this.UsernameCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.UsernameCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.UsernameCustomTextBox.TabIndex = 51;
             this.UsernameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;

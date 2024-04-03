@@ -228,6 +228,8 @@ namespace YouChatApp
         /// </summary>
         public static Paint _paint = null;
 
+        public static ImageSender _imageSender;
+
         private static UdpClient UdpClient;
 
 
@@ -753,7 +755,39 @@ namespace YouChatApp
         /// The SendMessage method sends a message to the server
         /// </summary>
         /// <param name="message">Represents the message the client sends to the server</param>
-        public static void SendMessage(int messageId,string messageContent) //maybe to add a function that recieves only messageId (i dont need to send content all the time...)
+        //public static void SendMessage(int messageId,string messageContent) //maybe to add a function that recieves only messageId (i dont need to send content all the time...)
+        //{
+        //    if (isConnected)
+        //    {
+        //        try
+        //        {
+        //            string message = messageId + "$";
+        //            if (messageId == EncryptionClientPublicKeySender)
+        //            {
+        //                message += messageContent;
+        //            }
+        //            else
+        //            {
+        //                string EncryptedMessageContent = Encryption.Encryption.EncryptData(SymmetricKey, messageContent);
+        //                message += EncryptedMessageContent;
+        //            }
+        //            NetworkStream ns = MessageClient.GetStream();
+
+        //            // Send data to the client
+        //            byte[] bytesToSend = System.Text.Encoding.ASCII.GetBytes(message);
+        //            //byte[] bytesToSend = System.Text.Encoding.ASCII.GetBytes(EncryptedMessage);
+
+        //            ns.Write(bytesToSend, 0, bytesToSend.Length);
+        //            ns.Flush();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine(ex.ToString());
+        //        }
+        //    }
+        //}
+
+        public static void SendMessage(string jsonMessage) //maybe to add a function that recieves only messageId (i dont need to send content all the time...)
         {
             if (isConnected)
             {

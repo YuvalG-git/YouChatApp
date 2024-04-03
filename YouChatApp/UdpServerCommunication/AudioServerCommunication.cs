@@ -19,20 +19,17 @@ namespace YouChatApp
         private static IPEndPoint remoteEndPoint;
         private static VideoCall _videoCall;
         private static AudioCall _audioCall;
-        private static bool _isVideoCall;
 
         public static void ConnectUdp(string ip, VideoCall videoCall)
         {
             _videoCall = videoCall;
             _audioCall = null;
-            _isVideoCall = true;
             HandleConnect(ip);
         }
         public static void ConnectUdp(string ip, AudioCall audioCall)
         {
             _videoCall = null;
             _audioCall = audioCall;
-            _isVideoCall = false;
             HandleConnect(ip);
         }
         private static void HandleConnect(string ip)
@@ -82,7 +79,7 @@ namespace YouChatApp
                         byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
                         if (_videoCall != null) //maybe i should use interface for this... in order to not check each time but just
                         {
-                            //_videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); });
+                            _videoCall.Invoke((Action)delegate { _videoCall.ReceiveAudioData(receivedData); });
                         }
                         else if (_audioCall != null)
                         {

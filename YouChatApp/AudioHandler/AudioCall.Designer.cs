@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.BackgroundPanel = new System.Windows.Forms.Panel();
             this.MicrophoneModeCustomButton = new YouChatApp.Controls.CustomButton();
             this.AudioOutputDeviceGroupBox = new System.Windows.Forms.GroupBox();
@@ -45,6 +46,7 @@
             this.CallDetailsBackgroundPanel = new System.Windows.Forms.Panel();
             this.ContactProfilePicture = new System.Windows.Forms.PictureBox();
             this.CallEnderCustomButton = new YouChatApp.Controls.CustomButton();
+            this.CallTimeTimer = new System.Windows.Forms.Timer(this.components);
             this.BackgroundPanel.SuspendLayout();
             this.AudioOutputDeviceGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AudioOutputDevicePictureBox)).BeginInit();
@@ -226,6 +228,7 @@
             this.CallTimeLabel.Size = new System.Drawing.Size(65, 26);
             this.CallTimeLabel.TabIndex = 1;
             this.CallTimeLabel.Text = "00:00";
+            this.CallTimeLabel.Click += new System.EventHandler(this.CallTimeLabel_Click);
             // 
             // FriendNameLabel
             // 
@@ -277,6 +280,11 @@
             this.CallEnderCustomButton.UseVisualStyleBackColor = false;
             this.CallEnderCustomButton.Click += new System.EventHandler(this.CallEnderCustomButton_Click);
             // 
+            // CallTimeTimer
+            // 
+            this.CallTimeTimer.Interval = 1000;
+            this.CallTimeTimer.Tick += new System.EventHandler(this.CallTimeTimer_Tick);
+            // 
             // AudioCall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -323,5 +331,6 @@
         private System.Windows.Forms.Panel CallDetailsBackgroundPanel;
         private System.Windows.Forms.PictureBox ContactProfilePicture;
         private System.Windows.Forms.Label HeadlineLabel;
+        private System.Windows.Forms.Timer CallTimeTimer;
     }
 }

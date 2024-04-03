@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.VerificationQuestionNumberLabel = new System.Windows.Forms.Label();
             this.PersonalVerificationQuestionsPanel = new System.Windows.Forms.Panel();
+            this.CharNumberLabel = new System.Windows.Forms.Label();
             this.VerificationQuestionCustomComboBox = new YouChatApp.Controls.CustomComboBox();
             this.ApproveVerificationInformationCustomButton = new YouChatApp.Controls.CustomButton();
             this.VerificationAnswerLabel = new System.Windows.Forms.Label();
@@ -61,6 +62,7 @@
             // 
             // PersonalVerificationQuestionsPanel
             // 
+            this.PersonalVerificationQuestionsPanel.Controls.Add(this.CharNumberLabel);
             this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationQuestionCustomComboBox);
             this.PersonalVerificationQuestionsPanel.Controls.Add(this.ApproveVerificationInformationCustomButton);
             this.PersonalVerificationQuestionsPanel.Controls.Add(this.VerificationAnswerLabel);
@@ -73,6 +75,16 @@
             this.PersonalVerificationQuestionsPanel.Name = "PersonalVerificationQuestionsPanel";
             this.PersonalVerificationQuestionsPanel.Size = new System.Drawing.Size(400, 255);
             this.PersonalVerificationQuestionsPanel.TabIndex = 43;
+            // 
+            // CharNumberLabel
+            // 
+            this.CharNumberLabel.AutoSize = true;
+            this.CharNumberLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CharNumberLabel.Location = new System.Drawing.Point(28, 189);
+            this.CharNumberLabel.Name = "CharNumberLabel";
+            this.CharNumberLabel.Size = new System.Drawing.Size(31, 14);
+            this.CharNumberLabel.TabIndex = 48;
+            this.CharNumberLabel.Text = "0/50";
             // 
             // VerificationQuestionCustomComboBox
             // 
@@ -186,7 +198,7 @@
             this.VerificationAnswerTextBox.IsFocused = false;
             this.VerificationAnswerTextBox.Location = new System.Drawing.Point(22, 150);
             this.VerificationAnswerTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.VerificationAnswerTextBox.MaxLength = 32767;
+            this.VerificationAnswerTextBox.MaxLength = 50;
             this.VerificationAnswerTextBox.Multiline = false;
             this.VerificationAnswerTextBox.Name = "VerificationAnswerTextBox";
             this.VerificationAnswerTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
@@ -376,5 +388,6 @@
         private System.Windows.Forms.ToolTip ToolTip;
         private System.Windows.Forms.Label PersonalVerificationQuestionResultsLabel;
         private CustomComboBox VerificationQuestionCustomComboBox;
+        private System.Windows.Forms.Label CharNumberLabel;
     }
 }

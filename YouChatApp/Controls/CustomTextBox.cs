@@ -260,6 +260,18 @@ namespace YouChatApp.Controls
             }
         }
         [Category("YouChat")]
+        public ScrollBars ScrollBars
+        {
+            get
+            {
+                return TextBox.ScrollBars;
+            }
+            set
+            {
+                TextBox.ScrollBars = value;
+            }
+        }
+        [Category("YouChat")]
         public bool ReadOnly
         {
             get

@@ -19,10 +19,6 @@ namespace YouChatApp.UserAuthentication.Forms
 
         }
 
-        private void UpdatePasswordButton_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void UpdatePasswordGeneratorControl_Load(object sender, EventArgs e)
         {
@@ -30,7 +26,7 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         private void UpdatePasswordFieldsChecker(object sender, EventArgs e)
         {
-            bool PasswordFields = UpdatePasswordGeneratorControl.DoesAllFieldsHaveValue();
+            bool PasswordFields = UpdatePasswordGeneratorControl.DoesAllFieldsHaveValue() && UpdatePasswordGeneratorControl.IsSamePassword();
             bool UsernameField = UsernameCustomTextBox.IsContainingValue();
             if ((PasswordFields) && (UsernameField))
             {
@@ -42,10 +38,6 @@ namespace YouChatApp.UserAuthentication.Forms
             }
         }
 
-        private void UsernameCustomTextBox_TextChangedEvent(object sender, EventArgs e)
-        {
-
-        }
 
         private void UpdatePasswordCustomButton_Click(object sender, EventArgs e)
         {

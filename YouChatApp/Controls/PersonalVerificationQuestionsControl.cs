@@ -45,6 +45,8 @@ namespace YouChatApp.Controls
         private void VerificationAnswerTextBox_TextChangedEvent(object sender, EventArgs e)
         {
             HandleQuestionVerification();
+            CharNumberLabel.Text = VerificationAnswerTextBox.TextContent.Length.ToString() + "/" + VerificationAnswerTextBox.MaxLength;
+
 
         }
 

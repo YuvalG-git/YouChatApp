@@ -33,6 +33,7 @@
             this.VerifyCustomButton = new YouChatApp.Controls.CustomButton();
             this.SmtpCodeCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.RestartSmtpCodeCustomButton = new YouChatApp.Controls.CustomButton();
+            this.EmailNotificationLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SmtpCodeLabel
@@ -68,7 +69,7 @@
             this.VerifyCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VerifyCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerifyCustomButton.ForeColor = System.Drawing.Color.White;
-            this.VerifyCustomButton.Location = new System.Drawing.Point(100, 140);
+            this.VerifyCustomButton.Location = new System.Drawing.Point(100, 150);
             this.VerifyCustomButton.Name = "VerifyCustomButton";
             this.VerifyCustomButton.Size = new System.Drawing.Size(150, 40);
             this.VerifyCustomButton.TabIndex = 52;
@@ -84,6 +85,7 @@
             this.SmtpCodeCustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
             this.SmtpCodeCustomTextBox.BorderRadius = 0;
             this.SmtpCodeCustomTextBox.BorderSize = 2;
+            this.SmtpCodeCustomTextBox.Enabled = false;
             this.SmtpCodeCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SmtpCodeCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.SmtpCodeCustomTextBox.IsFocused = false;
@@ -97,6 +99,7 @@
             this.SmtpCodeCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.SmtpCodeCustomTextBox.PlaceHolderText = "Enter Verification Code";
             this.SmtpCodeCustomTextBox.ReadOnly = false;
+            this.SmtpCodeCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.SmtpCodeCustomTextBox.Size = new System.Drawing.Size(230, 33);
             this.SmtpCodeCustomTextBox.TabIndex = 50;
             this.SmtpCodeCustomTextBox.TabStop = false;
@@ -126,17 +129,29 @@
             this.RestartSmtpCodeCustomButton.UseVisualStyleBackColor = false;
             this.RestartSmtpCodeCustomButton.Click += new System.EventHandler(this.RestartSmtpCodeCustomButton_Click);
             // 
+            // EmailNotificationLabel
+            // 
+            this.EmailNotificationLabel.AutoSize = true;
+            this.EmailNotificationLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmailNotificationLabel.Location = new System.Drawing.Point(35, 130);
+            this.EmailNotificationLabel.Name = "EmailNotificationLabel";
+            this.EmailNotificationLabel.Size = new System.Drawing.Size(260, 14);
+            this.EmailNotificationLabel.TabIndex = 53;
+            this.EmailNotificationLabel.Text = "The verification code was sent to your email";
+            this.EmailNotificationLabel.Visible = false;
+            // 
             // SmtpControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.EmailNotificationLabel);
             this.Controls.Add(this.VerifyCustomButton);
             this.Controls.Add(this.SmtpCodeCustomTextBox);
             this.Controls.Add(this.SmtpCodeLabel);
             this.Controls.Add(this.RestartSmtpCodeCustomButton);
             this.Controls.Add(this.CaptchaCodeLabel);
             this.Name = "SmtpControl";
-            this.Size = new System.Drawing.Size(350, 190);
+            this.Size = new System.Drawing.Size(350, 200);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,5 +163,6 @@
         private System.Windows.Forms.Label SmtpCodeLabel;
         private CustomButton RestartSmtpCodeCustomButton;
         private System.Windows.Forms.Label CaptchaCodeLabel;
+        private System.Windows.Forms.Label EmailNotificationLabel;
     }
 }

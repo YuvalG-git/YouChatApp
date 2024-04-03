@@ -1290,6 +1290,7 @@ namespace YouChatApp
             this.UpdatePasswordGeneratorControl.Name = "UpdatePasswordGeneratorControl";
             this.UpdatePasswordGeneratorControl.NewPasswordTextContent = "New Password";
             this.UpdatePasswordGeneratorControl.OldPasswordVisible = true;
+            this.UpdatePasswordGeneratorControl.PasswordExclamationVisible = true;
             this.UpdatePasswordGeneratorControl.Size = new System.Drawing.Size(288, 188);
             this.UpdatePasswordGeneratorControl.TabIndex = 33;
             // 
