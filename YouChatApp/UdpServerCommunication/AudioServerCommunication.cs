@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using YouChatApp.AttachedFiles;
 using System.Drawing;
 using System.Threading;
+using Newtonsoft.Json;
+using YouChatApp.JsonClasses;
 
 namespace YouChatApp
 {
@@ -19,7 +21,8 @@ namespace YouChatApp
         private static IPEndPoint remoteEndPoint;
         private static VideoCall _videoCall;
         private static AudioCall _audioCall;
-
+        private static int startingPort = 12345; // Set the starting port you want to use
+        private static int localPort;
         public static void ConnectUdp(string ip, VideoCall videoCall)
         {
             _videoCall = videoCall;
@@ -34,11 +37,37 @@ namespace YouChatApp
         }
         private static void HandleConnect(string ip)
         {
-            _udpIsOn = true;
-            udpClient = new UdpClient();
-            remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 11000);
-            udpClient.Connect(remoteEndPoint);
-            udpClient.BeginReceive(new AsyncCallback(ReceiveAudio), null);//starts async listen too screen/camera sharing.
+            for (int i = startingPort; i < startingPort + 1000; i++) // Try ports in the range startingPort to startingPort + 1000
+            {
+                udpClient = new UdpClient();
+                try
+                {
+                    _udpIsOn = true;
+                    udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, i));
+                    remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 11000);
+                    udpClient.Connect(remoteEndPoint);
+                    localPort = i;
+                    udpClient.BeginReceive(new AsyncCallback(ReceiveAudio), null);//starts async listen too screen/camera sharing.
+                    Console.WriteLine($"UDP client started on port {localPort}");
+                    JsonObject udpConnectionRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UdpAudioConnectionRequest, localPort.ToString());
+                    string udpConnectionRequestJson = JsonConvert.SerializeObject(udpConnectionRequestJsonObject, new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.Auto
+                    });
+                    ServerCommunication.SendMessage(udpConnectionRequestJson);
+                    break; // Exit the loop if binding is successful
+                }
+                catch (SocketException)
+                {
+                    Console.WriteLine($"Failed to bind UDP client to port {i}. Trying next port...");
+                    // Continue to the next port
+                }
+            }
+            //_udpIsOn = true;
+            //udpClient = new UdpClient();
+            //remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 11000);
+            //udpClient.Connect(remoteEndPoint);
+            //udpClient.BeginReceive(new AsyncCallback(ReceiveAudio), null);//starts async listen too screen/camera sharing.
         }
 
 
@@ -55,7 +84,10 @@ namespace YouChatApp
             {
                 try
                 {
-                    udpClient.Send(data, dataLength/*, remoteEndPoint*/);
+                    byte[] buffer = Encryption.Encryption.EncryptDataToBytes(ServerCommunication.SymmetricKey, data);
+                    udpClient.Send(buffer, buffer.Length/*, remoteEndPoint*/);
+
+                    //udpClient.Send(data, dataLength/*, remoteEndPoint*/);
 
 
                     // Send data to the client
@@ -77,6 +109,8 @@ namespace YouChatApp
                     try
                     {
                         byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
+                        // Decrypt the received data using the client's key
+                        receivedData = Encryption.Encryption.DecryptDataToBytes(ServerCommunication.SymmetricKey, receivedData);
                         if (_videoCall != null) //maybe i should use interface for this... in order to not check each time but just
                         {
                             _videoCall.Invoke((Action)delegate { _videoCall.ReceiveAudioData(receivedData); });

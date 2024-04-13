@@ -21,6 +21,7 @@ using YouChatApp.Controls;
 using YouChatApp.UserProfile;
 using Newtonsoft.Json;
 using System.IO;
+using YouChatApp.JsonClasses;
 
 namespace YouChatApp
 {
@@ -62,7 +63,12 @@ namespace YouChatApp
             GroupCreatorSearchBar.AddSearchOnClickHandler(SearchContacts);
 
             SetCustomTextBoxsPlaceHolderText();
-            ServerCommunication.SendMessage(ServerCommunication.UserDetailsRequest, " ");
+            JsonObject userDetailsRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UserDetailsRequest, null);
+            string userDetailsRequestJson = JsonConvert.SerializeObject(userDetailsRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(userDetailsRequestJson);
 
             PanelHandler.DeletePanelScrollBars(SelectedContactsPanel);
             PanelHandler.DeletePanelHorizontalScrollBar(GroupCreatorPanel);

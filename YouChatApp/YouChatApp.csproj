@@ -153,6 +153,12 @@
       <DependentUpon>WaitingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AudioHandler\AudioHandler.cs" />
+    <Compile Include="BanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BanForm.Designer.cs">
+      <DependentUpon>BanForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CaptchaCodeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -193,10 +199,24 @@
     <Compile Include="EnumHandler\EnumHandler.cs" />
     <Compile Include="ImageHandler.cs" />
     <Compile Include="ImageRotationHandler.cs" />
+    <Compile Include="JsonClasses\CaptchaRotationImageDetails.cs" />
+    <Compile Include="JsonClasses\CaptchaRotationImages.cs" />
+    <Compile Include="JsonClasses\CaptchaRotationSuccessRate.cs" />
+    <Compile Include="JsonClasses\ChatSettings.cs" />
+    <Compile Include="JsonClasses\ImageContent.cs" />
+    <Compile Include="JsonClasses\JsonHandler\JsonHandler.cs" />
     <Compile Include="JsonClasses\JsonObject.cs" />
+    <Compile Include="JsonClasses\EncryptionKeys.cs" />
+    <Compile Include="JsonClasses\Message.cs" />
+    <Compile Include="JsonClasses\PasswordUpdateDetails.cs" />
+    <Compile Include="JsonClasses\PersonalVerificationQuestions.cs" />
+    <Compile Include="JsonClasses\SmtpDetails.cs" />
     <Compile Include="JsonClasses\LoginDetails.cs" />
     <Compile Include="JsonClasses\PersonalVerificationAnswers.cs" />
     <Compile Include="JsonClasses\RegistrationInformation.cs" />
+    <Compile Include="JsonClasses\PersonalVerificationQuestionDetails.cs" />
+    <Compile Include="JsonClasses\UserDetails.cs" />
+    <Compile Include="NamespaceAdjustmentBinder.cs" />
     <Compile Include="UdpServerCommunication\AudioServerCommunication.cs" />
     <Compile Include="ChatHandler\Chat.cs" />
     <Compile Include="ChatHandler\ChatCreator.cs" />
@@ -531,6 +551,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\WaitingForm.resx">
       <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BanForm.resx">
+      <DependentUpon>BanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CaptchaCodeControl.resx">
       <DependentUpon>CaptchaCodeControl.cs</DependentUpon>
@@ -12444,6 +12467,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CalendarDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StopWatch.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

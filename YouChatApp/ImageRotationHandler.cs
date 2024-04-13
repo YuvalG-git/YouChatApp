@@ -10,6 +10,7 @@ namespace YouChatApp
 {
     internal class ImageRotationHandler
     {
+        private static Graphics graphics;
         private static double CalculateRotationAngle(CircularPictureBox circularPictureBox, Point clickPoint)
         {
             double deltaX = clickPoint.X - circularPictureBox.Width / 2;
@@ -19,32 +20,45 @@ namespace YouChatApp
             double angleInDegrees = angleInRadians * (180.0 / Math.PI);
             return angleInDegrees + 90; // Add 90 degrees to align with clicked point
         }
-        public static void RotateImageToPoint(CircularPictureBox circularPictureBox, Image captchaImage, double captchaImageAngle, Point clickPoint)
+        public static Bitmap RotateImageToPoint(CircularPictureBox circularPictureBox, Image captchaImage, ref double captchaImageAngle, Point clickPoint)
         {
-            captchaImageAngle = CalculateRotationAngle(circularPictureBox, clickPoint);
-
             Bitmap rotatedImage = new Bitmap(circularPictureBox.BackgroundImage.Width, circularPictureBox.BackgroundImage.Height);
-            using (Graphics graphics = Graphics.FromImage(rotatedImage))
+            try
             {
+                captchaImageAngle = CalculateRotationAngle(circularPictureBox, clickPoint);
+
+                Console.WriteLine(circularPictureBox.BackgroundImage.Width + " " + circularPictureBox.BackgroundImage.Height);
+                Console.WriteLine(captchaImage.Width + " " + captchaImage.Height);
+
+                graphics = Graphics.FromImage(rotatedImage);
                 graphics.TranslateTransform(rotatedImage.Width / 2, rotatedImage.Height / 2);
                 graphics.RotateTransform((float)captchaImageAngle);
                 graphics.TranslateTransform(-rotatedImage.Width / 2, -rotatedImage.Height / 2);
                 graphics.DrawImage(captchaImage, new PointF(0, 0));
+                if (circularPictureBox.BackgroundImage != null)
+                {
+                    circularPictureBox.BackgroundImage.Dispose();
+                }
+                // Assign the rotated image to BackgroundImage
+                return new Bitmap(rotatedImage);
             }
-
-            circularPictureBox.BackgroundImage = rotatedImage;
+            catch (OutOfMemoryException ex)
+            {
+                // Handle the exception, e.g., log it or show an error message.
+                Console.WriteLine($"Out of memory exception: {ex.Message}");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            finally
+            {
+                rotatedImage.Dispose();
+                graphics.Dispose();
+            }
+          
         }
-        //private void RotateImage(Control control) //try to use it - if doesnt work 2 parmeters: picturebox and circularpicturebox - to check which one and act accordinglly
-        //{
-        //    Bitmap rotatedImage = new Bitmap(control.BackgroundImage.Width, control.BackgroundImage.Height);
-        //    using (Graphics graphics = Graphics.FromImage(rotatedImage))
-        //    {
-        //        graphics.TranslateTransform(rotatedImage.Width / 2, rotatedImage.Height / 2);
-        //        graphics.RotateTransform((float)CaptchaCircularPictureBoxAngle);
-        //        graphics.TranslateTransform(-rotatedImage.Width / 2, -rotatedImage.Height / 2);
-        //        graphics.DrawImage(CaptchaPicturesImageList.Images[CurrentPictureIndex], new PointF(0, 0));
-        //    }
-        //    control.BackgroundImage = rotatedImage;
-        //}
     }
 }

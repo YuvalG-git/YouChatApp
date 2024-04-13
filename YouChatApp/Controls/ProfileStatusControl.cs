@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YouChatApp.JsonClasses;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace YouChatApp.Controls
 {
@@ -27,6 +30,13 @@ namespace YouChatApp.Controls
             {
                 IsSelectedStatusShownProperty = value;
                 HandleSelectedStatusVisibility();
+            }
+        }
+        public string Status
+        {
+            get
+            {
+                return ProfileStatusCustomTextBox.TextContent;
             }
         }
 
@@ -76,6 +86,13 @@ namespace YouChatApp.Controls
             if (ProfileStatusCustomTextBox.IsContainingValue())
                 setStatus(ProfileStatusCustomTextBox.TextContent);
             RefreshProfileStatusCustomTextBoxContent();
+            string ProfileStatus = Status;
+            JsonObject profileStatusJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UploadStatusRequest, ProfileStatus);
+            string profileStatusJson = JsonConvert.SerializeObject(profileStatusJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(profileStatusJson);
         }
         public void setStatus(string status)
         {

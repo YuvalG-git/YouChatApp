@@ -365,22 +365,20 @@ namespace YouChatApp.Controls
         }
         private void ComboBoxList_TextUpdate(object sender, EventArgs e)
         {
+            LabelText.Text = ComboBoxList.Text;
             if (OnTextUpdate != null)
             {
                 OnTextUpdate.Invoke(sender, e);
             }
-            LabelText.Text = ComboBoxList.Text;
-
         }
 
         private void ComboBoxList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            LabelText.Text = ComboBoxList.Text;
             if (OnSelectedIndexChanged != null)
             {
                 OnSelectedIndexChanged.Invoke(sender, e);
             }
-            LabelText.Text = ComboBoxList.Text;
-
         }
         protected override void OnResize(EventArgs e)
         {

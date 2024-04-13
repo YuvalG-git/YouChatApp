@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YouChatApp.JsonClasses
 {
-    internal class PersonalVerificationAnswers
+    public class PersonalVerificationAnswers
     {
         private string _questionNumber1;
         private string _questionNumber2;

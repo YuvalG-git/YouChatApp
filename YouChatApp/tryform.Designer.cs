@@ -63,7 +63,6 @@
             // 
             // smtpControl1
             // 
-            this.smtpControl1.ControlType = YouChatApp.EnumHandler.UserAuthentication_Enum.PasswordUpdate;
             this.smtpControl1.Location = new System.Drawing.Point(79, 65);
             this.smtpControl1.Name = "smtpControl1";
             this.smtpControl1.Size = new System.Drawing.Size(350, 190);

@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.CaptchaPicturesScoreLabel = new System.Windows.Forms.Label();
-            this.CaptchaCircularPictureBox = new YouChatApp.CircularPictureBox();
             this.CaptchaPictureBox = new System.Windows.Forms.PictureBox();
             this.InstructionsLabel = new System.Windows.Forms.Label();
             this.CaptchaCodeLabel = new System.Windows.Forms.Label();
-            this.CaptchaCheckerCustomButton = new YouChatApp.Controls.CustomButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).BeginInit();
+            this.CaptchaCircularPictureBox = new YouChatApp.CircularPictureBox();
+            this.CaptchaCheckerCustomButton = new YouChatApp.Controls.CustomButton();
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // CaptchaPicturesScoreLabel
@@ -51,20 +51,6 @@
             this.CaptchaPicturesScoreLabel.TabIndex = 26;
             this.CaptchaPicturesScoreLabel.Text = "Score:";
             this.CaptchaPicturesScoreLabel.Click += new System.EventHandler(this.CaptchaPicturesScoreLabel_Click);
-            // 
-            // CaptchaCircularPictureBox
-            // 
-            this.CaptchaCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CaptchaCircularPictureBox.BorderColor = System.Drawing.Color.Gray;
-            this.CaptchaCircularPictureBox.BorderSize = 1;
-            this.CaptchaCircularPictureBox.HasBorder = false;
-            this.CaptchaCircularPictureBox.Location = new System.Drawing.Point(5, 5);
-            this.CaptchaCircularPictureBox.Name = "CaptchaCircularPictureBox";
-            this.CaptchaCircularPictureBox.Size = new System.Drawing.Size(150, 150);
-            this.CaptchaCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.CaptchaCircularPictureBox.TabIndex = 35;
-            this.CaptchaCircularPictureBox.TabStop = false;
-            this.CaptchaCircularPictureBox.Click += new System.EventHandler(this.CaptchaCircularPictureBox_Click);
             // 
             // CaptchaPictureBox
             // 
@@ -97,6 +83,30 @@
             this.CaptchaCodeLabel.Text = "CAPTCHA";
             this.CaptchaCodeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.CaptchaCircularPictureBox);
+            this.panel1.Controls.Add(this.CaptchaPictureBox);
+            this.panel1.Location = new System.Drawing.Point(50, 85);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(160, 160);
+            this.panel1.TabIndex = 48;
+            // 
+            // CaptchaCircularPictureBox
+            // 
+            this.CaptchaCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CaptchaCircularPictureBox.BorderColor = System.Drawing.Color.Gray;
+            this.CaptchaCircularPictureBox.BorderSize = 1;
+            this.CaptchaCircularPictureBox.HasBorder = false;
+            this.CaptchaCircularPictureBox.Location = new System.Drawing.Point(5, 5);
+            this.CaptchaCircularPictureBox.Name = "CaptchaCircularPictureBox";
+            this.CaptchaCircularPictureBox.Size = new System.Drawing.Size(150, 150);
+            this.CaptchaCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CaptchaCircularPictureBox.TabIndex = 35;
+            this.CaptchaCircularPictureBox.TabStop = false;
+            this.CaptchaCircularPictureBox.BackgroundImageChanged += new System.EventHandler(this.CaptchaCircularPictureBox_BackgroundImageChanged);
+            this.CaptchaCircularPictureBox.Click += new System.EventHandler(this.CaptchaCircularPictureBox_Click);
+            // 
             // CaptchaCheckerCustomButton
             // 
             this.CaptchaCheckerCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
@@ -116,15 +126,7 @@
             this.CaptchaCheckerCustomButton.Text = "Check Captcha";
             this.CaptchaCheckerCustomButton.TextColor = System.Drawing.Color.White;
             this.CaptchaCheckerCustomButton.UseVisualStyleBackColor = false;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.CaptchaCircularPictureBox);
-            this.panel1.Controls.Add(this.CaptchaPictureBox);
-            this.panel1.Location = new System.Drawing.Point(50, 85);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(160, 160);
-            this.panel1.TabIndex = 48;
+            this.CaptchaCheckerCustomButton.Click += new System.EventHandler(this.CaptchaCheckerCustomButton_Click);
             // 
             // CaptchaRotatingImageControl
             // 
@@ -138,9 +140,9 @@
             this.Controls.Add(this.CaptchaPicturesScoreLabel);
             this.Name = "CaptchaRotatingImageControl";
             this.Size = new System.Drawing.Size(260, 330);
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

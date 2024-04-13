@@ -2,7 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Net.Sockets;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
+using YouChatApp.Controls;
 using YouChatApp.JsonClasses;
 using YouChatApp.VerificationQuestion;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -13,20 +19,83 @@ namespace YouChatApp.UserAuthentication.Forms
 {
     public partial class Registration : Form
     {
-
-        Boolean MaleButtonIsChecked = false, FemaleButtonIsChecked = false, AnotherGenderButtonIsChecked = false;
+        bool isApprovedUsername = false, isApprovedPassword = false, isApprovedFirstName = false, isApprovedLastName = false, isApprovedEmailAddress = false, isApprovedCityName = false;
+        bool MaleButtonIsChecked = false, FemaleButtonIsChecked = false, AnotherGenderButtonIsChecked = false;
         string Gender = "";
         public Registration()
         {
             InitializeComponent();
+            //ServerCommunication.MessageBeginRead();
             GenderOptionsCustomComboBox.SelectedIndex = 0;
+            PersonalVerificationQuestionsControl.AddButtonClickHandler(HandleSendingEmailProcess);
+            PasswordGeneratorControl.OnTextChangedEventHandler(PasswordGeneratorControl_TextChanged);
+
+            SmtpControl.AddRestartSmtpCodeCustomButtonClickHandler(HandleSendingEmailProcess);
+            SmtpControl.AddVerifyCustomButtonClickHandler(SendSmtpCode);
+
+            BirthDateCustomDateTimePicker.MinDate = new DateTime(DateTime.Today.Year - 100, DateTime.Today.Month, DateTime.Today.Day);
+            BirthDateCustomDateTimePicker.MaxDate = DateTime.Now;
+
+        }
+        public void SendSmtpCode(object sender, EventArgs e)
+        {
+            string enteredSmtpCode = SmtpControl.GetCode();
+            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_SmtpRegistrationCode, enteredSmtpCode);
+            string enteredSmtpCodeJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(enteredSmtpCodeJson);
         }
 
-        private void UsernameCustomTextBox_TextChangedEvent(object sender, EventArgs e)
+
+        public void PasswordGeneratorControl_TextChanged(object sender, EventArgs e)
         {
             ContinueCustomButtonSetEnabled();
-            HandleUsernameContent();
+        }
+        public void HandleSendingEmailProcess(object sender, EventArgs e)
+        {
+            SmtpControl.Visible = true;
+            HandleSendingEmailProcess();
+        }
+        public void HandleProblematicDetails()
+        {
+            ResetFormAppearance();
+        }
+        private void HandleSendingEmailProcess()
+        {
+            string username = UsernameCustomTextBox.TextContent;
+            string emailAddress = EmailAddressCustomTextBox.TextContent;
+            SmtpDetails userUsernameAndEmailAddress = new SmtpDetails(username, emailAddress);
+            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_SmtpRegistrationMessage, userUsernameAndEmailAddress);
+            string userUsernameAndEmailAddressJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(userUsernameAndEmailAddressJson);
+        }
+        public void HandleRecievedEmail()
+        {
+            SmtpControl.HandleCode();
+        }
+        public void HandleCodeResponse(string response)
+        {
+            if (response == ServerCommunication.RightSmtpCode)
+            {
+                SignUpCustomButton.Visible = true;
+            }
+            else
+            {
+                ChangeEmailOptionLinkLabel.Visible = true;
+                NewSMTPCodeOptionLinkLabel.Visible = true;
 
+                SmtpControl.SetDisabled();
+            }
+        }
+        private void UsernameCustomTextBox_TextChangedEvent(object sender, EventArgs e)
+        {
+            HandleUsernameContent();
+            ContinueCustomButtonSetEnabled();
         }
 
         private void UsernameCustomTextBox_Leave(object sender, EventArgs e)
@@ -40,6 +109,7 @@ namespace YouChatApp.UserAuthentication.Forms
             if (UsernameCustomTextBox.isPlaceHolder())
             {
                 UsernameCustomTextBox.BorderColor = Color.MediumSlateBlue;
+                UsernameExclamationCustomButton.Visible = false;
             }
             else
             {
@@ -71,11 +141,16 @@ namespace YouChatApp.UserAuthentication.Forms
                 }
             }
         }
+        public void OpenInitialProfileSelectionForm(Boolean IsPhaseOne)
+        {
+            this.Hide();
+            ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
+            this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
+        }
 
         private void FirstNameCustomTextBox_Leave(object sender, EventArgs e)
         {
             HandleFirstNameContent();
-
         }
         private void HandleFirstNameContent()
         {
@@ -84,6 +159,7 @@ namespace YouChatApp.UserAuthentication.Forms
             if (FirstNameCustomTextBox.isPlaceHolder())
             {
                 FirstNameCustomTextBox.BorderColor = Color.MediumSlateBlue;
+                FirstNameExclamationCustomButton.Visible = false;
             }
             else
             {
@@ -92,9 +168,9 @@ namespace YouChatApp.UserAuthentication.Forms
                     error += "The first name can only contain letters and white spaces\r\n";
                 }
                 int length = StringHandler.LengthWithoutWhiteSpace(firstName);
-                if (length < 4)
+                if (length < 3)
                 {
-                    error += "The first name must be longer than 4 letters";
+                    error += "The first name must be longer than 3 letters";
                 }
                 else if (length >= 30)
                 {
@@ -117,11 +193,12 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         private void HandleLastNameContent()
         {
-            string lastName = FirstNameCustomTextBox.TextContent;
+            string lastName = LastNameCustomTextBox.TextContent;
             string error = "";
             if (LastNameCustomTextBox.isPlaceHolder())
             {
                 LastNameCustomTextBox.BorderColor = Color.MediumSlateBlue;
+                LastNameExclamationCustomButton.Visible = false;
             }
             else
             {
@@ -131,13 +208,13 @@ namespace YouChatApp.UserAuthentication.Forms
                 }
                 int length = StringHandler.LengthWithoutWhiteSpace(lastName);
 
-                if (length < 4)
+                if (length < 3)
                 {
-                    error += "The last name must be longer than 4 letters";
+                    error += "The last name must be longer than 3 letters\r\n";
                 }
                 else if (length >= 30)
                 {
-                    error += "The last name must be shorter than 31 letters";
+                    error += "The last name must be shorter than 31 letters\r\n";
                 }
 
 
@@ -155,6 +232,101 @@ namespace YouChatApp.UserAuthentication.Forms
                 }
             }
         }
+        private void HandleEmailAddressContent()
+        {
+            string emailAddress = EmailAddressCustomTextBox.TextContent;
+            string error = "";
+            // Regular expression pattern for a valid email address
+            string pattern = @"^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]{2,}$";
+
+            if (EmailAddressCustomTextBox.isPlaceHolder())
+            {
+                EmailAddressCustomTextBox.BorderColor = Color.MediumSlateBlue;
+                EmailAddressExclamationCustomButton.Visible = false;
+            }
+            else
+            {
+                if (emailAddress.Length > 60)
+                {
+                    error += "The email address must not exceed 60 characters\r\n";
+                }
+                // Check for problematic parts in the email address
+                int atIndex = emailAddress.IndexOf('@');
+                int dotIndex = emailAddress.LastIndexOf('.');
+                if (atIndex == -1)
+                {
+                    error += "The email address must contain an '@' symbol\r\n";
+                }
+                else if (dotIndex == -1)
+                {
+                    error += "The email address must contain an '.' symbol in the domain\r\n";
+                }
+                else if (dotIndex <= atIndex + 1)
+                {
+                    error += "The email address must have a domain after the '@' symbol\r\n";
+                }
+                else
+                {
+                    string prefix = emailAddress.Substring(0, atIndex);
+                    if (prefix.Length < 1)
+                    {
+                        error += "The email address must have a prefix\r\n";
+                    }
+
+                    // Check the domain after the '@' symbol
+                    string domain = emailAddress.Substring(atIndex + 1, dotIndex - atIndex - 1);
+                    if (domain.Length < 1)
+                    {
+                        error += "The email address must have a domain\r\n";
+                    }
+                    // Check the top-level domain after the last dot
+                    string topLevelDomain = emailAddress.Substring(dotIndex + 1);
+                    if (topLevelDomain.Length < 2)
+                    {
+                        error += "The top-level domain must have at least two characters\r\n";
+                    }
+                    // Check if the prefix contains only allowed characters
+                    if (!Regex.IsMatch(prefix, @"^[a-zA-Z0-9_.-]+$"))
+                    {
+                        error += "The email address prefix contains invalid characters\r\n";
+                    }
+
+                    // Check if special characters (underscore, period, dash) are followed by at least one letter or number in the prefix
+                    if (Regex.IsMatch(prefix, @"[._-](?![a-zA-Z0-9]+$)"))
+                    {
+                        error += "Special characters (underscore, period, dash) in the prefix must be followed by at least one letter or number\r\n";
+                    }
+                    if (!char.IsLetterOrDigit(prefix[0]))
+                    {
+                        error += "The email address must start with a letter or number\r\n";
+                    }
+                    // Check if the domain contains only allowed characters
+                    if (!Regex.IsMatch(domain, @"^[a-zA-Z0-9-]+$"))
+                    {
+                        error += "The email address domain contains invalid characters\r\n";
+                    }
+
+                    // Validate the domain against a list of known top-level domains (TLDs) to ensure it is valid
+                    string[] validTLDs = { "com", "org", "net", "edu", "gov" }; // Add more if needed
+                    string[] domainParts = topLevelDomain.Split('.');
+                    if (!validTLDs.Contains(domainParts[domainParts.Length - 1].ToLower()))
+                    {
+                        error += "The email address domain has an invalid top-level domain (com, org, net, edu, gov)\r\n";
+                    }
+                }
+                if (error=="" && Regex.IsMatch(emailAddress, pattern))
+                {
+                    EmailAddressExclamationCustomButton.Visible = false;
+                    EmailAddressCustomTextBox.BorderColor = Color.LimeGreen;
+                }
+                else
+                {
+                    EmailAddressCustomTextBox.BorderColor = Color.Red;
+                    EmailAddressExclamationCustomButton.Visible = true;
+                    ToolTip.SetToolTip(EmailAddressExclamationCustomButton, error);
+                }
+            }    
+        }
         private void HandleCityNameContent()
         {
             string cityName = CityCustomTextBox.TextContent;
@@ -162,6 +334,7 @@ namespace YouChatApp.UserAuthentication.Forms
             if (CityCustomTextBox.isPlaceHolder())
             {
                 CityCustomTextBox.BorderColor = Color.MediumSlateBlue;
+                CityExclamationCustomButton.Visible = false;
             }
             else
             {
@@ -198,7 +371,6 @@ namespace YouChatApp.UserAuthentication.Forms
         private void LastNameCustomTextBox_Leave(object sender, EventArgs e)
         {
             HandleLastNameContent();
-
         }
 
 
@@ -214,9 +386,13 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             if (GenderOptionsCustomComboBox.TextContent != "<Select A Gender>")
             {
-                //Gender = GenderOptionsCustomComboBox.Text;
-                //RegistButtonSetEnabled();
+                Gender = GenderOptionsCustomComboBox.TextContent;
             }
+            else
+            {
+                Gender = "";
+            }
+            ContinueCustomButtonSetEnabled();
             if (GenderOptionsCustomComboBox.TextContent == "Other...")
             {
                 GenderOptionsCustomComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
@@ -237,12 +413,114 @@ namespace YouChatApp.UserAuthentication.Forms
 
         private void SignUpCustomButton_Click(object sender, EventArgs e)
         {
+            //if (!CodeLabel.Visible)
+            //{
+            //    if (username.Contains("#"))
+            //        MessageBox.Show("choose an username which doesn't conatain '#'");
+            //    if (password.Contains("#"))
+            //        MessageBox.Show("choose a password which doesn't conatain '#'");
+            //    if (firstname.Contains("#"))
+            //        MessageBox.Show("choose a firstname which doesn't conatain '#'");
+            //    if (lastname.Contains("#"))
+            //        MessageBox.Show("choose a lastname which doesn't conatain '#'");
+            //    if (email.Contains("#"))
+            //        MessageBox.Show("choose an email which doesn't conatain '#'");
+            //    if (city.Contains("#"))
+            //        MessageBox.Show("choose a city which doesn't conatain '#'");
+            //    if (email.Contains("@"))
+            //    {
+            //        int Index = email.IndexOf("@");
+            //        if (Index == 0)
+            //            MessageBox.Show("That's not an email address");
+            //        else
+            //        {
+            //            int count = GetSpecificCharNumberFromString(email, '@');
+            //            if (count != 1)
+            //            {
+            //                MessageBox.Show("That's not an email address");
+            //            }
+            //            else
+            //            {
+            //                string[] GmailInfo = email.Split('@');
+            //                string GmailEnd = GmailInfo[1];
+            //                if (GmailEnd != "gmail.com")
+            //                {
+            //                    MessageBox.Show("That's not an email address");
+            //                }
+            //                else
+            //                {
+            //                    CodeLabel.Visible = true;
+            //                    CodeTextBox.Visible = true;
+            //                    usernameTextbox.Enabled = false;
+            //                    passwordTextbox.Enabled = false;
+            //                    firstnameTextbox.Enabled = false;
+            //                    lastnameTextbox.Enabled = false;
+            //                    emailTextbox.Enabled = false;
+            //                    cityTextbox.Enabled = false;
+            //                    BirthDateDateTimePicker.Enabled = false;
+            //                    MaleRadioButton.Enabled = false;
+            //                    FemaleRadioButton.Enabled = false;
+            //                    AnotherGenderRadioButton.Enabled = false;
+
+            //                    //string RegistrationDate = DateTime.Today.ToString("yyyy-MM-dd"); ;
+            //                    //string userDetails = username + "#" + password + "#" + firstname + "#" + lastname + "#" + email + "#" + city + "#" + dateOfBirth + "#" + Gender + "#" + RegistrationDate; //to add in the server side the handle of theRegistrationDate 
+            //                    //ServerCommunication.SendMessage(ServerCommunication.registerRequest + "$" + userDetails + "$" + userDetails.Length);
+            //                    registButton.Text = "Verify";
+            //                    registButton.Enabled = false;
+            //                    Thread.Sleep(500);
+            //                    smtpHandler.SendCodeToUserEmail(username, email, RegistrationMessage);
+            //                }
+            //            }
+            //        }
+            //    }
+            //    else
+            //        MessageBox.Show("That's not an email address");
+            //}
+            //else
+            //{
+            //    CodeTextBox.Enabled = false;
+
+            //    if (CodeTextBox.Text == smtpHandler.GetSmtpCode())
+            //    {
+            //        MessageBox.Show("good job");
+            //        string RegistrationDate = DateTime.Today.ToString("yyyy-MM-dd");
+            //        List<string[]> VerificationQuestionsAndAnswers = GenerateVerificationQuestionListOfArrays();
+            //        RegistrationInformation registrationInformation = new RegistrationInformation(username, password, firstname, lastname, email, city, Gender, BirthDateDateTimePicker.Value, DateTime.Today, VerificationQuestionsAndAnswers);
+            //        string chatDetailsJson = JsonConvert.SerializeObject(registrationInformation);
+
+            //        string userDetails = username + "#" + password + "#" + firstname + "#" + lastname + "#" + email + "#" + city + "#" + dateOfBirth + "#" + Gender + "#" + RegistrationDate; //to add in the server side the handle of theRegistrat
+            //        ServerCommunication.SendMessage(ServerCommunication.registerRequest, userDetails);
+            //        //ServerCommunication.SendMessage(ServerCommunication.registerRequest + "$" + userDetails + "$" + userDetails.Length);
+
+            //    }
+            //    else
+            //    {
+            //        CodeTextBox.Text = "";
+            //        registButton.Visible = false;
+            //        ChangeEmailOptionButton.Visible = true;
+            //        NewSMTPCodeOptionButton.Visible = true;
+            //    }
+            //}
+
+
+            string username = UsernameCustomTextBox.TextContent;
+            string password = PasswordGeneratorControl.GetNewPassword();
+            string firstname = FirstNameCustomTextBox.TextContent;
+            string lastname = LastNameCustomTextBox.TextContent;
+            string email = EmailAddressCustomTextBox.TextContent;
+            string city = CityCustomTextBox.TextContent;
+            DateTime dateOfBirth = BirthDateCustomDateTimePicker.Value;
+            DateTime RegistrationDate = DateTime.Today;
+
             MessageBox.Show("good job");
-            string RegistrationDate = DateTime.Today.ToString("yyyy-MM-dd");
             List<string[]> VerificationQuestionsAndAnswers = GenerateVerificationQuestionListOfArrays();
-            //RegistrationInformation registrationInformation = new RegistrationInformation(username, password, firstname, lastname, email, city, Gender, BirthDateDateTimePicker.Value, DateTime.Today, VerificationQuestionsAndAnswers);
-            //string chatDetailsJson = JsonConvert.SerializeObject(registrationInformation);
-            //ServerCommunication.SendMessage(ServerCommunication.registerRequest, chatDetailsJson);
+            RegistrationInformation registrationInformation = new RegistrationInformation(username, password, firstname, lastname, email, city, Gender, dateOfBirth, RegistrationDate, VerificationQuestionsAndAnswers);
+            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_Registration, registrationInformation);
+            string registrationInformationJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(registrationInformationJson);
         }
         private List<string[]> GenerateVerificationQuestionListOfArrays()
         {
@@ -259,14 +537,9 @@ namespace YouChatApp.UserAuthentication.Forms
             }
             return VerificationQuestionsAndAnswers;
         }
-
-        private void RegisterDetails(object sender, EventArgs e)
-        {
-            ContinueCustomButtonSetEnabled();
-        }
         private void ContinueCustomButtonSetEnabled()
         {
-            if ((FirstNameCustomTextBox.BorderColor == Color.LimeGreen) && (PasswordGeneratorControl.IsSamePassword()) && (FirstNameCustomTextBox.BorderColor == Color.LimeGreen) && (LastNameCustomTextBox.BorderColor == Color.LimeGreen) && /*(EmailAddressCustomTextBox.BorderColor == Color.LimeGreen) &&*/ (CityCustomTextBox.BorderColor == Color.LimeGreen) && (BirthDateCustomDateTimePicker.CustomFormat != " ")  /*&&(RadioButtonIsChecked()) &&  (VerificationQuestionHandler.wasSelected)*/)
+            if ((UsernameCustomTextBox.BorderColor == Color.LimeGreen) && (PasswordGeneratorControl.IsSamePassword()) && (FirstNameCustomTextBox.BorderColor == Color.LimeGreen) && (LastNameCustomTextBox.BorderColor == Color.LimeGreen) && (EmailAddressCustomTextBox.BorderColor == Color.LimeGreen) && (CityCustomTextBox.BorderColor == Color.LimeGreen) && (BirthDateCustomDateTimePicker.CustomFormat != " ")  && (RadioButtonIsChecked()))
                 ContinueCustomButton.Enabled = true;
             else
                 ContinueCustomButton.Enabled = false;
@@ -274,7 +547,8 @@ namespace YouChatApp.UserAuthentication.Forms
 
         private void ContinueCustomButton_Click(object sender, EventArgs e)
         {
-            //PersonalVerificationQuestionsControl.Visible = true;
+            PersonalVerificationQuestionsControl.Visible = true;
+            UserDetailsPanel.Enabled = false;
         }
 
         private void LoginReturnerCustomButton_Click(object sender, EventArgs e)
@@ -324,8 +598,8 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 GenderOptionsCustomComboBox.Visible = false;
                 AnotherGenderButtonIsChecked = false;
-                Gender = "";
             }
+            Gender = "";
             if (AnotherGenderButtonIsChecked == true)
             {
                 AnotherGenderRadioButton.Checked = true;
@@ -334,7 +608,7 @@ namespace YouChatApp.UserAuthentication.Forms
             else
             {
                 AnotherGenderRadioButton.Checked = false;
-            }//יכול להיות חכם לעשות מערך של שלושת הכפתורים, ואז בקלט לקבל גם מספר שמייצג מיקום
+            }
             ContinueCustomButtonSetEnabled();
         }
 
@@ -345,25 +619,25 @@ namespace YouChatApp.UserAuthentication.Forms
 
         private void FirstNameCustomTextBox_TextChangedEvent(object sender, EventArgs e)
         {
-            ContinueCustomButtonSetEnabled();
             HandleFirstNameContent();
+            ContinueCustomButtonSetEnabled();
         }
 
         private void LastNameCustomTextBox_TextChangedEvent(object sender, EventArgs e)
         {
-            ContinueCustomButtonSetEnabled();
             HandleLastNameContent();
+            ContinueCustomButtonSetEnabled();
         }
 
         private void EmailAddressCustomTextBox_Leave(object sender, EventArgs e)
         {
-
+            HandleEmailAddressContent();
         }
 
         private void CityCustomTextBox_TextChangedEvent(object sender, EventArgs e)
         {
-            ContinueCustomButtonSetEnabled();
             HandleCityNameContent();
+            ContinueCustomButtonSetEnabled();
         }
 
         private void BirthDateCustomDateTimePicker_ValueChanged(object sender, EventArgs e)
@@ -395,9 +669,65 @@ namespace YouChatApp.UserAuthentication.Forms
 
         }
 
+        private void NewSMTPCodeOptionCustomButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SmtpControl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ChangeEmailOptionLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ResetFormAppearance();
+            HideLinkLabels();
+        }
+        private void ResetFormAppearance()
+        {
+            UserDetailsPanel.Enabled = true;
+            PersonalVerificationQuestionsControl.Enabled = true;
+            PersonalVerificationQuestionsControl.Visible = false;
+            SmtpControl.Visible = false;
+        }
+
+
+        private void NewSMTPCodeOptionLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            HandleSendingEmailProcess();
+            HideLinkLabels();
+        }
+        private void HideLinkLabels()
+        {
+            ChangeEmailOptionLinkLabel.Visible = false;
+            NewSMTPCodeOptionLinkLabel.Visible = false;
+        }
         private void Registration_Load(object sender, EventArgs e)
         {
             GenderOptionsCustomComboBox.SelectedIndex = 0; // Automatically select the placeholder item
+        }
+
+        private void PersonalVerificationQuestionsControl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void EmailAddressCustomTextBox_TextChangedEvent(object sender, EventArgs e)
+        {
+            HandleEmailAddressContent();
+            ContinueCustomButtonSetEnabled();
+        }
+
+        private void PasswordGeneratorControl_TextChangedEvent(object sender, EventArgs e)
+        {
+            ContinueCustomButtonSetEnabled();
+        }
+
+        private void LastNameExclamationCustomButton_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void MaleRadioButton_Click(object sender, EventArgs e)

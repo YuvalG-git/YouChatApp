@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using YouChatApp.JsonClasses;
 
 namespace YouChatApp
 {
@@ -15,7 +19,7 @@ namespace YouChatApp
         public InitialProfileSelection(bool IsPhaseOne)
         {
             InitializeComponent();
-            //ServerCommunication.MessageBeginRead();
+            ServerCommunication.MessageBeginRead();
             //ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
             ProfilePictureControl.AddButtonClickHandler(SetConfirmButtonEnabled);
             if (IsPhaseOne)
@@ -26,51 +30,7 @@ namespace YouChatApp
             {
                 SetPhaseTwo();
             }
-
-
-
         }
-
-        private void RefreshTextButton_Click(object sender, EventArgs e)
-        {
-            ProfileStatusTextBox.Text = "Write Here Your YouChat Status";
-            ProfileStatusTextBox.ForeColor = Color.Silver;
-            CharNumberLabel.Text = "0/" + ProfileStatusTextBox.MaxLength;
-
-        }
-
-        private void ProfileStatusTextBox_TextChanged(object sender, EventArgs e)
-        {
-            CharNumberLabel.Text = ProfileStatusTextBox.TextLength.ToString() + "/" + ProfileStatusTextBox.MaxLength;
-            string StatusText = ProfileStatusTextBox.Text;
-            if ((StatusText != "") && (StatusText != "Write Here Your YouChat Status"))
-            {
-                ConfirmCustomButton.Enabled = true;
-            }
-            else
-            {
-                ConfirmCustomButton.Enabled = false;
-            }
-        }
-
-        private void ProfileStatusTextBox_Enter(object sender, EventArgs e)
-        {
-            if (ProfileStatusTextBox.Text == "Write Here Your YouChat Status")
-            {
-                ProfileStatusTextBox.Text = "";
-                ProfileStatusTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            }
-        }
-
-        private void ProfileStatusTextBox_Leave(object sender, EventArgs e)
-        {
-            if (ProfileStatusTextBox.Text == "")
-            {
-                ProfileStatusTextBox.Text = "Write Here Your YouChat Status";
-                ProfileStatusTextBox.ForeColor = Color.Silver;
-            }
-        }
-
         public void OpenApp()
         {
             this.Hide();
@@ -81,15 +41,12 @@ namespace YouChatApp
         private void SetPhaseOne()
         {
             ProfilePictureControl.Visible = true;
-            StatusGroupBox.Visible = false;
-            ProfileSettingsHeadlineLabel.Text = "Profile Picture";
+            ProfileStatusControl.Visible = false;
         }
         public void SetPhaseTwo()
         {
             ProfilePictureControl.Visible = false;
-            StatusGroupBox.Visible = true;
-            ProfileSettingsHeadlineLabel.Text = "Status";
-
+            ProfileStatusControl.Visible = true;
         }
 
         public void SetConfirmButtonEnabled(object sender, EventArgs e)
@@ -101,7 +58,6 @@ namespace YouChatApp
             else
             {
                 ConfirmCustomButton.Enabled = false;
-
             }
         }
         public void SetConfirmButtonEnabledToFalse()
@@ -115,20 +71,13 @@ namespace YouChatApp
 
         private void ConfirmCustomButton_Click(object sender, EventArgs e)
         {
-            if (ProfilePictureControl.Visible)
+            string ProfilePictureId = ProfilePictureControl.GetImageNameID();
+            JsonObject profilePictureIdJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UploadProfilePictureRequest, ProfilePictureId);
+            string profilePictureIdJson = JsonConvert.SerializeObject(profilePictureIdJsonObject, new JsonSerializerSettings
             {
-                string ProfilePictureId = ProfilePictureControl.GetImageNameID();
-                //ServerCommunication.SendMessage(ServerCommunication.UploadProfilePictureRequest + "$" + ProfilePictureId);
-
-                //ServerCommunication.SendMessage(ServerCommunication.UploadProfilePictureRequest, ProfilePictureId);
-            }
-            else
-            {
-                string ProfileStatus = ProfileStatusTextBox.Text;
-                //ServerCommunication.SendMessage(ServerCommunication.UploadStatusRequest + "$" + ProfileStatus);
-
-                //ServerCommunication.SendMessage(ServerCommunication.UploadStatusRequest, ProfileStatus);
-            }
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(profilePictureIdJson);
         }
     }
 }

@@ -36,6 +36,7 @@
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CaptchaCheckerCustomButton = new YouChatApp.Controls.CustomButton();
             this.CaptchaPictureBox = new System.Windows.Forms.PictureBox();
+            this.NotificationLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +63,7 @@
             this.RestartCaptchaCustomButton.FlatAppearance.BorderSize = 0;
             this.RestartCaptchaCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RestartCaptchaCustomButton.ForeColor = System.Drawing.Color.White;
-            this.RestartCaptchaCustomButton.Location = new System.Drawing.Point(190, 200);
+            this.RestartCaptchaCustomButton.Location = new System.Drawing.Point(190, 230);
             this.RestartCaptchaCustomButton.Name = "RestartCaptchaCustomButton";
             this.RestartCaptchaCustomButton.Size = new System.Drawing.Size(40, 40);
             this.RestartCaptchaCustomButton.TabIndex = 38;
@@ -101,6 +102,7 @@
             this.CaptchaCodeCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.CaptchaCodeCustomTextBox.PlaceHolderText = "Enter Captcha Code";
             this.CaptchaCodeCustomTextBox.ReadOnly = false;
+            this.CaptchaCodeCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.CaptchaCodeCustomTextBox.Size = new System.Drawing.Size(200, 33);
             this.CaptchaCodeCustomTextBox.TabIndex = 44;
             this.CaptchaCodeCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -121,7 +123,7 @@
             this.CaptchaCheckerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CaptchaCheckerCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CaptchaCheckerCustomButton.ForeColor = System.Drawing.Color.White;
-            this.CaptchaCheckerCustomButton.Location = new System.Drawing.Point(30, 200);
+            this.CaptchaCheckerCustomButton.Location = new System.Drawing.Point(30, 230);
             this.CaptchaCheckerCustomButton.Name = "CaptchaCheckerCustomButton";
             this.CaptchaCheckerCustomButton.Size = new System.Drawing.Size(150, 40);
             this.CaptchaCheckerCustomButton.TabIndex = 46;
@@ -140,11 +142,24 @@
             this.CaptchaPictureBox.TabIndex = 45;
             this.CaptchaPictureBox.TabStop = false;
             // 
+            // NotificationLabel
+            // 
+            this.NotificationLabel.AutoSize = true;
+            this.NotificationLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NotificationLabel.Location = new System.Drawing.Point(32, 195);
+            this.NotificationLabel.MaximumSize = new System.Drawing.Size(200, 0);
+            this.NotificationLabel.Name = "NotificationLabel";
+            this.NotificationLabel.Size = new System.Drawing.Size(198, 28);
+            this.NotificationLabel.TabIndex = 54;
+            this.NotificationLabel.Text = "Press refresh button to generate another Captcha";
+            this.NotificationLabel.Visible = false;
+            // 
             // CaptchaCodeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.Controls.Add(this.NotificationLabel);
             this.Controls.Add(this.CaptchaCheckerCustomButton);
             this.Controls.Add(this.CaptchaPictureBox);
             this.Controls.Add(this.CaptchaCodeCustomTextBox);
@@ -152,7 +167,7 @@
             this.Controls.Add(this.RestartCaptchaCustomButton);
             this.Controls.Add(this.CaptchaCodeLabel);
             this.Name = "CaptchaCodeControl";
-            this.Size = new System.Drawing.Size(260, 250);
+            this.Size = new System.Drawing.Size(257, 280);
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -167,5 +182,6 @@
         private System.Windows.Forms.ToolTip ToolTip;
         private System.Windows.Forms.PictureBox CaptchaPictureBox;
         private CustomButton CaptchaCheckerCustomButton;
+        private System.Windows.Forms.Label NotificationLabel;
     }
 }

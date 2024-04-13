@@ -40,7 +40,7 @@
             this.SignUpLabel = new System.Windows.Forms.Label();
             this.LoginLabel = new System.Windows.Forms.Label();
             this.PersonalVerificationAnswersControl = new YouChatApp.Controls.PersonalVerificationAnswersControl();
-            this.smtpControl1 = new YouChatApp.Controls.SmtpControl();
+            this.SmtpControl = new YouChatApp.Controls.SmtpControl();
             this.SuspendLayout();
             // 
             // ForgottenPasswordLabel
@@ -139,6 +139,7 @@
             this.UsernameCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.UsernameCustomTextBox.PlaceHolderText = "Enter Username";
             this.UsernameCustomTextBox.ReadOnly = false;
+            this.UsernameCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.UsernameCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.UsernameCustomTextBox.TabIndex = 43;
             this.UsernameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -151,16 +152,18 @@
             this.CaptchaCodeControl.AutoSize = true;
             this.CaptchaCodeControl.Location = new System.Drawing.Point(515, 28);
             this.CaptchaCodeControl.Name = "CaptchaCodeControl";
-            this.CaptchaCodeControl.Size = new System.Drawing.Size(260, 250);
+            this.CaptchaCodeControl.Size = new System.Drawing.Size(260, 273);
             this.CaptchaCodeControl.TabIndex = 46;
+            this.CaptchaCodeControl.Visible = false;
             // 
             // CaptchaRotatingImageControl
             // 
             this.CaptchaRotatingImageControl.AutoSize = true;
-            this.CaptchaRotatingImageControl.Location = new System.Drawing.Point(515, 285);
+            this.CaptchaRotatingImageControl.Location = new System.Drawing.Point(496, 307);
             this.CaptchaRotatingImageControl.Name = "CaptchaRotatingImageControl";
             this.CaptchaRotatingImageControl.Size = new System.Drawing.Size(260, 330);
             this.CaptchaRotatingImageControl.TabIndex = 47;
+            this.CaptchaRotatingImageControl.Visible = false;
             // 
             // SignUpCustomButton
             // 
@@ -211,21 +214,22 @@
             this.PersonalVerificationAnswersControl.Name = "PersonalVerificationAnswersControl";
             this.PersonalVerificationAnswersControl.Size = new System.Drawing.Size(400, 380);
             this.PersonalVerificationAnswersControl.TabIndex = 51;
+            this.PersonalVerificationAnswersControl.Visible = false;
             // 
-            // smtpControl1
+            // SmtpControl
             // 
-            this.smtpControl1.ControlType = YouChatApp.EnumHandler.UserAuthentication_Enum.Login;
-            this.smtpControl1.Location = new System.Drawing.Point(81, 377);
-            this.smtpControl1.Name = "smtpControl1";
-            this.smtpControl1.Size = new System.Drawing.Size(350, 190);
-            this.smtpControl1.TabIndex = 52;
+            this.SmtpControl.Location = new System.Drawing.Point(81, 377);
+            this.SmtpControl.Name = "SmtpControl";
+            this.SmtpControl.Size = new System.Drawing.Size(350, 190);
+            this.SmtpControl.TabIndex = 52;
+            this.SmtpControl.Visible = false;
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1223, 689);
-            this.Controls.Add(this.smtpControl1);
+            this.Controls.Add(this.SmtpControl);
             this.Controls.Add(this.PersonalVerificationAnswersControl);
             this.Controls.Add(this.LoginLabel);
             this.Controls.Add(this.SignUpLabel);
@@ -240,6 +244,7 @@
             this.Controls.Add(this.ForgottenPasswordLabel);
             this.Name = "Login";
             this.Text = "Login";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -258,6 +263,6 @@
         private System.Windows.Forms.Label SignUpLabel;
         public System.Windows.Forms.Label LoginLabel;
         private Controls.PersonalVerificationAnswersControl PersonalVerificationAnswersControl;
-        private Controls.SmtpControl smtpControl1;
+        private Controls.SmtpControl SmtpControl;
     }
 }

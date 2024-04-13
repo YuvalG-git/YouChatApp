@@ -19,20 +19,17 @@ namespace YouChatApp.Controls
         {
             InitializeComponent();
             VerificationQuestionHandler = new VerificationQuestionHandler(5);
+            VerificationQuestionCustomComboBox.SelectedIndex = 0;
         }
         private int VerificationQuestionNumber = 1;
+        private bool isUserInteraction = true;
+        private string viewedQuestionValue = "";
 
-        private void HandleQuestionVerification() //instead of all those methods i can make a method that gets a bool that will represents the needed values and the name of the button to enable..
+        public event EventHandler VerificationInformationSaverCustomButtonClick;
+
+        private void HandleQuestionVerification()
         {
-            //if ((VerificationQuestionComboBox.SelectedIndex) != 0 && (VerificationAnswerTextBox.TextContent != ""))
-            //{
-            //    ApproveVerificationInformationCustomButton.Enabled = true;
-            //}
-            //else
-            //{
-            //    ApproveVerificationInformationCustomButton.Enabled = false;
-            //}
-            if ((VerificationQuestionCustomComboBox.SelectedIndex) != 0 && (VerificationAnswerTextBox.TextContent != ""))
+            if ((VerificationQuestionCustomComboBox.SelectedIndex) != 0 && (VerificationAnswerTextBox.IsContainingValue()))
             {
                 ApproveVerificationInformationCustomButton.Enabled = true;
             }
@@ -46,15 +43,11 @@ namespace YouChatApp.Controls
         {
             HandleQuestionVerification();
             CharNumberLabel.Text = VerificationAnswerTextBox.TextContent.Length.ToString() + "/" + VerificationAnswerTextBox.MaxLength;
-
-
         }
 
         private void ApproveVerificationInformationCustomButton_Click(object sender, EventArgs e)
         {
-            //string question = VerificationQuestionComboBox.Text;
             string question = VerificationQuestionCustomComboBox.TextContent;
-
             string answer = VerificationAnswerTextBox.TextContent;
             int questionIndex = VerificationQuestionCustomComboBox.SelectedIndex;
             VerificationQuestionHandler.VerificationQuestionDetails[VerificationQuestionNumber - 1] = new VerificationQuestionDetails(question, answer, questionIndex);
@@ -62,6 +55,10 @@ namespace YouChatApp.Controls
             VerificationQuestionNumber++;
             if (VerificationQuestionNumber != 6)
             {
+                if ((VerificationQuestionNumber == 5) || (VerificationQuestionHandler.VerificationQuestionDetails[VerificationQuestionNumber] == null))
+                {
+                    LeftScrollCustomButton.Enabled = false;
+                }
                 if (VerificationQuestionHandler.VerificationQuestionDetails[VerificationQuestionNumber - 1] != null)
                 {
                     HandleVerificationScroll();
@@ -69,7 +66,7 @@ namespace YouChatApp.Controls
                 else
                 {
                     VerificationQuestionCustomComboBox.SelectedIndex = 0;
-
+                    VerificationAnswerTextBox.TextContent = "";
                     VerificationQuestionNumberLabel.Text = VerificationQuestionNumber + "/5";
                 }
                 RightScrollCustomButton.Enabled = true;
@@ -83,8 +80,6 @@ namespace YouChatApp.Controls
                 {
                     verificationQuestionInformation.Append(verificationQuestion.Question + "\n");
                     verificationQuestionInformation.Append(verificationQuestion.Answer + "\n\n");
-
-
                 }
                 PersonalVerificationQuestionResultsLabel.Text = verificationQuestionInformation.ToString();
             }
@@ -102,9 +97,8 @@ namespace YouChatApp.Controls
             {
                 LeftScrollCustomButton.Enabled = true;
             }
+            VerificationAnswerTextBox.CancelPlaceHolder();
             HandleVerificationScroll();
-            //HandleQuestionVerification();
-
         }
 
         private void LeftScrollCustomButton_Click(object sender, EventArgs e)
@@ -115,23 +109,27 @@ namespace YouChatApp.Controls
                 LeftScrollCustomButton.Enabled = false;
             }
             RightScrollCustomButton.Enabled = true;
+            VerificationAnswerTextBox.CancelPlaceHolder();
             HandleVerificationScroll();
-            //HandleQuestionVerification();
         }
         private void HandleVerificationScroll()
         {
+            if (viewedQuestionValue != "")
+            {
+               VerificationQuestionCustomComboBox.Items.Remove(viewedQuestionValue);
+            }
             VerificationQuestionNumberLabel.Text = VerificationQuestionNumber + "/5";
             VerificationQuestionDetails verificationQuestionDetails = VerificationQuestionHandler.VerificationQuestionDetails[VerificationQuestionNumber - 1];
-            //VerificationQuestionComboBox.Items.Insert(verificationQuestionDetails.Index, verificationQuestionDetails.Question);
-            //VerificationQuestionComboBox.SelectedValue = verificationQuestionDetails.Question;
-            //VerificationQuestionComboBox.Text = verificationQuestionDetails.Question;
+            viewedQuestionValue = verificationQuestionDetails.Question;
             VerificationQuestionCustomComboBox.Items.Insert(verificationQuestionDetails.Index, verificationQuestionDetails.Question);
-            VerificationQuestionCustomComboBox.SelectedValue = verificationQuestionDetails.Question;
+            isUserInteraction = false;
+            VerificationQuestionCustomComboBox.SelectedItem = verificationQuestionDetails.Question;
             VerificationQuestionCustomComboBox.TextContent = verificationQuestionDetails.Question;
+            VerificationAnswerTextBox.Enabled = true;
 
             VerificationAnswerTextBox.TextContent = verificationQuestionDetails.Answer; //doesnt work for some reason - maybe i should a bool mentioning it is for going back to selected answer
                                                                                         //probably the problem is because i said when the combobox value changed i should restart the text;
-
+            ApproveVerificationInformationCustomButton.Enabled = true;
             //i also needs to delete the object because the question and answer are changing...
 
         }
@@ -151,18 +149,30 @@ namespace YouChatApp.Controls
         private void VerificationInformationSaverCustomButton_Click(object sender, EventArgs e)
         {
             VerificationQuestionHandler.wasSelected = true;
-            //RegistButtonSetEnabled();
+            this.Enabled = false;
+            VerificationInformationSaverCustomButtonClick?.Invoke(this, e);
         }
-
-        private void VerificationQuestionCustomComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        public void AddButtonClickHandler(EventHandler handler)
         {
-            VerificationAnswerTextBox.TextContent = "";
-            HandleQuestionVerification();
+            VerificationInformationSaverCustomButtonClick += handler;
         }
-
         private void VerificationQuestionCustomComboBox_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            VerificationAnswerTextBox.TextContent = "";
+            if (isUserInteraction)
+            {
+                VerificationAnswerTextBox.TextContent = "";
+                viewedQuestionValue = "";
+            }
+            isUserInteraction = true;
+
+            if (VerificationQuestionCustomComboBox.SelectedIndex != 0)
+            {
+                VerificationAnswerTextBox.Enabled = true;
+            }
+            else
+            {
+                VerificationAnswerTextBox.Enabled = false;
+            }
             HandleQuestionVerification();
         }
     }

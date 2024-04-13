@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YouChatApp.JsonClasses;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Button = System.Windows.Forms.Button;
 
@@ -961,6 +963,16 @@ namespace YouChatApp
         private void EnterPressedToggleButton_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void SaveChatSettingsCustomButton_Click(object sender, EventArgs e)
+        {
+            JsonObject chatSettingsChangeJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ChatSettingsChangeRequest, null);
+            string chatSettingsChangeJson = JsonConvert.SerializeObject(chatSettingsChangeJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(chatSettingsChangeJson);
         }
     }
 }

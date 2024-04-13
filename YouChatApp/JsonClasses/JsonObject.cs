@@ -10,7 +10,6 @@ namespace YouChatApp.JsonClasses
     {
         private Enum messageType;
         private object messageBody;
-
         public JsonObject(Enum messageType, object messageBody)
         {
             this.messageType = messageType;

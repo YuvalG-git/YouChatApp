@@ -1314,6 +1314,7 @@ namespace YouChatApp
             this.UpdatePasswordUsernameCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.UpdatePasswordUsernameCustomTextBox.PlaceHolderText = "Enter Username";
             this.UpdatePasswordUsernameCustomTextBox.ReadOnly = false;
+            this.UpdatePasswordUsernameCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.UpdatePasswordUsernameCustomTextBox.Size = new System.Drawing.Size(228, 35);
             this.UpdatePasswordUsernameCustomTextBox.TabIndex = 32;
             this.UpdatePasswordUsernameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -1471,6 +1472,7 @@ namespace YouChatApp
             this.VerificationAnswerTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.VerificationAnswerTextBox.PlaceHolderText = "Enter Username";
             this.VerificationAnswerTextBox.ReadOnly = false;
+            this.VerificationAnswerTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.VerificationAnswerTextBox.Size = new System.Drawing.Size(188, 35);
             this.VerificationAnswerTextBox.TabIndex = 34;
             this.VerificationAnswerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;

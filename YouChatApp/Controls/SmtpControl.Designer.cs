@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.SmtpCodeLabel = new System.Windows.Forms.Label();
-            this.CaptchaCodeLabel = new System.Windows.Forms.Label();
+            this.VerificationCodeLabel = new System.Windows.Forms.Label();
             this.VerifyCustomButton = new YouChatApp.Controls.CustomButton();
             this.SmtpCodeCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.RestartSmtpCodeCustomButton = new YouChatApp.Controls.CustomButton();
@@ -46,15 +46,15 @@
             this.SmtpCodeLabel.TabIndex = 49;
             this.SmtpCodeLabel.Text = "Code:";
             // 
-            // CaptchaCodeLabel
+            // VerificationCodeLabel
             // 
-            this.CaptchaCodeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CaptchaCodeLabel.Location = new System.Drawing.Point(30, 10);
-            this.CaptchaCodeLabel.Name = "CaptchaCodeLabel";
-            this.CaptchaCodeLabel.Size = new System.Drawing.Size(290, 50);
-            this.CaptchaCodeLabel.TabIndex = 47;
-            this.CaptchaCodeLabel.Text = "Verification Code";
-            this.CaptchaCodeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.VerificationCodeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerificationCodeLabel.Location = new System.Drawing.Point(30, 10);
+            this.VerificationCodeLabel.Name = "VerificationCodeLabel";
+            this.VerificationCodeLabel.Size = new System.Drawing.Size(290, 50);
+            this.VerificationCodeLabel.TabIndex = 47;
+            this.VerificationCodeLabel.Text = "Verification Code";
+            this.VerificationCodeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // VerifyCustomButton
             // 
@@ -149,7 +149,7 @@
             this.Controls.Add(this.SmtpCodeCustomTextBox);
             this.Controls.Add(this.SmtpCodeLabel);
             this.Controls.Add(this.RestartSmtpCodeCustomButton);
-            this.Controls.Add(this.CaptchaCodeLabel);
+            this.Controls.Add(this.VerificationCodeLabel);
             this.Name = "SmtpControl";
             this.Size = new System.Drawing.Size(350, 200);
             this.ResumeLayout(false);
@@ -162,7 +162,7 @@
         private CustomTextBox SmtpCodeCustomTextBox;
         private System.Windows.Forms.Label SmtpCodeLabel;
         private CustomButton RestartSmtpCodeCustomButton;
-        private System.Windows.Forms.Label CaptchaCodeLabel;
+        private System.Windows.Forms.Label VerificationCodeLabel;
         private System.Windows.Forms.Label EmailNotificationLabel;
     }
 }

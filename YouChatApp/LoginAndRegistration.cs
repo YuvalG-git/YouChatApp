@@ -118,12 +118,7 @@ namespace YouChatApp
             ServerCommunication._youChat = new YouChat();
             this.Invoke(new Action(() => ServerCommunication._youChat.ShowDialog()));
         }
-        public void OpenInitialProfileSelection(Boolean IsPhaseOne)
-        {
-            this.Hide();
-            ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
-            this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
-        }
+
 
         private void SetCaptchaCode()
         {
@@ -603,7 +598,6 @@ namespace YouChatApp
             BirthDateDateTimePicker.MaxDate = DateTime.Now;
             SetPictureOrderForCaptcha();
             GenderOptionsComboBox.SelectedIndex = 0; // Automatically select the placeholder item
-            //RECAPTCHAWebBrowser.Navigate($"https://www.google.com/recaptcha/api/fallback?k={SiteKey}");
 
         }
 
@@ -855,78 +849,6 @@ namespace YouChatApp
             ResetPasswordGroupBox.Visible = false;
         }
 
-
-
-
-        //public void SendCodeToUserEmail()
-        //{
-        //    string server = "smtp.gmail.com";
-        //    int port = 465;
-
-        //    string password = "esnwzdlgfynpkmbk";
-        //    string SourceEmail = "youchatcyberapplication@gmail.com";
-        //    string DestinationEmail = emailTextbox.Text;
-        //    string subject = "Verification Dode";
-        //    string body = "here is your code\n" + getCode();
-
-        //    //MailMessage mail = new MailMessage(SourceEmail, DestinationEmail);
-        //    //mail.Subject = subject;
-        //    //mail.Body = body;
-        //    SmtpClient smtpClient = new SmtpClient(server, port);
-        //    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        //    smtpClient.UseDefaultCredentials = false;
-        //    smtpClient.EnableSsl = true;
-        //    smtpClient.Credentials = new NetworkCredential(SourceEmail, password);
-        //    smtpClient.Send(SourceEmail, DestinationEmail, subject, body);
-        //}
-
-        public void SendCodeToUserEmail()
-        {
-            string server = "smtp.gmail.com";
-            int port = 587;  
-
-            SmtpCode = getCode();
-            string appPassword = "fmgwqaquwfmckchv";
-            string sourceEmail = "youchatcyberapplication@gmail.com";
-            string destinationEmail = emailTextbox.Text;
-            string subject = "YouChat Verification Code";
-            string body = "Welcome to YouChat!\nHere is your code:\n" + SmtpCode;
-
-            using (SmtpClient smtpClient = new SmtpClient(server, port))
-            {
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.EnableSsl = true;
-                smtpClient.Credentials = new NetworkCredential(sourceEmail, appPassword);
-
-                using (MailMessage mail = new MailMessage(sourceEmail, destinationEmail))
-                {
-                    mail.Subject = subject;
-                    mail.Body = body;
-
-                    try
-                    {
-                        smtpClient.Send(mail);
-                        Console.WriteLine("Email sent successfully.");
-                    }
-                    catch (SmtpException smtpEx)
-                    {
-                        Console.WriteLine("SMTP Exception: " + smtpEx.Message);
-
-                        if (smtpEx.InnerException != null)
-                        {
-                            Console.WriteLine("Inner Exception: " + smtpEx.InnerException.Message);
-                        }
-
-                        // Handle the exception or log the error
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("General Exception: " + ex.Message);
-                        // Handle the exception or log the error
-                    }
-                }
-            }
-        }
 
         public static string getCode()
         {
@@ -1566,6 +1488,12 @@ namespace YouChatApp
         {
             this.Hide();
             ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne); 
+            this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
+        }
+        public void OpenInitialProfileSelection(Boolean IsPhaseOne)
+        {
+            this.Hide();
+            ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
             this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
         }
 

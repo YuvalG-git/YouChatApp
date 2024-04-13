@@ -15,6 +15,7 @@ using System.Management;
 using AForge.Video;
 using NAudio.CoreAudioApi;
 using YouChatApp.Controls;
+using System.Threading;
 
 namespace YouChatApp.AttachedFiles
 {
@@ -50,6 +51,8 @@ namespace YouChatApp.AttachedFiles
         /// </summary>
         private List<Guid> outputAudioDeviceGuids;
 
+        private bool isAbleToSend = false;
+
         CallTimer timer;
         public AudioCall(string name, Image profilePicture)
         {
@@ -58,6 +61,11 @@ namespace YouChatApp.AttachedFiles
             CallEnderCustomButton.BorderRadius = 40;
             FriendNameLabel.Text = name;
             ContactProfilePicture.BackgroundImage = profilePicture;
+        }
+
+        public void SetIsAbleToSendToTrue()
+        {
+            isAbleToSend = true;
         }
         private void InitializeAudioDevicesChangeDetection()
         {
@@ -87,7 +95,8 @@ namespace YouChatApp.AttachedFiles
 
         private void sourceStream_DataAvailable(object sender, NAudio.Wave.WaveInEventArgs e)
         {
-            AudioHandler.AudioHandler.HandleSourceStreamDataAvailable(e, audioSourceStream, isMyMicrophoneMuted);
+            if (isAbleToSend)
+                AudioHandler.AudioHandler.HandleSourceStreamDataAvailable(e, audioSourceStream, isMyMicrophoneMuted);
         }
         public void ReceiveAudioData(byte[] receivedData)
         {
@@ -107,7 +116,9 @@ namespace YouChatApp.AttachedFiles
 
         private void AudioCall_Load(object sender, EventArgs e)
         {
-
+            ServerCommunication.Connect("10.100.102.3");
+            ServerCommunication._audioCall = this;
+            Thread.Sleep(10000);
             AudioServerCommunication.ConnectUdp("10.100.102.3", this);
             WaveFormat waveFormat = new WaveFormat(44100, 16, 2);
             audioBufferedWaveProvider = new BufferedWaveProvider(waveFormat);

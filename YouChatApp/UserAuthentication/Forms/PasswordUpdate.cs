@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Spire.Pdf.Exporting.XPS.Schema;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YouChatApp.JsonClasses;
 
 namespace YouChatApp.UserAuthentication.Forms
 {
@@ -47,16 +50,34 @@ namespace YouChatApp.UserAuthentication.Forms
                 string OldPassword = UpdatePasswordGeneratorControl.GetOldPassword();
                 string NewPassword = UpdatePasswordGeneratorControl.GetNewPassword();
                 string Username = UsernameCustomTextBox.TextContent;
-                string UserInformation = Username + "#" + NewPassword + "#" + OldPassword;
-                UpdatePasswordGeneratorControl.Enabled = false;
-                UsernameCustomTextBox.Enabled = false;
-                UpdatePasswordCustomButton.Enabled = false;
-                ServerCommunication.SendMessage(ServerCommunication.PasswordUpdateRequest, UserInformation);
+                PasswordUpdateDetails passwordUpdateDetails = new PasswordUpdateDetails(OldPassword, NewPassword, Username);
+                SetEnable(false);
+                JsonObject passwordUpdateDetailsJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.PasswordUpdateRequest, passwordUpdateDetails);
+                string passwordUpdateDetailsJson = JsonConvert.SerializeObject(passwordUpdateDetailsJsonObject, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto
+                });
+                ServerCommunication.SendMessage(passwordUpdateDetailsJson);
             }
             else
             {
-                MessageBox.Show("Check again the provided details", "Unmatched Provided Detailds");
+                MessageBox.Show("Check again the provided details", "Unmatched Provided Details");
             }
+        }
+        public void HandleSuccessfulPasswordUpdate()
+        {
+            JsonObject initialProfileSettingsCheckJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.InitialProfileSettingsCheckRequest, null);
+            string initialProfileSettingsCheckJson = JsonConvert.SerializeObject(initialProfileSettingsCheckJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(initialProfileSettingsCheckJson);
+        }
+        public void SetEnable(bool enable)
+        {
+            UpdatePasswordGeneratorControl.Enabled = enable;
+            UsernameCustomTextBox.Enabled = enable;
+            UpdatePasswordCustomButton.Enabled = enable;
         }
     }
 }

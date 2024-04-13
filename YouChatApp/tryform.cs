@@ -15,7 +15,7 @@ namespace YouChatApp
         public tryform()
         {
             InitializeComponent();
-            personalVerificationAnswersControl1.SetQuestions(new string[] { "h", "b", "d", "f", "g" });
+            //personalVerificationAnswersControl1.SetQuestions(new string[] { "h", "b", "d", "f", "g" });
         }
 
         private void customComboBox1_OnSelectedIndexChanged(object sender, EventArgs e)

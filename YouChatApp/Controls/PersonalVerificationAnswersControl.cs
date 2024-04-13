@@ -16,6 +16,8 @@ namespace YouChatApp.Controls
 {
     public partial class PersonalVerificationAnswersControl : UserControl
     {
+        public event EventHandler ApproveVerificationInformationCustomButtonClick;
+
         public PersonalVerificationAnswersControl()
         {
             InitializeComponent();
@@ -24,18 +26,24 @@ namespace YouChatApp.Controls
         private string questionNumber2;
         private string questionNumber3;
 
-        public void SetQuestions(string[] questions)
+        public void SetQuestions(PersonalVerificationQuestions personalVerificationQuestions)
         {
             questionNumber1 = "";
             questionNumber2 = "";
             questionNumber3 = "";
+            string question1 = personalVerificationQuestions.QuestionNumber1;
+            string question2 = personalVerificationQuestions.QuestionNumber2;
+            string question3 = personalVerificationQuestions.QuestionNumber3;
+            string question4 = personalVerificationQuestions.QuestionNumber4;
+            string question5 = personalVerificationQuestions.QuestionNumber5;
+
             object[] questionsToBeInserted = new object[] {
             "Select a quesion 😊",
-            questions[0],
-            questions[1],
-            questions[2],
-            questions[3],
-            questions[4],
+            question1,
+            question2,
+            question3,
+            question4,
+            question5,
             };
             VerificationQuestionNumberOneCustomComboBox.Items.AddRange(questionsToBeInserted);
             VerificationQuestionNumberTwoCustomComboBox.Items.AddRange(questionsToBeInserted);
@@ -138,14 +146,25 @@ namespace YouChatApp.Controls
 
         private void ApproveVerificationInformationCustomButton_Click(object sender, EventArgs e)
         {
-            //send answers and questions to server...
+            this.Enabled = false; 
+            ApproveVerificationInformationCustomButtonClick?.Invoke(this, e);
+        }
+        public void AddApproveVerificationInformationCustomButtonClickHandler(EventHandler handler)
+        {
+            ApproveVerificationInformationCustomButtonClick += handler;
+        }
+        public void CancelDisabled()
+        {
+            this.Enabled = true;
+        }
+        public PersonalVerificationAnswers GetPersonalVerificationAnswers()
+        {
             string answerNumber1 = VerificationAnswerNumberOneCustomTextBox.TextContent;
             string answerNumber2 = VerificationAnswerNumberTwoCustomTextBox.TextContent;
             string answerNumber3 = VerificationAnswerNumberThreeCustomTextBox.TextContent;
 
-            JsonClasses.PersonalVerificationAnswers results = new JsonClasses.PersonalVerificationAnswers(questionNumber1,questionNumber2,questionNumber3, answerNumber1, answerNumber2, answerNumber3);
-            string resultsJson = JsonConvert.SerializeObject(results);
-
+            PersonalVerificationAnswers personalVerificationAnswers = new JsonClasses.PersonalVerificationAnswers(questionNumber1, questionNumber2, questionNumber3, answerNumber1, answerNumber2, answerNumber3);
+            return personalVerificationAnswers;
         }
     }
 }

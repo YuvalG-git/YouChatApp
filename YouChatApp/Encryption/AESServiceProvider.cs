@@ -217,5 +217,85 @@ namespace YouChatApp.Encryption
 
             return plaintext;
         }
+        public static byte[] DecryptToBytes(string cipherText, byte[] Key, byte[] IV)
+        {
+            // Check arguments.
+            if (cipherText == null || cipherText.Length <= 0)
+                throw new ArgumentNullException("cipherText");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("IV");
+
+            // Declare the string used to hold
+            // the decrypted text.
+            byte[] plaintextBytes;
+            byte[] buffer = Convert.FromBase64String(cipherText);
+            // Create an Aes object
+            // with the specified key and IV.
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+
+                // Create a decryptor to perform the stream transform.
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for decryption.
+                using (MemoryStream msDecrypt = new MemoryStream(buffer))
+                {
+                    using (CryptoStream csDecrypt = new CryptoStream((Stream)msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (MemoryStream msPlainText = new MemoryStream())
+                        {
+                            csDecrypt.CopyTo(msPlainText);
+                            plaintextBytes = msPlainText.ToArray();
+                        }
+                    }
+                }
+            }
+
+            return plaintextBytes;
+        }
+        public static byte[] Decrypt(byte[] cipherText, byte[] Key, byte[] IV)
+        {
+            // Check arguments.
+            if (cipherText == null || cipherText.Length <= 0)
+                throw new ArgumentNullException("cipherText");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("IV");
+
+            // Declare the string used to hold
+            // the decrypted text.
+            byte[] plaintextBytes;
+            byte[] buffer = cipherText;
+            // Create an Aes object
+            // with the specified key and IV.
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+
+                // Create a decryptor to perform the stream transform.
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for decryption.
+                using (MemoryStream msDecrypt = new MemoryStream(buffer))
+                {
+                    using (CryptoStream csDecrypt = new CryptoStream((Stream)msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (MemoryStream msPlainText = new MemoryStream())
+                        {
+                            csDecrypt.CopyTo(msPlainText);
+                            plaintextBytes = msPlainText.ToArray();
+                        }
+                    }
+                }
+            }
+
+            return plaintextBytes;
+        }
     }
 }

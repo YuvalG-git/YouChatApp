@@ -193,6 +193,7 @@
             this.VerificationAnswerTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
             this.VerificationAnswerTextBox.BorderRadius = 0;
             this.VerificationAnswerTextBox.BorderSize = 2;
+            this.VerificationAnswerTextBox.Enabled = false;
             this.VerificationAnswerTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerificationAnswerTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.VerificationAnswerTextBox.IsFocused = false;
@@ -206,8 +207,10 @@
             this.VerificationAnswerTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.VerificationAnswerTextBox.PlaceHolderText = "Enter Answer";
             this.VerificationAnswerTextBox.ReadOnly = false;
+            this.VerificationAnswerTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.VerificationAnswerTextBox.Size = new System.Drawing.Size(356, 35);
             this.VerificationAnswerTextBox.TabIndex = 34;
+            this.VerificationAnswerTextBox.TabStop = false;
             this.VerificationAnswerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.VerificationAnswerTextBox.TextContent = "";
             this.VerificationAnswerTextBox.UnderlineStyle = false;

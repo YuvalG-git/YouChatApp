@@ -161,6 +161,7 @@ namespace YouChatApp.Controls
                 if (PasswordTextBoxArray[1].isPlaceHolder())
                 {
                     PasswordTextBoxArray[1].BorderColor = Color.MediumSlateBlue;
+                    PasswordExclamationCustomButton.Visible = false;
                 }
                 else
                 {

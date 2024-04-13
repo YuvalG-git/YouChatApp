@@ -340,6 +340,10 @@ namespace YouChatApp.Controls
                 }
             }
         }
+        public void CancelPlaceHolder()
+        {
+            RemovePlaceHolder();
+        }
         public void SelectText(int start, int length)
         {
             TextBox.Select(start, length);

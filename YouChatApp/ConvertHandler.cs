@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,22 @@ namespace YouChatApp
 {
     internal class ConvertHandler
     {
-        public static Image ConvertBytesToImage(byte[] ImageBytes)
+        public static Image ConvertBytesToImage(byte[] imageBytes)
         {
-            return null;
+            using (MemoryStream ms = new MemoryStream(imageBytes))
+            {
+                Image image = Image.FromStream(ms);
+                return image;
+            }
         }
-        public static byte[] ConvertImageToBytes(Image Image)
+
+        public static byte[] ConvertImageToBytes(Image image)
         {
-            return null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                return ms.ToArray();
+            }
         }
     }
 }
