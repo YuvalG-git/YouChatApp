@@ -41,12 +41,9 @@
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
             this.registLabel = new System.Windows.Forms.Label();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.SmtpControl = new YouChatApp.Controls.SmtpControl();
             this.GenderLabel = new System.Windows.Forms.Label();
             this.UserDetailsPanel = new System.Windows.Forms.Panel();
-            this.NewSMTPCodeOptionLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.ChangeEmailOptionLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.SignUpCustomButton = new YouChatApp.Controls.CustomButton();
-            this.SmtpControl = new YouChatApp.Controls.SmtpControl();
             this.EmailAddressExclamationCustomButton = new YouChatApp.Controls.CustomButton();
             this.PasswordGeneratorControl = new YouChatApp.Controls.PasswordGeneratorControl();
             this.RestartBirthDateCustomButton = new YouChatApp.Controls.CustomButton();
@@ -62,8 +59,12 @@
             this.EmailAddressCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.BirthDateCustomDateTimePicker = new YouChatApp.Controls.CustomDateTimePicker();
             this.CityCustomTextBox = new YouChatApp.Controls.CustomTextBox();
+            this.NewSMTPCodeOptionLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.ChangeEmailOptionLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.SignUpCustomButton = new YouChatApp.Controls.CustomButton();
             this.PersonalVerificationQuestionsControl = new YouChatApp.Controls.PersonalVerificationQuestionsControl();
             this.LoginReturnerCustomButton = new YouChatApp.Controls.CustomButton();
+            this.BanControl = new YouChatApp.Controls.BanControl();
             this.UserDetailsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -193,6 +194,16 @@
             this.ToolTip.IsBalloon = true;
             this.ToolTip.ToolTipTitle = "Username Error";
             // 
+            // SmtpControl
+            // 
+            this.SmtpControl.Location = new System.Drawing.Point(962, 267);
+            this.SmtpControl.Name = "SmtpControl";
+            this.SmtpControl.Size = new System.Drawing.Size(350, 200);
+            this.SmtpControl.TabIndex = 78;
+            this.ToolTip.SetToolTip(this.SmtpControl, "Press here if you haven\'t recieved any code to your Gmail Address");
+            this.SmtpControl.Visible = false;
+            this.SmtpControl.Load += new System.EventHandler(this.SmtpControl_Load);
+            // 
             // GenderLabel
             // 
             this.GenderLabel.AutoSize = true;
@@ -235,64 +246,6 @@
             this.UserDetailsPanel.Name = "UserDetailsPanel";
             this.UserDetailsPanel.Size = new System.Drawing.Size(380, 714);
             this.UserDetailsPanel.TabIndex = 77;
-            // 
-            // NewSMTPCodeOptionLinkLabel
-            // 
-            this.NewSMTPCodeOptionLinkLabel.AutoSize = true;
-            this.NewSMTPCodeOptionLinkLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewSMTPCodeOptionLinkLabel.Location = new System.Drawing.Point(995, 470);
-            this.NewSMTPCodeOptionLinkLabel.Name = "NewSMTPCodeOptionLinkLabel";
-            this.NewSMTPCodeOptionLinkLabel.Size = new System.Drawing.Size(290, 18);
-            this.NewSMTPCodeOptionLinkLabel.TabIndex = 36;
-            this.NewSMTPCodeOptionLinkLabel.TabStop = true;
-            this.NewSMTPCodeOptionLinkLabel.Text = "Press here to recieve another code";
-            this.NewSMTPCodeOptionLinkLabel.Visible = false;
-            this.NewSMTPCodeOptionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.NewSMTPCodeOptionLinkLabel_LinkClicked);
-            // 
-            // ChangeEmailOptionLinkLabel
-            // 
-            this.ChangeEmailOptionLinkLabel.AutoSize = true;
-            this.ChangeEmailOptionLinkLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChangeEmailOptionLinkLabel.Location = new System.Drawing.Point(995, 497);
-            this.ChangeEmailOptionLinkLabel.Name = "ChangeEmailOptionLinkLabel";
-            this.ChangeEmailOptionLinkLabel.Size = new System.Drawing.Size(337, 18);
-            this.ChangeEmailOptionLinkLabel.TabIndex = 37;
-            this.ChangeEmailOptionLinkLabel.TabStop = true;
-            this.ChangeEmailOptionLinkLabel.Text = "Press here to change your Email Address";
-            this.ChangeEmailOptionLinkLabel.Visible = false;
-            this.ChangeEmailOptionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ChangeEmailOptionLinkLabel_LinkClicked);
-            // 
-            // SignUpCustomButton
-            // 
-            this.SignUpCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.SignUpCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.SignUpCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.SignUpCustomButton.BorderRadius = 10;
-            this.SignUpCustomButton.BorderSize = 0;
-            this.SignUpCustomButton.Circular = false;
-            this.SignUpCustomButton.FlatAppearance.BorderSize = 0;
-            this.SignUpCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SignUpCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SignUpCustomButton.ForeColor = System.Drawing.Color.White;
-            this.SignUpCustomButton.Location = new System.Drawing.Point(980, 584);
-            this.SignUpCustomButton.Name = "SignUpCustomButton";
-            this.SignUpCustomButton.Size = new System.Drawing.Size(110, 40);
-            this.SignUpCustomButton.TabIndex = 69;
-            this.SignUpCustomButton.Text = "Sign Up";
-            this.SignUpCustomButton.TextColor = System.Drawing.Color.White;
-            this.SignUpCustomButton.UseVisualStyleBackColor = false;
-            this.SignUpCustomButton.Visible = false;
-            this.SignUpCustomButton.Click += new System.EventHandler(this.SignUpCustomButton_Click);
-            // 
-            // SmtpControl
-            // 
-            this.SmtpControl.Location = new System.Drawing.Point(962, 267);
-            this.SmtpControl.Name = "SmtpControl";
-            this.SmtpControl.Size = new System.Drawing.Size(350, 200);
-            this.SmtpControl.TabIndex = 78;
-            this.ToolTip.SetToolTip(this.SmtpControl, "Press here if you haven\'t recieved any code to your Gmail Address");
-            this.SmtpControl.Visible = false;
-            this.SmtpControl.Load += new System.EventHandler(this.SmtpControl_Load);
             // 
             // EmailAddressExclamationCustomButton
             // 
@@ -699,9 +652,57 @@
             this.CityCustomTextBox.TextChangedEvent += new System.EventHandler(this.CityCustomTextBox_TextChangedEvent);
             this.CityCustomTextBox.Leave += new System.EventHandler(this.CityCustomTextBox_Leave);
             // 
+            // NewSMTPCodeOptionLinkLabel
+            // 
+            this.NewSMTPCodeOptionLinkLabel.AutoSize = true;
+            this.NewSMTPCodeOptionLinkLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewSMTPCodeOptionLinkLabel.Location = new System.Drawing.Point(995, 470);
+            this.NewSMTPCodeOptionLinkLabel.Name = "NewSMTPCodeOptionLinkLabel";
+            this.NewSMTPCodeOptionLinkLabel.Size = new System.Drawing.Size(290, 18);
+            this.NewSMTPCodeOptionLinkLabel.TabIndex = 36;
+            this.NewSMTPCodeOptionLinkLabel.TabStop = true;
+            this.NewSMTPCodeOptionLinkLabel.Text = "Press here to recieve another code";
+            this.NewSMTPCodeOptionLinkLabel.Visible = false;
+            this.NewSMTPCodeOptionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.NewSMTPCodeOptionLinkLabel_LinkClicked);
+            // 
+            // ChangeEmailOptionLinkLabel
+            // 
+            this.ChangeEmailOptionLinkLabel.AutoSize = true;
+            this.ChangeEmailOptionLinkLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChangeEmailOptionLinkLabel.Location = new System.Drawing.Point(995, 497);
+            this.ChangeEmailOptionLinkLabel.Name = "ChangeEmailOptionLinkLabel";
+            this.ChangeEmailOptionLinkLabel.Size = new System.Drawing.Size(337, 18);
+            this.ChangeEmailOptionLinkLabel.TabIndex = 37;
+            this.ChangeEmailOptionLinkLabel.TabStop = true;
+            this.ChangeEmailOptionLinkLabel.Text = "Press here to change your Email Address";
+            this.ChangeEmailOptionLinkLabel.Visible = false;
+            this.ChangeEmailOptionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ChangeEmailOptionLinkLabel_LinkClicked);
+            // 
+            // SignUpCustomButton
+            // 
+            this.SignUpCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.SignUpCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.SignUpCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.SignUpCustomButton.BorderRadius = 10;
+            this.SignUpCustomButton.BorderSize = 0;
+            this.SignUpCustomButton.Circular = false;
+            this.SignUpCustomButton.FlatAppearance.BorderSize = 0;
+            this.SignUpCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SignUpCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SignUpCustomButton.ForeColor = System.Drawing.Color.White;
+            this.SignUpCustomButton.Location = new System.Drawing.Point(980, 584);
+            this.SignUpCustomButton.Name = "SignUpCustomButton";
+            this.SignUpCustomButton.Size = new System.Drawing.Size(110, 40);
+            this.SignUpCustomButton.TabIndex = 69;
+            this.SignUpCustomButton.Text = "Sign Up";
+            this.SignUpCustomButton.TextColor = System.Drawing.Color.White;
+            this.SignUpCustomButton.UseVisualStyleBackColor = false;
+            this.SignUpCustomButton.Visible = false;
+            this.SignUpCustomButton.Click += new System.EventHandler(this.SignUpCustomButton_Click);
+            // 
             // PersonalVerificationQuestionsControl
             // 
-            this.PersonalVerificationQuestionsControl.Location = new System.Drawing.Point(530, 143);
+            this.PersonalVerificationQuestionsControl.Location = new System.Drawing.Point(530, 63);
             this.PersonalVerificationQuestionsControl.Name = "PersonalVerificationQuestionsControl";
             this.PersonalVerificationQuestionsControl.Size = new System.Drawing.Size(400, 440);
             this.PersonalVerificationQuestionsControl.TabIndex = 74;
@@ -729,11 +730,21 @@
             this.LoginReturnerCustomButton.UseVisualStyleBackColor = false;
             this.LoginReturnerCustomButton.Click += new System.EventHandler(this.LoginReturnerCustomButton_Click);
             // 
+            // BanControl
+            // 
+            this.BanControl.AutoSize = true;
+            this.BanControl.Location = new System.Drawing.Point(530, 330);
+            this.BanControl.Name = "BanControl";
+            this.BanControl.Size = new System.Drawing.Size(400, 400);
+            this.BanControl.TabIndex = 79;
+            this.BanControl.Visible = false;
+            // 
             // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1324, 751);
+            this.Controls.Add(this.BanControl);
             this.Controls.Add(this.ChangeEmailOptionLinkLabel);
             this.Controls.Add(this.SignUpCustomButton);
             this.Controls.Add(this.NewSMTPCodeOptionLinkLabel);
@@ -788,5 +799,6 @@
         private Controls.CustomButton EmailAddressExclamationCustomButton;
         private System.Windows.Forms.LinkLabel NewSMTPCodeOptionLinkLabel;
         private System.Windows.Forms.LinkLabel ChangeEmailOptionLinkLabel;
+        private Controls.BanControl BanControl;
     }
 }

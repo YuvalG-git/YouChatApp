@@ -165,12 +165,12 @@ namespace YouChatApp.UserAuthentication.Forms
             BanControl.HandleBan(banDuration);
             SetVisibility(false);
         }
-        public void HandleBanOver()
+        public void HandleBanOver(Image captchaCircularImage = null, Image captchaImage = null, int score = 0, int attempts = 5)
         {
             BanControl.Visible = false;
-            SetVisibility(true);
+            SetVisibility(true, captchaCircularImage, captchaImage, score, attempts);
         }
-        public void SetVisibility(bool visible)
+        public void SetVisibility(bool visible, Image captchaCircularImage = null, Image captchaImage = null, int score = 0, int attempts = 5)
         {
             for (int i = 0; i <= (int)loginPhase; i++)
             {
@@ -183,15 +183,31 @@ namespace YouChatApp.UserAuthentication.Forms
                         break;
                     case EnumHandler.LoginPhases_Enum.Smtp:
                         SmtpControl.Visible = visible;
+                        if (currentEnumValue == loginPhase)
+                        {
+                            SmtpControl.HandleWrongCodeCase();
+                        }
                         break;
                     case EnumHandler.LoginPhases_Enum.CaptchaCode:
                         CaptchaCodeControl.Visible = visible;
+                        if (currentEnumValue == loginPhase)
+                        {
+                            CaptchaCodeControl.HandleWrongCodeCase();
+                        }
                         break;
                     case EnumHandler.LoginPhases_Enum.CaptchaRotatingImage:
                         CaptchaRotatingImageControl.Visible = visible;
+                        if (visible && currentEnumValue == loginPhase)
+                        {
+                            CaptchaRotatingImageControl.SetCaptchaImages(captchaCircularImage, captchaImage, score, attempts);
+                        }
                         break;
                     case EnumHandler.LoginPhases_Enum.VerificationQuestion:
                         PersonalVerificationAnswersControl.Visible = visible;
+                        if (currentEnumValue == loginPhase)
+                        {
+                            PersonalVerificationAnswersControl.CancelDisabled();
+                        }
                         break;
                 }
             }
@@ -200,7 +216,7 @@ namespace YouChatApp.UserAuthentication.Forms
 
         private void SignUpCustomButton_Click(object sender, EventArgs e)
         {
-            this.Hide(); // Hide the login form
+            this.Hide();
             ServerCommunication._registration = new Registration();
             ServerCommunication._registration.ShowDialog(); // Show the registration form
         }
@@ -221,6 +237,8 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             loginPhase = EnumHandler.LoginPhases_Enum.Smtp;
             SmtpControl.Visible = true;
+            ResetPasswordCustomButton.Enabled = false;
+            SignUpCustomButton.Enabled = false;
             SmtpControl.HandleCode();
         }
         public void setLoginButtonEnabled()

@@ -149,7 +149,7 @@
             this.VerificationQuestionCustomComboBox.Name = "VerificationQuestionCustomComboBox";
             this.VerificationQuestionCustomComboBox.Padding = new System.Windows.Forms.Padding(1);
             this.VerificationQuestionCustomComboBox.SelectedValue = null;
-            this.VerificationQuestionCustomComboBox.Size = new System.Drawing.Size(356, 41);
+            this.VerificationQuestionCustomComboBox.Size = new System.Drawing.Size(356, 40);
             this.VerificationQuestionCustomComboBox.TabIndex = 47;
             this.VerificationQuestionCustomComboBox.TextContent = "";
             this.VerificationQuestionCustomComboBox.OnSelectedIndexChanged += new System.EventHandler(this.VerificationQuestionCustomComboBox_OnSelectedIndexChanged);

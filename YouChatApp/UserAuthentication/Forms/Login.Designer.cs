@@ -97,7 +97,7 @@
             // 
             // SmtpControl
             // 
-            this.SmtpControl.Location = new System.Drawing.Point(781, 487);
+            this.SmtpControl.Location = new System.Drawing.Point(802, 12);
             this.SmtpControl.Name = "SmtpControl";
             this.SmtpControl.Size = new System.Drawing.Size(350, 190);
             this.SmtpControl.TabIndex = 52;
@@ -257,12 +257,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1223, 689);
             this.Controls.Add(this.LoginPanel);
-            this.Controls.Add(this.BanControl);
             this.Controls.Add(this.SmtpControl);
             this.Controls.Add(this.PersonalVerificationAnswersControl);
             this.Controls.Add(this.LoginLabel);
             this.Controls.Add(this.CaptchaRotatingImageControl);
             this.Controls.Add(this.CaptchaCodeControl);
+            this.Controls.Add(this.BanControl);
             this.Name = "Login";
             this.Text = "Login";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);

@@ -90,7 +90,7 @@
             this.VerificationQuestionNumberThreeCustomComboBox.Name = "VerificationQuestionNumberThreeCustomComboBox";
             this.VerificationQuestionNumberThreeCustomComboBox.Padding = new System.Windows.Forms.Padding(1);
             this.VerificationQuestionNumberThreeCustomComboBox.SelectedValue = null;
-            this.VerificationQuestionNumberThreeCustomComboBox.Size = new System.Drawing.Size(254, 30);
+            this.VerificationQuestionNumberThreeCustomComboBox.Size = new System.Drawing.Size(254, 40);
             this.VerificationQuestionNumberThreeCustomComboBox.TabIndex = 56;
             this.VerificationQuestionNumberThreeCustomComboBox.TextContent = "";
             this.VerificationQuestionNumberThreeCustomComboBox.OnSelectedIndexChanged += new System.EventHandler(this.VerificationQuestionNumberThreeCustomComboBox_OnSelectedIndexChanged);
@@ -99,7 +99,7 @@
             // 
             this.VerificationAnswerNumberThreeLabel.AutoSize = true;
             this.VerificationAnswerNumberThreeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationAnswerNumberThreeLabel.Location = new System.Drawing.Point(20, 240);
+            this.VerificationAnswerNumberThreeLabel.Location = new System.Drawing.Point(20, 250);
             this.VerificationAnswerNumberThreeLabel.Name = "VerificationAnswerNumberThreeLabel";
             this.VerificationAnswerNumberThreeLabel.Size = new System.Drawing.Size(74, 18);
             this.VerificationAnswerNumberThreeLabel.TabIndex = 55;
@@ -116,7 +116,7 @@
             this.VerificationAnswerNumberThreeCustomTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerificationAnswerNumberThreeCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.VerificationAnswerNumberThreeCustomTextBox.IsFocused = false;
-            this.VerificationAnswerNumberThreeCustomTextBox.Location = new System.Drawing.Point(124, 240);
+            this.VerificationAnswerNumberThreeCustomTextBox.Location = new System.Drawing.Point(124, 245);
             this.VerificationAnswerNumberThreeCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.VerificationAnswerNumberThreeCustomTextBox.MaxLength = 32767;
             this.VerificationAnswerNumberThreeCustomTextBox.Multiline = false;
@@ -126,6 +126,7 @@
             this.VerificationAnswerNumberThreeCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.VerificationAnswerNumberThreeCustomTextBox.PlaceHolderText = "Enter Answer";
             this.VerificationAnswerNumberThreeCustomTextBox.ReadOnly = false;
+            this.VerificationAnswerNumberThreeCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.VerificationAnswerNumberThreeCustomTextBox.Size = new System.Drawing.Size(254, 35);
             this.VerificationAnswerNumberThreeCustomTextBox.TabIndex = 53;
             this.VerificationAnswerNumberThreeCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -137,7 +138,7 @@
             // 
             this.VerificationQuestionNumberThreeLabel.AutoSize = true;
             this.VerificationQuestionNumberThreeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationQuestionNumberThreeLabel.Location = new System.Drawing.Point(20, 200);
+            this.VerificationQuestionNumberThreeLabel.Location = new System.Drawing.Point(20, 210);
             this.VerificationQuestionNumberThreeLabel.Name = "VerificationQuestionNumberThreeLabel";
             this.VerificationQuestionNumberThreeLabel.Size = new System.Drawing.Size(99, 18);
             this.VerificationQuestionNumberThreeLabel.TabIndex = 54;
@@ -158,7 +159,7 @@
             this.VerificationQuestionNumberTwoCustomComboBox.Name = "VerificationQuestionNumberTwoCustomComboBox";
             this.VerificationQuestionNumberTwoCustomComboBox.Padding = new System.Windows.Forms.Padding(1);
             this.VerificationQuestionNumberTwoCustomComboBox.SelectedValue = null;
-            this.VerificationQuestionNumberTwoCustomComboBox.Size = new System.Drawing.Size(254, 30);
+            this.VerificationQuestionNumberTwoCustomComboBox.Size = new System.Drawing.Size(254, 40);
             this.VerificationQuestionNumberTwoCustomComboBox.TabIndex = 52;
             this.VerificationQuestionNumberTwoCustomComboBox.TextContent = "";
             this.VerificationQuestionNumberTwoCustomComboBox.OnSelectedIndexChanged += new System.EventHandler(this.VerificationQuestionNumberTwoCustomComboBox_OnSelectedIndexChanged);
@@ -167,7 +168,7 @@
             // 
             this.VerificationAnswerNumberTwoLabel.AutoSize = true;
             this.VerificationAnswerNumberTwoLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationAnswerNumberTwoLabel.Location = new System.Drawing.Point(20, 150);
+            this.VerificationAnswerNumberTwoLabel.Location = new System.Drawing.Point(20, 160);
             this.VerificationAnswerNumberTwoLabel.Name = "VerificationAnswerNumberTwoLabel";
             this.VerificationAnswerNumberTwoLabel.Size = new System.Drawing.Size(74, 18);
             this.VerificationAnswerNumberTwoLabel.TabIndex = 51;
@@ -184,7 +185,7 @@
             this.VerificationAnswerNumberTwoCustomTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerificationAnswerNumberTwoCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.VerificationAnswerNumberTwoCustomTextBox.IsFocused = false;
-            this.VerificationAnswerNumberTwoCustomTextBox.Location = new System.Drawing.Point(124, 150);
+            this.VerificationAnswerNumberTwoCustomTextBox.Location = new System.Drawing.Point(124, 155);
             this.VerificationAnswerNumberTwoCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.VerificationAnswerNumberTwoCustomTextBox.MaxLength = 32767;
             this.VerificationAnswerNumberTwoCustomTextBox.Multiline = false;
@@ -194,6 +195,7 @@
             this.VerificationAnswerNumberTwoCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.VerificationAnswerNumberTwoCustomTextBox.PlaceHolderText = "Enter Answer";
             this.VerificationAnswerNumberTwoCustomTextBox.ReadOnly = false;
+            this.VerificationAnswerNumberTwoCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.VerificationAnswerNumberTwoCustomTextBox.Size = new System.Drawing.Size(254, 35);
             this.VerificationAnswerNumberTwoCustomTextBox.TabIndex = 49;
             this.VerificationAnswerNumberTwoCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -205,7 +207,7 @@
             // 
             this.VerificationQuestionNumberTwoLabel.AutoSize = true;
             this.VerificationQuestionNumberTwoLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationQuestionNumberTwoLabel.Location = new System.Drawing.Point(20, 110);
+            this.VerificationQuestionNumberTwoLabel.Location = new System.Drawing.Point(20, 120);
             this.VerificationQuestionNumberTwoLabel.Name = "VerificationQuestionNumberTwoLabel";
             this.VerificationQuestionNumberTwoLabel.Size = new System.Drawing.Size(99, 18);
             this.VerificationQuestionNumberTwoLabel.TabIndex = 50;
@@ -226,7 +228,7 @@
             this.VerificationQuestionNumberOneCustomComboBox.Name = "VerificationQuestionNumberOneCustomComboBox";
             this.VerificationQuestionNumberOneCustomComboBox.Padding = new System.Windows.Forms.Padding(1);
             this.VerificationQuestionNumberOneCustomComboBox.SelectedValue = null;
-            this.VerificationQuestionNumberOneCustomComboBox.Size = new System.Drawing.Size(254, 30);
+            this.VerificationQuestionNumberOneCustomComboBox.Size = new System.Drawing.Size(254, 40);
             this.VerificationQuestionNumberOneCustomComboBox.TabIndex = 48;
             this.VerificationQuestionNumberOneCustomComboBox.TextContent = "";
             this.VerificationQuestionNumberOneCustomComboBox.OnSelectedIndexChanged += new System.EventHandler(this.VerificationQuestionNumberOneCustomComboBox_OnSelectedIndexChanged);
@@ -235,7 +237,7 @@
             // 
             this.VerificationAnswerNumberOneLabel.AutoSize = true;
             this.VerificationAnswerNumberOneLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationAnswerNumberOneLabel.Location = new System.Drawing.Point(20, 60);
+            this.VerificationAnswerNumberOneLabel.Location = new System.Drawing.Point(20, 70);
             this.VerificationAnswerNumberOneLabel.Name = "VerificationAnswerNumberOneLabel";
             this.VerificationAnswerNumberOneLabel.Size = new System.Drawing.Size(74, 18);
             this.VerificationAnswerNumberOneLabel.TabIndex = 44;
@@ -252,7 +254,7 @@
             this.VerificationAnswerNumberOneCustomTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerificationAnswerNumberOneCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.VerificationAnswerNumberOneCustomTextBox.IsFocused = false;
-            this.VerificationAnswerNumberOneCustomTextBox.Location = new System.Drawing.Point(124, 60);
+            this.VerificationAnswerNumberOneCustomTextBox.Location = new System.Drawing.Point(124, 65);
             this.VerificationAnswerNumberOneCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.VerificationAnswerNumberOneCustomTextBox.MaxLength = 32767;
             this.VerificationAnswerNumberOneCustomTextBox.Multiline = false;
@@ -262,6 +264,7 @@
             this.VerificationAnswerNumberOneCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.VerificationAnswerNumberOneCustomTextBox.PlaceHolderText = "Enter Answer";
             this.VerificationAnswerNumberOneCustomTextBox.ReadOnly = false;
+            this.VerificationAnswerNumberOneCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.VerificationAnswerNumberOneCustomTextBox.Size = new System.Drawing.Size(254, 35);
             this.VerificationAnswerNumberOneCustomTextBox.TabIndex = 34;
             this.VerificationAnswerNumberOneCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -273,7 +276,7 @@
             // 
             this.VerificationQuestionNumberOneLabel.AutoSize = true;
             this.VerificationQuestionNumberOneLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerificationQuestionNumberOneLabel.Location = new System.Drawing.Point(20, 20);
+            this.VerificationQuestionNumberOneLabel.Location = new System.Drawing.Point(20, 30);
             this.VerificationQuestionNumberOneLabel.Name = "VerificationQuestionNumberOneLabel";
             this.VerificationQuestionNumberOneLabel.Size = new System.Drawing.Size(99, 18);
             this.VerificationQuestionNumberOneLabel.TabIndex = 43;

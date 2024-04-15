@@ -146,16 +146,26 @@ namespace YouChatApp.Controls
 
         private void ApproveVerificationInformationCustomButton_Click(object sender, EventArgs e)
         {
-            this.Enabled = false; 
+            ApproveVerificationInformationCustomButton.Enabled = false;
+            SetEnable(false);
             ApproveVerificationInformationCustomButtonClick?.Invoke(this, e);
         }
         public void AddApproveVerificationInformationCustomButtonClickHandler(EventHandler handler)
         {
             ApproveVerificationInformationCustomButtonClick += handler;
         }
+        private void SetEnable(bool enable)
+        {
+            VerificationQuestionNumberOneCustomComboBox.Enabled = enable;
+            VerificationAnswerNumberOneCustomTextBox.Enabled = enable;
+            VerificationQuestionNumberTwoCustomComboBox.Enabled = enable;
+            VerificationAnswerNumberTwoCustomTextBox.Enabled = enable;
+            VerificationQuestionNumberThreeCustomComboBox.Enabled = enable;
+            VerificationAnswerNumberThreeCustomTextBox.Enabled = enable;
+        }
         public void CancelDisabled()
         {
-            this.Enabled = true;
+            SetEnable(true);
         }
         public PersonalVerificationAnswers GetPersonalVerificationAnswers()
         {

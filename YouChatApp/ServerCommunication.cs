@@ -577,19 +577,7 @@ namespace YouChatApp
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulCaptchaCodeResponse:
                             case EnumHandler.CommunicationMessageID_Enum.CaptchaImageAngleResponse:
-                                CaptchaRotationImageDetails captchaRotationImageDetails = jsonObject.MessageBody as CaptchaRotationImageDetails;
-                                CaptchaRotationImages captchaRotationImages = captchaRotationImageDetails.CaptchaRotationImages;
-                                CaptchaRotationSuccessRate captchaRotationSuccessRate = captchaRotationImageDetails.CaptchaRotationSuccessRate;
-                                int score = captchaRotationSuccessRate.Score;
-                                int attempts = captchaRotationSuccessRate.Attempts;
-                                ImageContent captchaCircularImageContent = captchaRotationImages.RotatedImage;
-                                ImageContent captchaImageContent = captchaRotationImages.BackgroundImage;
-                                byte[] captchaCircularImageBytes = captchaCircularImageContent.ImageBytes;
-                                byte[] captchaImageBytes = captchaImageContent.ImageBytes;
-                                Image captchaCircularImage = ConvertHandler.ConvertBytesToImage(captchaCircularImageBytes);
-                                Image captchaImage = ConvertHandler.ConvertBytesToImage(captchaImageBytes);
-
-                                _login.Invoke((Action)delegate { _login.HandleCorrectCaptchaCode(captchaCircularImage, captchaImage,score,attempts); });
+                                HandleCaptchaImageAngleResponseEnum(jsonObject);    
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.FailedCaptchaCodeResponse:
                                 _login.Invoke((Action)delegate { _login.HandleWrongCaptchaCode(); });
@@ -663,7 +651,7 @@ namespace YouChatApp
                                 _login.Invoke((Action)delegate { _login.HandleBan(banDuration); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.LoginBanFinish:
-                                _login.Invoke((Action)delegate { _login.HandleBanOver(); });
+                                HandleLoginBanFinishEnum(jsonObject);
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulResetPasswordResponse:
                                 _passwordRestart.Invoke((Action)delegate { _passwordRestart.HandleMatchingUsernameAndEmailAddress(); });
@@ -714,6 +702,39 @@ namespace YouChatApp
                 {
                     MessageBox.Show("Ask somebody for help\n\n" + ex, "Error");
                 }
+            }
+        }
+        private static void HandleCaptchaImageAngleResponseEnum(JsonObject jsonObject)
+        {
+            CaptchaRotationImageDetails captchaRotationImageDetails = jsonObject.MessageBody as CaptchaRotationImageDetails;
+            object[] values = HandleCaptchaRotationImageDetailsArrival(captchaRotationImageDetails);
+            _login.Invoke((Action)delegate { _login.HandleCorrectCaptchaCode((Image)values[2], (Image)values[3], (int)values[0], (int)values[1]); });
+        }
+        private static object[] HandleCaptchaRotationImageDetailsArrival(CaptchaRotationImageDetails captchaRotationImageDetails)
+        {
+            CaptchaRotationImages captchaRotationImages = captchaRotationImageDetails.CaptchaRotationImages;
+            CaptchaRotationSuccessRate captchaRotationSuccessRate = captchaRotationImageDetails.CaptchaRotationSuccessRate;
+            int score = captchaRotationSuccessRate.Score;
+            int attempts = captchaRotationSuccessRate.Attempts;
+            ImageContent captchaCircularImageContent = captchaRotationImages.RotatedImage;
+            ImageContent captchaImageContent = captchaRotationImages.BackgroundImage;
+            byte[] captchaCircularImageBytes = captchaCircularImageContent.ImageBytes;
+            byte[] captchaImageBytes = captchaImageContent.ImageBytes;
+            Image captchaCircularImage = ConvertHandler.ConvertBytesToImage(captchaCircularImageBytes);
+            Image captchaImage = ConvertHandler.ConvertBytesToImage(captchaImageBytes);
+            object[] values = { score, attempts, captchaCircularImage, captchaImage };
+            return values;
+        }
+        private static void HandleLoginBanFinishEnum(JsonObject jsonObject)
+        {
+            if (jsonObject.MessageBody == null)
+            {
+                _login.Invoke((Action)delegate { _login.HandleBanOver(); });
+            }
+            else if (jsonObject.MessageBody is CaptchaRotationImageDetails captchaRotationImageDetails)
+            {
+                object[] values = HandleCaptchaRotationImageDetailsArrival(captchaRotationImageDetails);
+                _login.Invoke((Action)delegate { _login.HandleBanOver((Image)values[2], (Image)values[3], (int)values[0], (int)values[1]); });
             }
         }
 
