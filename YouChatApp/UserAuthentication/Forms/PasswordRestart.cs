@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,22 +8,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YouChatApp.Controls;
+using YouChatApp.JsonClasses;
 
 namespace YouChatApp.UserAuthentication.Forms
 {
     public partial class PasswordRestart : Form
     {
-        const int RegistrationMessage = 1;
-        const int LoginMessage = 2;
-        const int PasswordRenewalMessage = 3;
-        SmtpHandler smtpHandler;
-
         public PasswordRestart()
         {
             InitializeComponent();
-            smtpHandler = new SmtpHandler();
             PasswordGeneratorControl.OnTextChangedEventHandler(UpdatePasswordFieldsChecker);
+            SmtpControl.AddRestartSmtpCodeCustomButtonClickHandler(HandleSendingEmailProcess);
+            SmtpControl.AddVerifyCustomButtonClickHandler(SendSmtpCode);
+            SmtpControl.SetRestartSmtpCodeCustomButtonDisable();
+        }
+        public void HandleRecievedEmail()
+        {
+            SmtpControl.HandleCode();
+        }
+        public void HandleWrongCodeResponse()
+        {
+            SmtpControl.HandleWrongCodeCase();
 
+        }
+        public void HandleCorrectCodeResponse()
+        {
+            PasswordGeneratorControl.Enabled = true;
+        }
+
+        public void SendSmtpCode(object sender, EventArgs e)
+        {
+            string enteredSmtpCode = SmtpControl.GetCode();
+            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ResetPasswordRequest_SmtpCode, enteredSmtpCode);
+            string enteredSmtpCodeJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(enteredSmtpCodeJson);
+        }
+        public void HandleSendingEmailProcess(object sender, EventArgs e)
+        {
+            HandleSendingEmailProcess();
+        }
+        private void HandleSendingEmailProcess()
+        {
+            string Username = UsernameCustomTextBox.TextContent;
+            string Email = EmailAddressCustomTextBox.TextContent;
+            SmtpDetails smtpDetails = new SmtpDetails(Username, Email);
+            JsonObject smtpDetailsJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ResetPasswordRequest_SmtpMessage, smtpDetails);
+            string smtpDetailsJson = JsonConvert.SerializeObject(smtpDetailsJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(smtpDetailsJson);
         }
 
 
@@ -41,24 +80,7 @@ namespace YouChatApp.UserAuthentication.Forms
             }
         }
 
-        private void CodeCustomTextBox_TextChangedEvent(object sender, EventArgs e)
-        {
-            string text = CodeCustomTextBox.TextContent;
-            if (text != "")
-            {
-                VerifyCustomButton.Enabled = true;
-            }
-            else
-            {
-                VerifyCustomButton.Enabled = false;
 
-            }
-        }
-
-        private void RestartCodeCustomButton_Click(object sender, EventArgs e)
-        {
-            SendResetPasswordEmailThroughSmtpProtocol();
-        }
         private void UpdatePasswordFieldsChecker(object sender, EventArgs e)
         {
             bool PasswordFields = PasswordGeneratorControl.DoesAllFieldsHaveValue() && PasswordGeneratorControl.IsSamePassword();
@@ -75,30 +97,9 @@ namespace YouChatApp.UserAuthentication.Forms
 
         public void HandleMatchingUsernameAndEmailAddress()
         {
-            SendResetPasswordEmailThroughSmtpProtocol();
-            UsernameCustomTextBox.Enabled = false;
-            EmailAddressCustomTextBox.Enabled = false;
-            CodeLabel.Visible = true;
-            CodeCustomTextBox.Visible = true;
-            RestartCodeCustomButton.Visible = true;
-            VerifyCustomButton.Visible = true;
-        }
-        private void SendResetPasswordEmailThroughSmtpProtocol()
-        {
-            string username = UsernameCustomTextBox.TextContent;
-            string emailAddress = EmailAddressCustomTextBox.TextContent;
-            smtpHandler.SendCodeToUserEmail(username, emailAddress, PasswordRenewalMessage);
+            SmtpControl.HandleCode();
         }
 
-        private void VerifyCustomButton_Click(object sender, EventArgs e)
-        {
-            string EnteredSmtpCode = CodeCustomTextBox.TextContent;
-            if (EnteredSmtpCode == smtpHandler.GetSmtpCode())
-            {
-                PasswordGeneratorControl.Visible = true;
-                PasswordReplacerCustomButton.Visible = true;
-            }
-        }
 
         private void LoginReturnerCustomButton_Click(object sender, EventArgs e)
         {
@@ -115,8 +116,13 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             string Username = UsernameCustomTextBox.TextContent;
             string Email = EmailAddressCustomTextBox.TextContent;
-            string UserResetPasswordDetails = Username + "#" + Email;
-            ServerCommunication.SendMessage(ServerCommunication.ResetPasswordRequest, UserResetPasswordDetails);
+            SmtpDetails smtpDetails = new SmtpDetails(Username, Email);
+            JsonObject resetPasswordRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ResetPasswordRequest, smtpDetails);
+            string resetPasswordRequestJson = JsonConvert.SerializeObject(resetPasswordRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(resetPasswordRequestJson);
         }
 
         private void PasswordReplacerCustomButton_Click(object sender, EventArgs e)
@@ -124,8 +130,30 @@ namespace YouChatApp.UserAuthentication.Forms
             //if the password is good...
             string username = UsernameCustomTextBox.TextContent;
             string newPassword = PasswordGeneratorControl.NewPasswordTextContent;
-            string userDetails = username + "#" + newPassword;
-            ServerCommunication.SendMessage(ServerCommunication.PasswordRenewalMessageRequest, userDetails);
+            LoginDetails resetPasswordDetails = new LoginDetails(username, newPassword);
+            JsonObject passwordRenewalMessageJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.PasswordRenewalMessageRequest, resetPasswordDetails);
+            string passwordRenewalMessageJson = JsonConvert.SerializeObject(passwordRenewalMessageJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(passwordRenewalMessageJson);
+            SetPasswordGeneratorControlEnable(false);
+        }
+        public void RestartDetails()
+        {
+            CodeSenderCustomButton.Enabled = false;
+            MessageBox.Show("Your details were incorrect\nPlease Check for mistakes", "Incorrect Details");
+        }
+        public void HandleSuccessfulPasswordRenewal()
+        {
+            ServerCommunication._passwordRestart = null;
+            this.Hide();
+            this.Dispose();
+        }
+        public void SetPasswordGeneratorControlEnable(bool enable)
+        {
+            PasswordGeneratorControl.SetEnable(enable);
+            PasswordReplacerCustomButton.Enabled = enable;
         }
     }
 }

@@ -37,7 +37,7 @@
             // profileStatusControl1
             // 
             this.profileStatusControl1.IsSelectedStatusShown = true;
-            this.profileStatusControl1.Location = new System.Drawing.Point(456, 253);
+            this.profileStatusControl1.Location = new System.Drawing.Point(334, 173);
             this.profileStatusControl1.Name = "profileStatusControl1";
             this.profileStatusControl1.Size = new System.Drawing.Size(320, 345);
             this.profileStatusControl1.TabIndex = 3;

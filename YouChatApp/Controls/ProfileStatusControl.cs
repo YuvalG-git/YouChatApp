@@ -85,7 +85,6 @@ namespace YouChatApp.Controls
         {
             if (ProfileStatusCustomTextBox.IsContainingValue())
                 setStatus(ProfileStatusCustomTextBox.TextContent);
-            RefreshProfileStatusCustomTextBoxContent();
             string ProfileStatus = Status;
             JsonObject profileStatusJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UploadStatusRequest, ProfileStatus);
             string profileStatusJson = JsonConvert.SerializeObject(profileStatusJsonObject, new JsonSerializerSettings
@@ -93,6 +92,7 @@ namespace YouChatApp.Controls
                 TypeNameHandling = TypeNameHandling.Auto
             });
             ServerCommunication.SendMessage(profileStatusJson);
+            RefreshProfileStatusCustomTextBoxContent();
         }
         public void setStatus(string status)
         {

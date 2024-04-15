@@ -31,16 +31,13 @@
             this.ResetPasswordLabel = new System.Windows.Forms.Label();
             this.UsernameLabel = new System.Windows.Forms.Label();
             this.EmailAddressLabel = new System.Windows.Forms.Label();
-            this.CodeLabel = new System.Windows.Forms.Label();
             this.PasswordReplacerCustomButton = new YouChatApp.Controls.CustomButton();
-            this.RestartCodeCustomButton = new YouChatApp.Controls.CustomButton();
-            this.VerifyCustomButton = new YouChatApp.Controls.CustomButton();
-            this.CodeCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.PasswordGeneratorControl = new YouChatApp.Controls.PasswordGeneratorControl();
             this.CodeSenderCustomButton = new YouChatApp.Controls.CustomButton();
             this.EmailAddressCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.UsernameCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.LoginReturnerCustomButton = new YouChatApp.Controls.CustomButton();
+            this.SmtpControl = new YouChatApp.Controls.SmtpControl();
             this.SuspendLayout();
             // 
             // ResetPasswordLabel
@@ -73,17 +70,6 @@
             this.EmailAddressLabel.TabIndex = 52;
             this.EmailAddressLabel.Text = "Email Address:";
             // 
-            // CodeLabel
-            // 
-            this.CodeLabel.AutoSize = true;
-            this.CodeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CodeLabel.Location = new System.Drawing.Point(30, 270);
-            this.CodeLabel.Name = "CodeLabel";
-            this.CodeLabel.Size = new System.Drawing.Size(55, 18);
-            this.CodeLabel.TabIndex = 55;
-            this.CodeLabel.Text = "Code:";
-            this.CodeLabel.Visible = false;
-            // 
             // PasswordReplacerCustomButton
             // 
             this.PasswordReplacerCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
@@ -97,100 +83,26 @@
             this.PasswordReplacerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PasswordReplacerCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PasswordReplacerCustomButton.ForeColor = System.Drawing.Color.White;
-            this.PasswordReplacerCustomButton.Location = new System.Drawing.Point(80, 490);
+            this.PasswordReplacerCustomButton.Location = new System.Drawing.Point(80, 608);
             this.PasswordReplacerCustomButton.Name = "PasswordReplacerCustomButton";
             this.PasswordReplacerCustomButton.Size = new System.Drawing.Size(220, 40);
             this.PasswordReplacerCustomButton.TabIndex = 59;
             this.PasswordReplacerCustomButton.Text = "Change Password";
             this.PasswordReplacerCustomButton.TextColor = System.Drawing.Color.White;
             this.PasswordReplacerCustomButton.UseVisualStyleBackColor = false;
-            this.PasswordReplacerCustomButton.Visible = false;
             this.PasswordReplacerCustomButton.Click += new System.EventHandler(this.PasswordReplacerCustomButton_Click);
-            // 
-            // RestartCodeCustomButton
-            // 
-            this.RestartCodeCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.RestartCodeCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.RestartCodeCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.reset;
-            this.RestartCodeCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RestartCodeCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.RestartCodeCustomButton.BorderRadius = 10;
-            this.RestartCodeCustomButton.BorderSize = 0;
-            this.RestartCodeCustomButton.Circular = false;
-            this.RestartCodeCustomButton.FlatAppearance.BorderSize = 0;
-            this.RestartCodeCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RestartCodeCustomButton.ForeColor = System.Drawing.Color.White;
-            this.RestartCodeCustomButton.Location = new System.Drawing.Point(265, 257);
-            this.RestartCodeCustomButton.Name = "RestartCodeCustomButton";
-            this.RestartCodeCustomButton.Size = new System.Drawing.Size(40, 40);
-            this.RestartCodeCustomButton.TabIndex = 58;
-            this.RestartCodeCustomButton.TextColor = System.Drawing.Color.White;
-            this.RestartCodeCustomButton.UseVisualStyleBackColor = false;
-            this.RestartCodeCustomButton.Visible = false;
-            this.RestartCodeCustomButton.Click += new System.EventHandler(this.RestartCodeCustomButton_Click);
-            // 
-            // VerifyCustomButton
-            // 
-            this.VerifyCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.VerifyCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.VerifyCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.VerifyCustomButton.BorderRadius = 10;
-            this.VerifyCustomButton.BorderSize = 0;
-            this.VerifyCustomButton.Circular = false;
-            this.VerifyCustomButton.FlatAppearance.BorderSize = 0;
-            this.VerifyCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VerifyCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VerifyCustomButton.ForeColor = System.Drawing.Color.White;
-            this.VerifyCustomButton.Location = new System.Drawing.Point(140, 305);
-            this.VerifyCustomButton.Name = "VerifyCustomButton";
-            this.VerifyCustomButton.Size = new System.Drawing.Size(110, 40);
-            this.VerifyCustomButton.TabIndex = 57;
-            this.VerifyCustomButton.Text = "Verify";
-            this.VerifyCustomButton.TextColor = System.Drawing.Color.White;
-            this.VerifyCustomButton.UseVisualStyleBackColor = false;
-            this.VerifyCustomButton.Visible = false;
-            this.VerifyCustomButton.Click += new System.EventHandler(this.VerifyCustomButton_Click);
-            // 
-            // CodeCustomTextBox
-            // 
-            this.CodeCustomTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.CodeCustomTextBox.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.CodeCustomTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.CodeCustomTextBox.BorderRadius = 0;
-            this.CodeCustomTextBox.BorderSize = 2;
-            this.CodeCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CodeCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
-            this.CodeCustomTextBox.IsFocused = false;
-            this.CodeCustomTextBox.Location = new System.Drawing.Point(85, 260);
-            this.CodeCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.CodeCustomTextBox.MaxLength = 32767;
-            this.CodeCustomTextBox.Multiline = false;
-            this.CodeCustomTextBox.Name = "CodeCustomTextBox";
-            this.CodeCustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.CodeCustomTextBox.PasswordChar = false;
-            this.CodeCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
-            this.CodeCustomTextBox.PlaceHolderText = "Enter Code";
-            this.CodeCustomTextBox.ReadOnly = false;
-            this.CodeCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.CodeCustomTextBox.Size = new System.Drawing.Size(173, 33);
-            this.CodeCustomTextBox.TabIndex = 56;
-            this.CodeCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.CodeCustomTextBox.TextContent = "";
-            this.CodeCustomTextBox.UnderlineStyle = true;
-            this.CodeCustomTextBox.Visible = false;
-            this.CodeCustomTextBox.TextChangedEvent += new System.EventHandler(this.CodeCustomTextBox_TextChangedEvent);
             // 
             // PasswordGeneratorControl
             // 
             this.PasswordGeneratorControl.ConfirmPasswordVisible = true;
-            this.PasswordGeneratorControl.Location = new System.Drawing.Point(20, 350);
+            this.PasswordGeneratorControl.Enabled = false;
+            this.PasswordGeneratorControl.Location = new System.Drawing.Point(20, 468);
             this.PasswordGeneratorControl.Name = "PasswordGeneratorControl";
             this.PasswordGeneratorControl.NewPasswordTextContent = "New Password";
             this.PasswordGeneratorControl.OldPasswordVisible = false;
             this.PasswordGeneratorControl.PasswordExclamationVisible = true;
             this.PasswordGeneratorControl.Size = new System.Drawing.Size(335, 135);
             this.PasswordGeneratorControl.TabIndex = 36;
-            this.PasswordGeneratorControl.Visible = false;
             this.PasswordGeneratorControl.Load += new System.EventHandler(this.PasswordGeneratorControl_Load);
             // 
             // CodeSenderCustomButton
@@ -292,16 +204,20 @@
             this.LoginReturnerCustomButton.UseVisualStyleBackColor = false;
             this.LoginReturnerCustomButton.Click += new System.EventHandler(this.LoginReturnerCustomButton_Click);
             // 
+            // SmtpControl
+            // 
+            this.SmtpControl.Location = new System.Drawing.Point(20, 261);
+            this.SmtpControl.Name = "SmtpControl";
+            this.SmtpControl.Size = new System.Drawing.Size(350, 200);
+            this.SmtpControl.TabIndex = 60;
+            // 
             // PasswordRestart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 541);
+            this.ClientSize = new System.Drawing.Size(384, 655);
+            this.Controls.Add(this.SmtpControl);
             this.Controls.Add(this.PasswordReplacerCustomButton);
-            this.Controls.Add(this.RestartCodeCustomButton);
-            this.Controls.Add(this.VerifyCustomButton);
-            this.Controls.Add(this.CodeCustomTextBox);
-            this.Controls.Add(this.CodeLabel);
             this.Controls.Add(this.PasswordGeneratorControl);
             this.Controls.Add(this.CodeSenderCustomButton);
             this.Controls.Add(this.EmailAddressCustomTextBox);
@@ -326,10 +242,7 @@
         private System.Windows.Forms.Label EmailAddressLabel;
         private Controls.PasswordGeneratorControl PasswordGeneratorControl;
         private Controls.CustomButton CodeSenderCustomButton;
-        private Controls.CustomTextBox CodeCustomTextBox;
-        private System.Windows.Forms.Label CodeLabel;
-        private Controls.CustomButton VerifyCustomButton;
-        private Controls.CustomButton RestartCodeCustomButton;
         private Controls.CustomButton PasswordReplacerCustomButton;
+        private Controls.SmtpControl SmtpControl;
     }
 }

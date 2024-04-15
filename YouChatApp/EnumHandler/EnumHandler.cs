@@ -15,6 +15,15 @@ namespace YouChatApp
             PasswordUpdate,
             PasswordRestart
         }
+
+        public enum LoginPhases_Enum
+        {
+            Login,
+            Smtp,
+            CaptchaCode,
+            CaptchaRotatingImage,
+            VerificationQuestion
+        }
         /// <summary>
         /// Enum used to ...
         /// </summary>
@@ -46,6 +55,9 @@ namespace YouChatApp
             EncryptionSymmetricKeyReciever,
             EncryptionRenewKeys,
             FriendRequestSender,
+            FriendRequestReciever,
+            FriendRequestResponseSender,
+            FriendRequestResponseReciever,
             UploadProfilePictureRequest,
             UploadProfilePictureResponse,
             UploadStatusRequest,
@@ -84,7 +96,23 @@ namespace YouChatApp
             UserDetailsRequest,
             UserDetailsResponse,
             ChatSettingsChangeRequest,
-            ChatSettingsChangeResponse
+            ChatSettingsChangeResponse,
+            LoginBanStart,
+            LoginBanFinish,
+            ResetPasswordRequest,
+            SuccessfulResetPasswordResponse,
+            FailedResetPasswordResponse,
+            ResetPasswordRequest_SmtpMessage,
+            ResetPasswordResponse_SmtpMessage,
+            ResetPasswordRequest_SmtpCode,
+            SuccessfulResetPasswordResponse_SmtpCode,
+            FailedResetPasswordResponse_SmtpCode,
+            PastFriendRequestsRequest,
+            PastFriendRequestsResponse,
+            PasswordRenewalMessageRequest,
+            SuccessfulRenewalMessageResponse,
+            FailedRenewalMessageResponse,
+            ErrorHandleRenewalMessageResponse
         }
     }
 }

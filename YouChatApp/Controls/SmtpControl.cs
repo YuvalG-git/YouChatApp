@@ -33,6 +33,11 @@ namespace YouChatApp.Controls
             RestartSmtpCodeCustomButton.Enabled = true;
             SmtpCodeCustomTextBox.TextContent = "";
         }
+        public void SetRestartSmtpCodeCustomButtonDisable()
+        {
+            RestartSmtpCodeCustomButton.Enabled = false;
+        }
+
         private void SmtpCodeCustomTextBox_TextChangedEvent(object sender, EventArgs e)
         {
             if (SmtpCodeCustomTextBox.IsContainingValue())

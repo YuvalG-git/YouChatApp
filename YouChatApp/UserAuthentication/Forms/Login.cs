@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using YouChatApp.Controls;
 using YouChatApp.JsonClasses;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace YouChatApp.UserAuthentication.Forms
 {
     public partial class Login : Form
     {
-
+        EnumHandler.LoginPhases_Enum loginPhase;
         public Login()
         {
             InitializeComponent();
@@ -27,6 +28,7 @@ namespace YouChatApp.UserAuthentication.Forms
             CaptchaCodeControl.AddRestartCaptchaCustomButtonClickHandler(RequestCaptchaBitmap);
             PersonalVerificationAnswersControl.AddApproveVerificationInformationCustomButtonClickHandler(SendPersonalVerificationAnswers);
             CaptchaRotatingImageControl.AddCaptchaCheckerCustomButtonClickHandler(SendCaptchaAngle);
+            loginPhase = EnumHandler.LoginPhases_Enum.Login;
         }
         public void HandleWrongPersonalVerificationAnswers()
         {
@@ -83,6 +85,7 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         public void HandleCorrectCodeResponse(Image captchaCodeImage)
         {
+            loginPhase = EnumHandler.LoginPhases_Enum.CaptchaCode;
             CaptchaCodeControl.Visible = true;
             CaptchaCodeControl.SetCaptchaImage(captchaCodeImage);
         }
@@ -93,6 +96,7 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         public void SetPersonalVerificationQuestions(PersonalVerificationQuestions personalVerificationQuestions)
         {
+            loginPhase = EnumHandler.LoginPhases_Enum.VerificationQuestion;
             PersonalVerificationAnswersControl.Visible = true;
             PersonalVerificationAnswersControl.SetQuestions(personalVerificationQuestions);
         }
@@ -108,6 +112,7 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         public void HandleCorrectCaptchaCode(Image captchaCircularImage, Image captchaImage, int score, int attempts)
         {
+            loginPhase = EnumHandler.LoginPhases_Enum.CaptchaRotatingImage;
             CaptchaRotatingImageControl.Visible = true;
             CaptchaRotatingImageControl.SetCaptchaImages(captchaCircularImage, captchaImage,score,attempts);
         }
@@ -154,6 +159,44 @@ namespace YouChatApp.UserAuthentication.Forms
             ServerCommunication._passwordRestart = new PasswordRestart();
             this.Invoke(new Action(() => ServerCommunication._passwordRestart.ShowDialog()));
         }
+        public void HandleBan(double banDuration)
+        {
+            BanControl.Visible = true;
+            BanControl.HandleBan(banDuration);
+            SetVisibility(false);
+        }
+        public void HandleBanOver()
+        {
+            BanControl.Visible = false;
+            SetVisibility(true);
+        }
+        public void SetVisibility(bool visible)
+        {
+            for (int i = 0; i <= (int)loginPhase; i++)
+            {
+                EnumHandler.LoginPhases_Enum currentEnumValue = (EnumHandler.LoginPhases_Enum)i;
+
+                switch (currentEnumValue)
+                {
+                    case EnumHandler.LoginPhases_Enum.Login:
+                        LoginPanel.Visible = visible;
+                        break;
+                    case EnumHandler.LoginPhases_Enum.Smtp:
+                        SmtpControl.Visible = visible;
+                        break;
+                    case EnumHandler.LoginPhases_Enum.CaptchaCode:
+                        CaptchaCodeControl.Visible = visible;
+                        break;
+                    case EnumHandler.LoginPhases_Enum.CaptchaRotatingImage:
+                        CaptchaRotatingImageControl.Visible = visible;
+                        break;
+                    case EnumHandler.LoginPhases_Enum.VerificationQuestion:
+                        PersonalVerificationAnswersControl.Visible = visible;
+                        break;
+                }
+            }
+        }
+
 
         private void SignUpCustomButton_Click(object sender, EventArgs e)
         {
@@ -176,12 +219,13 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         public void HandleRecievedEmail()
         {
+            loginPhase = EnumHandler.LoginPhases_Enum.Smtp;
             SmtpControl.Visible = true;
             SmtpControl.HandleCode();
         }
         public void setLoginButtonEnabled()
         {
-            LoginCustomButton.Enabled = true;
+            LoginCustomButton.Enabled = false;
         }
         private void LoginCustomButton_Click(object sender, EventArgs e)
         {

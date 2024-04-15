@@ -240,6 +240,8 @@ namespace YouChatApp
 
         public static ImageSender _imageSender;
 
+        public static BanForm _banForm;
+
         private static UdpClient UdpClient;
 
 
@@ -358,6 +360,7 @@ namespace YouChatApp
                                           4,
                                           ReceiveMessageLength,
                                           null);
+
         }
 
         public static void FileBeginRead()
@@ -395,11 +398,16 @@ namespace YouChatApp
                 int bytesRead;
                 try
                 {
-                    lock (MessageClient.GetStream())
-                    {
-                        // call EndRead to handle the end of an async read.
-                        bytesRead = MessageClient.GetStream().EndRead(ar);
-                    }
+                    //Console.WriteLine("trying to get lock in length:");
+                    //lock (MessageClient.GetStream())
+                    //{
+                    //    // call EndRead to handle the end of an async read.
+                    //    bytesRead = MessageClient.GetStream().EndRead(ar);
+                    //}
+                    //Console.WriteLine("unlocked in length:");
+
+                    bytesRead = MessageClient.GetStream().EndRead(ar);
+
                     // if bytesread<1 -> the client disconnected
                     if (bytesRead < 1)
                     {
@@ -415,11 +423,16 @@ namespace YouChatApp
                         bytesRead = BitConverter.ToInt32(buffer, 0);
                         if (isConnected)
                         {
-                            lock (MessageClient.GetStream())
-                            {
-                                // continue reading from the client
-                                MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
-                            }
+                            Console.WriteLine("trying to get lock in length2:");
+
+                            //lock (MessageClient.GetStream())
+                            //{
+                            //    // continue reading from the client
+                            //    MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
+                            //}
+                            MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
+                            Console.WriteLine("unlocked in length2");
+
                         }
                     }
                 }
@@ -443,11 +456,15 @@ namespace YouChatApp
                 int bytesRead;
                 try
                 {
+                    Console.WriteLine("trying to get lock in message");
+
                     lock (MessageClient.GetStream())
                     {
                         // call EndRead to handle the end of an async read.
                         bytesRead = MessageClient.GetStream().EndRead(ar);
                     }
+                    Console.WriteLine("unlocked message");
+
                     // if bytesread<1 -> the client disconnected
                     if (bytesRead < 1)
                     {
@@ -529,6 +546,15 @@ namespace YouChatApp
                             case EnumHandler.CommunicationMessageID_Enum.RegistrationResponse_SmtpRegistrationCode:
                                 string codeResponse = jsonObject.MessageBody as string;
                                 _registration.Invoke((Action)delegate { _registration.HandleCodeResponse(codeResponse); }); 
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.ResetPasswordResponse_SmtpMessage:
+                                _passwordRestart.Invoke((Action)delegate { _passwordRestart.HandleRecievedEmail(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.SuccessfulResetPasswordResponse_SmtpCode:
+                                _passwordRestart.Invoke((Action)delegate { _passwordRestart.HandleCorrectCodeResponse(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.FailedResetPasswordResponse_SmtpCode:
+                                _passwordRestart.Invoke((Action)delegate { _passwordRestart.HandleWrongCodeResponse(); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.loginResponse_SmtpLoginMessage:
                                 _login.Invoke((Action)delegate { _login.HandleRecievedEmail(); });
@@ -632,6 +658,35 @@ namespace YouChatApp
 
                                 //needs to restart everything according to it...
                                 break;
+                            case EnumHandler.CommunicationMessageID_Enum.LoginBanStart:
+                                double banDuration = (double)jsonObject.MessageBody;
+                                _login.Invoke((Action)delegate { _login.HandleBan(banDuration); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.LoginBanFinish:
+                                _login.Invoke((Action)delegate { _login.HandleBanOver(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.SuccessfulResetPasswordResponse:
+                                _passwordRestart.Invoke((Action)delegate { _passwordRestart.HandleMatchingUsernameAndEmailAddress(); });
+
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.FailedResetPasswordResponse:
+                                _passwordRestart.Invoke((Action)delegate { _passwordRestart.RestartDetails(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.PastFriendRequestsResponse:
+                                PastFriendRequests pastFriendRequests = jsonObject.MessageBody as PastFriendRequests;
+                                _youChat.Invoke((Action)delegate { _youChat.SetListOfFriendRequestControl(pastFriendRequests); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.SuccessfulRenewalMessageResponse:
+                                _passwordRestart.Invoke((Action)delegate { _passwordRestart.HandleSuccessfulPasswordRenewal(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.FailedRenewalMessageResponse:
+                                MessageBox.Show("Choose a new pasword", "Password Already Chosen.");
+                                _passwordRestart.Invoke((Action)delegate { _passwordRestart.SetPasswordGeneratorControlEnable(true); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.ErrorHandleRenewalMessageResponse:
+                                MessageBox.Show("try again", "Error occured.");
+                                _passwordRestart.Invoke((Action)delegate { _passwordRestart.SetPasswordGeneratorControlEnable(true); });
+                                break;
                                 //case EnumHandler.CommunicationMessageID_Enum.EncryptionServerPublicKeyAndSymmetricKeyReciever:
                                 //    EncryptionKeys encryptionKeys = jsonObject.MessageBody as EncryptionKeys;
                                 //    ServerPublicKey = encryptionKeys.AsymmetricKey;
@@ -643,6 +698,8 @@ namespace YouChatApp
                     }
                     if (isConnected)
                     {
+                        Console.WriteLine("trying to get lock in message2");
+
                         lock (MessageClient.GetStream())
                         {
                             // continue reading from the client
@@ -650,6 +707,7 @@ namespace YouChatApp
                             //dataHistory = new byte[0];
                             //MessageClient.GetStream().BeginRead(MessageData, 0, System.Convert.ToInt32(MessageClient.ReceiveBufferSize), ReceiveMessage, null);
                         }
+                        Console.WriteLine("unlocked in message2");
                     }
                 }
                 catch (Exception ex)

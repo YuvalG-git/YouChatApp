@@ -30,24 +30,27 @@
         {
             this.ForgottenPasswordLabel = new System.Windows.Forms.Label();
             this.UsernameLabel = new System.Windows.Forms.Label();
+            this.SignUpLabel = new System.Windows.Forms.Label();
+            this.LoginLabel = new System.Windows.Forms.Label();
+            this.BanControl = new YouChatApp.Controls.BanControl();
+            this.SmtpControl = new YouChatApp.Controls.SmtpControl();
+            this.PersonalVerificationAnswersControl = new YouChatApp.Controls.PersonalVerificationAnswersControl();
+            this.SignUpCustomButton = new YouChatApp.Controls.CustomButton();
+            this.CaptchaRotatingImageControl = new YouChatApp.Controls.CaptchaRotatingImageControl();
+            this.CaptchaCodeControl = new YouChatApp.Controls.CaptchaCodeControl();
             this.LoginCustomButton = new YouChatApp.Controls.CustomButton();
             this.ResetPasswordCustomButton = new YouChatApp.Controls.CustomButton();
             this.PasswordGeneratorControl = new YouChatApp.Controls.PasswordGeneratorControl();
             this.UsernameCustomTextBox = new YouChatApp.Controls.CustomTextBox();
-            this.CaptchaCodeControl = new YouChatApp.Controls.CaptchaCodeControl();
-            this.CaptchaRotatingImageControl = new YouChatApp.Controls.CaptchaRotatingImageControl();
-            this.SignUpCustomButton = new YouChatApp.Controls.CustomButton();
-            this.SignUpLabel = new System.Windows.Forms.Label();
-            this.LoginLabel = new System.Windows.Forms.Label();
-            this.PersonalVerificationAnswersControl = new YouChatApp.Controls.PersonalVerificationAnswersControl();
-            this.SmtpControl = new YouChatApp.Controls.SmtpControl();
+            this.LoginPanel = new System.Windows.Forms.Panel();
+            this.LoginPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // ForgottenPasswordLabel
             // 
             this.ForgottenPasswordLabel.AutoSize = true;
             this.ForgottenPasswordLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ForgottenPasswordLabel.Location = new System.Drawing.Point(153, 223);
+            this.ForgottenPasswordLabel.Location = new System.Drawing.Point(10, 168);
             this.ForgottenPasswordLabel.Name = "ForgottenPasswordLabel";
             this.ForgottenPasswordLabel.Size = new System.Drawing.Size(263, 34);
             this.ForgottenPasswordLabel.TabIndex = 24;
@@ -57,11 +60,97 @@
             // 
             this.UsernameLabel.AutoSize = true;
             this.UsernameLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UsernameLabel.Location = new System.Drawing.Point(153, 77);
+            this.UsernameLabel.Location = new System.Drawing.Point(10, 22);
             this.UsernameLabel.Name = "UsernameLabel";
             this.UsernameLabel.Size = new System.Drawing.Size(95, 18);
             this.UsernameLabel.TabIndex = 42;
             this.UsernameLabel.Text = "Username:";
+            // 
+            // SignUpLabel
+            // 
+            this.SignUpLabel.AutoSize = true;
+            this.SignUpLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SignUpLabel.Location = new System.Drawing.Point(10, 340);
+            this.SignUpLabel.Name = "SignUpLabel";
+            this.SignUpLabel.Size = new System.Drawing.Size(179, 34);
+            this.SignUpLabel.TabIndex = 49;
+            this.SignUpLabel.Text = "Don\'t have an account?\r\nSign up here!\r\n";
+            // 
+            // LoginLabel
+            // 
+            this.LoginLabel.AutoSize = true;
+            this.LoginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoginLabel.Location = new System.Drawing.Point(344, 28);
+            this.LoginLabel.Name = "LoginLabel";
+            this.LoginLabel.Size = new System.Drawing.Size(104, 31);
+            this.LoginLabel.TabIndex = 50;
+            this.LoginLabel.Text = "LOGIN";
+            // 
+            // BanControl
+            // 
+            this.BanControl.AutoSize = true;
+            this.BanControl.Location = new System.Drawing.Point(771, 54);
+            this.BanControl.Name = "BanControl";
+            this.BanControl.Size = new System.Drawing.Size(400, 400);
+            this.BanControl.TabIndex = 53;
+            this.BanControl.Visible = false;
+            // 
+            // SmtpControl
+            // 
+            this.SmtpControl.Location = new System.Drawing.Point(781, 487);
+            this.SmtpControl.Name = "SmtpControl";
+            this.SmtpControl.Size = new System.Drawing.Size(350, 190);
+            this.SmtpControl.TabIndex = 52;
+            this.SmtpControl.Visible = false;
+            // 
+            // PersonalVerificationAnswersControl
+            // 
+            this.PersonalVerificationAnswersControl.Location = new System.Drawing.Point(781, 169);
+            this.PersonalVerificationAnswersControl.MaximumSize = new System.Drawing.Size(400, 380);
+            this.PersonalVerificationAnswersControl.MinimumSize = new System.Drawing.Size(400, 380);
+            this.PersonalVerificationAnswersControl.Name = "PersonalVerificationAnswersControl";
+            this.PersonalVerificationAnswersControl.Size = new System.Drawing.Size(400, 380);
+            this.PersonalVerificationAnswersControl.TabIndex = 51;
+            this.PersonalVerificationAnswersControl.Visible = false;
+            // 
+            // SignUpCustomButton
+            // 
+            this.SignUpCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.SignUpCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.SignUpCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.SignUpCustomButton.BorderRadius = 10;
+            this.SignUpCustomButton.BorderSize = 0;
+            this.SignUpCustomButton.Circular = false;
+            this.SignUpCustomButton.FlatAppearance.BorderSize = 0;
+            this.SignUpCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SignUpCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SignUpCustomButton.ForeColor = System.Drawing.Color.White;
+            this.SignUpCustomButton.Location = new System.Drawing.Point(47, 377);
+            this.SignUpCustomButton.Name = "SignUpCustomButton";
+            this.SignUpCustomButton.Size = new System.Drawing.Size(150, 40);
+            this.SignUpCustomButton.TabIndex = 48;
+            this.SignUpCustomButton.Text = "Sign Up";
+            this.SignUpCustomButton.TextColor = System.Drawing.Color.White;
+            this.SignUpCustomButton.UseVisualStyleBackColor = false;
+            this.SignUpCustomButton.Click += new System.EventHandler(this.SignUpCustomButton_Click);
+            // 
+            // CaptchaRotatingImageControl
+            // 
+            this.CaptchaRotatingImageControl.AutoSize = true;
+            this.CaptchaRotatingImageControl.Location = new System.Drawing.Point(496, 307);
+            this.CaptchaRotatingImageControl.Name = "CaptchaRotatingImageControl";
+            this.CaptchaRotatingImageControl.Size = new System.Drawing.Size(260, 330);
+            this.CaptchaRotatingImageControl.TabIndex = 47;
+            this.CaptchaRotatingImageControl.Visible = false;
+            // 
+            // CaptchaCodeControl
+            // 
+            this.CaptchaCodeControl.AutoSize = true;
+            this.CaptchaCodeControl.Location = new System.Drawing.Point(515, 28);
+            this.CaptchaCodeControl.Name = "CaptchaCodeControl";
+            this.CaptchaCodeControl.Size = new System.Drawing.Size(260, 273);
+            this.CaptchaCodeControl.TabIndex = 46;
+            this.CaptchaCodeControl.Visible = false;
             // 
             // LoginCustomButton
             // 
@@ -76,7 +165,7 @@
             this.LoginCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LoginCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoginCustomButton.ForeColor = System.Drawing.Color.White;
-            this.LoginCustomButton.Location = new System.Drawing.Point(190, 331);
+            this.LoginCustomButton.Location = new System.Drawing.Point(47, 276);
             this.LoginCustomButton.Name = "LoginCustomButton";
             this.LoginCustomButton.Size = new System.Drawing.Size(150, 40);
             this.LoginCustomButton.TabIndex = 45;
@@ -97,7 +186,7 @@
             this.ResetPasswordCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ResetPasswordCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ResetPasswordCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ResetPasswordCustomButton.Location = new System.Drawing.Point(190, 285);
+            this.ResetPasswordCustomButton.Location = new System.Drawing.Point(47, 230);
             this.ResetPasswordCustomButton.Name = "ResetPasswordCustomButton";
             this.ResetPasswordCustomButton.Size = new System.Drawing.Size(150, 40);
             this.ResetPasswordCustomButton.TabIndex = 38;
@@ -109,7 +198,7 @@
             // PasswordGeneratorControl
             // 
             this.PasswordGeneratorControl.ConfirmPasswordVisible = false;
-            this.PasswordGeneratorControl.Location = new System.Drawing.Point(146, 141);
+            this.PasswordGeneratorControl.Location = new System.Drawing.Point(3, 86);
             this.PasswordGeneratorControl.Name = "PasswordGeneratorControl";
             this.PasswordGeneratorControl.NewPasswordTextContent = "Password";
             this.PasswordGeneratorControl.OldPasswordVisible = false;
@@ -129,7 +218,7 @@
             this.UsernameCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UsernameCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.UsernameCustomTextBox.IsFocused = false;
-            this.UsernameCustomTextBox.Location = new System.Drawing.Point(156, 98);
+            this.UsernameCustomTextBox.Location = new System.Drawing.Point(13, 43);
             this.UsernameCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.UsernameCustomTextBox.MaxLength = 32767;
             this.UsernameCustomTextBox.Multiline = false;
@@ -147,104 +236,38 @@
             this.UsernameCustomTextBox.UnderlineStyle = true;
             this.UsernameCustomTextBox.TextChangedEvent += new System.EventHandler(this.LoginFieldsTextChangedEvent);
             // 
-            // CaptchaCodeControl
+            // LoginPanel
             // 
-            this.CaptchaCodeControl.AutoSize = true;
-            this.CaptchaCodeControl.Location = new System.Drawing.Point(515, 28);
-            this.CaptchaCodeControl.Name = "CaptchaCodeControl";
-            this.CaptchaCodeControl.Size = new System.Drawing.Size(260, 273);
-            this.CaptchaCodeControl.TabIndex = 46;
-            this.CaptchaCodeControl.Visible = false;
-            // 
-            // CaptchaRotatingImageControl
-            // 
-            this.CaptchaRotatingImageControl.AutoSize = true;
-            this.CaptchaRotatingImageControl.Location = new System.Drawing.Point(496, 307);
-            this.CaptchaRotatingImageControl.Name = "CaptchaRotatingImageControl";
-            this.CaptchaRotatingImageControl.Size = new System.Drawing.Size(260, 330);
-            this.CaptchaRotatingImageControl.TabIndex = 47;
-            this.CaptchaRotatingImageControl.Visible = false;
-            // 
-            // SignUpCustomButton
-            // 
-            this.SignUpCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.SignUpCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.SignUpCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.SignUpCustomButton.BorderRadius = 10;
-            this.SignUpCustomButton.BorderSize = 0;
-            this.SignUpCustomButton.Circular = false;
-            this.SignUpCustomButton.FlatAppearance.BorderSize = 0;
-            this.SignUpCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SignUpCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SignUpCustomButton.ForeColor = System.Drawing.Color.White;
-            this.SignUpCustomButton.Location = new System.Drawing.Point(184, 627);
-            this.SignUpCustomButton.Name = "SignUpCustomButton";
-            this.SignUpCustomButton.Size = new System.Drawing.Size(150, 40);
-            this.SignUpCustomButton.TabIndex = 48;
-            this.SignUpCustomButton.Text = "Sign Up";
-            this.SignUpCustomButton.TextColor = System.Drawing.Color.White;
-            this.SignUpCustomButton.UseVisualStyleBackColor = false;
-            this.SignUpCustomButton.Click += new System.EventHandler(this.SignUpCustomButton_Click);
-            // 
-            // SignUpLabel
-            // 
-            this.SignUpLabel.AutoSize = true;
-            this.SignUpLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SignUpLabel.Location = new System.Drawing.Point(161, 581);
-            this.SignUpLabel.Name = "SignUpLabel";
-            this.SignUpLabel.Size = new System.Drawing.Size(179, 34);
-            this.SignUpLabel.TabIndex = 49;
-            this.SignUpLabel.Text = "Don\'t have an account?\r\nSign up here!\r\n";
-            // 
-            // LoginLabel
-            // 
-            this.LoginLabel.AutoSize = true;
-            this.LoginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoginLabel.Location = new System.Drawing.Point(213, 28);
-            this.LoginLabel.Name = "LoginLabel";
-            this.LoginLabel.Size = new System.Drawing.Size(104, 31);
-            this.LoginLabel.TabIndex = 50;
-            this.LoginLabel.Text = "LOGIN";
-            // 
-            // PersonalVerificationAnswersControl
-            // 
-            this.PersonalVerificationAnswersControl.Location = new System.Drawing.Point(781, 169);
-            this.PersonalVerificationAnswersControl.MaximumSize = new System.Drawing.Size(400, 380);
-            this.PersonalVerificationAnswersControl.MinimumSize = new System.Drawing.Size(400, 380);
-            this.PersonalVerificationAnswersControl.Name = "PersonalVerificationAnswersControl";
-            this.PersonalVerificationAnswersControl.Size = new System.Drawing.Size(400, 380);
-            this.PersonalVerificationAnswersControl.TabIndex = 51;
-            this.PersonalVerificationAnswersControl.Visible = false;
-            // 
-            // SmtpControl
-            // 
-            this.SmtpControl.Location = new System.Drawing.Point(81, 377);
-            this.SmtpControl.Name = "SmtpControl";
-            this.SmtpControl.Size = new System.Drawing.Size(350, 190);
-            this.SmtpControl.TabIndex = 52;
-            this.SmtpControl.Visible = false;
+            this.LoginPanel.Controls.Add(this.PasswordGeneratorControl);
+            this.LoginPanel.Controls.Add(this.ForgottenPasswordLabel);
+            this.LoginPanel.Controls.Add(this.UsernameLabel);
+            this.LoginPanel.Controls.Add(this.UsernameCustomTextBox);
+            this.LoginPanel.Controls.Add(this.ResetPasswordCustomButton);
+            this.LoginPanel.Controls.Add(this.SignUpLabel);
+            this.LoginPanel.Controls.Add(this.LoginCustomButton);
+            this.LoginPanel.Controls.Add(this.SignUpCustomButton);
+            this.LoginPanel.Location = new System.Drawing.Point(99, 112);
+            this.LoginPanel.Name = "LoginPanel";
+            this.LoginPanel.Size = new System.Drawing.Size(349, 470);
+            this.LoginPanel.TabIndex = 54;
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1223, 689);
+            this.Controls.Add(this.LoginPanel);
+            this.Controls.Add(this.BanControl);
             this.Controls.Add(this.SmtpControl);
             this.Controls.Add(this.PersonalVerificationAnswersControl);
             this.Controls.Add(this.LoginLabel);
-            this.Controls.Add(this.SignUpLabel);
-            this.Controls.Add(this.SignUpCustomButton);
             this.Controls.Add(this.CaptchaRotatingImageControl);
             this.Controls.Add(this.CaptchaCodeControl);
-            this.Controls.Add(this.LoginCustomButton);
-            this.Controls.Add(this.ResetPasswordCustomButton);
-            this.Controls.Add(this.PasswordGeneratorControl);
-            this.Controls.Add(this.UsernameCustomTextBox);
-            this.Controls.Add(this.UsernameLabel);
-            this.Controls.Add(this.ForgottenPasswordLabel);
             this.Name = "Login";
             this.Text = "Login";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
+            this.LoginPanel.ResumeLayout(false);
+            this.LoginPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -264,5 +287,7 @@
         public System.Windows.Forms.Label LoginLabel;
         private Controls.PersonalVerificationAnswersControl PersonalVerificationAnswersControl;
         private Controls.SmtpControl SmtpControl;
+        private Controls.BanControl BanControl;
+        private System.Windows.Forms.Panel LoginPanel;
     }
 }

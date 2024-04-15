@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,46 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using YouChatApp.JsonClasses;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.LinkLabel;
-using Image = System.Drawing.Image;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
-namespace YouChatApp
+namespace YouChatApp.Controls
 {
-    public partial class BanForm : Form
+    public partial class BanControl : UserControl
     {
         TimeSpan TimerTickTimeSpan;
         TimeSpan CountDownTimeSpan;
-        public BanForm(double time)
+        Image BackgroundGif = global::YouChatApp.Properties.Resources.StopWatch;
+
+        public BanControl()
         {
             InitializeComponent();
-            ServerCommunication.MessageBeginRead();
             TimerTickTimeSpan = TimeSpan.FromMilliseconds(CountDownTimer.Interval);
-            HandleBan(time);
-        }
-
-        private void WaitingPictureBox_SizeChanged(object sender, EventArgs e)
-        {
 
         }
 
-        private void BanForm_SizeChanged(object sender, EventArgs e)
-        {
-            int newSize = Math.Max(this.Width, this.Height);
-            this.Width = newSize;
-            this.Height = newSize;
-        }
-
-        private void BanForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.TaskManagerClosing || e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true; // Prevent the form from closing
-            }
-        }
         public void HandleBan(double time)
         {
+            this.BanPictureBox.Image = BackgroundGif;
             CountDownTimeLabel.Visible = true;
             CountDownTimeLabel.Text = time.ToString();
 
@@ -59,11 +38,6 @@ namespace YouChatApp
         private void SetCountDownTimeLabelLocation()
         {
             CountDownTimeLabel.Location = new Point((this.Width - CountDownTimeLabel.Width) / 2, CountDownTimeLabel.Location.Y);
-        }
-        public void CancelBan()
-        {
-            this.Hide();
-            this.Dispose();
         }
         private Image GetCurrentFrame(Image image)
         {
@@ -124,8 +98,8 @@ namespace YouChatApp
                 //this.CountDownTimeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 //SetCountDownTimeLabelLocation();
                 CountDownTimeLabel.Visible = false;
-                WaitingPictureBox.Image = GetCurrentFrame(WaitingPictureBox.Image);
-                DrawCenteredText("Countdown Complete!","Soon you will be able to continue",WaitingPictureBox);
+                BanPictureBox.Image = GetCurrentFrame(BanPictureBox.Image);
+                DrawCenteredText("Countdown Complete!", "Soon you will be able to continue", BanPictureBox);
 
             }
             else

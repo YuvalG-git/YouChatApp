@@ -345,5 +345,12 @@ namespace YouChatApp.Controls
         {
 
         }
+        public void SetEnable(bool enable)
+        {
+            for (int i = 0; i < PasswordTextBoxArray.Length; i++)
+            {
+                PasswordTextBoxArray[i].Enabled = enable;
+            }
+        }
     }
 }

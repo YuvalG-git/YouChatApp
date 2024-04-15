@@ -159,6 +159,12 @@
     <Compile Include="BanForm.Designer.cs">
       <DependentUpon>BanForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\BanControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BanControl.Designer.cs">
+      <DependentUpon>BanControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CaptchaCodeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -203,12 +209,17 @@
     <Compile Include="JsonClasses\CaptchaRotationImages.cs" />
     <Compile Include="JsonClasses\CaptchaRotationSuccessRate.cs" />
     <Compile Include="JsonClasses\ChatSettings.cs" />
+    <Compile Include="JsonClasses\FriendRequestControlDetails.cs" />
+    <Compile Include="JsonClasses\FriendRequestResponseDetails.cs" />
+    <Compile Include="JsonClasses\FriendRequestDetails.cs" />
     <Compile Include="JsonClasses\ImageContent.cs" />
     <Compile Include="JsonClasses\JsonHandler\JsonHandler.cs" />
     <Compile Include="JsonClasses\JsonObject.cs" />
     <Compile Include="JsonClasses\EncryptionKeys.cs" />
     <Compile Include="JsonClasses\Message.cs" />
     <Compile Include="JsonClasses\PasswordUpdateDetails.cs" />
+    <Compile Include="JsonClasses\PastFriendRequest.cs" />
+    <Compile Include="JsonClasses\PastFriendRequests.cs" />
     <Compile Include="JsonClasses\PersonalVerificationQuestions.cs" />
     <Compile Include="JsonClasses\SmtpDetails.cs" />
     <Compile Include="JsonClasses\LoginDetails.cs" />
