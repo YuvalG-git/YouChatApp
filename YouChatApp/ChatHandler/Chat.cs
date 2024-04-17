@@ -1,70 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace YouChatApp.ChatHandler
 {
-    internal abstract class Chat
+    public class Chat
     {
-        public string _chatName { get; set; }
-        //public List<ContactHandler.Contact> _chatParticipants{ get; set; } //could be nice to save this but the problem is that could be users that arent my friends.. so for now i will use string
-        public List<string> _chatParticipants { get; set; }
-        public List<string> _chatManagers { get; set; }
-        //message history?
-        private DateTime _lastMessageTime;
-        public Image _chatProfilePicture { get; set; }
-        public string _lastMessageContent { get; set; }
-        public bool _isGroupChat { get; set; } //can create group chat only if you insert more than two...
-        public Chat(string name, string chatParticipants, string chatManagers, DateTime lastMessageTime, Image chatProfilePicture, string lastMessageContent)
+        private string _chatTagLineId;
+        private string _messageHistory;
+        private DateTime? _lastMessageTime;
+        private string _lastMessageContent;
+        private List<ChatParticipant> _chatParticipants;
+
+        public Chat(string chatTagLineId, string messageHistory, DateTime? lastMessageTime, string lastMessageContent, List<ChatParticipant> chatParticipants)
         {
-            this._chatName = name;
-            this._chatParticipants = new List<string>();
-            string[] chatParticipantsArray = chatParticipants.Split('#');
-            foreach (string chatParticipant in chatParticipantsArray)
+            _chatTagLineId = chatTagLineId;
+            _messageHistory = messageHistory;
+            _lastMessageTime = lastMessageTime;
+            _lastMessageContent = lastMessageContent;
+            _chatParticipants = chatParticipants;
+        }
+
+        public string ChatTagLineId
+        {
+            get
             {
-                this._chatParticipants.Add(chatParticipant);
-
+                return _chatTagLineId;
             }
-            //in case i will switch to list of contacts... ->
-            //foreach (string chatParticipant in chatParticipantsArray)
-            //{
-            //    this._chatParticipants.Add(ContactHandler.ContactManager.GetContact(chatParticipant));
-
-            //} 
-            this._chatManagers = new List<string>();
-            string[] chatManagersArray = chatManagers.Split('#');
-            foreach (string chatManager in chatManagersArray)
+            set
             {
-                this._chatManagers.Add(chatManager);
-
+                _chatTagLineId = value;
             }
-            this._lastMessageTime = lastMessageTime;
-            this._chatProfilePicture = chatProfilePicture;
-            this._lastMessageContent = lastMessageContent;
-            this._isGroupChat = (_chatParticipants.Count > 1);
         }
-        public Chat(string Name)
+        public string MessageHistory
         {
-            this._chatName = Name;
+            get
+            {
+                return _messageHistory;
+            }
+            set
+            {
+                _messageHistory = value;
+            }
         }
-        public Chat()
+        public DateTime? LastMessageTime
         {
+            get
+            {
+                return _lastMessageTime;
+            }
+            set
+            {
+                _lastMessageTime = value;
+            }
         }
-        public string GetLastMessageTime()
+        public string LastMessageContent
         {
-            return TimeHandler.GetFormatTime(_lastMessageTime);
+            get
+            {
+                return _lastMessageContent;
+            }
+            set
+            {
+                _lastMessageContent = value;
+            }
         }
-        public void SetLastMessageTime(DateTime lastMessageSentTime)
+        public List<ChatParticipant> ChatParticipants
         {
-            _lastMessageTime = lastMessageSentTime;
+            get
+            {
+                return _chatParticipants;
+            }
+            set
+            {
+                _chatParticipants = value;
+            }
         }
-        public DateTime GetLastMessageTimeObject()
+        public bool UserExist(string username)
         {
-            return _lastMessageTime;
+            string chatParticipantName;
+            foreach (ChatParticipant chatParticipant in _chatParticipants)
+            {
+                chatParticipantName = chatParticipant.Username;
+                if (chatParticipantName == username)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
-
     }
 }

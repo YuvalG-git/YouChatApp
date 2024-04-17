@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,7 +21,7 @@ namespace YouChatApp
             double angleInDegrees = angleInRadians * (180.0 / Math.PI);
             return angleInDegrees + 90; // Add 90 degrees to align with clicked point
         }
-        public static Bitmap RotateImageToPoint(CircularPictureBox circularPictureBox, Image captchaImage, ref double captchaImageAngle, Point clickPoint)
+        public static Bitmap RotateImageToPoint(CircularPictureBox circularPictureBox, Image captchaImage, ref double captchaImageAngle, Point clickPoint, Label errorLabel)
         {
             Bitmap rotatedImage = new Bitmap(circularPictureBox.BackgroundImage.Width, circularPictureBox.BackgroundImage.Height);
             try
@@ -46,6 +47,16 @@ namespace YouChatApp
             {
                 // Handle the exception, e.g., log it or show an error message.
                 Console.WriteLine($"Out of memory exception: {ex.Message}");
+                errorLabel.Visible = true;
+                circularPictureBox.Enabled = false;
+                return null;
+            }
+            catch (ExternalException ex)
+            {
+                // Handle the exception
+                Console.WriteLine($"GDI+ Exception: {ex.Message}");
+                errorLabel.Visible = true;
+                circularPictureBox.Enabled = false;
                 return null;
             }
             catch (Exception ex)

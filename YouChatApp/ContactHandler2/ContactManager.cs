@@ -7,15 +7,23 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Xml.Linq;
 using System.Drawing;
 
-namespace YouChatApp.ContactHandler
+namespace YouChatApp.ContactHandler2
 {
-    public class ContactManager //does the server should send the contact manager all together or to send and then wait for a response and send again until there aren't more (like pingpong) in order to prevent two much being sent...
+    internal class ContactManager //does the server should send the contact manager all together or to send and then wait for a response and send again until there aren't more (like pingpong) in order to prevent two much being sent...
     {
         public static List<Contact> UserContacts = new List<Contact>();
 
-        public static void AddContact(Contact contact)
+        public static void AddContact(string Name, Image ProfilePicture, string Status, DateTime LastSeenTime, bool LastSeenProperty, bool OnlineProperty, bool ProfilePictureProperty, bool StatusProperty, bool IsContact)
         {
-            InsertAlphabetically(contact);
+            Contact NewContact = new Contact(Name, ProfilePicture, Status, LastSeenTime, LastSeenProperty, OnlineProperty, ProfilePictureProperty, StatusProperty, IsContact);
+            //UserContacts.Add(NewContact);
+            InsertAlphabetically(NewContact);
+        }
+        public static void AddContact(string Name)
+        {
+            Contact NewContact = new Contact(Name);
+            //UserContacts.Add(NewContact);
+            InsertAlphabetically(NewContact);
         }
         private static void InsertAlphabetically(Contact contact)
         {

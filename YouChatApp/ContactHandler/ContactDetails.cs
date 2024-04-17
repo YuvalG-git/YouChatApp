@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace YouChatApp.ContactHandler
 {
-    public class Contact
+    public class ContactDetails
     {
         private string _name;
         private string _id;
-        private Image _profilePicture;
+        private string _profilePicture;
         private string _status;
         private DateTime _lastSeenTime;
         private bool _online;
 
-        public Contact(ContactDetails contact)
+        public ContactDetails(string name, string id, string profilePicture, string status, DateTime lastSeenTime, bool online)
         {
-            _name = contact.Name;
-            _id = contact.Id;
-            _profilePicture = ProfilePictureImageList.GetImageByImageId(contact.ProfilePicture);                                                                                     ;
-            _status = contact.Status;
-            _lastSeenTime = contact.LastSeenTime;
-            _online = contact.Online;
+            _name = name;
+            _id = id;
+            _profilePicture = profilePicture;
+            _status = status;
+            _lastSeenTime = lastSeenTime;
+            _online = online;
         }
         public string Name
         {
@@ -47,7 +46,7 @@ namespace YouChatApp.ContactHandler
                 _id = value;
             }
         }
-        public Image ProfilePicture
+        public string ProfilePicture
         {
             get
             {

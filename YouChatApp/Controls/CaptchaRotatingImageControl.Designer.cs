@@ -35,6 +35,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.CaptchaCircularPictureBox = new YouChatApp.CircularPictureBox();
             this.CaptchaCheckerCustomButton = new YouChatApp.Controls.CustomButton();
+            this.RefreshLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaCircularPictureBox)).BeginInit();
@@ -128,11 +129,23 @@
             this.CaptchaCheckerCustomButton.UseVisualStyleBackColor = false;
             this.CaptchaCheckerCustomButton.Click += new System.EventHandler(this.CaptchaCheckerCustomButton_Click);
             // 
+            // RefreshLabel
+            // 
+            this.RefreshLabel.AutoSize = true;
+            this.RefreshLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RefreshLabel.Location = new System.Drawing.Point(34, 88);
+            this.RefreshLabel.Name = "RefreshLabel";
+            this.RefreshLabel.Size = new System.Drawing.Size(196, 30);
+            this.RefreshLabel.TabIndex = 49;
+            this.RefreshLabel.Text = "Press Check Captcha Button!\r\nToo many rotation attempts!";
+            this.RefreshLabel.Visible = false;
+            // 
             // CaptchaRotatingImageControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.Controls.Add(this.RefreshLabel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.CaptchaCheckerCustomButton);
             this.Controls.Add(this.CaptchaCodeLabel);
@@ -156,5 +169,6 @@
         private System.Windows.Forms.Label CaptchaCodeLabel;
         private CustomButton CaptchaCheckerCustomButton;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label RefreshLabel;
     }
 }

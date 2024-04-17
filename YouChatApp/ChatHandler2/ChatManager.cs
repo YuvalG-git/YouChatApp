@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YouChatApp.ContactHandler;
 
-namespace YouChatApp.ChatHandler
+namespace YouChatApp.ChatHandler2
 {
     internal class ChatManager
     {

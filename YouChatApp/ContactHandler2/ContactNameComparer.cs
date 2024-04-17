@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YouChatApp.ContactHandler
+namespace YouChatApp.ContactHandler2
 {
-    public class ContactNameComparer : IComparer<Contact>
+    internal class ContactNameComparer : IComparer<Contact>
     {
         public int Compare(Contact contact1, Contact contact2)
         {

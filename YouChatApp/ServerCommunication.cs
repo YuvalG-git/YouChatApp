@@ -20,6 +20,7 @@ using YouChatApp.ContactHandler;
 using YouChatApp.Encryption;
 using YouChatApp.JsonClasses;
 using YouChatApp.UserAuthentication.Forms;
+using YouChatServer.ContactHandler;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -266,7 +267,7 @@ namespace YouChatApp
         public static bool EnterKeyPress = false; //false for now, in the future the value will be chosen when the user connects (the server will send this information
 
 
-        public static Contact _myData;
+        public static ContactDetails _myData;
         /// <summary>
         /// Represents the X coordinate of the board 
         /// </summary>
@@ -285,7 +286,7 @@ namespace YouChatApp
         /// <summary>
         /// Represents if the client is connected
         /// </summary>
-        private static Boolean isConnected = true;
+        private static Boolean isConnected;
         private static Boolean UdpIsOn = false;
 
 
@@ -318,10 +319,12 @@ namespace YouChatApp
             }
             //SendMessage(EncryptionClientPublicKeySender + "$" + Rsa.GetPublicKey());
             //SendMessage(EncryptionClientPublicKeySender, Rsa.GetPublicKey());
-            HandleKeys();
 
             if (!MessageClient.Connected)
                 return false;
+            isConnected = true;
+            HandleKeys();
+
             MessageData = new byte[MessageClient.ReceiveBufferSize];
             // BeginRead will begin async read from the NetworkStream
             // This allows the server to remain responsive and continue accepting new connections from other clients
@@ -355,11 +358,29 @@ namespace YouChatApp
             //                                          System.Convert.ToInt32(MessageClient.ReceiveBufferSize),
             //                                          ReceiveMessage,
             //                                          null);
-            MessageClient.GetStream().BeginRead(MessageData,
-                                          0,
-                                          4,
-                                          ReceiveMessageLength,
-                                          null);
+            //MessageClient.GetStream().BeginRead(MessageData,
+            //                              0,
+            //                              4,
+            //                              ReceiveMessageLength,
+            //                              null);
+            try
+            {
+                MessageClient.GetStream().BeginRead(MessageData,
+                                                    0,
+                                                    4,
+                                                    ReceiveMessageLength,
+                                                    null);
+            }
+            catch (SocketException ex) when (ex.ErrorCode == 10061)
+            {
+                Console.WriteLine("Connection refused by the server.");
+                // Handle the refusal, e.g., retry or inform the user
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                // Handle other exceptions
+            }
 
         }
 
@@ -543,9 +564,11 @@ namespace YouChatApp
                             case EnumHandler.CommunicationMessageID_Enum.RegistrationResponse_SmtpRegistrationMessage:
                                 _registration.Invoke((Action)delegate { _registration.HandleRecievedEmail(); });
                                 break;
-                            case EnumHandler.CommunicationMessageID_Enum.RegistrationResponse_SmtpRegistrationCode:
-                                string codeResponse = jsonObject.MessageBody as string;
-                                _registration.Invoke((Action)delegate { _registration.HandleCodeResponse(codeResponse); }); 
+                            case EnumHandler.CommunicationMessageID_Enum.RegistrationResponse_SuccessfulSmtpRegistrationCode:
+                                _registration.Invoke((Action)delegate { _registration.HandleCodeResponse(true); }); 
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.RegistrationResponse_FailedSmtpRegistrationCode:
+                                _registration.Invoke((Action)delegate { _registration.HandleCodeResponse(false); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.ResetPasswordResponse_SmtpMessage:
                                 _passwordRestart.Invoke((Action)delegate { _passwordRestart.HandleRecievedEmail(); });
@@ -675,13 +698,36 @@ namespace YouChatApp
                                 MessageBox.Show("try again", "Error occured.");
                                 _passwordRestart.Invoke((Action)delegate { _passwordRestart.SetPasswordGeneratorControlEnable(true); });
                                 break;
-                                //case EnumHandler.CommunicationMessageID_Enum.EncryptionServerPublicKeyAndSymmetricKeyReciever:
-                                //    EncryptionKeys encryptionKeys = jsonObject.MessageBody as EncryptionKeys;
-                                //    ServerPublicKey = encryptionKeys.AsymmetricKey;
-                                //    string EncryptedSymmetricKey = encryptionKeys.SymmetricKey;
-                                //    SymmetricKey = Rsa.Decrypt(EncryptedSymmetricKey, PrivateKey);
-                                //    break;
+                            //case EnumHandler.CommunicationMessageID_Enum.EncryptionServerPublicKeyAndSymmetricKeyReciever:
+                            //    EncryptionKeys encryptionKeys = jsonObject.MessageBody as EncryptionKeys;
+                            //    ServerPublicKey = encryptionKeys.AsymmetricKey;
+                            //    string EncryptedSymmetricKey = encryptionKeys.SymmetricKey;
+                            //    SymmetricKey = Rsa.Decrypt(EncryptedSymmetricKey, PrivateKey);
+                            //    break;
+                            case EnumHandler.CommunicationMessageID_Enum.RegistrationBanStart:
+                                HandleRegistrationBanStartEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.RegistrationBanFinish:
+                                HandleRegistrationBanFinishEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.FriendRequestResponseReciever:
+                                ContactAndChat contactAndChat = jsonObject.MessageBody as ContactAndChat;
+                                ContactDetails contactDetails = contactAndChat.ContactDetails as ContactDetails;
+                                Contact contact = new Contact(contactDetails);
+                                ContactManager.AddContact(contact);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.ContactInformationResponse:
+                                Contacts contacts = jsonObject.MessageBody as Contacts;
+                                List<ContactDetails> contactDetailsList = new List<ContactDetails>();
+                                Contact contact;
+                                foreach (ContactDetails contactDetails in contactDetailsList)
+                                {
+                                    contact = new Contact(contactDetails);
+                                    ContactManager.AddContact(contact);
+                                }
 
+                                //_youChat.Invoke((Action)delegate { _youChat.SetChatControlListOfContacts(DecryptedMessageDetails); });
+                                break;
                         }
                     }
                     if (isConnected)
@@ -703,6 +749,15 @@ namespace YouChatApp
                     MessageBox.Show("Ask somebody for help\n\n" + ex, "Error");
                 }
             }
+        }
+        private static void HandleRegistrationBanStartEnum(JsonObject jsonObject)
+        {
+            double banDuration = (double)jsonObject.MessageBody;
+            _registration.Invoke((Action)delegate { _registration.HandleBan(banDuration); });
+        }
+        private static void HandleRegistrationBanFinishEnum(JsonObject jsonObject)
+        {
+            _registration.Invoke((Action)delegate { _registration.HandleBanOver(); });
         }
         private static void HandleCaptchaImageAngleResponseEnum(JsonObject jsonObject)
         {

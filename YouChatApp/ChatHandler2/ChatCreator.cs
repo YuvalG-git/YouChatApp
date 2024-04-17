@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace YouChatApp.ChatHandler
+namespace YouChatApp.ChatHandler2
 {
-    internal class ChatCreator
+    public class ChatCreator
     {
         public string _chatName { get; set; }
         //public List<ContactHandler.Contact> _chatParticipants{ get; set; } //could be nice to save this but the problem is that could be users that arent my friends.. so for now i will use string

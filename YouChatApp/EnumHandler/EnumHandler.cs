@@ -24,6 +24,11 @@ namespace YouChatApp
             CaptchaRotatingImage,
             VerificationQuestion
         }
+        public enum RegistrationPhases_Enum
+        {
+            Smtp,
+            Registration
+        }
         /// <summary>
         /// Enum used to ...
         /// </summary>
@@ -45,7 +50,8 @@ namespace YouChatApp
             RegistrationRequest_SmtpRegistrationMessage,
             RegistrationResponse_SmtpRegistrationMessage,
             RegistrationRequest_SmtpRegistrationCode,
-            RegistrationResponse_SmtpRegistrationCode,
+            RegistrationResponse_SuccessfulSmtpRegistrationCode,
+            RegistrationResponse_FailedSmtpRegistrationCode,
             RegistrationRequest_Registration,
             RegistrationResponse_SuccessfulRegistration,
             RegistrationResponse_FailedRegistration,
@@ -103,8 +109,8 @@ namespace YouChatApp
             RegistrationBanFinish,
             ResetPasswordBanStart,
             ResetPasswordBanFinish,
-            PasswordUpdateStart,
-            PasswordUpdateFinish,
+            PasswordUpdateBanStart,
+            PasswordUpdateBanFinish,
             ResetPasswordRequest,
             SuccessfulResetPasswordResponse,
             FailedResetPasswordResponse,
@@ -118,7 +124,9 @@ namespace YouChatApp
             PasswordRenewalMessageRequest,
             SuccessfulRenewalMessageResponse,
             FailedRenewalMessageResponse,
-            ErrorHandleRenewalMessageResponse
+            ErrorHandleRenewalMessageResponse,
+            ContactInformationRequest,
+            ContactInformationResponse
         }
     }
 }

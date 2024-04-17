@@ -4,19 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YouChatApp.JsonClasses
+namespace YouChatApp.ChatHandler
 {
-    public class PastFriendRequest
+    public class ChatParticipant
     {
         private string _username;
         private string _profilePicture;
-        private DateTime _friendRequestDate;
 
-        public PastFriendRequest(string username, string profilePicture, DateTime friendRequestDate)
+        public ChatParticipant(string username, string profilePicture)
         {
             _username = username;
             _profilePicture = profilePicture;
-            _friendRequestDate = friendRequestDate;
         }
 
         public string Username
@@ -28,11 +26,6 @@ namespace YouChatApp.JsonClasses
         {
             get { return _profilePicture; }
             set { _profilePicture = value; }
-        }
-        public DateTime FriendRequestDate
-        {
-            get { return _friendRequestDate; }
-            set { _friendRequestDate = value; }
         }
     }
 }

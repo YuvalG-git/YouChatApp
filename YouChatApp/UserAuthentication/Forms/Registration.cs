@@ -19,6 +19,7 @@ namespace YouChatApp.UserAuthentication.Forms
 {
     public partial class Registration : Form
     {
+        EnumHandler.RegistrationPhases_Enum registrationPhase;
         bool isApprovedUsername = false, isApprovedPassword = false, isApprovedFirstName = false, isApprovedLastName = false, isApprovedEmailAddress = false, isApprovedCityName = false;
         bool MaleButtonIsChecked = false, FemaleButtonIsChecked = false, AnotherGenderButtonIsChecked = false;
         string Gender = "";
@@ -34,7 +35,7 @@ namespace YouChatApp.UserAuthentication.Forms
 
             BirthDateCustomDateTimePicker.MinDate = new DateTime(DateTime.Today.Year - 100, DateTime.Today.Month, DateTime.Today.Day);
             BirthDateCustomDateTimePicker.MaxDate = DateTime.Now;
-
+            registrationPhase = EnumHandler.RegistrationPhases_Enum.Smtp;
         }
         public void SendSmtpCode(object sender, EventArgs e)
         {
@@ -59,6 +60,7 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         public void HandleProblematicDetails()
         {
+            SmtpControl.SetDisabled();
             ResetFormAppearance();
         }
         private void HandleSendingEmailProcess()
@@ -77,11 +79,13 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             SmtpControl.HandleCode();
         }
-        public void HandleCodeResponse(string response)
+        public void HandleCodeResponse(bool correctCode)
         {
-            if (response == ServerCommunication.RightSmtpCode)
+            if (correctCode)
             {
                 SignUpCustomButton.Visible = true;
+                registrationPhase = EnumHandler.RegistrationPhases_Enum.Registration;
+
             }
             else
             {
@@ -96,55 +100,42 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             BanControl.Visible = true;
             BanControl.HandleBan(banDuration);
-            //SetVisibility(false);
+            SetVisibility(false);
         }
-        public void HandleBanOver(Image captchaCircularImage = null, Image captchaImage = null, int score = 0, int attempts = 5)
+        public void HandleBanOver()
         {
             BanControl.Visible = false;
-            //SetVisibility(true, captchaCircularImage, captchaImage, score, attempts);
+            SetVisibility(true);
         }
-        //public void SetVisibility(bool visible, Image captchaCircularImage = null, Image captchaImage = null, int score = 0, int attempts = 5)
-        //{
-        //    for (int i = 0; i <= (int)loginPhase; i++)
-        //    {
-        //        EnumHandler.LoginPhases_Enum currentEnumValue = (EnumHandler.LoginPhases_Enum)i;
+        public void SetVisibility(bool visible, Image captchaCircularImage = null, Image captchaImage = null, int score = 0, int attempts = 5)
+        {
+            for (int i = 0; i <= (int)registrationPhase; i++)
+            {
+                EnumHandler.RegistrationPhases_Enum currentEnumValue = (EnumHandler.RegistrationPhases_Enum)i;
 
-        //        switch (currentEnumValue)
-        //        {
-        //            case EnumHandler.LoginPhases_Enum.Login:
-        //                LoginPanel.Visible = visible;
-        //                break;
-        //            case EnumHandler.LoginPhases_Enum.Smtp:
-        //                SmtpControl.Visible = visible;
-        //                if (currentEnumValue == loginPhase)
-        //                {
-        //                    SmtpControl.HandleWrongCodeCase();
-        //                }
-        //                break;
-        //            case EnumHandler.LoginPhases_Enum.CaptchaCode:
-        //                CaptchaCodeControl.Visible = visible;
-        //                if (currentEnumValue == loginPhase)
-        //                {
-        //                    CaptchaCodeControl.HandleWrongCodeCase();
-        //                }
-        //                break;
-        //            case EnumHandler.LoginPhases_Enum.CaptchaRotatingImage:
-        //                CaptchaRotatingImageControl.Visible = visible;
-        //                if (visible && currentEnumValue == loginPhase)
-        //                {
-        //                    CaptchaRotatingImageControl.SetCaptchaImages(captchaCircularImage, captchaImage, score, attempts);
-        //                }
-        //                break;
-        //            case EnumHandler.LoginPhases_Enum.VerificationQuestion:
-        //                PersonalVerificationAnswersControl.Visible = visible;
-        //                if (currentEnumValue == loginPhase)
-        //                {
-        //                    PersonalVerificationAnswersControl.CancelDisabled();
-        //                }
-        //                break;
-        //        }
-        //    }
-        //}
+                switch (currentEnumValue)
+                {
+                    case EnumHandler.RegistrationPhases_Enum.Smtp:
+                        UserDetailsPanel.Visible = visible;
+                        PersonalVerificationQuestionsControl.Visible = visible;
+                        SmtpControl.Visible = visible;
+                        LoginReturnerCustomButton.Visible = visible;
+                        if (visible && currentEnumValue == registrationPhase)
+                        {
+                            HandleCodeResponse(false);
+                        }    
+                        break;
+                    case EnumHandler.RegistrationPhases_Enum.Registration:
+                        SignUpCustomButton.Visible = false;
+                        if (visible && currentEnumValue == registrationPhase)
+                        {
+                            SmtpControl.SetDisabled();
+                            ResetFormAppearance();
+                        }
+                        break;
+                }
+            }
+        }
         private void UsernameCustomTextBox_TextChangedEvent(object sender, EventArgs e)
         {
             HandleUsernameContent();
@@ -574,6 +565,7 @@ namespace YouChatApp.UserAuthentication.Forms
                 TypeNameHandling = TypeNameHandling.Auto
             });
             ServerCommunication.SendMessage(registrationInformationJson);
+            SignUpCustomButton.Visible = false;
         }
         private List<string[]> GenerateVerificationQuestionListOfArrays()
         {
@@ -743,6 +735,7 @@ namespace YouChatApp.UserAuthentication.Forms
             PersonalVerificationQuestionsControl.Enabled = true;
             PersonalVerificationQuestionsControl.Visible = false;
             SmtpControl.Visible = false;
+            registrationPhase = EnumHandler.RegistrationPhases_Enum.Smtp;
         }
 
 

@@ -76,7 +76,7 @@ namespace YouChatApp.Controls
                     Point clickPoint = mouseEventArgs.Location;
                     try
                     {
-                        Image image = ImageRotationHandler.RotateImageToPoint(circularPictureBox, captchaImage, ref currentAngle, clickPoint);
+                        Image image = ImageRotationHandler.RotateImageToPoint(circularPictureBox, captchaImage, ref currentAngle, clickPoint,RefreshLabel);
                         if (image != null)
                         {
                             // Dispose of the original BackgroundImage
@@ -118,6 +118,8 @@ namespace YouChatApp.Controls
 
         private void CaptchaCheckerCustomButton_Click(object sender, EventArgs e)
         {
+            RefreshLabel.Visible = false;
+            CaptchaCircularPictureBox.Enabled = true;
             CaptchaCheckerCustomButtonClick?.Invoke(this, e);
 
         }

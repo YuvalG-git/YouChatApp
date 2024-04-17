@@ -154,11 +154,16 @@ namespace YouChatApp
         }
         public void SetProfilePicture()
         {
-            ProfileButton.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
             ProfileCustomButton.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
 
             UserIDLabel.Text += " " + UserProfile.ProfileDetailsHandler.Name + "#" + UserProfile.ProfileDetailsHandler.TagLine;
-            ServerCommunication.SendMessage(ServerCommunication.FriendsProfileDetailsRequest, " ");
+            JsonObject contactInformationRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ContactInformationRequest, null);
+            string contactInformationRequestJson = JsonConvert.SerializeObject(contactInformationRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(contactInformationRequestJson);
+            //ServerCommunication.SendMessage(ServerCommunication.FriendsProfileDetailsRequest, " ");
         }
         private void SearchChats(object sender, System.EventArgs e) //אפשר לעשות פעולה גנרית שתקבל רשימה של הcontrols והיא תהיה גנרית...
         {
@@ -338,7 +343,7 @@ namespace YouChatApp
             ContactManager.AddContact("Ariel Shiff", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
             ContactManager.AddContact("Amir Lavi", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
             ContactManager.AddContact("Tonathan Gal", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            foreach (Contact Contact in ContactManager.UserContacts)
+            foreach (ContactDetails Contact in ContactManager.UserContacts)
             {
                 if (ContactNumber == 0)
                     heightForContacts = 0;
@@ -360,7 +365,7 @@ namespace YouChatApp
         private void ContactControl_Click(object sender, System.EventArgs e)
         {
             string ContactName = ((ContactControl)(sender)).ContactName.Text;
-            Contact contact = ContactHandler.ContactManager.GetContact(ContactName);
+            ContactDetails contact = ContactHandler.ContactManager.GetContact(ContactName);
             Image ContactProfilePicture = contact.ProfilePicture;
             if (!ProfileControlIsExist(ContactName))
             {
@@ -573,7 +578,7 @@ namespace YouChatApp
             //ask for message history from the server in case that was the first press since logging in...
             // set contact headline details:
             string username = ((ChatControl)(sender)).ChatName.Text;
-            ContactHandler.Contact contact = ContactHandler.ContactManager.GetContact(username); //will works for users only and not for groups...
+            ContactHandler.ContactDetails contact = ContactHandler.ContactManager.GetContact(username); //will works for users only and not for groups...
             ChatHandler.Chat chat = ChatHandler.ChatManager.GetChat(username); //will works for users only and not for groups...
             ChatHandler.ChatManager.CurrentChatName = username;
             CurrentChatNameLabel.Text = chat._chatName;
@@ -608,12 +613,6 @@ namespace YouChatApp
             } 
         }
 
-        private void ProfileButton_Click(object sender, EventArgs e)
-        {
-            profile = new Profile(this);
-            profile.Show();
-            ProfileButton.Enabled = false;
-        }
 
         private void SendMessageButton_Click(object sender, EventArgs e)
         {
@@ -679,9 +678,7 @@ namespace YouChatApp
         //}
         public void SetProfileButtonEnabled()
         {
-            ProfileButton.Enabled = true;
             ProfileCustomButton.Enabled = true;
-
         }
         public void SetListOfFriendRequestControl(PastFriendRequests pastFriendRequests)
         {
@@ -859,19 +856,18 @@ namespace YouChatApp
         public void HandleFriendRequestApproval(object sender, EventArgs e)
         {
             FriendRequestControl friendRequestControl = ((FriendRequestControl)(sender));
-            HandleFriendRequest(friendRequestControl);
             string friendRequestStatus = ServerCommunication.FriendRequestResponseSender1;
             HandleFriendRequestResponse(friendRequestControl, friendRequestStatus);
+            HandleFriendRequest(friendRequestControl);
+
 
         }
         public void HandleFriendRequestRefusal(object sender, EventArgs e)
         {
             FriendRequestControl friendRequestControl = ((FriendRequestControl)(sender));
-            HandleFriendRequest(friendRequestControl);
             string friendRequestStatus = ServerCommunication.FriendRequestResponseSender2;
             HandleFriendRequestResponse(friendRequestControl, friendRequestStatus);
-
-
+            HandleFriendRequest(friendRequestControl);
         }
         private void HandleFriendRequest(FriendRequestControl friendRequestControl)
         {
@@ -927,7 +923,7 @@ namespace YouChatApp
             string SenderUsername = MessageDetails[0];
             string MessageContent = MessageDetails[1];
             string SendMessageTime = MessageDetails[2];
-            ContactHandler.Contact SenderContact = ContactHandler.ContactManager.GetContact(SenderUsername);
+            ContactHandler.ContactDetails SenderContact = ContactHandler.ContactManager.GetContact(SenderUsername);
             if (MessageNumber != 0)
                 heightForMessages = this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Location.Y + this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Size.Height + messageGap;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID].Add(new MessageControl());
@@ -1086,9 +1082,12 @@ namespace YouChatApp
 
         private void YouChat_Load(object sender, EventArgs e)
         {
-            //ServerCommunication.SendMessage(ServerCommunication.ContactInformationRequest + "$" + "Chat Information");
-            ServerCommunication.SendMessage(ServerCommunication.ContactInformationRequest, "Chat Information");
-
+            JsonObject contactInformationRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ContactInformationRequest, null);
+            string contactInformationRequestJson = JsonConvert.SerializeObject(contactInformationRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(contactInformationRequestJson);
         }
 
         private void MessageRichTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -1231,6 +1230,8 @@ namespace YouChatApp
                 TypeNameHandling = TypeNameHandling.Auto
             });
             ServerCommunication.SendMessage(friendRequestJson);
+            UserIdCustomTextBox.TextContent = "";
+            UserTaglineCustomTextBox.TextContent = "";
         }
 
         private void FriendRequestFields_TextChangedEvent(object sender, EventArgs e)
@@ -1525,6 +1526,28 @@ namespace YouChatApp
         private void MessageOptionsPanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void GroupChatExitCustomButton_Click(object sender, EventArgs e)
+        {
+            //delete chat control
+            //clear all the chat history from the client side
+            //send a message to the server to handle it (remove from group and send message to the online members to remove him...)
+        }
+
+        private void GroupChatAddMemberCustomButton_Click(object sender, EventArgs e)
+        {
+            ServerCommunication._contactSharing = new ContactSharing();
+            //ServerCommunication._contactSharing._isText = false;
+            DialogResult result = ServerCommunication._contactSharing.ShowDialog();
+
+            //todo - to show only those who aren't currently in the group...
+
+            //if (result == DialogResult.OK)
+            //{
+            //    // Retrieve the image from Form2 and update the PictureBox in Form1
+            //    GroupIconCircularPictureBox.BackgroundImage = ServerCommunication._emojiKeyboard.ImageToSend;
+            //}
         }
     }
 }
