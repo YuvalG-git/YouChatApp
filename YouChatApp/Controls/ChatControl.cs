@@ -35,7 +35,15 @@ namespace YouChatApp
         private Color _backgroundColor = Color.Transparent;
         private Color _onFocusBackgroundColor = Color.CornflowerBlue;
         private Color _borderColor = Color.CornflowerBlue;
-
+        private string _chatId;
+        public string ChatId
+        {
+            get { return _chatId; }
+            set
+            {
+                _chatId = value;
+            }
+        }
         public Color BorderColor
         {
             get { return _borderColor; }

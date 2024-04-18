@@ -27,16 +27,16 @@ namespace YouChatApp.ContactHandler2
         }
         private static void InsertAlphabetically(Contact contact)
         {
-            int index = UserContacts.BinarySearch(contact, new ContactHandler.ContactNameComparer());
+            //int index = UserContacts.BinarySearch(contact, new ContactHandler.ContactNameComparer());
 
-            if (index < 0)
-            {
-                // If the element is not found, convert the index to the insertion point
-                index = ~index;
-            }
+            //if (index < 0)
+            //{
+            //    // If the element is not found, convert the index to the insertion point
+            //    index = ~index;
+            //}
 
-            // Insert the new string at the calculated index
-            UserContacts.Insert(index, contact);
+            //// Insert the new string at the calculated index
+            //UserContacts.Insert(index, contact);
         }
         public static Contact GetContact(string ContactName)
         {

@@ -22,6 +22,10 @@ using YouChatApp.UserProfile;
 using Newtonsoft.Json;
 using System.IO;
 using YouChatApp.JsonClasses;
+using YouChatApp.ChatHandler2;
+using ChatManager = YouChatApp.ChatHandler.ChatManager;
+using GroupChat = YouChatApp.ChatHandler.GroupChat;
+using ChatCreator = YouChatApp.ChatHandler.ChatCreator;
 
 namespace YouChatApp
 {
@@ -158,6 +162,8 @@ namespace YouChatApp
 
             UserIDLabel.Text += " " + UserProfile.ProfileDetailsHandler.Name + "#" + UserProfile.ProfileDetailsHandler.TagLine;
             JsonObject contactInformationRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ContactInformationRequest, null);
+
+            //JsonObject contactInformationRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ChatAndContactDetailsRequest, null);
             string contactInformationRequestJson = JsonConvert.SerializeObject(contactInformationRequestJsonObject, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
@@ -222,128 +228,56 @@ namespace YouChatApp
 
         }
 
-        public void SetChatControlListOfContacts(string ChatInformation)
+        public void SetChatControlListOfContacts()
         {
-            //string[] ContactsInformation = ChatInformation.Split('#'); //todo check how i can allow the users to send # and more without the split activating - i thing maybe i need to put / or something before 
-            //string ContactUsername;
-            //string ContactLastMessageContent;
-            //string ContactLastMessageTime;
-            //string ContactProfilePictureID;
-            //string ContactProfilePictureKind;
-            //string ContactProfilePictureNumber;
-            //for (int i = 0; i < ContactsInformation.Length; i++)
-            //{
-            //    string[] ContactDetails = ContactsInformation[i].Split('^');
-            //    ContactUsername = ContactDetails[0];
-            //    ContactLastMessageContent = ContactDetails[1];
-            //    ContactLastMessageTime = ContactDetails[2];
-            //    ContactProfilePictureID = ContactDetails[3];
-            //    string[] ContactProfilePictureInformation = SeparateLettersAndNumbers(ContactProfilePictureID);
-            //    ContactProfilePictureKind = ContactProfilePictureInformation[0];
-            //    ContactProfilePictureNumber = ContactProfilePictureInformation[1]; // to understand how to seperate them
-
-            //    if (ContactChatNumber == 0)
-            //        heightForChats = 0;
-            //    else
-            //        heightForChats = this.ChatControlListOfContacts[ContactChatNumber - 1].Location.Y + this.ChatControlListOfContacts[ContactChatNumber - 1].Size.Height;
-            //    this.ChatControlListOfContacts.Add(new ChatControl());
-            //    this.ChatControlListOfContacts[ContactChatNumber].Location = new System.Drawing.Point(0, heightForChats);
-            //    this.ChatControlListOfContacts[ContactChatNumber].Name = "ChatControlNumber:" + ContactChatNumber;
-            //    this.ChatControlListOfContacts[ContactChatNumber].TabIndex = 0;
-            //    this.ChatControlListOfContacts[ContactChatNumber].BackColor = SystemColors.Control;
-            //    this.ChatControlListOfContacts[ContactChatNumber].ChatName.Text = ContactUsername;
-            //    this.ChatControlListOfContacts[ContactChatNumber].LastMessageContent.Text = ContactLastMessageContent;
-            //    this.ChatControlListOfContacts[ContactChatNumber].LastMessageTime.Text = ContactLastMessageTime;
-            //    this.ChatControlListOfContacts[ContactChatNumber].Click += new System.EventHandler(this.ChatControl_Click);
-
-
-            //    if (ContactProfilePictureKind == "Male")
-            //    {
-            //        this.ChatControlListOfContacts[ContactChatNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[ContactProfilePictureNumber];
-            //    }
-            //    else if (ContactProfilePictureKind == "Female")
-            //    {
-            //        this.ChatControlListOfContacts[ContactChatNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.FemaleProfilePictureImageList.Images[ContactProfilePictureNumber];
-
-            //    }
-            //    else if (ContactProfilePictureKind == "Animal")
-            //    {
-            //        this.ChatControlListOfContacts[ContactChatNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[ContactProfilePictureNumber];
-
-
-            //    }
-            //    this.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
-            //    this.ChatPanel.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
-            //    if (this.ChatPanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
-            //    {
-            //        Control LastControl = this.ChatPanel.Controls[this.ChatPanel.Controls.Count - 1];
-            //        this.ChatPanel.ScrollControlIntoView(LastControl);
-            //    }
-            //    ContactChatNumber++;
-            //}
-
-
-            ChatManager.AddChat("Noam Sfadia", "Noam", "Noam", DateTime.Now.AddMonths(-2), ProfilePictureImageList.MaleProfilePictureImageList.Images[2],"hi");
-            ChatManager.AddChat("Bill Gates", "Noam", "Noam", DateTime.Now.AddYears(-2), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-
-
-            ChatManager.AddChat("Ben Raviv", "Noam", "Noam", DateTime.Now.AddDays(-1), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-
-            ChatManager.AddChat("Alon Tamir", "Noam", "Noam", DateTime.Now.AddDays(-4), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-
-            ChatManager.AddChat("Yuval Gur", "Noam", "Noam", DateTime.Now.AddHours(-2), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-            ChatManager.AddChat("Noam Salomon", "Noam", "Noam", DateTime.Now.AddMonths(-5).AddHours(3), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-            ChatManager.AddChat("Yonathan Gal", "Noam", "Noam", DateTime.Now.AddYears(-1), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-
-
-            ChatManager.AddChat("Nir Spinzi", "Noam", "Noam", DateTime.Now.AddDays(-7), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-
-            ChatManager.AddChat("Yotam Limor", "Noam", "Noam", DateTime.Now.AddDays(-4), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-
-            ChatManager.AddChat("Yaniv Ilan", "Noam", "Noam", DateTime.Now.AddMonths(-11).AddHours(234).AddMinutes(43), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-            ChatManager.AddChat("Ariel Shiff", "Noam", "Noam", DateTime.Now.AddHours(-3).AddMinutes(3), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-            ChatManager.AddChat("Amir Lavi", "Noam", "Noam", DateTime.Now.AddHours(-6).AddMinutes(4), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-            ChatManager.AddChat("Omer Drori", "Noam", "Noam", DateTime.Now.AddHours(-2).AddMinutes(-7), ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "hi");
-
-            foreach (Chat chat in ChatManager._chats)
+            foreach (ChatDetails chat in ChatManager._chats)
             {
-                if (ContactChatNumber == 0)
-                    heightForChats = 0;
-                else
-                    heightForChats = this.ChatControlListOfContacts[ContactChatNumber - 1].Location.Y + this.ChatControlListOfContacts[ContactChatNumber - 1].Size.Height;
-                this.ChatControlListOfContacts.Add(new ChatControl());
-                this.ChatControlListOfContacts[ContactChatNumber].Location = new System.Drawing.Point(0, heightForChats);
-                this.ChatControlListOfContacts[ContactChatNumber].Name = chat._chatName;
-                this.ChatControlListOfContacts[ContactChatNumber].TabIndex = 0;
-                this.ChatControlListOfContacts[ContactChatNumber].ChatName.Text = chat._chatName;
-                this.ChatControlListOfContacts[ContactChatNumber].LastMessageContent.Text = chat._lastMessageContent; //will need to crop it...
-                this.ChatControlListOfContacts[ContactChatNumber].LastMessageTime.Text = chat.GetLastMessageTime();
-                this.ChatControlListOfContacts[ContactChatNumber].SetLastMessageTimeLocation();
-                this.ChatControlListOfContacts[ContactChatNumber].SetToolTip();
-                this.ChatControlListOfContacts[ContactChatNumber].ProfilePicture.BackgroundImage = chat._chatProfilePicture;
-                this.ChatControlListOfContacts[ContactChatNumber].Click += new System.EventHandler(this.ChatControl_Click);
-                this.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
-                this.ChatPanel.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
-                ContactChatNumber++;
-
+                AddChatControl(chat);
+                //string chatName = "";
+                //string chatId = chat.ChatTagLineId;
+                //Image chatProfilePicture = null;
+                //if (chat is DirectChat directChat)
+                //{
+                //    chatName = directChat.Contact.Name;
+                //    chatProfilePicture = directChat.Contact.ProfilePicture;
+                //}
+                //else if (chat is GroupChat groupChat)
+                //{
+                //    chatName = groupChat.ChatName;
+                //    chatProfilePicture = groupChat.ChatProfilePicture;
+                //}
+                //if (ContactChatNumber == 0)
+                //    heightForChats = 0;
+                //else
+                //    heightForChats = this.ChatControlListOfContacts[ContactChatNumber - 1].Location.Y + this.ChatControlListOfContacts[ContactChatNumber - 1].Size.Height;
+                //this.ChatControlListOfContacts.Add(new ChatControl());
+                //this.ChatControlListOfContacts[ContactChatNumber].Location = new System.Drawing.Point(0, heightForChats);
+                //this.ChatControlListOfContacts[ContactChatNumber].Name = chatName;
+                //this.ChatControlListOfContacts[ContactChatNumber].ChatId = chatId;
+                //this.ChatControlListOfContacts[ContactChatNumber].TabIndex = 0;
+                //this.ChatControlListOfContacts[ContactChatNumber].ChatName.Text = chatName;
+                //this.ChatControlListOfContacts[ContactChatNumber].LastMessageContent.Text = chat.LastMessageContent; //will need to crop it...
+                //this.ChatControlListOfContacts[ContactChatNumber].LastMessageTime.Text = chat.GetLastMessageTime();
+                //this.ChatControlListOfContacts[ContactChatNumber].SetLastMessageTimeLocation();
+                //this.ChatControlListOfContacts[ContactChatNumber].SetToolTip();
+                //this.ChatControlListOfContacts[ContactChatNumber].ProfilePicture.BackgroundImage = chatProfilePicture;
+                //this.ChatControlListOfContacts[ContactChatNumber].Click += new System.EventHandler(this.ChatControl_Click);
+                //this.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
+                //this.ChatPanel.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
+                //ContactChatNumber++;
             }
-            SetContactControlList();
         }
-        private void SetContactControlList()
-        {
-            ContactManager.AddContact("Noam Sfadia", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            ContactManager.AddContact("Noam Salomon", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
 
-            ContactManager.AddContact("Alon Tamir", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            ContactManager.AddContact("Ben Raviv", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            ContactManager.AddContact("Yuval Gur", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            ContactManager.AddContact("Yotam Limor", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            ContactManager.AddContact("Yaniv Ilan", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+        public void SetContactControlList(List<ContactDetails> contactDetailsList)
+        {       
+            Contact contact;
+            foreach (ContactDetails contactDetails in contactDetailsList)
+            {
+                contact = new Contact(contactDetails);
+                ContactManager.AddContact(contact);
+            }
 
-            ContactManager.AddContact("Ariel Shiff", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            ContactManager.AddContact("Amir Lavi", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            ContactManager.AddContact("Tonathan Gal", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            foreach (ContactDetails Contact in ContactManager.UserContacts)
+            foreach (Contact Contact in ContactManager.UserContacts)
             {
                 if (ContactNumber == 0)
                     heightForContacts = 0;
@@ -362,17 +296,107 @@ namespace YouChatApp
                 ContactNumber++;
             }
         }
+
+        private void HandleChatControlProcessForSendingMessage(ChatControl chatControl, DateTime messageTime)
+        {
+            string chatId = chatControl.ChatId;
+            ChatDetails chatDetails = ChatManager.GetChat(chatId);
+            chatDetails.LastMessageTime = messageTime;
+            chatDetails.LastMessageContent = chatControl.LastMessageContent.Text;
+            ChatManager._chats.Remove(chatDetails);
+            ChatManager._chats.Add(chatDetails);
+            this.ChatControlListOfContacts.Remove(chatControl);
+            this.ChatControlListOfContacts.Insert(0,chatControl);
+            this.ChatControlListOfContacts[ContactChatNumber].Location = new System.Drawing.Point(0, heightForChats);
+            ChatControl previousChatControl = null;
+            foreach (ChatControl chat in ChatControlListOfContacts)
+            {
+                if (chat == chatControl)
+                    heightForContacts = 0;
+                else
+                    heightForContacts = previousChatControl.Location.Y + previousChatControl.Size.Height;
+                previousChatControl = chat;
+                chat.Location = new System.Drawing.Point(0, heightForContacts);
+            }
+        }
+        public void HandleSuccessfulFriendRequest(Contact contact, ChatDetails chat)
+        {
+            int location = ContactManager.UserContacts.IndexOf(contact);
+            if (this.ContactControlList.Count == 0)
+            {
+                heightForContacts = 0;
+            }
+            else
+            {
+                heightForContacts = this.ContactControlList[location].Location.Y;
+            }
+            if (location > 0)
+            {
+                this.ContactControlList.Insert(location,new ContactControl());
+                this.ContactControlList[location].Location = new System.Drawing.Point(0, heightForContacts);
+                this.ContactControlList[location].Name = contact.Name;
+                this.ContactControlList[location].TabIndex = 0;
+                this.ContactControlList[location].ContactName.Text = contact.Name;
+                this.ContactControlList[location].ContactStatus.Text = contact.Status;
+                this.ContactControlList[location].ProfilePicture.Image = contact.ProfilePicture;
+                this.ContactControlList[location].Click += new EventHandler(this.ContactControl_Click);
+                this.Controls.Add(this.ContactControlList[location]);
+                this.GroupCreatorPanel.Controls.Add(this.ContactControlList[location]);
+                ContactNumber++;
+            }
+            for (int i = location + 1; i < ContactControlList.Count; i++)
+            {
+                heightForContacts = this.ContactControlList[i - 1].Location.Y + this.ContactControlList[i - 1].Size.Height;
+                this.ContactControlList[location].Location = new System.Drawing.Point(0, heightForContacts);
+            }
+            AddChatControl(chat);
+        }
+        private void AddChatControl(ChatDetails chat)
+        {
+            string chatName = "";
+            string chatId = chat.ChatTagLineId;
+            Image chatProfilePicture = null;
+            if (chat is DirectChat directChat)
+            {
+                chatName = directChat.Contact.Name;
+                chatProfilePicture = directChat.Contact.ProfilePicture;
+            }
+            else if (chat is GroupChat groupChat)
+            {
+                chatName = groupChat.ChatName;
+                chatProfilePicture = groupChat.ChatProfilePicture;
+            }
+            if (ContactChatNumber == 0)
+                heightForChats = 0;
+            else
+                heightForChats = this.ChatControlListOfContacts[ContactChatNumber - 1].Location.Y + this.ChatControlListOfContacts[ContactChatNumber - 1].Size.Height;
+            this.ChatControlListOfContacts.Add(new ChatControl());
+            this.ChatControlListOfContacts[ContactChatNumber].Location = new System.Drawing.Point(0, heightForChats);
+            this.ChatControlListOfContacts[ContactChatNumber].Name = chatName;
+            this.ChatControlListOfContacts[ContactChatNumber].ChatId = chatId;
+            this.ChatControlListOfContacts[ContactChatNumber].TabIndex = 0;
+            this.ChatControlListOfContacts[ContactChatNumber].ChatName.Text = chatName;
+            this.ChatControlListOfContacts[ContactChatNumber].LastMessageContent.Text = chat.LastMessageContent; //will need to crop it...
+            this.ChatControlListOfContacts[ContactChatNumber].LastMessageTime.Text = chat.GetLastMessageTime();
+            this.ChatControlListOfContacts[ContactChatNumber].SetLastMessageTimeLocation();
+            this.ChatControlListOfContacts[ContactChatNumber].SetToolTip();
+            this.ChatControlListOfContacts[ContactChatNumber].ProfilePicture.BackgroundImage = chatProfilePicture;
+            this.ChatControlListOfContacts[ContactChatNumber].Click += new System.EventHandler(this.ChatControl_Click);
+            this.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
+            this.ChatPanel.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
+            ContactChatNumber++;
+        }
         private void ContactControl_Click(object sender, System.EventArgs e)
         {
-            string ContactName = ((ContactControl)(sender)).ContactName.Text;
-            ContactDetails contact = ContactHandler.ContactManager.GetContact(ContactName);
-            Image ContactProfilePicture = contact.ProfilePicture;
-            if (!ProfileControlIsExist(ContactName))
-            {
-                ((ContactControl)(sender)).WasSelected = true;
-                AddProfileControl(ContactName, ContactProfilePicture);
+            //string ContactName = ((ContactControl)(sender)).ContactName.Text;
+            //ContactDetails contact = ContactHandler.ContactManager.GetContact(ContactName);
+            //Image ContactProfilePicture = contact.ProfilePicture;
+            //if (!ProfileControlIsExist(ContactName))
+            //{
+            //    ((ContactControl)(sender)).WasSelected = true;
+            //    AddProfileControl(ContactName, ContactProfilePicture);
 
-            }
+            //}
         }
         private void SearchContacts(object sender, System.EventArgs e)
         {
@@ -575,42 +599,42 @@ namespace YouChatApp
 
         private void ChatControl_Click(object sender, EventArgs e)
         {
-            //ask for message history from the server in case that was the first press since logging in...
-            // set contact headline details:
-            string username = ((ChatControl)(sender)).ChatName.Text;
-            ContactHandler.ContactDetails contact = ContactHandler.ContactManager.GetContact(username); //will works for users only and not for groups...
-            ChatHandler.Chat chat = ChatHandler.ChatManager.GetChat(username); //will works for users only and not for groups...
-            ChatHandler.ChatManager.CurrentChatName = username;
-            CurrentChatNameLabel.Text = chat._chatName;
-            CurrentPictureChatPictureBox.BackgroundImage = chat._chatProfilePicture;
-            if (contact != null)
-            {
-                if (contact.OnlineProperty) //todo - handle case the user blocked those options.. //this also not true beacause i am using his property that he let us or not see if he is online and not if he really is online..
-                {
-                    //if (contact is online == true)
-                    //{
-                    //    LastSeenOnlineLabel.Text = "Online"; //should be is online..
+            ////ask for message history from the server in case that was the first press since logging in...
+            //// set contact headline details:
+            //string username = ((ChatControl)(sender)).ChatName.Text;
+            //ContactHandler.ContactDetails contact = ContactHandler.ContactManager.GetContact(username); //will works for users only and not for groups...
+            //ChatHandler.ChatDetails chat = ChatHandler.ChatManager.GetChat(username); //will works for users only and not for groups...
+            //ChatHandler.ChatManager.CurrentChatName = username;
+            //CurrentChatNameLabel.Text = chat._chatName;
+            //CurrentPictureChatPictureBox.BackgroundImage = chat._chatProfilePicture;
+            //if (contact != null)
+            //{
+            //    if (contact.OnlineProperty) //todo - handle case the user blocked those options.. //this also not true beacause i am using his property that he let us or not see if he is online and not if he really is online..
+            //    {
+            //        //if (contact is online == true)
+            //        //{
+            //        //    LastSeenOnlineLabel.Text = "Online"; //should be is online..
 
-                    //}
-                }
-                else
-                {
-                    if (contact.LastSeenProperty)
-                    {
-                        DateTime ContactLastSeenTime = contact.LastSeenTime;
-                        if (ContactLastSeenTime.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
-                        {
-                            LastSeenOnlineLabel.Text = contact.LastSeenTime.ToString("yyyy-MM-dd");
+            //        //}
+            //    }
+            //    else
+            //    {
+            //        if (contact.LastSeenProperty)
+            //        {
+            //            DateTime ContactLastSeenTime = contact.LastSeenTime;
+            //            if (ContactLastSeenTime.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
+            //            {
+            //                LastSeenOnlineLabel.Text = contact.LastSeenTime.ToString("yyyy-MM-dd");
 
-                        }
-                        else
-                        {
-                            LastSeenOnlineLabel.Text = contact.LastSeenTime.ToString("yyyy-MM-dd   HH:mm");
+            //            }
+            //            else
+            //            {
+            //                LastSeenOnlineLabel.Text = contact.LastSeenTime.ToString("yyyy-MM-dd   HH:mm");
 
-                        }
-                    }
-                }
-            } 
+            //            }
+            //        }
+            //    }
+            //} 
         }
 
 
@@ -923,7 +947,7 @@ namespace YouChatApp
             string SenderUsername = MessageDetails[0];
             string MessageContent = MessageDetails[1];
             string SendMessageTime = MessageDetails[2];
-            ContactHandler.ContactDetails SenderContact = ContactHandler.ContactManager.GetContact(SenderUsername);
+            Contact SenderContact = ContactHandler.ContactManager.GetContact(SenderUsername);
             if (MessageNumber != 0)
                 heightForMessages = this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Location.Y + this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Size.Height + messageGap;
             this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID].Add(new MessageControl());
@@ -1082,12 +1106,12 @@ namespace YouChatApp
 
         private void YouChat_Load(object sender, EventArgs e)
         {
-            JsonObject contactInformationRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ContactInformationRequest, null);
-            string contactInformationRequestJson = JsonConvert.SerializeObject(contactInformationRequestJsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            ServerCommunication.SendMessage(contactInformationRequestJson);
+            //JsonObject contactInformationRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ContactInformationRequest, null);
+            //string contactInformationRequestJson = JsonConvert.SerializeObject(contactInformationRequestJsonObject, new JsonSerializerSettings
+            //{
+            //    TypeNameHandling = TypeNameHandling.Auto
+            //});
+            //ServerCommunication.SendMessage(contactInformationRequestJson);
         }
 
         private void MessageRichTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -1273,12 +1297,20 @@ namespace YouChatApp
                 groupIconBytes = ms.ToArray();
             }
             ChatCreator chatCreator = new ChatCreator(groupSubject, groupParticipants, groupIconBytes);
-            string chatDetailsJson = JsonConvert.SerializeObject(chatCreator);
-            string EncryptedMessageContent = Encryption.Encryption.EncryptData(ServerCommunication.SymmetricKey, chatDetailsJson);
-            string DecryptedMessageDetails = Encryption.Encryption.DecryptData(ServerCommunication.SymmetricKey, EncryptedMessageContent);
+            JsonObject chatCreatorJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.GroupCreatorRequest, chatCreator);
+            string chatCreatorJson = JsonConvert.SerializeObject(chatCreatorJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            ServerCommunication.SendMessage(chatCreatorJson);
 
-            newChat = JsonConvert.DeserializeObject<ChatCreator>(chatDetailsJson);
-            ServerCommunication.SendMessage(ServerCommunication.GroupCreatorRequest, chatDetailsJson);
+
+            //string chatDetailsJson = JsonConvert.SerializeObject(chatCreator);
+
+
+            //newChat = JsonConvert.DeserializeObject<ChatCreator>(chatDetailsJson);
+            //ServerCommunication.SendMessage(ServerCommunication.GroupCreatorRequest, chatDetailsJson);
+            
             GroupCreatorCustomButton.Enabled = false;
             //needs to close everything that is connected to opening groups..
         }
@@ -1548,6 +1580,10 @@ namespace YouChatApp
             //    // Retrieve the image from Form2 and update the PictureBox in Form1
             //    GroupIconCircularPictureBox.BackgroundImage = ServerCommunication._emojiKeyboard.ImageToSend;
             //}
+        }
+        private void MoveChatControlToFront()
+        {
+            //todo - handle message sent in chat...
         }
     }
 }

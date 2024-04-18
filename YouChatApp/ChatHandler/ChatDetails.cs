@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YouChatApp.ChatHandler
 {
-    public class Chat
+    public class ChatDetails
     {
         private string _chatTagLineId;
         private string _messageHistory;
@@ -14,7 +14,7 @@ namespace YouChatApp.ChatHandler
         private string _lastMessageContent;
         private List<ChatParticipant> _chatParticipants;
 
-        public Chat(string chatTagLineId, string messageHistory, DateTime? lastMessageTime, string lastMessageContent, List<ChatParticipant> chatParticipants)
+        public ChatDetails(string chatTagLineId, string messageHistory, DateTime? lastMessageTime, string lastMessageContent, List<ChatParticipant> chatParticipants)
         {
             _chatTagLineId = chatTagLineId;
             _messageHistory = messageHistory;
@@ -90,6 +90,18 @@ namespace YouChatApp.ChatHandler
                 }
             }
             return false;
+        }
+        public string GetLastMessageTime()
+        {
+            return TimeHandler.GetFormatTime(_lastMessageTime);
+        }
+        public void SetLastMessageTime(DateTime lastMessageSentTime)
+        {
+            _lastMessageTime = lastMessageSentTime;
+        }
+        public DateTime? GetLastMessageTimeObject()
+        {
+            return _lastMessageTime;
         }
     }
 }

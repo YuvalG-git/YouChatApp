@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Button = System.Windows.Forms.Button;
 
 namespace YouChatApp.Controls
 {
@@ -86,30 +88,30 @@ namespace YouChatApp.Controls
         private void InitializePasswordViewerButtonArray()
         {
             int height = 30;
-            PasswordViewerButtonArray = new CustomButton[3];
-            for (int i = 0; i < PasswordViewerButtonArray.Length; i++)
+            PasswordViewerCustomButtonArray = new CustomButton[3];
+            for (int i = 0; i < PasswordViewerCustomButtonArray.Length; i++)
             {
-                PasswordViewerButtonArray[i] = new CustomButton();
-                this.PasswordViewerButtonArray[i].BackgroundImage = passwordNotShown;
-                this.PasswordViewerButtonArray[i].BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-                this.PasswordViewerButtonArray[i].FlatAppearance.BorderColor = System.Drawing.Color.Black;
-                this.PasswordViewerButtonArray[i].BackColor = System.Drawing.Color.MediumSlateBlue;
-                this.PasswordViewerButtonArray[i].BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-                this.PasswordViewerButtonArray[i].BorderColor = System.Drawing.Color.PaleVioletRed;
-                this.PasswordViewerButtonArray[i].Location = new System.Drawing.Point(250, height);
-                this.PasswordViewerButtonArray[i].BorderRadius = 3;
-                this.PasswordViewerButtonArray[i].BorderSize = 0;
-                this.PasswordViewerButtonArray[i].Circular = false;
-                this.PasswordViewerButtonArray[i].FlatAppearance.BorderSize = 0;
-                this.PasswordViewerButtonArray[i].FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-                this.PasswordViewerButtonArray[i].ForeColor = System.Drawing.Color.White;
-                this.PasswordViewerButtonArray[i].Name = "ViewPasswordButtonNumber" + (i+1);
-                this.PasswordViewerButtonArray[i].Size = new System.Drawing.Size(22, 23);
-                this.PasswordViewerButtonArray[i].TabIndex = 18;
-                this.PasswordViewerButtonArray[i].UseMnemonic = false;
-                this.PasswordViewerButtonArray[i].UseVisualStyleBackColor = false;
-                this.PasswordViewerButtonArray[i].Click += new System.EventHandler(this.PasswordViewerButton_Click);
-                this.Controls.Add(this.PasswordViewerButtonArray[i]);
+                PasswordViewerCustomButtonArray[i] = new CustomButton();
+                this.PasswordViewerCustomButtonArray[i].BackgroundImage = passwordNotShown;
+                this.PasswordViewerCustomButtonArray[i].BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+                this.PasswordViewerCustomButtonArray[i].FlatAppearance.BorderColor = System.Drawing.Color.Black;
+                this.PasswordViewerCustomButtonArray[i].BackColor = System.Drawing.Color.MediumSlateBlue;
+                this.PasswordViewerCustomButtonArray[i].BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+                this.PasswordViewerCustomButtonArray[i].BorderColor = System.Drawing.Color.PaleVioletRed;
+                this.PasswordViewerCustomButtonArray[i].Location = new System.Drawing.Point(250, height);
+                this.PasswordViewerCustomButtonArray[i].BorderRadius = 3;
+                this.PasswordViewerCustomButtonArray[i].BorderSize = 0;
+                this.PasswordViewerCustomButtonArray[i].Circular = false;
+                this.PasswordViewerCustomButtonArray[i].FlatAppearance.BorderSize = 0;
+                this.PasswordViewerCustomButtonArray[i].FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                this.PasswordViewerCustomButtonArray[i].ForeColor = System.Drawing.Color.White;
+                this.PasswordViewerCustomButtonArray[i].Name = "ViewPasswordButtonNumber" + (i+1);
+                this.PasswordViewerCustomButtonArray[i].Size = new System.Drawing.Size(22, 23);
+                this.PasswordViewerCustomButtonArray[i].TabIndex = 18;
+                this.PasswordViewerCustomButtonArray[i].UseMnemonic = false;
+                this.PasswordViewerCustomButtonArray[i].UseVisualStyleBackColor = false;
+                this.PasswordViewerCustomButtonArray[i].Click += new System.EventHandler(this.PasswordViewerCustomButton_Click);
+                this.Controls.Add(this.PasswordViewerCustomButtonArray[i]);
                 height += HeightDifference;
 
             }
@@ -127,7 +129,11 @@ namespace YouChatApp.Controls
                 this.PasswordTextBoxArray[i].TabIndex = 1;
                 this.PasswordTextBoxArray[i].UnderlineStyle = true;
                 this.PasswordTextBoxArray[i].PasswordChar = true;
+                this.PasswordTextBoxArray[i].ShortcutsEnabled = false;
+                this.PasswordTextBoxArray[i].ContextMenu = new ContextMenu();
                 this.PasswordTextBoxArray[i].PlaceHolderText = "Enter New Password";
+                this.PasswordTextBoxArray[i].KeyDown += new KeyEventHandler(this.CustomTextBox_KeyDown);
+
                 if (i!= 1)
                     this.PasswordTextBoxArray[i].TextChangedEvent += new System.EventHandler(this.PasswordTextBoxLocation0And2_TextChangedEvent);
                 else
@@ -145,6 +151,8 @@ namespace YouChatApp.Controls
             this.PasswordTextBoxArray[0].PlaceHolderText = "Enter Old Password";
             InitializePasswordHandler();
             this.PasswordTextBoxArray[1].Leave += new System.EventHandler(this.PasswordTextBox_Leave);
+            this.PasswordTextBoxArray[1].KeyDown += new KeyEventHandler(this.CustomTextBox_KeyDown);
+
         }
         private void setPasswordExclamationCustomButtonLocation()
         {
@@ -246,10 +254,10 @@ namespace YouChatApp.Controls
                 PasswordIsShownArray[i] = false;
             }
         }
-        private void PasswordViewerButton_Click(object sender, EventArgs e)
+        private void PasswordViewerCustomButton_Click(object sender, EventArgs e)
         {
-            int ButtonNameLength = ((Button)(sender)).Name.Length;
-            string NumberAsString = ((Button)(sender)).Name[ButtonNameLength - 1].ToString();
+            int ButtonNameLength = ((CustomButton)(sender)).Name.Length;
+            string NumberAsString = ((CustomButton)(sender)).Name[ButtonNameLength - 1].ToString();
             int Number = int.Parse(NumberAsString);
             int IndexLocation = Number - 1;
             PasswordIsShownArray[IndexLocation] = !PasswordIsShownArray[IndexLocation];
@@ -257,7 +265,7 @@ namespace YouChatApp.Controls
             {
                 //this.PasswordTextBoxArray[IndexLocation].PasswordChar = '\0';
                 this.PasswordTextBoxArray[IndexLocation].PasswordChar = false;
-                ((Button)(sender)).BackgroundImage = passwordShown;
+                ((CustomButton)(sender)).BackgroundImage = passwordShown;
             }
             else
             {
@@ -265,7 +273,7 @@ namespace YouChatApp.Controls
                 {
                     //this.PasswordTextBoxArray[IndexLocation].PasswordChar = '*';
                     this.PasswordTextBoxArray[IndexLocation].PasswordChar = true;
-                    ((Button)(sender)).BackgroundImage = passwordNotShown;
+                    ((CustomButton)(sender)).BackgroundImage = passwordNotShown;
                 }
             }
         }
@@ -275,14 +283,14 @@ namespace YouChatApp.Controls
             {
                 IsCurrentOldPasswordVisible = OldPasswordVisibleProperty;
                 this.OldPasswordLabel.Visible = OldPasswordVisibleProperty;
-                this.PasswordViewerButtonArray[0].Visible = OldPasswordVisibleProperty;
+                this.PasswordViewerCustomButtonArray[0].Visible = OldPasswordVisibleProperty;
                 this.PasswordTextBoxArray[0].Visible = OldPasswordVisibleProperty;
                 if (!OldPasswordVisibleProperty)
                 {
                     for (int i = PasswordTextBoxArray.Length - 1; i > 0; i--)
                     {
                         this.PasswordTextBoxArray[i].Location = new System.Drawing.Point(this.PasswordTextBoxArray[i].Location.X, this.PasswordTextBoxArray[i - 1].Location.Y);
-                        this.PasswordViewerButtonArray[i].Location = new System.Drawing.Point(this.PasswordViewerButtonArray[i].Location.X, this.PasswordViewerButtonArray[i - 1].Location.Y);
+                        this.PasswordViewerCustomButtonArray[i].Location = new System.Drawing.Point(this.PasswordViewerCustomButtonArray[i].Location.X, this.PasswordViewerCustomButtonArray[i - 1].Location.Y);
                     }
                     this.ConfirmPasswordLabel.Location = new System.Drawing.Point(this.ConfirmPasswordLabel.Location.X, this.NewPasswordLabel.Location.Y);
 
@@ -293,8 +301,8 @@ namespace YouChatApp.Controls
                 {
                     this.PasswordTextBoxArray[1].Location = new System.Drawing.Point(this.PasswordTextBoxArray[1].Location.X, this.PasswordTextBoxArray[2].Location.Y);
                     this.PasswordTextBoxArray[2].Location = new System.Drawing.Point(this.PasswordTextBoxArray[2].Location.X, this.PasswordTextBoxArray[2].Location.Y + HeightDifference);
-                    this.PasswordViewerButtonArray[1].Location = new System.Drawing.Point(this.PasswordViewerButtonArray[1].Location.X, this.PasswordViewerButtonArray[2].Location.Y);
-                    this.PasswordViewerButtonArray[2].Location = new System.Drawing.Point(this.PasswordViewerButtonArray[2].Location.X, this.PasswordViewerButtonArray[2].Location.Y + HeightDifference);
+                    this.PasswordViewerCustomButtonArray[1].Location = new System.Drawing.Point(this.PasswordViewerCustomButtonArray[1].Location.X, this.PasswordViewerCustomButtonArray[2].Location.Y);
+                    this.PasswordViewerCustomButtonArray[2].Location = new System.Drawing.Point(this.PasswordViewerCustomButtonArray[2].Location.X, this.PasswordViewerCustomButtonArray[2].Location.Y + HeightDifference);
                     this.NewPasswordLabel.Location = new System.Drawing.Point(this.NewPasswordLabel.Location.X, this.ConfirmPasswordLabel.Location.Y);
                     this.ConfirmPasswordLabel.Location = new System.Drawing.Point(this.ConfirmPasswordLabel.Location.X, this.ConfirmPasswordLabel.Location.Y + HeightDifference);
                     this.Height += (OldPasswordLabel.Height + PasswordTextBoxArray[0].Height);
@@ -309,7 +317,7 @@ namespace YouChatApp.Controls
         private void SetConfirmPassword()
         {
             this.ConfirmPasswordLabel.Visible = ConfirmPasswordVisibleProperty;
-            this.PasswordViewerButtonArray[2].Visible = ConfirmPasswordVisibleProperty;
+            this.PasswordViewerCustomButtonArray[2].Visible = ConfirmPasswordVisibleProperty;
             this.PasswordTextBoxArray[2].Visible = ConfirmPasswordVisibleProperty;
             if (!ConfirmPasswordVisibleProperty)
             {
@@ -350,6 +358,19 @@ namespace YouChatApp.Controls
             for (int i = 0; i < PasswordTextBoxArray.Length; i++)
             {
                 PasswordTextBoxArray[i].Enabled = enable;
+            }
+        }
+        private void CustomTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            CustomTextBox textBox = (CustomTextBox)sender;
+
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                if (!textBox.PasswordChar)
+                {
+                    MessageBox.Show(".לא ניתן להעתיק קוד משדה סיסמה", "הפעולה אסורה");
+                    e.Handled = true; // Prevent default copy behavior
+                }
             }
         }
     }

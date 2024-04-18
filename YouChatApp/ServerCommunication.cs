@@ -20,7 +20,6 @@ using YouChatApp.ContactHandler;
 using YouChatApp.Encryption;
 using YouChatApp.JsonClasses;
 using YouChatApp.UserAuthentication.Forms;
-using YouChatServer.ContactHandler;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -130,6 +129,8 @@ namespace YouChatApp
         public const string VideoCallResponseResult2 = "Declining the video call";
         const string GroupCreatorResponse1 = "Group was successfully created";
 
+        private static bool isKeyExchangeInProgress = false;
+        private static Queue<string> messageQueue = new Queue<string>();
 
         public const string RightSmtpCode = "right";
         public const string WrongSmtpCode = "wrong";
@@ -344,6 +345,7 @@ namespace YouChatApp
                 TypeNameHandling = TypeNameHandling.Auto
             });
             SendMessage(clientPublicKeyJson, false);
+            isKeyExchangeInProgress = true;
         }
 
 
@@ -420,14 +422,14 @@ namespace YouChatApp
                 try
                 {
                     //Console.WriteLine("trying to get lock in length:");
-                    //lock (MessageClient.GetStream())
-                    //{
-                    //    // call EndRead to handle the end of an async read.
-                    //    bytesRead = MessageClient.GetStream().EndRead(ar);
-                    //}
+                    lock (MessageClient.GetStream())
+                    {
+                        // call EndRead to handle the end of an async read.
+                        bytesRead = MessageClient.GetStream().EndRead(ar);
+                    }
                     //Console.WriteLine("unlocked in length:");
 
-                    bytesRead = MessageClient.GetStream().EndRead(ar);
+                    //bytesRead = MessageClient.GetStream().EndRead(ar);
 
                     // if bytesread<1 -> the client disconnected
                     if (bytesRead < 1)
@@ -446,12 +448,12 @@ namespace YouChatApp
                         {
                             Console.WriteLine("trying to get lock in length2:");
 
-                            //lock (MessageClient.GetStream())
-                            //{
-                            //    // continue reading from the client
-                            //    MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
-                            //}
-                            MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
+                            lock (MessageClient.GetStream())
+                            {
+                                // continue reading from the client
+                                MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
+                            }
+                            //MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
                             Console.WriteLine("unlocked in length2");
 
                         }
@@ -541,6 +543,8 @@ namespace YouChatApp
                             case EnumHandler.CommunicationMessageID_Enum.EncryptionSymmetricKeyReciever:
                                 string EncryptedSymmetricKeyReciever = jsonObject.MessageBody as string;
                                 SymmetricKey = Rsa.Decrypt(EncryptedSymmetricKeyReciever, PrivateKey);
+                                isKeyExchangeInProgress = false;
+                                SendQueuedMessages();
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.EncryptionRenewKeys:
                                 HandleKeys();
@@ -710,23 +714,17 @@ namespace YouChatApp
                             case EnumHandler.CommunicationMessageID_Enum.RegistrationBanFinish:
                                 HandleRegistrationBanFinishEnum(jsonObject);
                                 break;
+                            case EnumHandler.CommunicationMessageID_Enum.FriendRequestReciever:
+                                HandleFriendRequestRecieverEnum(jsonObject);
+                                break;
                             case EnumHandler.CommunicationMessageID_Enum.FriendRequestResponseReciever:
-                                ContactAndChat contactAndChat = jsonObject.MessageBody as ContactAndChat;
-                                ContactDetails contactDetails = contactAndChat.ContactDetails as ContactDetails;
-                                Contact contact = new Contact(contactDetails);
-                                ContactManager.AddContact(contact);
+                                HandleFriendRequestResponseRecieverEnum(jsonObject);
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.ContactInformationResponse:
-                                Contacts contacts = jsonObject.MessageBody as Contacts;
-                                List<ContactDetails> contactDetailsList = new List<ContactDetails>();
-                                Contact contact;
-                                foreach (ContactDetails contactDetails in contactDetailsList)
-                                {
-                                    contact = new Contact(contactDetails);
-                                    ContactManager.AddContact(contact);
-                                }
-
-                                //_youChat.Invoke((Action)delegate { _youChat.SetChatControlListOfContacts(DecryptedMessageDetails); });
+                                HandleContactInformationResponseEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.ChatInformationResponse:
+                                HandleChatInformationResponseEnum(jsonObject);
                                 break;
                         }
                     }
@@ -749,6 +747,50 @@ namespace YouChatApp
                     MessageBox.Show("Ask somebody for help\n\n" + ex, "Error");
                 }
             }
+        }
+        private static void HandleFriendRequestRecieverEnum(JsonObject jsonObject)
+        {
+            PastFriendRequest pastFriendRequest = jsonObject.MessageBody as PastFriendRequest;
+
+            _youChat.Invoke((Action)delegate { _youChat.AddFriendRequest(pastFriendRequest); });
+
+        }
+        private static void HandleChatInformationResponseEnum(JsonObject jsonObject)
+        {
+            Chats chats = jsonObject.MessageBody as Chats;
+            List<ChatDetails> chatDetailsList = chats.ChatList;
+            ChatDetails chat;
+            foreach (ChatDetails chatDetails in chatDetailsList)
+            {
+                ChatManager.AddChat(chatDetails);
+            }
+            _youChat.Invoke((Action)delegate { _youChat.SetChatControlListOfContacts(); });
+
+        }
+        private static void HandleContactInformationResponseEnum(JsonObject jsonObject)
+        {
+            Contacts contacts = jsonObject.MessageBody as Contacts;
+            List<ContactDetails> contactDetailsList = contacts.ContactList;
+            _youChat.Invoke((Action)delegate { _youChat.SetContactControlList(contactDetailsList); });
+            JsonObject chatInformationRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ChatInformationRequest, null);
+            string chatInformationRequestJson = JsonConvert.SerializeObject(chatInformationRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            SendMessage(chatInformationRequestJson);
+
+        }
+        private static void HandleFriendRequestResponseRecieverEnum(JsonObject jsonObject)
+        {
+            ContactAndChat contactAndChat = jsonObject.MessageBody as ContactAndChat;
+            ContactDetails contactDetails = contactAndChat.ContactDetails;
+            Contact contact = new Contact(contactDetails);
+            ContactManager.AddContact(contact);
+            ChatDetails chatDetails = contactAndChat.Chat;
+            ChatManager.AddChat(chatDetails);
+            string contactName = contact.Name;
+            _youChat.Invoke((Action)delegate { _youChat.HandleSuccessfulFriendRequest(contact,chatDetails); });
+
         }
         private static void HandleRegistrationBanStartEnum(JsonObject jsonObject)
         {
@@ -1170,33 +1212,6 @@ namespace YouChatApp
             }
         }
 
-        public static Image GetImageByImageId(string ImageId) //maybe i need to make a method that seperates chars from numbers...
-        {
-            //InitializeImageLists();
-            Image profilePicture;
-            string IdAsString;
-            int Id;
-            if (ImageId.StartsWith("Male"))
-            {
-                IdAsString = ImageId.Replace("Male", "");
-                Id = int.Parse(IdAsString);
-                profilePicture = ProfilePictureImageList.MaleProfilePictureImageList.Images[Id]; //todo - change beacuse it inserts the wrong image
-                //profilePicture = Properties.MaleProfilePicture.ResourceManager.GetObject(name) as Image;
-            }
-            else if (ImageId.StartsWith("Female"))
-            {
-                IdAsString = ImageId.Replace("Female", "");
-                Id = int.Parse(IdAsString);
-                profilePicture = ProfilePictureImageList.FemaleProfilePictureImageList.Images[Id];
-            }
-            else
-            {
-                IdAsString = ImageId.Replace("Animal", "");
-                Id = int.Parse(IdAsString);
-                profilePicture = ProfilePictureImageList.AnimalProfilePictureImageList.Images[Id];
-            }
-            return profilePicture;
-        }
 
         /// <summary>
         /// The SendMessage method sends a message to the server
@@ -1236,6 +1251,12 @@ namespace YouChatApp
 
         public static void SendMessage(string jsonMessage,bool needEncryption = true) //maybe to add a function that recieves only messageId (i dont need to send content all the time...)
         {
+            if (isKeyExchangeInProgress)
+            {
+                // Queue the message for sending after the key exchange process is over
+                messageQueue.Enqueue(jsonMessage);
+                return;
+            }
             if (isConnected)
             {
                 try
@@ -1273,6 +1294,13 @@ namespace YouChatApp
                 {
                     Console.WriteLine(ex.ToString());
                 }
+            }
+        }
+        private static void SendQueuedMessages()
+        {
+            while (messageQueue.Count > 0)
+            {
+                SendMessage(messageQueue.Dequeue());
             }
         }
         public static void SendMessageAndImage(int messageId, string messageContent, Image image)

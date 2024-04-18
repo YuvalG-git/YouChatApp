@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace YouChatApp.ChatHandler
 {
-    public class GroupChat : Chat
+    public class GroupChat : ChatDetails
     {
         private string _chatName;
-        public byte[] _chatProfilePicture;
-        public GroupChat(string chatTagLineId, string messageHistory, DateTime? lastMessageTime, string lastMessageContent, List<ChatParticipant> chatParticipants, string chatName, byte[] chatProfilePicture) : base(chatTagLineId, messageHistory, lastMessageTime, lastMessageContent, chatParticipants)
+        public Image _chatProfilePicture;
+        public GroupChat(string chatTagLineId, string messageHistory, DateTime? lastMessageTime, string lastMessageContent, List<ChatParticipant> chatParticipants, string chatName, Image chatProfilePicture) : base(chatTagLineId, messageHistory, lastMessageTime, lastMessageContent, chatParticipants)
         {
             _chatName = chatName;
             _chatProfilePicture = chatProfilePicture;
+        }
+        public GroupChat(GroupChatDetails groupChatDetails) : base(groupChatDetails.ChatTagLineId, groupChatDetails.MessageHistory, groupChatDetails.LastMessageTime, groupChatDetails.LastMessageContent, groupChatDetails.ChatParticipants)
+        {
+            _chatName = groupChatDetails.ChatName;
+            _chatProfilePicture = ConvertHandler.ConvertBytesToImage(groupChatDetails.ChatProfilePicture);
         }
 
         public string ChatName
@@ -27,7 +33,7 @@ namespace YouChatApp.ChatHandler
                 _chatName= value;
             }
         }
-        public byte[] ChatProfilePicture
+        public Image ChatProfilePicture
         {
             get
             {

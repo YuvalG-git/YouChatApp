@@ -219,6 +219,8 @@ namespace YouChatApp.Controls
                 TextBox.ForeColor = value;
             }
         }
+
+
         public override Font Font
         {
             get
@@ -245,6 +247,19 @@ namespace YouChatApp.Controls
             set
             {
                 TextBox.MaxLength = value;
+            }
+        }
+
+        [Category("YouChat")]
+        public bool ShortcutsEnabled
+        {
+            get
+            {
+                return TextBox.ShortcutsEnabled;
+            }
+            set
+            {
+                TextBox.ShortcutsEnabled = value;
             }
         }
         [Category("YouChat")]

@@ -159,11 +159,15 @@
     <Compile Include="BanForm.Designer.cs">
       <DependentUpon>BanForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChatHandler\Chat.cs" />
+    <Compile Include="ChatHandler\ChatDetails.cs" />
     <Compile Include="ChatHandler\ChatCreator.cs" />
+    <Compile Include="ChatHandler\ChatManager.cs" />
     <Compile Include="ChatHandler\ChatParticipant.cs" />
+    <Compile Include="ChatHandler\Chats.cs" />
     <Compile Include="ChatHandler\DirectChat.cs" />
+    <Compile Include="ChatHandler\DirectChatDetails.cs" />
     <Compile Include="ChatHandler\GroupChat.cs" />
+    <Compile Include="ChatHandler\GroupChatDetails.cs" />
     <Compile Include="ContactHandler\Contact.cs" />
     <Compile Include="ContactHandler\ContactDetails.cs" />
     <Compile Include="ContactHandler\ContactManager.cs" />
@@ -243,7 +247,7 @@
     <Compile Include="UdpServerCommunication\AudioServerCommunication.cs" />
     <Compile Include="ChatHandler2\Chat.cs" />
     <Compile Include="ChatHandler2\ChatCreator.cs" />
-    <Compile Include="ChatHandler2\ChatLastMessageTimeComparer.cs" />
+    <Compile Include="ChatHandler\ChatLastMessageTimeComparer.cs" />
     <Compile Include="ChatHandler2\ChatManager.cs" />
     <Compile Include="ChatHandler2\GroupChat.cs" />
     <Compile Include="ChatHandler2\PersonalChat.cs" />

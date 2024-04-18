@@ -31,16 +31,16 @@ namespace YouChatApp.ChatHandler2
         }
         private static void InsertByLastMessageTime(Chat chat)
         {
-            int index = _chats.BinarySearch(chat, new ChatHandler.ChatLastMessageTimeComparer());
+            //int index = _chats.BinarySearch(chat, new ChatHandler.ChatLastMessageTimeComparer());
 
-            if (index < 0)
-            {
-                // If the element is not found, convert the index to the insertion point
-                index = ~index;
-            }
+            //if (index < 0)
+            //{
+            //    // If the element is not found, convert the index to the insertion point
+            //    index = ~index;
+            //}
 
-            // Insert the new string at the calculated index
-            _chats.Insert(index, chat);
+            //// Insert the new string at the calculated index
+            //_chats.Insert(index, chat);
         }
         public static Chat GetChat(string chatName)
         {

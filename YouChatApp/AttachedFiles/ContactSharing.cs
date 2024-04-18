@@ -219,14 +219,14 @@ namespace YouChatApp.AttachedFiles
 
         private void SetContactControlList()
         {
-            ContactHandler.ContactManager.AddContact("Noam Sfadia", ProfilePictureImageList.MaleProfilePictureImageList.Images[2],"I am cool", DateTime.Now,true,true,true,true,true);
-            ContactHandler.ContactManager.AddContact("Noam Salomon", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            //ContactHandler.ContactManager.AddContact("Noam Sfadia", ProfilePictureImageList.MaleProfilePictureImageList.Images[2],"I am cool", DateTime.Now,true,true,true,true,true);
+            //ContactHandler.ContactManager.AddContact("Noam Salomon", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
 
-            ContactHandler.ContactManager.AddContact("Alon Tamir", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            ContactHandler.ContactManager.AddContact("Ben Raviv", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            ContactHandler.ContactManager.AddContact("Yuval Gur", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            //ContactHandler.ContactManager.AddContact("Alon Tamir", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            //ContactHandler.ContactManager.AddContact("Ben Raviv", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
+            //ContactHandler.ContactManager.AddContact("Yuval Gur", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
 
-            foreach (ContactDetails Contact in ContactManager.UserContacts)
+            foreach (Contact Contact in ContactManager.UserContacts)
             {
                 if (ContactNumber != 0)
                     LastContactControlHeightLocation = this.ContactControlList[ContactNumber - 1].Location.Y + this.ContactControlList[ContactNumber - 1].Size.Height;
@@ -265,7 +265,7 @@ namespace YouChatApp.AttachedFiles
         {
             string ContactName = ((ContactSharingControl)(sender)).ContactName.Text;
             SelectedContactsList.Add(ContactName);
-            ContactDetails contact = ContactHandler.ContactManager.GetContact(ContactName);
+            Contact contact = ContactManager.GetContact(ContactName);
             Image ContactProfilePicture = contact.ProfilePicture;
             AddProfileControl(ContactName, ContactProfilePicture);
         }

@@ -4,23 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YouChatApp.ContactHandler;
-using YouChatServer.ChatHandler;
-using YouChatServer.ContactHandler;
 
 namespace YouChatApp.JsonClasses
 {
     public class ContactAndChat
     {
-        private ChatHandler.Chat _chat;
+        private ChatHandler.ChatDetails _chat;
         private ContactDetails _contactDetails;
 
-        public ContactAndChat(ChatHandler.Chat chat, ContactDetails contactDetails)
+        public ContactAndChat(ChatHandler.ChatDetails chat, ContactDetails contactDetails)
         {
             _chat = chat;
             _contactDetails = contactDetails;
         }
 
-        public ChatHandler.Chat Chat
+        public ChatHandler.ChatDetails Chat
         {
             get
             {

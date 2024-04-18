@@ -108,7 +108,7 @@
         private System.Windows.Forms.Label OldPasswordLabel;
         private CustomTextBox[] PasswordTextBoxArray;
 
-        private CustomButton[] PasswordViewerButtonArray;
+        private CustomButton[] PasswordViewerCustomButtonArray;
         private System.Windows.Forms.Label NewPasswordLabel;
         private System.Windows.Forms.Label ConfirmPasswordLabel;
         private CustomButton PasswordExclamationCustomButton;
