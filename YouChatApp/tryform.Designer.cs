@@ -28,55 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.profileStatusControl1 = new YouChatApp.Controls.ProfileStatusControl();
-            this.profilePictureControl1 = new YouChatApp.Controls.ProfilePictureControl();
-            this.personalVerificationAnswersControl1 = new YouChatApp.Controls.PersonalVerificationAnswersControl();
-            this.smtpControl1 = new YouChatApp.Controls.SmtpControl();
+            this.message1 = new YouChatApp.Message();
             this.SuspendLayout();
             // 
-            // profileStatusControl1
+            // message1
             // 
-            this.profileStatusControl1.IsSelectedStatusShown = true;
-            this.profileStatusControl1.Location = new System.Drawing.Point(334, 173);
-            this.profileStatusControl1.Name = "profileStatusControl1";
-            this.profileStatusControl1.Size = new System.Drawing.Size(320, 345);
-            this.profileStatusControl1.TabIndex = 3;
-            // 
-            // profilePictureControl1
-            // 
-            this.profilePictureControl1.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.profilePictureControl1.Location = new System.Drawing.Point(12, 65);
-            this.profilePictureControl1.MaximumSize = new System.Drawing.Size(570, 580);
-            this.profilePictureControl1.MinimumSize = new System.Drawing.Size(570, 580);
-            this.profilePictureControl1.Name = "profilePictureControl1";
-            this.profilePictureControl1.Size = new System.Drawing.Size(570, 580);
-            this.profilePictureControl1.TabIndex = 2;
-            // 
-            // personalVerificationAnswersControl1
-            // 
-            this.personalVerificationAnswersControl1.Location = new System.Drawing.Point(388, 194);
-            this.personalVerificationAnswersControl1.MaximumSize = new System.Drawing.Size(400, 380);
-            this.personalVerificationAnswersControl1.MinimumSize = new System.Drawing.Size(400, 380);
-            this.personalVerificationAnswersControl1.Name = "personalVerificationAnswersControl1";
-            this.personalVerificationAnswersControl1.Size = new System.Drawing.Size(400, 380);
-            this.personalVerificationAnswersControl1.TabIndex = 1;
-            // 
-            // smtpControl1
-            // 
-            this.smtpControl1.Location = new System.Drawing.Point(79, 65);
-            this.smtpControl1.Name = "smtpControl1";
-            this.smtpControl1.Size = new System.Drawing.Size(350, 190);
-            this.smtpControl1.TabIndex = 0;
+            this.message1.BackColor = System.Drawing.SystemColors.Control;
+            this.message1.IsYourMessage = true;
+            this.message1.Location = new System.Drawing.Point(75, 94);
+            this.message1.MaximumSize = new System.Drawing.Size(850, 0);
+            this.message1.MessageType = YouChatApp.EnumHandler.MessageType_Enum.Image;
+            this.message1.MinimumSize = new System.Drawing.Size(175, 70);
+            this.message1.Name = "message1";
+            this.message1.Size = new System.Drawing.Size(450, 70);
+            this.message1.TabIndex = 0;
             // 
             // tryform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 684);
-            this.Controls.Add(this.profileStatusControl1);
-            this.Controls.Add(this.profilePictureControl1);
-            this.Controls.Add(this.personalVerificationAnswersControl1);
-            this.Controls.Add(this.smtpControl1);
+            this.Controls.Add(this.message1);
             this.Name = "tryform";
             this.Text = "tryform";
             this.ResumeLayout(false);
@@ -85,9 +57,6 @@
 
         #endregion
 
-        private Controls.SmtpControl smtpControl1;
-        private Controls.PersonalVerificationAnswersControl personalVerificationAnswersControl1;
-        private Controls.ProfilePictureControl profilePictureControl1;
-        private Controls.ProfileStatusControl profileStatusControl1;
+        private Message message1;
     }
 }

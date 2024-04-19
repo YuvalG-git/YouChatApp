@@ -10,13 +10,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using YouChatApp.AttachedFiles;
 using YouChatApp.Controls;
+using YouChatApp.UserAuthentication.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using static YouChatApp.EnumHandler;
 
 namespace YouChatApp
 {
-    public partial class MessageControl : UserControl
+    public partial class Message : UserControl
     {
+        private const int TextMessageNormalWidth = 193;
+        private const int TextMessageNormalHeight = 70;
+        private const int ImageMessageNormalWidth = 365;
+        private const int ImageMessageNormalHeight = 231;
+
         private int NoramlWidth;
         private int ControlHeight;
         private int ExtendedWidth;
@@ -26,12 +34,13 @@ namespace YouChatApp
         private bool MenuItemsIsVisible = false;
         private bool IsOnMenuItem = false;
         private bool WasDeleted = false;
-
+        private bool isYourMessage = true;
+        private MessageType_Enum messageType = MessageType_Enum.Text;
         Image DeleteImage = global::YouChatApp.Properties.Resources.Delete;
         Image CopyImage = global::YouChatApp.Properties.Resources.Copy;
 
         private System.Windows.Forms.Button[] MenuButtons;
-        public MessageControl()
+        public Message()
         {
             InitializeComponent();
             SetMessageControlTextSize();
@@ -39,37 +48,103 @@ namespace YouChatApp
             ControlsMouseMove();
         }
         public System.Windows.Forms.Label Username => UsernameLabel;
-        public System.Windows.Forms.Label Message => MessageLabel;
+        public System.Windows.Forms.Label MessageContent => MessageLabel;
         public System.Windows.Forms.Label Time => TimeLabel;
         public PictureBox ProfilePicture => ProfilePictureCircularPictureBox;
 
         public float CurrentUsernameLabelTextSize = 12F;
         public float CurrentNessageLabelTextSize = 15.75F;
+        public bool IsYourMessage
+        {
+            get
+            {
+                return isYourMessage;
+            }
+            set
+            {
+                isYourMessage = value;
+            }
+        }
+        public MessageType_Enum MessageType
+        {
+            get
+            {
+                return messageType;
+            }
+            set
+            {
+                messageType = value;
 
+                MessageLabel.Visible = false;
+                ImagePictureBox.Visible = false;
+                switch (messageType)
+                {
+                    case MessageType_Enum.Text:
+                        MessageLabel.Visible = true;
+                        this.AutoSize = true;
+                        break;
+                    case MessageType_Enum.Image:
+                        ImagePictureBox.Visible = true;
+                        this.AutoSize = false;
+                        break;
+                }
+                HandleMessageControlDesign();
+            }
+        }
         public void SetMessageControl()
         {
             HandleMessageControlDesign();
             NoramlWidth = this.Width;
             ControlHeight = this.Height;
-            InitializeMenu();
-            SetMenuAreaRectangle();
-            SetMenuItemsAreaRectangle();
+            if (IsYourMessage)
+            {
+                InitializeMenu();
+                SetMenuAreaRectangle();
+                SetMenuItemsAreaRectangle();
+            }
         }
         private void HandleMessageControlDesign()
         {
-            int NewWidth = MessageLabel.Location.X + MessageLabel.Width + RectangleWidth + 10;
-            if (NewWidth > this.Width)
+            switch (messageType)
             {
-                this.Width = NewWidth;
-                int TimeLabelYCoordination = MessageLabel.Height + MessageLabel.Location.Y + 5;
-                int TimeLabelXCoordination = MessageLabel.Width + MessageLabel.Location.X - TimeLabel.Width + 5;
-                TimeLabel.Location = new System.Drawing.Point(TimeLabelXCoordination, TimeLabelYCoordination); //todo fix the height when sending multiline for the whole control,timelabel and menubutton
-                this.Height = TimeLabel.Height + TimeLabel.Location.Y + 10;
-                this.Size = new System.Drawing.Size(this.Width, this.Height);
-                int MenuBarPictureBoxYCoordination = (this.Height - MenuBarPictureBox.Height) / 2;
-                int MenuBarPictureBoxXCoordination = this.Width - MenuBarPictureBox.Width - 10;
-                MenuBarPictureBox.Location = new System.Drawing.Point(MenuBarPictureBoxXCoordination, MenuBarPictureBoxYCoordination);
+                case MessageType_Enum.Text:
+                    HandleMessageControlTextDesign();
+                    break;
+                case MessageType_Enum.Image:
+                    HandleMessageControlImageDesign();
+                    break;
             }
+        }
+        private void SetMenuBarLocation()
+        {
+            int MenuBarPictureBoxYCoordination = (this.Height - MenuBarPictureBox.Height) / 2;
+            int MenuBarPictureBoxXCoordination = this.Width - MenuBarPictureBox.Width - 10;
+            MenuBarPictureBox.Location = new System.Drawing.Point(MenuBarPictureBoxXCoordination, MenuBarPictureBoxYCoordination);
+        }
+        private void HandleMessageControlTextDesign()
+        {
+            int NewWidth = MessageLabel.Location.X + MessageLabel.Width + RectangleWidth + 10;
+            int realWidth = NewWidth > TextMessageNormalWidth ? NewWidth : TextMessageNormalWidth;
+            this.Width = realWidth;
+            int TimeLabelYCoordination = MessageLabel.Height + MessageLabel.Location.Y + 5;
+            int TimeLabelXCoordination = MessageLabel.Width + MessageLabel.Location.X - TimeLabel.Width + 5;
+            TimeLabel.Location = new System.Drawing.Point(TimeLabelXCoordination, TimeLabelYCoordination); //todo fix the height when sending multiline for the whole control,timelabel and menubutton
+            this.Height = TimeLabel.Height + TimeLabel.Location.Y + 10;
+            this.Size = new System.Drawing.Size(this.Width, this.Height);
+            SetMenuBarLocation();
+        }
+        private void HandleMessageControlImageDesign()
+        {
+            int NewWidth = ImagePictureBox.Location.X + ImagePictureBox.Width + RectangleWidth + 10;
+            this.Width = NewWidth;
+            int TimeLabelYCoordination = ImagePictureBox.Height + ImagePictureBox.Location.Y + 5;
+            int TimeLabelXCoordination = ImagePictureBox.Width + ImagePictureBox.Location.X - TimeLabel.Width + 5;
+            TimeLabel.Location = new System.Drawing.Point(TimeLabelXCoordination, TimeLabelYCoordination); //todo fix the height when sending multiline for the whole control,timelabel and menubutton
+            this.Height = TimeLabel.Height + TimeLabel.Location.Y + 10;
+            this.Size = new System.Drawing.Size(this.Width, this.Height);
+            int MenuBarPictureBoxYCoordination = (this.Height - MenuBarPictureBox.Height) / 2;
+            int MenuBarPictureBoxXCoordination = this.Width - MenuBarPictureBox.Width - 10;
+            MenuBarPictureBox.Location = new System.Drawing.Point(MenuBarPictureBoxXCoordination, MenuBarPictureBoxYCoordination);
         }
 
         private void SetMenuAreaRectangle()
@@ -90,12 +165,21 @@ namespace YouChatApp
 
         private void InitializeMenu()
         {
-            MenuButtons = new System.Windows.Forms.Button[2];
+            int size;
+            if (isYourMessage)
+            {
+                size = 2;              
+            }
+            else
+            {
+                size = 1;
+            }
+            MenuButtons = new System.Windows.Forms.Button[size];
             int XValue = NoramlWidth + 20;
-            for (int i = 0; i <MenuButtons.Length; i++)
+            for (int i = 0; i < MenuButtons.Length; i++)
             {
                 MenuButtons[i] = new System.Windows.Forms.Button();
-                this.MenuButtons[i].Location = new System.Drawing.Point(XValue, (ControlHeight - 40)/2);
+                this.MenuButtons[i].Location = new System.Drawing.Point(XValue, (ControlHeight - 40) / 2);
                 this.MenuButtons[i].Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177))); ;
                 this.MenuButtons[i].Size = new System.Drawing.Size(40, 40);
                 this.MenuButtons[i].TabIndex = 0;
@@ -112,10 +196,13 @@ namespace YouChatApp
                 XValue += this.MenuButtons[i].Size.Width + 10;
             }
             ExtendedWidth = XValue;
-            this.MenuButtons[0].Name = "DeleteOptionButton";
-            this.MenuButtons[1].Name = "FowardOptionButton";
-            this.MenuButtons[0].BackgroundImage = DeleteImage;
-            this.MenuButtons[1].BackgroundImage = CopyImage;
+            this.MenuButtons[0].Name = "CopyOptionButton";
+            this.MenuButtons[0].BackgroundImage = CopyImage;
+            if (isYourMessage)
+            {
+                this.MenuButtons[1].Name = "DeleteOptionButton";
+                this.MenuButtons[1].BackgroundImage = DeleteImage;
+            }
         }
 
         private void MenuButtons_Click(object sender, EventArgs e)
@@ -126,6 +213,10 @@ namespace YouChatApp
                 if (MessageBox.Show("Are you sure you want to delete this message?", "Delete Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) // maybe to show a little bit of the message
                 {
                     MessageLabel.Text = "This message has been deleted";
+                    this.MessageLabel.Font = new System.Drawing.Font(this.MessageLabel.Font.Name, 12, this.MessageLabel.Font.Style, this.MessageLabel.Font.Unit);
+                    ContactControl.Visible = false;
+                    MessageLabel.Visible = true;
+                    ImagePictureBox.Visible = false;
                     WasDeleted = true;
                     MenuBarPictureBox.Visible = false;
 
@@ -138,6 +229,7 @@ namespace YouChatApp
             else if (ButtonName == "CopyOptionButton")
             {
                 Clipboard.SetText(MessageLabel.Text);
+                Clipboard.SetImage(ImagePictureBox.BackgroundImage);
                 MessageBox.Show("This message has been copied!", "Message Copied");
             }
 
@@ -335,6 +427,12 @@ namespace YouChatApp
         private void MenuBarPictureBox_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ImagePictureBox_Click(object sender, EventArgs e)
+        {
+            ImageViewer imageViewer = new ImageViewer(new Bitmap(ImagePictureBox.BackgroundImage));
+            this.Invoke(new Action(() => imageViewer.ShowDialog()));
         }
     }
 }

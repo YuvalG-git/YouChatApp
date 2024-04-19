@@ -29,7 +29,19 @@ namespace YouChatApp
 
         private Color BorderColorProperty = Color.RoyalBlue;
         private int BorderSizeProperty = 2;
+        private string ContactIdProperty = "";
 
+        public string ContactId
+        {
+            get
+            {
+                return ContactIdProperty;
+            }
+            set
+            {
+                ContactIdProperty = value;
+            }
+        }
         public Color BorderColor
         {
             get 

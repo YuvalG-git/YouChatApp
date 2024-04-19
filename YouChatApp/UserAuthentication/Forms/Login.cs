@@ -17,11 +17,12 @@ namespace YouChatApp.UserAuthentication.Forms
     public partial class Login : Form
     {
         EnumHandler.LoginPhases_Enum loginPhase;
+        private readonly ServerCommunicator serverCommunicator;
         public Login()
         {
             InitializeComponent();
-            ServerCommunication.Connect("10.100.102.3");
-            ServerCommunication._login = this;
+            serverCommunicator = ServerCommunicator.Instance;
+            FormHandler._login = this;
             SmtpControl.AddRestartSmtpCodeCustomButtonClickHandler(HandleSendingEmailProcess);
             SmtpControl.AddVerifyCustomButtonClickHandler(SendSmtpCode);
             CaptchaCodeControl.AddCaptchaCheckerCustomButtonClickHandler(SendCaptchaCode);
@@ -42,7 +43,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(personalVerificationAnswersJson);
+            serverCommunicator.SendMessage(personalVerificationAnswersJson);
         }
         public void RequestCaptchaBitmap(object sender, EventArgs e)
         {
@@ -51,7 +52,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(captchaImageRequestJson);
+            serverCommunicator.SendMessage(captchaImageRequestJson);
         }
         public void SendCaptchaCode(object sender, EventArgs e)
         {
@@ -61,7 +62,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(CaptchaCodeRequestJson);
+            serverCommunicator.SendMessage(CaptchaCodeRequestJson);
         }
         public void SendCaptchaAngle(object sender, EventArgs e)
         {
@@ -71,7 +72,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(CaptchaAngleRequestJson);
+            serverCommunicator.SendMessage(CaptchaAngleRequestJson);
         }
         public void SendSmtpCode(object sender, EventArgs e)
         {
@@ -81,7 +82,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(enteredSmtpCodeJson);
+            serverCommunicator.SendMessage(enteredSmtpCodeJson);
         }
         public void HandleCorrectCodeResponse(Image captchaCodeImage)
         {
@@ -133,31 +134,31 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(userUsernameJson);
+            serverCommunicator.SendMessage(userUsernameJson);
         }
         public void HandlePasswordUpdateCase()
         {
             this.Hide(); // Hide the login form
-            ServerCommunication._passwordUpdate = new PasswordUpdate();
-            ServerCommunication._passwordUpdate.ShowDialog(); // Show the registration form
+            FormHandler._passwordUpdate = new PasswordUpdate();
+            FormHandler._passwordUpdate.ShowDialog(); // Show the registration form
         }
         public void OpenInitialProfileSelection(Boolean IsPhaseOne)
         {
             this.Hide();
-            ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
-            this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
+            FormHandler._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
+            this.Invoke(new Action(() => FormHandler._initialProfileSelection.ShowDialog()));
         }
         public void OpenApp()
         {
             this.Hide();
-            ServerCommunication._youChat = new YouChat();
-            this.Invoke(new Action(() => ServerCommunication._youChat.ShowDialog()));
+            FormHandler._youChat = new YouChat();
+            this.Invoke(new Action(() => FormHandler._youChat.ShowDialog()));
         }
 
         private void ResetPasswordCustomButton_Click(object sender, EventArgs e)
         {
-            ServerCommunication._passwordRestart = new PasswordRestart();
-            this.Invoke(new Action(() => ServerCommunication._passwordRestart.ShowDialog()));
+            FormHandler._passwordRestart = new PasswordRestart();
+            this.Invoke(new Action(() => FormHandler._passwordRestart.ShowDialog()));
         }
         public void HandleBan(double banDuration)
         {
@@ -217,8 +218,8 @@ namespace YouChatApp.UserAuthentication.Forms
         private void SignUpCustomButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            ServerCommunication._registration = new Registration();
-            ServerCommunication._registration.ShowDialog(); // Show the registration form
+            FormHandler._registration = new Registration();
+            FormHandler._registration.ShowDialog(); // Show the registration form
         }
 
         private void LoginFieldsTextChangedEvent(object sender, EventArgs e)
@@ -257,7 +258,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(userLoginDetailsJson);
+            serverCommunicator.SendMessage(userLoginDetailsJson);
         }
 
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
@@ -267,8 +268,8 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(disconnectJson);
-            ServerCommunication.Disconnect();
+            serverCommunicator.SendMessage(disconnectJson);
+            serverCommunicator.Disconnect();
             System.Windows.Forms.Application.ExitThread();
         }
     }

@@ -15,9 +15,11 @@ namespace YouChatApp.UserAuthentication.Forms
 {
     public partial class PasswordRestart : Form
     {
+        private readonly ServerCommunicator serverCommunicator;
         public PasswordRestart()
         {
             InitializeComponent();
+            serverCommunicator = ServerCommunicator.Instance;
             PasswordGeneratorControl.OnTextChangedEventHandler(UpdatePasswordFieldsChecker);
             SmtpControl.AddRestartSmtpCodeCustomButtonClickHandler(HandleSendingEmailProcess);
             SmtpControl.AddVerifyCustomButtonClickHandler(SendSmtpCode);
@@ -45,7 +47,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(enteredSmtpCodeJson);
+            serverCommunicator.SendMessage(enteredSmtpCodeJson);
         }
         public void HandleSendingEmailProcess(object sender, EventArgs e)
         {
@@ -61,7 +63,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(smtpDetailsJson);
+            serverCommunicator.SendMessage(smtpDetailsJson);
         }
 
 
@@ -104,7 +106,7 @@ namespace YouChatApp.UserAuthentication.Forms
         private void LoginReturnerCustomButton_Click(object sender, EventArgs e)
         {
             this.Close();
-            ServerCommunication._passwordRestart = null;
+            FormHandler._passwordRestart = null;
         }
 
         private void PasswordGeneratorControl_Load(object sender, EventArgs e)
@@ -122,7 +124,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(resetPasswordRequestJson);
+            serverCommunicator.SendMessage(resetPasswordRequestJson);
         }
 
         private void PasswordReplacerCustomButton_Click(object sender, EventArgs e)
@@ -136,7 +138,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(passwordRenewalMessageJson);
+            serverCommunicator.SendMessage(passwordRenewalMessageJson);
             SetPasswordGeneratorControlEnable(false);
         }
         public void RestartDetails()
@@ -146,7 +148,7 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         public void HandleSuccessfulPasswordRenewal()
         {
-            ServerCommunication._passwordRestart = null;
+            FormHandler._passwordRestart = null;
             this.Hide();
             this.Dispose();
         }

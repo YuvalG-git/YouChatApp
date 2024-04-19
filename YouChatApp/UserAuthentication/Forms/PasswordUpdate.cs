@@ -15,11 +15,13 @@ namespace YouChatApp.UserAuthentication.Forms
 {
     public partial class PasswordUpdate : Form
     {
+        private readonly ServerCommunicator serverCommunicator;
+
         public PasswordUpdate()
         {
             InitializeComponent();
+            serverCommunicator = ServerCommunicator.Instance;
             UpdatePasswordGeneratorControl.OnTextChangedEventHandler(UpdatePasswordFieldsChecker);
-
         }
 
 
@@ -57,7 +59,7 @@ namespace YouChatApp.UserAuthentication.Forms
                 {
                     TypeNameHandling = TypeNameHandling.Auto
                 });
-                ServerCommunication.SendMessage(passwordUpdateDetailsJson);
+                serverCommunicator.SendMessage(passwordUpdateDetailsJson);
             }
             else
             {
@@ -71,7 +73,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(initialProfileSettingsCheckJson);
+            serverCommunicator.SendMessage(initialProfileSettingsCheckJson);
         }
         public void SetEnable(bool enable)
         {

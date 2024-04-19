@@ -39,6 +39,7 @@ namespace YouChatApp
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.ContactManagementPanel = new System.Windows.Forms.Panel();
             this.UserTaglineCustomTextBox = new YouChatApp.Controls.CustomTextBox();
+            this.FriendRequestSenderCustomButton = new YouChatApp.Controls.CustomButton();
             this.UserIdCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.FriendRequestIdPanel = new System.Windows.Forms.Panel();
             this.UserIDLabel = new System.Windows.Forms.Label();
@@ -46,84 +47,83 @@ namespace YouChatApp
             this.HashtagLabel = new System.Windows.Forms.Label();
             this.GroupCreatorBackgroundPanel = new System.Windows.Forms.Panel();
             this.GroupCreatorPanel = new System.Windows.Forms.Panel();
+            this.ContinueToGroupSettingsCustomButton = new YouChatApp.Controls.CustomButton();
             this.SelectedContactsPanel = new System.Windows.Forms.Panel();
             this.GroupCreatorSearchPanel = new System.Windows.Forms.Panel();
             this.GroupCreatorSearchBar = new YouChatApp.Controls.SearchBar();
             this.ChatLabel = new System.Windows.Forms.Label();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.ProfileCustomButton = new YouChatApp.Controls.CustomButton();
+            this.ChatCustomButton = new YouChatApp.Controls.CustomButton();
+            this.NewGroupCustomButton = new YouChatApp.Controls.CustomButton();
+            this.NewContactCustomButton = new YouChatApp.Controls.CustomButton();
             this.MessagePanel = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ChatBackgroundPanel = new System.Windows.Forms.Panel();
             this.ChatPanel = new System.Windows.Forms.Panel();
             this.ChatSearchPanel = new System.Windows.Forms.Panel();
             this.ChatSearchBar = new YouChatApp.Controls.SearchBar();
             this.GroupSettingsPanel = new System.Windows.Forms.Panel();
+            this.GroupIconCircularPictureBox = new YouChatApp.CircularPictureBox();
+            this.BackgroundCircularPictureBox = new YouChatApp.CircularPictureBox();
             this.GroupSubjectPanel = new System.Windows.Forms.Panel();
+            this.RestartGroupSubjectCustomButton = new YouChatApp.Controls.CustomButton();
             this.GroupSubjectCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.GroupSubjectLengthLabel = new System.Windows.Forms.Label();
             this.GroupSubjectLabel = new System.Windows.Forms.Label();
             this.GroupIconLabel = new System.Windows.Forms.Label();
             this.GroupCreatorSettingsPanel = new System.Windows.Forms.Panel();
             this.GroupCreatorSettingsHeadlineLabel = new System.Windows.Forms.Label();
+            this.ReturnToGroupContactsSelectionCustomButton = new YouChatApp.Controls.CustomButton();
             this.GroupCreatorCustomButton = new YouChatApp.Controls.CustomButton();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.TimeLabel = new System.Windows.Forms.Label();
             this.CurrentChatPanel = new System.Windows.Forms.Panel();
+            this.GroupChatFeaturesPanel = new System.Windows.Forms.Panel();
+            this.GroupChatAddMemberCustomButton = new YouChatApp.Controls.CustomButton();
+            this.GroupChatExitCustomButton = new YouChatApp.Controls.CustomButton();
+            this.DirectChatFeaturesPanel = new System.Windows.Forms.Panel();
+            this.AudioCallCustomButton = new YouChatApp.Controls.CustomButton();
+            this.VideoCallCustomButton = new YouChatApp.Controls.CustomButton();
             this.ChatParticipantsLabel = new System.Windows.Forms.Label();
             this.LastSeenOnlineLabel = new System.Windows.Forms.Label();
             this.CurrentChatNameLabel = new System.Windows.Forms.Label();
+            this.CurrentPictureChatPictureBox = new System.Windows.Forms.PictureBox();
             this.UploadedPictureOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.OptionsPanel = new System.Windows.Forms.Panel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.GroupIconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.TakePhotoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.UploadPhotoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EmojiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MessageOptionsPanel = new System.Windows.Forms.Panel();
-            this.MessageRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.DirectChatFeaturesPanel = new System.Windows.Forms.Panel();
-            this.GroupChatFeaturesPanel = new System.Windows.Forms.Panel();
-            this.GroupIconCircularPictureBox = new YouChatApp.CircularPictureBox();
-            this.BackgroundCircularPictureBox = new YouChatApp.CircularPictureBox();
-            this.RestartGroupSubjectCustomButton = new YouChatApp.Controls.CustomButton();
-            this.ReturnToGroupContactsSelectionCustomButton = new YouChatApp.Controls.CustomButton();
-            this.ContinueToGroupSettingsCustomButton = new YouChatApp.Controls.CustomButton();
-            this.ProfileCustomButton = new YouChatApp.Controls.CustomButton();
             this.TakenImageFile = new YouChatApp.Controls.CustomButton();
+            this.MessageRichTextBox = new System.Windows.Forms.RichTextBox();
             this.MessageSenderCustomButton = new YouChatApp.Controls.CustomButton();
             this.UserFileCustomButton = new YouChatApp.Controls.CustomButton();
             this.ImageFileCustomButton = new YouChatApp.Controls.CustomButton();
             this.EmojiKeyBoardCustomButton = new YouChatApp.Controls.CustomButton();
             this.DrawingFileCustomButton = new YouChatApp.Controls.CustomButton();
-            this.ChatCustomButton = new YouChatApp.Controls.CustomButton();
-            this.NewGroupCustomButton = new YouChatApp.Controls.CustomButton();
-            this.NewContactCustomButton = new YouChatApp.Controls.CustomButton();
-            this.GroupChatAddMemberCustomButton = new YouChatApp.Controls.CustomButton();
-            this.GroupChatExitCustomButton = new YouChatApp.Controls.CustomButton();
-            this.AudioCallCustomButton = new YouChatApp.Controls.CustomButton();
-            this.VideoCallCustomButton = new YouChatApp.Controls.CustomButton();
-            this.CurrentPictureChatPictureBox = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.FriendRequestSenderCustomButton = new YouChatApp.Controls.CustomButton();
-            this.TakePhotoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.UploadPhotoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.EmojiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContactManagementPanel.SuspendLayout();
             this.FriendRequestIdPanel.SuspendLayout();
             this.GroupCreatorBackgroundPanel.SuspendLayout();
             this.GroupCreatorSearchPanel.SuspendLayout();
             this.MessagePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.ChatBackgroundPanel.SuspendLayout();
             this.ChatSearchPanel.SuspendLayout();
             this.GroupSettingsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GroupIconCircularPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackgroundCircularPictureBox)).BeginInit();
             this.GroupSubjectPanel.SuspendLayout();
             this.GroupCreatorSettingsPanel.SuspendLayout();
             this.CurrentChatPanel.SuspendLayout();
+            this.GroupChatFeaturesPanel.SuspendLayout();
+            this.DirectChatFeaturesPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CurrentPictureChatPictureBox)).BeginInit();
             this.OptionsPanel.SuspendLayout();
             this.GroupIconContextMenuStrip.SuspendLayout();
             this.MessageOptionsPanel.SuspendLayout();
-            this.DirectChatFeaturesPanel.SuspendLayout();
-            this.GroupChatFeaturesPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.GroupIconCircularPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BackgroundCircularPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CurrentPictureChatPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // ContactManagementPanel
@@ -162,12 +162,35 @@ namespace YouChatApp
             this.UserTaglineCustomTextBox.PlaceHolderText = "TAGLINE";
             this.UserTaglineCustomTextBox.ReadOnly = false;
             this.UserTaglineCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.UserTaglineCustomTextBox.ShortcutsEnabled = true;
             this.UserTaglineCustomTextBox.Size = new System.Drawing.Size(90, 31);
             this.UserTaglineCustomTextBox.TabIndex = 27;
+            this.UserTaglineCustomTextBox.TabStop = false;
             this.UserTaglineCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.UserTaglineCustomTextBox.TextContent = "";
             this.UserTaglineCustomTextBox.UnderlineStyle = true;
             this.UserTaglineCustomTextBox.TextChangedEvent += new System.EventHandler(this.FriendRequestFields_TextChangedEvent);
+            // 
+            // FriendRequestSenderCustomButton
+            // 
+            this.FriendRequestSenderCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
+            this.FriendRequestSenderCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.FriendRequestSenderCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.Add;
+            this.FriendRequestSenderCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.FriendRequestSenderCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.FriendRequestSenderCustomButton.BorderRadius = 10;
+            this.FriendRequestSenderCustomButton.BorderSize = 0;
+            this.FriendRequestSenderCustomButton.Circular = false;
+            this.FriendRequestSenderCustomButton.FlatAppearance.BorderSize = 0;
+            this.FriendRequestSenderCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FriendRequestSenderCustomButton.ForeColor = System.Drawing.Color.White;
+            this.FriendRequestSenderCustomButton.Location = new System.Drawing.Point(280, 765);
+            this.FriendRequestSenderCustomButton.Name = "FriendRequestSenderCustomButton";
+            this.FriendRequestSenderCustomButton.Size = new System.Drawing.Size(45, 45);
+            this.FriendRequestSenderCustomButton.TabIndex = 25;
+            this.FriendRequestSenderCustomButton.TextColor = System.Drawing.Color.White;
+            this.FriendRequestSenderCustomButton.UseVisualStyleBackColor = false;
+            this.FriendRequestSenderCustomButton.Click += new System.EventHandler(this.FriendRequestSenderCustomButton_Click);
             // 
             // UserIdCustomTextBox
             // 
@@ -190,8 +213,10 @@ namespace YouChatApp
             this.UserIdCustomTextBox.PlaceHolderText = "YouChat ID";
             this.UserIdCustomTextBox.ReadOnly = false;
             this.UserIdCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.UserIdCustomTextBox.ShortcutsEnabled = true;
             this.UserIdCustomTextBox.Size = new System.Drawing.Size(135, 31);
             this.UserIdCustomTextBox.TabIndex = 26;
+            this.UserIdCustomTextBox.TabStop = false;
             this.UserIdCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.UserIdCustomTextBox.TextContent = "";
             this.UserIdCustomTextBox.UnderlineStyle = true;
@@ -257,6 +282,28 @@ namespace YouChatApp
             this.GroupCreatorPanel.Size = new System.Drawing.Size(340, 560);
             this.GroupCreatorPanel.TabIndex = 2;
             // 
+            // ContinueToGroupSettingsCustomButton
+            // 
+            this.ContinueToGroupSettingsCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
+            this.ContinueToGroupSettingsCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.ContinueToGroupSettingsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.ContinueArrow;
+            this.ContinueToGroupSettingsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ContinueToGroupSettingsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ContinueToGroupSettingsCustomButton.BorderRadius = 10;
+            this.ContinueToGroupSettingsCustomButton.BorderSize = 0;
+            this.ContinueToGroupSettingsCustomButton.Circular = false;
+            this.ContinueToGroupSettingsCustomButton.Enabled = false;
+            this.ContinueToGroupSettingsCustomButton.FlatAppearance.BorderSize = 0;
+            this.ContinueToGroupSettingsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ContinueToGroupSettingsCustomButton.ForeColor = System.Drawing.Color.White;
+            this.ContinueToGroupSettingsCustomButton.Location = new System.Drawing.Point(110, 765);
+            this.ContinueToGroupSettingsCustomButton.Name = "ContinueToGroupSettingsCustomButton";
+            this.ContinueToGroupSettingsCustomButton.Size = new System.Drawing.Size(120, 45);
+            this.ContinueToGroupSettingsCustomButton.TabIndex = 29;
+            this.ContinueToGroupSettingsCustomButton.TextColor = System.Drawing.Color.White;
+            this.ContinueToGroupSettingsCustomButton.UseVisualStyleBackColor = false;
+            this.ContinueToGroupSettingsCustomButton.Click += new System.EventHandler(this.ContinueToGroupSettingsCustomButton_Click);
+            // 
             // SelectedContactsPanel
             // 
             this.SelectedContactsPanel.AutoScroll = true;
@@ -295,6 +342,95 @@ namespace YouChatApp
             this.ChatLabel.TabIndex = 4;
             this.ChatLabel.Text = "CHATS";
             // 
+            // ProfileCustomButton
+            // 
+            this.ProfileCustomButton.BackColor = System.Drawing.Color.SkyBlue;
+            this.ProfileCustomButton.BackgroundColor = System.Drawing.Color.SkyBlue;
+            this.ProfileCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.UserProfile2;
+            this.ProfileCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ProfileCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ProfileCustomButton.BorderRadius = 0;
+            this.ProfileCustomButton.BorderSize = 0;
+            this.ProfileCustomButton.Circular = true;
+            this.ProfileCustomButton.FlatAppearance.BorderSize = 0;
+            this.ProfileCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ProfileCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ProfileCustomButton.ForeColor = System.Drawing.Color.White;
+            this.ProfileCustomButton.Location = new System.Drawing.Point(1695, 15);
+            this.ProfileCustomButton.Name = "ProfileCustomButton";
+            this.ProfileCustomButton.Size = new System.Drawing.Size(60, 60);
+            this.ProfileCustomButton.TabIndex = 32;
+            this.ProfileCustomButton.TextColor = System.Drawing.Color.White;
+            this.ToolTip.SetToolTip(this.ProfileCustomButton, "To set the profile");
+            this.ProfileCustomButton.UseVisualStyleBackColor = false;
+            this.ProfileCustomButton.Click += new System.EventHandler(this.ProfileCustomButton_Click);
+            // 
+            // ChatCustomButton
+            // 
+            this.ChatCustomButton.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.ChatCustomButton.BackgroundColor = System.Drawing.Color.DeepSkyBlue;
+            this.ChatCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.Chat;
+            this.ChatCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ChatCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ChatCustomButton.BorderRadius = 5;
+            this.ChatCustomButton.BorderSize = 0;
+            this.ChatCustomButton.Circular = false;
+            this.ChatCustomButton.FlatAppearance.BorderSize = 0;
+            this.ChatCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChatCustomButton.ForeColor = System.Drawing.Color.White;
+            this.ChatCustomButton.Location = new System.Drawing.Point(255, 15);
+            this.ChatCustomButton.Name = "ChatCustomButton";
+            this.ChatCustomButton.Size = new System.Drawing.Size(60, 70);
+            this.ChatCustomButton.TabIndex = 30;
+            this.ChatCustomButton.TextColor = System.Drawing.Color.White;
+            this.ToolTip.SetToolTip(this.ChatCustomButton, "To view the chats");
+            this.ChatCustomButton.UseVisualStyleBackColor = false;
+            this.ChatCustomButton.Click += new System.EventHandler(this.ChatCustomButton_Click);
+            // 
+            // NewGroupCustomButton
+            // 
+            this.NewGroupCustomButton.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.NewGroupCustomButton.BackgroundColor = System.Drawing.Color.DeepSkyBlue;
+            this.NewGroupCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.group;
+            this.NewGroupCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.NewGroupCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.NewGroupCustomButton.BorderRadius = 5;
+            this.NewGroupCustomButton.BorderSize = 0;
+            this.NewGroupCustomButton.Circular = false;
+            this.NewGroupCustomButton.FlatAppearance.BorderSize = 0;
+            this.NewGroupCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewGroupCustomButton.ForeColor = System.Drawing.Color.White;
+            this.NewGroupCustomButton.Location = new System.Drawing.Point(70, 15);
+            this.NewGroupCustomButton.Name = "NewGroupCustomButton";
+            this.NewGroupCustomButton.Size = new System.Drawing.Size(60, 70);
+            this.NewGroupCustomButton.TabIndex = 29;
+            this.NewGroupCustomButton.TextColor = System.Drawing.Color.White;
+            this.ToolTip.SetToolTip(this.NewGroupCustomButton, "To create a new YouChat group");
+            this.NewGroupCustomButton.UseVisualStyleBackColor = false;
+            this.NewGroupCustomButton.Click += new System.EventHandler(this.NewGroupCustomButton_Click);
+            // 
+            // NewContactCustomButton
+            // 
+            this.NewContactCustomButton.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.NewContactCustomButton.BackgroundColor = System.Drawing.Color.DeepSkyBlue;
+            this.NewContactCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.contact;
+            this.NewContactCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.NewContactCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.NewContactCustomButton.BorderRadius = 5;
+            this.NewContactCustomButton.BorderSize = 0;
+            this.NewContactCustomButton.Circular = false;
+            this.NewContactCustomButton.FlatAppearance.BorderSize = 0;
+            this.NewContactCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewContactCustomButton.ForeColor = System.Drawing.Color.White;
+            this.NewContactCustomButton.Location = new System.Drawing.Point(5, 15);
+            this.NewContactCustomButton.Name = "NewContactCustomButton";
+            this.NewContactCustomButton.Size = new System.Drawing.Size(60, 70);
+            this.NewContactCustomButton.TabIndex = 28;
+            this.NewContactCustomButton.TextColor = System.Drawing.Color.White;
+            this.ToolTip.SetToolTip(this.NewContactCustomButton, "To manage friend requests");
+            this.NewContactCustomButton.UseVisualStyleBackColor = false;
+            this.NewContactCustomButton.Click += new System.EventHandler(this.NewContactCustomButton_Click);
+            // 
             // MessagePanel
             // 
             this.MessagePanel.AutoScroll = true;
@@ -303,6 +439,18 @@ namespace YouChatApp
             this.MessagePanel.Name = "MessagePanel";
             this.MessagePanel.Size = new System.Drawing.Size(1402, 775);
             this.MessagePanel.TabIndex = 8;
+            this.MessagePanel.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(1220, 45);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 206);
+            this.pictureBox1.TabIndex = 36;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // ChatBackgroundPanel
             // 
@@ -355,6 +503,33 @@ namespace YouChatApp
             this.GroupSettingsPanel.TabIndex = 28;
             this.GroupSettingsPanel.Visible = false;
             // 
+            // GroupIconCircularPictureBox
+            // 
+            this.GroupIconCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.GroupIconCircularPictureBox.BorderColor = System.Drawing.Color.Gray;
+            this.GroupIconCircularPictureBox.BorderSize = 1;
+            this.GroupIconCircularPictureBox.HasBorder = false;
+            this.GroupIconCircularPictureBox.Location = new System.Drawing.Point(73, 263);
+            this.GroupIconCircularPictureBox.Name = "GroupIconCircularPictureBox";
+            this.GroupIconCircularPictureBox.Size = new System.Drawing.Size(194, 194);
+            this.GroupIconCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.GroupIconCircularPictureBox.TabIndex = 32;
+            this.GroupIconCircularPictureBox.TabStop = false;
+            this.GroupIconCircularPictureBox.BackgroundImageChanged += new System.EventHandler(this.GroupIconCircularPictureBox_BackgroundImageChanged);
+            this.GroupIconCircularPictureBox.Click += new System.EventHandler(this.GroupIconCircularPictureBox_Click);
+            // 
+            // BackgroundCircularPictureBox
+            // 
+            this.BackgroundCircularPictureBox.BackColor = System.Drawing.Color.Black;
+            this.BackgroundCircularPictureBox.BorderColor = System.Drawing.Color.Black;
+            this.BackgroundCircularPictureBox.BorderSize = 2;
+            this.BackgroundCircularPictureBox.HasBorder = false;
+            this.BackgroundCircularPictureBox.Location = new System.Drawing.Point(70, 260);
+            this.BackgroundCircularPictureBox.Name = "BackgroundCircularPictureBox";
+            this.BackgroundCircularPictureBox.Size = new System.Drawing.Size(200, 200);
+            this.BackgroundCircularPictureBox.TabIndex = 31;
+            this.BackgroundCircularPictureBox.TabStop = false;
+            // 
             // GroupSubjectPanel
             // 
             this.GroupSubjectPanel.BackColor = System.Drawing.Color.Aqua;
@@ -366,6 +541,28 @@ namespace YouChatApp
             this.GroupSubjectPanel.Name = "GroupSubjectPanel";
             this.GroupSubjectPanel.Size = new System.Drawing.Size(340, 220);
             this.GroupSubjectPanel.TabIndex = 0;
+            // 
+            // RestartGroupSubjectCustomButton
+            // 
+            this.RestartGroupSubjectCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
+            this.RestartGroupSubjectCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.RestartGroupSubjectCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.RefreshButton;
+            this.RestartGroupSubjectCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.RestartGroupSubjectCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.RestartGroupSubjectCustomButton.BorderRadius = 10;
+            this.RestartGroupSubjectCustomButton.BorderSize = 0;
+            this.RestartGroupSubjectCustomButton.Circular = false;
+            this.RestartGroupSubjectCustomButton.FlatAppearance.BorderSize = 0;
+            this.RestartGroupSubjectCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RestartGroupSubjectCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RestartGroupSubjectCustomButton.ForeColor = System.Drawing.Color.White;
+            this.RestartGroupSubjectCustomButton.Location = new System.Drawing.Point(135, 150);
+            this.RestartGroupSubjectCustomButton.Name = "RestartGroupSubjectCustomButton";
+            this.RestartGroupSubjectCustomButton.Size = new System.Drawing.Size(70, 50);
+            this.RestartGroupSubjectCustomButton.TabIndex = 31;
+            this.RestartGroupSubjectCustomButton.TextColor = System.Drawing.Color.White;
+            this.RestartGroupSubjectCustomButton.UseVisualStyleBackColor = false;
+            this.RestartGroupSubjectCustomButton.Click += new System.EventHandler(this.RestartGroupSubjectCustomButton_Click);
             // 
             // GroupSubjectCustomTextBox
             // 
@@ -388,6 +585,7 @@ namespace YouChatApp
             this.GroupSubjectCustomTextBox.PlaceHolderText = "Choose the YouChat group subject";
             this.GroupSubjectCustomTextBox.ReadOnly = false;
             this.GroupSubjectCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.GroupSubjectCustomTextBox.ShortcutsEnabled = true;
             this.GroupSubjectCustomTextBox.Size = new System.Drawing.Size(300, 85);
             this.GroupSubjectCustomTextBox.TabIndex = 28;
             this.GroupSubjectCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -445,6 +643,27 @@ namespace YouChatApp
             this.GroupCreatorSettingsHeadlineLabel.TabIndex = 31;
             this.GroupCreatorSettingsHeadlineLabel.Text = "NEW CHAT";
             // 
+            // ReturnToGroupContactsSelectionCustomButton
+            // 
+            this.ReturnToGroupContactsSelectionCustomButton.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.ReturnToGroupContactsSelectionCustomButton.BackgroundColor = System.Drawing.Color.DeepSkyBlue;
+            this.ReturnToGroupContactsSelectionCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.ReturnBackArrow;
+            this.ReturnToGroupContactsSelectionCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ReturnToGroupContactsSelectionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ReturnToGroupContactsSelectionCustomButton.BorderRadius = 10;
+            this.ReturnToGroupContactsSelectionCustomButton.BorderSize = 0;
+            this.ReturnToGroupContactsSelectionCustomButton.Circular = false;
+            this.ReturnToGroupContactsSelectionCustomButton.FlatAppearance.BorderSize = 0;
+            this.ReturnToGroupContactsSelectionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReturnToGroupContactsSelectionCustomButton.ForeColor = System.Drawing.Color.White;
+            this.ReturnToGroupContactsSelectionCustomButton.Location = new System.Drawing.Point(20, 30);
+            this.ReturnToGroupContactsSelectionCustomButton.Name = "ReturnToGroupContactsSelectionCustomButton";
+            this.ReturnToGroupContactsSelectionCustomButton.Size = new System.Drawing.Size(80, 40);
+            this.ReturnToGroupContactsSelectionCustomButton.TabIndex = 30;
+            this.ReturnToGroupContactsSelectionCustomButton.TextColor = System.Drawing.Color.White;
+            this.ReturnToGroupContactsSelectionCustomButton.UseVisualStyleBackColor = false;
+            this.ReturnToGroupContactsSelectionCustomButton.Click += new System.EventHandler(this.ReturnToGroupContactsSelectionCustomButton_Click);
+            // 
             // GroupCreatorCustomButton
             // 
             this.GroupCreatorCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
@@ -496,6 +715,107 @@ namespace YouChatApp
             this.CurrentChatPanel.Size = new System.Drawing.Size(1320, 80);
             this.CurrentChatPanel.TabIndex = 0;
             // 
+            // GroupChatFeaturesPanel
+            // 
+            this.GroupChatFeaturesPanel.Controls.Add(this.GroupChatAddMemberCustomButton);
+            this.GroupChatFeaturesPanel.Controls.Add(this.GroupChatExitCustomButton);
+            this.GroupChatFeaturesPanel.Location = new System.Drawing.Point(1185, 17);
+            this.GroupChatFeaturesPanel.Name = "GroupChatFeaturesPanel";
+            this.GroupChatFeaturesPanel.Size = new System.Drawing.Size(110, 50);
+            this.GroupChatFeaturesPanel.TabIndex = 33;
+            // 
+            // GroupChatAddMemberCustomButton
+            // 
+            this.GroupChatAddMemberCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
+            this.GroupChatAddMemberCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.GroupChatAddMemberCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.Add1;
+            this.GroupChatAddMemberCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.GroupChatAddMemberCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.GroupChatAddMemberCustomButton.BorderRadius = 5;
+            this.GroupChatAddMemberCustomButton.BorderSize = 0;
+            this.GroupChatAddMemberCustomButton.Circular = false;
+            this.GroupChatAddMemberCustomButton.FlatAppearance.BorderSize = 0;
+            this.GroupChatAddMemberCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GroupChatAddMemberCustomButton.ForeColor = System.Drawing.Color.White;
+            this.GroupChatAddMemberCustomButton.Location = new System.Drawing.Point(0, 0);
+            this.GroupChatAddMemberCustomButton.Name = "GroupChatAddMemberCustomButton";
+            this.GroupChatAddMemberCustomButton.Size = new System.Drawing.Size(50, 50);
+            this.GroupChatAddMemberCustomButton.TabIndex = 31;
+            this.GroupChatAddMemberCustomButton.TextColor = System.Drawing.Color.White;
+            this.GroupChatAddMemberCustomButton.UseVisualStyleBackColor = false;
+            this.GroupChatAddMemberCustomButton.Click += new System.EventHandler(this.GroupChatAddMemberCustomButton_Click);
+            // 
+            // GroupChatExitCustomButton
+            // 
+            this.GroupChatExitCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
+            this.GroupChatExitCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.GroupChatExitCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.logout;
+            this.GroupChatExitCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.GroupChatExitCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.GroupChatExitCustomButton.BorderRadius = 5;
+            this.GroupChatExitCustomButton.BorderSize = 0;
+            this.GroupChatExitCustomButton.Circular = false;
+            this.GroupChatExitCustomButton.FlatAppearance.BorderSize = 0;
+            this.GroupChatExitCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GroupChatExitCustomButton.ForeColor = System.Drawing.Color.White;
+            this.GroupChatExitCustomButton.Location = new System.Drawing.Point(60, 0);
+            this.GroupChatExitCustomButton.Name = "GroupChatExitCustomButton";
+            this.GroupChatExitCustomButton.Size = new System.Drawing.Size(50, 50);
+            this.GroupChatExitCustomButton.TabIndex = 30;
+            this.GroupChatExitCustomButton.TextColor = System.Drawing.Color.White;
+            this.GroupChatExitCustomButton.UseVisualStyleBackColor = false;
+            this.GroupChatExitCustomButton.Click += new System.EventHandler(this.GroupChatExitCustomButton_Click);
+            // 
+            // DirectChatFeaturesPanel
+            // 
+            this.DirectChatFeaturesPanel.Controls.Add(this.AudioCallCustomButton);
+            this.DirectChatFeaturesPanel.Controls.Add(this.VideoCallCustomButton);
+            this.DirectChatFeaturesPanel.Location = new System.Drawing.Point(1185, 17);
+            this.DirectChatFeaturesPanel.Name = "DirectChatFeaturesPanel";
+            this.DirectChatFeaturesPanel.Size = new System.Drawing.Size(110, 50);
+            this.DirectChatFeaturesPanel.TabIndex = 32;
+            // 
+            // AudioCallCustomButton
+            // 
+            this.AudioCallCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
+            this.AudioCallCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.AudioCallCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.AudioCall;
+            this.AudioCallCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AudioCallCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.AudioCallCustomButton.BorderRadius = 5;
+            this.AudioCallCustomButton.BorderSize = 0;
+            this.AudioCallCustomButton.Circular = false;
+            this.AudioCallCustomButton.FlatAppearance.BorderSize = 0;
+            this.AudioCallCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AudioCallCustomButton.ForeColor = System.Drawing.Color.White;
+            this.AudioCallCustomButton.Location = new System.Drawing.Point(0, 0);
+            this.AudioCallCustomButton.Name = "AudioCallCustomButton";
+            this.AudioCallCustomButton.Size = new System.Drawing.Size(50, 50);
+            this.AudioCallCustomButton.TabIndex = 31;
+            this.AudioCallCustomButton.TextColor = System.Drawing.Color.White;
+            this.AudioCallCustomButton.UseVisualStyleBackColor = false;
+            // 
+            // VideoCallCustomButton
+            // 
+            this.VideoCallCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
+            this.VideoCallCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.VideoCallCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoCall;
+            this.VideoCallCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.VideoCallCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.VideoCallCustomButton.BorderRadius = 5;
+            this.VideoCallCustomButton.BorderSize = 0;
+            this.VideoCallCustomButton.Circular = false;
+            this.VideoCallCustomButton.FlatAppearance.BorderSize = 0;
+            this.VideoCallCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VideoCallCustomButton.ForeColor = System.Drawing.Color.White;
+            this.VideoCallCustomButton.Location = new System.Drawing.Point(60, 0);
+            this.VideoCallCustomButton.Name = "VideoCallCustomButton";
+            this.VideoCallCustomButton.Size = new System.Drawing.Size(50, 50);
+            this.VideoCallCustomButton.TabIndex = 30;
+            this.VideoCallCustomButton.TextColor = System.Drawing.Color.White;
+            this.VideoCallCustomButton.UseVisualStyleBackColor = false;
+            this.VideoCallCustomButton.Click += new System.EventHandler(this.VideoCallCustomButton_Click);
+            // 
             // ChatParticipantsLabel
             // 
             this.ChatParticipantsLabel.AutoSize = true;
@@ -525,6 +845,15 @@ namespace YouChatApp
             this.CurrentChatNameLabel.Size = new System.Drawing.Size(68, 25);
             this.CurrentChatNameLabel.TabIndex = 27;
             this.CurrentChatNameLabel.Text = "Name";
+            // 
+            // CurrentPictureChatPictureBox
+            // 
+            this.CurrentPictureChatPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CurrentPictureChatPictureBox.Location = new System.Drawing.Point(7, 7);
+            this.CurrentPictureChatPictureBox.Name = "CurrentPictureChatPictureBox";
+            this.CurrentPictureChatPictureBox.Size = new System.Drawing.Size(60, 60);
+            this.CurrentPictureChatPictureBox.TabIndex = 26;
+            this.CurrentPictureChatPictureBox.TabStop = false;
             // 
             // UploadedPictureOpenFileDialog
             // 
@@ -556,6 +885,34 @@ namespace YouChatApp
             this.GroupIconContextMenuStrip.Name = "GroupIconContextMenuStrip";
             this.GroupIconContextMenuStrip.Size = new System.Drawing.Size(190, 118);
             // 
+            // TakePhotoToolStripMenuItem
+            // 
+            this.TakePhotoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TakePhotoToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.CameraFlash;
+            this.TakePhotoToolStripMenuItem.Name = "TakePhotoToolStripMenuItem";
+            this.TakePhotoToolStripMenuItem.Size = new System.Drawing.Size(189, 38);
+            this.TakePhotoToolStripMenuItem.Text = "Take Photo";
+            this.TakePhotoToolStripMenuItem.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.TakePhotoToolStripMenuItem.Click += new System.EventHandler(this.TakePhotoToolStripMenuItem_Click);
+            // 
+            // UploadPhotoToolStripMenuItem
+            // 
+            this.UploadPhotoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UploadPhotoToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.UploadImage;
+            this.UploadPhotoToolStripMenuItem.Name = "UploadPhotoToolStripMenuItem";
+            this.UploadPhotoToolStripMenuItem.Size = new System.Drawing.Size(189, 38);
+            this.UploadPhotoToolStripMenuItem.Text = "Upload Photo";
+            this.UploadPhotoToolStripMenuItem.Click += new System.EventHandler(this.UploadPhotoToolStripMenuItem_Click);
+            // 
+            // EmojiToolStripMenuItem
+            // 
+            this.EmojiToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmojiToolStripMenuItem.Image = global::YouChatApp.Properties.Resources._1f6001;
+            this.EmojiToolStripMenuItem.Name = "EmojiToolStripMenuItem";
+            this.EmojiToolStripMenuItem.Size = new System.Drawing.Size(189, 38);
+            this.EmojiToolStripMenuItem.Text = "Emoji";
+            this.EmojiToolStripMenuItem.Click += new System.EventHandler(this.EmojiToolStripMenuItem_Click);
+            // 
             // MessageOptionsPanel
             // 
             this.MessageOptionsPanel.BackColor = System.Drawing.Color.Black;
@@ -571,154 +928,6 @@ namespace YouChatApp
             this.MessageOptionsPanel.Size = new System.Drawing.Size(1400, 65);
             this.MessageOptionsPanel.TabIndex = 29;
             this.MessageOptionsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MessageOptionsPanel_Paint);
-            // 
-            // MessageRichTextBox
-            // 
-            this.MessageRichTextBox.BackColor = System.Drawing.Color.Black;
-            this.MessageRichTextBox.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MessageRichTextBox.ForeColor = System.Drawing.Color.Silver;
-            this.MessageRichTextBox.Location = new System.Drawing.Point(5, 5);
-            this.MessageRichTextBox.Name = "MessageRichTextBox";
-            this.MessageRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.MessageRichTextBox.Size = new System.Drawing.Size(1069, 55);
-            this.MessageRichTextBox.TabIndex = 38;
-            this.MessageRichTextBox.Text = "Here You Write Your Message";
-            this.MessageRichTextBox.Enter += new System.EventHandler(this.MessageRichTextBox_Enter);
-            this.MessageRichTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MessageRichTextBox_KeyDown);
-            this.MessageRichTextBox.Leave += new System.EventHandler(this.MessageRichTextBox_Leave);
-            // 
-            // DirectChatFeaturesPanel
-            // 
-            this.DirectChatFeaturesPanel.Controls.Add(this.AudioCallCustomButton);
-            this.DirectChatFeaturesPanel.Controls.Add(this.VideoCallCustomButton);
-            this.DirectChatFeaturesPanel.Location = new System.Drawing.Point(1185, 17);
-            this.DirectChatFeaturesPanel.Name = "DirectChatFeaturesPanel";
-            this.DirectChatFeaturesPanel.Size = new System.Drawing.Size(110, 50);
-            this.DirectChatFeaturesPanel.TabIndex = 32;
-            // 
-            // GroupChatFeaturesPanel
-            // 
-            this.GroupChatFeaturesPanel.Controls.Add(this.GroupChatAddMemberCustomButton);
-            this.GroupChatFeaturesPanel.Controls.Add(this.GroupChatExitCustomButton);
-            this.GroupChatFeaturesPanel.Location = new System.Drawing.Point(1185, 17);
-            this.GroupChatFeaturesPanel.Name = "GroupChatFeaturesPanel";
-            this.GroupChatFeaturesPanel.Size = new System.Drawing.Size(110, 50);
-            this.GroupChatFeaturesPanel.TabIndex = 33;
-            // 
-            // GroupIconCircularPictureBox
-            // 
-            this.GroupIconCircularPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.GroupIconCircularPictureBox.BorderColor = System.Drawing.Color.Gray;
-            this.GroupIconCircularPictureBox.BorderSize = 1;
-            this.GroupIconCircularPictureBox.HasBorder = false;
-            this.GroupIconCircularPictureBox.Location = new System.Drawing.Point(73, 263);
-            this.GroupIconCircularPictureBox.Name = "GroupIconCircularPictureBox";
-            this.GroupIconCircularPictureBox.Size = new System.Drawing.Size(194, 194);
-            this.GroupIconCircularPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.GroupIconCircularPictureBox.TabIndex = 32;
-            this.GroupIconCircularPictureBox.TabStop = false;
-            this.GroupIconCircularPictureBox.BackgroundImageChanged += new System.EventHandler(this.GroupIconCircularPictureBox_BackgroundImageChanged);
-            this.GroupIconCircularPictureBox.Click += new System.EventHandler(this.GroupIconCircularPictureBox_Click);
-            // 
-            // BackgroundCircularPictureBox
-            // 
-            this.BackgroundCircularPictureBox.BackColor = System.Drawing.Color.Black;
-            this.BackgroundCircularPictureBox.BorderColor = System.Drawing.Color.Black;
-            this.BackgroundCircularPictureBox.BorderSize = 2;
-            this.BackgroundCircularPictureBox.HasBorder = false;
-            this.BackgroundCircularPictureBox.Location = new System.Drawing.Point(70, 260);
-            this.BackgroundCircularPictureBox.Name = "BackgroundCircularPictureBox";
-            this.BackgroundCircularPictureBox.Size = new System.Drawing.Size(200, 200);
-            this.BackgroundCircularPictureBox.TabIndex = 31;
-            this.BackgroundCircularPictureBox.TabStop = false;
-            // 
-            // RestartGroupSubjectCustomButton
-            // 
-            this.RestartGroupSubjectCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
-            this.RestartGroupSubjectCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.RestartGroupSubjectCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.RefreshButton;
-            this.RestartGroupSubjectCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RestartGroupSubjectCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.RestartGroupSubjectCustomButton.BorderRadius = 10;
-            this.RestartGroupSubjectCustomButton.BorderSize = 0;
-            this.RestartGroupSubjectCustomButton.Circular = false;
-            this.RestartGroupSubjectCustomButton.FlatAppearance.BorderSize = 0;
-            this.RestartGroupSubjectCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RestartGroupSubjectCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RestartGroupSubjectCustomButton.ForeColor = System.Drawing.Color.White;
-            this.RestartGroupSubjectCustomButton.Location = new System.Drawing.Point(135, 150);
-            this.RestartGroupSubjectCustomButton.Name = "RestartGroupSubjectCustomButton";
-            this.RestartGroupSubjectCustomButton.Size = new System.Drawing.Size(70, 50);
-            this.RestartGroupSubjectCustomButton.TabIndex = 31;
-            this.RestartGroupSubjectCustomButton.TextColor = System.Drawing.Color.White;
-            this.RestartGroupSubjectCustomButton.UseVisualStyleBackColor = false;
-            this.RestartGroupSubjectCustomButton.Click += new System.EventHandler(this.RestartGroupSubjectCustomButton_Click);
-            // 
-            // ReturnToGroupContactsSelectionCustomButton
-            // 
-            this.ReturnToGroupContactsSelectionCustomButton.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.ReturnToGroupContactsSelectionCustomButton.BackgroundColor = System.Drawing.Color.DeepSkyBlue;
-            this.ReturnToGroupContactsSelectionCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.ReturnBackArrow;
-            this.ReturnToGroupContactsSelectionCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ReturnToGroupContactsSelectionCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.ReturnToGroupContactsSelectionCustomButton.BorderRadius = 10;
-            this.ReturnToGroupContactsSelectionCustomButton.BorderSize = 0;
-            this.ReturnToGroupContactsSelectionCustomButton.Circular = false;
-            this.ReturnToGroupContactsSelectionCustomButton.FlatAppearance.BorderSize = 0;
-            this.ReturnToGroupContactsSelectionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ReturnToGroupContactsSelectionCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ReturnToGroupContactsSelectionCustomButton.Location = new System.Drawing.Point(20, 30);
-            this.ReturnToGroupContactsSelectionCustomButton.Name = "ReturnToGroupContactsSelectionCustomButton";
-            this.ReturnToGroupContactsSelectionCustomButton.Size = new System.Drawing.Size(80, 40);
-            this.ReturnToGroupContactsSelectionCustomButton.TabIndex = 30;
-            this.ReturnToGroupContactsSelectionCustomButton.TextColor = System.Drawing.Color.White;
-            this.ReturnToGroupContactsSelectionCustomButton.UseVisualStyleBackColor = false;
-            this.ReturnToGroupContactsSelectionCustomButton.Click += new System.EventHandler(this.ReturnToGroupContactsSelectionCustomButton_Click);
-            // 
-            // ContinueToGroupSettingsCustomButton
-            // 
-            this.ContinueToGroupSettingsCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
-            this.ContinueToGroupSettingsCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.ContinueToGroupSettingsCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.ContinueArrow;
-            this.ContinueToGroupSettingsCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ContinueToGroupSettingsCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.ContinueToGroupSettingsCustomButton.BorderRadius = 10;
-            this.ContinueToGroupSettingsCustomButton.BorderSize = 0;
-            this.ContinueToGroupSettingsCustomButton.Circular = false;
-            this.ContinueToGroupSettingsCustomButton.Enabled = false;
-            this.ContinueToGroupSettingsCustomButton.FlatAppearance.BorderSize = 0;
-            this.ContinueToGroupSettingsCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ContinueToGroupSettingsCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ContinueToGroupSettingsCustomButton.Location = new System.Drawing.Point(110, 765);
-            this.ContinueToGroupSettingsCustomButton.Name = "ContinueToGroupSettingsCustomButton";
-            this.ContinueToGroupSettingsCustomButton.Size = new System.Drawing.Size(120, 45);
-            this.ContinueToGroupSettingsCustomButton.TabIndex = 29;
-            this.ContinueToGroupSettingsCustomButton.TextColor = System.Drawing.Color.White;
-            this.ContinueToGroupSettingsCustomButton.UseVisualStyleBackColor = false;
-            this.ContinueToGroupSettingsCustomButton.Click += new System.EventHandler(this.ContinueToGroupSettingsCustomButton_Click);
-            // 
-            // ProfileCustomButton
-            // 
-            this.ProfileCustomButton.BackColor = System.Drawing.Color.SkyBlue;
-            this.ProfileCustomButton.BackgroundColor = System.Drawing.Color.SkyBlue;
-            this.ProfileCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.UserProfile2;
-            this.ProfileCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ProfileCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.ProfileCustomButton.BorderRadius = 0;
-            this.ProfileCustomButton.BorderSize = 0;
-            this.ProfileCustomButton.Circular = true;
-            this.ProfileCustomButton.FlatAppearance.BorderSize = 0;
-            this.ProfileCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ProfileCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProfileCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ProfileCustomButton.Location = new System.Drawing.Point(1695, 15);
-            this.ProfileCustomButton.Name = "ProfileCustomButton";
-            this.ProfileCustomButton.Size = new System.Drawing.Size(60, 60);
-            this.ProfileCustomButton.TabIndex = 32;
-            this.ProfileCustomButton.TextColor = System.Drawing.Color.White;
-            this.ToolTip.SetToolTip(this.ProfileCustomButton, "To set the profile");
-            this.ProfileCustomButton.UseVisualStyleBackColor = false;
-            this.ProfileCustomButton.Click += new System.EventHandler(this.ProfileCustomButton_Click);
             // 
             // TakenImageFile
             // 
@@ -740,6 +949,22 @@ namespace YouChatApp
             this.TakenImageFile.TextColor = System.Drawing.Color.White;
             this.TakenImageFile.UseVisualStyleBackColor = false;
             this.TakenImageFile.Click += new System.EventHandler(this.TakenImageFile_Click);
+            // 
+            // MessageRichTextBox
+            // 
+            this.MessageRichTextBox.BackColor = System.Drawing.Color.Black;
+            this.MessageRichTextBox.Enabled = false;
+            this.MessageRichTextBox.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MessageRichTextBox.ForeColor = System.Drawing.Color.Silver;
+            this.MessageRichTextBox.Location = new System.Drawing.Point(5, 5);
+            this.MessageRichTextBox.Name = "MessageRichTextBox";
+            this.MessageRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.MessageRichTextBox.Size = new System.Drawing.Size(1069, 55);
+            this.MessageRichTextBox.TabIndex = 38;
+            this.MessageRichTextBox.Text = "Here You Write Your Message";
+            this.MessageRichTextBox.Enter += new System.EventHandler(this.MessageRichTextBox_Enter);
+            this.MessageRichTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MessageRichTextBox_KeyDown);
+            this.MessageRichTextBox.Leave += new System.EventHandler(this.MessageRichTextBox_Leave);
             // 
             // MessageSenderCustomButton
             // 
@@ -846,224 +1071,6 @@ namespace YouChatApp
             this.DrawingFileCustomButton.UseVisualStyleBackColor = false;
             this.DrawingFileCustomButton.Click += new System.EventHandler(this.DrawingFileCustomButton_Click);
             // 
-            // ChatCustomButton
-            // 
-            this.ChatCustomButton.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.ChatCustomButton.BackgroundColor = System.Drawing.Color.DeepSkyBlue;
-            this.ChatCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.Chat;
-            this.ChatCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ChatCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.ChatCustomButton.BorderRadius = 5;
-            this.ChatCustomButton.BorderSize = 0;
-            this.ChatCustomButton.Circular = false;
-            this.ChatCustomButton.FlatAppearance.BorderSize = 0;
-            this.ChatCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChatCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ChatCustomButton.Location = new System.Drawing.Point(255, 15);
-            this.ChatCustomButton.Name = "ChatCustomButton";
-            this.ChatCustomButton.Size = new System.Drawing.Size(60, 70);
-            this.ChatCustomButton.TabIndex = 30;
-            this.ChatCustomButton.TextColor = System.Drawing.Color.White;
-            this.ToolTip.SetToolTip(this.ChatCustomButton, "To view the chats");
-            this.ChatCustomButton.UseVisualStyleBackColor = false;
-            this.ChatCustomButton.Click += new System.EventHandler(this.ChatCustomButton_Click);
-            // 
-            // NewGroupCustomButton
-            // 
-            this.NewGroupCustomButton.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.NewGroupCustomButton.BackgroundColor = System.Drawing.Color.DeepSkyBlue;
-            this.NewGroupCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.group;
-            this.NewGroupCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.NewGroupCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.NewGroupCustomButton.BorderRadius = 5;
-            this.NewGroupCustomButton.BorderSize = 0;
-            this.NewGroupCustomButton.Circular = false;
-            this.NewGroupCustomButton.FlatAppearance.BorderSize = 0;
-            this.NewGroupCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NewGroupCustomButton.ForeColor = System.Drawing.Color.White;
-            this.NewGroupCustomButton.Location = new System.Drawing.Point(70, 15);
-            this.NewGroupCustomButton.Name = "NewGroupCustomButton";
-            this.NewGroupCustomButton.Size = new System.Drawing.Size(60, 70);
-            this.NewGroupCustomButton.TabIndex = 29;
-            this.NewGroupCustomButton.TextColor = System.Drawing.Color.White;
-            this.ToolTip.SetToolTip(this.NewGroupCustomButton, "To create a new YouChat group");
-            this.NewGroupCustomButton.UseVisualStyleBackColor = false;
-            this.NewGroupCustomButton.Click += new System.EventHandler(this.NewGroupCustomButton_Click);
-            // 
-            // NewContactCustomButton
-            // 
-            this.NewContactCustomButton.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.NewContactCustomButton.BackgroundColor = System.Drawing.Color.DeepSkyBlue;
-            this.NewContactCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.contact;
-            this.NewContactCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.NewContactCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.NewContactCustomButton.BorderRadius = 5;
-            this.NewContactCustomButton.BorderSize = 0;
-            this.NewContactCustomButton.Circular = false;
-            this.NewContactCustomButton.FlatAppearance.BorderSize = 0;
-            this.NewContactCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NewContactCustomButton.ForeColor = System.Drawing.Color.White;
-            this.NewContactCustomButton.Location = new System.Drawing.Point(5, 15);
-            this.NewContactCustomButton.Name = "NewContactCustomButton";
-            this.NewContactCustomButton.Size = new System.Drawing.Size(60, 70);
-            this.NewContactCustomButton.TabIndex = 28;
-            this.NewContactCustomButton.TextColor = System.Drawing.Color.White;
-            this.ToolTip.SetToolTip(this.NewContactCustomButton, "To manage friend requests");
-            this.NewContactCustomButton.UseVisualStyleBackColor = false;
-            this.NewContactCustomButton.Click += new System.EventHandler(this.NewContactCustomButton_Click);
-            // 
-            // GroupChatAddMemberCustomButton
-            // 
-            this.GroupChatAddMemberCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
-            this.GroupChatAddMemberCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.GroupChatAddMemberCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.Add1;
-            this.GroupChatAddMemberCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.GroupChatAddMemberCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.GroupChatAddMemberCustomButton.BorderRadius = 5;
-            this.GroupChatAddMemberCustomButton.BorderSize = 0;
-            this.GroupChatAddMemberCustomButton.Circular = false;
-            this.GroupChatAddMemberCustomButton.FlatAppearance.BorderSize = 0;
-            this.GroupChatAddMemberCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GroupChatAddMemberCustomButton.ForeColor = System.Drawing.Color.White;
-            this.GroupChatAddMemberCustomButton.Location = new System.Drawing.Point(0, 0);
-            this.GroupChatAddMemberCustomButton.Name = "GroupChatAddMemberCustomButton";
-            this.GroupChatAddMemberCustomButton.Size = new System.Drawing.Size(50, 50);
-            this.GroupChatAddMemberCustomButton.TabIndex = 31;
-            this.GroupChatAddMemberCustomButton.TextColor = System.Drawing.Color.White;
-            this.GroupChatAddMemberCustomButton.UseVisualStyleBackColor = false;
-            this.GroupChatAddMemberCustomButton.Click += new System.EventHandler(this.GroupChatAddMemberCustomButton_Click);
-            // 
-            // GroupChatExitCustomButton
-            // 
-            this.GroupChatExitCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
-            this.GroupChatExitCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.GroupChatExitCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.logout;
-            this.GroupChatExitCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.GroupChatExitCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.GroupChatExitCustomButton.BorderRadius = 5;
-            this.GroupChatExitCustomButton.BorderSize = 0;
-            this.GroupChatExitCustomButton.Circular = false;
-            this.GroupChatExitCustomButton.FlatAppearance.BorderSize = 0;
-            this.GroupChatExitCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GroupChatExitCustomButton.ForeColor = System.Drawing.Color.White;
-            this.GroupChatExitCustomButton.Location = new System.Drawing.Point(60, 0);
-            this.GroupChatExitCustomButton.Name = "GroupChatExitCustomButton";
-            this.GroupChatExitCustomButton.Size = new System.Drawing.Size(50, 50);
-            this.GroupChatExitCustomButton.TabIndex = 30;
-            this.GroupChatExitCustomButton.TextColor = System.Drawing.Color.White;
-            this.GroupChatExitCustomButton.UseVisualStyleBackColor = false;
-            this.GroupChatExitCustomButton.Click += new System.EventHandler(this.GroupChatExitCustomButton_Click);
-            // 
-            // AudioCallCustomButton
-            // 
-            this.AudioCallCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
-            this.AudioCallCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.AudioCallCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.AudioCall;
-            this.AudioCallCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.AudioCallCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.AudioCallCustomButton.BorderRadius = 5;
-            this.AudioCallCustomButton.BorderSize = 0;
-            this.AudioCallCustomButton.Circular = false;
-            this.AudioCallCustomButton.FlatAppearance.BorderSize = 0;
-            this.AudioCallCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AudioCallCustomButton.ForeColor = System.Drawing.Color.White;
-            this.AudioCallCustomButton.Location = new System.Drawing.Point(0, 0);
-            this.AudioCallCustomButton.Name = "AudioCallCustomButton";
-            this.AudioCallCustomButton.Size = new System.Drawing.Size(50, 50);
-            this.AudioCallCustomButton.TabIndex = 31;
-            this.AudioCallCustomButton.TextColor = System.Drawing.Color.White;
-            this.AudioCallCustomButton.UseVisualStyleBackColor = false;
-            // 
-            // VideoCallCustomButton
-            // 
-            this.VideoCallCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
-            this.VideoCallCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.VideoCallCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.VideoCall;
-            this.VideoCallCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.VideoCallCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.VideoCallCustomButton.BorderRadius = 5;
-            this.VideoCallCustomButton.BorderSize = 0;
-            this.VideoCallCustomButton.Circular = false;
-            this.VideoCallCustomButton.FlatAppearance.BorderSize = 0;
-            this.VideoCallCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VideoCallCustomButton.ForeColor = System.Drawing.Color.White;
-            this.VideoCallCustomButton.Location = new System.Drawing.Point(60, 0);
-            this.VideoCallCustomButton.Name = "VideoCallCustomButton";
-            this.VideoCallCustomButton.Size = new System.Drawing.Size(50, 50);
-            this.VideoCallCustomButton.TabIndex = 30;
-            this.VideoCallCustomButton.TextColor = System.Drawing.Color.White;
-            this.VideoCallCustomButton.UseVisualStyleBackColor = false;
-            this.VideoCallCustomButton.Click += new System.EventHandler(this.VideoCallCustomButton_Click);
-            // 
-            // CurrentPictureChatPictureBox
-            // 
-            this.CurrentPictureChatPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CurrentPictureChatPictureBox.Location = new System.Drawing.Point(7, 7);
-            this.CurrentPictureChatPictureBox.Name = "CurrentPictureChatPictureBox";
-            this.CurrentPictureChatPictureBox.Size = new System.Drawing.Size(60, 60);
-            this.CurrentPictureChatPictureBox.TabIndex = 26;
-            this.CurrentPictureChatPictureBox.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(1220, 45);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 206);
-            this.pictureBox1.TabIndex = 36;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // FriendRequestSenderCustomButton
-            // 
-            this.FriendRequestSenderCustomButton.BackColor = System.Drawing.Color.RoyalBlue;
-            this.FriendRequestSenderCustomButton.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.FriendRequestSenderCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.Add;
-            this.FriendRequestSenderCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.FriendRequestSenderCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.FriendRequestSenderCustomButton.BorderRadius = 10;
-            this.FriendRequestSenderCustomButton.BorderSize = 0;
-            this.FriendRequestSenderCustomButton.Circular = false;
-            this.FriendRequestSenderCustomButton.FlatAppearance.BorderSize = 0;
-            this.FriendRequestSenderCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FriendRequestSenderCustomButton.ForeColor = System.Drawing.Color.White;
-            this.FriendRequestSenderCustomButton.Location = new System.Drawing.Point(280, 765);
-            this.FriendRequestSenderCustomButton.Name = "FriendRequestSenderCustomButton";
-            this.FriendRequestSenderCustomButton.Size = new System.Drawing.Size(45, 45);
-            this.FriendRequestSenderCustomButton.TabIndex = 25;
-            this.FriendRequestSenderCustomButton.TextColor = System.Drawing.Color.White;
-            this.FriendRequestSenderCustomButton.UseVisualStyleBackColor = false;
-            this.FriendRequestSenderCustomButton.Click += new System.EventHandler(this.FriendRequestSenderCustomButton_Click);
-            // 
-            // TakePhotoToolStripMenuItem
-            // 
-            this.TakePhotoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TakePhotoToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.CameraFlash;
-            this.TakePhotoToolStripMenuItem.Name = "TakePhotoToolStripMenuItem";
-            this.TakePhotoToolStripMenuItem.Size = new System.Drawing.Size(189, 38);
-            this.TakePhotoToolStripMenuItem.Text = "Take Photo";
-            this.TakePhotoToolStripMenuItem.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            this.TakePhotoToolStripMenuItem.Click += new System.EventHandler(this.TakePhotoToolStripMenuItem_Click);
-            // 
-            // UploadPhotoToolStripMenuItem
-            // 
-            this.UploadPhotoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UploadPhotoToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.UploadImage;
-            this.UploadPhotoToolStripMenuItem.Name = "UploadPhotoToolStripMenuItem";
-            this.UploadPhotoToolStripMenuItem.Size = new System.Drawing.Size(189, 38);
-            this.UploadPhotoToolStripMenuItem.Text = "Upload Photo";
-            this.UploadPhotoToolStripMenuItem.Click += new System.EventHandler(this.UploadPhotoToolStripMenuItem_Click);
-            // 
-            // EmojiToolStripMenuItem
-            // 
-            this.EmojiToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmojiToolStripMenuItem.Image = global::YouChatApp.Properties.Resources._1f6001;
-            this.EmojiToolStripMenuItem.Name = "EmojiToolStripMenuItem";
-            this.EmojiToolStripMenuItem.Size = new System.Drawing.Size(189, 38);
-            this.EmojiToolStripMenuItem.Text = "Emoji";
-            this.EmojiToolStripMenuItem.Click += new System.EventHandler(this.EmojiToolStripMenuItem_Click);
-            // 
             // YouChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1085,6 +1092,7 @@ namespace YouChatApp
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "YouChat";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.YouChat_FormClosing);
             this.Load += new System.EventHandler(this.YouChat_Load);
             this.ContactManagementPanel.ResumeLayout(false);
             this.ContactManagementPanel.PerformLayout();
@@ -1093,26 +1101,26 @@ namespace YouChatApp
             this.GroupCreatorBackgroundPanel.ResumeLayout(false);
             this.GroupCreatorSearchPanel.ResumeLayout(false);
             this.MessagePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ChatBackgroundPanel.ResumeLayout(false);
             this.ChatSearchPanel.ResumeLayout(false);
             this.GroupSettingsPanel.ResumeLayout(false);
             this.GroupSettingsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GroupIconCircularPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackgroundCircularPictureBox)).EndInit();
             this.GroupSubjectPanel.ResumeLayout(false);
             this.GroupSubjectPanel.PerformLayout();
             this.GroupCreatorSettingsPanel.ResumeLayout(false);
             this.GroupCreatorSettingsPanel.PerformLayout();
             this.CurrentChatPanel.ResumeLayout(false);
             this.CurrentChatPanel.PerformLayout();
+            this.GroupChatFeaturesPanel.ResumeLayout(false);
+            this.DirectChatFeaturesPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.CurrentPictureChatPictureBox)).EndInit();
             this.OptionsPanel.ResumeLayout(false);
             this.OptionsPanel.PerformLayout();
             this.GroupIconContextMenuStrip.ResumeLayout(false);
             this.MessageOptionsPanel.ResumeLayout(false);
-            this.DirectChatFeaturesPanel.ResumeLayout(false);
-            this.GroupChatFeaturesPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.GroupIconCircularPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BackgroundCircularPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CurrentPictureChatPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1126,10 +1134,13 @@ namespace YouChatApp
         public System.Windows.Forms.Panel MessagePanel;
         public List<System.Windows.Forms.Label> MessageLabels;
         public List<List<MessageControl>> MessageControlListOfLists;
+        public Dictionary<string, List<MessageControl>> MessageControls;
+
         public List<ChatControl> ChatControlListOfContacts;
         public List<FriendRequestControl> ListOfFriendRequestControl;
         public List<ContactControl> ContactControlList;
         public List<ProfileControl> ProfileControlList;
+        public Dictionary<string, Panel> MessagePanels;
         private System.Windows.Forms.Timer Timer;
         private System.Windows.Forms.Label TimeLabel;
         private System.Windows.Forms.Panel CurrentChatPanel;

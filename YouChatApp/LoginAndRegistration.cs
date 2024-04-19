@@ -114,9 +114,9 @@ namespace YouChatApp
         /// </summary>
         public void OpenApp()
         {
-            this.Hide();
-            ServerCommunication._youChat = new YouChat();
-            this.Invoke(new Action(() => ServerCommunication._youChat.ShowDialog()));
+            //this.Hide();
+            //ServerCommunication._youChat = new YouChat(serverCommunicator);
+            //this.Invoke(new Action(() => ServerCommunication._youChat.ShowDialog()));
         }
 
 
@@ -1484,18 +1484,18 @@ namespace YouChatApp
             return angleInDegrees + 90; // Add 90 degrees to align with clicked point
         }
 
-        public void SetProfileDetails(bool IsPhaseOne)
-        {
-            this.Hide();
-            ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne); 
-            this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
-        }
-        public void OpenInitialProfileSelection(Boolean IsPhaseOne)
-        {
-            this.Hide();
-            ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
-            this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
-        }
+        //public void SetProfileDetails(bool IsPhaseOne)
+        //{
+        //    this.Hide();
+        //    ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne); 
+        //    this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
+        //}
+        //public void OpenInitialProfileSelection(Boolean IsPhaseOne)
+        //{
+        //    this.Hide();
+        //    ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
+        //    this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
+        //}
 
     }
 }

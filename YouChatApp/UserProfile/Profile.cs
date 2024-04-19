@@ -55,13 +55,13 @@ namespace YouChatApp
         {
             //to take the information from profiledetailshandler and to insert them to the different controls..
             CurrentStatusLabel.Text += UserProfile.ProfileDetailsHandler.Status; //this is example to everything
-            PrivacySettingsChoicesArray[0] = UserProfile.ProfileDetailsHandler.LastSeenProperty;
-            PrivacySettingsChoicesArray[1] = UserProfile.ProfileDetailsHandler.OnlineProperty;
-            PrivacySettingsChoicesArray[2] = UserProfile.ProfileDetailsHandler.ProfilePictureProperty;
-            PrivacySettingsChoicesArray[3] = UserProfile.ProfileDetailsHandler.StatusProperty;
-            MessageGapScrollBar.Value = UserProfile.ProfileDetailsHandler.MessageGap;
-            MessageTextSizeComboBox.SelectedIndex = UserProfile.ProfileDetailsHandler.TextSize;
-            EnterPressedToggleButton.Checked = UserProfile.ProfileDetailsHandler.EnterKeyPressed;
+           // PrivacySettingsChoicesArray[0] = UserProfile.ProfileDetailsHandler.LastSeenProperty;
+           // PrivacySettingsChoicesArray[1] = UserProfile.ProfileDetailsHandler.OnlineProperty;
+            //PrivacySettingsChoicesArray[2] = UserProfile.ProfileDetailsHandler.ProfilePictureProperty;
+            //PrivacySettingsChoicesArray[3] = UserProfile.ProfileDetailsHandler.StatusProperty;
+            //MessageGapScrollBar.Value = UserProfile.ProfileDetailsHandler.MessageGap;
+            //MessageTextSizeComboBox.SelectedIndex = UserProfile.ProfileDetailsHandler.TextSize;
+           // EnterPressedToggleButton.Checked = UserProfile.ProfileDetailsHandler.EnterKeyPressed;
         }
 
         private void SetPrivacySettingsChoicesArray()

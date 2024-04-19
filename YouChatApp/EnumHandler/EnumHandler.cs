@@ -38,6 +38,11 @@ namespace YouChatApp
             LoginMessage,
             PasswordRenewalMessage
         }
+        public enum MessageType_Enum
+        {
+            Text,
+            Image
+        }
         public enum CommunicationMessageID_Enum
         {
             loginRequest,

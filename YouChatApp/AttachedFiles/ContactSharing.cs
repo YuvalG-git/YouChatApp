@@ -18,7 +18,7 @@ namespace YouChatApp.AttachedFiles
         string SelectedUsers;
         List<string> SelectedContactsList = new List<string>();
         Image AnonymousProfile = global::YouChatApp.Properties.Resources.AnonymousProfile;
-
+        public static string contactData;
         public ContactSharing() //can be use for sending messages from other chats as well - maybe i can send a string or int that represents the event and act accordinglly
         {
             InitializeComponent();
@@ -219,13 +219,6 @@ namespace YouChatApp.AttachedFiles
 
         private void SetContactControlList()
         {
-            //ContactHandler.ContactManager.AddContact("Noam Sfadia", ProfilePictureImageList.MaleProfilePictureImageList.Images[2],"I am cool", DateTime.Now,true,true,true,true,true);
-            //ContactHandler.ContactManager.AddContact("Noam Salomon", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-
-            //ContactHandler.ContactManager.AddContact("Alon Tamir", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            //ContactHandler.ContactManager.AddContact("Ben Raviv", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-            //ContactHandler.ContactManager.AddContact("Yuval Gur", ProfilePictureImageList.MaleProfilePictureImageList.Images[2], "I am cool", DateTime.Now, true, true, true, true, true);
-
             foreach (Contact Contact in ContactManager.UserContacts)
             {
                 if (ContactNumber != 0)
@@ -236,6 +229,7 @@ namespace YouChatApp.AttachedFiles
                 this.ContactControlList[ContactNumber].TabIndex = 0;
                 this.ContactControlList[ContactNumber].ContactName.Text = Contact.Name;
                 this.ContactControlList[ContactNumber].ProfilePicture.Image = Contact.ProfilePicture;
+                this.ContactControlList[ContactNumber].ContactId = Contact.Id;
 
                 this.ContactControlList[ContactNumber].OnCheckBoxClickAcceptedHandler(IsChecked);
                 this.ContactControlList[ContactNumber].OnCheckBoxClickDeniedHandler(IsNotChecked);
@@ -325,19 +319,20 @@ namespace YouChatApp.AttachedFiles
 
         private void SendCustomButton_Click(object sender, EventArgs e)
         {
-            string ContactNameList = "";
+            contactData = "Contact Information:\n";
             foreach (ContactSharingControl Contact in ContactControlList) //maybe i need to add a function here on click on the button that will add this to a string of selected users...
             {
                 if (Contact.ContactSelection.Checked)
                 {
-                    ContactNameList += Contact.ContactName.Text + "#";
+                    contactData += $"{Contact.ContactName.Text}#{Contact.ContactId}\n";
                 }
             }
-            if (ContactNameList != "")
+            if (contactData != "")
             {
-                ContactNameList += DateTime.Now.ToString("HH:mm");
-                //ServerCommunication.SendMessage(ServerCommunication.SendContactMessage + "$" + ContactNameList);
-                MessageBox.Show(ContactNameList);
+                contactData = contactData.Substring(0, contactData.Length - 1);
+                this.DialogResult = DialogResult.OK;
+                MessageBox.Show(contactData);
+                this.Close();
             }
         }
 

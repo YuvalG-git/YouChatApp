@@ -12,11 +12,11 @@ namespace YouChatApp.ChatHandler
     internal class ChatManager
     {
         public static List<ChatDetails> _chats = new List<ChatDetails>();
-        private static string _currentChatName = "";
-        public static string CurrentChatName
+        private static string _currentChatId = "";
+        public static string CurrentChatId
         {
-            get { return _currentChatName; }
-            set { _currentChatName = value; }
+            get { return _currentChatId; }
+            set { _currentChatId = value; }
         }
         public static void AddChat(ChatDetails newChat)
         {

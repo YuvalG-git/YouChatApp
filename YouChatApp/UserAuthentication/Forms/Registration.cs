@@ -19,6 +19,7 @@ namespace YouChatApp.UserAuthentication.Forms
 {
     public partial class Registration : Form
     {
+        private readonly ServerCommunicator serverCommunicator;
         EnumHandler.RegistrationPhases_Enum registrationPhase;
         bool isApprovedUsername = false, isApprovedPassword = false, isApprovedFirstName = false, isApprovedLastName = false, isApprovedEmailAddress = false, isApprovedCityName = false;
         bool MaleButtonIsChecked = false, FemaleButtonIsChecked = false, AnotherGenderButtonIsChecked = false;
@@ -26,6 +27,7 @@ namespace YouChatApp.UserAuthentication.Forms
         public Registration()
         {
             InitializeComponent();
+            serverCommunicator = ServerCommunicator.Instance;
             GenderOptionsCustomComboBox.SelectedIndex = 0;
             PersonalVerificationQuestionsControl.AddButtonClickHandler(HandleSendingEmailProcess);
             PasswordGeneratorControl.OnTextChangedEventHandler(PasswordGeneratorControl_TextChanged);
@@ -45,7 +47,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(enteredSmtpCodeJson);
+            serverCommunicator.SendMessage(enteredSmtpCodeJson);
         }
 
 
@@ -73,7 +75,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(userUsernameAndEmailAddressJson);
+            serverCommunicator.SendMessage(userUsernameAndEmailAddressJson);
         }
         public void HandleRecievedEmail()
         {
@@ -188,8 +190,8 @@ namespace YouChatApp.UserAuthentication.Forms
         public void OpenInitialProfileSelectionForm(Boolean IsPhaseOne)
         {
             this.Hide();
-            ServerCommunication._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
-            this.Invoke(new Action(() => ServerCommunication._initialProfileSelection.ShowDialog()));
+            FormHandler._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
+            this.Invoke(new Action(() => FormHandler._initialProfileSelection.ShowDialog()));
         }
 
         private void FirstNameCustomTextBox_Leave(object sender, EventArgs e)
@@ -457,96 +459,6 @@ namespace YouChatApp.UserAuthentication.Forms
 
         private void SignUpCustomButton_Click(object sender, EventArgs e)
         {
-            //if (!CodeLabel.Visible)
-            //{
-            //    if (username.Contains("#"))
-            //        MessageBox.Show("choose an username which doesn't conatain '#'");
-            //    if (password.Contains("#"))
-            //        MessageBox.Show("choose a password which doesn't conatain '#'");
-            //    if (firstname.Contains("#"))
-            //        MessageBox.Show("choose a firstname which doesn't conatain '#'");
-            //    if (lastname.Contains("#"))
-            //        MessageBox.Show("choose a lastname which doesn't conatain '#'");
-            //    if (email.Contains("#"))
-            //        MessageBox.Show("choose an email which doesn't conatain '#'");
-            //    if (city.Contains("#"))
-            //        MessageBox.Show("choose a city which doesn't conatain '#'");
-            //    if (email.Contains("@"))
-            //    {
-            //        int Index = email.IndexOf("@");
-            //        if (Index == 0)
-            //            MessageBox.Show("That's not an email address");
-            //        else
-            //        {
-            //            int count = GetSpecificCharNumberFromString(email, '@');
-            //            if (count != 1)
-            //            {
-            //                MessageBox.Show("That's not an email address");
-            //            }
-            //            else
-            //            {
-            //                string[] GmailInfo = email.Split('@');
-            //                string GmailEnd = GmailInfo[1];
-            //                if (GmailEnd != "gmail.com")
-            //                {
-            //                    MessageBox.Show("That's not an email address");
-            //                }
-            //                else
-            //                {
-            //                    CodeLabel.Visible = true;
-            //                    CodeTextBox.Visible = true;
-            //                    usernameTextbox.Enabled = false;
-            //                    passwordTextbox.Enabled = false;
-            //                    firstnameTextbox.Enabled = false;
-            //                    lastnameTextbox.Enabled = false;
-            //                    emailTextbox.Enabled = false;
-            //                    cityTextbox.Enabled = false;
-            //                    BirthDateDateTimePicker.Enabled = false;
-            //                    MaleRadioButton.Enabled = false;
-            //                    FemaleRadioButton.Enabled = false;
-            //                    AnotherGenderRadioButton.Enabled = false;
-
-            //                    //string RegistrationDate = DateTime.Today.ToString("yyyy-MM-dd"); ;
-            //                    //string userDetails = username + "#" + password + "#" + firstname + "#" + lastname + "#" + email + "#" + city + "#" + dateOfBirth + "#" + Gender + "#" + RegistrationDate; //to add in the server side the handle of theRegistrationDate 
-            //                    //ServerCommunication.SendMessage(ServerCommunication.registerRequest + "$" + userDetails + "$" + userDetails.Length);
-            //                    registButton.Text = "Verify";
-            //                    registButton.Enabled = false;
-            //                    Thread.Sleep(500);
-            //                    smtpHandler.SendCodeToUserEmail(username, email, RegistrationMessage);
-            //                }
-            //            }
-            //        }
-            //    }
-            //    else
-            //        MessageBox.Show("That's not an email address");
-            //}
-            //else
-            //{
-            //    CodeTextBox.Enabled = false;
-
-            //    if (CodeTextBox.Text == smtpHandler.GetSmtpCode())
-            //    {
-            //        MessageBox.Show("good job");
-            //        string RegistrationDate = DateTime.Today.ToString("yyyy-MM-dd");
-            //        List<string[]> VerificationQuestionsAndAnswers = GenerateVerificationQuestionListOfArrays();
-            //        RegistrationInformation registrationInformation = new RegistrationInformation(username, password, firstname, lastname, email, city, Gender, BirthDateDateTimePicker.Value, DateTime.Today, VerificationQuestionsAndAnswers);
-            //        string chatDetailsJson = JsonConvert.SerializeObject(registrationInformation);
-
-            //        string userDetails = username + "#" + password + "#" + firstname + "#" + lastname + "#" + email + "#" + city + "#" + dateOfBirth + "#" + Gender + "#" + RegistrationDate; //to add in the server side the handle of theRegistrat
-            //        ServerCommunication.SendMessage(ServerCommunication.registerRequest, userDetails);
-            //        //ServerCommunication.SendMessage(ServerCommunication.registerRequest + "$" + userDetails + "$" + userDetails.Length);
-
-            //    }
-            //    else
-            //    {
-            //        CodeTextBox.Text = "";
-            //        registButton.Visible = false;
-            //        ChangeEmailOptionButton.Visible = true;
-            //        NewSMTPCodeOptionButton.Visible = true;
-            //    }
-            //}
-
-
             string username = UsernameCustomTextBox.TextContent;
             string password = PasswordGeneratorControl.GetNewPassword();
             string firstname = FirstNameCustomTextBox.TextContent;
@@ -564,7 +476,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(registrationInformationJson);
+            serverCommunicator.SendMessage(registrationInformationJson);
             SignUpCustomButton.Visible = false;
         }
         private List<string[]> GenerateVerificationQuestionListOfArrays()
@@ -599,8 +511,8 @@ namespace YouChatApp.UserAuthentication.Forms
         private void LoginReturnerCustomButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            ServerCommunication._login = new Login();
-            ServerCommunication._login.ShowDialog();
+            FormHandler._login = new Login();
+            FormHandler._login.ShowDialog();
         }
 
         private void FemaleRadioButton_Click(object sender, EventArgs e)

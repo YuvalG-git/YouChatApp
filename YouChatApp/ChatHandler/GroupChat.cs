@@ -44,5 +44,15 @@ namespace YouChatApp.ChatHandler
                 _chatProfilePicture = value;
             }
         }
+
+        public string ChatParticipantsToString()
+        {
+            string chatParticipants = "";
+            foreach (ChatParticipant chatParticipant in ChatParticipants)
+            {
+                chatParticipants += chatParticipant.Username + ", ";
+            }
+            return chatParticipants.Substring(0, chatParticipants.Length - 2);
+        }
     }
 }

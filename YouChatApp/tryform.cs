@@ -16,6 +16,7 @@ namespace YouChatApp
         {
             InitializeComponent();
             //personalVerificationAnswersControl1.SetQuestions(new string[] { "h", "b", "d", "f", "g" });
+            message1.SetMessageControl();
         }
 
         private void customComboBox1_OnSelectedIndexChanged(object sender, EventArgs e)

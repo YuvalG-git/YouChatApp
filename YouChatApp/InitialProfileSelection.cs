@@ -16,12 +16,15 @@ namespace YouChatApp
 {
     public partial class InitialProfileSelection : Form
     {
+        private readonly ServerCommunicator serverCommunicator;
         public InitialProfileSelection(bool IsPhaseOne)
         {
             InitializeComponent();
-            ServerCommunication.MessageBeginRead();
+            serverCommunicator = ServerCommunicator.Instance;
+            serverCommunicator.BeginRead();
             //ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
             ProfilePictureControl.AddButtonClickHandler(SetConfirmButtonEnabled);
+            ProfileStatusControl.SetServerCommunicator(serverCommunicator);
             if (IsPhaseOne)
             {
                 SetPhaseOne();
@@ -34,8 +37,8 @@ namespace YouChatApp
         public void OpenApp()
         {
             this.Hide();
-            ServerCommunication._youChat = new YouChat();
-            this.Invoke(new Action(() => ServerCommunication._youChat.ShowDialog()));
+            FormHandler._youChat = new YouChat();
+            this.Invoke(new Action(() => FormHandler._youChat.ShowDialog()));
         }
 
         private void SetPhaseOne()
@@ -77,7 +80,7 @@ namespace YouChatApp
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            ServerCommunication.SendMessage(profilePictureIdJson);
+            serverCommunicator.SendMessage(profilePictureIdJson);
         }
     }
 }
