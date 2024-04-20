@@ -144,7 +144,28 @@ namespace YouChatApp
             ChatInformationRequest,
             ChatInformationResponse,
             GroupCreatorRequest,
-            GroupCreatorResponse
+            GroupCreatorResponse,
+            VideoCallRequest,
+            SuccessfulVideoCallResponse_Sender,
+            SuccessfulVideoCallResponse_Reciever,
+            FailedVideoCallResponse,
+            VideoCallAcceptanceRequest,
+            VideoCallDenialRequest,
+            VideoCallAcceptanceResponse,
+            VideoCallDenialResponse,
+            VideoCallMuteRequest,
+            VideoCallMuteResponse,
+            VideoCallUnmuteRequest,
+            VideoCallUnmuteResponse,
+            VideoCallCameraOnRequest,
+            VideoCallCameraOnResponse,
+            VideoCallCameraOffRequest,
+            VideoCallCameraOffResponse,
+            EndVideoCallRequest,
+            EndVideoCallResponse_Sender,
+            EndVideoCallResponse_Reciever,
+            MessageHistoryRequest,
+            MessageHistoryResponse
         }
     }
 }

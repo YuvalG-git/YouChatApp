@@ -23,19 +23,20 @@ namespace YouChatApp
         private static AudioCall _audioCall;
         private static int startingPort = 12345; // Set the starting port you want to use
         private static int localPort;
-        public static void ConnectUdp(string ip, VideoCall videoCall)
+        public static string symmetricKey;
+        public static int ConnectUdp(string ip, VideoCall videoCall)
         {
             _videoCall = videoCall;
             _audioCall = null;
-            HandleConnect(ip);
+            return HandleConnect(ip);
         }
-        public static void ConnectUdp(string ip, AudioCall audioCall)
+        public static int ConnectUdp(string ip, AudioCall audioCall)
         {
             _videoCall = null;
             _audioCall = audioCall;
-            HandleConnect(ip);
+            return HandleConnect(ip);
         }
-        private static void HandleConnect(string ip)
+        private static int HandleConnect(string ip)
         {
             for (int i = startingPort; i < startingPort + 1000; i++) // Try ports in the range startingPort to startingPort + 1000
             {
@@ -49,12 +50,6 @@ namespace YouChatApp
                     localPort = i;
                     udpClient.BeginReceive(new AsyncCallback(ReceiveAudio), null);//starts async listen too screen/camera sharing.
                     Console.WriteLine($"UDP client started on port {localPort}");
-                    JsonObject udpConnectionRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UdpAudioConnectionRequest, localPort.ToString());
-                    string udpConnectionRequestJson = JsonConvert.SerializeObject(udpConnectionRequestJsonObject, new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.Auto
-                    });
-                    ServerCommunication.SendMessage(udpConnectionRequestJson);
                     break; // Exit the loop if binding is successful
                 }
                 catch (SocketException)
@@ -63,6 +58,7 @@ namespace YouChatApp
                     // Continue to the next port
                 }
             }
+            return localPort;
             //_udpIsOn = true;
             //udpClient = new UdpClient();
             //remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 11000);
@@ -84,7 +80,7 @@ namespace YouChatApp
             {
                 try
                 {
-                    byte[] buffer = Encryption.Encryption.EncryptDataToBytes(ServerCommunication.SymmetricKey, data);
+                    byte[] buffer = Encryption.Encryption.EncryptDataToBytes(symmetricKey, data);
                     udpClient.Send(buffer, buffer.Length/*, remoteEndPoint*/);
 
                     //udpClient.Send(data, dataLength/*, remoteEndPoint*/);
@@ -110,7 +106,7 @@ namespace YouChatApp
                     {
                         byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
                         // Decrypt the received data using the client's key
-                        receivedData = Encryption.Encryption.DecryptDataToBytes(ServerCommunication.SymmetricKey, receivedData);
+                        receivedData = Encryption.Encryption.DecryptDataToBytes(symmetricKey, receivedData);
                         if (_videoCall != null) //maybe i should use interface for this... in order to not check each time but just
                         {
                             _videoCall.Invoke((Action)delegate { _videoCall.ReceiveAudioData(receivedData); });

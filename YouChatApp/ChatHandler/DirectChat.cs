@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YouChatApp.ContactHandler;
+using YouChatApp.UserProfile;
 
 namespace YouChatApp.ChatHandler
 {
@@ -27,6 +28,26 @@ namespace YouChatApp.ChatHandler
             set 
             { 
                 _contact = value;
+            }
+        }
+        public string GetContactName()
+        {
+            if (_contact != null)
+            {
+                return _contact.Name;
+            }
+            else
+            {
+                string name;
+                foreach (ChatParticipant chatParticipant in ChatParticipants)
+                {
+                    name = chatParticipant.Username;
+                    if (name != ProfileDetailsHandler.Name)
+                    {
+                        return name;
+                    }
+                }
+                return "";
             }
         }
     }

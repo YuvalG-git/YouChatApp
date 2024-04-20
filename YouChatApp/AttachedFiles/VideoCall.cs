@@ -16,6 +16,8 @@ using AForge.Video.DirectShow;
 using NAudio.Wave;
 using System.Diagnostics.Tracing;
 using YouChatApp.UserProfile;
+using Newtonsoft.Json;
+using YouChatApp.JsonClasses;
 
 namespace YouChatApp.AttachedFiles
 {
@@ -51,7 +53,9 @@ namespace YouChatApp.AttachedFiles
         /// </summary>
         private List<Guid> outputAudioDeviceGuids;
 
+        private readonly ServerCommunicator serverCommunicator;
 
+        private string chatId;
         bool CameraIsOpen = false;
         Image CameraNotOpen = global::YouChatApp.Properties.Resources.VideoClose;
         Image CameraOpen = global::YouChatApp.Properties.Resources.VideoOpen;
@@ -86,20 +90,24 @@ namespace YouChatApp.AttachedFiles
         private bool isFriendMicrophoneMuted;
 
         CallTimer timer;
-        public VideoCall(string name, Image profilePicture)
+        private bool wasOrderedToClose;
+        public VideoCall(string chatId, string name, Image profilePicture)
         {
             InitializeComponent();
             VideoOffImage = ProfileDetailsHandler.ProfilePicture;
             isMyMicrophoneMuted = false;
             CallEnderCustomButton.BorderRadius = 40;
+            this.chatId = chatId;
             _friendName = name;
             FriendNameLabel.Text = name;
             FriendVideoOffImage = profilePicture;
             RemoteVideoPictureBox.BackgroundImage = profilePicture;
             //MyVideoOffImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
-            MyVideoOffImage = profilePicture;
+            MyVideoOffImage = VideoOffImage;
+            wasOrderedToClose = false;
+            UserVideoPictureBox.BackgroundImage = VideoOffImage;
 
-            UserVideoPictureBox.BackgroundImage = MyVideoOffImage;
+            serverCommunicator = ServerCommunicator.Instance;
             //string username = "yuval"; //the user that i try to call to...
             //ServerCommunication.SendMessage(ServerCommunication.UserConnectionCheckRequest,username);
         }
@@ -192,11 +200,11 @@ namespace YouChatApp.AttachedFiles
             {
                 if (_myVideoIsSmall)
                 {
-                    UserVideoPictureBox.Image = VideoOffImage;
+                    UserVideoPictureBox.BackgroundImage = VideoOffImage;
                 }
                 else
                 {
-                    RemoteVideoPictureBox.Image = VideoOffImage;
+                    RemoteVideoPictureBox.BackgroundImage = VideoOffImage;
 
                 }
             }
@@ -276,32 +284,19 @@ namespace YouChatApp.AttachedFiles
                 //udpClient.Send(imageBytes, imageBytes.Length, endPoint);
             }
             Image currentVideoFrame = (System.Drawing.Image)eventArgs.Frame.Clone();
-            using (Graphics graphics = Graphics.FromImage(currentVideoFrame)) //this will be used for the friends vide and mot here for my own...
-            {
-                // Draw the video frame on the context
-                graphics.DrawImage(currentVideoFrame, 0, 0, currentVideoFrame.Width, currentVideoFrame.Height);
-
-                // Draw the overlay image on the context
-                graphics.DrawImage(FriendMicrophoneOffImage, 0, 0,50,50); // todo - to handle the case when my camera hides the microphone symbol - can do it by simply using if and setting the symbol on the button right corner...
-            }
-            int videoPictureBoxWidth;
             if (_myVideoIsSmall)
             {
                 UserVideoPictureBox.Image = currentVideoFrame;
-                videoPictureBoxWidth = UserVideoPictureBox.Width;
             }
             else
             {
                 RemoteVideoPictureBox.Image = currentVideoFrame;
-                videoPictureBoxWidth = RemoteVideoPictureBox.Width;
-
             }
-            //zoomFactor = currentVideoFrame.Width / videoPictureBoxWidth;
-            //DisplayCroppedBackground(currentVideoFrame);
         }
 
         private void CameraModeCustomButton_Click(object sender, EventArgs e)
         {
+            EnumHandler.CommunicationMessageID_Enum CameraModeEnum;
             if (CameraIsOpen == false)
                 CameraIsOpen = true;
             else
@@ -309,12 +304,29 @@ namespace YouChatApp.AttachedFiles
             if (CameraIsOpen == true)
             {
                 CameraModeCustomButton.BackgroundImage = CameraNotOpen;
+                CameraModeEnum = EnumHandler.CommunicationMessageID_Enum.VideoCallCameraOnRequest;
             }
             else
             {
                 CameraModeCustomButton.BackgroundImage = CameraOpen;
+                CameraModeEnum = EnumHandler.CommunicationMessageID_Enum.VideoCallCameraOffRequest;
+                if (_myVideoIsSmall)
+                {
+                    UserVideoPictureBox.Image = null;
+                }
+                else
+                {
+                    RemoteVideoPictureBox.Image = null;
+                }
+
             }
             StartVideoSource();
+            JsonObject videoCallCameraSetUpJsonObject = new JsonObject(CameraModeEnum, chatId);
+            string videoCallCameraSetUpJson = JsonConvert.SerializeObject(videoCallCameraSetUpJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            serverCommunicator.SendMessage(videoCallCameraSetUpJson);
         }
 
 
@@ -331,6 +343,22 @@ namespace YouChatApp.AttachedFiles
         private void MicrophoneModeCustomButton_Click(object sender, EventArgs e)
         {
             AudioHandler.AudioHandler.HandleMicrophoneModeCustomButtonClick(ref audioSourceStream, ref isMyMicrophoneMuted, MicrophoneModeCustomButton, AudioInputDeviceComboBox, sourceStream_DataAvailable);
+            EnumHandler.CommunicationMessageID_Enum MuteStateEnum;
+            if (isMyMicrophoneMuted)
+            {
+                MuteStateEnum = EnumHandler.CommunicationMessageID_Enum.VideoCallMuteRequest;
+            }
+            else
+            {
+                MuteStateEnum = EnumHandler.CommunicationMessageID_Enum.VideoCallUnmuteRequest;
+
+            }
+            JsonObject muteStateJsonObject = new JsonObject(MuteStateEnum, chatId);
+            string muteStateJson = JsonConvert.SerializeObject(muteStateJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            serverCommunicator.SendMessage(muteStateJson);
         }
 
 
@@ -341,6 +369,23 @@ namespace YouChatApp.AttachedFiles
         }
         private void HandleFormClosing()
         {
+            if (!wasOrderedToClose)
+            {
+                JsonObject endVideoCallRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.EndVideoCallRequest, chatId);
+                string endVideoCallRequestJson = JsonConvert.SerializeObject(endVideoCallRequestJsonObject, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto
+                });
+                serverCommunicator.SendMessage(endVideoCallRequestJson);
+                CloseForm();
+            }
+        }
+        private void CloseForm()
+        {
+            if (FormHandler._youChat != null)
+            {
+                this.Invoke(new Action(() => FormHandler._youChat.Show()));
+            }
             AudioHandler.AudioHandler.HandleFormClosing(audioSourceStream, audioWaveOut, watcher);
             VideoServerCommunication.Close();
 
@@ -350,8 +395,8 @@ namespace YouChatApp.AttachedFiles
                 videoSource.WaitForStop();
             }
             timer.StopTimer();
-            //send message to other user that call is over..
         }
+
 
         private void VideoPictureBox_SizeChanged(object sender, EventArgs e)
         {
@@ -451,7 +496,19 @@ namespace YouChatApp.AttachedFiles
 
         public void HandleReceivedImage(Image receivedImage)
         {
+            //Image currentVideoFrame = (Image)receivedImage.Clone();
 
+            //using (Graphics graphics = Graphics.FromImage(currentVideoFrame)) //this will be used for the friends vide and mot here for my own...
+            //{
+            //    // Draw the video frame on the context
+            //    graphics.DrawImage(currentVideoFrame, 0, 0, currentVideoFrame.Width, currentVideoFrame.Height);
+
+            //    if (isFriendMicrophoneMuted)
+            //    {
+            //        graphics.DrawImage(FriendMicrophoneOffImage, 0, 0, 50, 50); // todo - to handle the case when my camera hides the microphone symbol - can do it by simply using if and setting the symbol on the button right corner...
+
+            //    }
+            //}
             if (_myVideoIsSmall)
             {
                 RemoteVideoPictureBox.Image = receivedImage;
@@ -465,6 +522,7 @@ namespace YouChatApp.AttachedFiles
         private void DeclineCallCustomButton_Click(object sender, EventArgs e)
         {
             HandleFormClosing();
+            wasOrderedToClose = true;
             this.Close();
         }
 
@@ -479,13 +537,16 @@ namespace YouChatApp.AttachedFiles
             {
                 ToolTip.SetToolTip(UserVideoPictureBox, _videoToolTipContent);
                 ToolTip.SetToolTip(RemoteVideoPictureBox, _friendVideoToolTipContent);
-                //FriendClosedMicrophonePictureBox.Location = new Point(RemoteVideoPictureBox.Location.X + 1, RemoteVideoPictureBox.Location.Y + 1);
+                UserVideoPictureBox.BackgroundImage = MyVideoOffImage;
+                RemoteVideoPictureBox.BackgroundImage = FriendVideoOffImage;
+
             }
             else
             {
                 ToolTip.SetToolTip(UserVideoPictureBox, _friendVideoToolTipContent);
                 ToolTip.SetToolTip(RemoteVideoPictureBox, _videoToolTipContent);
-                //FriendClosedMicrophonePictureBox.Location = new Point(UserVideoPictureBox.Location.X + 1, UserVideoPictureBox.Location.Y + 1);
+                UserVideoPictureBox.BackgroundImage = FriendVideoOffImage;
+                RemoteVideoPictureBox.BackgroundImage = MyVideoOffImage;
             }
         }
 
@@ -518,63 +579,50 @@ namespace YouChatApp.AttachedFiles
         {
             RefreshAudioList();
         }
-        private void DisplayCroppedBackground(Image capturedFrame)
-        {
-            ////should replace the code downward with this:
-
-
-            ////// Ensure that the cropping region is within the bounds of the image
-            ////cropX = Math.Max(0, cropX);
-            ////cropY = Math.Max(0, cropY);
-            ////cropWidth = Math.Min(capturedFrame.Width - cropX, cropWidth);
-            ////cropHeight = Math.Min(capturedFrame.Height - cropY, cropHeight);
-
-            ////// Create a cropped image
-            ////Bitmap croppedImage = new Bitmap(cropWidth, cropHeight);
-            ////using (Graphics g = Graphics.FromImage(croppedImage))
-            ////{
-            ////    g.DrawImage(capturedFrame, new Rectangle(0, 0, cropWidth, cropHeight), new Rectangle(cropX, cropY, cropWidth, cropHeight), GraphicsUnit.Pixel);
-            ////}
-
-
-
-
-            //// Load the captured frame
-            ////Point location = this.PointToClient(FriendClosedMicrophonePictureBox.Location);
-            ////Point pictureBoxLocation = FriendClosedMicrophonePictureBox.PointToScreen(Point.Empty);
-            ////Point realPictureBoxLocation = this.PointToClient(pictureBoxLocation);
-            //Point pictureBoxLocationOnForm = new Point(VideoPanel.Location.X + FriendClosedMicrophonePictureBox.Location.X, VideoPanel.Location.Y + FriendClosedMicrophonePictureBox.Location.Y);
-            //int cropX = (int)(pictureBoxLocationOnForm.X);
-            //int cropY = (int)(pictureBoxLocationOnForm.Y);
-            //int cropWidth = (int)(FriendClosedMicrophonePictureBox.Width * zoomFactor);
-            //int cropHeight = (int)(FriendClosedMicrophonePictureBox.Height * zoomFactor);
-            //cropX = Math.Max(0, cropX);
-            //cropY = Math.Max(0, cropY);
-            //cropWidth = Math.Min(capturedFrame.Width - cropX, cropWidth);
-            //cropHeight = Math.Min(capturedFrame.Height - cropY, cropHeight);
-
-            //// Define the cropping region (adjust coordinates and size as needed)
-            ////Rectangle cropRegion = new Rectangle(pictureBoxLocationOnForm.X, pictureBoxLocationOnForm.Y, FriendClosedMicrophonePictureBox.Width, FriendClosedMicrophonePictureBox.Height);
-
-            //// Crop the specific region from the captured frame
-            //Bitmap croppedImage = new Bitmap(cropWidth, cropHeight);
-            //using (Graphics g = Graphics.FromImage(croppedImage))
-            //{
-            //    g.DrawImage(capturedFrame, new Rectangle(0, 0, cropWidth, cropHeight), new Rectangle(cropX, cropY, cropWidth, cropHeight), GraphicsUnit.Pixel);
-            //}
-
-            //// Set the cropped image as the background
-            //FriendClosedMicrophonePictureBox.BackgroundImage = croppedImage;
-
-            //// Dispose of the original captured frame
-            //capturedFrame.Dispose();
-        }
+      
 
         private void CameraDeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+        public void HandleMute()
+        {
+            isFriendMicrophoneMuted = false;
+        }
+        public void HandleUnmute()
+        {
+            isFriendMicrophoneMuted = true;
+        }
+        public void HandleCameraOn()
+        {
+            //if (_myVideoIsSmall)
+            //{
+            //    UserVideoPictureBox.Image = FriendVideoOffImage;
+            //}
+            //else
+            //{
+            //    RemoteVideoPictureBox.Image = FriendVideoOffImage;
+            //}
+        }
+        public void HandleCameraOff()
+        {
+            if (_myVideoIsSmall)
+            {
+                UserVideoPictureBox.Image = null;
+            }
+            else
+            {
+                RemoteVideoPictureBox.Image = null;
+            }
+        }
+        public void HandleCallOver()
+        {
+            wasOrderedToClose = true;
 
+            CloseForm();
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.CloseVideoCall(); });
+
+        }
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,20 +9,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YouChatApp.ContactHandler;
+using YouChatApp.JsonClasses;
 
 namespace YouChatApp.AttachedFiles
 {
     public partial class CallInvitation : Form
     {
         private string _friendName;
-        public CallInvitation(string friendName)
+        private string _chatId;
+        private readonly ServerCommunicator serverCommunicator;
+        public CallInvitation(string chatId, string friendName)
         {
             InitializeComponent();
+            serverCommunicator = ServerCommunicator.Instance;
             //ServerCommunication.BeginRead();
             //Contact friendContact = ContactHandler.ContactManager.GetContact(friendName);
             //Image friendImage = friendContact.ProfilePicture;
             //FriendCircularPictureBox.Image = friendImage;
             _friendName = friendName;
+            _chatId = chatId;
             ContentLabel.Text = _friendName + " is calling you";
             ContentLabel.Location = new System.Drawing.Point((FriendInformationPanel.Width - ContentLabel.Width)/2, ContentLabel.Location.Y);
         }
@@ -33,26 +39,33 @@ namespace YouChatApp.AttachedFiles
 
         private void JoinCallCustomButton_Click(object sender, EventArgs e)
         {
-            HandleOptionButtonClick(ServerCommunication.VideoCallResponseResult1);
-            ServerCommunication._videoCall = new VideoCall("Pogur", new Bitmap("C:\\Users\\Yuval\\Downloads\\3f82f9ff-3986-4830-858f-35afc6c6b4e5.png"));
-//todo to change in the future...
-            this.Invoke(new Action(() => ServerCommunication._videoCall.Show()));
+            HandleOptionButtonClick(EnumHandler.CommunicationMessageID_Enum.VideoCallAcceptanceRequest);
+            this.Hide();
         }
+
 
         private void DeclineCallCustomButton_Click(object sender, EventArgs e)
         {
-            HandleOptionButtonClick(ServerCommunication.VideoCallResponseResult2);
+            this.Invoke(new Action(() => FormHandler._youChat.EnableDirectChatFeaturesPanel()));
+            HandleOptionButtonClick(EnumHandler.CommunicationMessageID_Enum.VideoCallDenialRequest);
+            this.Hide();
         }
 
         private void MessageSenderCustomButton_Click(object sender, EventArgs e)
         {
-            HandleOptionButtonClick(ServerCommunication.VideoCallResponseResult2);
-            //needs to send a message as well
+            this.Invoke(new Action(() => FormHandler._youChat.HandleCallMessageSelection(_chatId)));
+            this.Invoke(new Action(() => FormHandler._youChat.EnableDirectChatFeaturesPanel()));
+            HandleOptionButtonClick(EnumHandler.CommunicationMessageID_Enum.VideoCallDenialRequest);
+            this.Hide();
         }
-        private void HandleOptionButtonClick(string messageInformation)
+        private void HandleOptionButtonClick(EnumHandler.CommunicationMessageID_Enum callResponse)
         {
-            string messageContent = messageInformation + "#" + _friendName;
-            ServerCommunication.SendMessage(ServerCommunication.VideoCallResponseSender, messageContent);
+            JsonObject videoCallResponseJsonObject = new JsonObject(callResponse, _chatId);
+            string videoCallResponseJson = JsonConvert.SerializeObject(videoCallResponseJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            serverCommunicator.SendMessage(videoCallResponseJson);
         }
 
         private void CallInvitation_Load(object sender, EventArgs e)
@@ -60,7 +73,6 @@ namespace YouChatApp.AttachedFiles
             JoinCallCustomButton.BorderRadius = 40;
             DeclineCallCustomButton.BorderRadius = 40;
             MessageSenderCustomButton.BorderRadius = 40;
-
         }
     }
 }

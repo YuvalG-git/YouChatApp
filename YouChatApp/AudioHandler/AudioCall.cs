@@ -16,6 +16,8 @@ using AForge.Video;
 using NAudio.CoreAudioApi;
 using YouChatApp.Controls;
 using System.Threading;
+using Newtonsoft.Json;
+using YouChatApp.JsonClasses;
 
 namespace YouChatApp.AttachedFiles
 {
@@ -54,13 +56,33 @@ namespace YouChatApp.AttachedFiles
         private bool isAbleToSend = false;
 
         CallTimer timer;
+
+        private readonly ServerCommunicator serverCommunicator;
         public AudioCall(string name, Image profilePicture)
         {
             InitializeComponent();
+            serverCommunicator = ServerCommunicator.Instance;
             isMyMicrophoneMuted = false;
             CallEnderCustomButton.BorderRadius = 40;
             FriendNameLabel.Text = name;
             ContactProfilePicture.BackgroundImage = profilePicture;
+
+            int portNumber = AudioServerCommunication.ConnectUdp("10.100.102.3", this);
+            JsonObject udpConnectionRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UdpAudioConnectionRequest, portNumber.ToString());
+            string udpConnectionRequestJson = JsonConvert.SerializeObject(udpConnectionRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            serverCommunicator.SendMessage(udpConnectionRequestJson);
+            WaveFormat waveFormat = new WaveFormat(44100, 16, 2);
+            audioBufferedWaveProvider = new BufferedWaveProvider(waveFormat);
+            outputAudioDeviceGuids = new List<Guid>();
+            timer = new CallTimer(CallTimeTimer);
+            audioBufferedWaveProvider.DiscardOnBufferOverflow = true;
+            AudioHandler.AudioHandler.InitializeAudioOutputDeviceList(AudioOutputDeviceComboBox, outputAudioDeviceGuids);
+            AudioHandler.AudioHandler.StartAudioRecording(AudioInputDeviceComboBox, ref audioSourceStream, sourceStream_DataAvailable);
+            AudioHandler.AudioHandler.InitializeAudioInputDeviceList(AudioInputDeviceComboBox, audioSourceStream);
+            InitializeAudioDevicesChangeDetection(); // Start monitoring camera changes.
         }
 
         public void SetIsAbleToSendToTrue()
@@ -116,19 +138,7 @@ namespace YouChatApp.AttachedFiles
 
         private void AudioCall_Load(object sender, EventArgs e)
         {
-            ServerCommunication.Connect("10.100.102.3");
-            ServerCommunication._audioCall = this;
-            Thread.Sleep(10000);
-            AudioServerCommunication.ConnectUdp("10.100.102.3", this);
-            WaveFormat waveFormat = new WaveFormat(44100, 16, 2);
-            audioBufferedWaveProvider = new BufferedWaveProvider(waveFormat);
-            outputAudioDeviceGuids = new List<Guid>();
-            timer = new CallTimer(CallTimeTimer);
-            audioBufferedWaveProvider.DiscardOnBufferOverflow = true;
-            AudioHandler.AudioHandler.InitializeAudioOutputDeviceList(AudioOutputDeviceComboBox, outputAudioDeviceGuids);
-            AudioHandler.AudioHandler.StartAudioRecording(AudioInputDeviceComboBox, ref audioSourceStream, sourceStream_DataAvailable);
-            AudioHandler.AudioHandler.InitializeAudioInputDeviceList(AudioInputDeviceComboBox, audioSourceStream);
-            InitializeAudioDevicesChangeDetection(); // Start monitoring camera changes.
+
         }
 
         private void AudioCall_FormClosing(object sender, FormClosingEventArgs e)

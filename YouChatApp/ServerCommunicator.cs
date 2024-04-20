@@ -53,7 +53,7 @@ namespace YouChatApp
         const string PasswordMessageResponse4 = "Your past details aren't matching";
         public const string FriendRequestResponseSender1 = "Approval";
         public const string FriendRequestResponseSender2 = "Rejection";
-        const string VideoCallResponse1 = "Your friend is offline. Please try to call again.";
+        const string FailedCallRequest = "Your friend is offline. Please try to call again later.";
         const string VideoCallResponse2 = "You have been asked to join a call";
         public const string VideoCallResponseResult1 = "Joining the video call";
         public const string VideoCallResponseResult2 = "Declining the video call";
@@ -426,6 +426,9 @@ namespace YouChatApp
                                 HandleSuccessfulCaptchaImageAngleResponseEnum(jsonObject);
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.UdpAudioConnectionResponse:
+                                string EncryptedUdpSymmetricKeyReciever = jsonObject.MessageBody as string;
+                                string symmetricKey = Rsa.Decrypt(EncryptedUdpSymmetricKeyReciever, PrivateKey);
+                                AudioServerCommunication.symmetricKey = symmetricKey;
                                 FormHandler._audioCall.Invoke((Action)delegate { FormHandler._audioCall.SetIsAbleToSendToTrue(); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulPersonalVerificationAnswersResponse_UpdatePassword:
@@ -549,6 +552,41 @@ namespace YouChatApp
                             case EnumHandler.CommunicationMessageID_Enum.SendMessageResponse:
                                 HandleSendMessageResponseEnum(jsonObject);
                                 break;
+                            case EnumHandler.CommunicationMessageID_Enum.SuccessfulVideoCallResponse_Sender:
+                                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenWaitingForm(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.SuccessfulVideoCallResponse_Reciever:
+                                HandleSuccessfulVideoCallResponse_RecieverEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.FailedVideoCallResponse:
+                                MessageBox.Show(FailedCallRequest);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.VideoCallAcceptanceResponse:
+                                HandleVideoCallAcceptanceResponseEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.VideoCallDenialResponse:
+                                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.CloseWaitingForm(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.VideoCallMuteResponse:
+                                FormHandler._videoCall.Invoke((Action)delegate { FormHandler._videoCall.HandleMute(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.VideoCallUnmuteResponse:
+                                FormHandler._videoCall.Invoke((Action)delegate { FormHandler._videoCall.HandleUnmute(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.VideoCallCameraOnResponse:
+                                FormHandler._videoCall.Invoke((Action)delegate { FormHandler._videoCall.HandleCameraOn(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.VideoCallCameraOffResponse:
+                                FormHandler._videoCall.Invoke((Action)delegate { FormHandler._videoCall.HandleCameraOff(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.EndVideoCallResponse_Reciever:
+                                Console.WriteLine(UserProfile.ProfileDetailsHandler.Name);
+                                FormHandler._videoCall.Invoke((Action)delegate { FormHandler._videoCall.HandleCallOver(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.EndVideoCallResponse_Sender:
+                                Console.WriteLine(UserProfile.ProfileDetailsHandler.Name);
+                                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.CloseVideoCall(); });
+                                break;
                         }
                     }
                     if (isConnected)
@@ -579,6 +617,26 @@ namespace YouChatApp
 
             FormHandler._youChat.ShowDialog();
             //FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenApp(); });
+        }
+        private void HandleSuccessfulVideoCallResponse_RecieverEnum(JsonObject jsonObject)
+        {
+            string[] details = GetFriendName(jsonObject);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenCallInvitation(details[0], details[1]); });
+
+        }
+        private void HandleVideoCallAcceptanceResponseEnum(JsonObject jsonObject)
+        {
+            string[] details = GetFriendName(jsonObject);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenVideoCall(details[0], details[1]); });
+        }
+
+        private string[] GetFriendName(JsonObject jsonObject)
+        {
+            string chatId = jsonObject.MessageBody as string;
+            ChatDetails chatDetails = ChatManager.GetChat(chatId);
+            DirectChat directChat = (DirectChat)chatDetails;
+            string friendName = directChat.GetContactName();
+            return new string[] { chatId, friendName };
         }
         private void HandleSendMessageResponseEnum(JsonObject jsonObject)
         {

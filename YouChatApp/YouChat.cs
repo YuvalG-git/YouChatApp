@@ -67,7 +67,7 @@ namespace YouChatApp
             MessageControlListOfLists.Add(new List<MessageControl>());
             ContactControlList = new List<ContactControl>();
             ProfileControlList = new List<ProfileControl>();
-            MessagePanels = new Dictionary<string,Panel>();
+            MessagePanels = new Dictionary<string, Panel>();
             messageCount = new Dictionary<string, int>();
             MessageControls = new Dictionary<string, List<MessageControl>>();
             AdvancedMessageControls = new Dictionary<string, List<AdvancedMessageControl>>();
@@ -90,6 +90,11 @@ namespace YouChatApp
 
             GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y);
             GroupCreatorPanel.Size = new Size(GroupCreatorPanel.Width, GroupCreatorPanel.Height + SelectedContactsPanel.Height);
+
+            CurrentChatNameLabel.Text = "";
+            ChatStatusLabel.Text = "";
+            ChatParticipantsLabel.Text = "";
+            LastSeenOnlineLabel.Text = "";
         }
 
         private void SetCustomTextBoxsPlaceHolderText()
@@ -186,7 +191,7 @@ namespace YouChatApp
             string Text = ChatSearchBar.SeacrhBar.TextContent;
             while (Text.EndsWith(" "))
             {
-                Text = Text.Substring(0, Text.Length-1);
+                Text = Text.Substring(0, Text.Length - 1);
             }
             string ContactName;
             heightForChats = 0;
@@ -279,7 +284,7 @@ namespace YouChatApp
         }
 
         public void SetContactControlList(List<ContactDetails> contactDetailsList)
-        {       
+        {
             Contact contact;
             foreach (ContactDetails contactDetails in contactDetailsList)
             {
@@ -321,7 +326,7 @@ namespace YouChatApp
             }
             if (location >= 0)
             {
-                this.ContactControlList.Insert(location,new ContactControl());
+                this.ContactControlList.Insert(location, new ContactControl());
                 this.ContactControlList[location].Location = new System.Drawing.Point(0, heightForContacts);
                 this.ContactControlList[location].Name = contact.Name;
                 this.ContactControlList[location].TabIndex = 0;
@@ -389,7 +394,7 @@ namespace YouChatApp
             this.Controls.Add(this.MessagePanels[chatId]);
 
             messageCount.Add(chatId, 0);
-            MessageControls.Add(chatId,new List<MessageControl>());
+            MessageControls.Add(chatId, new List<MessageControl>());
             AdvancedMessageControls.Add(chatId, new List<AdvancedMessageControl>());
 
 
@@ -628,9 +633,18 @@ namespace YouChatApp
             // set contact headline details:
             ChatControl chatControl = (ChatControl)sender;
             string chatId = chatControl.ChatId;
+            HandleChats(chatControl, chatId);
+        }
+        public void HandleChats(ChatControl chatControl,string chatId)
+        {
             if (chatControl.GetFirstClick())
             {
-                //ask server for message history...
+                JsonObject messageHistoryRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.MessageHistoryRequest, chatId);
+                string messageHistoryRequestJson = JsonConvert.SerializeObject(messageHistoryRequestJsonObject, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto
+                });
+                serverCommunicator.SendMessage(messageHistoryRequestJson);
             }
             if (currentMessagePanel != null)
             {
@@ -650,14 +664,15 @@ namespace YouChatApp
             Image chatProfilePicture = null;
             if (chat is DirectChat directChat)
             {
-                chatName = directChat.Contact.Name;
-                chatProfilePicture = directChat.Contact.ProfilePicture;
-
                 setFeaturePanelsVisibility(true);
-
+                chatName = directChat.GetContactName();
                 Contact contact = directChat.Contact;
                 if (contact != null)
                 {
+                    chatProfilePicture = contact.ProfilePicture;
+                    ChatStatusLabel.Text = $"status: {contact.Status}";
+                    ChatStatusLabel.Visible = true;
+                    LastSeenOnlineLabel.Visible = true;
                     if (contact.Online)
                     {
                         LastSeenOnlineLabel.Text = "Online";
@@ -668,9 +683,15 @@ namespace YouChatApp
                         LastSeenOnlineLabel.Text = TimeHandler.GetFormatTime(ContactLastSeenTime);
                     }
                 }
+                else
+                {
+                    ChatStatusLabel.Visible = false;
+                    LastSeenOnlineLabel.Visible = false;
+                    chatProfilePicture = null;
+                }
                 ChatParticipantsLabel.Visible = false;
-                LastSeenOnlineLabel.Visible = true;
-                currentChatType = EnumHandler.ChatType_Enum.Direct; 
+
+                currentChatType = EnumHandler.ChatType_Enum.Direct;
             }
             else if (chat is GroupChat groupChat)
             {
@@ -681,12 +702,23 @@ namespace YouChatApp
                 ChatParticipantsLabel.Visible = true;
                 ChatParticipantsLabel.Text = groupChat.ChatParticipantsToString();
                 LastSeenOnlineLabel.Visible = false;
+                ChatStatusLabel.Visible = false;
                 currentChatType = EnumHandler.ChatType_Enum.Group;
 
 
             }
             CurrentChatNameLabel.Text = chatName;
-            CurrentPictureChatPictureBox.BackgroundImage = chatProfilePicture;    
+            CurrentPictureChatPictureBox.BackgroundImage = chatProfilePicture;
+        }
+        public void HandleCallMessageSelection(string chatId)
+        {
+            foreach (ChatControl chatControl in ChatControlListOfContacts)
+            {
+                if (chatControl.ChatId == chatId)
+                {
+                    HandleChats(chatControl, chatId);
+                }
+            }
         }
 
 
@@ -1109,7 +1141,7 @@ namespace YouChatApp
             Contact SenderContact = ContactHandler.ContactManager.GetContact(messageSenderName);
             string time = TimeHandler.GetFormatTime(messageDateTime);
 
-            ChangeChatLastMessageInformation(chatId,messageDateTime,messageContent, messageSenderName, time);
+            ChangeChatLastMessageInformation(chatId, messageDateTime, messageContent, messageSenderName, time);
 
 
             if (messageNumber != 0)
@@ -1291,7 +1323,7 @@ namespace YouChatApp
                 MessageRichTextBox.ForeColor = Color.White;
             }
         }
-    
+
 
         private void MessageRichTextBox_Leave(object sender, EventArgs e)
         {
@@ -1449,7 +1481,7 @@ namespace YouChatApp
             //string userIdDetails = usernameId + "#" + usernameTagLine;
             //ServerCommunication.SendMessage(ServerCommunication.FriendRequestSender, userIdDetails);
 
-            FriendRequestDetails friendRequestDetails = new FriendRequestDetails(usernameId,usernameTagLine);
+            FriendRequestDetails friendRequestDetails = new FriendRequestDetails(usernameId, usernameTagLine);
             JsonObject friendRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.FriendRequestSender, friendRequestDetails);
             string friendRequestJson = JsonConvert.SerializeObject(friendRequestJsonObject, new JsonSerializerSettings
             {
@@ -1543,7 +1575,7 @@ namespace YouChatApp
         }
         private void GroupIconCircularPictureBox_Click(object sender, EventArgs e)
         {
-            GroupIconContextMenuStrip.Show(GroupIconCircularPictureBox, new Point(GroupIconCircularPictureBox.Width/2, GroupIconCircularPictureBox.Height * 3 / 4));
+            GroupIconContextMenuStrip.Show(GroupIconCircularPictureBox, new Point(GroupIconCircularPictureBox.Width / 2, GroupIconCircularPictureBox.Height * 3 / 4));
 
             //bool GroupIconCircularPictureBoxHasIcon = (GroupIconCircularPictureBox.BackgroundImage != AnonymousProfile);
             //Image groupIcon = OpenFileDialogHandler.HandleOpenFileDialog(UploadedPictureOpenFileDialog);
@@ -1683,13 +1715,61 @@ namespace YouChatApp
 
         private void VideoCallCustomButton_Click(object sender, EventArgs e)
         {
-            string chatName = CurrentChatNameLabel.Text;
-            ServerCommunication._waitingForm = new WaitingForm();
-            this.Invoke(new Action(() => ServerCommunication._waitingForm.ShowDialog()));
-            ServerCommunication.SendMessage(ServerCommunication.VideoCallRequest, chatName);
-           
+            JsonObject videoCallRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.VideoCallRequest, currentChatId);
+            string videoCallRequestJson = JsonConvert.SerializeObject(videoCallRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            serverCommunicator.SendMessage(videoCallRequestJson);
+            DirectChatFeaturesPanel.Enabled = false;
         }
+        public void OpenWaitingForm()
+        {
+            FormHandler._waitingForm = new WaitingForm();
+            this.Invoke(new Action(() => FormHandler._waitingForm.Show()));
+        }
+        public void CloseVideoCall()
+        {
+            FormHandler._videoCall.Close();
+            FormHandler._videoCall.Dispose();
+            EnableDirectChatFeaturesPanel();
+        }
+        public void OpenVideoCall(string chatId, string friendName)
+        {
+            Contact contact = ContactManager.GetContact(friendName);
+            Image profilePicture = contact.ProfilePicture;
+            if (FormHandler._waitingForm != null)
+            {
+                this.Invoke(new Action(() => FormHandler._waitingForm.Hide()));
+                FormHandler._waitingForm.Close();
+                FormHandler._waitingForm.Dispose();
+                FormHandler._waitingForm = null;
+            }
 
+            FormHandler._videoCall = new VideoCall(chatId,friendName, profilePicture);
+            this.Invoke(new Action(() => FormHandler._videoCall.Show()));
+            this.Hide();
+        }
+        public void CloseWaitingForm()
+        {
+            FormHandler._waitingForm.Hide();
+            FormHandler._waitingForm.Close();
+            FormHandler._waitingForm.Dispose();
+            EnableDirectChatFeaturesPanel();
+        }
+        public void OpenCallInvitation(string chatId, string friendName)
+        {
+            FormHandler._callInvitation = new CallInvitation(chatId, friendName);
+            FormHandler._callInvitation.Show();
+            DirectChatFeaturesPanel.Enabled = false;
+
+            //FormHandler._callInvitation.BeginInvoke((Action)delegate { FormHandler._callInvitation.Show(); });
+        }
+        public void EnableDirectChatFeaturesPanel()
+        {
+            DirectChatFeaturesPanel.Enabled = true;
+
+        }
         private void DrawingFileCustomButton_Click(object sender, EventArgs e)
         {
             if (ServerCommunication._paint == null)
