@@ -369,7 +369,7 @@ namespace YouChatApp
             this.ChatControlListOfContacts[ContactChatNumber].ChatId = chatId;
             this.ChatControlListOfContacts[ContactChatNumber].TabIndex = 0;
             this.ChatControlListOfContacts[ContactChatNumber].ChatName.Text = chatName;
-            this.ChatControlListOfContacts[ContactChatNumber].LastMessageContent.Text = chat.LastMessageContent; //will need to crop it...
+            this.ChatControlListOfContacts[ContactChatNumber].LastMessageContent.Text = chat.GetLastMessageData();
             this.ChatControlListOfContacts[ContactChatNumber].LastMessageTime.Text = chat.GetLastMessageTime();
             this.ChatControlListOfContacts[ContactChatNumber].SetLastMessageTimeLocation();
             this.ChatControlListOfContacts[ContactChatNumber].SetToolTip();
@@ -1025,20 +1025,9 @@ namespace YouChatApp
 
             int messageNumber = messageCount[currentChatId];
             List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[currentChatId];
-
-            ChangeChatLastMessageInformation(currentChatId, SendMessageTime, MessageContent);
+            string username = UserProfile.ProfileDetailsHandler.Name;
             string time = TimeHandler.GetFormatTime(SendMessageTime);
-            List<ChatControl> ChatControlListOfContactsCopy = new List<ChatControl>(ChatControlListOfContacts);
-            foreach (ChatControl chat in ChatControlListOfContactsCopy)
-            {
-                if (chat.ChatId == currentChatId)
-                {
-                    chat.LastMessageContent.Text = MessageContent;
-                    chat.LastMessageTime.Text = time;
-                    HandleChatControlProcessForSendingMessage(chat);
-                }
-            }
-
+            ChangeChatLastMessageInformation(currentChatId, SendMessageTime, MessageContent, username, time);
 
             if (messageNumber != 0)
                 heightForMessages = currentMessageControls[messageNumber - 1].Location.Y + currentMessageControls[messageNumber - 1].Size.Height + messageGap;
@@ -1051,7 +1040,7 @@ namespace YouChatApp
             currentMessageControls[messageNumber].Name = $"Id:{currentChatId}-number:{messageNumber}";
             currentMessageControls[messageNumber].TabIndex = 0;
             currentMessageControls[messageNumber].BackColor = SystemColors.Control;
-            currentMessageControls[messageNumber].Username.Text = UserProfile.ProfileDetailsHandler.Name;
+            currentMessageControls[messageNumber].Username.Text = username;
             currentMessageControls[messageNumber].MessageContent.Text = MessageContent;
             currentMessageControls[messageNumber].Time.Text = time;
             currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
@@ -1090,13 +1079,27 @@ namespace YouChatApp
                 chat.Location = new System.Drawing.Point(0, heightForContacts);
             }
         }
-        private void ChangeChatLastMessageInformation(string chatId, DateTime messageDateTime, string messageContent)
+        private void ChangeChatLastMessageInformation(string chatId, DateTime messageDateTime, string messageContent, string messageSenderName, string displayTime)
         {
             ChatDetails chatDetails = ChatHandler.ChatManager.GetChat(chatId);
             chatDetails.LastMessageContent = messageContent;
             chatDetails.LastMessageTime = messageDateTime;
+            chatDetails.LastMessageSenderName = messageSenderName;
             ChatManager._chats.Remove(chatDetails);
             ChatManager._chats.Add(chatDetails);
+
+
+            List<ChatControl> ChatControlListOfContactsCopy = new List<ChatControl>(ChatControlListOfContacts);
+            foreach (ChatControl chat in ChatControlListOfContactsCopy)
+            {
+                if (chat.ChatId == chatId)
+                {
+                    chat.LastMessageContent.Text = chatDetails.GetLastMessageData();
+                    chat.LastMessageTime.Text = displayTime;
+                    chat.SetLastMessageTimeLocation();
+                    HandleChatControlProcessForSendingMessage(chat);
+                }
+            }
         }
         public void HandleMessagesByOthers(string messageSenderName, string chatId, DateTime messageDateTime, string messageContent)
         {
@@ -1106,18 +1109,7 @@ namespace YouChatApp
             Contact SenderContact = ContactHandler.ContactManager.GetContact(messageSenderName);
             string time = TimeHandler.GetFormatTime(messageDateTime);
 
-            ChangeChatLastMessageInformation(chatId,messageDateTime,messageContent);
-            List<ChatControl> ChatControlListOfContactsCopy = new List<ChatControl>(ChatControlListOfContacts);
-            foreach (ChatControl chat in ChatControlListOfContactsCopy)
-            {
-                if (chat.ChatId == currentChatId)
-                {
-                    chat.LastMessageContent.Text = messageContent;
-                    chat.LastMessageTime.Text = time;
-                    HandleChatControlProcessForSendingMessage(chat);
-                }
-            }
-
+            ChangeChatLastMessageInformation(chatId,messageDateTime,messageContent, messageSenderName, time);
 
 
             if (messageNumber != 0)

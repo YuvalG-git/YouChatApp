@@ -356,8 +356,7 @@ namespace YouChatApp
         }
         private void Profile_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.Invoke(new Action(() => ServerCommunication._youChat.SetProfileButtonEnabled()));
-
+            this.Invoke(new Action(() => FormHandler._youChat.SetProfileButtonEnabled()));
         }
 
 

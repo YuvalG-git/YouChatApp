@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YouChatApp.UserProfile;
 
 namespace YouChatApp.ChatHandler
 {
@@ -12,15 +13,18 @@ namespace YouChatApp.ChatHandler
         private string _messageHistory;
         private DateTime? _lastMessageTime;
         private string _lastMessageContent;
+        private string _lastMessageSenderName;
+
         private List<ChatParticipant> _chatParticipants;
 
-        public ChatDetails(string chatTagLineId, string messageHistory, DateTime? lastMessageTime, string lastMessageContent, List<ChatParticipant> chatParticipants)
+        public ChatDetails(string chatTagLineId, string messageHistory, DateTime? lastMessageTime, string lastMessageContent, string lastMessageSenderName, List<ChatParticipant> chatParticipants)
         {
             _chatTagLineId = chatTagLineId;
             _messageHistory = messageHistory;
             _lastMessageTime = lastMessageTime;
             _lastMessageContent = lastMessageContent;
             _chatParticipants = chatParticipants;
+            _lastMessageSenderName = lastMessageSenderName;
         }
 
         public string ChatTagLineId
@@ -67,6 +71,17 @@ namespace YouChatApp.ChatHandler
                 _lastMessageContent = value;
             }
         }
+        public string LastMessageSenderName
+        {
+            get
+            {
+                return _lastMessageSenderName;
+            }
+            set
+            {
+                _lastMessageSenderName = value;
+            }
+        }
         public List<ChatParticipant> ChatParticipants
         {
             get
@@ -102,6 +117,16 @@ namespace YouChatApp.ChatHandler
         public DateTime? GetLastMessageTimeObject()
         {
             return _lastMessageTime;
+        }
+        public string GetLastMessageData()
+        {
+            if ((_lastMessageContent == "") || (LastMessageSenderName == ""))
+            {
+                return "";
+            }
+            string name = (_lastMessageSenderName == ProfileDetailsHandler.Name) ? "you" : _lastMessageSenderName;
+            string lastMessageData = $"{name}: {_lastMessageContent}";
+            return lastMessageData;
         }
     }
 }

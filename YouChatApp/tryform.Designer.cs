@@ -28,8 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.chatControl1 = new YouChatApp.ChatControl();
             this.message1 = new YouChatApp.AdvancedMessageControl();
             this.SuspendLayout();
+            // 
+            // chatControl1
+            // 
+            this.chatControl1.BackgroundColor = System.Drawing.Color.Transparent;
+            this.chatControl1.BorderColor = System.Drawing.Color.CornflowerBlue;
+            this.chatControl1.ChatId = null;
+            this.chatControl1.Location = new System.Drawing.Point(213, 136);
+            this.chatControl1.Name = "chatControl1";
+            this.chatControl1.OnFocusBackgroundColor = System.Drawing.Color.CornflowerBlue;
+            this.chatControl1.Size = new System.Drawing.Size(315, 80);
+            this.chatControl1.TabIndex = 1;
             // 
             // message1
             // 
@@ -41,7 +53,7 @@
             this.message1.MessageType = YouChatApp.EnumHandler.MessageType_Enum.Text;
             this.message1.MinimumSize = new System.Drawing.Size(175, 70);
             this.message1.Name = "message1";
-            this.message1.Size = new System.Drawing.Size(408, 78);
+            this.message1.Size = new System.Drawing.Size(408, 70);
             this.message1.TabIndex = 0;
             // 
             // tryform
@@ -49,6 +61,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 684);
+            this.Controls.Add(this.chatControl1);
             this.Controls.Add(this.message1);
             this.Name = "tryform";
             this.Text = "tryform";
@@ -60,5 +73,6 @@
         #endregion
 
         private AdvancedMessageControl message1;
+        private ChatControl chatControl1;
     }
 }

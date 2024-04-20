@@ -16,6 +16,8 @@ namespace YouChatApp.Controls
     public partial class ProfileStatusControl : UserControl
     {
         private bool IsSelectedStatusShownProperty = true;
+        public event EventHandler SaveStatusCustomButtonClick;
+
         public ProfileStatusControl()
         {
             InitializeComponent();
@@ -85,19 +87,23 @@ namespace YouChatApp.Controls
         {
             if (ProfileStatusCustomTextBox.IsContainingValue())
                 setStatus(ProfileStatusCustomTextBox.TextContent);
-            string ProfileStatus = Status;
-            JsonObject profileStatusJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UploadStatusRequest, ProfileStatus);
-            string profileStatusJson = JsonConvert.SerializeObject(profileStatusJsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            ServerCommunication.SendMessage(profileStatusJson);
+            SaveStatusCustomButtonClick?.Invoke(this, e);
             RefreshProfileStatusCustomTextBoxContent();
         }
+        public void AddSaveStatusCustomButtonClickHandler(EventHandler handler)
+        {
+            SaveStatusCustomButtonClick += handler;
+        }
+    
         public void setStatus(string status)
         {
             CurrentStatusLabel.Text = CurrentStatusLabel.Text.Substring(0, 16) + status;
         }
+        public string GetStatus()
+        {
+            return ProfileStatusCustomTextBox.TextContent;
+        }
+
 
         private void StatusMainPanel_Paint(object sender, PaintEventArgs e)
         {

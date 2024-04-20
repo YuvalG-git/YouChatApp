@@ -22,12 +22,7 @@ namespace YouChatApp.UserAuthentication.Forms
             serverCommunicator = ServerCommunicator.Instance;
             ProfilePictureControl.AddButtonClickHandler(SetConfirmButtonEnabled);
         }
-        public void OpenApp()
-        {
-            this.Hide();
-            FormHandler._youChat = new YouChat();
-            this.Invoke(new Action(() => FormHandler._youChat.Show()));
-        }
+
 
         public void SetConfirmButtonEnabled(object sender, EventArgs e)
         {
@@ -54,6 +49,7 @@ namespace YouChatApp.UserAuthentication.Forms
             FormHandler._profileStatusSelector = new ProfileStatusSelector();
             this.Invoke(new Action(() => FormHandler._profileStatusSelector.Show()));
         }
+
 
         private void ConfirmCustomButton_Click(object sender, EventArgs e)
         {

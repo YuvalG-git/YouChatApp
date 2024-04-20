@@ -35,7 +35,9 @@
             this.TimeLabel = new System.Windows.Forms.Label();
             this.OptionalMessageOrAddUserButton = new System.Windows.Forms.Button();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.ProfilePictureCustomPictureBox = new YouChatApp.Controls.CustomPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCustomPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ProfilePictureCircularPictureBox
@@ -97,10 +99,28 @@
             this.OptionalMessageOrAddUserButton.Visible = false;
             this.OptionalMessageOrAddUserButton.Click += new System.EventHandler(this.OptionalMessageOrAddUserButton_Click);
             // 
+            // ProfilePictureCustomPictureBox
+            // 
+            this.ProfilePictureCustomPictureBox.BackgroundImage = global::YouChatApp.Properties.Resources.AnonymousProfile;
+            this.ProfilePictureCustomPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ProfilePictureCustomPictureBox.BorderCapStyle = System.Drawing.Drawing2D.DashCap.Flat;
+            this.ProfilePictureCustomPictureBox.BorderColor = System.Drawing.Color.RoyalBlue;
+            this.ProfilePictureCustomPictureBox.BorderColor2 = System.Drawing.Color.HotPink;
+            this.ProfilePictureCustomPictureBox.BorderLineStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            this.ProfilePictureCustomPictureBox.BorderSize = 3;
+            this.ProfilePictureCustomPictureBox.GradientAngle = 50F;
+            this.ProfilePictureCustomPictureBox.Location = new System.Drawing.Point(10, 10);
+            this.ProfilePictureCustomPictureBox.Name = "ProfilePictureCustomPictureBox";
+            this.ProfilePictureCustomPictureBox.Size = new System.Drawing.Size(60, 60);
+            this.ProfilePictureCustomPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ProfilePictureCustomPictureBox.TabIndex = 5;
+            this.ProfilePictureCustomPictureBox.TabStop = false;
+            // 
             // ChatControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ProfilePictureCustomPictureBox);
             this.Controls.Add(this.OptionalMessageOrAddUserButton);
             this.Controls.Add(this.TimeLabel);
             this.Controls.Add(this.LastMessageLabel);
@@ -112,6 +132,7 @@
             this.MouseEnter += new System.EventHandler(this.ChatControl_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.ChatControl_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCustomPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,5 +146,6 @@
         private System.Windows.Forms.Label TimeLabel;
         private System.Windows.Forms.Button OptionalMessageOrAddUserButton;
         private System.Windows.Forms.ToolTip ToolTip;
+        private Controls.CustomPictureBox ProfilePictureCustomPictureBox;
     }
 }

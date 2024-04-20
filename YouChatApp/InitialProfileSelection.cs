@@ -17,6 +17,7 @@ namespace YouChatApp
     public partial class InitialProfileSelection : Form
     {
         private readonly ServerCommunicator serverCommunicator;
+
         public InitialProfileSelection(bool IsPhaseOne)
         {
             InitializeComponent();

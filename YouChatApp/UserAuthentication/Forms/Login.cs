@@ -148,6 +148,18 @@ namespace YouChatApp.UserAuthentication.Forms
             FormHandler._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
             this.Invoke(new Action(() => FormHandler._initialProfileSelection.Show()));
         }
+        public void OpenStatusSelector()
+        {
+            this.Hide();
+            FormHandler._profileStatusSelector = new ProfileStatusSelector();
+            this.Invoke(new Action(() => FormHandler._profileStatusSelector.Show()));
+        }
+        public void OpenProfilePictureSelector()
+        {
+            this.Hide();
+            FormHandler._profilePictureSelector = new ProfilePictureSelector();
+            this.Invoke(new Action(() => FormHandler._profilePictureSelector.Show()));
+        }
         public void OpenApp()
         {
             this.Hide();

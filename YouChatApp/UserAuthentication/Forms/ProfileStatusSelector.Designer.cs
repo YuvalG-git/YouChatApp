@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.profileStatusControl1 = new YouChatApp.Controls.ProfileStatusControl();
+            this.ProfileStatusControl = new YouChatApp.Controls.ProfileStatusControl();
             this.SuspendLayout();
             // 
-            // profileStatusControl1
+            // ProfileStatusControl
             // 
-            this.profileStatusControl1.IsSelectedStatusShown = true;
-            this.profileStatusControl1.Location = new System.Drawing.Point(72, 32);
-            this.profileStatusControl1.Name = "profileStatusControl1";
-            this.profileStatusControl1.Size = new System.Drawing.Size(320, 345);
-            this.profileStatusControl1.TabIndex = 0;
+            this.ProfileStatusControl.IsSelectedStatusShown = false;
+            this.ProfileStatusControl.Location = new System.Drawing.Point(208, 51);
+            this.ProfileStatusControl.Name = "ProfileStatusControl";
+            this.ProfileStatusControl.Size = new System.Drawing.Size(320, 235);
+            this.ProfileStatusControl.TabIndex = 0;
             // 
             // ProfileStatusSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.profileStatusControl1);
+            this.Controls.Add(this.ProfileStatusControl);
             this.Name = "ProfileStatusSelector";
             this.Text = "ProfileStatusSelector";
             this.ResumeLayout(false);
@@ -53,6 +53,6 @@
 
         #endregion
 
-        private Controls.ProfileStatusControl profileStatusControl1;
+        private Controls.ProfileStatusControl ProfileStatusControl;
     }
 }

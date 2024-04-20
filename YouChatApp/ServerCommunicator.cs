@@ -375,7 +375,8 @@ namespace YouChatApp
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.UploadStatusResponse:
                                 ProfileStatus = jsonObject.MessageBody as string;
-                                FormHandler._initialProfileSelection.Invoke((Action)delegate { FormHandler._initialProfileSelection.OpenApp(); });
+                                FormHandler._profileStatusSelector.Invoke((Action)delegate { FormHandler._profileStatusSelector.OpenApp(); });
+                                //FormHandler._initialProfileSelection.Invoke((Action)delegate { FormHandler._initialProfileSelection.OpenApp(); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.RegistrationResponse_SmtpRegistrationMessage:
                                 FormHandler._registration.Invoke((Action)delegate { FormHandler._registration.HandleRecievedEmail(); });
@@ -432,11 +433,15 @@ namespace YouChatApp
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulPersonalVerificationAnswersResponse_SetUserProfilePicture:
                             case EnumHandler.CommunicationMessageID_Enum.InitialProfileSettingsCheckResponse_SetUserProfilePicture:
-                                FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenInitialProfileSelection(true); });
+                                FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenProfilePictureSelector(); });
+
+                                //FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenInitialProfileSelection(true); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulPersonalVerificationAnswersResponse_SetUserStatus:
                             case EnumHandler.CommunicationMessageID_Enum.InitialProfileSettingsCheckResponse_SetUserStatus:
-                                FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenInitialProfileSelection(false); });
+                                FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenStatusSelector(); });
+
+                                //FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenInitialProfileSelection(false); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulPersonalVerificationAnswersResponse_OpenChat:
                             case EnumHandler.CommunicationMessageID_Enum.InitialProfileSettingsCheckResponse_OpenChat:
