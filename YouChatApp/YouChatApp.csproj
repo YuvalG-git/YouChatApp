@@ -197,11 +197,11 @@
     <Compile Include="Controls\CustomDateTimePicker.Designer.cs">
       <DependentUpon>CustomDateTimePicker.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Message.cs">
+    <Compile Include="Controls\AdvancedMessageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\Message.Designer.cs">
-      <DependentUpon>Message.cs</DependentUpon>
+    <Compile Include="Controls\AdvancedMessageControl.Designer.cs">
+      <DependentUpon>AdvancedMessageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\PersonalVerificationAnswersControl.cs">
       <SubType>UserControl</SubType>
@@ -240,6 +240,7 @@
     <Compile Include="JsonClasses\JsonObject.cs" />
     <Compile Include="JsonClasses\EncryptionKeys.cs" />
     <Compile Include="JsonClasses\Message.cs" />
+    <Compile Include="JsonClasses\Message2.cs" />
     <Compile Include="JsonClasses\PasswordUpdateDetails.cs" />
     <Compile Include="JsonClasses\PastFriendRequest.cs" />
     <Compile Include="JsonClasses\PastFriendRequests.cs" />
@@ -421,6 +422,18 @@
     <Compile Include="MessageType.cs" />
     <Compile Include="OpenFileDialogHandler.cs" />
     <Compile Include="PanelHandler.cs" />
+    <Compile Include="UserAuthentication\Forms\ProfilePictureSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserAuthentication\Forms\ProfilePictureSelector.Designer.cs">
+      <DependentUpon>ProfilePictureSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserAuthentication\Forms\ProfileStatusSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserAuthentication\Forms\ProfileStatusSelector.Designer.cs">
+      <DependentUpon>ProfileStatusSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserAuthentication\HandlerClasses\PasswordHandler.cs" />
     <Compile Include="Properties\Audio.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -614,8 +627,8 @@
     <EmbeddedResource Include="Controls\FriendRequestControl.resx">
       <DependentUpon>FriendRequestControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Message.resx">
-      <DependentUpon>Message.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\AdvancedMessageControl.resx">
+      <DependentUpon>AdvancedMessageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PasswordGeneratorControl.resx">
       <DependentUpon>PasswordGeneratorControl.cs</DependentUpon>
@@ -672,6 +685,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserAuthentication\Forms\PasswordUpdate.resx">
       <DependentUpon>PasswordUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAuthentication\Forms\ProfilePictureSelector.resx">
+      <DependentUpon>ProfilePictureSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAuthentication\Forms\ProfileStatusSelector.resx">
+      <DependentUpon>ProfileStatusSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserAuthentication\Forms\Registration.resx">
       <DependentUpon>Registration.cs</DependentUpon>
