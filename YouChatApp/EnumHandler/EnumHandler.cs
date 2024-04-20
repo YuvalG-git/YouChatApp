@@ -165,7 +165,9 @@ namespace YouChatApp
             EndVideoCallResponse_Sender,
             EndVideoCallResponse_Reciever,
             MessageHistoryRequest,
-            MessageHistoryResponse
+            MessageHistoryResponse,
+            OnlineUpdate,
+            OfflineUpdate
         }
     }
 }

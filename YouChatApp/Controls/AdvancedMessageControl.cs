@@ -35,7 +35,7 @@ namespace YouChatApp
         private MessageType_Enum messageType = MessageType_Enum.Text;
         Image DeleteImage = global::YouChatApp.Properties.Resources.Delete;
         Image CopyImage = global::YouChatApp.Properties.Resources.Copy;
-
+        
         private System.Windows.Forms.Button[] MenuButtons;
         public AdvancedMessageControl()
         {
@@ -137,7 +137,7 @@ namespace YouChatApp
             int realWidth = NewWidth > TextMessageNormalWidth ? NewWidth : TextMessageNormalWidth;
             this.Width = realWidth;
             int TimeLabelYCoordination = MessageLabel.Height + MessageLabel.Location.Y + 5;
-            int TimeLabelXCoordination = MessageLabel.Width + MessageLabel.Location.X - TimeLabel.Width + 5;
+            int TimeLabelXCoordination = realWidth - TimeLabel.Width - 25;
             TimeLabel.Location = new System.Drawing.Point(TimeLabelXCoordination, TimeLabelYCoordination); //todo fix the height when sending multiline for the whole control,timelabel and menubutton
             this.Height = TimeLabel.Height + TimeLabel.Location.Y + 10;
             this.Size = new System.Drawing.Size(this.Width, this.Height);
@@ -297,20 +297,23 @@ namespace YouChatApp
         }
         public void SetBackColorByMessageSender()
         {
-            //this.BackColor = Color.MediumSeaGreen;
-            //foreach (Button MenuButton in MenuButtons)
-            //{
-            //    MenuButton.BackColor = Color.MediumSeaGreen;
-            //    MenuButton.FlatStyle = FlatStyle.Flat;
-            //    MenuButton.FlatAppearance.BorderColor = Color.SeaGreen;
-
-            //}
             this.BackColor = Color.PaleTurquoise;
             foreach (Button MenuButton in MenuButtons)
             {
                 MenuButton.BackColor = Color.PaleTurquoise;
                 MenuButton.FlatStyle = FlatStyle.Flat;
                 MenuButton.FlatAppearance.BorderColor = Color.PaleTurquoise;
+
+            }
+        }
+        public void SetBackColorByOtherSender()
+        {
+            this.BackColor = Color.LightGray;
+            foreach (Button MenuButton in MenuButtons)
+            {
+                MenuButton.BackColor = Color.LightGray;
+                MenuButton.FlatStyle = FlatStyle.Flat;
+                MenuButton.FlatAppearance.BorderColor = Color.LightGray;
 
             }
         }
@@ -327,7 +330,8 @@ namespace YouChatApp
                 {
                     using (Pen PenSurface = new Pen(this.Parent.BackColor, 2))
                     {
-                        using (Pen PenBorder = new Pen(Color.MediumTurquoise, 2))
+                        Color color = (this.Parent.BackColor == Color.PaleTurquoise) ? Color.MediumTurquoise : Color.DimGray;
+                        using (Pen PenBorder = new Pen(color, 2))
                         {
                             PenBorder.Alignment = PenAlignment.Inset;
                             this.Region = new Region(PathSurface);

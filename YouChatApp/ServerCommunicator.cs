@@ -20,7 +20,9 @@ using YouChatApp.ChatHandler2;
 using YouChatApp.ContactHandler;
 using YouChatApp.Encryption;
 using YouChatApp.JsonClasses;
+using YouChatApp.JsonClasses.MessageClasses;
 using YouChatApp.UserAuthentication.Forms;
+using YouChatApp.UserProfile;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -587,6 +589,16 @@ namespace YouChatApp
                                 Console.WriteLine(UserProfile.ProfileDetailsHandler.Name);
                                 FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.CloseVideoCall(); });
                                 break;
+                            case EnumHandler.CommunicationMessageID_Enum.MessageHistoryResponse:
+                                HandleMessageHistoryResponseEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.OnlineUpdate:
+                                HandleOnlineUpdateEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.OfflineUpdate:
+                                HandleOfflineUpdateEnum(jsonObject);
+                                break;
+
                         }
                     }
                     if (isConnected)
@@ -617,6 +629,32 @@ namespace YouChatApp
 
             FormHandler._youChat.ShowDialog();
             //FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenApp(); });
+        }
+        private void HandleOfflineUpdateEnum(JsonObject jsonObject)
+        {
+            OfflineDetails offlineDetails = jsonObject.MessageBody as OfflineDetails;
+            string username = offlineDetails.Username;
+            DateTime lastSeenTime = offlineDetails.LastSeenTime;
+            Contact contact = ContactManager.GetContact(username);
+            contact.Online = false;
+            contact.LastSeenTime = lastSeenTime;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetChatOnline(username,false,lastSeenTime); });
+
+        }
+        private void HandleOnlineUpdateEnum(JsonObject jsonObject)
+        {
+            string userToBecomeOnlineName = jsonObject.MessageBody as string;
+            Contact contact = ContactManager.GetContact(userToBecomeOnlineName);
+            contact.Online = true;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetChatOnline(userToBecomeOnlineName,true); });
+
+        }
+        private void HandleMessageHistoryResponseEnum(JsonObject jsonObject)
+        {
+            MessageHistory messageHistory = jsonObject.MessageBody as MessageHistory;
+            List<JsonClasses.Message> messages = messageHistory.Messages;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleMessageHistory(messages); });
+
         }
         private void HandleSuccessfulVideoCallResponse_RecieverEnum(JsonObject jsonObject)
         {
