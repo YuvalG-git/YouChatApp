@@ -18,13 +18,10 @@ using static YouChatApp.EnumHandler;
 
 namespace YouChatApp
 {
-    public partial class Message : UserControl
+    public partial class AdvancedMessageControl : UserControl
     {
         private const int TextMessageNormalWidth = 193;
-        private const int TextMessageNormalHeight = 70;
-        private const int ImageMessageNormalWidth = 365;
-        private const int ImageMessageNormalHeight = 231;
-
+        private const string DeletedMessage = "This message has been deleted";
         private int NoramlWidth;
         private int ControlHeight;
         private int ExtendedWidth;
@@ -40,7 +37,7 @@ namespace YouChatApp
         Image CopyImage = global::YouChatApp.Properties.Resources.Copy;
 
         private System.Windows.Forms.Button[] MenuButtons;
-        public Message()
+        public AdvancedMessageControl()
         {
             InitializeComponent();
             SetMessageControlTextSize();
@@ -75,28 +72,38 @@ namespace YouChatApp
             {
                 messageType = value;
 
-                MessageLabel.Visible = false;
-                ImagePictureBox.Visible = false;
-                switch (messageType)
-                {
-                    case MessageType_Enum.Text:
-                        MessageLabel.Visible = true;
-                        this.AutoSize = true;
-                        break;
-                    case MessageType_Enum.Image:
-                        ImagePictureBox.Visible = true;
-                        this.AutoSize = false;
-                        break;
-                }
-                HandleMessageControlDesign();
+                HandleMessageTypeChange();
             }
+        }
+        private void HandleMessageTypeChange()
+        {
+            MessageLabel.Visible = false;
+            ImagePictureBox.Visible = false;
+            switch (messageType)
+            {
+                case MessageType_Enum.Text:
+                    MessageLabel.Visible = true;
+                    this.AutoSize = true;
+                    break;
+                case MessageType_Enum.Image:
+                    ImagePictureBox.Visible = true;
+                    this.AutoSize = false;
+                    break;
+                case MessageType_Enum.DeletedMessage:
+                    MenuBarPictureBox.Visible = false;
+                    MessageLabel.Text = DeletedMessage;
+                    MessageLabel.Visible = true;
+                    this.AutoSize = true;
+                    break;
+            }
+            HandleMessageControlDesign();
         }
         public void SetMessageControl()
         {
             HandleMessageControlDesign();
             NoramlWidth = this.Width;
             ControlHeight = this.Height;
-            if (IsYourMessage)
+            if (messageType != MessageType_Enum.DeletedMessage)
             {
                 InitializeMenu();
                 SetMenuAreaRectangle();
@@ -109,6 +116,9 @@ namespace YouChatApp
             {
                 case MessageType_Enum.Text:
                     HandleMessageControlTextDesign();
+                    break;
+                case MessageType_Enum.DeletedMessage:
+                    HandleMessageControlDeletedMessageDesign();
                     break;
                 case MessageType_Enum.Image:
                     HandleMessageControlImageDesign();
@@ -124,6 +134,18 @@ namespace YouChatApp
         private void HandleMessageControlTextDesign()
         {
             int NewWidth = MessageLabel.Location.X + MessageLabel.Width + RectangleWidth + 10;
+            int realWidth = NewWidth > TextMessageNormalWidth ? NewWidth : TextMessageNormalWidth;
+            this.Width = realWidth;
+            int TimeLabelYCoordination = MessageLabel.Height + MessageLabel.Location.Y + 5;
+            int TimeLabelXCoordination = MessageLabel.Width + MessageLabel.Location.X - TimeLabel.Width + 5;
+            TimeLabel.Location = new System.Drawing.Point(TimeLabelXCoordination, TimeLabelYCoordination); //todo fix the height when sending multiline for the whole control,timelabel and menubutton
+            this.Height = TimeLabel.Height + TimeLabel.Location.Y + 10;
+            this.Size = new System.Drawing.Size(this.Width, this.Height);
+            SetMenuBarLocation();
+        }
+        private void HandleMessageControlDeletedMessageDesign()
+        {
+            int NewWidth = MessageLabel.Location.X + MessageLabel.Width + 10;
             int realWidth = NewWidth > TextMessageNormalWidth ? NewWidth : TextMessageNormalWidth;
             this.Width = realWidth;
             int TimeLabelYCoordination = MessageLabel.Height + MessageLabel.Location.Y + 5;
@@ -212,15 +234,12 @@ namespace YouChatApp
             {
                 if (MessageBox.Show("Are you sure you want to delete this message?", "Delete Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) // maybe to show a little bit of the message
                 {
-                    MessageLabel.Text = "This message has been deleted";
-                    this.MessageLabel.Font = new System.Drawing.Font(this.MessageLabel.Font.Name, 12, this.MessageLabel.Font.Style, this.MessageLabel.Font.Unit);
-                    ContactControl.Visible = false;
+                    //MessageLabel.Text = DeletedMessage;
                     MessageLabel.Visible = true;
                     ImagePictureBox.Visible = false;
                     WasDeleted = true;
-                    MenuBarPictureBox.Visible = false;
-
-                    HandleMessageControlDesign();
+                    messageType = EnumHandler.MessageType_Enum.DeletedMessage;
+                    HandleMessageTypeChange();
                     RemoveMenuButtonsFromControls();
                     //to do a check when sending the messages if this is a deleted message - in case it is, make sure the menubar is invisible
                     //when deleting need to update the chat member so they will change it and the xml chat file
@@ -228,11 +247,18 @@ namespace YouChatApp
             }
             else if (ButtonName == "CopyOptionButton")
             {
-                Clipboard.SetText(MessageLabel.Text);
-                Clipboard.SetImage(ImagePictureBox.BackgroundImage);
+                switch (messageType)
+                {
+                    case MessageType_Enum.Text:
+                        Clipboard.SetText(MessageLabel.Text);
+                        break;
+                    case MessageType_Enum.Image:
+                        Clipboard.SetImage(ImagePictureBox.BackgroundImage);
+                        break;
+                }
                 MessageBox.Show("This message has been copied!", "Message Copied");
             }
-
+            this.Invalidate();
         }
 
         //todo make sure that this function isnt on a specific control of this type...
@@ -329,7 +355,7 @@ namespace YouChatApp
 
             if ((PressIsOnRightEdgeRectangle(cursorLocation)) && (!WasDeleted))
             {
-                this.Width += 120;
+                this.Width = ExtendedWidth;
                 MenuBarPictureBox.Visible = false;
                 MenuItemsIsVisible = true;
                 foreach (Button MenuButton in MenuButtons)

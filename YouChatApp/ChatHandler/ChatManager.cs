@@ -36,9 +36,17 @@ namespace YouChatApp.ChatHandler
                 string firstChatParticipant = directChatDetails.ChatParticipants[0].Username;
                 string secondChatParticipant = directChatDetails.ChatParticipants[1].Username;
                 string chatParticipant = (firstChatParticipant == ProfileDetailsHandler.Name) ? secondChatParticipant : firstChatParticipant;
-                Contact contact = ContactManager.GetContact(chatParticipant);
-                DirectChat directChat = new DirectChat(directChatDetails, contact); 
-                InsertByLastMessageTime(directChat);
+                try
+                {
+                    Contact contact = ContactManager.GetContact(chatParticipant);
+                    DirectChat directChat = new DirectChat(directChatDetails, contact);
+                    InsertByLastMessageTime(directChat);
+                }
+                catch (Exception e)
+                {
+
+                }
+
 
             }
 

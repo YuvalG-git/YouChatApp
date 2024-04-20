@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using YouChatApp.AttachedFiles;
 using YouChatApp.ChatHandler;
+using YouChatApp.ChatHandler2;
 using YouChatApp.ContactHandler;
 using YouChatApp.Encryption;
 using YouChatApp.JsonClasses;
@@ -23,6 +24,7 @@ using YouChatApp.UserAuthentication.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using ChatManager = YouChatApp.ChatHandler.ChatManager;
 using Image = System.Drawing.Image;
 
 namespace YouChatApp
@@ -213,15 +215,15 @@ namespace YouChatApp
                 int bytesRead;
                 try
                 {
-                    //Console.WriteLine("trying to get lock in length:");
-                    //lock (MessageClient.GetStream())
-                    //{
-                    //    // call EndRead to handle the end of an async read.
-                    //    bytesRead = MessageClient.GetStream().EndRead(ar);
-                    //}
-                    //Console.WriteLine("unlocked in length:");
+                    Console.WriteLine("trying to get lock in length:");
+                    lock (MessageClient.GetStream())
+                    {
+                        // call EndRead to handle the end of an async read.
+                        bytesRead = MessageClient.GetStream().EndRead(ar);
+                    }
+                    Console.WriteLine("unlocked in length:");
 
-                    bytesRead = MessageClient.GetStream().EndRead(ar);
+                    //bytesRead = MessageClient.GetStream().EndRead(ar);
 
                     // if bytesread<1 -> the client disconnected
                     if (bytesRead < 1)
@@ -241,8 +243,10 @@ namespace YouChatApp
                         {
                             if (bytesRead > MessageData.Length)
                             {
-                                Array.Copy(buffer, 0, MessageData, 0, bytesRead);
-
+                                byte[] newMessageData = new byte[MessageData.Length];
+                                Array.Copy(buffer, 0, newMessageData, 0, bytesRead);
+                                Array.Copy(MessageData, 0, newMessageData, 4, MessageData.Length - 4);
+                                MessageData = newMessageData;
                                 MessageClient.GetStream().BeginRead(MessageData, 0, System.Convert.ToInt32(MessageClient.ReceiveBufferSize), ReceiveMessage, null);
 
                             }
@@ -250,12 +254,12 @@ namespace YouChatApp
                             {
                                 Console.WriteLine("trying to get lock in length2:");
 
-                                //lock (MessageClient.GetStream())
-                                //{
-                                //    // continue reading from the client
-                                //    MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
-                                //}
-                                MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
+                                lock (MessageClient.GetStream())
+                                {
+                                    // continue reading from the client
+                                    MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
+                                }
+                                //MessageClient.GetStream().BeginRead(MessageData, 0, bytesRead, ReceiveMessage, null);
                                 Console.WriteLine("unlocked in length2");
                             }
                         }
@@ -283,13 +287,13 @@ namespace YouChatApp
                 {
                     Console.WriteLine("trying to get lock in message");
 
-                    //lock (MessageClient.GetStream())
-                    //{
-                    //    // call EndRead to handle the end of an async read.
-                    //    bytesRead = MessageClient.GetStream().EndRead(ar);
-                    //}
+                    lock (MessageClient.GetStream())
+                    {
+                        // call EndRead to handle the end of an async read.
+                        bytesRead = MessageClient.GetStream().EndRead(ar);
+                    }
 
-                    bytesRead = MessageClient.GetStream().EndRead(ar);
+                    //bytesRead = MessageClient.GetStream().EndRead(ar);
 
                     Console.WriteLine("unlocked message");
 
@@ -355,8 +359,9 @@ namespace YouChatApp
                                 HandleKeys();
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.RegistrationResponse_SuccessfulRegistration:
-                                MessageBox.Show(registerResponse1);
-                                FormHandler._registration.Invoke((Action)delegate { FormHandler._registration.OpenInitialProfileSelectionForm(true); });
+                                //MessageBox.Show(registerResponse1);
+                                FormHandler._registration.Invoke((Action)delegate { FormHandler._registration.OpenProfilePictureSelector(); });
+                                //FormHandler._registration.Invoke((Action)delegate { FormHandler._registration.OpenInitialProfileSelectionForm(true); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.RegistrationResponse_FailedRegistration:
                                 MessageBox.Show(registerResponse2);
@@ -364,7 +369,9 @@ namespace YouChatApp
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.UploadProfilePictureResponse:
                                 ProfilePictureId = jsonObject.MessageBody as string;
-                                FormHandler._initialProfileSelection.Invoke((Action)delegate { FormHandler._initialProfileSelection.SetPhaseTwo(); });
+                                FormHandler._profilePictureSelector.Invoke((Action)delegate { FormHandler._profilePictureSelector.OpenStatusSelector(); });
+
+                                //FormHandler._initialProfileSelection.Invoke((Action)delegate { FormHandler._initialProfileSelection.SetPhaseTwo(); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.UploadStatusResponse:
                                 ProfileStatus = jsonObject.MessageBody as string;
@@ -429,11 +436,11 @@ namespace YouChatApp
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulPersonalVerificationAnswersResponse_SetUserStatus:
                             case EnumHandler.CommunicationMessageID_Enum.InitialProfileSettingsCheckResponse_SetUserStatus:
-
                                 FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenInitialProfileSelection(false); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulPersonalVerificationAnswersResponse_OpenChat:
                             case EnumHandler.CommunicationMessageID_Enum.InitialProfileSettingsCheckResponse_OpenChat:
+                                //MessageClient.GetStream().BeginRead(MessageData, 0, 4, ReceiveMessageLength, null);
                                 FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenApp(); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.FailedPersonalVerificationAnswersResponse:
@@ -531,20 +538,26 @@ namespace YouChatApp
                             case EnumHandler.CommunicationMessageID_Enum.ChatInformationResponse:
                                 HandleChatInformationResponseEnum(jsonObject);
                                 break;
+                            case EnumHandler.CommunicationMessageID_Enum.GroupCreatorResponse:
+                                HandleGroupCreatorResponseEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.SendMessageResponse:
+                                HandleSendMessageResponseEnum(jsonObject);
+                                break;
                         }
                     }
                     if (isConnected)
                     {
                         Console.WriteLine("trying to get lock in message2");
 
-                        //lock (MessageClient.GetStream())
-                        //{
-                        //    // continue reading from the client
-                        //    MessageClient.GetStream().BeginRead(MessageData, 0, 4, ReceiveMessageLength, null);
-                        //    //dataHistory = new byte[0];
-                        //    //MessageClient.GetStream().BeginRead(MessageData, 0, System.Convert.ToInt32(MessageClient.ReceiveBufferSize), ReceiveMessage, null);
-                        //}
-                        MessageClient.GetStream().BeginRead(MessageData, 0, 4, ReceiveMessageLength, null);
+                        lock (MessageClient.GetStream())
+                        {
+                            // continue reading from the client
+                            MessageClient.GetStream().BeginRead(MessageData, 0, 4, ReceiveMessageLength, null);
+                            //dataHistory = new byte[0];
+                            //MessageClient.GetStream().BeginRead(MessageData, 0, System.Convert.ToInt32(MessageClient.ReceiveBufferSize), ReceiveMessage, null);
+                        }
+                        //MessageClient.GetStream().BeginRead(MessageData, 0, 4, ReceiveMessageLength, null);
 
                         Console.WriteLine("unlocked in message2");
                     }
@@ -554,6 +567,44 @@ namespace YouChatApp
                     MessageBox.Show("Ask somebody for help\n\n" + ex, "Error");
                 }
             }
+        }
+        private static void OpenYouChat()
+        {
+            FormHandler._youChat = new YouChat();
+
+            FormHandler._youChat.ShowDialog();
+            //FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenApp(); });
+        }
+        private void HandleSendMessageResponseEnum(JsonObject jsonObject)
+        {
+            JsonClasses.Message message = jsonObject.MessageBody as JsonClasses.Message;
+            string messageSenderName = message.MessageSenderName;
+            string chatId = message.ChatId;
+            DateTime messageDateTime = message.MessageDateAndTime;
+            object messageContent = message.MessageContent;
+            if (messageContent is string textMessageContent)
+            {
+                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleMessagesByOthers(messageSenderName, chatId, messageDateTime, textMessageContent); });
+
+            }
+            else if (messageContent is ImageContent imageMessageContent)
+            {
+                byte[] imageMessageContentByteArray = imageMessageContent.ImageBytes;
+                Image imageMessage = ConvertHandler.ConvertBytesToImage(imageMessageContentByteArray);
+            }
+            else if (messageContent is null)
+            {
+                //deleted message
+            }
+        }
+        private void HandleGroupCreatorResponseEnum(JsonObject jsonObject)
+        {
+            GroupChatDetails groupChatDetails = jsonObject.MessageBody as GroupChatDetails;
+            ChatManager.AddChat(groupChatDetails);
+            string chatId = groupChatDetails.ChatTagLineId;
+            ChatDetails chat = ChatManager.GetChat(chatId);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleNewGroupChatCreation(chat); });
+
         }
         private void HandleFriendRequestRecieverEnum(JsonObject jsonObject)
         {
@@ -595,8 +646,10 @@ namespace YouChatApp
             ContactManager.AddContact(contact);
             ChatDetails chatDetails = contactAndChat.Chat;
             ChatManager.AddChat(chatDetails);
-            string contactName = contact.Name;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleSuccessfulFriendRequest(contact,chatDetails); });
+            string chatId = chatDetails.ChatTagLineId;
+
+            ChatDetails chat = ChatManager.GetChat(chatId);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleSuccessfulFriendRequest(contact, chat); });
 
         }
         private void HandleRegistrationBanStartEnum(JsonObject jsonObject)
@@ -796,6 +849,13 @@ namespace YouChatApp
                 {
                     MessageBox.Show(ex.ToString());
                 }
+            }
+        }
+        public void CheckSocketStatus()
+        {
+            if (MessageClient != null && MessageClient.Available > 0)
+            {
+                Console.WriteLine("Connection good");
             }
         }
     }

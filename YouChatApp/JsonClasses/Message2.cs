@@ -6,22 +6,19 @@ using System.Threading.Tasks;
 
 namespace YouChatApp.JsonClasses
 {
-    internal class Message
+    internal class Message2
     {
-        private string _messageSenderName;
-        private string _chatId;
-        private object _messageContent; //todo - to do it like that or to use inheritance
+        private string _messageContent;
         private DateTime _messageDateAndTime;
+        private string _chatId;
 
-        public Message(string messageSenderName, string chatId, object messageContent, DateTime messageDateAndTime)
+        public Message2(string messageContent, DateTime messageDateAndTime, string chatId)
         {
-            _messageSenderName = messageSenderName;
-            _chatId = chatId;
             _messageContent = messageContent;
             _messageDateAndTime = messageDateAndTime;
+            _chatId = chatId;
         }
-
-        public object MessageContent
+        public string MessageContent
         { 
             get 
             { 
@@ -52,17 +49,6 @@ namespace YouChatApp.JsonClasses
             set
             {
                 _chatId = value;
-            }
-        }
-        public string MessageSenderName
-        {
-            get
-            {
-                return _messageSenderName;
-            }
-            set
-            {
-                _messageSenderName = value;
             }
         }
     }

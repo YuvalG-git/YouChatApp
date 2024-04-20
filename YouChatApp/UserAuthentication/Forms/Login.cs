@@ -140,19 +140,19 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             this.Hide(); // Hide the login form
             FormHandler._passwordUpdate = new PasswordUpdate();
-            FormHandler._passwordUpdate.ShowDialog(); // Show the registration form
+            this.Invoke(new Action(() => FormHandler._passwordUpdate.Show()));
         }
         public void OpenInitialProfileSelection(Boolean IsPhaseOne)
         {
             this.Hide();
             FormHandler._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
-            this.Invoke(new Action(() => FormHandler._initialProfileSelection.ShowDialog()));
+            this.Invoke(new Action(() => FormHandler._initialProfileSelection.Show()));
         }
         public void OpenApp()
         {
             this.Hide();
             FormHandler._youChat = new YouChat();
-            this.Invoke(new Action(() => FormHandler._youChat.ShowDialog()));
+            this.Invoke(new Action(() => FormHandler._youChat.Show()));
         }
 
         private void ResetPasswordCustomButton_Click(object sender, EventArgs e)
@@ -219,7 +219,7 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             this.Hide();
             FormHandler._registration = new Registration();
-            FormHandler._registration.ShowDialog(); // Show the registration form
+            this.Invoke(new Action(() => FormHandler._registration.ShowDialog()));
         }
 
         private void LoginFieldsTextChangedEvent(object sender, EventArgs e)
@@ -248,6 +248,7 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         private void LoginCustomButton_Click(object sender, EventArgs e)
         {
+            serverCommunicator.CheckSocketStatus();
             string username = UsernameCustomTextBox.TextContent;
             string password = PasswordGeneratorControl.GetNewPassword();
             LoginCustomButton.Enabled = false;

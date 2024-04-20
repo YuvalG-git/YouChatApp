@@ -5,66 +5,28 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using YouChatApp.Controls;
 using YouChatApp.JsonClasses;
 
-namespace YouChatApp
+namespace YouChatApp.UserAuthentication.Forms
 {
-    public partial class InitialProfileSelection : Form
+    public partial class ProfilePictureSelector : Form
     {
         private readonly ServerCommunicator serverCommunicator;
-        public InitialProfileSelection(bool IsPhaseOne)
+        public ProfilePictureSelector()
         {
             InitializeComponent();
             serverCommunicator = ServerCommunicator.Instance;
-           // serverCommunicator.BeginRead();
-            //ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
             ProfilePictureControl.AddButtonClickHandler(SetConfirmButtonEnabled);
-            if (IsPhaseOne)
-            {
-                SetPhaseOne();
-            }
-            else
-            {
-                SetPhaseTwo();
-            }
-        }
-        public InitialProfileSelection()
-        {
-            InitializeComponent();
-            serverCommunicator = ServerCommunicator.Instance;
-            // serverCommunicator.BeginRead();
-            //ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
-            ProfilePictureControl.AddButtonClickHandler(SetConfirmButtonEnabled);
-            if (true)
-            {
-                SetPhaseOne();
-            }
-            else
-            {
-                SetPhaseTwo();
-            }
         }
         public void OpenApp()
         {
             this.Hide();
             FormHandler._youChat = new YouChat();
             this.Invoke(new Action(() => FormHandler._youChat.Show()));
-        }
-
-        private void SetPhaseOne()
-        {
-            ProfilePictureControl.Visible = true;
-            ProfileStatusControl.Visible = false;
-        }
-        public void SetPhaseTwo()
-        {
-            ProfilePictureControl.Visible = false;
-            ProfileStatusControl.Visible = true;
         }
 
         public void SetConfirmButtonEnabled(object sender, EventArgs e)
@@ -86,6 +48,12 @@ namespace YouChatApp
         {
             ConfirmCustomButton.Enabled = true;
         }
+        public void OpenStatusSelector()
+        {
+            this.Hide();
+            FormHandler._profileStatusSelector = new ProfileStatusSelector();
+            this.Invoke(new Action(() => FormHandler._profileStatusSelector.Show()));
+        }
 
         private void ConfirmCustomButton_Click(object sender, EventArgs e)
         {
@@ -99,3 +67,4 @@ namespace YouChatApp
         }
     }
 }
+

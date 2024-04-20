@@ -16,7 +16,6 @@ namespace YouChatApp.Controls
     public partial class ProfileStatusControl : UserControl
     {
         private bool IsSelectedStatusShownProperty = true;
-        private ServerCommunicator serverCommunicator = null;
         public ProfileStatusControl()
         {
             InitializeComponent();
@@ -39,10 +38,6 @@ namespace YouChatApp.Controls
             {
                 return ProfileStatusCustomTextBox.TextContent;
             }
-        }
-        public void SetServerCommunicator(ServerCommunicator serverCommunicator)
-        {
-            this.serverCommunicator = serverCommunicator;
         }
 
         private void RefreshStatusCustomButton_Click(object sender, EventArgs e)

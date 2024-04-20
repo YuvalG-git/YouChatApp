@@ -26,11 +26,11 @@ namespace YouChatApp.ChatHandler
             }
             else if (lastMessageTime1 == null)
             {
-                return -1; // LastMessageTime of chat1 is null, consider it less than chat2
+                return 1; // LastMessageTime of chat1 is null, consider it more than chat2
             }
             else if (lastMessageTime2 == null)
             {
-                return 1; // LastMessageTime of chat2 is null, consider it greater than chat1
+                return -1; // LastMessageTime of chat2 is null, consider it less than chat1
             }
             else
             {

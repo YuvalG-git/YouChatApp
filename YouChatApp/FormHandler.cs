@@ -94,5 +94,9 @@ namespace YouChatApp
         public static ImageSender _imageSender;
 
         public static BanForm _banForm;
+
+        public static ProfilePictureSelector _profilePictureSelector;
+        public static ProfileStatusSelector _profileStatusSelector;
+
     }
 }

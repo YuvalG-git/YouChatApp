@@ -8,6 +8,11 @@ namespace YouChatApp
 {
     public static class EnumHandler
     {
+        public enum ChatType_Enum
+        {
+            Direct,
+            Group
+        }
         public enum UserAuthentication_Enum
         {
             Login,
@@ -41,7 +46,8 @@ namespace YouChatApp
         public enum MessageType_Enum
         {
             Text,
-            Image
+            Image,
+            DeletedMessage
         }
         public enum CommunicationMessageID_Enum
         {

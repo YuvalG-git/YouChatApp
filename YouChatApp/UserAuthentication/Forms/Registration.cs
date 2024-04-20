@@ -190,8 +190,16 @@ namespace YouChatApp.UserAuthentication.Forms
         public void OpenInitialProfileSelectionForm(Boolean IsPhaseOne)
         {
             this.Hide();
-            FormHandler._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
-            this.Invoke(new Action(() => FormHandler._initialProfileSelection.ShowDialog()));
+            FormHandler._profilePictureSelector = new ProfilePictureSelector();
+            this.Invoke(new Action(() => FormHandler._profilePictureSelector.Show()));
+            //FormHandler._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
+            //this.Invoke(new Action(() => FormHandler._initialProfileSelection.Show()));
+        }
+        public void OpenProfilePictureSelector()
+        {
+            this.Hide();
+            FormHandler._profilePictureSelector = new ProfilePictureSelector();
+            this.Invoke(new Action(() => FormHandler._profilePictureSelector.Show()));
         }
 
         private void FirstNameCustomTextBox_Leave(object sender, EventArgs e)
@@ -468,7 +476,6 @@ namespace YouChatApp.UserAuthentication.Forms
             DateTime dateOfBirth = BirthDateCustomDateTimePicker.Value;
             DateTime RegistrationDate = DateTime.Today;
 
-            MessageBox.Show("good job");
             List<string[]> VerificationQuestionsAndAnswers = GenerateVerificationQuestionListOfArrays();
             RegistrationInformation registrationInformation = new RegistrationInformation(username, password, firstname, lastname, email, city, Gender, dateOfBirth, RegistrationDate, VerificationQuestionsAndAnswers);
             JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_Registration, registrationInformation);

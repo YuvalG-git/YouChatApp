@@ -1,6 +1,6 @@
 ﻿namespace YouChatApp
 {
-    partial class Message
+    partial class AdvancedMessageControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -34,7 +34,6 @@
             this.MenuBarPictureBox = new System.Windows.Forms.PictureBox();
             this.ProfilePictureCircularPictureBox = new YouChatApp.CircularPictureBox();
             this.ImagePictureBox = new System.Windows.Forms.PictureBox();
-            this.ContactControl = new YouChatApp.Controls.ContactControl();
             ((System.ComponentModel.ISupportInitialize)(this.MenuBarPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImagePictureBox)).BeginInit();
@@ -107,25 +106,11 @@
             this.ImagePictureBox.TabStop = false;
             this.ImagePictureBox.Click += new System.EventHandler(this.ImagePictureBox_Click);
             // 
-            // ContactControl
-            // 
-            this.ContactControl.BackColor = System.Drawing.Color.Transparent;
-            this.ContactControl.BackgroundColor = System.Drawing.Color.Transparent;
-            this.ContactControl.BorderColor = System.Drawing.Color.CornflowerBlue;
-            this.ContactControl.Enabled = false;
-            this.ContactControl.Location = new System.Drawing.Point(51, 28);
-            this.ContactControl.Name = "ContactControl";
-            this.ContactControl.OnFocusBackgroundColor = System.Drawing.Color.CornflowerBlue;
-            this.ContactControl.Size = new System.Drawing.Size(280, 81);
-            this.ContactControl.TabIndex = 7;
-            this.ContactControl.WasSelected = false;
-            // 
             // Message
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.Controls.Add(this.ContactControl);
             this.Controls.Add(this.ImagePictureBox);
             this.Controls.Add(this.MenuBarPictureBox);
             this.Controls.Add(this.ProfilePictureCircularPictureBox);
@@ -135,7 +120,7 @@
             this.MaximumSize = new System.Drawing.Size(850, 0);
             this.MinimumSize = new System.Drawing.Size(175, 70);
             this.Name = "Message";
-            this.Size = new System.Drawing.Size(365, 70);
+            this.Size = new System.Drawing.Size(365, 208);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MessageControl_MouseDown);
             this.MouseEnter += new System.EventHandler(this.MessageControl_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.MessageControl_MouseLeave);
@@ -156,6 +141,5 @@
         private CircularPictureBox ProfilePictureCircularPictureBox;
         private System.Windows.Forms.PictureBox MenuBarPictureBox;
         private System.Windows.Forms.PictureBox ImagePictureBox;
-        private Controls.ContactControl ContactControl;
     }
 }

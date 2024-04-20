@@ -1,6 +1,6 @@
-﻿namespace YouChatApp
+﻿namespace YouChatApp.UserAuthentication.Forms
 {
-    partial class InitialProfileSelection
+    partial class ProfilePictureSelector
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ConfirmCustomButton = new YouChatApp.Controls.CustomButton();
-            this.ProfileStatusControl = new YouChatApp.Controls.ProfileStatusControl();
-            this.ProfilePictureControl = new YouChatApp.Controls.ProfilePictureControl();
             this.ProfilePicturePanel = new System.Windows.Forms.Panel();
+            this.ProfilePictureControl = new YouChatApp.Controls.ProfilePictureControl();
+            this.ConfirmCustomButton = new YouChatApp.Controls.CustomButton();
             this.ProfilePicturePanel.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // ProfilePicturePanel
+            // 
+            this.ProfilePicturePanel.Controls.Add(this.ProfilePictureControl);
+            this.ProfilePicturePanel.Controls.Add(this.ConfirmCustomButton);
+            this.ProfilePicturePanel.Location = new System.Drawing.Point(108, 11);
+            this.ProfilePicturePanel.Name = "ProfilePicturePanel";
+            this.ProfilePicturePanel.Size = new System.Drawing.Size(570, 680);
+            this.ProfilePicturePanel.TabIndex = 6;
+            // 
+            // ProfilePictureControl
+            // 
+            this.ProfilePictureControl.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.ProfilePictureControl.Location = new System.Drawing.Point(0, 0);
+            this.ProfilePictureControl.MaximumSize = new System.Drawing.Size(570, 620);
+            this.ProfilePictureControl.MinimumSize = new System.Drawing.Size(570, 620);
+            this.ProfilePictureControl.Name = "ProfilePictureControl";
+            this.ProfilePictureControl.Size = new System.Drawing.Size(570, 620);
+            this.ProfilePictureControl.TabIndex = 4;
             // 
             // ConfirmCustomButton
             // 
@@ -57,53 +75,23 @@
             this.ConfirmCustomButton.UseVisualStyleBackColor = false;
             this.ConfirmCustomButton.Click += new System.EventHandler(this.ConfirmCustomButton_Click);
             // 
-            // ProfileStatusControl
-            // 
-            this.ProfileStatusControl.IsSelectedStatusShown = false;
-            this.ProfileStatusControl.Location = new System.Drawing.Point(731, 228);
-            this.ProfileStatusControl.Name = "ProfileStatusControl";
-            this.ProfileStatusControl.Size = new System.Drawing.Size(320, 235);
-            this.ProfileStatusControl.TabIndex = 3;
-            // 
-            // ProfilePictureControl
-            // 
-            this.ProfilePictureControl.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.ProfilePictureControl.Location = new System.Drawing.Point(0, 0);
-            this.ProfilePictureControl.MaximumSize = new System.Drawing.Size(570, 620);
-            this.ProfilePictureControl.MinimumSize = new System.Drawing.Size(570, 620);
-            this.ProfilePictureControl.Name = "ProfilePictureControl";
-            this.ProfilePictureControl.Size = new System.Drawing.Size(570, 620);
-            this.ProfilePictureControl.TabIndex = 4;
-            // 
-            // ProfilePicturePanel
-            // 
-            this.ProfilePicturePanel.Controls.Add(this.ProfilePictureControl);
-            this.ProfilePicturePanel.Controls.Add(this.ConfirmCustomButton);
-            this.ProfilePicturePanel.Location = new System.Drawing.Point(95, 12);
-            this.ProfilePicturePanel.Name = "ProfilePicturePanel";
-            this.ProfilePicturePanel.Size = new System.Drawing.Size(570, 680);
-            this.ProfilePicturePanel.TabIndex = 5;
-            // 
-            // InitialProfileSelection
+            // ProfilePictureSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1225, 755);
+            this.ClientSize = new System.Drawing.Size(800, 703);
             this.Controls.Add(this.ProfilePicturePanel);
-            this.Controls.Add(this.ProfileStatusControl);
-            this.Name = "InitialProfileSelection";
-            this.Text = "InitialProfileSelection";
+            this.Name = "ProfilePictureSelector";
+            this.Text = "ProfilePictureSelector";
             this.ProfilePicturePanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Button[,] ProfileAvatarMatrix;
-        private System.Windows.Forms.Button[] ProfilePictureKindSelectionButtons;
-        private Controls.CustomButton ConfirmCustomButton;
-        private Controls.ProfileStatusControl ProfileStatusControl;
-        private Controls.ProfilePictureControl ProfilePictureControl;
+
         private System.Windows.Forms.Panel ProfilePicturePanel;
+        private Controls.ProfilePictureControl ProfilePictureControl;
+        private Controls.CustomButton ConfirmCustomButton;
     }
 }

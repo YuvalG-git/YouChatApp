@@ -25,23 +25,24 @@ namespace YouChatApp
             DateTime lastWeekDate = DateTime.Now.AddDays(-7);
 
             DateTime timeValue = time.Value;
+            DateTime timeValueDate = timeValue.Date;
 
-            if (timeValue == CurrentDate.Date)
+            if (timeValueDate == CurrentDate.Date)
             {
                 // Return the time in "HH:mm" format if the date is today.
                 return timeValue.ToString("HH:mm");
             }
-            else if (timeValue == yesterdayDate.Date)
+            else if (timeValueDate == yesterdayDate.Date)
             {
                 // Return "yesterday" if the date is yesterday.
                 return "yesterday";
             }
-            else if ((timeValue >= lastWeekDate.Date) && (timeValue < yesterdayDate.Date))
+            else if ((timeValueDate >= lastWeekDate.Date) && (timeValue < yesterdayDate.Date))
             {
                 // Return the day of the week if the date is within the last week (excluding today and yesterday).
                 return timeValue.DayOfWeek.ToString();
             }
-            else if (timeValue.Year == CurrentDate.Year)
+            else if (timeValueDate.Year == CurrentDate.Year)
             {
                 // Return the date in "MM/dd" format if the date is within the current year.
                 return timeValue.ToString("MM/dd");

@@ -1,6 +1,6 @@
-﻿namespace YouChatApp
+﻿namespace YouChatApp.UserAuthentication.Forms
 {
-    partial class tryform
+    partial class ProfileStatusSelector
     {
         /// <summary>
         /// Required designer variable.
@@ -28,37 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.message1 = new YouChatApp.AdvancedMessageControl();
+            this.profileStatusControl1 = new YouChatApp.Controls.ProfileStatusControl();
             this.SuspendLayout();
             // 
-            // message1
+            // profileStatusControl1
             // 
-            this.message1.AutoSize = true;
-            this.message1.BackColor = System.Drawing.SystemColors.Control;
-            this.message1.IsYourMessage = true;
-            this.message1.Location = new System.Drawing.Point(88, 118);
-            this.message1.MaximumSize = new System.Drawing.Size(850, 0);
-            this.message1.MessageType = YouChatApp.EnumHandler.MessageType_Enum.Text;
-            this.message1.MinimumSize = new System.Drawing.Size(175, 70);
-            this.message1.Name = "message1";
-            this.message1.Size = new System.Drawing.Size(408, 78);
-            this.message1.TabIndex = 0;
+            this.profileStatusControl1.IsSelectedStatusShown = true;
+            this.profileStatusControl1.Location = new System.Drawing.Point(72, 32);
+            this.profileStatusControl1.Name = "profileStatusControl1";
+            this.profileStatusControl1.Size = new System.Drawing.Size(320, 345);
+            this.profileStatusControl1.TabIndex = 0;
             // 
-            // tryform
+            // ProfileStatusSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 684);
-            this.Controls.Add(this.message1);
-            this.Name = "tryform";
-            this.Text = "tryform";
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.profileStatusControl1);
+            this.Name = "ProfileStatusSelector";
+            this.Text = "ProfileStatusSelector";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private AdvancedMessageControl message1;
+        private Controls.ProfileStatusControl profileStatusControl1;
     }
 }

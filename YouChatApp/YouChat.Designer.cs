@@ -104,6 +104,7 @@ namespace YouChatApp
             this.ImageFileCustomButton = new YouChatApp.Controls.CustomButton();
             this.EmojiKeyBoardCustomButton = new YouChatApp.Controls.CustomButton();
             this.DrawingFileCustomButton = new YouChatApp.Controls.CustomButton();
+            this.MessageCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.ContactManagementPanel.SuspendLayout();
             this.FriendRequestIdPanel.SuspendLayout();
             this.GroupCreatorBackgroundPanel.SuspendLayout();
@@ -435,6 +436,7 @@ namespace YouChatApp
             // 
             this.MessagePanel.AutoScroll = true;
             this.MessagePanel.Controls.Add(this.pictureBox1);
+            this.MessagePanel.Controls.Add(this.MessageRichTextBox);
             this.MessagePanel.Location = new System.Drawing.Point(365, 95);
             this.MessagePanel.Name = "MessagePanel";
             this.MessagePanel.Size = new System.Drawing.Size(1402, 775);
@@ -916,13 +918,14 @@ namespace YouChatApp
             // MessageOptionsPanel
             // 
             this.MessageOptionsPanel.BackColor = System.Drawing.Color.Black;
+            this.MessageOptionsPanel.Controls.Add(this.MessageCustomTextBox);
             this.MessageOptionsPanel.Controls.Add(this.TakenImageFile);
-            this.MessageOptionsPanel.Controls.Add(this.MessageRichTextBox);
             this.MessageOptionsPanel.Controls.Add(this.MessageSenderCustomButton);
             this.MessageOptionsPanel.Controls.Add(this.UserFileCustomButton);
             this.MessageOptionsPanel.Controls.Add(this.ImageFileCustomButton);
             this.MessageOptionsPanel.Controls.Add(this.EmojiKeyBoardCustomButton);
             this.MessageOptionsPanel.Controls.Add(this.DrawingFileCustomButton);
+            this.MessageOptionsPanel.Enabled = false;
             this.MessageOptionsPanel.Location = new System.Drawing.Point(365, 870);
             this.MessageOptionsPanel.Name = "MessageOptionsPanel";
             this.MessageOptionsPanel.Size = new System.Drawing.Size(1400, 65);
@@ -953,10 +956,9 @@ namespace YouChatApp
             // MessageRichTextBox
             // 
             this.MessageRichTextBox.BackColor = System.Drawing.Color.Black;
-            this.MessageRichTextBox.Enabled = false;
             this.MessageRichTextBox.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MessageRichTextBox.ForeColor = System.Drawing.Color.Silver;
-            this.MessageRichTextBox.Location = new System.Drawing.Point(5, 5);
+            this.MessageRichTextBox.Location = new System.Drawing.Point(17, 576);
             this.MessageRichTextBox.Name = "MessageRichTextBox";
             this.MessageRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.MessageRichTextBox.Size = new System.Drawing.Size(1069, 55);
@@ -1071,6 +1073,38 @@ namespace YouChatApp
             this.DrawingFileCustomButton.UseVisualStyleBackColor = false;
             this.DrawingFileCustomButton.Click += new System.EventHandler(this.DrawingFileCustomButton_Click);
             // 
+            // MessageCustomTextBox
+            // 
+            this.MessageCustomTextBox.AutoScroll = true;
+            this.MessageCustomTextBox.BackColor = System.Drawing.Color.Black;
+            this.MessageCustomTextBox.BorderColor = System.Drawing.Color.DimGray;
+            this.MessageCustomTextBox.BorderFocusColor = System.Drawing.Color.CornflowerBlue;
+            this.MessageCustomTextBox.BorderRadius = 0;
+            this.MessageCustomTextBox.BorderSize = 2;
+            this.MessageCustomTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.MessageCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MessageCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.MessageCustomTextBox.IsFocused = false;
+            this.MessageCustomTextBox.Location = new System.Drawing.Point(4, 5);
+            this.MessageCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MessageCustomTextBox.MaxLength = 2147483647;
+            this.MessageCustomTextBox.Multiline = true;
+            this.MessageCustomTextBox.Name = "MessageCustomTextBox";
+            this.MessageCustomTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.MessageCustomTextBox.PasswordChar = false;
+            this.MessageCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.MessageCustomTextBox.PlaceHolderText = "Here You Write Your Message";
+            this.MessageCustomTextBox.ReadOnly = false;
+            this.MessageCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.MessageCustomTextBox.ShortcutsEnabled = true;
+            this.MessageCustomTextBox.Size = new System.Drawing.Size(1069, 55);
+            this.MessageCustomTextBox.TabIndex = 41;
+            this.MessageCustomTextBox.TabStop = false;
+            this.MessageCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.MessageCustomTextBox.TextContent = "";
+            this.MessageCustomTextBox.UnderlineStyle = false;
+            this.MessageCustomTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MessageCustomTextBox_KeyDown);
+            // 
             // YouChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1135,6 +1169,7 @@ namespace YouChatApp
         public List<System.Windows.Forms.Label> MessageLabels;
         public List<List<MessageControl>> MessageControlListOfLists;
         public Dictionary<string, List<MessageControl>> MessageControls;
+        public Dictionary<string, List<AdvancedMessageControl>> AdvancedMessageControls;
 
         public List<ChatControl> ChatControlListOfContacts;
         public List<FriendRequestControl> ListOfFriendRequestControl;
@@ -1205,5 +1240,6 @@ namespace YouChatApp
         private Panel GroupChatFeaturesPanel;
         private CustomButton GroupChatAddMemberCustomButton;
         private CustomButton GroupChatExitCustomButton;
+        private CustomTextBox MessageCustomTextBox;
     }
 }

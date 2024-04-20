@@ -36,6 +36,7 @@ namespace YouChatApp
         private Color _onFocusBackgroundColor = Color.CornflowerBlue;
         private Color _borderColor = Color.CornflowerBlue;
         private string _chatId;
+        private bool firstClick = true;
         public string ChatId
         {
             get { return _chatId; }
@@ -127,6 +128,12 @@ namespace YouChatApp
         private void OnControlClick(object sender, EventArgs e)
         {
             this.OnClick(e);
+            if (!firstClick)
+                firstClick = true;
+        }
+        public bool GetFirstClick()
+        {
+            return firstClick;
         }
 
     }
