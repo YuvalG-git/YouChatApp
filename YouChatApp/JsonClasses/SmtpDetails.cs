@@ -8,25 +8,37 @@ namespace YouChatApp.JsonClasses
 {
     internal class SmtpDetails
     {
-        private string _username;
         private string _emailAddress;
-
-        public SmtpDetails(string username, string emailAddress)
+        private SmtpVerification _smtpVerification;
+        public SmtpDetails(string emailAddress, SmtpVerification smtpVerification)
         {
-            _username = username;
             _emailAddress = emailAddress;
+            _smtpVerification = smtpVerification;
         }
 
-        public string Username
-        {
-            get { return _username; }
-            set { _username = value; }
-        }
         public string EmailAddress
         {
-            get { return _emailAddress; }
-            set { _emailAddress = value; }
+            get 
+            {
+                return _emailAddress;
+            }
+            set 
+            {
+                _emailAddress = value;
+            }
         }
+        public SmtpVerification SmtpVerification 
+        {
+            get
+            {
+                return _smtpVerification;
+            } 
+            set
+            {
+                _smtpVerification = value;
+            }
+        }
+
 
     }
 }

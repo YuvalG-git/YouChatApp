@@ -24,12 +24,26 @@ namespace YouChatApp.AttachedFiles
 {
     public partial class Camera : Form
     {
+        private bool isImageForGroupChat;
+
+        public bool IsImageForGroupChat
+        {
+            get
+            {
+                return isImageForGroupChat;
+            }
+            set
+            {
+                isImageForGroupChat = value;
+            }
+        }
+
         bool CameraIsOpen = false;
         Image CameraNotOpen = global::YouChatApp.Properties.Resources.VideoClose;
         Image CameraOpen = global::YouChatApp.Properties.Resources.VideoOpen;
         Image VideoOffImage = global::YouChatApp.Properties.Resources.AnonymousProfile; //need to change that to my profile picture...
         bool _isImageTaken = false;
-        public Image ImageToSend { get; set; }
+        public static Image ImageToSend;
         // https://www.flaticon.com/search?author_id=1828&style_id=1236&type=standard&word=conversation
 
         private FilterInfoCollection videoDevices;
@@ -259,6 +273,7 @@ namespace YouChatApp.AttachedFiles
 
                 UserImageTakenPictureBox.Invalidate();
 
+
                 //// Create a unique filename for the saved image (e.g., using a timestamp)
                 //string fileName = $"captured_image_{DateTime.Now:yyyyMMddHHmmss}.jpg";
 
@@ -363,6 +378,7 @@ namespace YouChatApp.AttachedFiles
                 UserImageTakenPictureBox.BackColor = Color.Black;
                 SetImage();
                 SetCropControlsEnabledProperty();
+                SaveImageCustomButton.Enabled = true;
 
             }
             else
@@ -381,7 +397,7 @@ namespace YouChatApp.AttachedFiles
 
         private void SaveImageCustomButton_Click(object sender, EventArgs e)
         {
-            //needs to close if it was for group image otherwise not..
+            ImageToSend = CropImage();
             this.DialogResult = DialogResult.OK;
 
             this.Close();
@@ -447,6 +463,32 @@ namespace YouChatApp.AttachedFiles
 
         private void CropImageCustomButton_Click(object sender, EventArgs e)
         {
+            //if (imageTaken != null)
+            //{
+            //    if (selectionCropRectangle.Width > 0 && selectionCropRectangle.Height > 0)
+            //    {
+            //        // Crop the selected region
+            //        Bitmap croppedImage = new Bitmap(selectionCropRectangle.Width, selectionCropRectangle.Height);
+            //        using (Graphics g = Graphics.FromImage(croppedImage))
+            //        {
+            //            g.DrawImage(imageTaken, 0, 0, selectionCropRectangle, GraphicsUnit.Pixel);
+            //        }
+
+            //        // Display the cropped image
+            //        OpenCroppedImageViewer(croppedImage);
+            //        ImageToSend = croppedImage;
+            //        SaveImageCustomButton.Enabled = true;
+            //    }
+            //}
+            Image croppedImage = CropImage();
+            if (croppedImage != null)
+            {
+                OpenCroppedImageViewer(croppedImage);
+            }
+        }
+        private Image CropImage()
+        {
+            Image image;
             if (imageTaken != null)
             {
                 if (selectionCropRectangle.Width > 0 && selectionCropRectangle.Height > 0)
@@ -457,14 +499,12 @@ namespace YouChatApp.AttachedFiles
                     {
                         g.DrawImage(imageTaken, 0, 0, selectionCropRectangle, GraphicsUnit.Pixel);
                     }
-
-                    // Display the cropped image
-                    OpenCroppedImageViewer(croppedImage);
-                    //CroppedImagePictureBox.Image = croppedImage;
-                    ImageToSend = croppedImage;
                     SaveImageCustomButton.Enabled = true;
+                    return croppedImage;
                 }
+                return null;
             }
+            return null;
         }
         private void OpenCroppedImageViewer(Image imageToView)
         {

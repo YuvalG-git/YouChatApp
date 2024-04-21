@@ -47,7 +47,8 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         public void RequestCaptchaBitmap(object sender, EventArgs e)
         {
-            JsonObject captchaImageRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.CaptchaImageRequest, null);
+            bool afterFail = CaptchaCodeControl.IsNotificationLabelVisible();
+            JsonObject captchaImageRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.CaptchaImageRequest, afterFail);
             string captchaImageRequestJson = JsonConvert.SerializeObject(captchaImageRequestJsonObject, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
@@ -129,7 +130,9 @@ namespace YouChatApp.UserAuthentication.Forms
         private void HandleSendingEmailProcess()
         {
             string username = UsernameCustomTextBox.TextContent;
-            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.loginRequest_SmtpLoginMessage, username);
+            bool afterFail = SmtpControl.IsAfterFail();
+            SmtpVerification smtpVerification = new SmtpVerification(username, afterFail);
+            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.loginRequest_SmtpLoginMessage, smtpVerification);
             string userUsernameJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto

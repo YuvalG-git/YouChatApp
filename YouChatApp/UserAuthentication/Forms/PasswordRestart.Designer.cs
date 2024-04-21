@@ -38,13 +38,16 @@
             this.UsernameCustomTextBox = new YouChatApp.Controls.CustomTextBox();
             this.LoginReturnerCustomButton = new YouChatApp.Controls.CustomButton();
             this.SmtpControl = new YouChatApp.Controls.SmtpControl();
+            this.PasswordResetPanel = new System.Windows.Forms.Panel();
+            this.BanControl = new YouChatApp.Controls.BanControl();
+            this.PasswordResetPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // ResetPasswordLabel
             // 
             this.ResetPasswordLabel.AutoSize = true;
             this.ResetPasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResetPasswordLabel.Location = new System.Drawing.Point(100, 20);
+            this.ResetPasswordLabel.Location = new System.Drawing.Point(101, 26);
             this.ResetPasswordLabel.Name = "ResetPasswordLabel";
             this.ResetPasswordLabel.Size = new System.Drawing.Size(270, 31);
             this.ResetPasswordLabel.TabIndex = 1;
@@ -54,7 +57,7 @@
             // 
             this.UsernameLabel.AutoSize = true;
             this.UsernameLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UsernameLabel.Location = new System.Drawing.Point(30, 80);
+            this.UsernameLabel.Location = new System.Drawing.Point(31, 86);
             this.UsernameLabel.Name = "UsernameLabel";
             this.UsernameLabel.Size = new System.Drawing.Size(95, 18);
             this.UsernameLabel.TabIndex = 50;
@@ -64,7 +67,7 @@
             // 
             this.EmailAddressLabel.AutoSize = true;
             this.EmailAddressLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmailAddressLabel.Location = new System.Drawing.Point(30, 150);
+            this.EmailAddressLabel.Location = new System.Drawing.Point(31, 156);
             this.EmailAddressLabel.Name = "EmailAddressLabel";
             this.EmailAddressLabel.Size = new System.Drawing.Size(127, 18);
             this.EmailAddressLabel.TabIndex = 52;
@@ -83,7 +86,7 @@
             this.PasswordReplacerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PasswordReplacerCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PasswordReplacerCustomButton.ForeColor = System.Drawing.Color.White;
-            this.PasswordReplacerCustomButton.Location = new System.Drawing.Point(80, 608);
+            this.PasswordReplacerCustomButton.Location = new System.Drawing.Point(81, 614);
             this.PasswordReplacerCustomButton.Name = "PasswordReplacerCustomButton";
             this.PasswordReplacerCustomButton.Size = new System.Drawing.Size(220, 40);
             this.PasswordReplacerCustomButton.TabIndex = 59;
@@ -96,7 +99,7 @@
             // 
             this.PasswordGeneratorControl.ConfirmPasswordVisible = true;
             this.PasswordGeneratorControl.Enabled = false;
-            this.PasswordGeneratorControl.Location = new System.Drawing.Point(20, 468);
+            this.PasswordGeneratorControl.Location = new System.Drawing.Point(21, 474);
             this.PasswordGeneratorControl.Name = "PasswordGeneratorControl";
             this.PasswordGeneratorControl.NewPasswordTextContent = "New Password";
             this.PasswordGeneratorControl.OldPasswordVisible = false;
@@ -118,7 +121,7 @@
             this.CodeSenderCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CodeSenderCustomButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CodeSenderCustomButton.ForeColor = System.Drawing.Color.White;
-            this.CodeSenderCustomButton.Location = new System.Drawing.Point(140, 215);
+            this.CodeSenderCustomButton.Location = new System.Drawing.Point(141, 221);
             this.CodeSenderCustomButton.Name = "CodeSenderCustomButton";
             this.CodeSenderCustomButton.Size = new System.Drawing.Size(110, 40);
             this.CodeSenderCustomButton.TabIndex = 54;
@@ -137,7 +140,7 @@
             this.EmailAddressCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EmailAddressCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.EmailAddressCustomTextBox.IsFocused = false;
-            this.EmailAddressCustomTextBox.Location = new System.Drawing.Point(30, 170);
+            this.EmailAddressCustomTextBox.Location = new System.Drawing.Point(31, 176);
             this.EmailAddressCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.EmailAddressCustomTextBox.MaxLength = 32767;
             this.EmailAddressCustomTextBox.Multiline = false;
@@ -148,6 +151,7 @@
             this.EmailAddressCustomTextBox.PlaceHolderText = "Enter Email Address";
             this.EmailAddressCustomTextBox.ReadOnly = false;
             this.EmailAddressCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.EmailAddressCustomTextBox.ShortcutsEnabled = true;
             this.EmailAddressCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.EmailAddressCustomTextBox.TabIndex = 53;
             this.EmailAddressCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -165,7 +169,7 @@
             this.UsernameCustomTextBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UsernameCustomTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.UsernameCustomTextBox.IsFocused = false;
-            this.UsernameCustomTextBox.Location = new System.Drawing.Point(30, 100);
+            this.UsernameCustomTextBox.Location = new System.Drawing.Point(31, 106);
             this.UsernameCustomTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.UsernameCustomTextBox.MaxLength = 32767;
             this.UsernameCustomTextBox.Multiline = false;
@@ -176,6 +180,7 @@
             this.UsernameCustomTextBox.PlaceHolderText = "Enter Username";
             this.UsernameCustomTextBox.ReadOnly = false;
             this.UsernameCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.UsernameCustomTextBox.ShortcutsEnabled = true;
             this.UsernameCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.UsernameCustomTextBox.TabIndex = 51;
             this.UsernameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -196,7 +201,7 @@
             this.LoginReturnerCustomButton.FlatAppearance.BorderSize = 0;
             this.LoginReturnerCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LoginReturnerCustomButton.ForeColor = System.Drawing.Color.White;
-            this.LoginReturnerCustomButton.Location = new System.Drawing.Point(20, 20);
+            this.LoginReturnerCustomButton.Location = new System.Drawing.Point(21, 26);
             this.LoginReturnerCustomButton.Name = "LoginReturnerCustomButton";
             this.LoginReturnerCustomButton.Size = new System.Drawing.Size(60, 30);
             this.LoginReturnerCustomButton.TabIndex = 49;
@@ -206,28 +211,48 @@
             // 
             // SmtpControl
             // 
-            this.SmtpControl.Location = new System.Drawing.Point(20, 261);
+            this.SmtpControl.Location = new System.Drawing.Point(21, 267);
             this.SmtpControl.Name = "SmtpControl";
             this.SmtpControl.Size = new System.Drawing.Size(350, 200);
             this.SmtpControl.TabIndex = 60;
+            // 
+            // PasswordResetPanel
+            // 
+            this.PasswordResetPanel.Controls.Add(this.PasswordReplacerCustomButton);
+            this.PasswordResetPanel.Controls.Add(this.SmtpControl);
+            this.PasswordResetPanel.Controls.Add(this.ResetPasswordLabel);
+            this.PasswordResetPanel.Controls.Add(this.LoginReturnerCustomButton);
+            this.PasswordResetPanel.Controls.Add(this.PasswordGeneratorControl);
+            this.PasswordResetPanel.Controls.Add(this.UsernameLabel);
+            this.PasswordResetPanel.Controls.Add(this.CodeSenderCustomButton);
+            this.PasswordResetPanel.Controls.Add(this.UsernameCustomTextBox);
+            this.PasswordResetPanel.Controls.Add(this.EmailAddressCustomTextBox);
+            this.PasswordResetPanel.Controls.Add(this.EmailAddressLabel);
+            this.PasswordResetPanel.Location = new System.Drawing.Point(51, 1);
+            this.PasswordResetPanel.Name = "PasswordResetPanel";
+            this.PasswordResetPanel.Size = new System.Drawing.Size(426, 661);
+            this.PasswordResetPanel.TabIndex = 61;
+            // 
+            // BanControl
+            // 
+            this.BanControl.AutoSize = true;
+            this.BanControl.Location = new System.Drawing.Point(505, 87);
+            this.BanControl.Name = "BanControl";
+            this.BanControl.Size = new System.Drawing.Size(400, 400);
+            this.BanControl.TabIndex = 62;
+            this.BanControl.Visible = false;
             // 
             // PasswordRestart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 655);
-            this.Controls.Add(this.SmtpControl);
-            this.Controls.Add(this.PasswordReplacerCustomButton);
-            this.Controls.Add(this.PasswordGeneratorControl);
-            this.Controls.Add(this.CodeSenderCustomButton);
-            this.Controls.Add(this.EmailAddressCustomTextBox);
-            this.Controls.Add(this.EmailAddressLabel);
-            this.Controls.Add(this.UsernameCustomTextBox);
-            this.Controls.Add(this.UsernameLabel);
-            this.Controls.Add(this.LoginReturnerCustomButton);
-            this.Controls.Add(this.ResetPasswordLabel);
+            this.ClientSize = new System.Drawing.Size(955, 655);
+            this.Controls.Add(this.BanControl);
+            this.Controls.Add(this.PasswordResetPanel);
             this.Name = "PasswordRestart";
             this.Text = "PasswordReset";
+            this.PasswordResetPanel.ResumeLayout(false);
+            this.PasswordResetPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,5 +269,7 @@
         private Controls.CustomButton CodeSenderCustomButton;
         private Controls.CustomButton PasswordReplacerCustomButton;
         private Controls.SmtpControl SmtpControl;
+        private System.Windows.Forms.Panel PasswordResetPanel;
+        private Controls.BanControl BanControl;
     }
 }

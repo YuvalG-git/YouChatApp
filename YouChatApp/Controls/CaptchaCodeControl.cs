@@ -29,6 +29,10 @@ namespace YouChatApp.Controls
             RestartCaptchaCustomButton.Enabled = true;
             CaptchaCodeCustomTextBox.TextContent = "";
         }
+        public bool IsNotificationLabelVisible()
+        {
+            return NotificationLabel.Visible;
+        }
         public void AddRestartCaptchaCustomButtonClickHandler(EventHandler handler)
         {
             RestartCaptchaCustomButtonClick += handler;
@@ -58,9 +62,10 @@ namespace YouChatApp.Controls
             CaptchaCodeCustomTextBox.Enabled = false;
             CaptchaCheckerCustomButton.Enabled = false;
             CaptchaPictureBox.Image = null;
-            NotificationLabel.Visible = false;
 
             RestartCaptchaCustomButtonClick?.Invoke(this, e);
+            NotificationLabel.Visible = false;
+
         }
 
         private void CaptchaCodeCustomTextBox_TextChangedEvent(object sender, EventArgs e)

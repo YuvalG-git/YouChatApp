@@ -89,7 +89,7 @@ namespace YouChatApp
         /// <summary>
         /// Declares a variable of type Paint which represents the _paint form's object and is used to perform actions on this form
         /// </summary>
-        public static Paint _paint = null;
+        public static AttachedFiles.PaintHandler.Paint _paint = null;
 
         public static ImageSender _imageSender;
 

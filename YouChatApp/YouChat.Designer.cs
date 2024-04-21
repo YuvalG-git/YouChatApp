@@ -825,6 +825,7 @@ namespace YouChatApp
             this.AudioCallCustomButton.TabIndex = 31;
             this.AudioCallCustomButton.TextColor = System.Drawing.Color.White;
             this.AudioCallCustomButton.UseVisualStyleBackColor = false;
+            this.AudioCallCustomButton.Click += new System.EventHandler(this.AudioCallCustomButton_Click);
             // 
             // VideoCallCustomButton
             // 

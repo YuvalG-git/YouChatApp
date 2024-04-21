@@ -20,6 +20,7 @@ namespace YouChatApp.UserAuthentication.Forms
     public partial class Registration : Form
     {
         private readonly ServerCommunicator serverCommunicator;
+        private bool smtpFail;
         EnumHandler.RegistrationPhases_Enum registrationPhase;
         bool isApprovedUsername = false, isApprovedPassword = false, isApprovedFirstName = false, isApprovedLastName = false, isApprovedEmailAddress = false, isApprovedCityName = false;
         bool MaleButtonIsChecked = false, FemaleButtonIsChecked = false, AnotherGenderButtonIsChecked = false;
@@ -38,6 +39,7 @@ namespace YouChatApp.UserAuthentication.Forms
             BirthDateCustomDateTimePicker.MinDate = new DateTime(DateTime.Today.Year - 100, DateTime.Today.Month, DateTime.Today.Day);
             BirthDateCustomDateTimePicker.MaxDate = DateTime.Now;
             registrationPhase = EnumHandler.RegistrationPhases_Enum.Smtp;
+            smtpFail = true;
         }
         public void SendSmtpCode(object sender, EventArgs e)
         {
@@ -68,8 +70,11 @@ namespace YouChatApp.UserAuthentication.Forms
         private void HandleSendingEmailProcess()
         {
             string username = UsernameCustomTextBox.TextContent;
+            bool afterFail = smtpFail;
+            smtpFail = false;
+            SmtpVerification smtpVerification = new SmtpVerification(username, afterFail);
             string emailAddress = EmailAddressCustomTextBox.TextContent;
-            SmtpDetails userUsernameAndEmailAddress = new SmtpDetails(username, emailAddress);
+            SmtpDetails userUsernameAndEmailAddress = new SmtpDetails(emailAddress,smtpVerification);
             JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_SmtpRegistrationMessage, userUsernameAndEmailAddress);
             string userUsernameAndEmailAddressJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
             {
@@ -93,7 +98,7 @@ namespace YouChatApp.UserAuthentication.Forms
             {
                 ChangeEmailOptionLinkLabel.Visible = true;
                 NewSMTPCodeOptionLinkLabel.Visible = true;
-
+                smtpFail = true;
                 SmtpControl.SetDisabled();
             }
         }
@@ -125,7 +130,8 @@ namespace YouChatApp.UserAuthentication.Forms
                         if (visible && currentEnumValue == registrationPhase)
                         {
                             HandleCodeResponse(false);
-                        }    
+                            SmtpControl.SetDisabled();
+                        }
                         break;
                     case EnumHandler.RegistrationPhases_Enum.Registration:
                         SignUpCustomButton.Visible = false;

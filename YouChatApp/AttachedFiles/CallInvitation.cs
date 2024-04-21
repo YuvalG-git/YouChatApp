@@ -17,8 +17,10 @@ namespace YouChatApp.AttachedFiles
     {
         private string _friendName;
         private string _chatId;
+        private Image _profilePicture;
+        private bool _isVideoCAll;
         private readonly ServerCommunicator serverCommunicator;
-        public CallInvitation(string chatId, string friendName)
+        public CallInvitation(string chatId, string friendName, Image profilePicture,bool isVideoCall)
         {
             InitializeComponent();
             serverCommunicator = ServerCommunicator.Instance;
@@ -28,7 +30,10 @@ namespace YouChatApp.AttachedFiles
             //FriendCircularPictureBox.Image = friendImage;
             _friendName = friendName;
             _chatId = chatId;
+            _profilePicture = profilePicture;
+            _isVideoCAll = isVideoCall;
             ContentLabel.Text = _friendName + " is calling you";
+            FriendCircularPictureBox.Image = profilePicture;
             ContentLabel.Location = new System.Drawing.Point((FriendInformationPanel.Width - ContentLabel.Width)/2, ContentLabel.Location.Y);
         }
 

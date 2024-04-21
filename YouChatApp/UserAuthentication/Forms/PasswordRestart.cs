@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Spire.Pdf.Exporting.XPS.Schema;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace YouChatApp.UserAuthentication.Forms
     public partial class PasswordRestart : Form
     {
         private readonly ServerCommunicator serverCommunicator;
+        private EnumHandler.PasswordResetPhases_Enum resetPasswordPhase;
+
         public PasswordRestart()
         {
             InitializeComponent();
@@ -37,6 +40,9 @@ namespace YouChatApp.UserAuthentication.Forms
         public void HandleCorrectCodeResponse()
         {
             PasswordGeneratorControl.Enabled = true;
+            resetPasswordPhase = EnumHandler.PasswordResetPhases_Enum.PasswordReset;
+            SmtpControl.SetDisabled();
+
         }
 
         public void SendSmtpCode(object sender, EventArgs e)
@@ -53,11 +59,18 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             HandleSendingEmailProcess();
         }
-        private void HandleSendingEmailProcess()
+        private SmtpDetails GetSmtpDetailsObject()
         {
             string Username = UsernameCustomTextBox.TextContent;
+            bool afterFail = SmtpControl.IsAfterFail();
             string Email = EmailAddressCustomTextBox.TextContent;
-            SmtpDetails smtpDetails = new SmtpDetails(Username, Email);
+            SmtpVerification smtpVerification = new SmtpVerification(Username, afterFail);
+            SmtpDetails smtpDetails = new SmtpDetails(Email, smtpVerification);
+            return smtpDetails;
+        }
+        private void HandleSendingEmailProcess()
+        {
+            SmtpDetails smtpDetails = GetSmtpDetailsObject();
             JsonObject smtpDetailsJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ResetPasswordRequest_SmtpMessage, smtpDetails);
             string smtpDetailsJson = JsonConvert.SerializeObject(smtpDetailsJsonObject, new JsonSerializerSettings
             {
@@ -99,7 +112,9 @@ namespace YouChatApp.UserAuthentication.Forms
 
         public void HandleMatchingUsernameAndEmailAddress()
         {
+            resetPasswordPhase = EnumHandler.PasswordResetPhases_Enum.Smtp;
             SmtpControl.HandleCode();
+            CodeSenderCustomButton.Enabled = false;
         }
 
 
@@ -116,9 +131,7 @@ namespace YouChatApp.UserAuthentication.Forms
 
         private void CodeSenderCustomButton_Click(object sender, EventArgs e)
         {
-            string Username = UsernameCustomTextBox.TextContent;
-            string Email = EmailAddressCustomTextBox.TextContent;
-            SmtpDetails smtpDetails = new SmtpDetails(Username, Email);
+            SmtpDetails smtpDetails = GetSmtpDetailsObject();
             JsonObject resetPasswordRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ResetPasswordRequest, smtpDetails);
             string resetPasswordRequestJson = JsonConvert.SerializeObject(resetPasswordRequestJsonObject, new JsonSerializerSettings
             {
@@ -131,7 +144,7 @@ namespace YouChatApp.UserAuthentication.Forms
         {
             //if the password is good...
             string username = UsernameCustomTextBox.TextContent;
-            string newPassword = PasswordGeneratorControl.NewPasswordTextContent;
+            string newPassword = PasswordGeneratorControl.GetNewPassword();
             LoginDetails resetPasswordDetails = new LoginDetails(username, newPassword);
             JsonObject passwordRenewalMessageJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.PasswordRenewalMessageRequest, resetPasswordDetails);
             string passwordRenewalMessageJson = JsonConvert.SerializeObject(passwordRenewalMessageJsonObject, new JsonSerializerSettings
@@ -155,7 +168,34 @@ namespace YouChatApp.UserAuthentication.Forms
         public void SetPasswordGeneratorControlEnable(bool enable)
         {
             PasswordGeneratorControl.SetEnable(enable);
-            PasswordReplacerCustomButton.Enabled = enable;
+            PasswordReplacerCustomButton.Enabled = false;
+        }
+        public void HandleBan(double banDuration)
+        {
+            BanControl.Visible = true;
+            BanControl.HandleBan(banDuration);
+            PasswordResetPanel.Visible = false;
+        }
+        public void HandleBanOver()
+        {
+            BanControl.Visible = false;
+            PasswordResetPanel.Visible = true;
+            SetFormByState();
+        }
+        public void SetFormByState()
+        {
+            switch (resetPasswordPhase)
+            {
+                case EnumHandler.PasswordResetPhases_Enum.UserData:
+                    RestartDetails();
+                    break;
+                case EnumHandler.PasswordResetPhases_Enum.Smtp:
+                    SmtpControl.HandleWrongCodeCase();
+                    break;
+                case EnumHandler.PasswordResetPhases_Enum.PasswordReset:
+                    SetPasswordGeneratorControlEnable(true);
+                    break;
+            }
         }
     }
 }

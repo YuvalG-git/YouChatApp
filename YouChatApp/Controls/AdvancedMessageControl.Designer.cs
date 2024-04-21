@@ -32,11 +32,11 @@
             this.MessageLabel = new System.Windows.Forms.Label();
             this.TimeLabel = new System.Windows.Forms.Label();
             this.MenuBarPictureBox = new System.Windows.Forms.PictureBox();
-            this.ProfilePictureCircularPictureBox = new YouChatApp.CircularPictureBox();
             this.ImagePictureBox = new System.Windows.Forms.PictureBox();
+            this.ProfilePictureCircularPictureBox = new YouChatApp.CircularPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.MenuBarPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImagePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // UsernameLabel
@@ -82,6 +82,17 @@
             this.MenuBarPictureBox.TabStop = false;
             this.MenuBarPictureBox.Click += new System.EventHandler(this.MenuBarPictureBox_Click);
             // 
+            // ImagePictureBox
+            // 
+            this.ImagePictureBox.BackgroundImage = global::YouChatApp.Properties.Resources.CameraFlash;
+            this.ImagePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ImagePictureBox.Location = new System.Drawing.Point(51, 28);
+            this.ImagePictureBox.Name = "ImagePictureBox";
+            this.ImagePictureBox.Size = new System.Drawing.Size(280, 180);
+            this.ImagePictureBox.TabIndex = 6;
+            this.ImagePictureBox.TabStop = false;
+            this.ImagePictureBox.Click += new System.EventHandler(this.ImagePictureBox_Click);
+            // 
             // ProfilePictureCircularPictureBox
             // 
             this.ProfilePictureCircularPictureBox.BackgroundImage = global::YouChatApp.Properties.Resources.AnonymousProfile;
@@ -95,18 +106,7 @@
             this.ProfilePictureCircularPictureBox.TabIndex = 3;
             this.ProfilePictureCircularPictureBox.TabStop = false;
             // 
-            // ImagePictureBox
-            // 
-            this.ImagePictureBox.BackgroundImage = global::YouChatApp.Properties.Resources.CameraFlash;
-            this.ImagePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ImagePictureBox.Location = new System.Drawing.Point(51, 28);
-            this.ImagePictureBox.Name = "ImagePictureBox";
-            this.ImagePictureBox.Size = new System.Drawing.Size(280, 187);
-            this.ImagePictureBox.TabIndex = 6;
-            this.ImagePictureBox.TabStop = false;
-            this.ImagePictureBox.Click += new System.EventHandler(this.ImagePictureBox_Click);
-            // 
-            // Message
+            // AdvancedMessageControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -119,15 +119,15 @@
             this.Controls.Add(this.UsernameLabel);
             this.MaximumSize = new System.Drawing.Size(850, 0);
             this.MinimumSize = new System.Drawing.Size(175, 70);
-            this.Name = "Message";
-            this.Size = new System.Drawing.Size(365, 208);
+            this.Name = "AdvancedMessageControl";
+            this.Size = new System.Drawing.Size(365, 70);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MessageControl_MouseDown);
             this.MouseEnter += new System.EventHandler(this.MessageControl_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.MessageControl_MouseLeave);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MessageControl_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.MenuBarPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImagePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureCircularPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

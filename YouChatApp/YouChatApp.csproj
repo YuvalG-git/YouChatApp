@@ -253,6 +253,7 @@
     <Compile Include="JsonClasses\PersonalVerificationAnswers.cs" />
     <Compile Include="JsonClasses\RegistrationInformation.cs" />
     <Compile Include="JsonClasses\PersonalVerificationQuestionDetails.cs" />
+    <Compile Include="JsonClasses\SmtpVerification.cs" />
     <Compile Include="JsonClasses\UserDetails.cs" />
     <Compile Include="NamespaceAdjustmentBinder.cs" />
     <Compile Include="ServerCommunicator.cs" />

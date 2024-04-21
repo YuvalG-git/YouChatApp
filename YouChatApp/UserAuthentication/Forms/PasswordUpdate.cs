@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YouChatApp.Controls;
 using YouChatApp.JsonClasses;
 
 namespace YouChatApp.UserAuthentication.Forms
@@ -80,6 +81,24 @@ namespace YouChatApp.UserAuthentication.Forms
             UpdatePasswordGeneratorControl.Enabled = enable;
             UsernameCustomTextBox.Enabled = enable;
             UpdatePasswordCustomButton.Enabled = enable;
+        }
+
+        private void LoginReturnerCustomButton_Click(object sender, EventArgs e)
+        {
+
+        }
+        public void HandleBan(double banDuration)
+        {
+            BanControl.Visible = true;
+            BanControl.HandleBan(banDuration);
+            PasswordUpdatePanel.Visible = false;
+        }
+        public void HandleBanOver()
+        {
+            BanControl.Visible = false;
+            PasswordUpdatePanel.Visible = true;
+            SetEnable(true);
+
         }
     }
 }

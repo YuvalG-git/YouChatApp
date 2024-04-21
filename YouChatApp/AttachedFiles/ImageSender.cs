@@ -13,6 +13,7 @@ namespace YouChatApp.AttachedFiles
     public partial class ImageSender : Form
     {
         private Image uploadedImage;
+        public static Image selectedImage;
         public ImageSender()
         {
             InitializeComponent();
@@ -49,9 +50,9 @@ namespace YouChatApp.AttachedFiles
 
         private void SendPictureCustomButton_Click(object sender, EventArgs e)
         {
-            //to return to the main chat and send the image...
+            selectedImage = uploadedImage;
+            this.DialogResult = DialogResult.OK;
             HandleClosing();
-
         }
 
         private void ReturnCustomButton_Click(object sender, EventArgs e)

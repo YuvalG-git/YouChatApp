@@ -502,6 +502,18 @@ namespace YouChatApp
                             case EnumHandler.CommunicationMessageID_Enum.LoginBanFinish:
                                 HandleLoginBanFinishEnum(jsonObject);
                                 break;
+                            case EnumHandler.CommunicationMessageID_Enum.PasswordUpdateBanStart:
+                                HandlePasswordUpdateBanStartEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.PasswordUpdateBanFinish:
+                                HandlePasswordUpdateBanFinishEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.ResetPasswordBanStart:
+                                HandleResetPasswordBanStartEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.ResetPasswordBanFinish:
+                                HandleResetPasswordBanFinishEnum(jsonObject);
+                                break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulResetPasswordResponse:
                                 FormHandler._passwordRestart.Invoke((Action)delegate { FormHandler._passwordRestart.HandleMatchingUsernameAndEmailAddress(); });
 
@@ -555,12 +567,14 @@ namespace YouChatApp
                                 HandleSendMessageResponseEnum(jsonObject);
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulVideoCallResponse_Sender:
+                            case EnumHandler.CommunicationMessageID_Enum.SuccessfulAudioCallResponse_Sender:
                                 FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenWaitingForm(); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulVideoCallResponse_Reciever:
                                 HandleSuccessfulVideoCallResponse_RecieverEnum(jsonObject);
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.FailedVideoCallResponse:
+                            case EnumHandler.CommunicationMessageID_Enum.FailedAudioCallResponse:
                                 MessageBox.Show(FailedCallRequest);
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.VideoCallAcceptanceResponse:
@@ -597,6 +611,9 @@ namespace YouChatApp
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.OfflineUpdate:
                                 HandleOfflineUpdateEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.SuccessfulAudioCallResponse_Reciever:
+                                HandleSuccessfulAudioCallResponse_RecieverEnum(jsonObject);
                                 break;
 
                         }
@@ -656,10 +673,16 @@ namespace YouChatApp
             FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleMessageHistory(messages); });
 
         }
+        private void HandleSuccessfulAudioCallResponse_RecieverEnum(JsonObject jsonObject)
+        {
+            string[] details = GetFriendName(jsonObject);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenCallInvitation(details[0], details[1],false); });
+
+        }
         private void HandleSuccessfulVideoCallResponse_RecieverEnum(JsonObject jsonObject)
         {
             string[] details = GetFriendName(jsonObject);
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenCallInvitation(details[0], details[1]); });
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenCallInvitation(details[0], details[1],true); });
 
         }
         private void HandleVideoCallAcceptanceResponseEnum(JsonObject jsonObject)
@@ -674,7 +697,7 @@ namespace YouChatApp
             ChatDetails chatDetails = ChatManager.GetChat(chatId);
             DirectChat directChat = (DirectChat)chatDetails;
             string friendName = directChat.GetContactName();
-            return new string[] { chatId, friendName };
+            return new string[] { chatId, friendName};
         }
         private void HandleSendMessageResponseEnum(JsonObject jsonObject)
         {
@@ -692,6 +715,7 @@ namespace YouChatApp
             {
                 byte[] imageMessageContentByteArray = imageMessageContent.ImageBytes;
                 Image imageMessage = ConvertHandler.ConvertBytesToImage(imageMessageContentByteArray);
+                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleImageMessagesByOthers(messageSenderName, chatId, messageDateTime, imageMessage); });
             }
             else if (messageContent is null)
             {
@@ -752,6 +776,24 @@ namespace YouChatApp
             ChatDetails chat = ChatManager.GetChat(chatId);
             FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleSuccessfulFriendRequest(contact, chat); });
 
+        }
+        private void HandleResetPasswordBanStartEnum(JsonObject jsonObject)
+        {
+            double banDuration = (double)jsonObject.MessageBody;
+            FormHandler._passwordRestart.Invoke((Action)delegate { FormHandler._passwordRestart.HandleBan(banDuration); });
+        }
+        private void HandleResetPasswordBanFinishEnum(JsonObject jsonObject)
+        {
+            FormHandler._passwordRestart.Invoke((Action)delegate { FormHandler._passwordRestart.HandleBanOver(); });
+        }
+        private void HandlePasswordUpdateBanStartEnum(JsonObject jsonObject)
+        {
+            double banDuration = (double)jsonObject.MessageBody;
+            FormHandler._passwordUpdate.Invoke((Action)delegate { FormHandler._passwordUpdate.HandleBan(banDuration); });
+        }
+        private void HandlePasswordUpdateBanFinishEnum(JsonObject jsonObject)
+        {
+            FormHandler._passwordUpdate.Invoke((Action)delegate { FormHandler._passwordUpdate.HandleBanOver(); });
         }
         private void HandleRegistrationBanStartEnum(JsonObject jsonObject)
         {

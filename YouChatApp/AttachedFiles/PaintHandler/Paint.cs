@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using YouChatApp.AttachedFiles.PaintHandler;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace YouChatApp
+namespace YouChatApp.AttachedFiles.PaintHandler
 {
     public partial class Paint : Form
     {
@@ -67,6 +67,7 @@ namespace YouChatApp
         bool IsTextItalic = false;
         bool IsTextUnderline = false;
         bool IsTextStrikeout = false;
+        static public Image finalImage;
 
         //whenever a color is selected the border will become green...
         //in the menu there will be the last chosen colors...
@@ -109,21 +110,29 @@ namespace YouChatApp
         {
             //LastCanvasUpdates = new Image[15];
             //LastCanvasUpdates[0] = DrawingBoardPictureBox.Image; //maybe i should use a two-way list and then just run on it with the undo redo...'
+            if (LastCanvasUpdates != null)
+            {
+                foreach (Drawing drawing in LastCanvasUpdates)
+                {
+                    drawing.DrawingImage.Dispose();
+                }
+            }
             LastCanvasUpdates = new List<Drawing>();
             InsertDrawing();
             UndoToolStripButton.Enabled = false; // can also add if with a bool var...
+
         }
         private void InsertDrawing()
         {
             UndoToolStripButton.Enabled = true;
             RedoToolStripButton.Enabled = false;
 
-            currentCanvasIndex = 0;
             //Drawing drawing = new Drawing(DrawingWidth, DrawingHeight, DrawingBoardPictureBox.Image);
             Image currentImage = new Bitmap(DrawingBitMap);
             Drawing drawing = new Drawing(DrawingWidth, DrawingHeight, currentImage);
 
             LastCanvasUpdates.Insert(0, drawing);
+            currentCanvasIndex = 0;
         }
         private void InitializeFontToolStripComboBox()
         {
@@ -240,22 +249,37 @@ namespace YouChatApp
             PaintSaveFileDialog.Filter = "jpg Files(*.jpg)|*.jpg|PNG Files (*.png)|*.png|Bitmap Files (*.bmp)|*.bmp|All Files (*.*)|*.*";
             PaintSaveFileDialog.Title = "Save an Image File";
             PaintSaveFileDialog.ShowDialog();
-            MergeBackgroundImageAndImage();
+            Image image = LastCanvasUpdates[currentCanvasIndex].DrawingImage;
             if (PaintSaveFileDialog.FileName != "")
             {
-                System.IO.FileStream FileStreamConnection = (System.IO.FileStream)PaintSaveFileDialog.OpenFile();
-                switch (PaintSaveFileDialog.FilterIndex)//todo change switch with if... or learn that method
+                using (System.IO.FileStream FileStreamConnection = (System.IO.FileStream)PaintSaveFileDialog.OpenFile())
                 {
-                    case 0:
-                        ExportImage.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        break;
-                    case 1:
-                        ExportImage.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Png);
-                        break;
-                    case 2:
-                        ExportImage.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Bmp);
-                        break;
+                    switch (PaintSaveFileDialog.FilterIndex)//todo change switch with if... or learn that method
+                    {
+                        case 0:
+                            image.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            break;
+                        case 1:
+                            image.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Png);
+                            break;
+                        case 2:
+                            image.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Bmp);
+                            break;
+                    }
                 }
+                //System.IO.FileStream FileStreamConnection = (System.IO.FileStream)PaintSaveFileDialog.OpenFile();
+                //switch (PaintSaveFileDialog.FilterIndex)//todo change switch with if... or learn that method
+                //{
+                //    case 0:
+                //        image.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Jpeg);
+                //        break;
+                //    case 1:
+                //        image.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Png);
+                //        break;
+                //    case 2:
+                //        image.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Bmp);
+                //        break;
+                //}
 
             }
         }
@@ -269,48 +293,51 @@ namespace YouChatApp
                 ChangeBackgroundColor(Color.Transparent);
                 BackgroundImageWidth = OpenedBackgroundImage.Width;
                 BackgroundImageHeight = OpenedBackgroundImage.Height;
-                DrawingBoardPictureBox.BackColor = Color.Transparent;
+                float scale = Math.Min((float)DrawingBoardPictureBox.Width / BackgroundImageWidth,
+                              (float)DrawingBoardPictureBox.Height / BackgroundImageHeight);
+                int newWidth = (int)(BackgroundImageWidth * scale);
+                int newHeight = (int)(BackgroundImageHeight * scale);
+                Image scaledImage = new Bitmap(OpenedBackgroundImage, newWidth, newHeight);
                 //DrawingBoardPictureBox.BackgroundImage = OpenedBackgroundImage;
                 //trying to add the picture to the canvas instead: in that case i will need to save the current drawing and then to copy it on top of the image
-                Graphics.DrawImage(OpenedBackgroundImage, 0, 0); //maybe i should let the user select the location - meaning where he pressed will be the location the top right will be
+                Graphics.DrawImage(scaledImage, 0, 0, newWidth, newHeight); //maybe i should let the user select the location - meaning where he pressed will be the location the top right will be
                 DrawingBoardPictureBox.Image = DrawingBitMap;
+                InsertDrawing();
 
             }
         }
 
-        private void MergeBackgroundImageAndImage()
+        private Image MergeBackgroundImageAndImage()
         {
-            DialogResult PaintDialogResult = PaintOpenFileDialog.ShowDialog();
-            if (PaintDialogResult == DialogResult.OK)
-            {
-                Image DrawingBoardBackgroundImage = DrawingBoardPictureBox.BackgroundImage;
-                Image DrawingBoardImage = DrawingBoardPictureBox.Image; //todo - needs to save a bitmap for only the drawing and for everything this way i will be able to do this..
-                Bitmap MergedBitmap = new Bitmap(DrawingWidth, DrawingHeight);
+            Image DrawingBoardBackgroundImage = DrawingBoardPictureBox.BackgroundImage;
+            Image DrawingBoardImage = DrawingBoardPictureBox.Image; //todo - needs to save a bitmap for only the drawing and for everything this way i will be able to do this..
+            Bitmap MergedBitmap = new Bitmap(DrawingWidth, DrawingHeight);
 
-                if (DrawingBoardPictureBox.BackgroundImage != null)
+            if (DrawingBoardPictureBox.BackgroundImage != null)
+            {
+                using (Graphics graphics = Graphics.FromImage(MergedBitmap))
                 {
-                    using (Graphics graphics = Graphics.FromImage(MergedBitmap))
-                    {
-                        graphics.DrawImage(DrawingBoardBackgroundImage, new PointF(0, 0));
-                        graphics.DrawImage(DrawingBoardImage, new PointF(0, 0));
-                    }
-                    ExportImage = MergedBitmap;
+                    graphics.DrawImage(DrawingBoardBackgroundImage, new PointF(0, 0));
+                    graphics.DrawImage(DrawingBoardImage, new PointF(0, 0));
                 }
-                else
-                {
-                    if (BackgroundColor == Color.Transparent)
-                        ChangeBackgroundColor(Color.White);
-                    else
-                        ChangeBackgroundColor(BackgroundColor);
-                    ExportImage = DrawingBoardPictureBox.Image;
-                }
+                ExportImage = MergedBitmap;
             }
+            else
+            {
+                if (BackgroundColor == Color.Transparent)
+                    ChangeBackgroundColor(Color.White);
+                else
+                    ChangeBackgroundColor(BackgroundColor);
+                ExportImage = DrawingBoardPictureBox.Image;
+            }
+            return ExportImage;
         }
 
         private void DeleteOptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteCanvas();
             InsertDrawing();
+            InitializeLastCanvasUpdates();
         }
         private void DeleteCanvas()
         {
@@ -389,17 +416,7 @@ namespace YouChatApp
                     //TextContentTextBox.Location = new System.Drawing.Point(CursorLocation.X, CursorLocation.Y);
                     TextContentTextBox.Location = new System.Drawing.Point(e.X, e.Y);
                 }
-                else if (PaintOptionIsChosenList[7])
-                {
-                    Point startPoint = e.Location;
-                    Color fillColor = PenColor; // You can get the user's selected fill color from your UI
-
-                    PerformFill(startPoint, fillColor);
-                }
-
             }
-
-
         }
 
         static Point SetPoint(PictureBox PictureBox, Point Point)
@@ -423,7 +440,7 @@ namespace YouChatApp
         {
             SetPaintOptionIsChosenListToFalse();
             PaintOptionIsChosenList[1] = true;
-            DrawingPen.Color = BackgroundColor;
+            DrawingPen.Color = Color.White;
         }
 
         private void TextToolStripButton_Click(object sender, EventArgs e)
@@ -658,113 +675,39 @@ namespace YouChatApp
             //DrawingBoardPictureBox.Image = currentCanvas;
             //DrawingBoardPictureBox.Invalidate();
         }
-        private void Validate(Bitmap Bitmap, Stack<Point> PixelStack, int X, int Y, Color OldColor, Color NewColor)
-        {
-            Color CurrentPixelColor = Bitmap.GetPixel(X, Y);
-            if (CurrentPixelColor == OldColor)
-            {
-                PixelStack.Push(new Point(X,Y));
-                Bitmap.SetPixel(X, Y, NewColor);
-            }
-        }
-        private void FillArea(Bitmap Bitmap, int X, int Y, Color NewColor)
-        {
-            Color OldColor = Bitmap.GetPixel(X, Y);
-            Stack<Point> PixelStack = new Stack<Point>();
-            PixelStack.Push(new Point(X, Y));
-            Bitmap.SetPixel(X, Y, NewColor);
-            if (OldColor != NewColor)
-            {
-                while (PixelStack.Count > 0)
-                {
-                    Point Point = (Point)PixelStack.Pop(); 
-                    if ((Point.X > 0) && (Point.Y  > 0) && (Point.X < Bitmap.Width - 1) && (Point.Y < Bitmap.Height - 1))
-                    {
-                        Validate(Bitmap, PixelStack, Point.X - 1, Point.Y, OldColor, NewColor);
-                        Validate(Bitmap, PixelStack, Point.X, Point.Y - 1, OldColor, NewColor);
-                        Validate(Bitmap, PixelStack, Point.X + 1, Point.Y, OldColor, NewColor);
-                        Validate(Bitmap, PixelStack, Point.X, Point.Y + 1, OldColor, NewColor);
-
-                    }
-                }      
-            }
-        }
-
-        private void PerformFill(Point start, Color fillColor)
-        {
-            Bitmap canvas = (Bitmap)DrawingBoardPictureBox.Image;
-            Color targetColor = canvas.GetPixel(start.X, start.Y);
-
-            if (targetColor == fillColor)
-                return;
-
-            Stack<Point> stack = new Stack<Point>();
-            stack.Push(start);
-
-            while (stack.Count > 0)
-            {
-                Point current = stack.Pop();
-
-                if (canvas.GetPixel(current.X, current.Y) == targetColor)
-                {
-                    canvas.SetPixel(current.X, current.Y, fillColor);
-
-                    if (current.X > 0)
-                        stack.Push(new Point(current.X - 1, current.Y));
-                    if (current.X < canvas.Width - 1)
-                        stack.Push(new Point(current.X + 1, current.Y));
-                    if (current.Y > 0)
-                        stack.Push(new Point(current.X, current.Y - 1));
-                    if (current.Y < canvas.Height - 1)
-                        stack.Push(new Point(current.X, current.Y + 1));
-                }
-            }
-        }
-
-        private void Fill(int x, int y, Color targetColor, Color fillColor, Bitmap canvas)
-        {
-            if (x < 0 || x >= canvas.Width || y < 0 || y >= canvas.Height)
-                return;
-
-            if (canvas.GetPixel(x, y) != targetColor)
-                return;
-
-            canvas.SetPixel(x, y, fillColor);
-
-            Fill(x + 1, y, targetColor, fillColor, canvas);
-            Fill(x - 1, y, targetColor, fillColor, canvas);
-            Fill(x, y + 1, targetColor, fillColor, canvas);
-            Fill(x, y - 1, targetColor, fillColor, canvas);
-        }
-
+ 
 
         private void BackgroundColorToolStripButton_Click(object sender, EventArgs e)
         {
             if (PaintColorDialog.ShowDialog() == DialogResult.OK)
             {
                 Color ChosenColor = PaintColorDialog.Color;
+                DrawingBoardPictureBox.Image = DrawingBitMap;
                 ChangeBackgroundColor(ChosenColor);
                 BackgroundColor = ChosenColor;
                 DrawingBoardPictureBox.BackColor = ChosenColor;
+
+                InsertDrawing();
             }
         }
 
         private void Paint_FormClosing(object sender, FormClosingEventArgs e)
         {
             DeleteCanvas();
-
         }
 
         private void RotateRight90ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DrawingBoardPictureBox.Image = RotateImage90DegreesRight((Bitmap)DrawingBoardPictureBox.Image);
+            DrawingBitMap = RotateImage90DegreesRight((Bitmap)DrawingBoardPictureBox.Image);
+            DrawingBoardPictureBox.Image = DrawingBitMap;
             InsertDrawing();
 
         }
 
         private void FlipVerticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DrawingBoardPictureBox.Image = FlipImageVertically((Bitmap)DrawingBoardPictureBox.Image);
+            DrawingBitMap = FlipImageVertically((Bitmap)DrawingBoardPictureBox.Image);
+            DrawingBoardPictureBox.Image = DrawingBitMap;
             InsertDrawing();
 
         }
@@ -819,23 +762,25 @@ namespace YouChatApp
         }
         private void FlipHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DrawingBoardPictureBox.Image = FlipImageHorizontally((Bitmap)DrawingBoardPictureBox.Image);
+            DrawingBitMap = FlipImageHorizontally((Bitmap)DrawingBoardPictureBox.Image);
+            DrawingBoardPictureBox.Image = DrawingBitMap;
             InsertDrawing();
 
         }
 
         private void RotateLeft90ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DrawingBoardPictureBox.Image = RotateImage90DegreesLeft((Bitmap)DrawingBoardPictureBox.Image);
+            DrawingBitMap = RotateImage90DegreesLeft((Bitmap)DrawingBoardPictureBox.Image);
+            DrawingBoardPictureBox.Image = DrawingBitMap;
             InsertDrawing();
 
         }
 
         private void Rotate180ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DrawingBoardPictureBox.Image = RotateImage180Degrees((Bitmap)DrawingBoardPictureBox.Image);
+            DrawingBitMap = RotateImage180Degrees((Bitmap)DrawingBoardPictureBox.Image);
+            DrawingBoardPictureBox.Image = DrawingBitMap;
             InsertDrawing();
-
         }
 
         private void RedoToolStripButton_Click(object sender, EventArgs e)
@@ -871,7 +816,7 @@ namespace YouChatApp
             Drawing drawing = LastCanvasUpdates[currentCanvasIndex];
             DrawingBoardPictureBox.Width = drawing.Width;
             DrawingBoardPictureBox.Height = drawing.Height;
-            DrawingBitMap = (Bitmap)drawing.DrawingImage;
+            DrawingBitMap = (Bitmap)drawing.DrawingImage.Clone();
             Graphics = Graphics.FromImage(DrawingBitMap);
 
             DrawingBoardPictureBox.Image = DrawingBitMap;
@@ -1007,42 +952,53 @@ namespace YouChatApp
             {
                 if (IsTextContentTextBoxEntered)
                 {
-                    IsTextContentTextBoxEntered = false;
-                    string Text = TextContentTextBox.Text;
-                    if (Text != "")
-                    {
-                        string Font = FontToolStripComboBox.Text;
-                        string SizeAsString = TextSizeToolStripComboBox.Text;
-                        int Size = int.Parse(SizeAsString);
-                        FontStyle FontStyle = FontStyle.Regular; // Start with regular style
-
-                        // Apply styles based on boolean values
-                        if (IsTextBold)
-                            FontStyle |= FontStyle.Bold;
-
-                        if (IsTextItalic)
-                            FontStyle |= FontStyle.Italic;
-
-                        if (IsTextUnderline)
-                            FontStyle |= FontStyle.Underline;
-
-                        if (IsTextStrikeout)
-                            FontStyle |= FontStyle.Strikeout;
-
-                        Font DrawFont = new Font(Font, Size, FontStyle);
-                        SolidBrush drawBrush = new SolidBrush(BrushColor);
-
-                        Graphics.DrawString(Text, DrawFont, drawBrush, TextContentTextBox.Location.X, TextContentTextBox.Location.Y);
-                        DrawingBoardPictureBox.Image = DrawingBitMap;
-
-                    }
-                    TextContentTextBox.Text = "";
-                    TextContentTextBox.Visible = false;
-                    PaintOptionIsChosenList[2] = false;
-                    TextToolStrip.Visible = false;//needs to add a method of refreshing some of the things maybe?
-                    InsertDrawing();
+                    ShowText();
                 }
             }
+        }
+        private void TextContentTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ShowText();
+            }
+        }
+        private void ShowText()
+        {
+            IsTextContentTextBoxEntered = false;
+            string Text = TextContentTextBox.Text;
+            if (Text != "")
+            {
+                string Font = FontToolStripComboBox.Text;
+                string SizeAsString = TextSizeToolStripComboBox.Text;
+                int Size = int.Parse(SizeAsString);
+                FontStyle FontStyle = FontStyle.Regular; // Start with regular style
+
+                // Apply styles based on boolean values
+                if (IsTextBold)
+                    FontStyle |= FontStyle.Bold;
+
+                if (IsTextItalic)
+                    FontStyle |= FontStyle.Italic;
+
+                if (IsTextUnderline)
+                    FontStyle |= FontStyle.Underline;
+
+                if (IsTextStrikeout)
+                    FontStyle |= FontStyle.Strikeout;
+
+                Font DrawFont = new Font(Font, Size, FontStyle);
+                SolidBrush drawBrush = new SolidBrush(BrushColor);
+
+                Graphics.DrawString(Text, DrawFont, drawBrush, TextContentTextBox.Location.X, TextContentTextBox.Location.Y);
+                DrawingBoardPictureBox.Image = DrawingBitMap;
+
+            }
+            TextContentTextBox.Text = "";
+            TextContentTextBox.Visible = false;
+            PaintOptionIsChosenList[2] = false;
+            TextToolStrip.Visible = false;//needs to add a method of refreshing some of the things maybe?
+            InsertDrawing();
         }
 
         private void TextColorChange(object sender, EventArgs e)
@@ -1062,6 +1018,12 @@ namespace YouChatApp
             //    TextContentTextBox.SelectionStart = selectionStart + 2; // Move the caret after the inserted line break
             //    e.Handled = true; // Suppress the Enter key
             //}
+        }
+
+        private void SendOptionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            finalImage = LastCanvasUpdates[currentCanvasIndex].DrawingImage;
         }
 
         private void ChangeBackgroundColor(Color BackgroundColor)

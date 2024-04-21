@@ -28,7 +28,7 @@ namespace YouChatApp
             //Application.Run(new tryform());
 
             //Application.Run(new Profile());
-            //Application.Run(new Paint());
+            //Application.Run(new AttachedFiles.PaintHandler.Paint());
             //Application.Run(new ContactSharing());
             //Application.Run(new Document());
             //Application.Run(new ImageSender());

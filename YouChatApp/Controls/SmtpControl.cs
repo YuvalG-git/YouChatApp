@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YouChatApp.JsonClasses;
@@ -29,10 +30,16 @@ namespace YouChatApp.Controls
         public void HandleWrongCodeCase()
         {
             EmailNotificationLabel.Text = sendRequest;
+            EmailNotificationLabel.Visible = true;
             SetEmailNotificationLabelLocation();
             RestartSmtpCodeCustomButton.Enabled = true;
             SmtpCodeCustomTextBox.TextContent = "";
         }
+        public bool IsAfterFail()
+        {
+            return EmailNotificationLabel.Text == sendRequest;
+        }
+
         public void SetRestartSmtpCodeCustomButtonDisable()
         {
             RestartSmtpCodeCustomButton.Enabled = false;
@@ -62,10 +69,14 @@ namespace YouChatApp.Controls
 
         private void RestartSmtpCodeCustomButton_Click(object sender, EventArgs e)
         {
+            RestartSmtpCodeCustomButton.Enabled = false;
             SetDisabled();
-            EmailNotificationLabel.Text = sentVerificationCodeMessage;
             SetEmailNotificationLabelLocation();
             RestartSmtpCodeCustomButtonClick?.Invoke(this, e);
+            EmailNotificationLabel.Text = sentVerificationCodeMessage;
+            Thread.Sleep(500);
+            RestartSmtpCodeCustomButton.Enabled = true;
+
         }
         public void AddRestartSmtpCodeCustomButtonClickHandler(EventHandler handler)
         {

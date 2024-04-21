@@ -48,6 +48,8 @@ namespace YouChatApp
         public System.Windows.Forms.Label MessageContent => MessageLabel;
         public System.Windows.Forms.Label Time => TimeLabel;
         public PictureBox ProfilePicture => ProfilePictureCircularPictureBox;
+        public PictureBox Image => ImagePictureBox;
+
 
         public float CurrentUsernameLabelTextSize = 12F;
         public float CurrentNessageLabelTextSize = 15.75F;
@@ -145,6 +147,7 @@ namespace YouChatApp
         }
         private void HandleMessageControlDeletedMessageDesign()
         {
+            FitPictureBoxToImage(ImagePictureBox);
             int NewWidth = MessageLabel.Location.X + MessageLabel.Width + 10;
             int realWidth = NewWidth > TextMessageNormalWidth ? NewWidth : TextMessageNormalWidth;
             this.Width = realWidth;
@@ -154,6 +157,23 @@ namespace YouChatApp
             this.Height = TimeLabel.Height + TimeLabel.Location.Y + 10;
             this.Size = new System.Drawing.Size(this.Width, this.Height);
             SetMenuBarLocation();
+        }
+        private void FitPictureBoxToImage(PictureBox pictureBox)
+        {
+            if (pictureBox.Image != null)
+            {
+                // Calculate the zoomed size of the image
+                float zoomFactor = Math.Min((float)pictureBox.Width / pictureBox.Image.Width,
+                                             (float)pictureBox.Height / pictureBox.Image.Height);
+
+                // Calculate the new size of the PictureBox
+                int newWidth = (int)(pictureBox.Image.Width * zoomFactor);
+                int newHeight = (int)(pictureBox.Image.Height * zoomFactor);
+
+                // Set the new size of the PictureBox
+                pictureBox.Width = newWidth;
+                pictureBox.Height = newHeight;
+            }
         }
         private void HandleMessageControlImageDesign()
         {

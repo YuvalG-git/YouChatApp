@@ -34,6 +34,12 @@ namespace YouChatApp
             Smtp,
             Registration
         }
+        public enum PasswordResetPhases_Enum
+        {
+            UserData,
+            Smtp,
+            PasswordReset
+        }
         /// <summary>
         /// Enum used to ...
         /// </summary>
@@ -167,7 +173,13 @@ namespace YouChatApp
             MessageHistoryRequest,
             MessageHistoryResponse,
             OnlineUpdate,
-            OfflineUpdate
+            OfflineUpdate,
+            AudioCallRequest,
+            SuccessfulAudioCallResponse_Sender,
+            SuccessfulAudioCallResponse_Reciever,
+            FailedAudioCallResponse,
+            AudioCallAcceptanceResponse,
+            AudioCallDenialResponse,
         }
     }
 }

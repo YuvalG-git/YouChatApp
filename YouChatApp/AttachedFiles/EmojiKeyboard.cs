@@ -444,8 +444,8 @@ namespace YouChatApp.AttachedFiles
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(CreateMessageString());
-            richTextBox1.ReadOnly = true;
-            richTextBox1.Enabled = false;
+            //richTextBox1.ReadOnly = true;
+            //richTextBox1.Enabled = false;
         }
 
         //private void EmojiKeyboard_Deactivate(object sender, EventArgs e)
@@ -833,43 +833,43 @@ namespace YouChatApp.AttachedFiles
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            richTextBox1.Select(richTextBox1.Text.Length, 0);
-            bool ShiftPressed = ((Control.ModifierKeys & Keys.Shift) != 0);
-            int Index = richTextBox1.SelectionStart - 1;
+            //richTextBox1.Select(richTextBox1.Text.Length, 0);
+            //bool ShiftPressed = ((Control.ModifierKeys & Keys.Shift) != 0);
+            //int Index = richTextBox1.SelectionStart - 1;
 
-            MessageChar messageChar = new MessageChar();
-            messageChar.Char = richTextBox1.Text[Index];
-            //messageChar.Char = richTextBox1.Text[IndexToAdd]; //להחליף לבזמן לחיצה או אחרי אולי
-            RichTextBoxContent.Insert(Index, messageChar);
+            //MessageChar messageChar = new MessageChar();
+            //messageChar.Char = richTextBox1.Text[Index];
+            ////messageChar.Char = richTextBox1.Text[IndexToAdd]; //להחליף לבזמן לחיצה או אחרי אולי
+            //RichTextBoxContent.Insert(Index, messageChar);
         }
 
         private void richTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            bool ShiftPressed = ((Control.ModifierKeys & Keys.Shift) != 0);
+            //bool ShiftPressed = ((Control.ModifierKeys & Keys.Shift) != 0);
 
-            int IndexToAdd = richTextBox1.SelectionStart;
-            if (e.KeyCode == Keys.Back) 
-            {
-                if ((IndexToAdd != 0) && (RichTextBoxContent[IndexToAdd - 1] != null)) //what if more than one char is deleted at the same time...
-                {
-                    if (RichTextBoxContent[IndexToAdd - 1] is MessageChar)
-                    {
-                        RichTextBoxContent.RemoveAt(IndexToAdd - 1);
+            //int IndexToAdd = richTextBox1.SelectionStart;
+            //if (e.KeyCode == Keys.Back) 
+            //{
+            //    if ((IndexToAdd != 0) && (RichTextBoxContent[IndexToAdd - 1] != null)) //what if more than one char is deleted at the same time...
+            //    {
+            //        if (RichTextBoxContent[IndexToAdd - 1] is MessageChar)
+            //        {
+            //            RichTextBoxContent.RemoveAt(IndexToAdd - 1);
 
-                    }
-                    else
-                    {
-                        //e.SuppressKeyPress = true; // Prevent the default behavior of the key
-                        RichTextBoxContent.RemoveAt(IndexToAdd - 1);
+            //        }
+            //        else
+            //        {
+            //            //e.SuppressKeyPress = true; // Prevent the default behavior of the key
+            //            RichTextBoxContent.RemoveAt(IndexToAdd - 1);
 
-                    }
-                    // Customize the behavior of the backspace key here
-                    //if (ImageLockMode = true)//if thats the image location
-                    //{
-                    //    e.SuppressKeyPress = true; // Prevent the default behavior of the key
-                    //    //to delete the emoji
-                    //}
-                }
+            //        }
+            //        // Customize the behavior of the backspace key here
+            //        //if (ImageLockMode = true)//if thats the image location
+            //        //{
+            //        //    e.SuppressKeyPress = true; // Prevent the default behavior of the key
+            //        //    //to delete the emoji
+            //        //}
+            //    }
 
             }
             //else if (!char.IsControl((char)e.KeyCode))//todo find a solution to ctrl typing
@@ -890,7 +890,7 @@ namespace YouChatApp.AttachedFiles
 
 
 
-        }
+        
 
         private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -938,8 +938,8 @@ namespace YouChatApp.AttachedFiles
 
         private void button2_Click(object sender, EventArgs e)
         {
-            flowLayoutPanel1.Visible = !flowLayoutPanel1.Visible;
-            isButtonPressed = !isButtonPressed;
+            //flowLayoutPanel1.Visible = !flowLayoutPanel1.Visible;
+            //isButtonPressed = !isButtonPressed;
         }
 
         private bool isMouseOverButton = false;
@@ -974,10 +974,10 @@ namespace YouChatApp.AttachedFiles
 
         private void UpdatePanelVisibility()
         {
-            if (isButtonPressed &&(isMouseOverButton || isMouseOverPanel))
-                flowLayoutPanel1.Visible = true;
-            else
-                flowLayoutPanel1.Visible = false;
+            //if (isButtonPressed &&(isMouseOverButton || isMouseOverPanel))
+            //    flowLayoutPanel1.Visible = true;
+            //else
+            //    flowLayoutPanel1.Visible = false;
         }
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)

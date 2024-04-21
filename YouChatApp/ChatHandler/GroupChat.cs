@@ -13,13 +13,13 @@ namespace YouChatApp.ChatHandler
         private string _chatName;
         public Image _chatProfilePicture;
         private string _chatParticipants;
-        public GroupChat(string chatTagLineId, string messageHistory, DateTime? lastMessageTime, string lastMessageContent, string lastMessageSenderName, List<ChatParticipant> chatParticipants, string chatName, Image chatProfilePicture) : base(chatTagLineId, messageHistory, lastMessageTime, lastMessageContent, lastMessageSenderName, chatParticipants)
+        public GroupChat(string chatTagLineId, DateTime? lastMessageTime, string lastMessageContent, string lastMessageSenderName, List<ChatParticipant> chatParticipants, string chatName, Image chatProfilePicture) : base(chatTagLineId, lastMessageTime, lastMessageContent, lastMessageSenderName, chatParticipants)
         {
             _chatName = chatName;
             _chatProfilePicture = chatProfilePicture;
             _chatParticipants = ChatParticipantsToString();
         }
-        public GroupChat(GroupChatDetails groupChatDetails) : base(groupChatDetails.ChatTagLineId, groupChatDetails.MessageHistory, groupChatDetails.LastMessageTime, groupChatDetails.LastMessageContent, groupChatDetails.LastMessageSenderName, groupChatDetails.ChatParticipants)
+        public GroupChat(GroupChatDetails groupChatDetails) : base(groupChatDetails.ChatTagLineId, groupChatDetails.LastMessageTime, groupChatDetails.LastMessageContent, groupChatDetails.LastMessageSenderName, groupChatDetails.ChatParticipants)
         {
             _chatName = groupChatDetails.ChatName;
             _chatProfilePicture = ConvertHandler.ConvertBytesToImage(groupChatDetails.ChatProfilePicture);

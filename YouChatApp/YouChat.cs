@@ -29,6 +29,8 @@ using ChatCreator = YouChatApp.ChatHandler.ChatCreator;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using AForge;
+using YouChatApp.AttachedFiles.PaintHandler;
 
 namespace YouChatApp
 {
@@ -657,7 +659,7 @@ namespace YouChatApp
             string chatId;
             DateTime messageDateTime;
             string time;
-            string messageContent;
+            object messageContent;
             string username = ProfileDetailsHandler.Name;
             foreach (JsonClasses.Message message in messages)
             {
@@ -665,15 +667,32 @@ namespace YouChatApp
                 chatId = message.ChatId;
                 messageDateTime = message.MessageDateAndTime;
                 time = TimeHandler.GetFormatTime(messageDateTime);
-                messageContent = (string)message.MessageContent;
-                if (message.MessageSenderName == ProfileDetailsHandler.Name)
+                messageContent = message.MessageContent;
+                if (messageContent is string textMessageContent)
                 {
-                    AddMessageByUser(messageContent, chatId, time, username);
+                    if (message.MessageSenderName == ProfileDetailsHandler.Name)
+                    {
+                        AddMessageByUser(textMessageContent, chatId, time, username);
+                    }
+                    else
+                    {
+                        AddMessageByOthers(textMessageContent, chatId, time, messageSenderName);
+                    }
                 }
-                else
+                else if (messageContent is ImageContent imageMessageContent)
                 {
-                    AddMessageByOthers(messageContent, chatId, time, messageSenderName);
+                    byte[] imageBytes = imageMessageContent.ImageBytes;
+                    Image image = ConvertHandler.ConvertBytesToImage(imageBytes);
+                    if (message.MessageSenderName == ProfileDetailsHandler.Name)
+                    {
+                        AddImageMessageByUser(image, chatId, time, username);
+                    }
+                    else
+                    {
+                        AddImageMessageByOthers(image, chatId, time, messageSenderName);
+                    }
                 }
+   
             }
         }
         public void HandleChats(ChatControl chatControl,string chatId)
@@ -1045,8 +1064,49 @@ namespace YouChatApp
             string time = TimeHandler.GetFormatTime(SendMessageTime);
             ChangeChatLastMessageInformation(chatId, SendMessageTime, MessageContent, username, time);
             AddMessageByUser(MessageContent,chatId, time, username);
+        }
+        public void HandleYourImageMessages(Image messageImage, string chatId, DateTime SendMessageTime) //maybe i should the same function just with if or something like that (to ask if name == my name...)
+        {
+            string username = UserProfile.ProfileDetailsHandler.Name;
+            string time = TimeHandler.GetFormatTime(SendMessageTime);
+            ChangeChatLastMessageInformation(chatId, SendMessageTime, "Image", username, time);
+            AddImageMessageByUser(messageImage, chatId, time, username);
+        }
+        private void AddImageMessageByUser(Image messageImage, string chatId, string time, string username)
+        {
+            int messageNumber = messageCount[chatId];
+            List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
 
+            if (messageNumber != 0)
+                heightForMessages = currentMessageControls[messageNumber - 1].Location.Y + currentMessageControls[messageNumber - 1].Size.Height + messageGap;
+            else
+            {
+                heightForMessages = 0;
+            }
+            currentMessageControls.Add(new AdvancedMessageControl());
+            currentMessageControls[messageNumber].Location = new System.Drawing.Point(30, heightForMessages);
+            currentMessageControls[messageNumber].Name = $"Id:{chatId}-number:{messageNumber}";
+            currentMessageControls[messageNumber].TabIndex = 0;
+            currentMessageControls[messageNumber].BackColor = SystemColors.Control;
+            currentMessageControls[messageNumber].Username.Text = username;
+            currentMessageControls[messageNumber].Image.BackgroundImage = messageImage;
+            currentMessageControls[messageNumber].Time.Text = time;
+            currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
+            currentMessageControls[messageNumber].IsYourMessage = true;
+            currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.Image;
+            currentMessageControls[messageNumber].SetMessageControl();
+            currentMessageControls[messageNumber].SetBackColorByMessageSender();
+            this.Controls.Add(currentMessageControls[messageNumber]);
+            currentMessagePanel.Controls.Add(currentMessageControls[messageNumber]);
 
+            if (currentMessagePanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
+            {
+                //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
+                Control LastControl = currentMessageControls[messageNumber];
+                currentMessagePanel.ScrollControlIntoView(LastControl);
+            }
+            messageNumber++;
+            messageCount[chatId] = messageNumber;
         }
         private void AddMessageByUser(string MessageContent, string chatId, string time, string username)
         {
@@ -1091,6 +1151,53 @@ namespace YouChatApp
             ChangeChatLastMessageInformation(chatId, messageDateTime, messageContent, messageSenderName, time);
             AddMessageByOthers(messageContent, chatId, time, messageSenderName);
 
+        }
+        public void HandleImageMessagesByOthers(string messageSenderName, string chatId, DateTime messageDateTime, Image messageImage)
+        {
+            string time = TimeHandler.GetFormatTime(messageDateTime);
+            ChangeChatLastMessageInformation(chatId, messageDateTime, "Image", messageSenderName, time);
+            AddImageMessageByOthers(messageImage, chatId, time, messageSenderName);
+
+        }
+        private void AddImageMessageByOthers(Image messageImage, string chatId, string time, string messageSenderName)
+        {
+            Panel messagePanel = MessagePanels[chatId];
+            Contact SenderContact = ContactHandler.ContactManager.GetContact(messageSenderName);
+            int messageNumber = messageCount[chatId];
+            List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
+
+
+            if (messageNumber != 0)
+                heightForMessages = currentMessageControls[messageNumber - 1].Location.Y + currentMessageControls[messageNumber - 1].Size.Height + messageGap;
+            else
+            {
+                heightForMessages = 0;
+            }
+            currentMessageControls.Add(new AdvancedMessageControl());
+            currentMessageControls[messageNumber].Location = new System.Drawing.Point(30, heightForMessages);
+            currentMessageControls[messageNumber].Name = $"Id:{chatId}-number:{messageNumber}";
+            currentMessageControls[messageNumber].TabIndex = 0;
+            currentMessageControls[messageNumber].BackColor = SystemColors.Control;
+            currentMessageControls[messageNumber].Username.Text = messageSenderName;
+            currentMessageControls[messageNumber].Image.BackgroundImage = messageImage;
+            currentMessageControls[messageNumber].Time.Text = time;
+            currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = SenderContact.ProfilePicture;
+            currentMessageControls[messageNumber].IsYourMessage = false;
+            currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.Image;
+
+            currentMessageControls[messageNumber].SetMessageControl();
+            currentMessageControls[messageNumber].SetBackColorByOtherSender();
+            this.Controls.Add(currentMessageControls[messageNumber]);
+            messagePanel.Controls.Add(currentMessageControls[messageNumber]);
+
+            if (messagePanel.Controls.Count > 0)
+            {
+                //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
+                Control LastControl = currentMessageControls[messageNumber];
+                messagePanel.ScrollControlIntoView(LastControl);
+            }
+            messageNumber++;
+            messageCount[chatId] = messageNumber;
         }
         private void AddMessageByOthers(string messageContent, string chatId, string time, string messageSenderName)
         {
@@ -1544,7 +1651,7 @@ namespace YouChatApp
         }
         private void GroupIconCircularPictureBox_Click(object sender, EventArgs e)
         {
-            GroupIconContextMenuStrip.Show(GroupIconCircularPictureBox, new Point(GroupIconCircularPictureBox.Width / 2, GroupIconCircularPictureBox.Height * 3 / 4));
+            GroupIconContextMenuStrip.Show(GroupIconCircularPictureBox, new System.Drawing.Point(GroupIconCircularPictureBox.Width / 2, GroupIconCircularPictureBox.Height * 3 / 4));
 
             //bool GroupIconCircularPictureBoxHasIcon = (GroupIconCircularPictureBox.BackgroundImage != AnonymousProfile);
             //Image groupIcon = OpenFileDialogHandler.HandleOpenFileDialog(UploadedPictureOpenFileDialog);
@@ -1579,39 +1686,43 @@ namespace YouChatApp
 
         private void TakePhotoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HandleImageTaking();
+            HandleImageTaking(true);
         }
-        private void HandleImageTaking()
+        private void HandleImageTaking(bool isForGroupChat)
         {
-            if (ServerCommunication._camera == null)
-            {
-                ServerCommunication._camera = new Camera();
-            }
-
-            DialogResult result = ServerCommunication._camera.ShowDialog();
+            FormHandler._camera = new Camera();
+            FormHandler._camera.IsImageForGroupChat = isForGroupChat;
+            DialogResult result = FormHandler._camera.ShowDialog();
 
             // Check if Form2 was closed successfully
             if (result == DialogResult.OK)
             {
-                // Retrieve the image from Form2 and update the PictureBox in Form1
-                GroupIconCircularPictureBox.BackgroundImage = ServerCommunication._camera.ImageToSend;
+                if (isForGroupChat)
+                {
+                    GroupIconCircularPictureBox.BackgroundImage = Camera.ImageToSend;
+                }
+                else
+                {
+                    Image imageData = Camera.ImageToSend;
+                    SendImage(imageData);
+                    Camera.ImageToSend = null;
+                }
             }
         }
-
         private void EmojiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ServerCommunication._emojiKeyboard == null)
+            if (FormHandler._emojiKeyboard == null)
             {
-                ServerCommunication._emojiKeyboard = new EmojiKeyboard();
+                FormHandler._emojiKeyboard = new EmojiKeyboard();
             }
-            ServerCommunication._emojiKeyboard._isText = false;
-            DialogResult result = ServerCommunication._emojiKeyboard.ShowDialog();
+            FormHandler._emojiKeyboard._isText = false;
+            DialogResult result = FormHandler._emojiKeyboard.ShowDialog();
 
             // Check if Form2 was closed successfully
             if (result == DialogResult.OK)
             {
                 // Retrieve the image from Form2 and update the PictureBox in Form1
-                GroupIconCircularPictureBox.BackgroundImage = ServerCommunication._emojiKeyboard.ImageToSend;
+                GroupIconCircularPictureBox.BackgroundImage = FormHandler._emojiKeyboard.ImageToSend;
             }
         }
         private void DisableCloseForProfileControls()
@@ -1633,7 +1744,7 @@ namespace YouChatApp
             GroupSettingsPanel.Visible = true;
             GroupCreatorBackgroundPanel.Visible = false;
             this.GroupSettingsPanel.Controls.Add(this.SelectedContactsPanel);
-            this.SelectedContactsPanel.Location = new Point(0, 100);
+            this.SelectedContactsPanel.Location = new System.Drawing.Point(0, 100);
             DisableCloseForProfileControls();
             PanelHandler.SetPanelToSide(SelectedContactsPanel, ProfileControlList, true);
         }
@@ -1647,7 +1758,7 @@ namespace YouChatApp
             GroupSettingsPanel.Visible = false;
             GroupCreatorBackgroundPanel.Visible = true;
             this.GroupCreatorBackgroundPanel.Controls.Add(this.SelectedContactsPanel);
-            this.SelectedContactsPanel.Location = new Point(0, 100);
+            this.SelectedContactsPanel.Location = new System.Drawing.Point(0, 100);
             EnableCloseForProfileControls();
             PanelHandler.SetPanelToSide(SelectedContactsPanel, ProfileControlList, true);
         }
@@ -1655,11 +1766,6 @@ namespace YouChatApp
         private void RestartGroupSubjectCustomButton_Click(object sender, EventArgs e)
         {
             GroupSubjectCustomTextBox.TextContent = "";
-        }
-
-        private void UserFileButton_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void UserFileCustomButton_Click(object sender, EventArgs e)
@@ -1682,16 +1788,7 @@ namespace YouChatApp
             }
         }
 
-        private void VideoCallCustomButton_Click(object sender, EventArgs e)
-        {
-            JsonObject videoCallRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.VideoCallRequest, currentChatId);
-            string videoCallRequestJson = JsonConvert.SerializeObject(videoCallRequestJsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(videoCallRequestJson);
-            DirectChatFeaturesPanel.Enabled = false;
-        }
+
         public void OpenWaitingForm()
         {
             FormHandler._waitingForm = new WaitingForm();
@@ -1726,13 +1823,14 @@ namespace YouChatApp
             FormHandler._waitingForm.Dispose();
             EnableDirectChatFeaturesPanel();
         }
-        public void OpenCallInvitation(string chatId, string friendName)
+        public void OpenCallInvitation(string chatId, string friendName, bool isVideoCall)
         {
-            FormHandler._callInvitation = new CallInvitation(chatId, friendName);
+            Contact contact = ContactManager.GetContact(friendName);
+            Image profilePicture = contact.ProfilePicture;
+            FormHandler._callInvitation = new CallInvitation(chatId, friendName, profilePicture, isVideoCall);
             FormHandler._callInvitation.Show();
             DirectChatFeaturesPanel.Enabled = false;
 
-            //FormHandler._callInvitation.BeginInvoke((Action)delegate { FormHandler._callInvitation.Show(); });
         }
         public void EnableDirectChatFeaturesPanel()
         {
@@ -1741,11 +1839,19 @@ namespace YouChatApp
         }
         private void DrawingFileCustomButton_Click(object sender, EventArgs e)
         {
-            if (ServerCommunication._paint == null)
+            FormHandler._paint = new AttachedFiles.PaintHandler.Paint();
+
+            FormHandler._contactSharing = new ContactSharing();
+            //ServerCommunication._contactSharing._isText = false;
+            DialogResult result = FormHandler._paint.ShowDialog();
+
+            Image imageData;
+            if (result == DialogResult.OK)
             {
-                ServerCommunication._paint = new Paint();
+                imageData = AttachedFiles.PaintHandler.Paint.finalImage;
+                SendImage(imageData);
+                AttachedFiles.PaintHandler.Paint.finalImage = null;
             }
-            this.Invoke(new Action(() => ServerCommunication._paint.ShowDialog()));
         }
 
         private void EmojiFileButton_Click(object sender, EventArgs e)
@@ -1755,12 +1861,20 @@ namespace YouChatApp
 
         private void EmojiKeyBoardCustomButton_Click(object sender, EventArgs e)
         {
-            if (ServerCommunication._emojiKeyboard == null)
+            if (FormHandler._emojiKeyboard == null)
             {
-                ServerCommunication._emojiKeyboard = new EmojiKeyboard();
+                FormHandler._emojiKeyboard = new EmojiKeyboard();
             }
-            ServerCommunication._emojiKeyboard._isText = true;
-            this.Invoke(new Action(() => ServerCommunication._emojiKeyboard.Show()));
+            FormHandler._emojiKeyboard._isText = false;
+            DialogResult result = FormHandler._emojiKeyboard.ShowDialog();
+
+            Image imageData;
+            if (result == DialogResult.OK)
+            {
+                imageData = FormHandler._emojiKeyboard.ImageToSend;
+                FormHandler._emojiKeyboard.ImageToSend = null;
+                SendImage(imageData);
+            }
         }
 
         private void MessageSenderCustomButton_Click(object sender, EventArgs e)
@@ -1768,22 +1882,8 @@ namespace YouChatApp
             if (MessageCustomTextBox.IsContainingValue())
             {
                 string Message = MessageCustomTextBox.TextContent;
-                string SendMessageTime = DateTime.Now.ToString("HH:mm");
-                string MessageContant = Message + "#" + SendMessageTime;
                 SendMessage(Message);
-                //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + MessageContant);
                 MessageCustomTextBox.TextContent = "";
-            }
-            //else if (LoadedPicturePictureBox.BackgroundImage != null)
-            //{
-            //    //ServerCommunication.SendImage(ServerCommunication.sendMessageRequest + "$" + MessageContant); need to figure out how to send a message as well - not nesserally perhaps - could use the username from the server and take the time the message got to the server...
-
-            //}
-            // Check if Form2 is open and not disposed before trying to close it
-            EmojiKeyboard emojiKeyboard = ServerCommunication._emojiKeyboard;
-            if (emojiKeyboard != null && !emojiKeyboard.IsDisposed && emojiKeyboard.Visible)
-            {
-                emojiKeyboard.Hide();
             }
         }
         private void SendMessage(string messageContent)
@@ -1791,6 +1891,25 @@ namespace YouChatApp
             DateTime messageTime = DateTime.Now;
             HandleYourMessages(messageContent,currentChatId, messageTime);
             JsonClasses.Message message = new JsonClasses.Message(ProfileDetailsHandler.Name, currentChatId, messageContent, messageTime);
+            JsonObject messageJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.SendMessageRequest, message);
+            string messageJson = JsonConvert.SerializeObject(messageJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            serverCommunicator.SendMessage(messageJson);
+        }
+        private Image ResizeImage(Image originalImage, int desiredWidth, int desiredHeight)
+        {
+            return new Bitmap(originalImage, desiredWidth, desiredHeight);
+        }
+        private void SendImage(Image image)
+        {
+            DateTime messageTime = DateTime.Now;
+            Image resizedImage = ResizeImage(image, 280, 180);
+            HandleYourImageMessages(resizedImage, currentChatId, messageTime);
+            byte[] imageBytes = ConvertHandler.ConvertImageToBytes(resizedImage);
+            ImageContent imageContent = new ImageContent(imageBytes);
+            JsonClasses.Message message = new JsonClasses.Message(ProfileDetailsHandler.Name, currentChatId, imageContent, messageTime);
             JsonObject messageJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.SendMessageRequest, message);
             string messageJson = JsonConvert.SerializeObject(messageJsonObject, new JsonSerializerSettings
             {
@@ -1806,17 +1925,24 @@ namespace YouChatApp
 
         private void TakenImageFile_Click(object sender, EventArgs e)
         {
-            HandleImageTaking();
-
+            HandleImageTaking(false);
         }
 
         private void ImageFileCustomButton_Click(object sender, EventArgs e)
         {
-            if (ServerCommunication._imageSender == null)
+            FormHandler._imageSender = new ImageSender();
+
+            FormHandler._contactSharing = new ContactSharing();
+            //ServerCommunication._contactSharing._isText = false;
+            DialogResult result = FormHandler._imageSender.ShowDialog();
+
+            Image imageData;
+            if (result == DialogResult.OK)
             {
-                ServerCommunication._imageSender = new ImageSender();
+                imageData = ImageSender.selectedImage;
+                ImageSender.selectedImage = null;
+                SendImage(imageData);
             }
-            this.Invoke(new Action(() => ServerCommunication._imageSender.ShowDialog()));
         }
 
         private void ProfileCustomButton_Click(object sender, EventArgs e)
@@ -1875,6 +2001,25 @@ namespace YouChatApp
             {
                 MessageCustomTextBox.TextContent = "";
             }
+        }
+
+        private void AudioCallCustomButton_Click(object sender, EventArgs e)
+        {
+            HandleCallRequest(EnumHandler.CommunicationMessageID_Enum.AudioCallRequest);
+        }
+        private void VideoCallCustomButton_Click(object sender, EventArgs e)
+        {
+            HandleCallRequest(EnumHandler.CommunicationMessageID_Enum.VideoCallRequest);
+        }
+        private void HandleCallRequest(EnumHandler.CommunicationMessageID_Enum callType)
+        {
+            JsonObject callRequestJsonObject = new JsonObject(callType, currentChatId);
+            string callRequestJson = JsonConvert.SerializeObject(callRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            serverCommunicator.SendMessage(callRequestJson);
+            DirectChatFeaturesPanel.Enabled = false;
         }
     }
 }
