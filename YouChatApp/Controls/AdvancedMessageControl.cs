@@ -49,7 +49,29 @@ namespace YouChatApp
         public System.Windows.Forms.Label Time => TimeLabel;
         public PictureBox ProfilePicture => ProfilePictureCircularPictureBox;
         public PictureBox Image => ImagePictureBox;
+        public event EventHandler MessageDelete;
+        public event EventHandler AfterMessageDelete;
 
+        private DateTime messageTime;
+        public DateTime MessageTime
+        {
+            get
+            {
+                return messageTime;
+            }
+            set
+            {
+                messageTime = value;
+            }
+        }
+        public void AddMessageDeleteHandler(EventHandler handler)
+        {
+            MessageDelete += handler;
+        }
+        public void AddAfterMessageDeleteHandler(EventHandler handler)
+        {
+            AfterMessageDelete += handler;
+        }
 
         public float CurrentUsernameLabelTextSize = 12F;
         public float CurrentNessageLabelTextSize = 15.75F;
@@ -246,7 +268,14 @@ namespace YouChatApp
                 this.MenuButtons[1].BackgroundImage = DeleteImage;
             }
         }
-
+        public void HandleDelete()
+        {
+            MessageLabel.Visible = true;
+            ImagePictureBox.Visible = false;
+            WasDeleted = true;
+            messageType = EnumHandler.MessageType_Enum.DeletedMessage;
+            HandleMessageTypeChange();
+        }
         private void MenuButtons_Click(object sender, EventArgs e)
         {
             string ButtonName = ((Button)(sender)).Name;
@@ -255,12 +284,11 @@ namespace YouChatApp
                 if (MessageBox.Show("Are you sure you want to delete this message?", "Delete Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) // maybe to show a little bit of the message
                 {
                     //MessageLabel.Text = DeletedMessage;
-                    MessageLabel.Visible = true;
-                    ImagePictureBox.Visible = false;
-                    WasDeleted = true;
-                    messageType = EnumHandler.MessageType_Enum.DeletedMessage;
-                    HandleMessageTypeChange();
-                    RemoveMenuButtonsFromControls();
+                    MessageDelete?.Invoke(this, e);
+                    CloseMenuItems();
+                    HandleDelete();
+                    AfterMessageDelete?.Invoke(this, e);
+
                     //to do a check when sending the messages if this is a deleted message - in case it is, make sure the menubar is invisible
                     //when deleting need to update the chat member so they will change it and the xml chat file
                 }
@@ -318,23 +346,29 @@ namespace YouChatApp
         public void SetBackColorByMessageSender()
         {
             this.BackColor = Color.PaleTurquoise;
-            foreach (Button MenuButton in MenuButtons)
+            if (messageType != MessageType_Enum.DeletedMessage)
             {
-                MenuButton.BackColor = Color.PaleTurquoise;
-                MenuButton.FlatStyle = FlatStyle.Flat;
-                MenuButton.FlatAppearance.BorderColor = Color.PaleTurquoise;
+                foreach (Button MenuButton in MenuButtons)
+                {
+                    MenuButton.BackColor = Color.PaleTurquoise;
+                    MenuButton.FlatStyle = FlatStyle.Flat;
+                    MenuButton.FlatAppearance.BorderColor = Color.PaleTurquoise;
 
+                }
             }
         }
         public void SetBackColorByOtherSender()
         {
             this.BackColor = Color.LightGray;
-            foreach (Button MenuButton in MenuButtons)
+            if (messageType != MessageType_Enum.DeletedMessage)
             {
-                MenuButton.BackColor = Color.LightGray;
-                MenuButton.FlatStyle = FlatStyle.Flat;
-                MenuButton.FlatAppearance.BorderColor = Color.LightGray;
+                foreach (Button MenuButton in MenuButtons)
+                {
+                    MenuButton.BackColor = Color.LightGray;
+                    MenuButton.FlatStyle = FlatStyle.Flat;
+                    MenuButton.FlatAppearance.BorderColor = Color.LightGray;
 
+                }
             }
         }
         protected override void OnPaint(PaintEventArgs Pevent)

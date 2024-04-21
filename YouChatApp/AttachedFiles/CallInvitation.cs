@@ -18,7 +18,7 @@ namespace YouChatApp.AttachedFiles
         private string _friendName;
         private string _chatId;
         private Image _profilePicture;
-        private bool _isVideoCAll;
+        private bool _isVideoCall;
         private readonly ServerCommunicator serverCommunicator;
         public CallInvitation(string chatId, string friendName, Image profilePicture,bool isVideoCall)
         {
@@ -31,7 +31,7 @@ namespace YouChatApp.AttachedFiles
             _friendName = friendName;
             _chatId = chatId;
             _profilePicture = profilePicture;
-            _isVideoCAll = isVideoCall;
+            _isVideoCall = isVideoCall;
             ContentLabel.Text = _friendName + " is calling you";
             FriendCircularPictureBox.Image = profilePicture;
             ContentLabel.Location = new System.Drawing.Point((FriendInformationPanel.Width - ContentLabel.Width)/2, ContentLabel.Location.Y);
@@ -44,7 +44,8 @@ namespace YouChatApp.AttachedFiles
 
         private void JoinCallCustomButton_Click(object sender, EventArgs e)
         {
-            HandleOptionButtonClick(EnumHandler.CommunicationMessageID_Enum.VideoCallAcceptanceRequest);
+            EnumHandler.CommunicationMessageID_Enum callAcceptanceRequest = _isVideoCall ? EnumHandler.CommunicationMessageID_Enum.VideoCallAcceptanceRequest : EnumHandler.CommunicationMessageID_Enum.AudioCallAcceptanceRequest ;
+            HandleOptionButtonClick(callAcceptanceRequest);
             this.Hide();
         }
 
@@ -52,7 +53,8 @@ namespace YouChatApp.AttachedFiles
         private void DeclineCallCustomButton_Click(object sender, EventArgs e)
         {
             this.Invoke(new Action(() => FormHandler._youChat.EnableDirectChatFeaturesPanel()));
-            HandleOptionButtonClick(EnumHandler.CommunicationMessageID_Enum.VideoCallDenialRequest);
+            EnumHandler.CommunicationMessageID_Enum callDenialRequest = _isVideoCall ? EnumHandler.CommunicationMessageID_Enum.VideoCallDenialRequest : EnumHandler.CommunicationMessageID_Enum.AudioCallDenialRequest;
+            HandleOptionButtonClick(callDenialRequest);
             this.Hide();
         }
 
@@ -60,7 +62,8 @@ namespace YouChatApp.AttachedFiles
         {
             this.Invoke(new Action(() => FormHandler._youChat.HandleCallMessageSelection(_chatId)));
             this.Invoke(new Action(() => FormHandler._youChat.EnableDirectChatFeaturesPanel()));
-            HandleOptionButtonClick(EnumHandler.CommunicationMessageID_Enum.VideoCallDenialRequest);
+            EnumHandler.CommunicationMessageID_Enum callDenialRequest = _isVideoCall ? EnumHandler.CommunicationMessageID_Enum.VideoCallDenialRequest : EnumHandler.CommunicationMessageID_Enum.AudioCallDenialRequest;
+            HandleOptionButtonClick(callDenialRequest);
             this.Hide();
         }
         private void HandleOptionButtonClick(EnumHandler.CommunicationMessageID_Enum callResponse)

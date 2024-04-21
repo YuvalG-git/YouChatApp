@@ -37,6 +37,18 @@ namespace YouChatApp
         private Color _borderColor = Color.CornflowerBlue;
         private string _chatId;
         private bool firstClick = true;
+        private DateTime? _lastMessageTime;
+        public DateTime? LastMessageDateTime
+        {
+            get 
+            { 
+                return _lastMessageTime;
+            }
+            set
+            {
+                _lastMessageTime = value;
+            }
+        }
         public string ChatId
         {
             get { return _chatId; }
@@ -128,8 +140,8 @@ namespace YouChatApp
         private void OnControlClick(object sender, EventArgs e)
         {
             this.OnClick(e);
-            if (!firstClick)
-                firstClick = true;
+            if (firstClick)
+                firstClick = false;
         }
         public bool GetFirstClick()
         {

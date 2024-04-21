@@ -226,6 +226,7 @@
     <Compile Include="FormHandler.cs" />
     <Compile Include="ImageHandler.cs" />
     <Compile Include="ImageRotationHandler.cs" />
+    <Compile Include="JsonClasses\AudioCallOverDetails.cs" />
     <Compile Include="JsonClasses\CaptchaRotationBanDetails.cs" />
     <Compile Include="JsonClasses\CaptchaRotationImageDetails.cs" />
     <Compile Include="JsonClasses\CaptchaRotationImages.cs" />

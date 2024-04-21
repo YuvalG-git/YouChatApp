@@ -427,12 +427,6 @@ namespace YouChatApp
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulCaptchaImageAngleResponse:
                                 HandleSuccessfulCaptchaImageAngleResponseEnum(jsonObject);
                                 break;
-                            case EnumHandler.CommunicationMessageID_Enum.UdpAudioConnectionResponse:
-                                string EncryptedUdpSymmetricKeyReciever = jsonObject.MessageBody as string;
-                                string symmetricKey = Rsa.Decrypt(EncryptedUdpSymmetricKeyReciever, PrivateKey);
-                                AudioServerCommunication.symmetricKey = symmetricKey;
-                                FormHandler._audioCall.Invoke((Action)delegate { FormHandler._audioCall.SetIsAbleToSendToTrue(); });
-                                break;
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulPersonalVerificationAnswersResponse_UpdatePassword:
                                 FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandlePasswordUpdateCase(); });
                                 break;
@@ -581,6 +575,7 @@ namespace YouChatApp
                                 HandleVideoCallAcceptanceResponseEnum(jsonObject);
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.VideoCallDenialResponse:
+                            case EnumHandler.CommunicationMessageID_Enum.AudioCallDenialResponse:
                                 FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.CloseWaitingForm(); });
                                 break;
                             case EnumHandler.CommunicationMessageID_Enum.VideoCallMuteResponse:
@@ -615,7 +610,26 @@ namespace YouChatApp
                             case EnumHandler.CommunicationMessageID_Enum.SuccessfulAudioCallResponse_Reciever:
                                 HandleSuccessfulAudioCallResponse_RecieverEnum(jsonObject);
                                 break;
-
+                            case EnumHandler.CommunicationMessageID_Enum.AudioCallAcceptanceResponse:
+                                HandleAudioCallAcceptanceResponseEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.UdpAudioConnectionResponse:
+                                string EncryptedUdpSymmetricKeyReciever = jsonObject.MessageBody as string;
+                                string symmetricKey = Rsa.Decrypt(EncryptedUdpSymmetricKeyReciever, PrivateKey);
+                                AudioServerCommunication.symmetricKey = symmetricKey;
+                                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenAudioCall(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.EndAudioCallResponse_Reciever:
+                                Console.WriteLine(UserProfile.ProfileDetailsHandler.Name);
+                                FormHandler._audioCall.Invoke((Action)delegate { FormHandler._audioCall.HandleCallOver(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.EndAudioCallResponse_Sender:
+                                Console.WriteLine(UserProfile.ProfileDetailsHandler.Name);
+                                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.CloseAudioCall(); });
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.DeleteMessageResponse:
+                                HandleDeleteMessageResponseEnum(jsonObject);
+                                break;
                         }
                     }
                     if (isConnected)
@@ -690,6 +704,11 @@ namespace YouChatApp
             string[] details = GetFriendName(jsonObject);
             FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenVideoCall(details[0], details[1]); });
         }
+        private void HandleAudioCallAcceptanceResponseEnum(JsonObject jsonObject)
+        {
+            string[] details = GetFriendName(jsonObject);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.StartUdpConnection(details[0], details[1]); });
+        }
 
         private string[] GetFriendName(JsonObject jsonObject)
         {
@@ -698,6 +717,25 @@ namespace YouChatApp
             DirectChat directChat = (DirectChat)chatDetails;
             string friendName = directChat.GetContactName();
             return new string[] { chatId, friendName};
+        }
+        private void HandleDeleteMessageResponseEnum(JsonObject jsonObject)
+        {
+            JsonClasses.Message message = jsonObject.MessageBody as JsonClasses.Message;
+            string messageSenderName = message.MessageSenderName;
+            string chatId = message.ChatId;
+            DateTime messageDateTime = message.MessageDateAndTime;
+            object messageContent = message.MessageContent;
+            string content = "";
+            if (messageContent is string textMessageContent)
+            {
+                content = textMessageContent;
+            }
+            else if (messageContent is ImageContent imageMessageContent)
+            {
+                content = "Image";
+            }
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleDeletedMessage(messageSenderName, chatId, messageDateTime, content); });
+
         }
         private void HandleSendMessageResponseEnum(JsonObject jsonObject)
         {

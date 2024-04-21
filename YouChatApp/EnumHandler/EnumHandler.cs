@@ -178,8 +178,15 @@ namespace YouChatApp
             SuccessfulAudioCallResponse_Sender,
             SuccessfulAudioCallResponse_Reciever,
             FailedAudioCallResponse,
+            AudioCallAcceptanceRequest,
+            AudioCallDenialRequest,
             AudioCallAcceptanceResponse,
             AudioCallDenialResponse,
+            EndAudioCallRequest,
+            EndAudioCallResponse_Sender,
+            EndAudioCallResponse_Reciever,
+            DeleteMessageRequest,
+            DeleteMessageResponse,
         }
     }
 }

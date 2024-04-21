@@ -31,6 +31,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using AForge;
 using YouChatApp.AttachedFiles.PaintHandler;
+using Message = YouChatApp.JsonClasses.Message;
 
 namespace YouChatApp
 {
@@ -56,6 +57,8 @@ namespace YouChatApp
         private readonly ServerCommunicator serverCommunicator;
         Panel currentMessagePanel;
         Dictionary<string, int> messageCount;
+        Dictionary<string, bool> messageHistoryReceieved;
+
         string currentChatId = "";
         EnumHandler.ChatType_Enum currentChatType;
         public YouChat()
@@ -73,6 +76,8 @@ namespace YouChatApp
             ProfileControlList = new List<ProfileControl>();
             MessagePanels = new Dictionary<string, Panel>();
             messageCount = new Dictionary<string, int>();
+            messageHistoryReceieved = new Dictionary<string, bool>();
+
             MessageControls = new Dictionary<string, List<MessageControl>>();
             AdvancedMessageControls = new Dictionary<string, List<AdvancedMessageControl>>();
             //ProfilePictureImageList.InitializeImageLists();
@@ -380,6 +385,7 @@ namespace YouChatApp
             this.ChatControlListOfContacts[ContactChatNumber].ChatName.Text = chatName;
             this.ChatControlListOfContacts[ContactChatNumber].LastMessageContent.Text = chat.GetLastMessageData();
             this.ChatControlListOfContacts[ContactChatNumber].LastMessageTime.Text = chat.GetLastMessageTime();
+            this.ChatControlListOfContacts[ContactChatNumber].LastMessageDateTime = chat.LastMessageTime;
             this.ChatControlListOfContacts[ContactChatNumber].SetLastMessageTimeLocation();
             this.ChatControlListOfContacts[ContactChatNumber].SetToolTip();
             this.ChatControlListOfContacts[ContactChatNumber].ProfilePicture.BackgroundImage = chatProfilePicture;
@@ -400,6 +406,7 @@ namespace YouChatApp
             messageCount.Add(chatId, 0);
             MessageControls.Add(chatId, new List<MessageControl>());
             AdvancedMessageControls.Add(chatId, new List<AdvancedMessageControl>());
+            messageHistoryReceieved.Add(chatId, false);
 
 
         }
@@ -661,6 +668,28 @@ namespace YouChatApp
             string time;
             object messageContent;
             string username = ProfileDetailsHandler.Name;
+            if (messages != null && messages.Count > 0)
+            {
+                chatId = messages[0].ChatId;
+                messageCount[chatId] = 0;
+                messageHistoryReceieved[chatId] = true;
+                List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
+                List<AdvancedMessageControl> messageControlsToRemove = new List<AdvancedMessageControl>();
+
+                for (int i = currentMessageControls.Count - 1; i >= 0; i--)
+                {
+                    AdvancedMessageControl messageControl = currentMessageControls[i];
+                    messageControl.Name = "1";
+                    messageControlsToRemove.Add(messageControl);
+                }
+
+                foreach (AdvancedMessageControl messageControl in messageControlsToRemove)
+                {
+                    currentMessageControls.Remove(messageControl);
+                    currentMessagePanel.Controls.Remove(messageControl);
+                    this.Controls.Remove(messageControl);
+                }
+            }
             foreach (JsonClasses.Message message in messages)
             {
                 messageSenderName = message.MessageSenderName;
@@ -672,11 +701,11 @@ namespace YouChatApp
                 {
                     if (message.MessageSenderName == ProfileDetailsHandler.Name)
                     {
-                        AddMessageByUser(textMessageContent, chatId, time, username);
+                        AddMessageByUser(textMessageContent, chatId, time, username, messageDateTime);
                     }
                     else
                     {
-                        AddMessageByOthers(textMessageContent, chatId, time, messageSenderName);
+                        AddMessageByOthers(textMessageContent, chatId, time, messageSenderName, messageDateTime);
                     }
                 }
                 else if (messageContent is ImageContent imageMessageContent)
@@ -685,18 +714,31 @@ namespace YouChatApp
                     Image image = ConvertHandler.ConvertBytesToImage(imageBytes);
                     if (message.MessageSenderName == ProfileDetailsHandler.Name)
                     {
-                        AddImageMessageByUser(image, chatId, time, username);
+                        AddImageMessageByUser(image, chatId, time, username, messageDateTime);
                     }
                     else
                     {
-                        AddImageMessageByOthers(image, chatId, time, messageSenderName);
+                        AddImageMessageByOthers(image, chatId, time, messageSenderName, messageDateTime);
                     }
                 }
+                else if (messageContent is null)
+                {
+                    if (message.MessageSenderName == ProfileDetailsHandler.Name)
+                    {
+                        AddDeletedMessageByUser(chatId, time, username, messageDateTime);
+                    }
+                    else
+                    {
+                        AddDeletedMessageByOthers(chatId, time, messageSenderName, messageDateTime);
+                    }
+                }    
    
             }
         }
         public void HandleChats(ChatControl chatControl,string chatId)
         {
+            MessageCustomTextBox.TextContent = "";
+            chatControl.Focus();
             if (chatControl.GetFirstClick())
             {
                 JsonObject messageHistoryRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.MessageHistoryRequest, chatId);
@@ -782,26 +824,6 @@ namespace YouChatApp
         }
 
 
-        private void SendMessageButton_Click(object sender, EventArgs e)
-        {
-            //if (MessageTextBox.Text != "")
-            //{
-            //    string Message = MessageTextBox.Text;
-            //    string SendMessageTime = DateTime.Now.ToString("HH:mm");
-            //    string MessageContant = Message + "#" + SendMessageTime;
-            //    HandleYourMessages(Message, SendMessageTime);
-            //    ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest, MessageContant);
-            //    //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + MessageContant);
-            //    MessageTextBox.Text = "Here You Write Your Message";
-            //    MessageTextBox.ForeColor = Color.Silver;
-            //}
-            ////else if (LoadedPicturePictureBox.BackgroundImage != null)
-            ////{
-            ////    //ServerCommunication.SendImage(ServerCommunication.sendMessageRequest + "$" + MessageContant); need to figure out how to send a message as well - not nesserally perhaps - could use the username from the server and take the time the message got to the server...
-
-            ////}
-
-        }
 
         private void MessageTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -813,37 +835,6 @@ namespace YouChatApp
                 MessageSenderCustomButton.Enabled = false;
         }
 
-        //public void Message(string MessageInfo)
-        //{
-        //    if (MessageNumber != 0)
-        //        height = this.MessageLabels[MessageNumber - 1].Location.Y + this.MessageLabels[MessageNumber - 1].Size.Height + messageGap;
-        //    this.MessageLabels.Add(new System.Windows.Forms.Label());
-        //    this.MessageLabels[MessageNumber].Location = new System.Drawing.Point(30, height);
-        //    this.MessageLabels[MessageNumber].Name = "MessageLabelNumber:" + MessageNumber;
-        //    this.MessageLabels[MessageNumber].Font = new System.Drawing.Font("Arial Rounded MT Bold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177))); ;
-        //    this.MessageLabels[MessageNumber].AutoSize = true;
-        //    this.MessageLabels[MessageNumber].TabIndex = 0;
-        //    this.MessageLabels[MessageNumber].Text = MessageInfo;
-        //    this.MessageLabels[MessageNumber].BackColor = SystemColors.Control;
-        //    this.Controls.Add(this.MessageLabels[MessageNumber]);
-        //    this.MessagePanel.Controls.Add(this.MessageLabels[MessageNumber]);
-        //    MessageNumber++;
-        //    height = this.MessageLabels[MessageNumber - 1].Location.Y + this.MessageLabels[MessageNumber-1].Size.Height + messageGap;
-
-        //    if (this.MessagePanel.Controls.Count > 0)
-        //    {
-        //        Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
-        //        this.MessagePanel.ScrollControlIntoView(lastControl);
-        //    }
-        //}
-        //public void Message2(string MessageInfo)
-        //{
-        //    this.MessageGroupBoxs.Add(new System.Windows.Forms.GroupBox());
-        //    this.Controls.Add(this.MessageLabels[MessageNumber]);
-        //    this.MessagePanel.Controls.Add(this.MessageLabels[MessageNumber]);
-        //    this.MessageGroupBoxs.Add()
-
-        //}
         public void SetProfileButtonEnabled()
         {
             ProfileCustomButton.Enabled = true;
@@ -883,134 +874,7 @@ namespace YouChatApp
             RestartListOfFriendRequestControlLocation();
 
         }
-        //public void SetListOfFriendRequestControl(string ChatInformation)
-        //{
-        //    string[] ContactsInformation = ChatInformation.Split('#'); //todo check how i can allow the users to send # and more without the split activating - i thing maybe i need to put / or something before 
-        //    //string ContactUsername;
-        //    //string ContactProfilePictureID;
-        //    ////string ContactProfilePictureKind;
-        //    ////string ContactProfilePictureNumber;
-        //    for (int i = 0; i < ContactsInformation.Length; i++)
-        //    {
-        //        AddFriendRequest(ContactsInformation[i]);
-        //        //string[] ContactDetails = ContactsInformation[i].Split('^');
-        //        //ContactUsername = ContactDetails[0];
-        //        //ContactProfilePictureID = ContactDetails[1];
-        //        ////string[] ContactProfilePictureInformation = SeparateLettersAndNumbers(ContactProfilePictureID);
-        //        ////ContactProfilePictureKind = ContactProfilePictureInformation[0];
-        //        ////ContactProfilePictureNumber = ContactProfilePictureInformation[1]; // to understand how to seperate them
-
-        //        //if (FriendRequestsNumber == 0)
-        //        //    heightForFriendRequests = 0;
-        //        //else
-        //        //    heightForFriendRequests = this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Location.Y + this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Size.Height;
-        //        //this.ListOfFriendRequestControl.Add(new FriendRequestControl());
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].Location = new System.Drawing.Point(0, heightForFriendRequests);
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].TabIndex = 0;
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].ContactName.Text = ContactUsername;
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
-        //        ////todo - for this code i should maybe create a genric method:
-        //        ////if (ContactProfilePictureKind == "Male") //need to use that when getting a user imageid - but here i just take from the contacts list - by recieving the contact object and then its profileimage property...
-        //        ////{
-        //        ////    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[ContactProfilePictureNumber];
-        //        ////}
-        //        ////else if (ContactProfilePictureKind == "Female")
-        //        ////{
-        //        ////    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.FemaleProfilePictureImageList.Images[ContactProfilePictureNumber];
-
-        //        ////}
-        //        ////else if (ContactProfilePictureKind == "Animal")
-        //        ////{
-        //        ////    this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[ContactProfilePictureNumber];
-        //        ////}
-        //        //this.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
-        //        //this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
-        //        //if (this.FriendRequestPanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
-        //        //{
-        //        //    PanelHandler.SetPanelToSide(FriendRequestPanel, ListOfFriendRequestControl, true);
-        //        //}
-        //        //FriendRequestsNumber++;
-        //    }
-        //}
-        //public void AddFriendRequest(string FriendRequestContent)
-        //{
-        //    if (this.FriendRequestPanel.Controls.Count > 0)
-        //    {
-        //        PanelHandler.SetPanelToSide(FriendRequestPanel, ListOfFriendRequestControl, true);
-        //    }
-        //    string[] ContactDetails = FriendRequestContent.Split('^');
-        //    string ContactUsername = ContactDetails[0];
-        //    string FriendRequestDateTimeAsString = ContactDetails[1];
-        //    string ContactProfilePictureID = ContactDetails[2];
-
-        //    DateTime FriendRequestTime;
-        //    if (DateTime.TryParse(FriendRequestDateTimeAsString, out FriendRequestTime))
-        //    {
-        //        //if (FriendRequestsNumber == 0)
-        //        //    heightForFriendRequests = 0;
-        //        //else
-        //        //    heightForFriendRequests = this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Location.Y + this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Size.Height;
-        //        //this.ListOfFriendRequestControl.Add(new FriendRequestControl());
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].Location = new System.Drawing.Point(0, heightForFriendRequests);
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].TabIndex = 0;
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].ContactName.Text = ContactUsername;
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].FriendRequestTime.Text = TimeHandler.GetFormatTime(FriendRequestTime);
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].SetFriendRequestTimeLocation();
-        //        //this.ListOfFriendRequestControl[FriendRequestsNumber].SetToolTip();
-        //        //this.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
-        //        //this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
-        //        //FriendRequestsNumber++;
-
-
-        //        this.ListOfFriendRequestControl.Insert(0, new FriendRequestControl());
-        //        this.ListOfFriendRequestControl[0].Location = new System.Drawing.Point(0, 0);
-        //        this.ListOfFriendRequestControl[0].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
-        //        this.ListOfFriendRequestControl[0].TabIndex = 0;
-        //        this.ListOfFriendRequestControl[0].ContactName.Text = ContactUsername;
-        //        this.ListOfFriendRequestControl[0].FriendRequestTime.Text = TimeHandler.GetFormatTime(FriendRequestTime);
-        //        this.ListOfFriendRequestControl[0].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
-        //        this.ListOfFriendRequestControl[0].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
-        //        this.ListOfFriendRequestControl[0].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
-        //        this.ListOfFriendRequestControl[0].SetFriendRequestTimeLocation();
-        //        this.ListOfFriendRequestControl[0].SetToolTip();
-        //        this.Controls.Add(this.ListOfFriendRequestControl[0]);
-        //        this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[0]);
-        //        FriendRequestsNumber++;
-        //        RestartListOfFriendRequestControlLocation();
-        //    }
-        //    else
-        //    {
-        //        // Handle the case where the parsing fails
-        //        // For example, display an error message to the user
-        //        MessageBox.Show("Invalid date format");
-        //    }
-        //    //string ContactProfilePictureID = ContactDetails[2];
-        //    //if (FriendRequestsNumber == 0)
-        //    //    heightForFriendRequests = 0;
-        //    //else
-        //    //    heightForFriendRequests = this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Location.Y + this.ListOfFriendRequestControl[FriendRequestsNumber - 1].Size.Height;
-        //    //this.ListOfFriendRequestControl.Add(new FriendRequestControl());
-        //    //this.ListOfFriendRequestControl[FriendRequestsNumber].Location = new System.Drawing.Point(0, heightForFriendRequests);
-        //    //this.ListOfFriendRequestControl[FriendRequestsNumber].Name = "FriendRequestControlNumber:" + FriendRequestsNumber;
-        //    //this.ListOfFriendRequestControl[FriendRequestsNumber].TabIndex = 0;
-        //    //this.ListOfFriendRequestControl[FriendRequestsNumber].ContactName.Text = ContactUsername;
-        //    //this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestApprovalHandler(HandleFriendRequestApproval);
-        //    //this.ListOfFriendRequestControl[FriendRequestsNumber].OnFriendRequestRefusalHandler(HandleFriendRequestRefusal);
-        //    //this.ListOfFriendRequestControl[FriendRequestsNumber].SetFriendRequestTimeLocation();
-
-        //    //this.ListOfFriendRequestControl[FriendRequestsNumber].SetToolTip();
-        //    //this.ListOfFriendRequestControl[FriendRequestsNumber].ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(ContactProfilePictureID);
-        //    //this.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
-        //    //this.FriendRequestPanel.Controls.Add(this.ListOfFriendRequestControl[FriendRequestsNumber]);
-        //    //FriendRequestsNumber++;
-        //}
+       
         private void RestartListOfFriendRequestControlLocation()
         {
             PanelHandler.SetPanelToSide(FriendRequestPanel, ListOfFriendRequestControl, true);
@@ -1063,16 +927,16 @@ namespace YouChatApp
             string username = UserProfile.ProfileDetailsHandler.Name;
             string time = TimeHandler.GetFormatTime(SendMessageTime);
             ChangeChatLastMessageInformation(chatId, SendMessageTime, MessageContent, username, time);
-            AddMessageByUser(MessageContent,chatId, time, username);
+            AddMessageByUser(MessageContent,chatId, time, username, SendMessageTime);
         }
         public void HandleYourImageMessages(Image messageImage, string chatId, DateTime SendMessageTime) //maybe i should the same function just with if or something like that (to ask if name == my name...)
         {
             string username = UserProfile.ProfileDetailsHandler.Name;
             string time = TimeHandler.GetFormatTime(SendMessageTime);
             ChangeChatLastMessageInformation(chatId, SendMessageTime, "Image", username, time);
-            AddImageMessageByUser(messageImage, chatId, time, username);
+            AddImageMessageByUser(messageImage, chatId, time, username, SendMessageTime);
         }
-        private void AddImageMessageByUser(Image messageImage, string chatId, string time, string username)
+        private void AddImageMessageByUser(Image messageImage, string chatId, string time, string username, DateTime messageDateTime)
         {
             int messageNumber = messageCount[chatId];
             List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
@@ -1094,6 +958,10 @@ namespace YouChatApp
             currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
             currentMessageControls[messageNumber].IsYourMessage = true;
             currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.Image;
+            currentMessageControls[messageNumber].MessageTime = messageDateTime;
+            currentMessageControls[messageNumber].AddMessageDeleteHandler(DeleteMessage);
+            currentMessageControls[messageNumber].AddAfterMessageDeleteHandler(AfterDeleteMessage);
+
             currentMessageControls[messageNumber].SetMessageControl();
             currentMessageControls[messageNumber].SetBackColorByMessageSender();
             this.Controls.Add(currentMessageControls[messageNumber]);
@@ -1108,7 +976,7 @@ namespace YouChatApp
             messageNumber++;
             messageCount[chatId] = messageNumber;
         }
-        private void AddMessageByUser(string MessageContent, string chatId, string time, string username)
+        private void AddMessageByUser(string MessageContent, string chatId, string time, string username, DateTime messageDateTime)
         {
             int messageNumber = messageCount[chatId];
             List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
@@ -1130,9 +998,14 @@ namespace YouChatApp
             currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
             currentMessageControls[messageNumber].IsYourMessage = true;
             currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.Text;
+            currentMessageControls[messageNumber].MessageTime = messageDateTime;
+
+            currentMessageControls[messageNumber].AddMessageDeleteHandler(DeleteMessage);
+            currentMessageControls[messageNumber].AddAfterMessageDeleteHandler(AfterDeleteMessage);
 
             currentMessageControls[messageNumber].SetMessageControl();
             currentMessageControls[messageNumber].SetBackColorByMessageSender();
+
             this.Controls.Add(currentMessageControls[messageNumber]);
             currentMessagePanel.Controls.Add(currentMessageControls[messageNumber]);
 
@@ -1145,21 +1018,181 @@ namespace YouChatApp
             messageNumber++;
             messageCount[chatId] = messageNumber;
         }
+        private void AddDeletedMessageByUser(string chatId, string time, string username, DateTime messageDateTime)
+        {
+            int messageNumber = messageCount[chatId];
+            List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
+
+            if (messageNumber != 0)
+                heightForMessages = currentMessageControls[messageNumber - 1].Location.Y + currentMessageControls[messageNumber - 1].Size.Height + messageGap;
+            else
+            {
+                heightForMessages = 0;
+            }
+            currentMessageControls.Add(new AdvancedMessageControl());
+            currentMessageControls[messageNumber].Location = new System.Drawing.Point(30, heightForMessages);
+            currentMessageControls[messageNumber].Name = $"Id:{chatId}-number:{messageNumber}";
+            currentMessageControls[messageNumber].TabIndex = 0;
+            currentMessageControls[messageNumber].BackColor = SystemColors.Control;
+            currentMessageControls[messageNumber].Username.Text = username;
+            currentMessageControls[messageNumber].Time.Text = time;
+            currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
+            currentMessageControls[messageNumber].IsYourMessage = true;
+            currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.DeletedMessage;
+            currentMessageControls[messageNumber].MessageTime = messageDateTime;
+            currentMessageControls[messageNumber].HandleDelete();
+            currentMessageControls[messageNumber].SetMessageControl();
+            currentMessageControls[messageNumber].SetBackColorByMessageSender();
+            currentMessageControls[messageNumber].BringToFront();
+
+            this.Controls.Add(currentMessageControls[messageNumber]);
+            currentMessagePanel.Controls.Add(currentMessageControls[messageNumber]);
+
+            if (currentMessagePanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
+            {
+                //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
+                Control LastControl = currentMessageControls[messageNumber];
+                currentMessagePanel.ScrollControlIntoView(LastControl);
+            }
+            messageNumber++;
+            messageCount[chatId] = messageNumber;
+        }
+        private void AddDeletedMessageByOthers(string chatId, string time, string messageSenderName, DateTime messageDateTime)
+        {
+            Panel messagePanel = MessagePanels[chatId];
+            Contact SenderContact = ContactHandler.ContactManager.GetContact(messageSenderName);
+            int messageNumber = messageCount[chatId];
+            List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
+
+
+            if (messageNumber != 0)
+                heightForMessages = currentMessageControls[messageNumber - 1].Location.Y + currentMessageControls[messageNumber - 1].Size.Height + messageGap;
+            else
+            {
+                heightForMessages = 0;
+            }
+            currentMessageControls.Add(new AdvancedMessageControl());
+            currentMessageControls[messageNumber].Location = new System.Drawing.Point(30, heightForMessages);
+            currentMessageControls[messageNumber].Name = $"Id:{chatId}-number:{messageNumber}";
+            currentMessageControls[messageNumber].TabIndex = 0;
+            currentMessageControls[messageNumber].BackColor = SystemColors.Control;
+            currentMessageControls[messageNumber].Username.Text = messageSenderName;
+            currentMessageControls[messageNumber].Time.Text = time;
+            currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = SenderContact.ProfilePicture;
+            currentMessageControls[messageNumber].IsYourMessage = false;
+            currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.DeletedMessage;
+            currentMessageControls[messageNumber].MessageTime = messageDateTime;
+            currentMessageControls[messageNumber].HandleDelete();
+            currentMessageControls[messageNumber].SetMessageControl();
+            currentMessageControls[messageNumber].SetBackColorByOtherSender();
+            currentMessageControls[messageNumber].BringToFront();
+            this.Controls.Add(currentMessageControls[messageNumber]);
+            messagePanel.Controls.Add(currentMessageControls[messageNumber]);
+
+            if (messagePanel.Controls.Count > 0)
+            {
+                //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
+                Control LastControl = currentMessageControls[messageNumber];
+                messagePanel.ScrollControlIntoView(LastControl);
+            }
+            messageNumber++;
+            messageCount[chatId] = messageNumber;
+        }
+        private void DeleteMessage(object sender, EventArgs e)
+        {
+            AdvancedMessageControl advancedMessageControl = sender as AdvancedMessageControl;
+            string username = ProfileDetailsHandler.Name;
+            string chatId = currentChatId;
+            object messageContent = null;
+            DateTime messageTime = advancedMessageControl.MessageTime;
+            string messageValue = "";
+            if (advancedMessageControl.MessageType == EnumHandler.MessageType_Enum.Text)
+            {
+                messageContent = advancedMessageControl.MessageContent.Text;
+                messageValue = advancedMessageControl.MessageContent.Text;
+            }
+            else if (advancedMessageControl.MessageType == EnumHandler.MessageType_Enum.Image)
+            {
+                Image image = advancedMessageControl.Image.BackgroundImage;
+                byte[] imageBytes = ConvertHandler.ConvertImageToBytes(image);
+                messageContent = new ImageContent(imageBytes);
+                messageValue = "Image";
+            }
+            Message message = new Message(username, chatId, messageContent, messageTime);
+            JsonObject deleteMessageRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.DeleteMessageRequest, message);
+            string deleteMessageRequestJson = JsonConvert.SerializeObject(deleteMessageRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            serverCommunicator.SendMessage(deleteMessageRequestJson);
+            ChatDetails chatDetails = ChatManager.GetChat(chatId);
+            if (chatDetails.LastMessageTime.Equals(messageTime) && chatDetails.LastMessageContent == messageValue && chatDetails.LastMessageSenderName == username)
+            {
+                chatDetails.LastMessageContent = "Deleted Message";
+                List<ChatControl> ChatControlListOfContactsCopy = new List<ChatControl>(ChatControlListOfContacts);
+                foreach (ChatControl chat in ChatControlListOfContactsCopy)
+                {
+                    if (chat.ChatId == chatId)
+                    {
+                        chat.LastMessageContent.Text = chatDetails.GetLastMessageData();
+                    }
+                }
+            }
+
+        }
+        private void AfterDeleteMessage(object sender, EventArgs e)
+        {
+            string chatId = currentChatId;
+            RestartChatMessages(chatId);
+        }
         public void HandleMessagesByOthers(string messageSenderName, string chatId, DateTime messageDateTime, string messageContent)
-        {      
+        {
             string time = TimeHandler.GetFormatTime(messageDateTime);
             ChangeChatLastMessageInformation(chatId, messageDateTime, messageContent, messageSenderName, time);
-            AddMessageByOthers(messageContent, chatId, time, messageSenderName);
+            if (messageHistoryReceieved[chatId])
+                AddMessageByOthers(messageContent, chatId, time, messageSenderName, messageDateTime);
+        }
+        public void HandleDeletedMessage(string messageSenderName, string chatId, DateTime messageDateTime, string messageContent)
+        {
+            ChatDetails chatDetails = ChatManager.GetChat(chatId);
+            if (chatDetails.LastMessageTime.Equals(messageDateTime) && chatDetails.LastMessageContent == messageContent && chatDetails.LastMessageSenderName == messageSenderName)
+            {
+                chatDetails.LastMessageContent = "Deleted Message";
+                List<ChatControl> ChatControlListOfContactsCopy = new List<ChatControl>(ChatControlListOfContacts);
+                foreach (ChatControl chat in ChatControlListOfContactsCopy)
+                {
+                    if (chat.ChatId == chatId)
+                    {
+                        chat.LastMessageContent.Text = chatDetails.GetLastMessageData();
+                    }
+                }
+            }
+
+            List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
+
+            foreach (AdvancedMessageControl advancedMessageControl in currentMessageControls)
+            {
+                Console.WriteLine($"1.{messageSenderName} 2.{advancedMessageControl.Username.Text} 3.{messageDateTime} 4.{advancedMessageControl.MessageTime}");
+                if (messageSenderName == advancedMessageControl.Username.Text)
+                {
+                    if (messageDateTime.Equals(advancedMessageControl.MessageTime))
+                    advancedMessageControl.MessageType = YouChatApp.EnumHandler.MessageType_Enum.DeletedMessage;
+                    advancedMessageControl.HandleDelete();
+                    advancedMessageControl.Invalidate();
+                }
+            }
+            RestartChatMessages(chatId);
 
         }
         public void HandleImageMessagesByOthers(string messageSenderName, string chatId, DateTime messageDateTime, Image messageImage)
         {
             string time = TimeHandler.GetFormatTime(messageDateTime);
             ChangeChatLastMessageInformation(chatId, messageDateTime, "Image", messageSenderName, time);
-            AddImageMessageByOthers(messageImage, chatId, time, messageSenderName);
+            if (messageHistoryReceieved[chatId])
+                AddImageMessageByOthers(messageImage, chatId, time, messageSenderName, messageDateTime);
 
         }
-        private void AddImageMessageByOthers(Image messageImage, string chatId, string time, string messageSenderName)
+        private void AddImageMessageByOthers(Image messageImage, string chatId, string time, string messageSenderName, DateTime messageDateTime)
         {
             Panel messagePanel = MessagePanels[chatId];
             Contact SenderContact = ContactHandler.ContactManager.GetContact(messageSenderName);
@@ -1184,6 +1217,7 @@ namespace YouChatApp
             currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = SenderContact.ProfilePicture;
             currentMessageControls[messageNumber].IsYourMessage = false;
             currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.Image;
+            currentMessageControls[messageNumber].MessageTime = messageDateTime;
 
             currentMessageControls[messageNumber].SetMessageControl();
             currentMessageControls[messageNumber].SetBackColorByOtherSender();
@@ -1199,7 +1233,7 @@ namespace YouChatApp
             messageNumber++;
             messageCount[chatId] = messageNumber;
         }
-        private void AddMessageByOthers(string messageContent, string chatId, string time, string messageSenderName)
+        private void AddMessageByOthers(string messageContent, string chatId, string time, string messageSenderName, DateTime messageDateTime)
         {
             Panel messagePanel = MessagePanels[chatId];
             Contact SenderContact = ContactHandler.ContactManager.GetContact(messageSenderName);
@@ -1224,6 +1258,7 @@ namespace YouChatApp
             currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = SenderContact.ProfilePicture;
             currentMessageControls[messageNumber].IsYourMessage = false;
             currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.Text;
+            currentMessageControls[messageNumber].MessageTime = messageDateTime;
 
             currentMessageControls[messageNumber].SetMessageControl();
             currentMessageControls[messageNumber].SetBackColorByOtherSender();
@@ -1257,6 +1292,32 @@ namespace YouChatApp
                 chat.Location = new System.Drawing.Point(0, heightForContacts);
             }
         }
+        private void RestartChatMessages(string chatId)
+        {
+            Panel currentMessagePanel = MessagePanels[chatId];
+            List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
+            PanelHandler.SetPanelToSide(currentMessagePanel, currentMessageControls, true);
+
+            int height;
+            bool firstMessageControl = true;
+            AdvancedMessageControl previousAdvancedMessageControl = null;
+            foreach (AdvancedMessageControl advancedMessageControl in currentMessageControls)
+            {
+                if (firstMessageControl)
+                {
+                    height = 0;
+                    firstMessageControl = false;
+                }
+                else
+                {
+                    height = previousAdvancedMessageControl.Location.Y + previousAdvancedMessageControl.Size.Height + messageGap;
+                }    
+                previousAdvancedMessageControl = advancedMessageControl;
+                advancedMessageControl.Location = new System.Drawing.Point(30, height);
+            }
+            PanelHandler.SetPanelToSide(currentMessagePanel, currentMessageControls, false);
+
+        }
         private void ChangeChatLastMessageInformation(string chatId, DateTime messageDateTime, string messageContent, string messageSenderName, string displayTime)
         {
             ChatDetails chatDetails = ChatHandler.ChatManager.GetChat(chatId);
@@ -1272,6 +1333,7 @@ namespace YouChatApp
             {
                 if (chat.ChatId == chatId)
                 {
+                    chat.LastMessageDateTime = messageDateTime;
                     chat.LastMessageContent.Text = chatDetails.GetLastMessageData();
                     chat.LastMessageTime.Text = displayTime;
                     chat.SetLastMessageTimeLocation();
@@ -1799,6 +1861,39 @@ namespace YouChatApp
             FormHandler._videoCall.Close();
             FormHandler._videoCall.Dispose();
             EnableDirectChatFeaturesPanel();
+        }
+        public void CloseAudioCall()
+        {
+            FormHandler._audioCall.Close();
+            FormHandler._audioCall.Dispose();
+            EnableDirectChatFeaturesPanel();
+        }
+        public void StartUdpConnection(string chatId, string friendName)
+        {
+            Contact contact = ContactManager.GetContact(friendName);
+            Image profilePicture = contact.ProfilePicture;
+            FormHandler._audioCall = new AudioCall(chatId, friendName, profilePicture);
+
+            int portNumber = AudioServerCommunication.ConnectUdp("10.100.102.3", FormHandler._audioCall);
+            JsonObject udpConnectionRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UdpAudioConnectionRequest, portNumber.ToString());
+            string udpConnectionRequestJson = JsonConvert.SerializeObject(udpConnectionRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            serverCommunicator.SendMessage(udpConnectionRequestJson);
+        }
+        public void OpenAudioCall()
+        {
+            if (FormHandler._waitingForm != null)
+            {
+                this.Invoke(new Action(() => FormHandler._waitingForm.Hide()));
+                FormHandler._waitingForm.Close();
+                FormHandler._waitingForm.Dispose();
+                FormHandler._waitingForm = null;
+            }
+            this.Invoke(new Action(() => FormHandler._audioCall.Show()));
+            this.Invoke((Action)delegate { FormHandler._audioCall.SetIsAbleToSendToTrue(); });
+            this.Hide();
         }
         public void OpenVideoCall(string chatId, string friendName)
         {

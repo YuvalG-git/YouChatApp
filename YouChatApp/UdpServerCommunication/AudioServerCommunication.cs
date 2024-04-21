@@ -24,6 +24,11 @@ namespace YouChatApp
         private static int startingPort = 12345; // Set the starting port you want to use
         private static int localPort;
         public static string symmetricKey;
+        public static int GetLocalPort()
+        {
+            return localPort;
+        }
+
         public static int ConnectUdp(string ip, VideoCall videoCall)
         {
             _videoCall = videoCall;

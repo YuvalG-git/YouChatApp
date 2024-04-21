@@ -56,9 +56,11 @@ namespace YouChatApp.AttachedFiles
         private bool isAbleToSend = false;
 
         CallTimer timer;
-
+        private string _chatId;
+        private bool wasOrderedToClose;
+        
         private readonly ServerCommunicator serverCommunicator;
-        public AudioCall(string name, Image profilePicture)
+        public AudioCall(string chatId, string name, Image profilePicture)
         {
             InitializeComponent();
             serverCommunicator = ServerCommunicator.Instance;
@@ -66,14 +68,9 @@ namespace YouChatApp.AttachedFiles
             CallEnderCustomButton.BorderRadius = 40;
             FriendNameLabel.Text = name;
             ContactProfilePicture.BackgroundImage = profilePicture;
+            _chatId = chatId;
+            wasOrderedToClose = false;
 
-            int portNumber = AudioServerCommunication.ConnectUdp("10.100.102.3", this);
-            JsonObject udpConnectionRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UdpAudioConnectionRequest, portNumber.ToString());
-            string udpConnectionRequestJson = JsonConvert.SerializeObject(udpConnectionRequestJsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(udpConnectionRequestJson);
             WaveFormat waveFormat = new WaveFormat(44100, 16, 2);
             audioBufferedWaveProvider = new BufferedWaveProvider(waveFormat);
             outputAudioDeviceGuids = new List<Guid>();
@@ -162,10 +159,37 @@ namespace YouChatApp.AttachedFiles
         {
             AudioHandler.AudioHandler.HandleMicrophoneModeCustomButtonClick(ref audioSourceStream, ref isMyMicrophoneMuted, MicrophoneModeCustomButton, AudioInputDeviceComboBox, sourceStream_DataAvailable);
         }
+        private void CloseForm()
+        {
+            if (FormHandler._youChat != null)
+            {
+                this.Invoke(new Action(() => FormHandler._youChat.Show()));
+            }
+            AudioHandler.AudioHandler.HandleFormClosing(audioSourceStream, audioWaveOut, watcher);
+            timer.StopTimer();
+            AudioServerCommunication.symmetricKey = null;
+        }
 
         private void CallEnderCustomButton_Click(object sender, EventArgs e)
         {
-            AudioHandler.AudioHandler.HandleFormClosing(audioSourceStream, audioWaveOut, watcher);
+            HandleFormClosing();
+
+            wasOrderedToClose = true;
+            this.Close();
+        }
+        private void HandleFormClosing()
+        {
+            if (!wasOrderedToClose)
+            {
+                AudioCallOverDetails callOverDetails = new AudioCallOverDetails(_chatId, AudioServerCommunication.GetLocalPort());
+                JsonObject endAudioCallRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.EndAudioCallRequest, callOverDetails);
+                string endAudioCallRequestJson = JsonConvert.SerializeObject(endAudioCallRequestJsonObject, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto
+                });
+                serverCommunicator.SendMessage(endAudioCallRequestJson);
+                CloseForm();
+            }
         }
 
         private void CallTimeLabel_Click(object sender, EventArgs e)
@@ -176,6 +200,15 @@ namespace YouChatApp.AttachedFiles
         private void CallTimeTimer_Tick(object sender, EventArgs e)
         {
             timer.HandleTimerTick(CallTimeLabel);
+        }
+
+        public void HandleCallOver()
+        {
+            wasOrderedToClose = true;
+
+            CloseForm();
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.CloseAudioCall(); });
+
         }
     }
 }
