@@ -106,6 +106,8 @@ namespace YouChatApp
             SendMessageResponse,
             UdpAudioConnectionRequest,
             UdpAudioConnectionResponse,
+            UdpVideoConnectionRequest,
+            UdpVideoConnectionResponse,
             PasswordUpdateRequest,
             SuccessfulPasswordUpdateResponse,
             FailedPasswordUpdateResponse_UnmatchedDetails,

@@ -63,12 +63,7 @@ namespace YouChatApp
                     // Continue to the next port
                 }
             }
-            return localPort;
-            //_udpIsOn = true;
-            //udpClient = new UdpClient();
-            //remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 11000);
-            //udpClient.Connect(remoteEndPoint);
-            //udpClient.BeginReceive(new AsyncCallback(ReceiveAudio), null);//starts async listen too screen/camera sharing.
+            return localPort;   
         }
 
 

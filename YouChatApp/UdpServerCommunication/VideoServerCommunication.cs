@@ -14,21 +14,39 @@ namespace YouChatApp
         private static UdpClient udpClient;
         private static IPEndPoint remoteEndPoint;
         private static VideoCall _videoCall;
-        public static void ConnectUdp(string ip,VideoCall videoCall)
+        private static int startingPort = 12345; // Set the starting port you want to use
+        private static int localPort;
+        public static string symmetricKey;
+        public static int GetLocalPort()
+        {
+            return localPort;
+        }
+        public static int ConnectUdp(string ip,VideoCall videoCall)
         {
             _videoCall = videoCall;
             _udpIsOn = true;
-            udpClient = new UdpClient();
-            remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 12000);
-            udpClient.Connect(remoteEndPoint);
-            udpClient.BeginReceive(new AsyncCallback(ReceiveVideoUdpMessage), null);//starts async listen too screen/camera sharing.
+            for (int i = startingPort; i < startingPort + 1000; i++) // Try ports in the range startingPort to startingPort + 1000
+            {
+                udpClient = new UdpClient();
+                try
+                {
+                    _udpIsOn = true;
+                    udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, i));
+                    remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 12000);
+                    udpClient.Connect(remoteEndPoint);
+                    localPort = i;
+                    udpClient.BeginReceive(new AsyncCallback(ReceiveVideoUdpMessage), null);//starts async listen too screen/camera sharing.
+                    Console.WriteLine($"UDP client started on port {localPort}");
+                    break; // Exit the loop if binding is successful
+                }
+                catch (SocketException)
+                {
+                    Console.WriteLine($"Failed to bind UDP client to port {i}. Trying next port...");
+                    // Continue to the next port
+                }
+            }
+            return localPort;
         }
-
-
-        /// <summary>
-        /// The BeginRead method initiates an asynchronous read operation on the network stream associated with the client
-        /// It reads data into the Data buffer and calls the ReceiveMessage method when the read operation is complete       
-        /// </summary>
 
 
 
@@ -38,7 +56,8 @@ namespace YouChatApp
             {
                 try
                 {
-                    udpClient.Send(data, data.Length/*, remoteEndPoint*/);
+                    byte[] buffer = Encryption.Encryption.EncryptDataToBytes(symmetricKey, data);
+                    udpClient.Send(buffer, buffer.Length/*, remoteEndPoint*/);
 
 
                     // Send data to the client
@@ -62,6 +81,7 @@ namespace YouChatApp
                         if (_videoCall != null)
                         {
                             byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
+                            receivedData = Encryption.Encryption.DecryptDataToBytes(symmetricKey, receivedData);
 
                             using (MemoryStream ms = new MemoryStream(receivedData))
                             {

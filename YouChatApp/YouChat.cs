@@ -1880,7 +1880,7 @@ namespace YouChatApp
             FormHandler._audioCall.Dispose();
             EnableDirectChatFeaturesPanel();
         }
-        public void StartUdpConnection(string chatId, string friendName)
+        public void StartAudioUdpConnection(string chatId, string friendName)
         {
             Contact contact = ContactManager.GetContact(friendName);
             Image profilePicture = contact.ProfilePicture;
@@ -1894,33 +1894,47 @@ namespace YouChatApp
             });
             serverCommunicator.SendMessage(udpConnectionRequestJson);
         }
+        public void StartVideoUdpConnection(string chatId, string friendName)
+        {
+            Contact contact = ContactManager.GetContact(friendName);
+            Image profilePicture = contact.ProfilePicture;
+            FormHandler._videoCall = new VideoCall(chatId, friendName, profilePicture);
+            int audioPortNumber = AudioServerCommunication.ConnectUdp("10.100.102.3", FormHandler._videoCall);
+            int videoPortNumber = VideoServerCommunication.ConnectUdp("10.100.102.3", FormHandler._videoCall);
+            UdpPorts udpPorts = new UdpPorts(audioPortNumber, videoPortNumber);
+
+            JsonObject udpConnectionRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.UdpVideoConnectionRequest, udpPorts);
+            string udpConnectionRequestJson = JsonConvert.SerializeObject(udpConnectionRequestJsonObject, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            serverCommunicator.SendMessage(udpConnectionRequestJson);
+        }
+        private void CloseForm(Form form)
+        {
+            if (form != null)
+            {
+                this.Invoke(new Action(() => form.Hide()));
+                form.Close();
+                form.Dispose();
+                form = null;
+            }
+        }
         public void OpenAudioCall()
         {
-            if (FormHandler._waitingForm != null)
-            {
-                this.Invoke(new Action(() => FormHandler._waitingForm.Hide()));
-                FormHandler._waitingForm.Close();
-                FormHandler._waitingForm.Dispose();
-                FormHandler._waitingForm = null;
-            }
+            CloseForm(FormHandler._waitingForm);
+            CloseForm(FormHandler._profile);
             this.Invoke(new Action(() => FormHandler._audioCall.Show()));
             this.Invoke((Action)delegate { FormHandler._audioCall.SetIsAbleToSendToTrue(); });
             this.Hide();
         }
-        public void OpenVideoCall(string chatId, string friendName)
+        public void OpenVideoCall()
         {
-            Contact contact = ContactManager.GetContact(friendName);
-            Image profilePicture = contact.ProfilePicture;
-            if (FormHandler._waitingForm != null)
-            {
-                this.Invoke(new Action(() => FormHandler._waitingForm.Hide()));
-                FormHandler._waitingForm.Close();
-                FormHandler._waitingForm.Dispose();
-                FormHandler._waitingForm = null;
-            }
-
-            FormHandler._videoCall = new VideoCall(chatId,friendName, profilePicture);
+            CloseForm(FormHandler._waitingForm);
+            CloseForm(FormHandler._profile);
             this.Invoke(new Action(() => FormHandler._videoCall.Show()));
+            this.Invoke((Action)delegate { FormHandler._videoCall.SetIsAbleToSendToTrue(); });
+
             this.Hide();
         }
         public void CloseWaitingForm()
