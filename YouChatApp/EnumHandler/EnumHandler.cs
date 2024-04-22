@@ -187,6 +187,13 @@ namespace YouChatApp
             EndAudioCallResponse_Reciever,
             DeleteMessageRequest,
             DeleteMessageResponse,
+            UpdateProfilePictureRequest,
+            UpdateProfilePictureResponse_Sender,
+            UpdateProfilePictureResponse_ChatUserReciever,
+            UpdateProfilePictureResponse_ContactReciever,
+            UpdateProfileStatusRequest,
+            UpdateProfileStatusResponse_Sender,
+            UpdateProfileStatusResponse_Reciever,
         }
     }
 }

@@ -476,13 +476,6 @@ namespace YouChatApp
                                 UserProfile.ProfileDetailsHandler.ProfilePictureId = userDetails.ProfilePicture; //need to convert it to the image
                                 UserProfile.ProfileDetailsHandler.ProfilePicture = ProfilePictureImageList.GetImageByImageId(UserProfile.ProfileDetailsHandler.ProfilePictureId);//returns the wrong image for some reason                                                                                                                                           //a soultion might be a object and not a static class...
                                 UserProfile.ProfileDetailsHandler.Status = userDetails.ProfileStatus;
-                                UserProfile.ProfileDetailsHandler.LastSeenProperty = userDetails.LastSeenProperty;
-                                UserProfile.ProfileDetailsHandler.OnlineProperty = userDetails.OnlineProperty;
-                                UserProfile.ProfileDetailsHandler.ProfilePictureProperty = userDetails.ProfilePictureProperty;
-                                UserProfile.ProfileDetailsHandler.StatusProperty = userDetails.StatusProperty;
-                                UserProfile.ProfileDetailsHandler.TextSize = userDetails.TextSizeProperty;
-                                UserProfile.ProfileDetailsHandler.MessageGap = userDetails.MessageGapProperty;
-                                UserProfile.ProfileDetailsHandler.EnterKeyPressed = userDetails.EnterKeyPressedProperty;
                                 UserProfile.ProfileDetailsHandler.TagLine = userDetails.TagLineId;
 
                                 FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetProfilePicture(); });
@@ -630,6 +623,26 @@ namespace YouChatApp
                             case EnumHandler.CommunicationMessageID_Enum.DeleteMessageResponse:
                                 HandleDeleteMessageResponseEnum(jsonObject);
                                 break;
+                            case EnumHandler.CommunicationMessageID_Enum.UpdateProfileStatusResponse_Sender:
+                                string status = jsonObject.MessageBody as string;
+                                UserProfile.ProfileDetailsHandler.Status = status;
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.UpdateProfileStatusResponse_Reciever:
+                                HandleUpdateProfileStatusResponse_RecieverEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.UpdateProfilePictureResponse_Sender:
+                                string profilePictureId = jsonObject.MessageBody as string;
+                                UserProfile.ProfileDetailsHandler.ProfilePictureId = profilePictureId; //need to convert it to the image
+                                UserProfile.ProfileDetailsHandler.ProfilePicture = ProfilePictureImageList.GetImageByImageId(UserProfile.ProfileDetailsHandler.ProfilePictureId);
+                                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleProfilePictureChange(ProfileDetailsHandler.Name, profilePictureId); });
+
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.UpdateProfilePictureResponse_ContactReciever:
+                                HandleUpdateProfilePictureResponse_ContactRecieverEnum(jsonObject);
+                                break;
+                            case EnumHandler.CommunicationMessageID_Enum.UpdateProfilePictureResponse_ChatUserReciever:
+                                HandleUpdateProfilePictureResponse_ChatUserRecieverEnum(jsonObject);
+                                break;
                         }
                     }
                     if (isConnected)
@@ -661,6 +674,24 @@ namespace YouChatApp
             FormHandler._youChat.ShowDialog();
             //FormHandler._login.Invoke((Action)delegate { FormHandler._login.OpenApp(); });
         }
+        private void HandleUpdateProfilePictureResponse_ChatUserRecieverEnum(JsonObject jsonObject)
+        {
+            ProfilePictureUpdate profilePictureUpdate = jsonObject.MessageBody as ProfilePictureUpdate;
+            string username = profilePictureUpdate.Username;
+            string profilePictureId = profilePictureUpdate.ProfilePictureId;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleProfilePictureChange(username, profilePictureId); });
+
+        }
+        private void HandleUpdateProfilePictureResponse_ContactRecieverEnum(JsonObject jsonObject)
+        {
+            ProfilePictureUpdate profilePictureUpdate = jsonObject.MessageBody as ProfilePictureUpdate;
+            string username = profilePictureUpdate.Username;
+            string profilePictureId = profilePictureUpdate.ProfilePictureId;
+            Contact contact = ContactManager.GetContact(username);
+            contact.ProfilePicture = ProfilePictureImageList.GetImageByImageId(profilePictureId);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.ChangeUserProfilePicture(username, profilePictureId, contact.ProfilePicture); });
+
+        }
         private void HandleOfflineUpdateEnum(JsonObject jsonObject)
         {
             OfflineDetails offlineDetails = jsonObject.MessageBody as OfflineDetails;
@@ -669,8 +700,17 @@ namespace YouChatApp
             Contact contact = ContactManager.GetContact(username);
             contact.Online = false;
             contact.LastSeenTime = lastSeenTime;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetChatOnline(username,false,lastSeenTime); });
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetChatOnline(username, false, lastSeenTime); });
 
+        }
+        private void HandleUpdateProfileStatusResponse_RecieverEnum(JsonObject jsonObject)
+        {
+            StatusUpdate statusUpdate = jsonObject.MessageBody as StatusUpdate;
+            string username = statusUpdate.username;
+            string status = statusUpdate.Status;
+            Contact contact = ContactManager.GetContact(username);
+            contact.Status = status;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.ChangeUserStatus(username, status); });
         }
         private void HandleOnlineUpdateEnum(JsonObject jsonObject)
         {
@@ -773,7 +813,7 @@ namespace YouChatApp
         {
             PastFriendRequest pastFriendRequest = jsonObject.MessageBody as PastFriendRequest;
 
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.AddFriendRequest(pastFriendRequest); });
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleNewFriendRequest(pastFriendRequest); });
 
         }
         private void HandleChatInformationResponseEnum(JsonObject jsonObject)

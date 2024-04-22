@@ -32,6 +32,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using AForge;
 using YouChatApp.AttachedFiles.PaintHandler;
 using Message = YouChatApp.JsonClasses.Message;
+using YouChatApp.ContactHandler2;
+using Contact = YouChatApp.ContactHandler.Contact;
+using ContactManager = YouChatApp.ContactHandler.ContactManager;
 
 namespace YouChatApp
 {
@@ -155,31 +158,7 @@ namespace YouChatApp
             // Do something with the background image here
         }
 
-        private string[] SeparateLettersAndNumbers(string Text)
-        {
-            string[] LettersAndNumbersArray = new string[2];
-            for (int i = 0; i < LettersAndNumbersArray.Length; i++)
-            {
-                LettersAndNumbersArray[i] = "";
-            }
-            string Letters = "";
-            string Numbers = "";
-
-            foreach (char Character in Text)
-            {
-                if (char.IsLetter(Character))
-                {
-                    Letters += Character;
-                }
-                else if (char.IsDigit(Character))
-                {
-                    Numbers += Character;
-                }
-            }
-            LettersAndNumbersArray[0] = Letters;
-            LettersAndNumbersArray[1] = Numbers;
-            return LettersAndNumbersArray;
-        }
+       
         public void SetProfilePicture()
         {
             ProfileCustomButton.BackgroundImage = UserProfile.ProfileDetailsHandler.ProfilePicture;
@@ -298,7 +277,7 @@ namespace YouChatApp
             foreach (ContactDetails contactDetails in contactDetailsList)
             {
                 contact = new Contact(contactDetails);
-                ContactManager.AddContact(contact);
+                ContactHandler.ContactManager.AddContact(contact);
             }
 
             foreach (Contact Contact in ContactManager.UserContacts)
@@ -328,6 +307,10 @@ namespace YouChatApp
             if (this.ContactControlList.Count == 0)
             {
                 heightForContacts = 0;
+            }
+            else if (location == ContactManager.UserContacts.Count - 1)
+            {
+                heightForContacts = this.ContactControlList[location-1].Location.Y + ContactControlList[location-1].Size.Height;
             }
             else
             {
@@ -650,13 +633,96 @@ namespace YouChatApp
         {
             if (CurrentChatNameLabel.Text == contactName)
             {
-                if (toOnline)
+                if (ChatStatusLabel.Visible) //to check it is a direct chat with that name...
                 {
-                    LastSeenOnlineLabel.Text = "Online";
+                    if (toOnline)
+                    {
+                        LastSeenOnlineLabel.Text = "Online";
+                    }
+                    else
+                    {
+                        LastSeenOnlineLabel.Text = TimeHandler.GetFormatTime(lastSeenTime);
+                    }
                 }
-                else
+            }
+        }
+        public void ChangeUserStatus(string contactName, string status)
+        {
+            if (CurrentChatNameLabel.Text == contactName)
+            {
+                if (ChatStatusLabel.Visible) //to check it is a direct chat with that name...
                 {
-                    LastSeenOnlineLabel.Text = TimeHandler.GetFormatTime(lastSeenTime);
+                    ChatStatusLabel.Text = $"status: {status}";
+                }
+            }
+            foreach (ContactControl contactControl in ContactControlList)
+            {
+                if (contactControl.ContactName.Text == contactName)
+                {
+                    contactControl.ContactStatus.Text = status;
+                }
+            }
+        }
+        public void ChangeUserProfilePicture(string contactName,string profilePictureId, Image profilePicture)
+        {
+            if (CurrentChatNameLabel.Text == contactName)
+            {
+                if (ChatStatusLabel.Visible) //to check it is a direct chat with that name...
+                {
+                    CurrentPictureChatPictureBox.BackgroundImage = profilePicture;
+                }
+            }
+            foreach (ChatControl chatControl in ChatControlListOfContacts)
+            {
+                if (chatControl.ChatName.Text == contactName)
+                {
+                    string chatId = chatControl.ChatId;
+                    ChatDetails chat = ChatManager.GetChat(chatId);
+                    if (chat is DirectChat)
+                    {
+                        chatControl.ProfilePicture.BackgroundImage = profilePicture;
+                    }
+                }
+            }
+            foreach (ContactControl contactControl in ContactControlList)
+            {
+                if (contactControl.ContactName.Text == contactName)
+                {
+                    contactControl.ProfilePicture.Image = profilePicture;
+                }
+            }
+            HandleProfilePictureChange(contactName, profilePictureId);
+        }
+        public void HandleProfilePictureChange(string contactName, string profilePictureId)
+        {
+            Queue<string> chatIdsToChange = new Queue<string>();
+            string name;
+            foreach (ChatDetails chatDetails in ChatManager._chats)
+            {
+                if (chatDetails.UserExist(contactName))
+                {
+                    foreach (ChatParticipant chatParticipant in chatDetails.ChatParticipants)
+                    {
+                        name = chatParticipant.Username;
+                        if (contactName == name)
+                        {
+                            chatParticipant.ProfilePicture = profilePictureId;
+                        }
+                    }
+                    chatIdsToChange.Enqueue(chatDetails.ChatTagLineId);
+                }
+            }
+            string chatId;
+            while (chatIdsToChange.Count > 0)
+            {
+                chatId = chatIdsToChange.Dequeue();
+                List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
+                foreach (AdvancedMessageControl advancedMessageControl in currentMessageControls)
+                {
+                    if (advancedMessageControl.Username.Text == contactName)
+                    {
+                        advancedMessageControl.ProfilePicture.BackgroundImage = ProfilePictureImageList.GetImageByImageId(profilePictureId);
+                    }
                 }
             }
         }
@@ -838,6 +904,8 @@ namespace YouChatApp
         public void SetProfileButtonEnabled()
         {
             ProfileCustomButton.Enabled = true;
+            ProfileCustomButton.BackgroundImageLayout = ImageLayout.Zoom;
+            ProfileCustomButton.BackgroundImage = ProfileDetailsHandler.ProfilePicture;
         }
         public void SetListOfFriendRequestControl(PastFriendRequests pastFriendRequests)
         {
@@ -846,6 +914,11 @@ namespace YouChatApp
             {
                 AddFriendRequest(pastFriendRequest);
             }
+        }
+        public void HandleNewFriendRequest(PastFriendRequest pastFriendRequest)
+        {
+            if (!_firstTimeEnteringFriendRequestZone)
+                AddFriendRequest(pastFriendRequest);
         }
         public void AddFriendRequest(PastFriendRequest pastFriendRequest)
         {
@@ -1061,6 +1134,25 @@ namespace YouChatApp
         {
             Panel messagePanel = MessagePanels[chatId];
             Contact SenderContact = ContactHandler.ContactManager.GetContact(messageSenderName);
+            Image profilePicture = null;
+            if (SenderContact == null)
+            {
+                ChatDetails chatDetails = ChatManager.GetChat(chatId);
+                string profilePictureId = "";
+                foreach (ChatParticipant chatParticipant in chatDetails.ChatParticipants)
+                {
+                    if (chatParticipant.Username == messageSenderName)
+                    {
+                        profilePictureId = chatParticipant.ProfilePicture;
+                    }
+                }
+                if (profilePictureId != "")
+                    profilePicture = ProfilePictureImageList.GetImageByImageId(profilePictureId);
+            }
+            else
+            {
+                profilePicture = SenderContact.ProfilePicture;
+            }
             int messageNumber = messageCount[chatId];
             List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
 
@@ -1078,7 +1170,7 @@ namespace YouChatApp
             currentMessageControls[messageNumber].BackColor = SystemColors.Control;
             currentMessageControls[messageNumber].Username.Text = messageSenderName;
             currentMessageControls[messageNumber].Time.Text = time;
-            currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = SenderContact.ProfilePicture;
+            currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = profilePicture;
             currentMessageControls[messageNumber].IsYourMessage = false;
             currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.DeletedMessage;
             currentMessageControls[messageNumber].MessageTime = messageDateTime;
@@ -1172,7 +1264,6 @@ namespace YouChatApp
 
             foreach (AdvancedMessageControl advancedMessageControl in currentMessageControls)
             {
-                Console.WriteLine($"1.{messageSenderName} 2.{advancedMessageControl.Username.Text} 3.{messageDateTime} 4.{advancedMessageControl.MessageTime}");
                 if (messageSenderName == advancedMessageControl.Username.Text)
                 {
                     if (messageDateTime.Equals(advancedMessageControl.MessageTime))
@@ -1196,6 +1287,25 @@ namespace YouChatApp
         {
             Panel messagePanel = MessagePanels[chatId];
             Contact SenderContact = ContactHandler.ContactManager.GetContact(messageSenderName);
+            Image profilePicture = null;
+            if (SenderContact == null)
+            {
+                ChatDetails chatDetails = ChatManager.GetChat(chatId);
+                string profilePictureId = "";
+                foreach (ChatParticipant chatParticipant in chatDetails.ChatParticipants)
+                {
+                    if (chatParticipant.Username == messageSenderName)
+                    {
+                        profilePictureId = chatParticipant.ProfilePicture;
+                    }
+                }
+                if (profilePictureId != "")
+                    profilePicture = ProfilePictureImageList.GetImageByImageId(profilePictureId);
+            }
+            else
+            {
+                profilePicture = SenderContact.ProfilePicture;
+            }
             int messageNumber = messageCount[chatId];
             List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
 
@@ -1214,7 +1324,7 @@ namespace YouChatApp
             currentMessageControls[messageNumber].Username.Text = messageSenderName;
             currentMessageControls[messageNumber].Image.BackgroundImage = messageImage;
             currentMessageControls[messageNumber].Time.Text = time;
-            currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = SenderContact.ProfilePicture;
+            currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = profilePicture;
             currentMessageControls[messageNumber].IsYourMessage = false;
             currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.Image;
             currentMessageControls[messageNumber].MessageTime = messageDateTime;
@@ -1237,6 +1347,25 @@ namespace YouChatApp
         {
             Panel messagePanel = MessagePanels[chatId];
             Contact SenderContact = ContactHandler.ContactManager.GetContact(messageSenderName);
+            Image profilePicture = null;
+            if (SenderContact == null)
+            {
+                ChatDetails chatDetails = ChatManager.GetChat(chatId);
+                string profilePictureId = "";
+                foreach (ChatParticipant chatParticipant in chatDetails.ChatParticipants)
+                {
+                    if (chatParticipant.Username == messageSenderName)
+                    {
+                        profilePictureId = chatParticipant.ProfilePicture;
+                    }
+                }
+                if (profilePictureId != "")
+                    profilePicture = ProfilePictureImageList.GetImageByImageId(profilePictureId);
+            }
+            else
+            {
+                profilePicture = SenderContact.ProfilePicture;
+            }
             int messageNumber = messageCount[chatId];
             List<AdvancedMessageControl> currentMessageControls = AdvancedMessageControls[chatId];
 
@@ -1255,7 +1384,7 @@ namespace YouChatApp
             currentMessageControls[messageNumber].Username.Text = messageSenderName;
             currentMessageControls[messageNumber].MessageContent.Text = messageContent;
             currentMessageControls[messageNumber].Time.Text = time;
-            currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = SenderContact.ProfilePicture;
+            currentMessageControls[messageNumber].ProfilePicture.BackgroundImage = profilePicture;
             currentMessageControls[messageNumber].IsYourMessage = false;
             currentMessageControls[messageNumber].MessageType = YouChatApp.EnumHandler.MessageType_Enum.Text;
             currentMessageControls[messageNumber].MessageTime = messageDateTime;
@@ -1351,42 +1480,7 @@ namespace YouChatApp
             }
         }
 
-        private void MessageContentBuilder(string MessageContent)
-        {
-            if (MessageContent.Contains("€"))
-            {
-                string[] MessageParts = MessageContent.Split('€');
-                foreach (string part in MessageParts)
-                {
-                    if (part.StartsWith("¥"))
-                    {
-                        Image EmojiImage = SearchEmojiImageInAllResources(part.Substring(1));
-                        if (EmojiImage != null)
-                        {
-                            Bitmap bitmap = new Bitmap(EmojiImage, 20, 20);
-                            Clipboard.SetDataObject(bitmap);
-                            //this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Message.Paste(); //will work when i switch the label to richtextbox
-                            Clipboard.Clear();
-                        }
-
-                    }
-                    else
-                    {
-                        this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Message.Text += MessageContent;
-                        //this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Message.Select(this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Message.Text.Length, 0);
-
-
-                    }
-                }
-
-
-            }
-            else
-            {
-                this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber].Message.Text = MessageContent;
-
-            }
-        }
+ 
 
         private Image SearchEmojiImageInAllResources(string ImageName)
         {
@@ -1416,41 +1510,7 @@ namespace YouChatApp
             TimeLabel.Text = DateTime.Now.ToString();
         }
 
-        //private void UserIDTextBox_Enter(object sender, EventArgs e)
-        //{
-        //    if (UserIDTextBox.Text == "YouChat ID")
-        //    {
-        //        UserIDTextBox.Text = "";
-        //        UserIDTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
-        //    }
-        //}
-
-        //private void UserIDTextBox_Leave(object sender, EventArgs e)
-        //{
-        //    if (UserIDTextBox.Text == "")
-        //    {
-        //        UserIDTextBox.Text = "YouChat ID";
-        //        UserIDTextBox.ForeColor = Color.Silver;
-        //    }
-        //}
-
-        //private void UserTagLineTextBox_Enter(object sender, EventArgs e)
-        //{
-        //    if (UserTagLineTextBox.Text == "TAGLINE")
-        //    {
-        //        UserTagLineTextBox.Text = "";
-        //        UserTagLineTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
-        //    }
-        //}
-
-        //private void UserTagLineTextBox_Leave(object sender, EventArgs e)
-        //{
-        //    if (UserTagLineTextBox.Text == "")
-        //    {
-        //        UserTagLineTextBox.Text = "TAGLINE";
-        //        UserTagLineTextBox.ForeColor = Color.Silver;
-        //    }
-        //}
+  
 
 
         private void MessageRichTextBox_Enter(object sender, EventArgs e)
@@ -1541,58 +1601,8 @@ namespace YouChatApp
             //}
         }
 
-        private void UploadedPictureRotationButton_Click(object sender, EventArgs e)
-        {
-            //if (LoadedPicturePictureBox.BackgroundImage != null)
-            //{
-            //    Bitmap RotatedPicture = new Bitmap(LoadedPicturePictureBox.BackgroundImage.Width, LoadedPicturePictureBox.BackgroundImage.Height);
-            //    using (Graphics graphics = Graphics.FromImage(RotatedPicture))
-            //    {
-            //        graphics.TranslateTransform(RotatedPicture.Width / 2, RotatedPicture.Height / 2);
-            //        graphics.RotateTransform((float)90);
-            //        graphics.TranslateTransform(-RotatedPicture.Width / 2, -RotatedPicture.Height / 2);
-            //        graphics.DrawImage(LoadedPicturePictureBox.BackgroundImage, new PointF(0, 0));
-            //    }
+ 
 
-            //    LoadedPicturePictureBox.BackgroundImage = RotatedPicture;
-            //}
-        }
-        public void ChangeMessagesAppearance()
-        {
-            heightForMessages = 10;
-            int NumberOfMessage = 0;
-            foreach (List<MessageControl> MessageList in MessageControlListOfLists)
-            {
-                NumberOfMessage = 0;
-                foreach (MessageControl Message in MessageList)
-                {
-                    Message.SetMessageControlTextSize();
-                    if (MessageNumber != 0)
-                        heightForMessages = this.MessageControlListOfLists[MessageList.Count][NumberOfMessage - 1].Location.Y + this.MessageControlListOfLists[ServerCommunication.CurrentChatNumberID][MessageNumber - 1].Size.Height + messageGap;
-                    this.MessageControlListOfLists[MessageList.Count][NumberOfMessage].SetMessageControl();
-                    this.MessageControlListOfLists[MessageList.Count][NumberOfMessage].Location = new System.Drawing.Point(30, heightForMessages);
-
-                    NumberOfMessage++;
-                }
-            }
-            //foreach (MessageControl Message in MessagePanel.Controls)
-            //{
-
-            //}
-        }
-
-        private void VideoFileButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        //private void RequestSender_Click(object sender, EventArgs e)
-        //{
-        //    string usernameId = UserIDTextBox.Text;
-        //    string usernameTagLine = UserTagLineTextBox.Text;
-        //    string userIdDetails = usernameId + "#" + usernameTagLine;
-        //    ServerCommunication.SendMessage(ServerCommunication.FriendRequestSender, userIdDetails);
-        //}
 
         private void ChatCustomButton_Click(object sender, EventArgs e)
         {
@@ -1818,6 +1828,8 @@ namespace YouChatApp
         private void HandleSwitchToGroupContactsSelection()
         {
             GroupSettingsPanel.Visible = false;
+            GroupIconCircularPictureBox.BackgroundImage = null;
+            GroupSubjectCustomTextBox.TextContent = "";
             GroupCreatorBackgroundPanel.Visible = true;
             this.GroupCreatorBackgroundPanel.Controls.Add(this.SelectedContactsPanel);
             this.SelectedContactsPanel.Location = new System.Drawing.Point(0, 100);
@@ -2026,9 +2038,6 @@ namespace YouChatApp
         private void ImageFileCustomButton_Click(object sender, EventArgs e)
         {
             FormHandler._imageSender = new ImageSender();
-
-            FormHandler._contactSharing = new ContactSharing();
-            //ServerCommunication._contactSharing._isText = false;
             DialogResult result = FormHandler._imageSender.ShowDialog();
 
             Image imageData;
@@ -2042,8 +2051,8 @@ namespace YouChatApp
 
         private void ProfileCustomButton_Click(object sender, EventArgs e)
         {
-            profile = new Profile(this);
-            profile.Show();
+            FormHandler._profile = new Profile();
+            this.Invoke(new Action(() => FormHandler._profile.Show()));
             ProfileCustomButton.Enabled = false;
         }
 

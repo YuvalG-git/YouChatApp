@@ -660,13 +660,6 @@ namespace YouChatApp
                                 UserProfile.ProfileDetailsHandler.ProfilePictureId = userDetails.ProfilePicture; //need to convert it to the image
                                 UserProfile.ProfileDetailsHandler.ProfilePicture = ProfilePictureImageList.GetImageByImageId(UserProfile.ProfileDetailsHandler.ProfilePictureId);//returns the wrong image for some reason                                                                                                                                           //a soultion might be a object and not a static class...
                                 UserProfile.ProfileDetailsHandler.Status = userDetails.ProfileStatus;
-                                UserProfile.ProfileDetailsHandler.LastSeenProperty = userDetails.LastSeenProperty;
-                                UserProfile.ProfileDetailsHandler.OnlineProperty = userDetails.OnlineProperty;
-                                UserProfile.ProfileDetailsHandler.ProfilePictureProperty = userDetails.ProfilePictureProperty;
-                                UserProfile.ProfileDetailsHandler.StatusProperty = userDetails.StatusProperty;
-                                UserProfile.ProfileDetailsHandler.TextSize = userDetails.TextSizeProperty;
-                                UserProfile.ProfileDetailsHandler.MessageGap = userDetails.MessageGapProperty;
-                                UserProfile.ProfileDetailsHandler.EnterKeyPressed = userDetails.EnterKeyPressedProperty;
                                 UserProfile.ProfileDetailsHandler.TagLine = userDetails.TagLineId;
 
                                 _youChat.Invoke((Action)delegate { _youChat.SetProfilePicture(); });

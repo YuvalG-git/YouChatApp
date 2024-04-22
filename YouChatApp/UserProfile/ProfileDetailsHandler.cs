@@ -14,12 +14,5 @@ namespace YouChatApp.UserProfile
         public static string ProfilePictureId;
         public static Image ProfilePicture;
         public static string Status;
-        public static bool LastSeenProperty;
-        public static bool OnlineProperty;
-        public static bool ProfilePictureProperty;
-        public static bool StatusProperty;
-        public static int TextSize;
-        public static int MessageGap;
-        public static bool EnterKeyPressed;
     }
 }
