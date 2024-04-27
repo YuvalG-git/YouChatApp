@@ -122,7 +122,6 @@
             this.Name = "AdvancedMessageControl";
             this.Size = new System.Drawing.Size(365, 70);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MessageControl_MouseDown);
-            this.MouseEnter += new System.EventHandler(this.MessageControl_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.MessageControl_MouseLeave);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MessageControl_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.MenuBarPictureBox)).EndInit();

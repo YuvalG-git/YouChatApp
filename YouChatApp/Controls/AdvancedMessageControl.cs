@@ -40,7 +40,6 @@ namespace YouChatApp
         public AdvancedMessageControl()
         {
             InitializeComponent();
-            SetMessageControlTextSize();
             ControlsMouseDown();
             ControlsMouseMove();
         }
@@ -309,40 +308,7 @@ namespace YouChatApp
             this.Invalidate();
         }
 
-        //todo make sure that this function isnt on a specific control of this type...
-        public void SetMessageControlTextSize()//לשנות גם את הגודל של הcontrol עצמו בהתאם...
-        {
-            if (ServerCommunication.SelectedMessageTextSize == 0)
-            {
-                CurrentUsernameLabelTextSize = 9F;
-                CurrentNessageLabelTextSize = 11.00F;
-
-            }
-            else if (ServerCommunication.SelectedMessageTextSize == 1)
-            {
-                CurrentUsernameLabelTextSize = 10.5F;
-                CurrentNessageLabelTextSize = 13.25F;
-            }
-            else if (ServerCommunication.SelectedMessageTextSize == 2)
-            {
-                CurrentUsernameLabelTextSize = 12F;
-                CurrentNessageLabelTextSize = 15.75F;
-            }
-            else if (ServerCommunication.SelectedMessageTextSize == 3)
-            {
-                CurrentUsernameLabelTextSize = 14F;
-                CurrentNessageLabelTextSize = 18.25F;
-            }
-            else 
-            {
-                CurrentUsernameLabelTextSize = 16F;
-                CurrentNessageLabelTextSize = 21.75F;
-            }
-            this.UsernameLabel.Font = new System.Drawing.Font(this.UsernameLabel.Font.Name, CurrentUsernameLabelTextSize, this.UsernameLabel.Font.Style, this.UsernameLabel.Font.Unit);
-            this.MessageLabel.Font = new System.Drawing.Font(this.MessageLabel.Font.Name, CurrentNessageLabelTextSize, this.MessageLabel.Font.Style, this.MessageLabel.Font.Unit);
-
-
-        }
+      
         public void SetBackColorByMessageSender()
         {
             this.BackColor = Color.PaleTurquoise;
@@ -397,15 +363,6 @@ namespace YouChatApp
             }
         }
 
-        //private void MenuBarButton_Click(object sender, EventArgs e) //if the mouse is not on the button or on the menuoptions close this and use this.controls.remove()...
-        //{
-        //    this.Width += 120;
-        //    foreach(Button MenuButton in MenuButtons)
-        //    {
-        //        this.Controls.Add(MenuButton);
-        //    }
-
-        //}
 
         private void MessageControl_MouseDown(object sender, MouseEventArgs e)
         {
@@ -442,15 +399,6 @@ namespace YouChatApp
             return MenuAreaRectangle.Contains(CursorLocation);
 
         }
-
-        private void MessageControl_MouseEnter(object sender, EventArgs e)
-        {
-            //if (MenuItemsIsVisible)
-            //{
-            //    //keep showing
-            //}
-        }
-
         private void MessageControl_MouseMove(object sender, MouseEventArgs e)
         {
             if (MenuItemsIsVisible)
@@ -515,8 +463,9 @@ namespace YouChatApp
 
         private void ImagePictureBox_Click(object sender, EventArgs e)
         {
-            ImageViewer imageViewer = new ImageViewer(new Bitmap(ImagePictureBox.BackgroundImage));
-            this.Invoke(new Action(() => imageViewer.ShowDialog()));
+
+            FormHandler._imageViewer = new ImageViewer(new Bitmap(ImagePictureBox.BackgroundImage));
+            this.Invoke(new Action(() => FormHandler._imageViewer.Show()));
         }
     }
 }

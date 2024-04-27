@@ -19,6 +19,8 @@ namespace YouChatApp.AttachedFiles
         List<string> SelectedContactsList = new List<string>();
         Image AnonymousProfile = global::YouChatApp.Properties.Resources.AnonymousProfile;
         public static string contactData;
+        public static int SelectedContacts = 0;
+
         public ContactSharing() //can be use for sending messages from other chats as well - maybe i can send a string or int that represents the event and act accordinglly
         {
             InitializeComponent();
@@ -275,7 +277,7 @@ namespace YouChatApp.AttachedFiles
             {
                 Contact.ContactSelection.Checked = false;
             }
-            ServerCommunication.SelectedContacts = 0;
+            SelectedContacts = 0;
 
         }
 
@@ -342,13 +344,13 @@ namespace YouChatApp.AttachedFiles
         }
         private void Restart()
         {
-            if (ServerCommunication.SelectedContacts != 0)
+            if (SelectedContacts != 0)
             {
                 foreach (ContactSharingControl Contact in ContactControlList)
                 {
                     Contact.ContactSelection.Checked = false;
                 }
-                ServerCommunication.SelectedContacts = 0;
+                SelectedContacts = 0;
                 RemoveAllProfileControls();
                 RestartCustomButton.Enabled = false;
                 ShareContactsCustomButton.Enabled = false;

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YouChatApp.AttachedFiles;
 using YouChatApp.Controls;
 
 namespace YouChatApp
@@ -72,21 +73,21 @@ namespace YouChatApp
 
             if (ContactSharingCheckBox.Checked)
             {
-                if (ServerCommunication.SelectedContacts >= 3)
+                if (ContactSharing.SelectedContacts >= 3)
                 {
                     ContactSharingCheckBox.Checked = false;
 
                 }
                 else
                 {
-                    ServerCommunication.SelectedContacts++;
+                    ContactSharing.SelectedContacts++;
                     OnCheckBoxClickAccepted?.Invoke(this, e);
 
                 }
             }
             else
             {
-                ServerCommunication.SelectedContacts--;
+                ContactSharing.SelectedContacts--;
                 OnCheckBoxClickDenied?.Invoke(this, e);
 
             }

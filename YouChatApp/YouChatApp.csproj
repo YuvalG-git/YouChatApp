@@ -118,26 +118,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttachedFiles\CallTimer.cs" />
-    <Compile Include="AudioHandler\AudioCall.cs">
+    <Compile Include="AttachedFiles\CallHandler\CallTimer.cs" />
+    <Compile Include="AttachedFiles\CallHandler\AudioHandler\AudioCall.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AudioHandler\AudioCall.Designer.cs">
+    <Compile Include="AttachedFiles\CallHandler\AudioHandler\AudioCall.Designer.cs">
       <DependentUpon>AudioCall.cs</DependentUpon>
     </Compile>
-    <Compile Include="AttachedFiles\CallInvitation.cs">
+    <Compile Include="AttachedFiles\CallHandler\CallInvitation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AttachedFiles\CallInvitation.Designer.cs">
+    <Compile Include="AttachedFiles\CallHandler\CallInvitation.Designer.cs">
       <DependentUpon>CallInvitation.cs</DependentUpon>
     </Compile>
-    <Compile Include="AttachedFiles\Camera.cs">
+    <Compile Include="AttachedFiles\CameraHandler\Camera.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AttachedFiles\Camera.Designer.cs">
+    <Compile Include="AttachedFiles\CameraHandler\Camera.Designer.cs">
       <DependentUpon>Camera.cs</DependentUpon>
     </Compile>
-    <Compile Include="AttachedFiles\CountDownImageList.cs" />
+    <Compile Include="AttachedFiles\CameraHandler\CountDownImageList.cs" />
     <Compile Include="AttachedFiles\ImageEventArgs.cs" />
     <Compile Include="AttachedFiles\ImageViewer.cs">
       <SubType>Form</SubType>
@@ -146,19 +146,13 @@
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachedFiles\PaintHandler\Drawing.cs" />
-    <Compile Include="AttachedFiles\WaitingForm.cs">
+    <Compile Include="AttachedFiles\CallHandler\WaitingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AttachedFiles\WaitingForm.Designer.cs">
+    <Compile Include="AttachedFiles\CallHandler\WaitingForm.Designer.cs">
       <DependentUpon>WaitingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AudioHandler\AudioHandler.cs" />
-    <Compile Include="BanForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BanForm.Designer.cs">
-      <DependentUpon>BanForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="AttachedFiles\CallHandler\AudioHandler\AudioHandler.cs" />
     <Compile Include="ChatHandler\ChatDetails.cs" />
     <Compile Include="ChatHandler\ChatCreator.cs" />
     <Compile Include="ChatHandler\ChatManager.cs" />
@@ -224,7 +218,6 @@
     <Compile Include="EnumHandler\EnumConverter.cs" />
     <Compile Include="EnumHandler\EnumHandler.cs" />
     <Compile Include="FormHandler.cs" />
-    <Compile Include="ImageHandler.cs" />
     <Compile Include="ImageRotationHandler.cs" />
     <Compile Include="JsonClasses\VideoCallOverDetails.cs" />
     <Compile Include="JsonClasses\AudioCallOverDetails.cs" />
@@ -241,7 +234,6 @@
     <Compile Include="JsonClasses\JsonHandler\JsonHandler.cs" />
     <Compile Include="JsonClasses\JsonObject.cs" />
     <Compile Include="JsonClasses\EncryptionKeys.cs" />
-    <Compile Include="JsonClasses\Message2.cs" />
     <Compile Include="JsonClasses\MessageClasses\Message.cs" />
     <Compile Include="JsonClasses\MessageClasses\MessageData.cs" />
     <Compile Include="JsonClasses\MessageClasses\MessageHistory.cs" />
@@ -264,27 +256,13 @@
     <Compile Include="NamespaceAdjustmentBinder.cs" />
     <Compile Include="ServerCommunicator.cs" />
     <Compile Include="UdpServerCommunication\AudioServerCommunication.cs" />
-    <Compile Include="ChatHandler2\Chat.cs" />
-    <Compile Include="ChatHandler2\ChatCreator.cs" />
     <Compile Include="ChatHandler\ChatLastMessageTimeComparer.cs" />
-    <Compile Include="ChatHandler2\ChatManager.cs" />
-    <Compile Include="ChatHandler2\GroupChat.cs" />
-    <Compile Include="ChatHandler2\PersonalChat.cs" />
-    <Compile Include="ContactHandler2\Contact.cs" />
-    <Compile Include="ContactHandler2\ContactManager.cs" />
     <Compile Include="AttachedFiles\EmojiObject.cs" />
-    <Compile Include="AttachedFiles\MessageChar.cs" />
     <Compile Include="AttachedFiles\ContactSharing.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AttachedFiles\ContactSharing.Designer.cs">
       <DependentUpon>ContactSharing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AttachedFiles\DocumentManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AttachedFiles\DocumentManager.Designer.cs">
-      <DependentUpon>DocumentManager.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachedFiles\EmojiKeyboard.cs">
       <SubType>Form</SubType>
@@ -298,15 +276,12 @@
     <Compile Include="AttachedFiles\ImageSender.Designer.cs">
       <DependentUpon>ImageSender.cs</DependentUpon>
     </Compile>
-    <Compile Include="AttachedFiles\EmojiInterface.cs" />
-    <Compile Include="AttachedFiles\MessageImage.cs" />
-    <Compile Include="AttachedFiles\VideoCall.cs">
+    <Compile Include="AttachedFiles\CallHandler\VideoCall.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AttachedFiles\VideoCall.Designer.cs">
+    <Compile Include="AttachedFiles\CallHandler\VideoCall.Designer.cs">
       <DependentUpon>VideoCall.cs</DependentUpon>
     </Compile>
-    <Compile Include="ContactHandler2\ContactNameComparer.cs" />
     <Compile Include="Controls\ChatControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -417,12 +392,6 @@
     <Compile Include="InitialProfileSelection.Designer.cs">
       <DependentUpon>InitialProfileSelection.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginAndRegistration.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoginAndRegistration.Designer.cs">
-      <DependentUpon>LoginAndRegistration.cs</DependentUpon>
-    </Compile>
     <Compile Include="AttachedFiles\PaintHandler\Paint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -457,12 +426,6 @@
     </Compile>
     <Compile Include="StringHandler.cs" />
     <Compile Include="TimeHandler.cs" />
-    <Compile Include="tryform.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="tryform.Designer.cs">
-      <DependentUpon>tryform.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserAuthentication\Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -562,13 +525,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TravelAndPlaces_Emoji.resx</DependentUpon>
     </Compile>
-    <Compile Include="ServerCommunication.cs" />
-    <Compile Include="Controls\MessageControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\MessageControl.Designer.cs">
-      <DependentUpon>MessageControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="SmtpHandler.cs" />
     <Compile Include="UserProfile\ProfileDetailsHandler.cs" />
     <Compile Include="VerificationQuestion\VerificationQuestionHandler.cs" />
@@ -580,20 +536,17 @@
     <Compile Include="YouChat.Designer.cs">
       <DependentUpon>YouChat.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AudioHandler\AudioCall.resx">
+    <EmbeddedResource Include="AttachedFiles\CallHandler\AudioHandler\AudioCall.resx">
       <DependentUpon>AudioCall.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AttachedFiles\CallInvitation.resx">
+    <EmbeddedResource Include="AttachedFiles\CallHandler\CallInvitation.resx">
       <DependentUpon>CallInvitation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AttachedFiles\Camera.resx">
+    <EmbeddedResource Include="AttachedFiles\CameraHandler\Camera.resx">
       <DependentUpon>Camera.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\ContactSharing.resx">
       <DependentUpon>ContactSharing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AttachedFiles\DocumentManager.resx">
-      <DependentUpon>DocumentManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\EmojiKeyboard.resx">
       <DependentUpon>EmojiKeyboard.cs</DependentUpon>
@@ -604,14 +557,11 @@
     <EmbeddedResource Include="AttachedFiles\ImageViewer.resx">
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AttachedFiles\VideoCall.resx">
+    <EmbeddedResource Include="AttachedFiles\CallHandler\VideoCall.resx">
       <DependentUpon>VideoCall.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AttachedFiles\WaitingForm.resx">
+    <EmbeddedResource Include="AttachedFiles\CallHandler\WaitingForm.resx">
       <DependentUpon>WaitingForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BanForm.resx">
-      <DependentUpon>BanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CaptchaCodeControl.resx">
       <DependentUpon>CaptchaCodeControl.cs</DependentUpon>
@@ -667,12 +617,6 @@
     <EmbeddedResource Include="InitialProfileSelection.resx">
       <DependentUpon>InitialProfileSelection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginAndRegistration.resx">
-      <DependentUpon>LoginAndRegistration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\MessageControl.resx">
-      <DependentUpon>MessageControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\PaintHandler\Paint.resx">
       <DependentUpon>Paint.cs</DependentUpon>
     </EmbeddedResource>
@@ -683,9 +627,6 @@
     <EmbeddedResource Include="Properties\CountDown.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CountDown.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="tryform.resx">
-      <DependentUpon>tryform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserAuthentication\Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

@@ -29,7 +29,6 @@ namespace YouChatApp.AttachedFiles
         public event EventHandler<PictureBoxEventArgs> EmojiPress; // Event to notify Form2
         int ControlWidth;
         int ControlHeight; //maybe in the future to use size based on the form's size
-        List<Emoji> RichTextBoxContent;
         int EmojiCategories = 9;
         List<List<EmojiObject>> EmojiImagePathListOfLists = new List<List<EmojiObject>>();
         public bool _isText;
@@ -419,10 +418,6 @@ namespace YouChatApp.AttachedFiles
             //TabPage1.ImageIndex = 3;
             InitializeEmojiTabPageArray();
             InitializeEmojiPictureBoxList();
-            RichTextBoxContent = new List<Emoji>();
-
-            if (ServerCommunication._youChat != null ) 
-                EmojiPress += ServerCommunication._youChat.OnEmojiPress;
         }
 
 
@@ -441,55 +436,8 @@ namespace YouChatApp.AttachedFiles
 
 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(CreateMessageString());
-            //richTextBox1.ReadOnly = true;
-            //richTextBox1.Enabled = false;
-        }
 
-        //private void EmojiKeyboard_Deactivate(object sender, EventArgs e)
-        //{
-        //    this.Close();
-
-        //}
-        private string CreateMessageString()
-        {
-            bool PreviousWasChar = false;
-            string message = ""; //בעיקרון אם הייתי מכניס את הערך הצאר הנכון הייתי עובר כל אחד ישירות ולוקח את הערך שלו אבל כרגע זה לא המצב אז..
-            int Location = 0;
-            foreach (Emoji EmojiType in RichTextBoxContent)
-            {
-                if (EmojiType is MessageChar)
-                {
-                    if (!PreviousWasChar)
-                    {
-                        PreviousWasChar = true;
-                    }
-                    MessageChar messageChar = (MessageChar)EmojiType;
-                    message += messageChar.Char;
-                    // message += richTextBox1.Text[Location];
-                    Location++;
-
-                }
-                else
-                {
-                    MessageImage messageImage = (MessageImage)EmojiType;
-                    if (PreviousWasChar)
-                    {
-                        message += "€";
-                        PreviousWasChar = false;
-
-                    }
-                    messageImage.ResizeImage(20);
-                    message += "¥" + messageImage.ImageName + "€";
-                }
-
-            }
-            if (message.EndsWith("€"))
-                message = message.Substring(0, message.Length - 1);
-            return message;
-        }
+      
         public void SendEmoji(PictureBox pictureBox)
         {
             ImageToSend = pictureBox.Image;
@@ -649,55 +597,7 @@ namespace YouChatApp.AttachedFiles
         }
         private void SetTab(int TabNumber)
         {
-            //ResourceSet resourceSet;
-            //if (TabHeadLine == "Smiley")
-            //{
-            //    resourceSet = Properties.Smileys_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-            //}
-            //else
-            //{
-            //    resourceSet = Properties.Resources.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-            //}
-            //int count = 0;
-            //int x = 0;
-            //int y = 0;
-            //int PictureBoxSize = 36;
-            //int PictureBoxGap = 4;
-            //int maxXValue = EmojiCategoryTabPage[TabNumber].Size.Width - (2*PictureBoxSize + PictureBoxGap);
-            //if (resourceSet != null)
-            //{
-            //    foreach (DictionaryEntry entry in resourceSet)
-            //    {
-            //        string resourceName = entry.Key.ToString();
-            //        if (entry.Value is Image image)
-            //        {
-
-            //            this.EmojiPictureBoxArrayOfLists[TabNumber].Add(new PictureBox());
-            //            EmojiPictureBoxArrayOfLists[TabNumber][count].Name = resourceName;
-            //            EmojiPictureBoxArrayOfLists[TabNumber][count].Image = (Image)entry.Value;
-            //            EmojiPictureBoxArrayOfLists[TabNumber][count].Location = new Point(x, y);
-            //            EmojiPictureBoxArrayOfLists[TabNumber][count].Size = new Size(PictureBoxSize, PictureBoxSize);
-            //            EmojiPictureBoxArrayOfLists[TabNumber][count].SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            //            EmojiPictureBoxArrayOfLists[TabNumber][count].Padding = new System.Windows.Forms.Padding(2);
-            //            EmojiPictureBoxArrayOfLists[TabNumber][count].Click += new System.EventHandler(EmojiPictureBox_Click);
-            //            EmojiPictureBoxArrayOfLists[TabNumber][count].MouseEnter += new System.EventHandler(EmojiPictureBox_MouseEnter);
-            //            EmojiPictureBoxArrayOfLists[TabNumber][count].MouseLeave += new System.EventHandler(EmojiPictureBox_MouseLeave);
-
-
-            //            this.Controls.Add(this.EmojiPictureBoxArrayOfLists[TabNumber][count]);
-            //            this.EmojiCategoryTabPage[TabNumber].Controls.Add(this.EmojiPictureBoxArrayOfLists[TabNumber][count]);
-            //            if (x < maxXValue)
-            //                x += PictureBoxSize + PictureBoxGap;
-            //            else
-            //            {
-            //                y += PictureBoxSize + PictureBoxGap;
-            //                x = 0;
-            //            }
-            //            count++;
-
-            //        }
-            //    }
-            //}
+           
 
 
             //if (TabNumber == //anything but people do the code above else call the function that does something)
@@ -779,23 +679,6 @@ namespace YouChatApp.AttachedFiles
 
             }
         }
-        private void SpecialEmojiPictureBox_MouseEnter(object sender, EventArgs e)
-        {
-            PictureBox pictureBox = sender as PictureBox;
-            HandleBackgroundColor(pictureBox, true);
-            Panel panel = ButtonToPanelConnectionMap[pictureBox];
-            panel.Location = new System.Drawing.Point(pictureBox.Location.X, pictureBox.Location.Y - panel.Height);
-            panel.Visible = true;
-            panel.BringToFront();
-        }
-        private void SpecialEmojiPictureBox_MouseLeave(object sender, EventArgs e)
-        {
-            PictureBox pictureBox = sender as PictureBox;
-            HandleBackgroundColor(pictureBox, false);
-            Panel panel = ButtonToPanelConnectionMap[pictureBox];
-            panel.Visible = false;
-            panel.SendToBack();
-        }
         private void EmojiPictureBox_MouseEnter(object sender, EventArgs e)
         {
             PictureBox pictureBox = sender as PictureBox;
@@ -805,189 +688,6 @@ namespace YouChatApp.AttachedFiles
         {
             PictureBox pictureBox = sender as PictureBox;
             HandleBackgroundColor(pictureBox, false);
-        }
-
-        private void richTextBox1_ContentsResized(object sender, ContentsResizedEventArgs e)
-        {
-            //// Adjust the size of images to a fixed value to prevent resizing
-            //foreach (EmbeddedImageInfo imageInfo in embeddedImages)
-            //{
-
-            //    // You can adjust the width and height to your preferred values
-            //    int maxWidth = 200;
-            //    int maxHeight = 150;
-
-            //    //if (image.Width > maxWidth || image.Height > maxHeight)
-            //    //{
-            //    //    // Calculate the new size while maintaining aspect ratio
-            //    //    int newWidth = Math.Min(image.Width, maxWidth);
-            //    //    int newHeight = (int)((float)image.Height * newWidth / image.Width);
-
-            //    //    // Resize the image
-            //    //    richTextBox1.Select(image.Start, image.End - image.Start);
-            //    //    Clipboard.SetImage(image.Image);
-            //    //    richTextBox1.Paste();
-            //    //}
-            //}
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            //richTextBox1.Select(richTextBox1.Text.Length, 0);
-            //bool ShiftPressed = ((Control.ModifierKeys & Keys.Shift) != 0);
-            //int Index = richTextBox1.SelectionStart - 1;
-
-            //MessageChar messageChar = new MessageChar();
-            //messageChar.Char = richTextBox1.Text[Index];
-            ////messageChar.Char = richTextBox1.Text[IndexToAdd]; //להחליף לבזמן לחיצה או אחרי אולי
-            //RichTextBoxContent.Insert(Index, messageChar);
-        }
-
-        private void richTextBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            //bool ShiftPressed = ((Control.ModifierKeys & Keys.Shift) != 0);
-
-            //int IndexToAdd = richTextBox1.SelectionStart;
-            //if (e.KeyCode == Keys.Back) 
-            //{
-            //    if ((IndexToAdd != 0) && (RichTextBoxContent[IndexToAdd - 1] != null)) //what if more than one char is deleted at the same time...
-            //    {
-            //        if (RichTextBoxContent[IndexToAdd - 1] is MessageChar)
-            //        {
-            //            RichTextBoxContent.RemoveAt(IndexToAdd - 1);
-
-            //        }
-            //        else
-            //        {
-            //            //e.SuppressKeyPress = true; // Prevent the default behavior of the key
-            //            RichTextBoxContent.RemoveAt(IndexToAdd - 1);
-
-            //        }
-            //        // Customize the behavior of the backspace key here
-            //        //if (ImageLockMode = true)//if thats the image location
-            //        //{
-            //        //    e.SuppressKeyPress = true; // Prevent the default behavior of the key
-            //        //    //to delete the emoji
-            //        //}
-            //    }
-
-            }
-            //else if (!char.IsControl((char)e.KeyCode))//todo find a solution to ctrl typing
-            //{
-            //    MessageChar messageChar = new MessageChar();
-            //    char CurrentChar = (char)e.KeyCode;
-            //    if (ShiftPressed)
-            //    {
-            //        // Convert the character to uppercase if Shift is pressed
-            //        CurrentChar = (char)('!' + (e.KeyCode - Keys.D1));
-
-            //    }
-            //    messageChar.Char = CurrentChar;
-            //    //messageChar.Char = richTextBox1.Text[IndexToAdd]; //להחליף לבזמן לחיצה או אחרי אולי
-            //    RichTextBoxContent.Insert(IndexToAdd, messageChar);
-
-            //}
-
-
-
-        
-
-        private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //bool ShiftPressed = ((Control.ModifierKeys & Keys.Shift) != 0);
-            //int IndexToAdd = richTextBox1.SelectionStart;
-            //if (!char.IsControl(e.KeyChar))//todo find a solution to ctrl typing
-            //{
-            //    MessageChar messageChar = new MessageChar();
-            //    char CurrentChar = e.KeyChar;
-            //    if (ShiftPressed)
-            //    {
-            //        // Convert the character to uppercase if Shift is pressed
-            //        CurrentChar = (char)('!' + (e.KeyChar - Keys.D1));
-
-            //    }
-            //    messageChar.Char = CurrentChar;
-            //    //messageChar.Char = richTextBox1.Text[IndexToAdd]; //להחליף לבזמן לחיצה או אחרי אולי
-            //    RichTextBoxContent.Insert(IndexToAdd, messageChar);
-
-            //}
-        }
-
-        private void richTextBox1_KeyUp(object sender, KeyEventArgs e)
-        {
-            //bool ShiftPressed = ((Control.ModifierKeys & Keys.Shift) != 0);
-            //int IndexToAdd = richTextBox1.SelectionStart;
-            //if (!char.IsControl((char)e.KeyCode))//todo find a solution to ctrl typing
-            //{
-            //    MessageChar messageChar = new MessageChar();
-            //    char CurrentChar = (char)e.KeyCode;
-            //    if (ShiftPressed)
-            //    {
-            //        // Convert the character to uppercase if Shift is pressed
-            //        CurrentChar = (char)('!' + ((char)e.KeyCode - Keys.D1));
-
-            //    }
-            //    messageChar.Char = CurrentChar;
-            //    //messageChar.Char = richTextBox1.Text[IndexToAdd]; //להחליף לבזמן לחיצה או אחרי אולי
-            //    RichTextBoxContent.Insert(IndexToAdd-1, messageChar);
-
-            //}
-        }
-        // Import the SetCursorPos function from User32.dll
-
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //flowLayoutPanel1.Visible = !flowLayoutPanel1.Visible;
-            //isButtonPressed = !isButtonPressed;
-        }
-
-        private bool isMouseOverButton = false;
-        private bool isMouseOverPanel = false;
-        private bool isButtonPressed = false;
-
-
-
-        private void button2_MouseEnter(object sender, EventArgs e)
-        {
-            isMouseOverButton = true;
-            //UpdatePanelVisibility();
-        }
-
-        private void button2_MouseLeave(object sender, EventArgs e)
-        {
-            isMouseOverButton = false;
-            UpdatePanelVisibility();
-        }
-
-        private void flowLayoutPanel1_MouseEnter(object sender, EventArgs e)
-        {
-            //isMouseOverPanel = true;
-            ////UpdatePanelVisibility();
-        }
-
-        private void flowLayoutPanel1_MouseLeave(object sender, EventArgs e)
-        {
-            //isMouseOverPanel = false;
-            //UpdatePanelVisibility();
-        }
-
-        private void UpdatePanelVisibility()
-        {
-            //if (isButtonPressed &&(isMouseOverButton || isMouseOverPanel))
-            //    flowLayoutPanel1.Visible = true;
-            //else
-            //    flowLayoutPanel1.Visible = false;
-        }
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void rickrollbutton_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

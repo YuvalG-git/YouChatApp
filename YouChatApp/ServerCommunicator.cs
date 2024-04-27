@@ -16,7 +16,6 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using YouChatApp.AttachedFiles;
 using YouChatApp.ChatHandler;
-using YouChatApp.ChatHandler2;
 using YouChatApp.ContactHandler;
 using YouChatApp.Encryption;
 using YouChatApp.JsonClasses;
@@ -53,8 +52,6 @@ namespace YouChatApp
         const string PasswordMessageResponse2 = "Your new password has been saved";
         const string PasswordMessageResponse3 = "An error occured";
         const string PasswordMessageResponse4 = "Your past details aren't matching";
-        public const string FriendRequestResponseSender1 = "Approval";
-        public const string FriendRequestResponseSender2 = "Rejection";
         const string FailedCallRequest = "Your friend is offline. Please try to call again later.";
         const string VideoCallResponse2 = "You have been asked to join a call";
         public const string VideoCallResponseResult1 = "Joining the video call";
@@ -81,7 +78,6 @@ namespace YouChatApp
         private byte[] MessageData;
         private byte[] dataHistory;
 
-        public int SelectedContacts = 0;
 
 
         //Form Instances
@@ -183,7 +179,7 @@ namespace YouChatApp
                                                                4,
                                                                ReceiveMessageLength,
                                                                null);
-            dataHistory = new byte[0]; //נניח שאין מעבר לint הגדול ביותר...
+            dataHistory = new byte[0];
             return true;
         }
         public void BeginRead()
@@ -518,12 +514,6 @@ namespace YouChatApp
                                     MessageBox.Show("try again", "Error occured.");
                                     FormHandler._passwordRestart.Invoke((Action)delegate { FormHandler._passwordRestart.SetPasswordGeneratorControlEnable(true); });
                                     break;
-                                //case EnumHandler.CommunicationMessageID_Enum.EncryptionServerPublicKeyAndSymmetricKeyReciever:
-                                //    EncryptionKeys encryptionKeys = jsonObject.MessageBody as EncryptionKeys;
-                                //    ServerPublicKey = encryptionKeys.AsymmetricKey;
-                                //    string EncryptedSymmetricKey = encryptionKeys.SymmetricKey;
-                                //    SymmetricKey = Rsa.Decrypt(EncryptedSymmetricKey, PrivateKey);
-                                //    break;
                                 case EnumHandler.CommunicationMessageID_Enum.RegistrationBanStart:
                                     HandleRegistrationBanStartEnum(jsonObject);
                                     break;
@@ -558,6 +548,8 @@ namespace YouChatApp
                                 case EnumHandler.CommunicationMessageID_Enum.FailedVideoCallResponse:
                                 case EnumHandler.CommunicationMessageID_Enum.FailedAudioCallResponse:
                                     MessageBox.Show(FailedCallRequest);
+                                    FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.EnableDirectChatFeaturesPanel(); });
+
                                     break;
                                 case EnumHandler.CommunicationMessageID_Enum.VideoCallAcceptanceResponse:
                                     HandleVideoCallAcceptanceResponseEnum(jsonObject);
@@ -1340,44 +1332,8 @@ namespace YouChatApp
 
             FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleSuccessfulCaptchaImageAngleResponse(personalVerificationQuestions, score,attempts); });
         }
-       
-     
 
-        /// <summary>
-        /// The SendMessage method sends a message to the server
-        /// </summary>
-        /// <param name="message">Represents the message the client sends to the server</param>
-        public  void SendMessage(int messageId, string messageContent) //maybe to add a function that recieves only messageId (i dont need to send content all the time...)
-        {
-            //if (isConnected)
-            //{
-            //    try
-            //    {
-            //        string message = messageId + "$";
-            //        if (messageId == EncryptionClientPublicKeySender)
-            //        {
-            //            message += messageContent;
-            //        }
-            //        else
-            //        {
-            //            string EncryptedMessageContent = Encryption.Encryption.EncryptData(SymmetricKey, messageContent);
-            //            message += EncryptedMessageContent;
-            //        }
-            //        NetworkStream ns = MessageClient.GetStream();
 
-            //        // Send data to the client
-            //        byte[] bytesToSend = System.Text.Encoding.ASCII.GetBytes(message);
-            //        //byte[] bytesToSend = System.Text.Encoding.ASCII.GetBytes(EncryptedMessage);
-
-            //        ns.Write(bytesToSend, 0, bytesToSend.Length);
-            //        ns.Flush();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine(ex.ToString());
-            //    }
-            //}
-        }
 
         public void SendMessage(string jsonMessage,bool needEncryption = true) //maybe to add a function that recieves only messageId (i dont need to send content all the time...)
         {
@@ -1397,28 +1353,59 @@ namespace YouChatApp
                     {
                         jsonMessage = Encryption.Encryption.EncryptData(SymmetricKey, jsonMessage);
                     }
-                    string messageToSend = Encoding.UTF8.GetString(new byte[] { signal }) + jsonMessage;
+                    byte[] jsonMessageBytes = System.Text.Encoding.UTF8.GetBytes(jsonMessage);
 
+                    // Create a new byte array to hold the final message
+                    byte[] totalBytesToSend = new byte[jsonMessageBytes.Length + 1];
+
+                    // Copy the signal byte to the first position in the new array
+                    totalBytesToSend[0] = signal;
+
+                    // Copy the message bytes to the remaining positions in the new array
+                    Array.Copy(jsonMessageBytes, 0, totalBytesToSend, 1, jsonMessageBytes.Length);
                     NetworkStream ns = MessageClient.GetStream();
 
-                    // Send data to the client
-                    byte[] bytesToSend = System.Text.Encoding.ASCII.GetBytes(messageToSend);
+                    int bufferSize = MessageClient.ReceiveBufferSize;
+                    byte[] bytesToSend;
+                    byte[] buffer;
+                    byte[] length;
+                    byte[] prefixedBuffer;
+                    while (totalBytesToSend.Length > 0)
+                    {
+                        if (totalBytesToSend.Length > bufferSize - 8)
+                        {
+                            bytesToSend = new byte[bufferSize - 8];
+                            Array.Copy(totalBytesToSend, 0, bytesToSend, 0, bufferSize - 8);
+                            buffer = BitConverter.GetBytes(0); //indicates it's not the last message.
+                        }
+                        else
+                        {
+                            bytesToSend = totalBytesToSend;
+                            buffer = BitConverter.GetBytes(1); //indicates it's the last message...
+                        }
 
-                    // Prefixes 4 Bytes Indicating Message Length
-                    byte[] length = BitConverter.GetBytes(bytesToSend.Length); // the length of the message in byte array
-                    byte[] prefixedBuffer = new byte[bytesToSend.Length + sizeof(int)]; // the maximum size of int number in bytes array
+                        length = BitConverter.GetBytes(bytesToSend.Length + sizeof(int));  // the length of the message in byte array
+                        prefixedBuffer = new byte[bytesToSend.Length + (2 * sizeof(int))];
 
-                    Array.Copy(length, 0, prefixedBuffer, 0, sizeof(int)); // to get a fixed size of the prefix to the message
-                    Array.Copy(bytesToSend, 0, prefixedBuffer, sizeof(int), bytesToSend.Length); // add the prefix to the message
+                        Array.Copy(length, 0, prefixedBuffer, 0, sizeof(int));
+                        Array.Copy(buffer, 0, prefixedBuffer, sizeof(int), sizeof(int));
+                        Array.Copy(bytesToSend, 0, prefixedBuffer, (2 * sizeof(int)), bytesToSend.Length);
 
-                    // Actually send it
+                        ns.Write(prefixedBuffer, 0, prefixedBuffer.Length);
+                        ns.Flush();
 
-                    ns.Write(prefixedBuffer, 0, prefixedBuffer.Length);
-                    ns.Flush();
+                        if (totalBytesToSend.Length > bufferSize - 8)
+                        {
+                            byte[] newTotalBytesToSend = new byte[totalBytesToSend.Length - (System.Convert.ToInt32(bufferSize) - 8)];
 
-
-                    //ns.Write(bytesToSend, 0, bytesToSend.Length);
-                    //ns.Flush();
+                            Array.Copy(totalBytesToSend, System.Convert.ToInt32(bufferSize) - 8, newTotalBytesToSend, 0, newTotalBytesToSend.Length); // to get a fixed size of the prefix to the message
+                            totalBytesToSend = newTotalBytesToSend;
+                        }
+                        else
+                        {
+                            totalBytesToSend = new byte[0];
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {

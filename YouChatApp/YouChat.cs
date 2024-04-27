@@ -22,7 +22,6 @@ using YouChatApp.UserProfile;
 using Newtonsoft.Json;
 using System.IO;
 using YouChatApp.JsonClasses;
-using YouChatApp.ChatHandler2;
 using ChatManager = YouChatApp.ChatHandler.ChatManager;
 using GroupChat = YouChatApp.ChatHandler.GroupChat;
 using ChatCreator = YouChatApp.ChatHandler.ChatCreator;
@@ -32,38 +31,35 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using AForge;
 using YouChatApp.AttachedFiles.PaintHandler;
 using Message = YouChatApp.JsonClasses.Message;
-using YouChatApp.ContactHandler2;
 using Contact = YouChatApp.ContactHandler.Contact;
 using ContactManager = YouChatApp.ContactHandler.ContactManager;
+using YouChatApp.AttachedFiles.CameraHandler;
+using YouChatApp.AttachedFiles.CallHandler;
 
 namespace YouChatApp
 {
     public partial class YouChat : Form
     {
-        Profile profile;
-        public static int MessageNumber = 0;
-        public static int heightForMessages = 10;
-        public static int heightForChats;
-        public static int heightForFriendRequests = 10;
-        public static int heightForContacts;
-        public static int widthForProfileControl = 0;
+        private int heightForMessages = 10;
+        private int heightForChats;
+        private int heightForFriendRequests = 10;
+        private int heightForContacts;
+        private int widthForProfileControl = 0;
         private bool _firstTimeEnteringFriendRequestZone = true;
-        Image AnonymousProfile = global::YouChatApp.Properties.Resources.AnonymousProfile; //need to change that to my profile picture...
-        ChatCreator newChat;
-        public static int messageGap = 10;
-        public static DateTime Time;
-        public static int ContactChatNumber = 0;
-        public static int ContactNumber = 0;
-        public static int profileControlNumber = 0;
-        public static int FriendRequestsNumber = 0;
-        public static ResourceSet[] resourceSetArray;
+        private Image AnonymousProfile = global::YouChatApp.Properties.Resources.AnonymousProfile; 
+        private const int messageGap = 10;
+        private int ContactChatNumber = 0;
+        private int ContactNumber = 0;
+        private int profileControlNumber = 0;
+        private int FriendRequestsNumber = 0;
         private readonly ServerCommunicator serverCommunicator;
-        Panel currentMessagePanel;
-        Dictionary<string, int> messageCount;
-        Dictionary<string, bool> messageHistoryReceieved;
+        private Panel currentMessagePanel;
+        private Dictionary<string, int> messageCount;
+        private Dictionary<string, bool> messageHistoryReceieved;
 
-        string currentChatId = "";
-        EnumHandler.ChatType_Enum currentChatType;
+        private string currentChatId = "";
+        private const string ApprovalFriendRequestResponse = "Approval";
+        private const string RejectionFriendRequestResponse = "Rejection";
         public YouChat()
         {
             InitializeComponent();
@@ -71,20 +67,14 @@ namespace YouChatApp
             serverCommunicator.CheckSocketStatus();
             //serverCommunicator.BeginRead();
             MessageLabels = new List<Label>();
-            MessageControlListOfLists = new List<List<MessageControl>>();
             ChatControlListOfContacts = new List<ChatControl>();
             ListOfFriendRequestControl = new List<FriendRequestControl>();
-            MessageControlListOfLists.Add(new List<MessageControl>());
             ContactControlList = new List<ContactControl>();
             ProfileControlList = new List<ProfileControl>();
             MessagePanels = new Dictionary<string, Panel>();
             messageCount = new Dictionary<string, int>();
             messageHistoryReceieved = new Dictionary<string, bool>();
-
-            MessageControls = new Dictionary<string, List<MessageControl>>();
             AdvancedMessageControls = new Dictionary<string, List<AdvancedMessageControl>>();
-            //ProfilePictureImageList.InitializeImageLists();
-            SetResourceSetArray();
             ChatSearchBar.AddSearchOnClickHandler(SearchChats);
             GroupCreatorSearchBar.AddSearchOnClickHandler(SearchContacts);
 
@@ -115,48 +105,7 @@ namespace YouChatApp
             UserTaglineCustomTextBox.PlaceHolderText = "TAGLINE";
         }
 
-        private void SetResourceSetArray()
-        {
-            resourceSetArray = new ResourceSet[9];
-            {
-                resourceSetArray[0] = Properties.Activities_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-                resourceSetArray[1] = Properties.AnimalsAndNature_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-                resourceSetArray[2] = Properties.Flags_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-                resourceSetArray[3] = Properties.FoodAndDrink_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-                resourceSetArray[4] = Properties.Objects_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-                resourceSetArray[5] = Properties.People_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-                resourceSetArray[6] = Properties.Smileys_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-                resourceSetArray[7] = Properties.Symbols_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-                resourceSetArray[8] = Properties.TravelAndPlaces_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-                //maybe i can send the needed location when i send the image name... this way i wouldn't need to check all of them
-                // i can send something like that: "¥2¥_43af"
-            }
-        }
-        public void OnEmojiPress(object sender, PictureBoxEventArgs e)
-        {
-            PictureBox EmojiPictureBox = e.pictureBox;
-            Image EmojiImage = EmojiPictureBox.Image;
-            MessageRichTextBox.Select(MessageRichTextBox.Text.Length, 0);
-
-            int IndexToAdd = MessageRichTextBox.SelectionStart;
-            MessageImage messageImage = new MessageImage();
-            Image ResizedImage = EmojiImage;
-            Bitmap bitmap = new Bitmap(ResizedImage, 20, 20);
-            Clipboard.SetDataObject(bitmap);
-            messageImage.EmojiImage = EmojiImage;
-            messageImage.ImageName = EmojiPictureBox.Name;
-            messageImage.OnRichTextBoxImage = Clipboard.GetImage();
-            MessageRichTextBox.Paste(); //the paste does " "
-            Clipboard.Clear();
-
-            if (MessageRichTextBox.Text[IndexToAdd] == ' ')
-            {
-                MessageRichTextBox.Text.Remove(IndexToAdd, 0);
-
-            }
-            pictureBox1.BackgroundImage = EmojiImage;
-            // Do something with the background image here
-        }
+    
 
        
         public void SetProfilePicture()
@@ -174,7 +123,7 @@ namespace YouChatApp
             serverCommunicator.SendMessage(contactInformationRequestJson);
             //ServerCommunication.SendMessage(ServerCommunication.FriendsProfileDetailsRequest, " ");
         }
-        private void SearchChats(object sender, System.EventArgs e) //אפשר לעשות פעולה גנרית שתקבל רשימה של הcontrols והיא תהיה גנרית...
+        private void SearchChats(object sender, System.EventArgs e)
         {
             string Text = ChatSearchBar.SeacrhBar.TextContent;
             while (Text.EndsWith(" "))
@@ -192,18 +141,17 @@ namespace YouChatApp
                     chat.Location = new System.Drawing.Point(0, heightForChats);
                     heightForChats += chat.Height;
                     chat.Visible = true;
-
                 }
             }
             else
             {
-                foreach (ChatControl chat in ChatControlListOfContacts) //this works for every contact. maybe it would be better to create for all the contacts a control and then just view the correct ones...
+                foreach (ChatControl chat in ChatControlListOfContacts) 
                 {
                     bool IsVisible = false;
                     ContactName = chat.ChatName.Text;
                     if (Text.ToLower().Contains(" "))
                     {
-                        if (ContactName.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                        if (ContactName.ToLower().StartsWith(Text.ToLower())) 
                         {
                             chat.Location = new System.Drawing.Point(0, heightForChats);
                             IsVisible = true;
@@ -214,7 +162,7 @@ namespace YouChatApp
                         string[] NameParts = ContactName.Split(' ');
                         foreach (string NamePart in NameParts)
                         {
-                            if (NamePart.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                            if (NamePart.ToLower().StartsWith(Text.ToLower())) 
                             {
                                 chat.Location = new System.Drawing.Point(0, heightForChats);
                                 IsVisible = true;
@@ -236,38 +184,6 @@ namespace YouChatApp
             foreach (ChatDetails chat in ChatManager._chats)
             {
                 AddChatControl(chat);
-                //string chatName = "";
-                //string chatId = chat.ChatTagLineId;
-                //Image chatProfilePicture = null;
-                //if (chat is DirectChat directChat)
-                //{
-                //    chatName = directChat.Contact.Name;
-                //    chatProfilePicture = directChat.Contact.ProfilePicture;
-                //}
-                //else if (chat is GroupChat groupChat)
-                //{
-                //    chatName = groupChat.ChatName;
-                //    chatProfilePicture = groupChat.ChatProfilePicture;
-                //}
-                //if (ContactChatNumber == 0)
-                //    heightForChats = 0;
-                //else
-                //    heightForChats = this.ChatControlListOfContacts[ContactChatNumber - 1].Location.Y + this.ChatControlListOfContacts[ContactChatNumber - 1].Size.Height;
-                //this.ChatControlListOfContacts.Add(new ChatControl());
-                //this.ChatControlListOfContacts[ContactChatNumber].Location = new System.Drawing.Point(0, heightForChats);
-                //this.ChatControlListOfContacts[ContactChatNumber].Name = chatName;
-                //this.ChatControlListOfContacts[ContactChatNumber].ChatId = chatId;
-                //this.ChatControlListOfContacts[ContactChatNumber].TabIndex = 0;
-                //this.ChatControlListOfContacts[ContactChatNumber].ChatName.Text = chatName;
-                //this.ChatControlListOfContacts[ContactChatNumber].LastMessageContent.Text = chat.LastMessageContent; //will need to crop it...
-                //this.ChatControlListOfContacts[ContactChatNumber].LastMessageTime.Text = chat.GetLastMessageTime();
-                //this.ChatControlListOfContacts[ContactChatNumber].SetLastMessageTimeLocation();
-                //this.ChatControlListOfContacts[ContactChatNumber].SetToolTip();
-                //this.ChatControlListOfContacts[ContactChatNumber].ProfilePicture.BackgroundImage = chatProfilePicture;
-                //this.ChatControlListOfContacts[ContactChatNumber].Click += new System.EventHandler(this.ChatControl_Click);
-                //this.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
-                //this.ChatPanel.Controls.Add(this.ChatControlListOfContacts[ContactChatNumber]);
-                //ContactChatNumber++;
             }
         }
 
@@ -387,7 +303,6 @@ namespace YouChatApp
             this.Controls.Add(this.MessagePanels[chatId]);
 
             messageCount.Add(chatId, 0);
-            MessageControls.Add(chatId, new List<MessageControl>());
             AdvancedMessageControls.Add(chatId, new List<AdvancedMessageControl>());
             messageHistoryReceieved.Add(chatId, false);
 
@@ -427,24 +342,11 @@ namespace YouChatApp
             if (Text.Length == 0)
             {
                 RestartContactControlListLocation();
-                //foreach (ContactControl Contact in ContactControlList)
-                //{
-                //    if (!Contact.WasSelected)
-                //    {
-                //        Contact.Location = new System.Drawing.Point(0, heightForContacts);
-                //        heightForContacts += Contact.Height;
-                //        Contact.Visible = true;
-                //    }
-                //    else
-                //    {
-                //        Contact.Visible = false;
-                //    }
-                //}
             }
             else
             {
                 PanelHandler.SetPanelToSide(GroupCreatorPanel, ContactControlList, true);
-                foreach (ContactControl Contact in ContactControlList) //this works for every contact. maybe it would be better to create for all the contacts a control and then just view the correct ones...
+                foreach (ContactControl Contact in ContactControlList)
                 {
                     bool IsVisible = false;
                     if (!Contact.WasSelected)
@@ -452,7 +354,7 @@ namespace YouChatApp
                         ContactName = Contact.ContactName.Text;
                         if (Text.ToLower().Contains(" "))
                         {
-                            if (ContactName.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                            if (ContactName.ToLower().StartsWith(Text.ToLower())) 
                             {
                                 Contact.Location = new System.Drawing.Point(0, heightForContacts);
                                 IsVisible = true;
@@ -463,7 +365,7 @@ namespace YouChatApp
                             string[] NameParts = ContactName.Split(' ');
                             foreach (string NamePart in NameParts)
                             {
-                                if (NamePart.ToLower().StartsWith(Text.ToLower())) //wont work because of text - should set that the text of the textbox is the text of the control or to do a method that returns the textbox text...
+                                if (NamePart.ToLower().StartsWith(Text.ToLower())) 
                                 {
                                     Contact.Location = new System.Drawing.Point(0, heightForContacts);
                                     IsVisible = true;
@@ -501,10 +403,8 @@ namespace YouChatApp
             {
                 profilePictureTobeUsed = AnonymousProfile;
             }
-            if (this.SelectedContactsPanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
+            if (this.SelectedContactsPanel.Controls.Count > 0) 
             {
-                //Control LastControl = this.ProfileControlList[0];
-                //this.SelectedContactsPanel.ScrollControlIntoView(LastControl);
                 PanelHandler.SetPanelToSide(SelectedContactsPanel, ProfileControlList, true);
 
             }
@@ -533,7 +433,7 @@ namespace YouChatApp
             GroupCreatorPanel.Location = new System.Drawing.Point(GroupCreatorPanel.Location.X, SelectedContactsPanel.Location.Y + SelectedContactsPanel.Height);
             HandleCurrentChatParticipants();
             heightForContacts = 0;
-            RestartContactControlListLocation(); //there is a problem here
+            RestartContactControlListLocation();
         }
         private void RemoveProfileControl(object sender, System.EventArgs e)
         {
@@ -588,12 +488,11 @@ namespace YouChatApp
         }
         private void RestartContactControlListLocation()
         {
-            //PanelHandler.SetPanelToSide(GroupCreatorPanel, ContactControlList, true);
             foreach (ContactControl Contact in ContactControlList)
             {
                 if (!Contact.WasSelected)
                 {
-                    PanelHandler.SetPanelToSide(GroupCreatorPanel, ContactControlList, true); //i use it here due to an error (some times it made a space between them..
+                    PanelHandler.SetPanelToSide(GroupCreatorPanel, ContactControlList, true);
                     Contact.Location = new System.Drawing.Point(0, heightForContacts);
                     heightForContacts += Contact.Height;
                     Contact.Visible = true;
@@ -619,12 +518,9 @@ namespace YouChatApp
         private void setFeaturePanelsVisibility(bool directChatVisible)
         {
             DirectChatFeaturesPanel.Visible = directChatVisible;
-            GroupChatFeaturesPanel.Visible = !directChatVisible;
         }
         private void ChatControl_Click(object sender, EventArgs e)
         {
-            //ask for message history from the server in case that was the first press since logging in...
-            // set contact headline details:
             ChatControl chatControl = (ChatControl)sender;
             string chatId = chatControl.ChatId;
             HandleChats(chatControl, chatId);
@@ -859,7 +755,6 @@ namespace YouChatApp
                 }
                 ChatParticipantsLabel.Visible = false;
 
-                currentChatType = EnumHandler.ChatType_Enum.Direct;
             }
             else if (chat is GroupChat groupChat)
             {
@@ -871,9 +766,6 @@ namespace YouChatApp
                 ChatParticipantsLabel.Text = groupChat.ChatParticipantsToString();
                 LastSeenOnlineLabel.Visible = false;
                 ChatStatusLabel.Visible = false;
-                currentChatType = EnumHandler.ChatType_Enum.Group;
-
-
             }
             CurrentChatNameLabel.Text = chatName;
             CurrentPictureChatPictureBox.BackgroundImage = chatProfilePicture;
@@ -891,15 +783,7 @@ namespace YouChatApp
 
 
 
-        private void MessageTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (MessageRichTextBox.Text != "")
-            {
-                MessageSenderCustomButton.Enabled = true;
-            }
-            else
-                MessageSenderCustomButton.Enabled = false;
-        }
+     
 
         public void SetProfileButtonEnabled()
         {
@@ -961,7 +845,7 @@ namespace YouChatApp
         public void HandleFriendRequestApproval(object sender, EventArgs e)
         {
             FriendRequestControl friendRequestControl = ((FriendRequestControl)(sender));
-            string friendRequestStatus = ServerCommunication.FriendRequestResponseSender1;
+            string friendRequestStatus = ApprovalFriendRequestResponse;
             HandleFriendRequestResponse(friendRequestControl, friendRequestStatus);
             HandleFriendRequest(friendRequestControl);
 
@@ -970,7 +854,7 @@ namespace YouChatApp
         public void HandleFriendRequestRefusal(object sender, EventArgs e)
         {
             FriendRequestControl friendRequestControl = ((FriendRequestControl)(sender));
-            string friendRequestStatus = ServerCommunication.FriendRequestResponseSender2;
+            string friendRequestStatus =RejectionFriendRequestResponse;
             HandleFriendRequestResponse(friendRequestControl, friendRequestStatus);
             HandleFriendRequest(friendRequestControl);
         }
@@ -1121,9 +1005,8 @@ namespace YouChatApp
             this.Controls.Add(currentMessageControls[messageNumber]);
             currentMessagePanel.Controls.Add(currentMessageControls[messageNumber]);
 
-            if (currentMessagePanel.Controls.Count > 0) // todo - add a check if the current chat has messages already - need to check the chat's MessageNumber var...
+            if (currentMessagePanel.Controls.Count > 0)
             {
-                //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
                 Control LastControl = currentMessageControls[messageNumber];
                 currentMessagePanel.ScrollControlIntoView(LastControl);
             }
@@ -1183,7 +1066,6 @@ namespace YouChatApp
 
             if (messagePanel.Controls.Count > 0)
             {
-                //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
                 Control LastControl = currentMessageControls[messageNumber];
                 messagePanel.ScrollControlIntoView(LastControl);
             }
@@ -1336,7 +1218,6 @@ namespace YouChatApp
 
             if (messagePanel.Controls.Count > 0)
             {
-                //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
                 Control LastControl = currentMessageControls[messageNumber];
                 messagePanel.ScrollControlIntoView(LastControl);
             }
@@ -1396,7 +1277,6 @@ namespace YouChatApp
 
             if (messagePanel.Controls.Count > 0)
             {
-                //Control lastControl = this.MessagePanel.Controls[this.MessagePanel.Controls.Count - 1];
                 Control LastControl = currentMessageControls[messageNumber];
                 messagePanel.ScrollControlIntoView(LastControl);
             }
@@ -1408,7 +1288,6 @@ namespace YouChatApp
             PanelHandler.SetPanelToSide(ChatPanel, ChatControlListOfContacts, true);
             this.ChatControlListOfContacts.Remove(chatControl);
             this.ChatControlListOfContacts.Insert(0, chatControl);
-            //this.ChatControlListOfContacts[ContactChatNumber].Location = new System.Drawing.Point(0, heightForChats);
             ChatControl previousChatControl = null;
 
             foreach (ChatControl chat in ChatControlListOfContacts)
@@ -1471,100 +1350,15 @@ namespace YouChatApp
             }
         }
 
-        public void HandlePastMessages(string MessageCollection) //will be used in messages arrived from xml doc. needs to decide about symbol like # ^...
-        {
-            string[] MessageDetails = MessageCollection.Split('^');
-            foreach (string Message in MessageDetails)
-            {
-                //HandleMessagesByOthers(Message);
-            }
-        }
+
 
  
 
-        private Image SearchEmojiImageInAllResources(string ImageName)
-        {
-            foreach (ResourceSet ResourceSetObject in resourceSetArray)
-            {
-                if (ResourceSetObject != null)
-                {
-                    foreach (DictionaryEntry entry in ResourceSetObject)
-                    {
-                        string resourceName = entry.Key.ToString();
-                        if (entry.Value is Image image)
-                        {
-                            if (resourceName == ImageName)
-                            {
-                                return ResourceSetObject.GetObject(resourceName) as Image;
+      
 
-                            }
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            TimeLabel.Text = DateTime.Now.ToString();
-        }
-
-  
+      
 
 
-        private void MessageRichTextBox_Enter(object sender, EventArgs e)
-        {
-            if (MessageRichTextBox.Text == "Here You Write Your Message")
-            {
-                MessageRichTextBox.Text = "";
-                MessageRichTextBox.ForeColor = Color.White;
-            }
-        }
-
-
-        private void MessageRichTextBox_Leave(object sender, EventArgs e)
-        {
-            if (MessageRichTextBox.Text == "")
-            {
-                MessageRichTextBox.Text = "Here You Write Your Message";
-                MessageRichTextBox.ForeColor = Color.Silver;
-            }
-        }
-
-        private void YouChat_Load(object sender, EventArgs e)
-        {
-            //JsonObject contactInformationRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.ContactInformationRequest, null);
-            //string contactInformationRequestJson = JsonConvert.SerializeObject(contactInformationRequestJsonObject, new JsonSerializerSettings
-            //{
-            //    TypeNameHandling = TypeNameHandling.Auto
-            //});
-            //ServerCommunication.SendMessage(contactInformationRequestJson);
-        }
-
-        private void MessageRichTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
-                MessageRichTextBox.Text = "Here You Write Your Message";
-                MessageRichTextBox.ForeColor = Color.Silver;
-            }
-            else if ((e.KeyCode == Keys.Enter) && (MessageRichTextBox.Text != ""))
-            {
-                string message = MessageRichTextBox.Text;
-                SendMessage(message);
-                //ServerCommunication.SendMessage(ServerCommunication.sendMessageRequest + "$" + message);
-                MessageRichTextBox.Text = "Here You Write Your Message";
-                MessageRichTextBox.ForeColor = Color.Silver;
-            }
-        }
-
-        private void ChatButton_Click(object sender, EventArgs e)
-        {
-            GroupCreatorBackgroundPanel.Visible = false;
-            ContactManagementPanel.Visible = false;
-            ChatBackgroundPanel.Visible = true;
-        }
         private void NewContactCustomButton_Click(object sender, EventArgs e)
         {
             if (_firstTimeEnteringFriendRequestZone)
@@ -1582,24 +1376,7 @@ namespace YouChatApp
             ChatBackgroundPanel.Visible = false;
         }
 
-        private void NewGroupButton_Click(object sender, EventArgs e)
-        {
-            GroupCreatorBackgroundPanel.Visible = true;
-            ContactManagementPanel.Visible = false;
-            ChatBackgroundPanel.Visible = false;
-        }
-
-        private void PhotoFileButton_Click(object sender, EventArgs e)
-        {
-            //LoadedPictureGroupBox.Visible = true;
-
-            //UploadedPictureOpenFileDialog.InitialDirectory = Application.StartupPath;
-            //UploadedPictureOpenFileDialog.Filter = "*.png|*.png|*.jpg|*.jpg";
-            //if (UploadedPictureOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    LoadedPicturePictureBox.BackgroundImage = Image.FromFile(UploadedPictureOpenFileDialog.FileName);
-            //}
-        }
+  
 
  
 
@@ -1636,6 +1413,21 @@ namespace YouChatApp
                 TypeNameHandling = TypeNameHandling.Auto
             });
             serverCommunicator.SendMessage(friendRequestJson);
+
+            FriendRequestControl friendRequestControlToRemove = null;
+            foreach (FriendRequestControl friendRequestControl in ListOfFriendRequestControl)
+            {
+                if (friendRequestControl.ContactName.Text == usernameId)
+                {
+                    friendRequestControlToRemove = friendRequestControl;
+                    break;
+                }
+            }
+            if (friendRequestControlToRemove != null)
+            {
+                HandleFriendRequest(friendRequestControlToRemove);
+            }
+
             UserIdCustomTextBox.TextContent = "";
             UserTaglineCustomTextBox.TextContent = "";
         }
@@ -1654,10 +1446,7 @@ namespace YouChatApp
             }
         }
 
-        private void GroupCreatorSearchBar_Load(object sender, EventArgs e)
-        {
 
-        }
 
         private void GroupCreatorCustomButton_Click(object sender, EventArgs e)
         {
@@ -1682,25 +1471,7 @@ namespace YouChatApp
             RestartGroupCreator();
             HandleSwitchToGroupContactsSelection();
 
-            //string chatDetailsJson = JsonConvert.SerializeObject(chatCreator);
-
-
-            //newChat = JsonConvert.DeserializeObject<ChatCreator>(chatDetailsJson);
-            //ServerCommunication.SendMessage(ServerCommunication.GroupCreatorRequest, chatDetailsJson);
-
             GroupCreatorCustomButton.Enabled = false;
-            //needs to close everything that is connected to opening groups..
-        }
-        public void HandleGroupCreation()
-        {
-            AddGroup(newChat);
-            newChat = null;
-            //this is for me
-            //needs to take the data of the created group and create a new chat object plus to add it to 
-        }
-        public void AddGroup(ChatCreator chat)
-        {
-            //to add to chat list and to add the visuallity to the chat list on youchat platform...
         }
         private void GroupSubjectCustomTextBox_TextChangedEvent(object sender, EventArgs e)
         {
@@ -1724,17 +1495,6 @@ namespace YouChatApp
         private void GroupIconCircularPictureBox_Click(object sender, EventArgs e)
         {
             GroupIconContextMenuStrip.Show(GroupIconCircularPictureBox, new System.Drawing.Point(GroupIconCircularPictureBox.Width / 2, GroupIconCircularPictureBox.Height * 3 / 4));
-
-            //bool GroupIconCircularPictureBoxHasIcon = (GroupIconCircularPictureBox.BackgroundImage != AnonymousProfile);
-            //Image groupIcon = OpenFileDialogHandler.HandleOpenFileDialog(UploadedPictureOpenFileDialog);
-            //if ((groupIcon == null) && (!GroupIconCircularPictureBoxHasIcon))
-            //{
-            //    groupIcon = AnonymousProfile;
-            //}
-            //if (groupIcon != null)
-            //{
-            //    GroupIconCircularPictureBox.BackgroundImage = groupIcon;
-            //}
         }
 
         private void GroupIconCircularPictureBox_BackgroundImageChanged(object sender, EventArgs e)
@@ -1790,10 +1550,8 @@ namespace YouChatApp
             FormHandler._emojiKeyboard._isText = false;
             DialogResult result = FormHandler._emojiKeyboard.ShowDialog();
 
-            // Check if Form2 was closed successfully
             if (result == DialogResult.OK)
             {
-                // Retrieve the image from Form2 and update the PictureBox in Form1
                 GroupIconCircularPictureBox.BackgroundImage = FormHandler._emojiKeyboard.ImageToSend;
             }
         }
@@ -1844,14 +1602,8 @@ namespace YouChatApp
 
         private void UserFileCustomButton_Click(object sender, EventArgs e)
         {
-            //if (ServerCommunication._contactSharing == null)
-            //{
-            //    ServerCommunication._contactSharing = new ContactSharing();
-            //}
-            //this.Invoke(new Action(() => ServerCommunication._contactSharing.ShowDialog()));
 
             FormHandler._contactSharing = new ContactSharing();
-            //ServerCommunication._contactSharing._isText = false;
             DialogResult result = FormHandler._contactSharing.ShowDialog();
 
             string contactData;
@@ -1953,6 +1705,7 @@ namespace YouChatApp
             DirectChatFeaturesPanel.Enabled = false;
 
         }
+
         public void EnableDirectChatFeaturesPanel()
         {
             DirectChatFeaturesPanel.Enabled = true;
@@ -1975,10 +1728,6 @@ namespace YouChatApp
             }
         }
 
-        private void EmojiFileButton_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void EmojiKeyBoardCustomButton_Click(object sender, EventArgs e)
         {
@@ -2039,10 +1788,7 @@ namespace YouChatApp
             serverCommunicator.SendMessage(messageJson);
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void TakenImageFile_Click(object sender, EventArgs e)
         {
@@ -2068,37 +1814,6 @@ namespace YouChatApp
             FormHandler._profile = new Profile();
             this.Invoke(new Action(() => FormHandler._profile.Show()));
             ProfileCustomButton.Enabled = false;
-        }
-
-        private void MessageOptionsPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void GroupChatExitCustomButton_Click(object sender, EventArgs e)
-        {
-            //delete chat control
-            //clear all the chat history from the client side
-            //send a message to the server to handle it (remove from group and send message to the online members to remove him...)
-        }
-
-        private void GroupChatAddMemberCustomButton_Click(object sender, EventArgs e)
-        {
-            ServerCommunication._contactSharing = new ContactSharing();
-            //ServerCommunication._contactSharing._isText = false;
-            DialogResult result = ServerCommunication._contactSharing.ShowDialog();
-
-            //todo - to show only those who aren't currently in the group...
-
-            //if (result == DialogResult.OK)
-            //{
-            //    // Retrieve the image from Form2 and update the PictureBox in Form1
-            //    GroupIconCircularPictureBox.BackgroundImage = ServerCommunication._emojiKeyboard.ImageToSend;
-            //}
-        }
-        private void MoveChatControlToFront()
-        {
-            //todo - handle message sent in chat...
         }
 
         private void YouChat_FormClosing(object sender, FormClosingEventArgs e)
@@ -2139,5 +1854,6 @@ namespace YouChatApp
             serverCommunicator.SendMessage(callRequestJson);
             DirectChatFeaturesPanel.Enabled = false;
         }
+
     }
 }

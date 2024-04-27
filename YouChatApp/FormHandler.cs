@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YouChatApp.AttachedFiles;
+using YouChatApp.AttachedFiles.CallHandler;
+using YouChatApp.AttachedFiles.CameraHandler;
 using YouChatApp.UserAuthentication.Forms;
 
 namespace YouChatApp
 {
     internal class FormHandler
     {
-        /// <summary>
-        /// Declares a variable of type LoginRegistPage which represents the loginRegistPage form's object and is used to perform actions on the form
-        /// </summary>
-        public static LoginAndRegistration loginAndRegistration;
 
         /// <summary>
         /// Declares a variable of type Login which represents the _login form's object and is used to perform actions on this form
@@ -93,7 +91,7 @@ namespace YouChatApp
 
         public static ImageSender _imageSender;
 
-        public static BanForm _banForm;
+        public static ImageViewer _imageViewer;
 
         public static ProfilePictureSelector _profilePictureSelector;
         public static ProfileStatusSelector _profileStatusSelector;

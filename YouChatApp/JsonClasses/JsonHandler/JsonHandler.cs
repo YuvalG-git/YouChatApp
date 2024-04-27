@@ -9,7 +9,7 @@ namespace YouChatApp.JsonClasses.JsonHandler
 {
     internal class JsonHandler
     {
-        public static string GetJsonFromString(EnumHandler.CommunicationMessageID_Enum enumType, object obj)
+        public static string GetJsonStringFromJsonData(EnumHandler.CommunicationMessageID_Enum enumType, object obj)
         {
             JsonObject jsonObject = new JsonObject(enumType, obj);
             string JsonString = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
@@ -18,7 +18,7 @@ namespace YouChatApp.JsonClasses.JsonHandler
             });
             return JsonString;
         }
-        public static JsonObject GetStringFromJson(string jsomString)
+        public static JsonObject GetJsonDataFromJsonString(string jsomString)
         {
             JsonObject jsonObject = JsonConvert.DeserializeObject<JsonObject>(jsomString, new JsonSerializerSettings
             {

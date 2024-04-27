@@ -26,6 +26,10 @@ namespace YouChatApp.AttachedFiles
 
         private Bitmap drawingImage = null;
         private ZoomMode zoomMode = ZoomMode.ImageLocation;
+
+
+        private bool isCursorInside = true;
+
         public ImageViewer(Image ImageToView)
         {
             InitializeComponent();
@@ -55,26 +59,6 @@ namespace YouChatApp.AttachedFiles
             //        ImagePictureBox.Width = (int)(ImagePictureBox.Width / 1.1);
             //        ImagePictureBox.Height = (int)(ImagePictureBox.Height / 1.1);
             //    }
-            //}
-        }
-        private Image Zoom(Image image, Size size)
-        {
-            Bitmap bitmap = new Bitmap(image, image.Width + (image.Width * size.Width / 100), image.Height + (image.Height * size.Height / 100));
-            Graphics g = Graphics.FromImage(bitmap);
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            return bitmap;
-        }
-
-        private void BackgroundPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void ZoomTrackBar_Scroll(object sender, EventArgs e)
-        {
-            //if (ZoomTrackBar.Value > 0)
-            //{
-            //    ImagePictureBox.Image = Zoom(_imageToView, new Size(ZoomTrackBar.Value, ZoomTrackBar.Value));
             //}
         }
 
@@ -154,12 +138,6 @@ namespace YouChatApp.AttachedFiles
             }
         }
 
-        private void trkRotationAngle_ValueChanged(object sender, EventArgs e)
-        {
-            //rotationAngle = trkAngle.Value;
-            //ImagePictureBox.Invalidate();
-            //ImagePictureBox.Focus();
-        }
         private void ZoomRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             var selectedRadioButton = sender as RadioButton;
@@ -202,8 +180,6 @@ namespace YouChatApp.AttachedFiles
             this.Hide();
         }
 
-        #region Drawing Methods
-
         public RectangleF GetScaledRect(RectangleF rect, float scaleFactor) =>
             new RectangleF(rect.Location,
             new SizeF(rect.Width * scaleFactor, rect.Height * scaleFactor));
@@ -244,6 +220,26 @@ namespace YouChatApp.AttachedFiles
             rect.Location = position;
             return rect;
         }
+
+        private void ImageViewer_MouseLeave(object sender, EventArgs e)
+        {
+            //if (isCursorInside)
+            //{
+            //    rotationAngle = 0.0f;
+            //    zoomFactor = 1.0f;
+            //    zoomStep = .05f;
+            //    imageRect = RectangleF.Empty;
+            //    imageLocation = PointF.Empty;
+            //    mouseLocation = PointF.Empty;
+            //    drawingImage = null;
+            //    zoomMode = ZoomMode.ImageLocation;
+            //    this.Hide();
+            //}
+        }
+
+        private void ImageViewer_MouseEnter(object sender, EventArgs e)
+        {
+            isCursorInside = true;
+        }
     }
-    #endregion
 }

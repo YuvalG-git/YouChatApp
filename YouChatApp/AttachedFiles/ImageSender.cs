@@ -63,12 +63,12 @@ namespace YouChatApp.AttachedFiles
         {
             this.Close();
             this.Dispose();
-            ServerCommunication._imageSender = null;
+            FormHandler._imageSender = null;
         }
 
         private void ImageSender_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ServerCommunication._imageSender = null;
+            FormHandler._imageSender = null;
         }
     }
 }

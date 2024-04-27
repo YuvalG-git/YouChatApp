@@ -31,8 +31,7 @@ namespace YouChatApp
                 resourceSetArray[6] = Properties.Objects_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
                 resourceSetArray[7] = Properties.Symbols_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
                 resourceSetArray[8] = Properties.Flags_Emoji.ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false);
-                //maybe i can send the needed location when i send the image name... this way i wouldn't need to check all of them
-                // i can send something like that: "¥2¥_43af"
+
             }
 
         }
