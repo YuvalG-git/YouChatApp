@@ -46,8 +46,6 @@
             this.SearchPictureBox.TabIndex = 1;
             this.SearchPictureBox.TabStop = false;
             this.SearchPictureBox.Click += new System.EventHandler(this.OnSearch);
-            this.SearchPictureBox.MouseEnter += new System.EventHandler(this.MouseEnter);
-            this.SearchPictureBox.MouseLeave += new System.EventHandler(this.MouseLeave);
             // 
             // SearchBarCustomTextBox
             // 
@@ -75,9 +73,6 @@
             this.SearchBarCustomTextBox.TextContent = "";
             this.SearchBarCustomTextBox.UnderlineStyle = false;
             this.SearchBarCustomTextBox.TextChangedEvent += new System.EventHandler(this.OnSearch);
-            this.SearchBarCustomTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SearchBarCustomTextBox_MouseDown);
-            this.SearchBarCustomTextBox.MouseEnter += new System.EventHandler(this.MouseEnter);
-            this.SearchBarCustomTextBox.MouseLeave += new System.EventHandler(this.MouseLeave);
             // 
             // SearchBackgroundCircularPictureBox
             // 
@@ -91,8 +86,6 @@
             this.SearchBackgroundCircularPictureBox.TabIndex = 2;
             this.SearchBackgroundCircularPictureBox.TabStop = false;
             this.SearchBackgroundCircularPictureBox.Click += new System.EventHandler(this.OnSearch);
-            this.SearchBackgroundCircularPictureBox.MouseEnter += new System.EventHandler(this.MouseEnter);
-            this.SearchBackgroundCircularPictureBox.MouseLeave += new System.EventHandler(this.MouseLeave);
             // 
             // SearchBar
             // 
@@ -103,7 +96,6 @@
             this.Controls.Add(this.SearchBackgroundCircularPictureBox);
             this.Name = "SearchBar";
             this.Size = new System.Drawing.Size(310, 60);
-            this.Load += new System.EventHandler(this.SearchBar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SearchPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchBackgroundCircularPictureBox)).EndInit();
             this.ResumeLayout(false);

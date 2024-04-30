@@ -15,6 +15,10 @@ namespace YouChatApp.Controls
     {
         private VerificationQuestionHandler VerificationQuestionHandler;
 
+        public VerificationQuestionHandler GetVerificationQuestionHandler()
+        {
+            return VerificationQuestionHandler;
+        }
         public PersonalVerificationQuestionsControl()
         {
             InitializeComponent();
@@ -148,7 +152,7 @@ namespace YouChatApp.Controls
 
         private void VerificationInformationSaverCustomButton_Click(object sender, EventArgs e)
         {
-            VerificationQuestionHandler.wasSelected = true;
+            VerificationQuestionHandler.WasSelected = true;
             this.Enabled = false;
             VerificationInformationSaverCustomButtonClick?.Invoke(this, e);
         }

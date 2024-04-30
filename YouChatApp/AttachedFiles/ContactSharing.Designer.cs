@@ -82,7 +82,6 @@ namespace YouChatApp.AttachedFiles
             this.ChosenContactsPanel.Name = "ChosenContactsPanel";
             this.ChosenContactsPanel.Size = new System.Drawing.Size(350, 90);
             this.ChosenContactsPanel.TabIndex = 3;
-            this.ChosenContactsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ChosenContactsPanel_Paint);
             // 
             // contextMenuStrip1
             // 
@@ -117,7 +116,6 @@ namespace YouChatApp.AttachedFiles
             this.SearchBar.Name = "SearchBar";
             this.SearchBar.Size = new System.Drawing.Size(320, 60);
             this.SearchBar.TabIndex = 2;
-            this.SearchBar.Load += new System.EventHandler(this.SearchBar_Load);
             // 
             // panel1
             // 

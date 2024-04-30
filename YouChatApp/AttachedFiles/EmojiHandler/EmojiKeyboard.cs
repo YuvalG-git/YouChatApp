@@ -26,7 +26,6 @@ namespace YouChatApp.AttachedFiles
         Dictionary<PictureBox, Panel> ButtonToPanelConnectionMap = new Dictionary<PictureBox, Panel>();
         readonly int PictureBoxGap = 4;
         readonly int PictureBoxSize = 36;
-        public event EventHandler<PictureBoxEventArgs> EmojiPress; // Event to notify Form2
         int ControlWidth;
         int ControlHeight; //maybe in the future to use size based on the form's size
         int EmojiCategories = 9;
@@ -37,14 +36,13 @@ namespace YouChatApp.AttachedFiles
 
         private void InitializeEmojiImagePathListOfLists()
         {
-            ResourceSet ResourceSet = EmojiResourceSet.resourceSetArray[1]; //represnts people emoji
+            ResourceSet ResourceSet = EmojiResourceSet.ResourceSetArray[1]; //represnts people emoji
             bool WasHandled;
             EmojiObject EmojiToBeInserted;
             Image EmojiToBeInsertedImage;
             string EmojiToBeInsertedName;
             string EmojiToBeInsertedID = "";
             string EmojiToBeInsertedColorID = "";
-            int counter = 0;
             if (ResourceSet != null)
             {
                 foreach (DictionaryEntry entry in ResourceSet)
@@ -541,72 +539,18 @@ namespace YouChatApp.AttachedFiles
         private void EmojiPictureBox_Click(object sender, EventArgs e)
         {
 
-            //all of this is gonna be on the youchat form 
-            //i will send the image and it be transformed to bitmap and copied there...
-
-
-            //richTextBox1.Select(richTextBox1.Text.Length, 0);
-
-            //int IndexToAdd = richTextBox1.SelectionStart;
-            //MessageImage messageImage = new MessageImage();
-            //Image ResizedImage = ((PictureBox)(sender)).Image;
-            //Bitmap bitmap = new Bitmap(ResizedImage, 20, 20);
-            //Clipboard.SetDataObject(bitmap);
-            //messageImage.EmojiImage = ((PictureBox)(sender)).Image;
-            //messageImage.ImageName = ((PictureBox)(sender)).Name;
-            //messageImage.OnRichTextBoxImage = Clipboard.GetImage();
-            //RichTextBoxContent.Insert(IndexToAdd, messageImage);
-            //richTextBox1.Paste(); //the paste does " "
-            //Clipboard.Clear();
-
-            //if (richTextBox1.Text[IndexToAdd] == ' ')
-            //{
-            //    richTextBox1.Text.Remove(IndexToAdd, 0);
-
-            //}
+           
             PictureBox pictureBox = sender as PictureBox;
-            if (_isText)
-            {
-                EmojiPress?.Invoke(this, new PictureBoxEventArgs(pictureBox));
-            }
-            else
-            {
-                SendEmoji(pictureBox);
-            }
-
-
-            //if (Clipboard.ContainsImage())
-            //{
-            //    Image pastedImage = Clipboard.GetImage();
-            //    string uniqueIdentifier = Guid.NewGuid().ToString(); // Generate a unique ID
-            //    embeddedImages.Add(uniqueIdentifier, pastedImage);
-
-            //    // You can now associate the uniqueIdentifier with the pasted image
-            //    // in the RichTextBox using the selected range or any other appropriate method
-            //}
-            // Select the recently pasted image
-            //int start = richTextBox1.Text.IndexOf('\uFFFC'); // The placeholder character for the pasted image
-            //int length = 1; // Length of the placeholder character
-
-            //if (start >= 0)
-            //{
-            //    richTextBox1.Select(start, length);
-            //    richTextBox1.SelectionProtected = true; // Prevent resizing of the selected image
-            //}
-
+            SendEmoji(pictureBox);
         }
         private void SetTab(int TabNumber)
         {
-           
-
-
-            //if (TabNumber == //anything but people do the code above else call the function that does something)
             int count = 0;
             int x = 0;
             int y = 0;
 
             int maxXValue = EmojiCategoryTabPage[TabNumber].Size.Width - (2 * PictureBoxSize + PictureBoxGap);
-            ResourceSet ResourceSet = EmojiResourceSet.resourceSetArray[TabNumber];
+            ResourceSet ResourceSet = EmojiResourceSet.ResourceSetArray[TabNumber];
 
             if (ResourceSet != null)
             {
@@ -620,18 +564,6 @@ namespace YouChatApp.AttachedFiles
                     }
                     string[] ResourceNameCodeContent = ResourceNameCode.Split('_');
                     int ResourceNameLength = ResourceNameCodeContent.Length;
-                    //if (ResourceNameLength == 1)
-                    //{
-                    //    //enter to as first
-                    //    EmojiImagePathListOfLists.Add(new List<string> { ResourceNameCode });
-                    //}
-                    //else if (ResourceNameLength == 2)
-                    //{
-                    //    //foreach(List<string> ResourceNameCodeList in EmojiImagePathListOfLists)
-                    //    //{
-                    //    //    if
-                    //    //}
-                    //}
                     //1- regular emoji
                     //2 - colored regular emoji
                     //4 - special amoji

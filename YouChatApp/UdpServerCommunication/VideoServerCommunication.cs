@@ -10,22 +10,43 @@ namespace YouChatApp
 {
     internal class VideoServerCommunication
     {
-        public static bool _udpIsOn = false;
+        #region Private Const Fields
+
+        private const int startingPort = 12345;
+        private const int lastPort = 65535;
+
+        #endregion
+
+        #region Private Static Fields
+
         private static UdpClient udpClient;
         private static IPEndPoint remoteEndPoint;
         private static VideoCall _videoCall;
-        private static int startingPort = 12345; // Set the starting port you want to use
+
         private static int localPort;
+        #endregion
+
+        #region Public Static Fields
+        public static bool _udpIsOn = false;
+
         public static string symmetricKey;
+
+        #endregion
+        #region Public Static Get Methods
+
         public static int GetLocalPort()
         {
             return localPort;
         }
+
+        #endregion
+        #region Public Static Connect Methods
+
         public static int ConnectUdp(string ip,VideoCall videoCall)
         {
             _videoCall = videoCall;
             _udpIsOn = true;
-            for (int i = startingPort; i < startingPort + 1000; i++) // Try ports in the range startingPort to startingPort + 1000
+            for (int i = startingPort; i < lastPort; i++)
             {
                 udpClient = new UdpClient();
                 try
@@ -35,7 +56,7 @@ namespace YouChatApp
                     remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 12000);
                     udpClient.Connect(remoteEndPoint);
                     localPort = i;
-                    udpClient.BeginReceive(new AsyncCallback(ReceiveVideoUdpMessage), null);//starts async listen too screen/camera sharing.
+                    udpClient.BeginReceive(new AsyncCallback(ReceiveVideoUdpMessage), null);
                     Console.WriteLine($"UDP client started on port {localPort}");
                     break; // Exit the loop if binding is successful
                 }
@@ -48,7 +69,9 @@ namespace YouChatApp
             return localPort;
         }
 
+        #endregion
 
+        #region Public Static Communication Methods
 
         public static void SendVideo(byte[] data)
         {
@@ -57,17 +80,13 @@ namespace YouChatApp
                 try
                 {
                     byte[] buffer = Encryption.Encryption.EncryptDataToBytes(symmetricKey, data);
-                    udpClient.Send(buffer, buffer.Length/*, remoteEndPoint*/);
-
-
-                    // Send data to the client
+                    udpClient.Send(buffer, buffer.Length);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error sending data: {ex.Message}");
                 }
             }
-
         }
         public static void ReceiveVideoUdpMessage(IAsyncResult ar)
         {
@@ -75,7 +94,6 @@ namespace YouChatApp
             {
                 if (_udpIsOn)
                 {
-                    // Receive the image from the server
                     try
                     {
                         if (_videoCall != null)
@@ -86,7 +104,7 @@ namespace YouChatApp
                             using (MemoryStream ms = new MemoryStream(receivedData))
                             {
                                 Image receivedImage = Image.FromStream(ms);
-                                _videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); }); //todo System.ObjectDisposedException excteption comes... needs to handle better
+                                _videoCall.Invoke((Action)delegate { _videoCall.HandleReceivedImage(receivedImage); });
                             }
                         }
                     }
@@ -123,5 +141,7 @@ namespace YouChatApp
                 udpClient.Dispose();
             }
         }
+
+        #endregion
     }
 }

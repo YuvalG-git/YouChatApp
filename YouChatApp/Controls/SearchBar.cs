@@ -10,43 +10,76 @@ using System.Windows.Forms;
 
 namespace YouChatApp.Controls
 {
+    /// <summary>
+    /// The "SearchBar" class represents a user control for performing searches.
+    /// </summary>
+    /// <remarks>
+    /// This class provides functionality for handling search actions and related UI interactions.
+    /// </remarks>
     public partial class SearchBar : UserControl
     {
+        #region Public Event Handlers
+
+        /// <summary>
+        /// The EventHandler "Search" event is raised when a search action is triggered.
+        /// </summary>
+        public event EventHandler Search;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// The "SearchBar" constructor initializes a new instance of the <see cref="SearchBar"/> class.
+        /// </summary>
+        /// <remarks>
+        /// This constructor is used to create a new instance of the SearchBar class, initializing its components and setting the placeholder text for the search bar input field.
+        /// </remarks>
         public SearchBar()
         {
             InitializeComponent();
             SearchBarCustomTextBox.PlaceHolderText = "Search...";
         }
-        public event EventHandler Search;
-        public CustomTextBox SeacrhBar => SearchBarCustomTextBox;
-        //private bool _isMouseOverSearchBar = false;
 
+        #endregion
 
-        private void SearchBar_Load(object sender, EventArgs e)
+        #region Control Properties
+
+        /// <summary>
+        /// The "SearchBar" property represents the custom text box used for searching.
+        /// It gets the custom text box for the search bar.
+        /// </summary>
+        /// <value>
+        /// The custom search bar text box.
+        /// </value>
+        public CustomTextBox SeacrhBar
         {
-            
+            get
+            {
+                return SearchBarCustomTextBox;
+            }
         }
 
-        private void OnSearch(object sender, EventArgs e)
-        {
-            //if (_isMouseOverSearchBar)
-            //{
-            Search?.Invoke(this, e);
-            //}
-        }
-        public void AddSearchOnClickHandler(EventHandler handler)
-        {
-            Search += handler;
-        }
+        #endregion
 
-        private void SearchBarCustomTextBox_MouseDown(object sender, MouseEventArgs e)
-        {
-        }
+        #region Properties
+
+        /// <summary>
+        /// The "BorderColor" property represents the color of the border for the SearchBarCustomTextBox control.
+        /// It gets the color of the border or sets it to a new value.
+        /// </summary>
+        /// <value>
+        /// The color of the border.
+        /// </value>
+        /// <remarks>
+        /// Setting the BorderColor property will also invalidate the control, triggering a redraw
+        /// to reflect the new border color.
+        /// </remarks>
         [Category("YouChat")]
         public Color BorderColor
         {
-            get 
-            { 
+            get
+            {
                 return SearchBarCustomTextBox.BorderColor;
             }
             set
@@ -55,6 +88,14 @@ namespace YouChatApp.Controls
                 this.Invalidate();
             }
         }
+
+        /// <summary>
+        /// The "BorderFocusColor" property represents the color of the border when the control has focus.
+        /// It gets the color of the focus border or sets it to a new value.
+        /// </summary>
+        /// <value>
+        /// The color of the focus border.
+        /// </value>
         [Category("YouChat")]
         public Color BorderFocusColor
         {
@@ -68,14 +109,32 @@ namespace YouChatApp.Controls
             }
         }
 
-        private void MouseEnter(object sender, EventArgs e)
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Adds an event handler to the Search event.
+        /// </summary>
+        /// <param name="handler">The event handler to add.</param>
+        /// <remarks>
+        /// This method allows external code to subscribe to the Search event by providing an event handler.
+        /// </remarks>
+        public void AddSearchOnClickHandler(EventHandler handler)
         {
-            //_isMouseOverSearchBar = true;
+            Search += handler;
         }
 
-        private void MouseLeave(object sender, EventArgs e)
+        /// <summary>
+        /// The "OnSearch" method invokes the Search event.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnSearch(object sender, EventArgs e)
         {
-            //_isMouseOverSearchBar = false;
+            Search?.Invoke(this, e);
         }
+
+        #endregion
     }
 }

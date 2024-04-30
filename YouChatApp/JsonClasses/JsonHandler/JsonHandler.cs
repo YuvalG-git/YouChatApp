@@ -18,9 +18,9 @@ namespace YouChatApp.JsonClasses.JsonHandler
             });
             return JsonString;
         }
-        public static JsonObject GetJsonDataFromJsonString(string jsomString)
+        public static JsonObject GetJsonDataFromJsonString(string jsonString)
         {
-            JsonObject jsonObject = JsonConvert.DeserializeObject<JsonObject>(jsomString, new JsonSerializerSettings
+            JsonObject jsonObject = JsonConvert.DeserializeObject<JsonObject>(jsonString, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto,
                 Binder = new NamespaceAdjustmentBinder(),

@@ -16,19 +16,40 @@ namespace YouChatApp
 {
     internal class AudioServerCommunication
     {
-        public static bool _udpIsOn = false;
+        #region Private Const Fields
+
+        private const int startingPort = 12345;
+        private const int lastPort = 65535;
+
+        #endregion
+
+        #region Private Static Fields
+
         private static UdpClient udpClient;
         private static IPEndPoint remoteEndPoint;
         private static VideoCall _videoCall;
         private static AudioCall _audioCall;
-        private static int startingPort = 12345; // Set the starting port you want to use
+
         private static int localPort;
+        #endregion
+
+        #region Public Static Fields
+        public static bool _udpIsOn = false;
+
         public static string symmetricKey;
+
+        #endregion
+
+        #region Public Static Get Methods
+
         public static int GetLocalPort()
         {
             return localPort;
         }
 
+        #endregion
+
+        #region Public Static Connect Methods
         public static int ConnectUdp(string ip, VideoCall videoCall)
         {
             _videoCall = videoCall;
@@ -43,7 +64,7 @@ namespace YouChatApp
         }
         private static int HandleConnect(string ip)
         {
-            for (int i = startingPort; i < startingPort + 1000; i++) // Try ports in the range startingPort to startingPort + 1000
+            for (int i = startingPort; i < lastPort; i++) 
             {
                 udpClient = new UdpClient();
                 try
@@ -53,7 +74,7 @@ namespace YouChatApp
                     remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), 11000);
                     udpClient.Connect(remoteEndPoint);
                     localPort = i;
-                    udpClient.BeginReceive(new AsyncCallback(ReceiveAudio), null);//starts async listen too screen/camera sharing.
+                    udpClient.BeginReceive(new AsyncCallback(ReceiveAudio), null);
                     Console.WriteLine($"UDP client started on port {localPort}");
                     break; // Exit the loop if binding is successful
                 }
@@ -66,13 +87,9 @@ namespace YouChatApp
             return localPort;   
         }
 
+        #endregion
 
-        /// <summary>
-        /// The BeginRead method initiates an asynchronous read operation on the network stream associated with the client
-        /// It reads data into the Data buffer and calls the ReceiveMessage method when the read operation is complete       
-        /// </summary>
-
-
+        #region Public Static Communication Methods
 
         public static void SendAudio(byte[] data, int dataLength)
         {
@@ -81,12 +98,7 @@ namespace YouChatApp
                 try
                 {
                     byte[] buffer = Encryption.Encryption.EncryptDataToBytes(symmetricKey, data);
-                    udpClient.Send(buffer, buffer.Length/*, remoteEndPoint*/);
-
-                    //udpClient.Send(data, dataLength/*, remoteEndPoint*/);
-
-
-                    // Send data to the client
+                    udpClient.Send(buffer, buffer.Length);
                 }
                 catch (Exception ex)
                 {
@@ -101,20 +113,18 @@ namespace YouChatApp
             {
                 if (_udpIsOn)
                 {
-                    // Receive the image from the server
                     try
                     {
                         byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
                         // Decrypt the received data using the client's key
                         receivedData = Encryption.Encryption.DecryptDataToBytes(symmetricKey, receivedData);
-                        if (_videoCall != null) //maybe i should use interface for this... in order to not check each time but just
+                        if (_videoCall != null) 
                         {
                             _videoCall.Invoke((Action)delegate { _videoCall.ReceiveAudioData(receivedData); });
                         }
                         else if (_audioCall != null)
                         {
                             _audioCall.Invoke((Action)delegate { _audioCall.ReceiveAudioData(receivedData); });
-
                         }
                     }
                     catch (SocketException ex)
@@ -140,7 +150,6 @@ namespace YouChatApp
             }
         }
 
-        // Close the UDP client when done
         public static void Close()
         {
             if (udpClient != null)
@@ -150,5 +159,7 @@ namespace YouChatApp
                 udpClient.Dispose();
             }
         }
+
+        #endregion
     }
 }

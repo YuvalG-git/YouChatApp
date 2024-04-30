@@ -196,9 +196,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ImageViewer";
             this.Deactivate += new System.EventHandler(this.ImageViewer_Deactivate);
-            this.MouseEnter += new System.EventHandler(this.ImageViewer_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.ImageViewer_MouseLeave);
-            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ImageViewer_MouseWheel);
             this.SettingsPanel.ResumeLayout(false);
             this.RotationGroupBox.ResumeLayout(false);
             this.RotationGroupBox.PerformLayout();

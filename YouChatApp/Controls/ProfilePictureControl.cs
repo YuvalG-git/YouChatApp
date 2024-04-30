@@ -13,13 +13,13 @@ namespace YouChatApp.Controls
     public partial class ProfilePictureControl : UserControl
     {
         public Image ImageChosenAtTheMoment { get; private set; }
-        string[] ImageChosenAtTheMomentId = new string[2];
-        string CurrentImageIndex;
-        string CurrentTypeOfProfilePicture = "";
-        Boolean ProfilePictureMatrixIsStandart = true;
-        Boolean FirstProfilePictureMatrixUpload = true;
-        const int StartedX = 30;
-        bool UsedForInitialProfile = true;
+        private string[] ImageChosenAtTheMomentId = new string[2];
+        private string CurrentImageIndex;
+        private string CurrentTypeOfProfilePicture = "";
+        private bool ProfilePictureMatrixIsStandart = true;
+        private Boolean FirstProfilePictureMatrixUpload = true;
+        private const int StartedX = 30;
+        private bool UsedForInitialProfile = true;
 
         public event EventHandler ButtonClick;
 
@@ -32,15 +32,12 @@ namespace YouChatApp.Controls
         public ProfilePictureControl()
         {
             InitializeComponent();
-            //ProfilePictureImageList.InitializeImageLists(); //todo - does it nessery if i did it before in another form - need to check...
             ProfilePictureKindCustomButtonsCreator();
             SetProfileAvatarMatrix();
-
         }
         private void ProfilePictureKindCustomButtonsCreator()
         {
             ProfilePictureKindSelectionCustomButtons = new CustomButton[3];
-
             int x = StartedX;
             int widthSize = 150;
             for (int i = 0; i < ProfilePictureKindSelectionCustomButtons.GetLength(0); i++)
@@ -63,7 +60,6 @@ namespace YouChatApp.Controls
                 this.ProfilePictureKindSelectionCustomButtons[i].UseVisualStyleBackColor = false;
                 this.Controls.Add(this.ProfilePictureKindSelectionCustomButtons[i]);
                 this.ProfilePictureKindSelectionCustomButtons[i].Click += new System.EventHandler(ProfilePictureKindOption_Click);
-
                 x += widthSize + 30;
             }
             this.ProfilePictureKindSelectionCustomButtons[0].Name = "MaleSelectionCustomButton";
@@ -135,7 +131,7 @@ namespace YouChatApp.Controls
         }
         private void ProfilePictureOption_Click(object sender, EventArgs e)
         {
-            Boolean wasCurrentlyChosen = false;
+            bool wasCurrentlyChosen = false;
             CustomButton currentButton = sender as CustomButton;
             if (currentButton.FlatStyle == System.Windows.Forms.FlatStyle.Flat)
             {
@@ -149,8 +145,7 @@ namespace YouChatApp.Controls
                     AvatarProfilePicture.UseVisualStyleBackColor = true;
                     AvatarProfilePicture.BorderSize = 0;
                 }
-            }//לחשוב אם אני רוצה לאחר אישור התמונה להעלים את הבחירה בתמונה (במקרה כזה להעתיק את קטע הקוד הזה ולהעביר אותו לפעולה) ואז לזמן את הפעולה גם כאן וגם לאחר לחיצה על כפתור האישור
-            // אחרת לדאוג שמלכתחילה שפותחים את החלון, תמונת הפרופיל הנוכחית מופיעה מיוחד...
+            }
             if (!wasCurrentlyChosen)
             {
                 currentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -162,22 +157,12 @@ namespace YouChatApp.Controls
                 ImageChosenAtTheMoment = currentButton.BackgroundImage;
                 ImageChosenAtTheMomentId[0] = CurrentTypeOfProfilePicture;
                 ImageChosenAtTheMomentId[1] = currentButton.Name;
-                if (UsedForInitialProfile)
-                {
-                    //this.Invoke(new Action(() => InitialProfileSelection.SetConfirmButtonEnabledToTrue())); //need to change the enabled of confirmbutton on form...
-
-                }
             }
             else
             {
                 ImageChosenAtTheMoment = null;
                 ImageChosenAtTheMomentId[0] = "";
                 ImageChosenAtTheMomentId[1] = "";
-                if (UsedForInitialProfile)
-                {
-                    //this.Invoke(new Action(() => InitialProfileSelection.SetConfirmButtonEnabledToFalse()));
-
-                }
             }
             ButtonClick?.Invoke(this, e);
         }
@@ -188,41 +173,15 @@ namespace YouChatApp.Controls
 
         private void SetMaleProfilePictureOption()
         {
-            //int location = 0;
-            //int LastRow = ProfileAvatarMatrix.GetLength(0) - 1;
-            //string lastRowAsString = LastRow.ToString();
-            //Boolean wasChanged = false;
-            //foreach (Button AvatarProfilePicture in ProfileAvatarMatrix)
-            //{
-            //    if (AvatarProfilePicture != null)
-            //    {
-            //        AvatarProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[location];
-            //        //AvatarProfilePicture.BackgroundImage = MaleImageList.Images[location];
-            //        location++;
-            //        if ((!ProfilePictureMatrixIsStandart) && (AvatarProfilePicture.Name.StartsWith(lastRowAsString)))
-            //        {
-            //            wasChanged = true;
-            //            if (AvatarProfilePicture.Name.EndsWith("3"))
-            //            {
-            //                AvatarProfilePicture.Visible = true;
-            //            }
-            //            else
-            //            {
-            //                AvatarProfilePicture.Location = new System.Drawing.Point(AvatarProfilePicture.Location.X - 41, AvatarProfilePicture.Location.Y);
-            //            }
-            //        }
-            //    }
-
             int location = 0;
             int LastRow = ProfileAvatarMatrixOfCustomButtons.GetLength(0) - 1;
             string lastRowAsString = LastRow.ToString();
-            Boolean wasChanged = false;
+            bool wasChanged = false;
             foreach (CustomButton AvatarProfilePicture in ProfileAvatarMatrixOfCustomButtons)
             {
                 if (AvatarProfilePicture != null)
                 {
                     AvatarProfilePicture.BackgroundImage = ProfilePictureImageList.MaleProfilePictureImageList.Images[location];
-                    //AvatarProfilePicture.BackgroundImage = MaleImageList.Images[location];
                     location++;
                     if ((!ProfilePictureMatrixIsStandart) && (AvatarProfilePicture.Name.StartsWith(lastRowAsString)))
                     {
@@ -240,7 +199,6 @@ namespace YouChatApp.Controls
             }
             if (wasChanged)
                 ProfilePictureMatrixIsStandart = true;
-
         }
 
         private void SetFemaleProfilePictureOption()
@@ -248,7 +206,7 @@ namespace YouChatApp.Controls
             int location = 0;
             int LastRow = ProfileAvatarMatrixOfCustomButtons.GetLength(0) - 1;
             string lastRowAsString = LastRow.ToString();
-            Boolean wasChanged = false;
+            bool wasChanged = false;
             foreach (CustomButton AvatarProfilePicture in ProfileAvatarMatrixOfCustomButtons)
             {
                 if (AvatarProfilePicture != null)
@@ -256,7 +214,6 @@ namespace YouChatApp.Controls
                     if (ProfilePictureImageList.FemaleProfilePictureImageList.Images.Count > location)
                     {
                         AvatarProfilePicture.BackgroundImage = ProfilePictureImageList.FemaleProfilePictureImageList.Images[location];
-                        //AvatarProfilePicture.BackgroundImage = FemaleImageList.Images[location];
                         location++;
                         if ((ProfilePictureMatrixIsStandart) && (AvatarProfilePicture.Name.StartsWith(lastRowAsString)))
                         {
@@ -278,7 +235,7 @@ namespace YouChatApp.Controls
             int location = 0;
             int LastRow = ProfileAvatarMatrixOfCustomButtons.GetLength(0) - 1;
             string lastRowAsString = LastRow.ToString();
-            Boolean wasChanged = false;
+            bool wasChanged = false;
             foreach (CustomButton AvatarProfilePicture in ProfileAvatarMatrixOfCustomButtons)
             {
                 if (AvatarProfilePicture != null)
@@ -286,9 +243,6 @@ namespace YouChatApp.Controls
                     if (ProfilePictureImageList.AnimalProfilePictureImageList.Images.Count > location)
                     {
                         AvatarProfilePicture.BackgroundImage = ProfilePictureImageList.AnimalProfilePictureImageList.Images[location];
-
-                        //AvatarProfilePicture.BackgroundImage = AnimalImageList.Images[location];
-
                         location++;
                         if ((ProfilePictureMatrixIsStandart) && (AvatarProfilePicture.Name.StartsWith(lastRowAsString)))
                         {
@@ -319,11 +273,6 @@ namespace YouChatApp.Controls
             currentButton.BackColor = System.Drawing.SystemColors.ButtonShadow;
             currentButton.BackgroundColor = System.Drawing.SystemColors.ButtonShadow;
             currentButton.Enabled = false;
-            //((Button)(sender)).FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            //((Button)(sender)).FlatAppearance.BorderColor = Color.Green;
-            //((Button)(sender)).FlatAppearance.BorderSize = 2;
-            //((Button)(sender)).BackColor = System.Drawing.SystemColors.ButtonShadow;
-            //((Button)(sender)).Enabled = false;
             CurrentTypeOfProfilePicture = currentButton.Name;
             if (CurrentTypeOfProfilePicture == "MaleSelectionCustomButton")
             {
@@ -346,13 +295,6 @@ namespace YouChatApp.Controls
 
         private void SetProfilePictrueMatrixVisible()
         {
-            //foreach (Button AvatarProfilePicture in ProfileAvatarMatrix)
-            //{
-            //    if (AvatarProfilePicture != null)
-            //    {
-            //        AvatarProfilePicture.Visible = true;
-            //    }
-            //}
             foreach (CustomButton AvatarProfilePicture in ProfileAvatarMatrixOfCustomButtons)
             {
                 if (AvatarProfilePicture != null)
@@ -371,12 +313,6 @@ namespace YouChatApp.Controls
                 ProfilePictureKind.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
                 ProfilePictureKind.Enabled = true;
             }
-            //foreach (Button ProfilePictureKind in ProfilePictureKindSelectionButtons)
-            //{
-            //    ProfilePictureKind.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            //    ProfilePictureKind.UseVisualStyleBackColor = true;
-            //    ProfilePictureKind.Enabled = true;
-            //}
         }
         private void RestartProfilePicture()
         {
@@ -390,34 +326,9 @@ namespace YouChatApp.Controls
                     ProfilePicture.Enabled = true;
                 }
             }
-            //foreach (Button ProfilePicture in ProfileAvatarMatrix)
-            //{
-            //    if (ProfilePicture != null)
-            //    {
-            //        ProfilePicture.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            //        ProfilePicture.UseVisualStyleBackColor = true;
-            //        ProfilePicture.Enabled = true;
-            //    }
-            //}
         }
         private void ImageWasChosen()
         {
-            //if (CurrentTypeOfProfilePicture == ImageChosenAtTheMomentId[0])
-            //{
-            //    foreach (Button ProfilePicture in ProfileAvatarMatrix)
-            //    {
-            //        if (ProfilePicture != null)
-            //        {
-            //            if (ProfilePicture.Name == ImageChosenAtTheMomentId[1])
-            //            {
-            //                ProfilePicture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            //                ProfilePicture.FlatAppearance.BorderColor = Color.Green;
-            //                ProfilePicture.FlatAppearance.BorderSize = 2;
-            //                ProfilePicture.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            //            }
-            //        }
-            //    }
-            //}
             if (CurrentTypeOfProfilePicture == ImageChosenAtTheMomentId[0])
             {
                 foreach (CustomButton ProfilePicture in ProfileAvatarMatrixOfCustomButtons)
@@ -435,7 +346,6 @@ namespace YouChatApp.Controls
                     }
                 }
             }
-
         }
     }
 }

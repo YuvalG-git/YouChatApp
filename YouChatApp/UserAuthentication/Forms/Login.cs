@@ -38,52 +38,43 @@ namespace YouChatApp.UserAuthentication.Forms
         public void SendPersonalVerificationAnswers(object sender, EventArgs e)
         {
             PersonalVerificationAnswers personalVerificationAnswers = PersonalVerificationAnswersControl.GetPersonalVerificationAnswers();
-            JsonObject personalVerificationAnswersJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.PersonalVerificationAnswersRequest, personalVerificationAnswers);
-            string personalVerificationAnswersJson = JsonConvert.SerializeObject(personalVerificationAnswersJsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(personalVerificationAnswersJson);
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.PersonalVerificationAnswersRequest;
+            object messageContent = personalVerificationAnswers;
+            serverCommunicator.SendMessage(messageType, messageContent);
+
+
         }
         public void RequestCaptchaBitmap(object sender, EventArgs e)
         {
             bool afterFail = CaptchaCodeControl.IsNotificationLabelVisible();
-            JsonObject captchaImageRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.CaptchaImageRequest, afterFail);
-            string captchaImageRequestJson = JsonConvert.SerializeObject(captchaImageRequestJsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(captchaImageRequestJson);
+
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.CaptchaImageRequest;
+            object messageContent = afterFail;
+            serverCommunicator.SendMessage(messageType, messageContent);
         }
         public void SendCaptchaCode(object sender, EventArgs e)
         {
             string enteredCaptchaCode = CaptchaCodeControl.GetCaptchaCode();
-            JsonObject CaptchaCodeRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.CaptchaCodeRequest, enteredCaptchaCode);
-            string CaptchaCodeRequestJson = JsonConvert.SerializeObject(CaptchaCodeRequestJsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(CaptchaCodeRequestJson);
+
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.CaptchaCodeRequest;
+            object messageContent = enteredCaptchaCode;
+            serverCommunicator.SendMessage(messageType, messageContent);
         }
         public void SendCaptchaAngle(object sender, EventArgs e)
         {
             double captchaImageAngle = CaptchaRotatingImageControl.GetAngle();
-            JsonObject CaptchaAngleRequestJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.CaptchaImageAngleRequest, captchaImageAngle);
-            string CaptchaAngleRequestJson = JsonConvert.SerializeObject(CaptchaAngleRequestJsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(CaptchaAngleRequestJson);
+
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.CaptchaImageAngleRequest;
+            object messageContent = captchaImageAngle;
+            serverCommunicator.SendMessage(messageType, messageContent);
         }
         public void SendSmtpCode(object sender, EventArgs e)
         {
             string enteredSmtpCode = SmtpControl.GetCode();
-            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.LoginRequest_SmtpLoginCode, enteredSmtpCode);
-            string enteredSmtpCodeJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(enteredSmtpCodeJson);
+
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.LoginRequest_SmtpLoginCode;
+            object messageContent = enteredSmtpCode;
+            serverCommunicator.SendMessage(messageType, messageContent);
         }
         public void HandleCorrectCodeResponse(Image captchaCodeImage)
         {
@@ -132,24 +123,16 @@ namespace YouChatApp.UserAuthentication.Forms
             string username = UsernameCustomTextBox.TextContent;
             bool afterFail = SmtpControl.IsAfterFail();
             SmtpVerification smtpVerification = new SmtpVerification(username, afterFail);
-            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.loginRequest_SmtpLoginMessage, smtpVerification);
-            string userUsernameJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(userUsernameJson);
+
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.loginRequest_SmtpLoginMessage;
+            object messageContent = smtpVerification;
+            serverCommunicator.SendMessage(messageType, messageContent);
         }
         public void HandlePasswordUpdateCase()
         {
             this.Hide(); // Hide the login form
             FormHandler._passwordUpdate = new PasswordUpdate();
             this.Invoke(new Action(() => FormHandler._passwordUpdate.Show()));
-        }
-        public void OpenInitialProfileSelection(Boolean IsPhaseOne)
-        {
-            this.Hide();
-            FormHandler._initialProfileSelection = new InitialProfileSelection(IsPhaseOne);
-            this.Invoke(new Action(() => FormHandler._initialProfileSelection.Show()));
         }
         public void OpenStatusSelector()
         {
@@ -263,28 +246,23 @@ namespace YouChatApp.UserAuthentication.Forms
         }
         private void LoginCustomButton_Click(object sender, EventArgs e)
         {
-            serverCommunicator.CheckSocketStatus();
             string username = UsernameCustomTextBox.TextContent;
             string password = PasswordGeneratorControl.GetNewPassword();
             LoginCustomButton.Enabled = false;
             //string userLoginDetails = username + "#" + password;
             LoginDetails userLoginDetails = new LoginDetails(username, password);
-            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.loginRequest, userLoginDetails);
-            string userLoginDetailsJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(userLoginDetailsJson);
+
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.loginRequest;
+            object messageContent = userLoginDetails;
+            serverCommunicator.SendMessage(messageType, messageContent);
+
         }
 
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
         {
-            JsonObject disconnectJsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.Disconnect, null);
-            string disconnectJson = JsonConvert.SerializeObject(disconnectJsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(disconnectJson);
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.Disconnect;
+            object messageContent = null;
+            serverCommunicator.SendMessage(messageType, messageContent);
             serverCommunicator.Disconnect();
             System.Windows.Forms.Application.ExitThread();
         }

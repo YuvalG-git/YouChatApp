@@ -228,7 +228,6 @@
             this.CallTimeLabel.Size = new System.Drawing.Size(65, 26);
             this.CallTimeLabel.TabIndex = 1;
             this.CallTimeLabel.Text = "00:00";
-            this.CallTimeLabel.Click += new System.EventHandler(this.CallTimeLabel_Click);
             // 
             // FriendNameLabel
             // 
@@ -298,7 +297,6 @@
             this.Name = "AudioCall";
             this.Text = "AudioCall";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AudioCall_FormClosing);
-            this.Load += new System.EventHandler(this.AudioCall_Load);
             this.BackgroundPanel.ResumeLayout(false);
             this.AudioOutputDeviceGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AudioOutputDevicePictureBox)).EndInit();

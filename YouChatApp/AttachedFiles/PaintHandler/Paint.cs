@@ -15,22 +15,21 @@ namespace YouChatApp.AttachedFiles.PaintHandler
 {
     public partial class Paint : Form
     {
-        Image UndoIsShown = global::YouChatApp.Properties.Resources.Undo;
-        Image UndoIsNotShown = global::YouChatApp.Properties.Resources.UndoNotPressed;
-        Image RedoIsShown = global::YouChatApp.Properties.Resources.Redo;
-        Image RedoIsNotShown = global::YouChatApp.Properties.Resources.RedoNotPressed;
-        List<Drawing> LastCanvasUpdates; //needs to also keep the canvas size...
-        int currentCanvasIndex = 0;
-        Image currentCanvas;
-        Graphics Graphics;
-        int CursorX = -1;
-        int CursorY = -1;
-        int X;
-        int Y;
-        int cX;
-        int cY;
-        int CursorWidth;
-        int CursorHeight;
+        private readonly Image UndoIsShown = global::YouChatApp.Properties.Resources.Undo;
+        private readonly Image UndoIsNotShown = global::YouChatApp.Properties.Resources.UndoNotPressed;
+        private readonly Image RedoIsShown = global::YouChatApp.Properties.Resources.Redo;
+        private readonly Image RedoIsNotShown = global::YouChatApp.Properties.Resources.RedoNotPressed;
+        private List<Drawing> LastCanvasUpdates;
+        private int currentCanvasIndex = 0;
+        private Graphics Graphics;
+        private int CursorX = -1;
+        private int CursorY = -1;
+        private int X;
+        private int Y;
+        private int cX;
+        private int cY;
+        private int CursorWidth;
+        private int CursorHeight;
         /// <summary>
         /// Represents which one of the drawing should happen...
         /// Index 0 -> Pencil
@@ -39,50 +38,41 @@ namespace YouChatApp.AttachedFiles.PaintHandler
         /// Index 3 -> Line
         /// Index 4 -> Circle
         /// Index 5 -> Rectangle
-        /// Index 6 -> Triangle
-        /// Index 7 -> Fill
         /// </summary>
-        bool[] PaintOptionIsChosenList;
-        int DrawingWidth, DrawingHeight;
-        int BackgroundImageWidth = 0, BackgroundImageHeight = 0;
+        private bool[] PaintOption_IsChosenList;
+        private int DrawingWidth, DrawingHeight;
+        private int BackgroundImageWidth = 0;
+        private int BackgroundImageHeight = 0;
 
-        Bitmap DrawingBitMap;
-        Bitmap TemporaryBitMap;
-        int PenSize = 5;
-        Pen DrawingPen = new Pen(Color.Black, 5); //change the 5 to pen size...
-        SolidBrush drawBrush = new SolidBrush(Color.Black);
-        Graphics TemporaryGraphics;
-        bool IsCursorMoving = false;
-        bool IsDrawing = false;
-        Image OpenedBackgroundImage;
-        int ColoredButtons = 4;
-        Image ExportImage;
-        Color BackgroundColor = Color.White;
-        Color PenColor = Color.Black;
-        Color BrushColor = Color.Black;
-        int TextBoxCount = 0;
-        bool IsTextContentTextBoxEntered = false;
+        private Bitmap DrawingBitMap;
+        private Bitmap TemporaryBitMap;
+        private int PenSize = 5;
+        private Pen DrawingPen = new Pen(Color.Black, 5);
+        private SolidBrush drawBrush = new SolidBrush(Color.Black);
+        private Graphics TemporaryGraphics;
+        private bool IsCursorMoving = false;
+        private bool IsDrawing = false;
+        private Image OpenedBackgroundImage;
+        private int ColoredButtons = 4;
+        private Color PenColor = Color.Black;
+        private Color BrushColor = Color.Black;
+        private bool IsTextContentTextBoxEntered = false;
+        private bool IsTextBold = false;
+        private bool IsTextItalic = false;
+        private bool IsTextUnderline = false;
+        private bool IsTextStrikeout = false;
+        public static Image finalImage;
 
-        bool IsTextBold = false;
-        bool IsTextItalic = false;
-        bool IsTextUnderline = false;
-        bool IsTextStrikeout = false;
-        static public Image finalImage;
-
-        //whenever a color is selected the border will become green...
-        //in the menu there will be the last chosen colors...
         public Paint()
         {
             InitializeComponent();
             InitializeGraphics();
             InitializeLastCanvasUpdates();
-            //SetBitMap();
-            PaintOptionIsChosenList = new bool[8];
+            PaintOption_IsChosenList = new bool[6];
             SetPaintOptionIsChosenListToFalse();
             TextContentTextBoxList = new List<System.Windows.Forms.TextBox>();
             InitializeFontToolStripComboBox();
             TextSizeToolStripComboBox.SelectedIndex = 4;
-
         }
         public void SetBitMap()
         {
@@ -95,7 +85,6 @@ namespace YouChatApp.AttachedFiles.PaintHandler
         private void InitializeGraphics()
         {
             SetBitMap();
-            //Graphics = DrawingBoardPictureBox.CreateGraphics();
             Graphics = Graphics.FromImage(DrawingBitMap);
             Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             DrawingPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
@@ -108,8 +97,6 @@ namespace YouChatApp.AttachedFiles.PaintHandler
         }
         private void InitializeLastCanvasUpdates()
         {
-            //LastCanvasUpdates = new Image[15];
-            //LastCanvasUpdates[0] = DrawingBoardPictureBox.Image; //maybe i should use a two-way list and then just run on it with the undo redo...'
             if (LastCanvasUpdates != null)
             {
                 foreach (Drawing drawing in LastCanvasUpdates)
@@ -119,15 +106,13 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             }
             LastCanvasUpdates = new List<Drawing>();
             InsertDrawing();
-            UndoToolStripButton.Enabled = false; // can also add if with a bool var...
-
+            UndoToolStripButton.Enabled = false;
         }
         private void InsertDrawing()
         {
             UndoToolStripButton.Enabled = true;
             RedoToolStripButton.Enabled = false;
 
-            //Drawing drawing = new Drawing(DrawingWidth, DrawingHeight, DrawingBoardPictureBox.Image);
             Image currentImage = new Bitmap(DrawingBitMap);
             Drawing drawing = new Drawing(DrawingWidth, DrawingHeight, currentImage);
 
@@ -144,17 +129,12 @@ namespace YouChatApp.AttachedFiles.PaintHandler
         }
         private void SetPaintOptionIsChosenListToFalse()
         {
-            for (int Index = 0; Index < PaintOptionIsChosenList.Length; Index++)
+            for (int Index = 0; Index < PaintOption_IsChosenList.Length; Index++)
             {
-                PaintOptionIsChosenList[Index] = false;
+                PaintOption_IsChosenList[Index] = false;
             }
         }
 
-
-        //private void DrawingBoardPictureBox_MouseState(object sender, MouseEventArgs e) //was used for both mousedown and mouse up...
-        //{
-        //    IsDrawing = !IsDrawing; //todo solve the problem...
-        //}
         private void DrawingBoardPictureBox_MouseDown(object sender, MouseEventArgs e) //was used for both mousedown and mouse up...
         {
             IsCursorMoving = true;
@@ -172,44 +152,35 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             CursorWidth = X - cX;
             CursorHeight = Y - cY;
 
-            if(PaintOptionIsChosenList[3])
+            if(PaintOption_IsChosenList[3])
             {
                 Graphics.DrawLine(DrawingPen, cX, cY, X, Y);
                 DrawingBoardPictureBox.Image = DrawingBitMap;
             }
-            else if (PaintOptionIsChosenList[4])
+            else if (PaintOption_IsChosenList[4])
             {
                 Graphics.DrawEllipse(DrawingPen, cX, cY, CursorWidth, CursorHeight);
                 DrawingBoardPictureBox.Image = DrawingBitMap;
-
-
             }
-            else if (PaintOptionIsChosenList[5])
+            else if (PaintOption_IsChosenList[5])
             {
                 Graphics.DrawRectangle(DrawingPen, cX, cY, CursorWidth, CursorHeight);
                 DrawingBoardPictureBox.Image = DrawingBitMap;
-
             }
             if (IsDrawing)
             {
                 InsertDrawing();
             }
+
             IsDrawing = false;
         }
         private void DrawingBoardPictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-            //if (IsDrawing)
-            //{
-            //    Graphics graphics = Graphics.FromImage(DrawingBitMap);
-            //    graphics.DrawRectangle(DrawingPen, e.X, e.Y, PenSize, PenSize); //needs to check if this is the best way...
-            //    DrawingBoardPictureBox.Image = DrawingBitMap;
-            //}
-
             if ((CursorX != -1) && (CursorY != -1) && (IsCursorMoving))
             {
 
                 IsDrawing = true;
-                if (PaintOptionIsChosenList[0] || PaintOptionIsChosenList[1])
+                if (PaintOption_IsChosenList[0] || PaintOption_IsChosenList[1])
                 {
                     Graphics.DrawLine(DrawingPen, new Point(CursorX, CursorY), e.Location);
                     DrawingBoardPictureBox.Image = DrawingBitMap;
@@ -230,7 +201,6 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             Y = e.Y;
             CursorWidth = X - cX;
             CursorHeight = Y - cY;
-            //when mouse down i need to save a copy of the current board in order to return to it later - i need to use an array that has the ability to save the 15 last images for example...
         }
 
         private void ColorChange_Click(object sender, EventArgs e)
@@ -254,7 +224,7 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             {
                 using (System.IO.FileStream FileStreamConnection = (System.IO.FileStream)PaintSaveFileDialog.OpenFile())
                 {
-                    switch (PaintSaveFileDialog.FilterIndex)//todo change switch with if... or learn that method
+                    switch (PaintSaveFileDialog.FilterIndex)
                     {
                         case 0:
                             image.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Jpeg);
@@ -267,20 +237,6 @@ namespace YouChatApp.AttachedFiles.PaintHandler
                             break;
                     }
                 }
-                //System.IO.FileStream FileStreamConnection = (System.IO.FileStream)PaintSaveFileDialog.OpenFile();
-                //switch (PaintSaveFileDialog.FilterIndex)//todo change switch with if... or learn that method
-                //{
-                //    case 0:
-                //        image.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Jpeg);
-                //        break;
-                //    case 1:
-                //        image.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Png);
-                //        break;
-                //    case 2:
-                //        image.Save(FileStreamConnection, System.Drawing.Imaging.ImageFormat.Bmp);
-                //        break;
-                //}
-
             }
         }
 
@@ -297,41 +253,15 @@ namespace YouChatApp.AttachedFiles.PaintHandler
                               (float)DrawingBoardPictureBox.Height / BackgroundImageHeight);
                 int newWidth = (int)(BackgroundImageWidth * scale);
                 int newHeight = (int)(BackgroundImageHeight * scale);
-                Image scaledImage = new Bitmap(OpenedBackgroundImage, newWidth, newHeight);
-                //DrawingBoardPictureBox.BackgroundImage = OpenedBackgroundImage;
-                //trying to add the picture to the canvas instead: in that case i will need to save the current drawing and then to copy it on top of the image
-                Graphics.DrawImage(scaledImage, 0, 0, newWidth, newHeight); //maybe i should let the user select the location - meaning where he pressed will be the location the top right will be
+                Image scaledImage = new Bitmap(OpenedBackgroundImage, newWidth, newHeight);      
+                Graphics.DrawImage(scaledImage, 0, 0, newWidth, newHeight);
                 DrawingBoardPictureBox.Image = DrawingBitMap;
                 InsertDrawing();
 
             }
         }
 
-        private Image MergeBackgroundImageAndImage()
-        {
-            Image DrawingBoardBackgroundImage = DrawingBoardPictureBox.BackgroundImage;
-            Image DrawingBoardImage = DrawingBoardPictureBox.Image; //todo - needs to save a bitmap for only the drawing and for everything this way i will be able to do this..
-            Bitmap MergedBitmap = new Bitmap(DrawingWidth, DrawingHeight);
-
-            if (DrawingBoardPictureBox.BackgroundImage != null)
-            {
-                using (Graphics graphics = Graphics.FromImage(MergedBitmap))
-                {
-                    graphics.DrawImage(DrawingBoardBackgroundImage, new PointF(0, 0));
-                    graphics.DrawImage(DrawingBoardImage, new PointF(0, 0));
-                }
-                ExportImage = MergedBitmap;
-            }
-            else
-            {
-                if (BackgroundColor == Color.Transparent)
-                    ChangeBackgroundColor(Color.White);
-                else
-                    ChangeBackgroundColor(BackgroundColor);
-                ExportImage = DrawingBoardPictureBox.Image;
-            }
-            return ExportImage;
-        }
+     
 
         private void DeleteOptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -356,8 +286,8 @@ namespace YouChatApp.AttachedFiles.PaintHandler
 
                 if (ButtonToMoveToBegining != null)
                 {
-                    PaintToolStrip.Items.Remove(ButtonToMoveToBegining); // Remove the button from its current position
-                    PaintToolStrip.Items.Insert(2, ButtonToMoveToBegining); // Insert the button at the first position
+                    PaintToolStrip.Items.Remove(ButtonToMoveToBegining); 
+                    PaintToolStrip.Items.Insert(2, ButtonToMoveToBegining);
                 }
                 PenColor = PaintColorDialog.Color; ;
                 ButtonToMoveToBegining.BackColor = PenColor;
@@ -374,8 +304,8 @@ namespace YouChatApp.AttachedFiles.PaintHandler
 
                 if (ButtonToMoveToBegining != null)
                 {
-                    TextToolStrip.Items.Remove(ButtonToMoveToBegining); // Remove the button from its current position
-                    TextToolStrip.Items.Insert(0, ButtonToMoveToBegining); // Insert the button at the first position
+                    TextToolStrip.Items.Remove(ButtonToMoveToBegining); 
+                    TextToolStrip.Items.Insert(0, ButtonToMoveToBegining); 
                 }
                 BrushColor = PaintColorDialog.Color; ;
                 ButtonToMoveToBegining.BackColor = BrushColor;
@@ -383,19 +313,12 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             }
         }
 
-        private void SetPenSizeList()
-        {
-            //todo to create a list of pen size buttons and add them to the pensize headline...
-        }
 
         private void DrawingBoardPictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            //Graphics graphics = Graphics.FromImage(DrawingBitMap);
-            //graphics.DrawEllipse(DrawingPen, e.X, e.Y, PenSize, PenSize);
-            //DrawingBoardPictureBox.Image = DrawingBitMap;
             if (!IsDrawing)
             {
-                if (PaintOptionIsChosenList[0] || PaintOptionIsChosenList[1])
+                if (PaintOption_IsChosenList[0] || PaintOption_IsChosenList[1])
                 {
                     int left = e.X - PenSize / 2;
                     int top = e.Y - PenSize / 2;
@@ -404,34 +327,22 @@ namespace YouChatApp.AttachedFiles.PaintHandler
                     Graphics.DrawEllipse(DrawingPen, left, top, PenSize, PenSize);
                     DrawingBoardPictureBox.Image = DrawingBitMap;
                     InsertDrawing();
-                }//maybe i need to use a timer and after mouse down to count  a second or something
-                else if (PaintOptionIsChosenList[2])
+                }
+                else if (PaintOption_IsChosenList[2])
                 {
-                    //needs to create a new textbox
-                    //after leaving the textbox need to make it untouchable or else (better option) make a way to get rid of the border...
-                    //AddNewTextContentTextBox();
                     TextContentTextBox.Visible = true;
-                    //Point CursorLocation = this.PointToClient(((Control)sender).PointToScreen(e.Location));
-
-                    //TextContentTextBox.Location = new System.Drawing.Point(CursorLocation.X, CursorLocation.Y);
                     TextContentTextBox.Location = new System.Drawing.Point(e.X, e.Y);
                 }
             }
         }
 
-        static Point SetPoint(PictureBox PictureBox, Point Point)
-        {
-            float PointX = 1f * PictureBox.Image.Width / PictureBox.Width;
-            float PointY = 1f * PictureBox.Image.Height / PictureBox.Height;
-            return new Point((int)(Point.X * PointX), (int)(Point.Y * PointY));
 
-        }
 
 
         private void PencilToolStripButton_Click(object sender, EventArgs e)
         {
             SetPaintOptionIsChosenListToFalse();
-            PaintOptionIsChosenList[0] = true;
+            PaintOption_IsChosenList[0] = true;
             DrawingPen.Color = PenColor;
 
         }
@@ -439,14 +350,14 @@ namespace YouChatApp.AttachedFiles.PaintHandler
         private void EraserToolStripButton_Click(object sender, EventArgs e)
         {
             SetPaintOptionIsChosenListToFalse();
-            PaintOptionIsChosenList[1] = true;
+            PaintOption_IsChosenList[1] = true;
             DrawingPen.Color = Color.White;
         }
 
         private void TextToolStripButton_Click(object sender, EventArgs e)
         {
             SetPaintOptionIsChosenListToFalse();
-            PaintOptionIsChosenList[2] = true;
+            PaintOption_IsChosenList[2] = true;
             DrawingPen.Color = PenColor;
             TextToolStrip.Visible = true;
         }
@@ -454,86 +365,27 @@ namespace YouChatApp.AttachedFiles.PaintHandler
         private void LineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetPaintOptionIsChosenListToFalse();
-            PaintOptionIsChosenList[3] = true;
+            PaintOption_IsChosenList[3] = true;
             DrawingPen.Color = PenColor;
-
         }
 
         private void CircleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetPaintOptionIsChosenListToFalse();
-            PaintOptionIsChosenList[4] = true;
+            PaintOption_IsChosenList[4] = true;
             DrawingPen.Color = PenColor;
-
         }
 
         private void RectangleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetPaintOptionIsChosenListToFalse();
-            PaintOptionIsChosenList[5] = true;
-            DrawingPen.Color = PenColor;
-
-        }
-
-        private void TriangleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetPaintOptionIsChosenListToFalse();
-            PaintOptionIsChosenList[6] = true;
-            DrawingPen.Color = PenColor;
-
-        }
-
-        private void FillToolStripButton_Click(object sender, EventArgs e)
-        {
-            //if (fontDialog1.ShowDialog() == DialogResult.OK)
-            //{
-
-            //}
-
-            SetPaintOptionIsChosenListToFalse();
-            PaintOptionIsChosenList[7] = true;
+            PaintOption_IsChosenList[5] = true;
             DrawingPen.Color = PenColor;
         }
 
-        private void TextContentTextBox_MouseLeave(object sender, EventArgs e) //maybe to switch this with mouse click anywhere else...
-        {
-            //if (IsTextContentTextBoxEntered)
-            //{
-            //    IsTextContentTextBoxEntered = false;
-            //    string Text = TextContentTextBox.Text;
-            //    if (Text != "")
-            //    {
-            //        string Font = FontToolStripComboBox.Text;
-            //        string SizeAsString = TextSizeToolStripComboBox.Text;
-            //        int Size = int.Parse(SizeAsString);
-            //        FontStyle FontStyle = FontStyle.Regular; // Start with regular style
 
-            //        // Apply styles based on boolean values
-            //        if (IsTextBold)
-            //            FontStyle |= FontStyle.Bold;
 
-            //        if (IsTextItalic)
-            //            FontStyle |= FontStyle.Italic;
 
-            //        if (IsTextUnderline)
-            //            FontStyle |= FontStyle.Underline;
-
-            //        if (IsTextStrikeout)
-            //            FontStyle |= FontStyle.Strikeout;
-
-            //        Font DrawFont = new Font(Font, Size, FontStyle);
-            //        SolidBrush drawBrush = new SolidBrush(BrushColor);
-            //        Graphics.DrawString(Text, DrawFont, drawBrush, TextContentTextBox.Location.X, TextContentTextBox.Location.Y);
-            //        DrawingBoardPictureBox.Image = DrawingBitMap;
-
-            //    }
-            //    TextContentTextBox.Text = "";
-            //    TextContentTextBox.Visible = false;
-            //    PaintOptionIsChosenList[2] = false;
-            //    TextToolStrip.Visible = false;//needs to add a method of refreshing some of the things maybe?
-
-            //}
-        }
 
         private void TextContentTextBox_MouseDown(object sender, MouseEventArgs e)
         {
@@ -549,38 +401,29 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             {
                 // Remove the specified style from the original font style
                 newStyle = originalFont.Style & ~style;
-
             }
             else
             {
                 newStyle = originalFont.Style | style;
-
-
             }
 
             // Create a new font with the modified style
             Font newFont = new Font(originalFont, newStyle);
-
-            // Use the newFont as needed
-
-            // Don't forget to dispose of the newFont when you're done
             TextContentTextBox.Font = newFont;
         }
 
 
 
-        private void BoldtoolStripButton_Click(object sender, EventArgs e) //to change the visuallity as well for the for of them... (to show they have been selected)
+        private void BoldtoolStripButton_Click(object sender, EventArgs e) 
         {
             IsTextBold = !IsTextBold;
             if (IsTextBold)
             {
                 BoldtoolStripButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-      
             }
             else
             {
                 BoldtoolStripButton.BackColor = System.Drawing.SystemColors.Control;
-
             }
             ChangeTextContentTextBoxFont(FontStyle.Bold);
         }
@@ -597,7 +440,6 @@ namespace YouChatApp.AttachedFiles.PaintHandler
                 ItalicToolStripButton.BackColor = System.Drawing.SystemColors.Control;
             }
             ChangeTextContentTextBoxFont(FontStyle.Italic);
-
         }
 
 
@@ -613,7 +455,6 @@ namespace YouChatApp.AttachedFiles.PaintHandler
                 UnderlineToolStripButton.BackColor = System.Drawing.SystemColors.Control;
             }
             ChangeTextContentTextBoxFont(FontStyle.Underline);
-
         }
 
         private void StrikeoutToolStripButton_Click(object sender, EventArgs e)
@@ -628,52 +469,30 @@ namespace YouChatApp.AttachedFiles.PaintHandler
                 StrikeoutToolStripButton.BackColor = System.Drawing.SystemColors.Control;
             }
             ChangeTextContentTextBoxFont(FontStyle.Strikeout);
-
-        }
-
-        private void DrawingBoardPictureBox_Paint(object sender, PaintEventArgs e) //todo - add a way that when drawing shapes, the current shape size and all will be shown - code below should have worked but it doesnt - maybe because the way i am using grapics
-        {
-            //SetShapes();
         }
 
         public void SetShapes()
         {
-            //CopyBitMap(DrawingBitMap, TemporaryBitMap);
-
-            //if ((isCropping)&& (e.Button == MouseButtons.Left))
-            //{
-            //    // Resize the selection region
-            //    selectionCropRectangle.Width = e.X - selectionCropRectangle.X;
-            //    selectionCropRectangle.Height = e.Y - selectionCropRectangle.Y;
-            //    UserImageTakenPictureBox.Invalidate();
-            //}
-            //DrawingBoardPictureBox.Image = currentCanvas;
-            //DrawingBoardPictureBox.Image = DrawingBitMap;
             TemporaryBitMap = new Bitmap(DrawingBitMap);
-            //Graphics graphics = Graphics.FromImage(TemporaryBitMap);
             TemporaryGraphics = Graphics.FromImage(TemporaryBitMap);
 
-            //    DrawingBoardPictureBox.Image = DrawingBitMap;
-            if (PaintOptionIsChosenList[3])
+            if (PaintOption_IsChosenList[3])
             {
                 TemporaryGraphics.DrawLine(DrawingPen, cX, cY, X, Y);
                 DrawingBoardPictureBox.Image = TemporaryBitMap;
 
             }
-            else if (PaintOptionIsChosenList[4])
+            else if (PaintOption_IsChosenList[4])
             {
                 TemporaryGraphics.DrawEllipse(DrawingPen, cX, cY, CursorWidth, CursorHeight);
                 DrawingBoardPictureBox.Image = TemporaryBitMap;
             }
-            else if (PaintOptionIsChosenList[5])
+            else if (PaintOption_IsChosenList[5])
             {
                 TemporaryGraphics.DrawRectangle(DrawingPen, cX, cY, CursorWidth, CursorHeight);
                 DrawingBoardPictureBox.Image = TemporaryBitMap;
 
             }
-            //Graphics.DrawImage(currentCanvas, 0, 0);
-            //DrawingBoardPictureBox.Image = currentCanvas;
-            //DrawingBoardPictureBox.Invalidate();
         }
  
 
@@ -684,9 +503,7 @@ namespace YouChatApp.AttachedFiles.PaintHandler
                 Color ChosenColor = PaintColorDialog.Color;
                 DrawingBoardPictureBox.Image = DrawingBitMap;
                 ChangeBackgroundColor(ChosenColor);
-                BackgroundColor = ChosenColor;
                 DrawingBoardPictureBox.BackColor = ChosenColor;
-
                 InsertDrawing();
             }
         }
@@ -701,7 +518,6 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             DrawingBitMap = RotateImage90DegreesRight((Bitmap)DrawingBoardPictureBox.Image);
             DrawingBoardPictureBox.Image = DrawingBitMap;
             InsertDrawing();
-
         }
 
         private void FlipVerticalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -709,31 +525,27 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             DrawingBitMap = FlipImageVertically((Bitmap)DrawingBoardPictureBox.Image);
             DrawingBoardPictureBox.Image = DrawingBitMap;
             InsertDrawing();
-
         }
 
         private Bitmap FlipImageHorizontally(Bitmap original)
         {
             Bitmap flipped = new Bitmap(original.Width, original.Height);
-
-            using (Graphics g = Graphics.FromImage(flipped))
+            using (Graphics graphics = Graphics.FromImage(flipped))
             {
-                g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                graphics.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
                     new Rectangle(original.Width - 1, 0, -original.Width, original.Height), GraphicsUnit.Pixel);
             }
-
             return flipped;
         }
         private Bitmap FlipImageVertically(Bitmap original)
         {
             Bitmap flipped = new Bitmap(original.Width, original.Height);
 
-            using (Graphics g = Graphics.FromImage(flipped))
+            using (Graphics graphics = Graphics.FromImage(flipped))
             {
-                g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                graphics.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
                     new Rectangle(0, original.Height - 1, original.Width, -original.Height), GraphicsUnit.Pixel);
             }
-
             return flipped;
         }
 
@@ -765,7 +577,6 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             DrawingBitMap = FlipImageHorizontally((Bitmap)DrawingBoardPictureBox.Image);
             DrawingBoardPictureBox.Image = DrawingBitMap;
             InsertDrawing();
-
         }
 
         private void RotateLeft90ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -773,7 +584,6 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             DrawingBitMap = RotateImage90DegreesLeft((Bitmap)DrawingBoardPictureBox.Image);
             DrawingBoardPictureBox.Image = DrawingBitMap;
             InsertDrawing();
-
         }
 
         private void Rotate180ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -795,7 +605,6 @@ namespace YouChatApp.AttachedFiles.PaintHandler
                 UndoToolStripButton.Enabled = true;
             }
             HandleCanvas();
-
         }
 
         private void UndoToolStripButton_Click(object sender, EventArgs e)
@@ -818,74 +627,16 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             DrawingBoardPictureBox.Height = drawing.Height;
             DrawingBitMap = (Bitmap)drawing.DrawingImage.Clone();
             Graphics = Graphics.FromImage(DrawingBitMap);
-
             DrawingBoardPictureBox.Image = DrawingBitMap;
-
-
         }
 
-        private void TextContentTextBox_Leave(object sender, EventArgs e) //maybe when pressing enter and than to a add a tooltip explaining this
-        {
-            //if (IsTextContentTextBoxEntered)
-            //{
-            //    IsTextContentTextBoxEntered = false;
-            //    string Text = TextContentTextBox.Text;
-            //    if (Text != "")
-            //    {
-            //        string Font = FontToolStripComboBox.Text;
-            //        string SizeAsString = TextSizeToolStripComboBox.Text;
-            //        int Size = int.Parse(SizeAsString);
-            //        FontStyle FontStyle = FontStyle.Regular; // Start with regular style
-
-            //        // Apply styles based on boolean values
-            //        if (IsTextBold)
-            //            FontStyle |= FontStyle.Bold;
-
-            //        if (IsTextItalic)
-            //            FontStyle |= FontStyle.Italic;
-
-            //        if (IsTextUnderline)
-            //            FontStyle |= FontStyle.Underline;
-
-            //        if (IsTextStrikeout)
-            //            FontStyle |= FontStyle.Strikeout;
-
-            //        Font DrawFont = new Font(Font, Size, FontStyle);
-            //        SolidBrush drawBrush = new SolidBrush(BrushColor);
-            //        Graphics.DrawString(Text, DrawFont, drawBrush, TextContentTextBox.Location.X, TextContentTextBox.Location.Y);
-            //        DrawingBoardPictureBox.Image = DrawingBitMap;
-
-            //    }
-            //    TextContentTextBox.Text = "";
-            //    TextContentTextBox.Visible = false;
-            //    PaintOptionIsChosenList[2] = false;
-            //    TextToolStrip.Visible = false;//needs to add a method of refreshing some of the things maybe?
-
-            //}
-        }
-
-        private void FontToolStripComboBox_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextSizeToolStripComboBox_Click(object sender, EventArgs e)
-        {
-
-        }
+ 
         private void TextSizeToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string SizeAsString = TextSizeToolStripComboBox.Text;
             int newSize = int.Parse(SizeAsString);
             Font originalFont = TextContentTextBox.Font; // The original font
-
-            // Create a new font with the desired font name
             Font newFont = new Font(originalFont.FontFamily, newSize, originalFont.Style);
-            // Create a new font with the modified style
-
-            // Use the newFont as needed
-
-            // Don't forget to dispose of the newFont when you're done
             TextContentTextBox.Font = newFont;
             TextContentTextBox.Refresh();
             AdjustTextBoxHeight(TextContentTextBox);
@@ -895,16 +646,8 @@ namespace YouChatApp.AttachedFiles.PaintHandler
         private void FontToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string newFontName = FontToolStripComboBox.Text;
-
             Font originalFont = TextContentTextBox.Font; // The original font
-
-            // Create a new font with the desired font name
             Font newFont = new Font(newFontName, originalFont.Size, originalFont.Style);
-            // Create a new font with the modified style
-
-            // Use the newFont as needed
-
-            // Don't forget to dispose of the newFont when you're done
             TextContentTextBox.Font = newFont;
             TextContentTextBox.Refresh();
             AdjustTextBoxHeight(TextContentTextBox);
@@ -918,36 +661,21 @@ namespace YouChatApp.AttachedFiles.PaintHandler
         }
         private void AdjustTextBoxHeight(System.Windows.Forms.TextBox textBox)
         {
-            // Calculate the preferred height based on the text and the width
             int preferredHeight = TextRenderer.MeasureText(textBox.Text, textBox.Font, new System.Drawing.Size(textBox.Width, int.MaxValue), TextFormatFlags.WordBreak).Height;
-
-            // Set the new height, ensuring a minimum height
             textBox.Height = Math.Max(preferredHeight, textBox.Font.Height + 2); // Adding some padding
         }
         private void AdjustTextBoxWidth(System.Windows.Forms.TextBox textBox)
         {
-            // Limit the width to a maximum value (e.g., 300)
             int maxWidth = BackgroundPanel.Width + BackgroundPanel.Location.X - textBox.Location.X;
             int minWidth = 100;
-            // Calculate the preferred width based on the text length
             int preferredWidth = TextRenderer.MeasureText(textBox.Text, textBox.Font).Width;
-            // Set the width of the TextBox, ensuring it doesn't exceed the maximum width
             textBox.Width = Math.Min(preferredWidth, maxWidth);
             textBox.Width = Math.Max(minWidth, Math.Min(preferredWidth, maxWidth));
             textBox.Multiline = (preferredWidth > maxWidth);
-
         }
 
         private void DrawingBoardPictureBox_Click(object sender, EventArgs e)
         {
-            //System.Drawing.Point TextContentTextBoxRealLocation = TextContentTextBox.Location;
-            //if (TextContentTextBox.Parent != null && TextContentTextBox.Parent is Panel) //panel location
-            //{
-            //    System.Drawing.Point panelLocation = TextContentTextBox.Parent.Location;
-            //    TextContentTextBoxRealLocation.Offset(panelLocation.X, panelLocation.Y);
-            //}
-            //int pictureBoxRealXLocation = TextContentTextBoxRealLocation.X;
-            //int pictureBoxRealYLocation = TextContentTextBoxRealLocation.Y;
             if (TextContentTextBox.Visible)
             {
                 if (IsTextContentTextBoxEntered)
@@ -972,9 +700,8 @@ namespace YouChatApp.AttachedFiles.PaintHandler
                 string Font = FontToolStripComboBox.Text;
                 string SizeAsString = TextSizeToolStripComboBox.Text;
                 int Size = int.Parse(SizeAsString);
-                FontStyle FontStyle = FontStyle.Regular; // Start with regular style
+                FontStyle FontStyle = FontStyle.Regular; 
 
-                // Apply styles based on boolean values
                 if (IsTextBold)
                     FontStyle |= FontStyle.Bold;
 
@@ -996,8 +723,8 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             }
             TextContentTextBox.Text = "";
             TextContentTextBox.Visible = false;
-            PaintOptionIsChosenList[2] = false;
-            TextToolStrip.Visible = false;//needs to add a method of refreshing some of the things maybe?
+            PaintOption_IsChosenList[2] = false;
+            TextToolStrip.Visible = false;
             InsertDrawing();
         }
 
@@ -1007,18 +734,7 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             TextContentTextBox.ForeColor = BrushColor;
         }
 
-        private void TextContentTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //// Check if the Enter key is pressed
-            //if (e.KeyChar == (char)Keys.Enter)
-            //{
-            //    // Insert a line break
-            //    int selectionStart = TextContentTextBox.SelectionStart;
-            //    TextContentTextBox.Text = TextContentTextBox.Text.Insert(selectionStart, "\r\n");
-            //    TextContentTextBox.SelectionStart = selectionStart + 2; // Move the caret after the inserted line break
-            //    e.Handled = true; // Suppress the Enter key
-            //}
-        }
+
 
         private void SendOptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1037,21 +753,5 @@ namespace YouChatApp.AttachedFiles.PaintHandler
                 }
             }
         }
-
-        private void CopyBitMap(Bitmap CopyFromBitMap, Bitmap CopyToBitMap)
-        {
-            int Width = CopyFromBitMap.Width;
-            int Height = CopyFromBitMap.Height;
-            for (int i = 0; i < Width; i++)
-            {
-                for (int j = 0; j < Height; j++)
-                {
-                    Color PixelColor = CopyFromBitMap.GetPixel(i, j);
-
-                    CopyToBitMap.SetPixel(i, j, PixelColor);
-                }
-            }
-        }
-        // בשינוי צבע לעשות בדיקה האם תמונה מופיעה שם או לא ובהתאם לשנות את הצבע
     }
 }

@@ -7,15 +7,29 @@ using System.Threading.Tasks;
 namespace YouChatApp
 {
     /// <summary>
-    /// The Class provides methods for formatting dates and times.
+    /// The "TimeHandler" class provides methods for formatting DateTime values as strings representing different time formats.
     /// </summary>
+    /// <remarks>
+    /// This class includes a method for formatting a DateTime value based on its relation to the current date.
+    /// </remarks>
     internal class TimeHandler
     {
+        #region Public Static Methods
+
         /// <summary>
-        /// The method formats a given DateTime object based on its relation to the current date.
+        /// The "GetFormatTime" method returns a formatted string representing the given DateTime value.
         /// </summary>
-        /// <param name="time">The date and time to be formatted.</param>
-        /// <returns>A string representation of the formatted date and time.</returns>
+        /// <param name="time">The DateTime value to format.</param>
+        /// <returns>A formatted string representing the DateTime value.</returns>
+        /// <remarks>
+        /// This method checks the date of the provided DateTime value against the current date
+        /// to determine how to format and return the time.
+        /// - If the date is today, the method returns the time in "HH:mm" format.
+        /// - If the date is yesterday, the method returns "yesterday".
+        /// - If the date is within the last week (excluding today and yesterday), the method returns the day of the week.
+        /// - If the date is within the current year but not within the last week, the method returns the date in "MM/dd" format.
+        /// - If the date is outside the current year, the method returns the date in "dd/MM/yyyy" format.
+        /// </remarks>
         public static string GetFormatTime(DateTime? time)
         {
             if (time == null) return "";
@@ -53,5 +67,7 @@ namespace YouChatApp
                 return timeValue.ToString("dd/MM/yyyy");
             }
         }
+
+        #endregion
     }
 }

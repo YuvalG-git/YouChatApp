@@ -77,7 +77,6 @@
             this.CameraDeviceComboBox.Name = "CameraDeviceComboBox";
             this.CameraDeviceComboBox.Size = new System.Drawing.Size(145, 28);
             this.CameraDeviceComboBox.TabIndex = 0;
-            this.CameraDeviceComboBox.SelectedIndexChanged += new System.EventHandler(this.CameraDeviceComboBox_SelectedIndexChanged);
             // 
             // AudioInputDeviceComboBox
             // 
@@ -205,8 +204,6 @@
             this.UserVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.UserVideoPictureBox.TabIndex = 9;
             this.UserVideoPictureBox.TabStop = false;
-            this.UserVideoPictureBox.SizeChanged += new System.EventHandler(this.VideoPictureBox_SizeChanged);
-            this.UserVideoPictureBox.Click += new System.EventHandler(this.UserVideoPictureBox_Click);
             this.UserVideoPictureBox.DoubleClick += new System.EventHandler(this.UserVideoPictureBox_DoubleClick);
             this.UserVideoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseDown);
             this.UserVideoPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UserVideoPictureBox_MouseMove);
@@ -255,7 +252,6 @@
             this.FriendNameLabel.Size = new System.Drawing.Size(83, 34);
             this.FriendNameLabel.TabIndex = 0;
             this.FriendNameLabel.Text = "name";
-            this.FriendNameLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // CallTimeTimer
             // 
@@ -421,7 +417,6 @@
             this.Name = "VideoCall";
             this.Text = "VideoCall";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VideoCall_FormClosing);
-            this.Load += new System.EventHandler(this.VideoCall_Load);
             this.BackgroundPanel.ResumeLayout(false);
             this.AudioOutputDeviceGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AudioOutputDevicePictureBox)).EndInit();

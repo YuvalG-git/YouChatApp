@@ -10,91 +10,106 @@ using YouChatApp.UserAuthentication.Forms;
 
 namespace YouChatApp
 {
+    /// <summary>
+    /// The "FormHandler" class manages references to various forms used in the application.
+    /// </summary>
+    /// <remarks>
+    /// This class provides static references to different forms used in the application, allowing easy access to them from various parts of the codebase.
+    /// </remarks>
     internal class FormHandler
     {
+        #region Public Static Fields
 
         /// <summary>
-        /// Declares a variable of type Login which represents the _login form's object and is used to perform actions on this form
+        /// The static Login "_login" represents the login form.
         /// </summary>
         public static Login _login;
 
         /// <summary>
-        /// Declares a variable of type Registration which represents the _registration form's object and is used to perform actions on this form
+        /// The static Registration "_registration" represents the registration form.
         /// </summary>
         public static Registration _registration;
 
         /// <summary>
-        /// Declares a variable of type PasswordUpdate which represents the _passwordUpdate form's object and is used to perform actions on this form
+        /// The static PasswordUpdate "_passwordUpdate" represents the password update form.
         /// </summary>
         public static PasswordUpdate _passwordUpdate;
 
         /// <summary>
-        /// Declares a variable of type PasswordRestart which represents the _passwordRestart form's object and is used to perform actions on this form
+        /// The static PasswordRestart "_passwordRestart" represents the password restart form.
         /// </summary>
         public static PasswordRestart _passwordRestart;
 
         /// <summary>
-        /// Declares a variable of type Profile which represents the _profile form's object and is used to perform actions on this form
+        /// The static Profile "_profile" represents the profile form.
         /// </summary>
         public static Profile _profile;
 
         /// <summary>
-        /// Declares a variable of type YouChat which represents the _youChat form's object and is used to perform actions on this form
+        /// The static YouChat "_youChat" represents the main chat window.
         /// </summary>
         public static YouChat _youChat;
 
         /// <summary>
-        /// Declares a variable of type InitialProfileSelection which represents the _initialProfileSelection form's object and is used to perform actions on this form
-        /// </summary>
-        public static InitialProfileSelection _initialProfileSelection;
-
-        /// <summary>
-        /// Declares a variable of type EmojiKeyboard which represents the _emojiKeyboard form's object and is used to perform actions on this form
+        /// The static EmojiKeyboard "_emojiKeyboard" represents the emoji keyboard.
         /// </summary>
         public static EmojiKeyboard _emojiKeyboard = null;
 
         /// <summary>
-        /// Declares a variable of type ContactSharing which represents the _contactSharing form's object and is used to perform actions on this form
+        /// The static ContactSharing "_contactSharing" represents the contact sharing form.
         /// </summary>
         public static ContactSharing _contactSharing = null;
 
         /// <summary>
-        /// Declares a variable of type Camera which represents the _camera form's object and is used to perform actions on this form
+        /// The static Camera "_camera" represents the camera form.
         /// </summary>
         public static Camera _camera = null;
 
         /// <summary>
-        /// Declares a variable of type VideoCall which represents the _videoCall form's object and is used to perform actions on this form
+        /// The static VideoCall "_videoCall" represents the video call form.
         /// </summary>
         public static VideoCall _videoCall;
 
-
         /// <summary>
-        /// Declares a variable of type AudioCall which represents the _audioCall form's object and is used to perform actions on this form
+        /// The static AudioCall "_audioCall" represents the audio call form.
         /// </summary>
         public static AudioCall _audioCall;
 
         /// <summary>
-        /// Declares a variable of type WaitingForm which represents the _waitingForm form's object and is used to perform actions on this form
+        /// The static WaitingForm "_waitingForm" represents the waiting form.
         /// </summary>
         public static WaitingForm _waitingForm;
 
         /// <summary>
-        /// Declares a variable of type CallInvitation which represents the _callInvitation form's object and is used to perform actions on this form
+        /// The static CallInvitation "_callInvitation" represents the call invitation form.
         /// </summary>
         public static CallInvitation _callInvitation;
 
         /// <summary>
-        /// Declares a variable of type Paint which represents the _paint form's object and is used to perform actions on this form
+        /// The static AttachedFiles.PaintHandler.Paint "_paint" represents the paint form.
         /// </summary>
         public static AttachedFiles.PaintHandler.Paint _paint = null;
 
+        /// <summary>
+        /// The static ImageSender "_imageSender" represents the image sender.
+        /// </summary>
         public static ImageSender _imageSender;
 
+        /// <summary>
+        /// The static ImageViewer "_imageViewer" represents the image viewer.
+        /// </summary>
         public static ImageViewer _imageViewer;
 
+        /// <summary>
+        /// The static ProfilePictureSelector "_profilePictureSelector" represents the profile picture selector form.
+        /// </summary>
         public static ProfilePictureSelector _profilePictureSelector;
+
+        /// <summary>
+        /// The static ProfileStatusSelector "_profileStatusSelector" represents the profile status selector form.
+        /// </summary>
         public static ProfileStatusSelector _profileStatusSelector;
 
+        #endregion
     }
 }

@@ -42,7 +42,6 @@ namespace YouChatApp.AttachedFiles.CameraHandler
 
         private Rectangle selectionCropRectangle;
         private Bitmap capturedImage;
-        private bool isResizing = false;
         private bool isCropping = false;
         private int _cropSize;
         private int _cropXLocation;

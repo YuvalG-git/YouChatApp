@@ -44,12 +44,10 @@ namespace YouChatApp.UserAuthentication.Forms
         public void SendSmtpCode(object sender, EventArgs e)
         {
             string enteredSmtpCode = SmtpControl.GetCode();
-            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_SmtpRegistrationCode, enteredSmtpCode);
-            string enteredSmtpCodeJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(enteredSmtpCodeJson);
+
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_SmtpRegistrationCode;
+            object messageContent = enteredSmtpCode;
+            serverCommunicator.SendMessage(messageType, messageContent);
         }
 
 
@@ -75,12 +73,9 @@ namespace YouChatApp.UserAuthentication.Forms
             SmtpVerification smtpVerification = new SmtpVerification(username, afterFail);
             string emailAddress = EmailAddressCustomTextBox.TextContent;
             SmtpDetails userUsernameAndEmailAddress = new SmtpDetails(emailAddress,smtpVerification);
-            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_SmtpRegistrationMessage, userUsernameAndEmailAddress);
-            string userUsernameAndEmailAddressJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(userUsernameAndEmailAddressJson);
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_SmtpRegistrationMessage;
+            object messageContent = userUsernameAndEmailAddress;
+            serverCommunicator.SendMessage(messageType, messageContent);
         }
         public void HandleRecievedEmail()
         {
@@ -170,11 +165,12 @@ namespace YouChatApp.UserAuthentication.Forms
                     error += "The username can only contain letters and numbers\r\n";
                 }
                 int length = StringHandler.LengthWithoutWhiteSpace(username);
+                int realLength = username.Length;
                 if (length < 4)
                 {
                     error += "The username must be longer than 4 letters";
                 }
-                else if (length >= 30)
+                else if (realLength > 30)
                 {
                     error += "The username must be shorter than 31 letters";
                 }
@@ -228,11 +224,12 @@ namespace YouChatApp.UserAuthentication.Forms
                     error += "The first name can only contain letters and white spaces\r\n";
                 }
                 int length = StringHandler.LengthWithoutWhiteSpace(firstName);
+                int realLength = firstName.Length;
                 if (length < 3)
                 {
                     error += "The first name must be longer than 3 letters";
                 }
-                else if (length >= 30)
+                else if (realLength > 30)
                 {
                     error += "The first name must be shorter than 31 letters";
                 }
@@ -267,12 +264,13 @@ namespace YouChatApp.UserAuthentication.Forms
                     error += "The last name can only contain letters\r\n";
                 }
                 int length = StringHandler.LengthWithoutWhiteSpace(lastName);
+                int realLength = lastName.Length;
 
                 if (length < 3)
                 {
                     error += "The last name must be longer than 3 letters\r\n";
                 }
-                else if (length >= 30)
+                else if (realLength > 30)
                 {
                     error += "The last name must be shorter than 31 letters\r\n";
                 }
@@ -403,16 +401,15 @@ namespace YouChatApp.UserAuthentication.Forms
                     error += "The city can only contain letters and white spaces\r\n";
                 }
                 int length = StringHandler.LengthWithoutWhiteSpace(cityName);
-
+                int realLength = cityName.Length;
                 if (length < 4)
                 {
                     error += "The city name must be longer than 4 letters";
                 }
-                else if (length >= 60)
+                else if (realLength > 60)
                 {
                     error += "The city name must be shorter than 60 letters (included)";
                 }
-
 
                 if (error != "")
                 {
@@ -484,12 +481,10 @@ namespace YouChatApp.UserAuthentication.Forms
 
             List<string[]> VerificationQuestionsAndAnswers = GenerateVerificationQuestionListOfArrays();
             RegistrationInformation registrationInformation = new RegistrationInformation(username, password, firstname, lastname, email, city, Gender, dateOfBirth, RegistrationDate, VerificationQuestionsAndAnswers);
-            JsonObject jsonObject = new JsonObject(EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_Registration, registrationInformation);
-            string registrationInformationJson = JsonConvert.SerializeObject(jsonObject, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            serverCommunicator.SendMessage(registrationInformationJson);
+
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.RegistrationRequest_Registration;
+            object messageContent = registrationInformation;
+            serverCommunicator.SendMessage(messageType, messageContent);
             SignUpCustomButton.Visible = false;
         }
         private List<string[]> GenerateVerificationQuestionListOfArrays()
@@ -498,9 +493,10 @@ namespace YouChatApp.UserAuthentication.Forms
             VerificationQuestionDetails verificationQuestionDetails;
             string Question;
             string Answer;
+            VerificationQuestionHandler verificationQuestionHandler = PersonalVerificationQuestionsControl.GetVerificationQuestionHandler();
             for (int i = 0; i < 5; i++)
             {
-                verificationQuestionDetails = VerificationQuestionHandler.VerificationQuestionDetails[i];
+                verificationQuestionDetails = verificationQuestionHandler.VerificationQuestionDetails[i];
                 Question = verificationQuestionDetails.Question;
                 Answer = verificationQuestionDetails.Answer;
                 VerificationQuestionsAndAnswers.Add(new string[] { Question, Answer });

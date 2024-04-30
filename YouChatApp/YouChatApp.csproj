@@ -138,7 +138,6 @@
       <DependentUpon>Camera.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachedFiles\CameraHandler\CountDownImageList.cs" />
-    <Compile Include="AttachedFiles\ImageEventArgs.cs" />
     <Compile Include="AttachedFiles\ImageViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,7 +217,7 @@
     <Compile Include="EnumHandler\EnumConverter.cs" />
     <Compile Include="EnumHandler\EnumHandler.cs" />
     <Compile Include="FormHandler.cs" />
-    <Compile Include="ImageRotationHandler.cs" />
+    <Compile Include="Controls\ControlHandler\ImageRotationHandler.cs" />
     <Compile Include="JsonClasses\VideoCallOverDetails.cs" />
     <Compile Include="JsonClasses\AudioCallOverDetails.cs" />
     <Compile Include="JsonClasses\CaptchaRotationBanDetails.cs" />
@@ -253,21 +252,22 @@
     <Compile Include="JsonClasses\UdpDetails.cs" />
     <Compile Include="JsonClasses\UdpPorts.cs" />
     <Compile Include="JsonClasses\UserDetails.cs" />
-    <Compile Include="NamespaceAdjustmentBinder.cs" />
-    <Compile Include="ServerCommunicator.cs" />
+    <Compile Include="ServerCommunication\MessageState.cs" />
+    <Compile Include="JsonClasses\JsonSerializationHandler\NamespaceAdjustmentBinder.cs" />
+    <Compile Include="ServerCommunication\ServerCommunicator.cs" />
     <Compile Include="UdpServerCommunication\AudioServerCommunication.cs" />
     <Compile Include="ChatHandler\ChatLastMessageTimeComparer.cs" />
-    <Compile Include="AttachedFiles\EmojiObject.cs" />
+    <Compile Include="AttachedFiles\EmojiHandler\EmojiObject.cs" />
     <Compile Include="AttachedFiles\ContactSharing.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AttachedFiles\ContactSharing.Designer.cs">
       <DependentUpon>ContactSharing.cs</DependentUpon>
     </Compile>
-    <Compile Include="AttachedFiles\EmojiKeyboard.cs">
+    <Compile Include="AttachedFiles\EmojiHandler\EmojiKeyboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AttachedFiles\EmojiKeyboard.Designer.cs">
+    <Compile Include="AttachedFiles\EmojiHandler\EmojiKeyboard.Designer.cs">
       <DependentUpon>EmojiKeyboard.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachedFiles\ImageSender.cs">
@@ -342,7 +342,7 @@
     <Compile Include="Controls\FriendRequestControl.Designer.cs">
       <DependentUpon>FriendRequestControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\GraphicsHandler.cs" />
+    <Compile Include="Controls\ControlHandler\GraphicsHandler.cs" />
     <Compile Include="Controls\PasswordGeneratorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -373,34 +373,21 @@
     <Compile Include="Controls\SmtpControl.Designer.cs">
       <DependentUpon>SmtpControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ToggleButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\ToggleButton.Designer.cs">
-      <DependentUpon>ToggleButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ToolTipSetter.cs" />
+    <Compile Include="Controls\ControlHandler\ToolTipSetter.cs" />
     <Compile Include="ConvertHandler.cs" />
-    <Compile Include="EmojiResourceSet.cs" />
+    <Compile Include="AttachedFiles\EmojiHandler\EmojiResourceSet.cs" />
     <Compile Include="Encryption\AESServiceProvider.cs" />
     <Compile Include="Encryption\Encryption.cs" />
     <Compile Include="Encryption\MD5.cs" />
     <Compile Include="Encryption\RSAServiceProvider.cs" />
-    <Compile Include="InitialProfileSelection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InitialProfileSelection.Designer.cs">
-      <DependentUpon>InitialProfileSelection.cs</DependentUpon>
-    </Compile>
     <Compile Include="AttachedFiles\PaintHandler\Paint.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AttachedFiles\PaintHandler\Paint.Designer.cs">
       <DependentUpon>Paint.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageType.cs" />
-    <Compile Include="OpenFileDialogHandler.cs" />
-    <Compile Include="PanelHandler.cs" />
+    <Compile Include="Controls\ControlHandler\OpenFileDialogHandler.cs" />
+    <Compile Include="Controls\ControlHandler\PanelHandler.cs" />
     <Compile Include="UserAuthentication\Forms\ProfilePictureSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -456,7 +443,7 @@
     <Compile Include="UserProfile\Profile.Designer.cs">
       <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProfilePictureImageList.cs" />
+    <Compile Include="UserProfile\ProfilePictureImageList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Activities_Emoji.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -525,10 +512,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TravelAndPlaces_Emoji.resx</DependentUpon>
     </Compile>
-    <Compile Include="SmtpHandler.cs" />
     <Compile Include="UserProfile\ProfileDetailsHandler.cs" />
-    <Compile Include="VerificationQuestion\VerificationQuestionHandler.cs" />
-    <Compile Include="VerificationQuestion\VerificationQuestionDetails.cs" />
+    <Compile Include="UserAuthentication\HandlerClasses\VerificationQuestion\VerificationQuestionHandler.cs" />
+    <Compile Include="UserAuthentication\HandlerClasses\VerificationQuestion\VerificationQuestionDetails.cs" />
     <Compile Include="UdpServerCommunication\VideoServerCommunication.cs" />
     <Compile Include="YouChat.cs">
       <SubType>Form</SubType>
@@ -548,7 +534,7 @@
     <EmbeddedResource Include="AttachedFiles\ContactSharing.resx">
       <DependentUpon>ContactSharing.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AttachedFiles\EmojiKeyboard.resx">
+    <EmbeddedResource Include="AttachedFiles\EmojiHandler\EmojiKeyboard.resx">
       <DependentUpon>EmojiKeyboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\ImageSender.resx">
@@ -613,9 +599,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SmtpControl.resx">
       <DependentUpon>SmtpControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InitialProfileSelection.resx">
-      <DependentUpon>InitialProfileSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachedFiles\PaintHandler\Paint.resx">
       <DependentUpon>Paint.cs</DependentUpon>

@@ -8,31 +8,43 @@ using System.Threading.Tasks;
 namespace YouChatApp.AttachedFiles.PaintHandler
 {
     /// <summary>
-    /// The class represents a drawing that can be used to save a past drawing in a paint application, allowing for undo and redo functionality.
+    /// The "Drawing" class represents a drawing with a specified width, height, and image.
     /// </summary>
+    /// <remarks>
+    /// This class provides properties to get the width, height, and drawing image of the drawing.
+    /// </remarks>
     internal class Drawing
     {
+        #region Private Fields
+
         /// <summary>
-        /// The width of the drawing.
+        /// The int "_width" represents the width of the drawing.
         /// </summary>
         private int _width;
 
         /// <summary>
-        /// The height of the drawing.
+        /// The int "_height" represents the height of the drawing.
         /// </summary>
         private int _height;
 
         /// <summary>
-        /// The image representing the drawing.
+        /// The Image "_drawingImage" represents the image used for drawing.
         /// </summary>
         private Image _drawingImage;
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
-        /// The method initializes a new instance of the <see cref="Drawing"/> class with the specified width, height, and drawing image.
+        /// The "Drawing" constructor initializes a new instance of the <see cref="Drawing"/> class with the specified width, height, and drawing image.
         /// </summary>
         /// <param name="width">The width of the drawing.</param>
         /// <param name="height">The height of the drawing.</param>
-        /// <param name="drawingImage">The image representing the drawing.</param>
+        /// <param name="drawingImage">The image used for drawing.</param>
+        /// <remarks>
+        /// This constructor is used to create a new instance of the Drawing class, setting the width, height, and drawing image.
+        /// </remarks>
         public Drawing(int width, int height, Image drawingImage)
         {
             _width = width;
@@ -40,28 +52,46 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             _drawingImage = drawingImage;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        /// Gets the width of the drawing.
+        /// The "Width" property represents the width of the object.
+        /// It gets the width of the object.
         /// </summary>
         public int Width
         {
-            get { return _width; }
+            get 
+            { 
+                return _width;
+            }
         }
 
         /// <summary>
-        /// Gets the height of the drawing.
+        /// The "Height" property represents the height of the object.
+        /// It gets the height of the object.
         /// </summary>
         public int Height
         {
-            get { return _height; }
+            get 
+            { 
+                return _height;
+            }
         }
 
         /// <summary>
-        /// Gets the image representing the drawing.
+        /// The "DrawingImage" property represents the image used for drawing.
+        /// It gets the drawing image.
         /// </summary>
         public Image DrawingImage
         {
-            get { return _drawingImage; }
+            get 
+            { 
+                return _drawingImage;
+            }
         }
+
+        #endregion
     }
 }
