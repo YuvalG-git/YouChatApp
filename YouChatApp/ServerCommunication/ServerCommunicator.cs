@@ -336,7 +336,7 @@ namespace YouChatApp
                             string actualMessage = incomingData.Substring(1);
                             if (receivedByteSignal == 1)
                             {
-                                actualMessage = Encryption.Encryption.DecryptData(SymmetricKey, actualMessage);
+                                actualMessage = Encryption.AESServiceProvider.DecryptData(SymmetricKey, actualMessage);
                             }
                             JsonObject jsonObject = JsonClasses.JsonHandler.JsonHandler.GetJsonDataFromJsonString(actualMessage);
                             EnumHandler.CommunicationMessageID_Enum messageType = JsonClasses.JsonHandler.JsonHandler.GetMessageTypeOfCommunicationMessageID_Enum(jsonObject);
@@ -627,7 +627,7 @@ namespace YouChatApp
 
                     if (needEncryption)
                     {
-                        jsonMessage = Encryption.Encryption.EncryptData(SymmetricKey, jsonMessage);
+                        jsonMessage = Encryption.AESServiceProvider.EncryptData(SymmetricKey, jsonMessage);
                     }
                     byte[] jsonMessageBytes = System.Text.Encoding.UTF8.GetBytes(jsonMessage);
 

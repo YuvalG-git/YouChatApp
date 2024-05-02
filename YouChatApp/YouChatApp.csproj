@@ -362,7 +362,6 @@
     <Compile Include="ConvertHandler.cs" />
     <Compile Include="AttachedFiles\EmojiHandler\EmojiResourceSet.cs" />
     <Compile Include="Encryption\AESServiceProvider.cs" />
-    <Compile Include="Encryption\Encryption.cs" />
     <Compile Include="Encryption\RSAServiceProvider.cs" />
     <Compile Include="AttachedFiles\PaintHandler\Paint.cs">
       <SubType>Form</SubType>

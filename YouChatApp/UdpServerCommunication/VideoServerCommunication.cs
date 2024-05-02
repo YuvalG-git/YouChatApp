@@ -79,7 +79,7 @@ namespace YouChatApp
             {
                 try
                 {
-                    byte[] buffer = Encryption.Encryption.EncryptDataToBytes(symmetricKey, data);
+                    byte[] buffer = Encryption.AESServiceProvider.EncryptDataToBytes(symmetricKey, data);
                     udpClient.Send(buffer, buffer.Length);
                 }
                 catch (Exception ex)
@@ -99,7 +99,7 @@ namespace YouChatApp
                         if (_videoCall != null)
                         {
                             byte[] receivedData = udpClient.Receive(ref remoteEndPoint);
-                            receivedData = Encryption.Encryption.DecryptDataToBytes(symmetricKey, receivedData);
+                            receivedData = Encryption.AESServiceProvider.DecryptDataToBytes(symmetricKey, receivedData);
 
                             using (MemoryStream ms = new MemoryStream(receivedData))
                             {
