@@ -46,7 +46,6 @@
             this.UsernameLabel.TabIndex = 1;
             this.UsernameLabel.Text = "Name";
             this.UsernameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.UsernameLabel.Click += new System.EventHandler(this.UsernameLabel_Click);
             // 
             // RemoveCustomButton
             // 

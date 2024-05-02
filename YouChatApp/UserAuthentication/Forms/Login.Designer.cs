@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.ForgottenPasswordLabel = new System.Windows.Forms.Label();
             this.UsernameLabel = new System.Windows.Forms.Label();
             this.SignUpLabel = new System.Windows.Forms.Label();
@@ -79,10 +80,10 @@
             // LoginLabel
             // 
             this.LoginLabel.AutoSize = true;
-            this.LoginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoginLabel.Location = new System.Drawing.Point(344, 28);
+            this.LoginLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoginLabel.Location = new System.Drawing.Point(370, 28);
             this.LoginLabel.Name = "LoginLabel";
-            this.LoginLabel.Size = new System.Drawing.Size(104, 31);
+            this.LoginLabel.Size = new System.Drawing.Size(139, 43);
             this.LoginLabel.TabIndex = 50;
             this.LoginLabel.Text = "LOGIN";
             // 
@@ -206,7 +207,6 @@
             this.PasswordGeneratorControl.Size = new System.Drawing.Size(310, 72);
             this.PasswordGeneratorControl.TabIndex = 44;
             this.PasswordGeneratorControl.TextChangedEvent += new System.EventHandler(this.LoginFieldsTextChangedEvent);
-            this.PasswordGeneratorControl.Load += new System.EventHandler(this.PasswordGeneratorControl_Load);
             // 
             // UsernameCustomTextBox
             // 
@@ -229,6 +229,7 @@
             this.UsernameCustomTextBox.PlaceHolderText = "Enter Username";
             this.UsernameCustomTextBox.ReadOnly = false;
             this.UsernameCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.UsernameCustomTextBox.ShortcutsEnabled = true;
             this.UsernameCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.UsernameCustomTextBox.TabIndex = 43;
             this.UsernameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -263,7 +264,9 @@
             this.Controls.Add(this.CaptchaRotatingImageControl);
             this.Controls.Add(this.CaptchaCodeControl);
             this.Controls.Add(this.BanControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
             this.LoginPanel.ResumeLayout(false);

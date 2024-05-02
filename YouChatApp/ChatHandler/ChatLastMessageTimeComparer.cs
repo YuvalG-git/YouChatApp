@@ -7,14 +7,32 @@ using YouChatApp.ContactHandler;
 
 namespace YouChatApp.ChatHandler
 {
+    /// <summary>
+    /// The "ChatLastMessageTimeComparer" class implements the IComparer interface to compare ChatDetails objects based on their last message time.
+    /// </summary>
+    /// <remarks>
+    /// This class provides a method to compare two ChatDetails objects based on their last message time.
+    /// It considers null LastMessageTime values as less than non-null values.
+    /// </remarks>
     internal class ChatLastMessageTimeComparer : IComparer<ChatDetails>
     {
+        #region Public Methods
+
         /// <summary>
-        /// In this code, we use the DateTime.CompareTo method to compare the lastmessagetime of chat1 with the lastmessagetime of chat2. This method returns a negative value if chat1.LastMessageTime is earlier than chat2.LastMessageTime, a positive value if it's later, and zero if they are equal, which is the expected behavior for a comparer.
+        /// The "Compare" method compares two ChatDetails objects based on their last message time.
         /// </summary>
-        /// <param name="chat1"></param>
-        /// <param name="chat2"></param>
-        /// <returns></returns>
+        /// <param name="chat1">The first ChatDetails object to compare.</param>
+        /// <param name="chat2">The second ChatDetails object to compare.</param>
+        /// <returns>
+        ///     0 if both LastMessageTime values are null (considered equal),
+        ///     1 if the LastMessageTime of chat1 is null (considered greater than chat2),
+        ///     -1 if the LastMessageTime of chat2 is null (considered less than chat1),
+        ///     or the result of comparing non-null LastMessageTime values (-1, 0, or 1).
+        /// </returns>
+        /// <remarks>
+        /// This method retrieves the LastMessageTime objects from the ChatDetails objects.
+        /// It compares the LastMessageTime values, considering null values as less than non-null values.
+        /// </remarks>
         public int Compare(ChatDetails chat1, ChatDetails chat2)
         {
             DateTime? lastMessageTime1 = chat1.GetLastMessageTimeObject();
@@ -37,8 +55,8 @@ namespace YouChatApp.ChatHandler
                 // Compare non-null LastMessageTime values
                 return (-1) * lastMessageTime1.Value.CompareTo(lastMessageTime2.Value);
             }
-            //return (-1) * chat1.GetLastMessageTimeObject().CompareTo(chat2.GetLastMessageTimeObject());//needs to understand why -1 (without it not working..
         }
 
+        #endregion
     }
 }

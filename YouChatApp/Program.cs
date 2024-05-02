@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YouChatApp.AttachedFiles;
+using YouChatApp.AttachedFiles.PaintHandler;
 
 namespace YouChatApp
 {
@@ -28,6 +29,7 @@ namespace YouChatApp
             Application.SetCompatibleTextRenderingDefault(false);
             // Run the application with the login form as the main form.
             Application.Run(new UserAuthentication.Forms.Login());
+
         }
 
         #endregion

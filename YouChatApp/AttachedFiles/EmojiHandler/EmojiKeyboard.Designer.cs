@@ -75,7 +75,9 @@ namespace YouChatApp.AttachedFiles
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 461);
             this.Controls.Add(this.EmojiTabControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EmojiKeyboard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EmojiKeyboard";
             this.ResumeLayout(false);
 

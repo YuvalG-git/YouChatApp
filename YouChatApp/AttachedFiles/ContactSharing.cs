@@ -356,8 +356,11 @@ namespace YouChatApp.AttachedFiles
             string ContactName = ((ContactSharingControl)(sender)).ContactName.Text;
             SelectedContactsList.Add(ContactName);
             Contact contact = ContactManager.GetContact(ContactName);
-            Image ContactProfilePicture = contact.ProfilePicture;
-            AddProfileControl(ContactName, ContactProfilePicture);
+            if (contact != null)
+            {
+                Image ContactProfilePicture = contact.ProfilePicture;
+                AddProfileControl(ContactName, ContactProfilePicture);
+            }
         }
 
         /// <summary>

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfilePictureSelector));
             this.ProfilePicturePanel = new System.Windows.Forms.Panel();
             this.ProfilePictureControl = new YouChatApp.Controls.ProfilePictureControl();
             this.ConfirmCustomButton = new YouChatApp.Controls.CustomButton();
@@ -81,7 +82,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 703);
             this.Controls.Add(this.ProfilePicturePanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProfilePictureSelector";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ProfilePictureSelector";
             this.ProfilePicturePanel.ResumeLayout(false);
             this.ResumeLayout(false);

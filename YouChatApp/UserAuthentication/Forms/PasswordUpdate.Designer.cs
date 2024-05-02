@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PasswordUpdate));
             this.UpdatePasswordGeneratorControl = new YouChatApp.Controls.PasswordGeneratorControl();
             this.ExpiredPasswordLabel = new System.Windows.Forms.Label();
             this.PasswordUpdateLabel = new System.Windows.Forms.Label();
@@ -49,7 +50,6 @@
             this.UpdatePasswordGeneratorControl.PasswordExclamationVisible = true;
             this.UpdatePasswordGeneratorControl.Size = new System.Drawing.Size(340, 190);
             this.UpdatePasswordGeneratorControl.TabIndex = 33;
-            this.UpdatePasswordGeneratorControl.Load += new System.EventHandler(this.UpdatePasswordGeneratorControl_Load);
             // 
             // ExpiredPasswordLabel
             // 
@@ -65,10 +65,10 @@
             // PasswordUpdateLabel
             // 
             this.PasswordUpdateLabel.AutoSize = true;
-            this.PasswordUpdateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PasswordUpdateLabel.Location = new System.Drawing.Point(89, 9);
+            this.PasswordUpdateLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PasswordUpdateLabel.Location = new System.Drawing.Point(-8, 7);
             this.PasswordUpdateLabel.Name = "PasswordUpdateLabel";
-            this.PasswordUpdateLabel.Size = new System.Drawing.Size(290, 31);
+            this.PasswordUpdateLabel.Size = new System.Drawing.Size(403, 43);
             this.PasswordUpdateLabel.TabIndex = 1;
             this.PasswordUpdateLabel.Text = "UPDATE PASSWORD";
             // 
@@ -135,6 +135,7 @@
             // 
             // PasswordUpdatePanel
             // 
+            this.PasswordUpdatePanel.Controls.Add(this.BanControl);
             this.PasswordUpdatePanel.Controls.Add(this.PasswordUpdateLabel);
             this.PasswordUpdatePanel.Controls.Add(this.UpdatePasswordCustomButton);
             this.PasswordUpdatePanel.Controls.Add(this.ExpiredPasswordLabel);
@@ -149,7 +150,7 @@
             // BanControl
             // 
             this.BanControl.AutoSize = true;
-            this.BanControl.Location = new System.Drawing.Point(12, 15);
+            this.BanControl.Location = new System.Drawing.Point(-5, 31);
             this.BanControl.Name = "BanControl";
             this.BanControl.Size = new System.Drawing.Size(400, 400);
             this.BanControl.TabIndex = 51;
@@ -160,14 +161,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 436);
-            this.Controls.Add(this.BanControl);
             this.Controls.Add(this.PasswordUpdatePanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PasswordUpdate";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PasswordUpdate";
             this.PasswordUpdatePanel.ResumeLayout(false);
             this.PasswordUpdatePanel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Camera));
             this.CameraDeviceComboBox = new System.Windows.Forms.ComboBox();
             this.BackgroundPanel = new System.Windows.Forms.Panel();
             this.MethodsGroupBox = new System.Windows.Forms.GroupBox();
@@ -218,7 +219,6 @@
             this.TimerOptionComboBox.Size = new System.Drawing.Size(125, 28);
             this.TimerOptionComboBox.TabIndex = 0;
             this.TimerOptionComboBox.SelectedIndexChanged += new System.EventHandler(this.TimerOptionComboBox_SelectedIndexChanged);
-            this.TimerOptionComboBox.TextChanged += new System.EventHandler(this.TimerOptionComboBox_TextChanged);
             // 
             // CropGroupBox
             // 
@@ -302,12 +302,13 @@
             this.CropSizeCustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.CropSizeCustomTextBox.PlaceHolderText = "";
             this.CropSizeCustomTextBox.ReadOnly = false;
+            this.CropSizeCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.CropSizeCustomTextBox.ShortcutsEnabled = true;
             this.CropSizeCustomTextBox.Size = new System.Drawing.Size(67, 31);
             this.CropSizeCustomTextBox.TabIndex = 23;
             this.CropSizeCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.CropSizeCustomTextBox.TextContent = "";
             this.CropSizeCustomTextBox.UnderlineStyle = true;
-            this.CropSizeCustomTextBox.TextChangedEvent += new System.EventHandler(this.CropSizeCustomTextBox_TextChangedEvent);
             this.CropSizeCustomTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CropSizeCustomTextBox_KeyDown);
             this.CropSizeCustomTextBox.Leave += new System.EventHandler(this.CropSizeCustomTextBox_Leave);
             // 
@@ -321,7 +322,6 @@
             this.CropYLocationLabel.Size = new System.Drawing.Size(101, 21);
             this.CropYLocationLabel.TabIndex = 19;
             this.CropYLocationLabel.Text = "Y Coordinate:";
-            this.CropYLocationLabel.Click += new System.EventHandler(this.label2_Click);
             // 
             // CropYLocationustomTextBox
             // 
@@ -343,6 +343,8 @@
             this.CropYLocationustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.CropYLocationustomTextBox.PlaceHolderText = "";
             this.CropYLocationustomTextBox.ReadOnly = false;
+            this.CropYLocationustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.CropYLocationustomTextBox.ShortcutsEnabled = true;
             this.CropYLocationustomTextBox.Size = new System.Drawing.Size(67, 31);
             this.CropYLocationustomTextBox.TabIndex = 22;
             this.CropYLocationustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -382,12 +384,13 @@
             this.CropXLocationustomTextBox.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.CropXLocationustomTextBox.PlaceHolderText = "";
             this.CropXLocationustomTextBox.ReadOnly = false;
+            this.CropXLocationustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.CropXLocationustomTextBox.ShortcutsEnabled = true;
             this.CropXLocationustomTextBox.Size = new System.Drawing.Size(67, 31);
             this.CropXLocationustomTextBox.TabIndex = 21;
             this.CropXLocationustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.CropXLocationustomTextBox.TextContent = "";
             this.CropXLocationustomTextBox.UnderlineStyle = true;
-            this.CropXLocationustomTextBox.TextChangedEvent += new System.EventHandler(this.CropXLocationustomTextBox_TextChangedEvent);
             this.CropXLocationustomTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CropXLocationustomTextBox_KeyDown);
             this.CropXLocationustomTextBox.Leave += new System.EventHandler(this.CropXLocationustomTextBox_Leave);
             // 
@@ -550,10 +553,8 @@
             this.UserImageTakenPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.UserImageTakenPictureBox.TabIndex = 10;
             this.UserImageTakenPictureBox.TabStop = false;
-            this.UserImageTakenPictureBox.Click += new System.EventHandler(this.UserImageTakenPictureBox_Click);
             this.UserImageTakenPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.UserImageTakenPictureBox_Paint);
             this.UserImageTakenPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UserImageTakenPictureBox_MouseDown);
-            this.UserImageTakenPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UserImageTakenPictureBox_MouseMove);
             // 
             // UserVideoPictureBox
             // 
@@ -565,7 +566,6 @@
             this.UserVideoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.UserVideoPictureBox.TabIndex = 9;
             this.UserVideoPictureBox.TabStop = false;
-            this.UserVideoPictureBox.Click += new System.EventHandler(this.UserVideoPictureBox_Click);
             // 
             // Camera
             // 
@@ -577,7 +577,9 @@
             this.Controls.Add(this.UserImageTakenPictureBox);
             this.Controls.Add(this.UserVideoPictureBox);
             this.Controls.Add(this.BackgroundPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Camera";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Camera";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Camera_FormClosing);
             this.Load += new System.EventHandler(this.Camera_Load);

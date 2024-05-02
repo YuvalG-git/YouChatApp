@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageSender));
             this.UploadedPictureOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.LoadedImagePictureBox = new System.Windows.Forms.PictureBox();
             this.SettingsPanel = new System.Windows.Forms.Panel();
+            this.ReturnCustomButton = new YouChatApp.Controls.CustomButton();
             this.RestartPictureCustomButton = new YouChatApp.Controls.CustomButton();
             this.SendPictureCustomButton = new YouChatApp.Controls.CustomButton();
             this.LoadPictureCustomButton = new YouChatApp.Controls.CustomButton();
-            this.ReturnCustomButton = new YouChatApp.Controls.CustomButton();
             ((System.ComponentModel.ISupportInitialize)(this.LoadedImagePictureBox)).BeginInit();
             this.SettingsPanel.SuspendLayout();
             this.SuspendLayout();
@@ -61,6 +62,27 @@
             this.SettingsPanel.Name = "SettingsPanel";
             this.SettingsPanel.Size = new System.Drawing.Size(585, 100);
             this.SettingsPanel.TabIndex = 40;
+            // 
+            // ReturnCustomButton
+            // 
+            this.ReturnCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.ReturnCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.ReturnCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
+            this.ReturnCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ReturnCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ReturnCustomButton.BorderRadius = 10;
+            this.ReturnCustomButton.BorderSize = 0;
+            this.ReturnCustomButton.Circular = false;
+            this.ReturnCustomButton.FlatAppearance.BorderSize = 0;
+            this.ReturnCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReturnCustomButton.ForeColor = System.Drawing.Color.White;
+            this.ReturnCustomButton.Location = new System.Drawing.Point(11, 30);
+            this.ReturnCustomButton.Name = "ReturnCustomButton";
+            this.ReturnCustomButton.Size = new System.Drawing.Size(50, 40);
+            this.ReturnCustomButton.TabIndex = 41;
+            this.ReturnCustomButton.TextColor = System.Drawing.Color.White;
+            this.ReturnCustomButton.UseVisualStyleBackColor = false;
+            this.ReturnCustomButton.Click += new System.EventHandler(this.ReturnCustomButton_Click);
             // 
             // RestartPictureCustomButton
             // 
@@ -127,27 +149,6 @@
             this.LoadPictureCustomButton.UseVisualStyleBackColor = false;
             this.LoadPictureCustomButton.Click += new System.EventHandler(this.LoadPictureCustomButton_Click);
             // 
-            // ReturnCustomButton
-            // 
-            this.ReturnCustomButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.ReturnCustomButton.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.ReturnCustomButton.BackgroundImage = global::YouChatApp.Properties.Resources.returnArrow;
-            this.ReturnCustomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ReturnCustomButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.ReturnCustomButton.BorderRadius = 10;
-            this.ReturnCustomButton.BorderSize = 0;
-            this.ReturnCustomButton.Circular = false;
-            this.ReturnCustomButton.FlatAppearance.BorderSize = 0;
-            this.ReturnCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ReturnCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ReturnCustomButton.Location = new System.Drawing.Point(11, 30);
-            this.ReturnCustomButton.Name = "ReturnCustomButton";
-            this.ReturnCustomButton.Size = new System.Drawing.Size(50, 40);
-            this.ReturnCustomButton.TabIndex = 41;
-            this.ReturnCustomButton.TextColor = System.Drawing.Color.White;
-            this.ReturnCustomButton.UseVisualStyleBackColor = false;
-            this.ReturnCustomButton.Click += new System.EventHandler(this.ReturnCustomButton_Click);
-            // 
             // ImageSender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -156,8 +157,10 @@
             this.ClientSize = new System.Drawing.Size(580, 529);
             this.Controls.Add(this.LoadedImagePictureBox);
             this.Controls.Add(this.SettingsPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ImageSender";
-            this.Text = "ImageHandler";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "ImageSender";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageSender_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.LoadedImagePictureBox)).EndInit();
             this.SettingsPanel.ResumeLayout(false);

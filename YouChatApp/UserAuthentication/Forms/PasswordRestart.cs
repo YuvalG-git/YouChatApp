@@ -14,6 +14,16 @@ using YouChatApp.JsonClasses;
 
 namespace YouChatApp.UserAuthentication.Forms
 {
+    /// <summary>
+    /// The "PasswordRestart" class represents a form for restarting the password reset process.
+    /// </summary>
+    /// <remarks>
+    /// This class provides functionality for restarting the password reset process.
+    /// It includes methods for initializing the form, handling the sending of an email for password reset,
+    /// handling the response after receiving an email for password reset, handling incorrect SMTP codes,
+    /// handling correct SMTP codes, handling matching username and email address,
+    /// restarting the password reset process, handling successful password renewal, and handling bans.
+    /// </remarks>
     public partial class PasswordRestart : Form
     {
         #region Private Readonly Fields
@@ -53,33 +63,11 @@ namespace YouChatApp.UserAuthentication.Forms
             SmtpControl.AddVerifyCustomButtonClickHandler(SendSmtpCode);
             SmtpControl.SetRestartSmtpCodeCustomButtonDisable();
         }
-        public void HandleRecievedEmail()
-        {
-            SmtpControl.HandleCode();
-        }
-        public void HandleWrongCodeResponse()
-        {
-            SmtpControl.HandleWrongCodeCase();
-        }
-        public void HandleCorrectCodeResponse()
-        {
-            PasswordGeneratorControl.Enabled = true;
-            resetPasswordPhase = EnumHandler.PasswordResetPhases_Enum.PasswordReset;
-            SmtpControl.SetDisabled();
-        }
 
-        private void SendSmtpCode(object sender, EventArgs e)
-        {
-            string enteredSmtpCode = SmtpControl.GetCode();
+        #endregion
 
-            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.ResetPasswordRequest_SmtpCode;
-            object messageContent = enteredSmtpCode;
-            serverCommunicator.SendMessage(messageType, messageContent);
-        }
-        private void HandleSendingEmailProcess(object sender, EventArgs e)
-        {
-            HandleSendingEmailProcess();
-        }
+        #region Private Methods
+
         /// <summary>
         /// The "GetSmtpDetailsObject" method retrieves SMTP details from the UI controls and constructs a SmtpDetails object.
         /// </summary>
@@ -100,7 +88,36 @@ namespace YouChatApp.UserAuthentication.Forms
         }
 
         /// <summary>
-        /// The "HandleSendingEmailProcess" method is used to handle the process of sending an email for resetting the password.
+        /// The "SendSmtpCode" method is used to send the SMTP verification code for password reset.
+        /// </summary>
+        /// <remarks>
+        /// This method retrieves the entered SMTP code using the GetCode method from the SmtpControl.
+        /// It then sends a reset password request to the server with the entered SMTP code as the message content.
+        /// </remarks>
+        private void SendSmtpCode(object sender, EventArgs e)
+        {
+            string enteredSmtpCode = SmtpControl.GetCode();
+
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.ResetPasswordRequest_SmtpCode;
+            object messageContent = enteredSmtpCode;
+            serverCommunicator.SendMessage(messageType, messageContent);
+        }
+
+        /// <summary>
+        /// The "HandleSendingEmailProcess" method handles the requesting of an email for password reset.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The event arguments.</param>
+        /// <remarks>
+        /// This method calls the private method to handle the process of requesting an email for password reset after requesting a new SMTP code.
+        /// </remarks>
+        private void HandleSendingEmailProcess(object sender, EventArgs e)
+        {
+            HandleSendingEmailProcess();
+        }
+
+        /// <summary>
+        /// The "HandleSendingEmailProcess" method is used to handle the process of requesting an email for resetting the password.
         /// </summary>
         /// <remarks>
         /// This method retrieves the SMTP details object using the GetSmtpDetailsObject method.
@@ -113,61 +130,6 @@ namespace YouChatApp.UserAuthentication.Forms
             EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.ResetPasswordRequest_SmtpMessage;
             object messageContent = smtpDetails;
             serverCommunicator.SendMessage(messageType, messageContent);
-        }
-
-        /// <summary>
-        /// The "ResetPasswordFieldsChecker" method checks if the username field and the email address field have values.
-        /// If both fields have values, it enables the CodeSenderCustomButton; otherwise, it disables the button.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event arguments.</param>
-        private void ResetPasswordFieldsChecker(object sender, EventArgs e)
-        {
-            bool UsernameField = UsernameCustomTextBox.IsContainingValue();
-            bool EmailAddressField = EmailAddressCustomTextBox.IsContainingValue();
-
-            if ((UsernameField) && (EmailAddressField))
-            {
-                CodeSenderCustomButton.Enabled = true;
-            }
-            else
-            {
-                CodeSenderCustomButton.Enabled = false;
-            }
-        }
-
-        /// <summary>
-        /// The "UpdatePasswordFieldsChecker" method checks if all password fields have values and if the passwords match.
-        /// It also checks if the username field has a value.
-        /// If both conditions are true, it enables the PasswordReplacerCustomButton; otherwise, it disables the button.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event arguments.</param>
-        private void UpdatePasswordFieldsChecker(object sender, EventArgs e)
-        {
-            bool PasswordFields = PasswordGeneratorControl.DoesAllFieldsHaveValue() && PasswordGeneratorControl.IsSamePassword();
-            bool UsernameField = UsernameCustomTextBox.IsContainingValue();
-            if ((PasswordFields) && (UsernameField))
-            {
-                PasswordReplacerCustomButton.Enabled = true;
-            }
-            else
-            {
-                PasswordReplacerCustomButton.Enabled = false;
-            }
-        }
-
-        /// <summary>
-        /// The "HandleMatchingUsernameAndEmailAddress" method handles the case when the username and email address match during the password reset process.
-        /// </summary>
-        /// <remarks>
-        /// This method sets the reset password phase to Smtp, handles the code in the SmtpControl, and disables the CodeSenderCustomButton.
-        /// </remarks>
-        public void HandleMatchingUsernameAndEmailAddress()
-        {
-            resetPasswordPhase = EnumHandler.PasswordResetPhases_Enum.Smtp;
-            SmtpControl.HandleCode();
-            CodeSenderCustomButton.Enabled = false;
         }
 
         /// <summary>
@@ -224,6 +186,103 @@ namespace YouChatApp.UserAuthentication.Forms
             serverCommunicator.SendMessage(messageType, messageContent);
             SetPasswordGeneratorControlEnable(false);
         }
+
+        /// <summary>
+        /// The "UpdatePasswordFieldsChecker" method checks if all password fields have values and if the passwords match.
+        /// It also checks if the username field has a value.
+        /// If both conditions are true, it enables the PasswordReplacerCustomButton; otherwise, it disables the button.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
+        private void UpdatePasswordFieldsChecker(object sender, EventArgs e)
+        {
+            bool PasswordFields = PasswordGeneratorControl.DoesAllFieldsHaveValue() && PasswordGeneratorControl.IsSamePassword();
+            bool UsernameField = UsernameCustomTextBox.IsContainingValue();
+            if ((PasswordFields) && (UsernameField))
+            {
+                PasswordReplacerCustomButton.Enabled = true;
+            }
+            else
+            {
+                PasswordReplacerCustomButton.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// The "ResetPasswordFieldsChecker" method checks if the username field and the email address field have values.
+        /// If both fields have values, it enables the CodeSenderCustomButton; otherwise, it disables the button.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
+        private void ResetPasswordFieldsChecker(object sender, EventArgs e)
+        {
+            bool UsernameField = UsernameCustomTextBox.IsContainingValue();
+            bool EmailAddressField = EmailAddressCustomTextBox.IsContainingValue();
+
+            if ((UsernameField) && (EmailAddressField))
+            {
+                CodeSenderCustomButton.Enabled = true;
+            }
+            else
+            {
+                CodeSenderCustomButton.Enabled = false;
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The "HandleRecievedEmail" method is used to handle the process after receiving an email for resetting the password.
+        /// </summary>
+        /// <remarks>
+        /// This method triggers the SmtpControl to handle the code received in the email.
+        /// </remarks>
+        public void HandleRecievedEmail()
+        {
+            SmtpControl.HandleCode();
+        }
+
+        /// <summary>
+        /// The "HandleWrongCodeResponse" method is used to handle the response when the SMTP code is incorrect.
+        /// </summary>
+        /// <remarks>
+        /// This method triggers the SmtpControl to handle the case of an incorrect SMTP code.
+        /// </remarks>
+        public void HandleWrongCodeResponse()
+        {
+            SmtpControl.HandleWrongCodeCase();
+        }
+
+        /// <summary>
+        /// The "HandleCorrectCodeResponse" method is used to handle the response when the SMTP code is correct.
+        /// </summary>
+        /// <remarks>
+        /// This method enables the PasswordGeneratorControl for the user to reset the password.
+        /// It sets the resetPasswordPhase to PasswordReset to indicate that the password reset phase has started.
+        /// It also disables the SmtpControl to prevent further interaction with the SMTP verification process.
+        /// </remarks>
+        public void HandleCorrectCodeResponse()
+        {
+            PasswordGeneratorControl.Enabled = true;
+            resetPasswordPhase = EnumHandler.PasswordResetPhases_Enum.PasswordReset;
+            SmtpControl.SetDisabled();
+        }
+       
+        /// <summary>
+        /// The "HandleMatchingUsernameAndEmailAddress" method handles the case when the username and email address match during the password reset process.
+        /// </summary>
+        /// <remarks>
+        /// This method sets the reset password phase to Smtp, handles the code in the SmtpControl, and disables the CodeSenderCustomButton.
+        /// </remarks>
+        public void HandleMatchingUsernameAndEmailAddress()
+        {
+            resetPasswordPhase = EnumHandler.PasswordResetPhases_Enum.Smtp;
+            SmtpControl.HandleCode();
+            CodeSenderCustomButton.Enabled = false;
+        }
+  
         /// <summary>
         /// The "RestartDetails" method restarts the password reset process by disabling the CodeSenderCustomButton and showing a message box indicating incorrect details.
         /// </summary>
@@ -235,6 +294,7 @@ namespace YouChatApp.UserAuthentication.Forms
             CodeSenderCustomButton.Enabled = false;
             MessageBox.Show("Your details were incorrect\nPlease Check for mistakes", "Incorrect Details");
         }
+
         /// <summary>
         /// The "HandleSuccessfulPasswordRenewal" method handles a successful password renewal by resetting the password restart form, hiding the current form, and disposing of it.
         /// </summary>
@@ -260,6 +320,10 @@ namespace YouChatApp.UserAuthentication.Forms
             PasswordGeneratorControl.SetEnable(enable);
             PasswordReplacerCustomButton.Enabled = false;
         }
+
+        #endregion
+
+        #region Public Ban Handling Methods
 
         /// <summary>
         /// The "HandleBan" method handles a ban by showing the BanControl with the specified ban duration, and hiding the PasswordResetPanel.

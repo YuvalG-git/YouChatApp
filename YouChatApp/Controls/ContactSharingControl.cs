@@ -15,22 +15,54 @@ namespace YouChatApp
 {
     public partial class ContactSharingControl : UserControl
     {
-        public ContactSharingControl()
-        {
-            InitializeComponent();
-        }
+        #region Public Event Handlers
+
         public event EventHandler OnCheckBoxClickAccepted;
         public event EventHandler OnCheckBoxClickDenied;
 
-        public CircularPictureBox ProfilePicture => ProfilePictureCircularPictureBox;
+        #endregion
 
-        public System.Windows.Forms.Label ContactName => ContactNameLabel;
-
-        public System.Windows.Forms.CheckBox ContactSelection => ContactSharingCheckBox;
+        #region Private Fields
 
         private Color BorderColorProperty = Color.RoyalBlue;
         private int BorderSizeProperty = 2;
         private string ContactIdProperty = "";
+
+        #endregion
+
+        #region Constructors
+
+        public ContactSharingControl()
+        {
+            InitializeComponent();
+        }
+
+        #endregion
+
+        #region Properties
+
+        public CircularPictureBox ProfilePicture
+        {
+            get
+            {
+                return ProfilePictureCircularPictureBox;
+            }
+        }
+        public System.Windows.Forms.Label ContactName
+        {
+            get
+            {
+                return ContactNameLabel;
+            }
+        }
+        public System.Windows.Forms.CheckBox ContactSelection
+        {
+            get
+            {
+                return ContactSharingCheckBox;
+            }
+        }
+
 
         public string ContactId
         {
@@ -68,31 +100,9 @@ namespace YouChatApp
             }
         }
 
-        private void ContactSharingCheckBox_Click(object sender, EventArgs e)//todo - make sure it's not check on group creator..
-        {
+        #endregion
 
-            if (ContactSharingCheckBox.Checked)
-            {
-                if (ContactSharing.SelectedContacts >= 3)
-                {
-                    ContactSharingCheckBox.Checked = false;
-
-                }
-                else
-                {
-                    ContactSharing.SelectedContacts++;
-                    OnCheckBoxClickAccepted?.Invoke(this, e);
-
-                }
-            }
-            else
-            {
-                ContactSharing.SelectedContacts--;
-                OnCheckBoxClickDenied?.Invoke(this, e);
-
-            }
-
-        }
+        #region Override Methods
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -105,6 +115,36 @@ namespace YouChatApp
                 Graphics.DrawLine(BorderPen, this.ContactNameLabel.Location.X, this.Height - 1, this.Width, this.Height - 1);
             }
         }
+
+        #endregion
+
+        #region Private Methods
+
+        private void ContactSharingCheckBox_Click(object sender, EventArgs e)
+        {
+            if (ContactSharingCheckBox.Checked)
+            {
+                if (ContactSharing.SelectedContacts >= 3)
+                {
+                    ContactSharingCheckBox.Checked = false;
+                }
+                else
+                {
+                    ContactSharing.SelectedContacts++;
+                    OnCheckBoxClickAccepted?.Invoke(this, e);
+                }
+            }
+            else
+            {
+                ContactSharing.SelectedContacts--;
+                OnCheckBoxClickDenied?.Invoke(this, e);
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
         public void OnCheckBoxClickAcceptedHandler(EventHandler handler)
         {
             OnCheckBoxClickAccepted += handler;
@@ -114,10 +154,6 @@ namespace YouChatApp
             OnCheckBoxClickDenied += handler;
         }
 
-        private void ContactSharingCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            //OnCheckBoxCheckedChanged?.Invoke(this, e); //was problamtic because occured twice...
-
-        }
+        #endregion
     }
 }

@@ -224,7 +224,6 @@
     <Compile Include="JsonClasses\CaptchaRotationImageDetails.cs" />
     <Compile Include="JsonClasses\CaptchaRotationImages.cs" />
     <Compile Include="JsonClasses\CaptchaRotationSuccessRate.cs" />
-    <Compile Include="JsonClasses\ChatSettings.cs" />
     <Compile Include="JsonClasses\ContactAndChat.cs" />
     <Compile Include="JsonClasses\FriendRequestControlDetails.cs" />
     <Compile Include="JsonClasses\FriendRequestResponseDetails.cs" />
@@ -232,9 +231,7 @@
     <Compile Include="JsonClasses\ImageContent.cs" />
     <Compile Include="JsonClasses\JsonHandler\JsonHandler.cs" />
     <Compile Include="JsonClasses\JsonObject.cs" />
-    <Compile Include="JsonClasses\EncryptionKeys.cs" />
     <Compile Include="JsonClasses\MessageClasses\Message.cs" />
-    <Compile Include="JsonClasses\MessageClasses\MessageData.cs" />
     <Compile Include="JsonClasses\MessageClasses\MessageHistory.cs" />
     <Compile Include="JsonClasses\OfflineDetails.cs" />
     <Compile Include="JsonClasses\PasswordUpdateDetails.cs" />
@@ -318,18 +315,6 @@
     <Compile Include="Controls\CustomComboBox.Designer.cs">
       <DependentUpon>CustomComboBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CustomPictureBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\CustomPictureBox.Designer.cs">
-      <DependentUpon>CustomPictureBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CustomRichTextBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\CustomRichTextBox.Designer.cs">
-      <DependentUpon>CustomRichTextBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\CustomTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -378,7 +363,6 @@
     <Compile Include="AttachedFiles\EmojiHandler\EmojiResourceSet.cs" />
     <Compile Include="Encryption\AESServiceProvider.cs" />
     <Compile Include="Encryption\Encryption.cs" />
-    <Compile Include="Encryption\MD5.cs" />
     <Compile Include="Encryption\RSAServiceProvider.cs" />
     <Compile Include="AttachedFiles\PaintHandler\Paint.cs">
       <SubType>Form</SubType>
@@ -563,9 +547,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ContactSharingControl.resx">
       <DependentUpon>ContactSharingControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CustomRichTextBox.resx">
-      <DependentUpon>CustomRichTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CustomTextBox.resx">
       <DependentUpon>CustomTextBox.cs</DependentUpon>

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AudioCall));
             this.BackgroundPanel = new System.Windows.Forms.Panel();
             this.MicrophoneModeCustomButton = new YouChatApp.Controls.CustomButton();
             this.AudioOutputDeviceGroupBox = new System.Windows.Forms.GroupBox();
@@ -294,7 +295,9 @@
             this.Controls.Add(this.CallEnderCustomButton);
             this.Controls.Add(this.BackgroundPanel);
             this.Controls.Add(this.ContactProfilePicture);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AudioCall";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AudioCall";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AudioCall_FormClosing);
             this.BackgroundPanel.ResumeLayout(false);

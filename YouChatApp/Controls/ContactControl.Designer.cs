@@ -45,7 +45,6 @@
             this.ContactNameLabel.Size = new System.Drawing.Size(200, 22);
             this.ContactNameLabel.TabIndex = 1;
             this.ContactNameLabel.Text = "Name";
-            this.ContactNameLabel.Click += new System.EventHandler(this.ContactNameLabel_Click);
             // 
             // ContactStatusLabel
             // 

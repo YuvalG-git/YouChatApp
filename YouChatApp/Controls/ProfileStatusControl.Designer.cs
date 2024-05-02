@@ -84,7 +84,6 @@
             this.StatusMainPanel.Name = "StatusMainPanel";
             this.StatusMainPanel.Size = new System.Drawing.Size(300, 175);
             this.StatusMainPanel.TabIndex = 43;
-            this.StatusMainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.StatusMainPanel_Paint);
             // 
             // ProfileStatusCustomTextBox
             // 

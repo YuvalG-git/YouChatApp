@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Registration));
             this.BirthDateLabel = new System.Windows.Forms.Label();
             this.CityLabel = new System.Windows.Forms.Label();
             this.EmailAddressLabel = new System.Windows.Forms.Label();
@@ -39,7 +40,7 @@
             this.AnotherGenderRadioButton = new System.Windows.Forms.RadioButton();
             this.FemaleRadioButton = new System.Windows.Forms.RadioButton();
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
-            this.registLabel = new System.Windows.Forms.Label();
+            this.RegistrationLabel = new System.Windows.Forms.Label();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SmtpControl = new YouChatApp.Controls.SmtpControl();
             this.GenderLabel = new System.Windows.Forms.Label();
@@ -176,18 +177,17 @@
             this.MaleRadioButton.TabStop = true;
             this.MaleRadioButton.Text = "Male";
             this.MaleRadioButton.UseVisualStyleBackColor = true;
-            this.MaleRadioButton.CheckedChanged += new System.EventHandler(this.MaleRadioButton_CheckedChanged);
             this.MaleRadioButton.Click += new System.EventHandler(this.MaleRadioButton_Click);
             // 
-            // registLabel
+            // RegistrationLabel
             // 
-            this.registLabel.AutoSize = true;
-            this.registLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.registLabel.Location = new System.Drawing.Point(559, 12);
-            this.registLabel.Name = "registLabel";
-            this.registLabel.Size = new System.Drawing.Size(212, 43);
-            this.registLabel.TabIndex = 1;
-            this.registLabel.Text = "REGISTER";
+            this.RegistrationLabel.AutoSize = true;
+            this.RegistrationLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RegistrationLabel.Location = new System.Drawing.Point(559, 12);
+            this.RegistrationLabel.Name = "RegistrationLabel";
+            this.RegistrationLabel.Size = new System.Drawing.Size(212, 43);
+            this.RegistrationLabel.TabIndex = 1;
+            this.RegistrationLabel.Text = "REGISTER";
             // 
             // ToolTip
             // 
@@ -202,7 +202,6 @@
             this.SmtpControl.TabIndex = 78;
             this.ToolTip.SetToolTip(this.SmtpControl, "Press here if you haven\'t recieved any code to your Gmail Address");
             this.SmtpControl.Visible = false;
-            this.SmtpControl.Load += new System.EventHandler(this.SmtpControl_Load);
             // 
             // GenderLabel
             // 
@@ -322,6 +321,7 @@
             this.UsernameCustomTextBox.PlaceHolderText = "Enter Username";
             this.UsernameCustomTextBox.ReadOnly = false;
             this.UsernameCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.UsernameCustomTextBox.ShortcutsEnabled = true;
             this.UsernameCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.UsernameCustomTextBox.TabIndex = 41;
             this.UsernameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -393,7 +393,6 @@
             this.LastNameExclamationCustomButton.TextColor = System.Drawing.Color.White;
             this.LastNameExclamationCustomButton.UseVisualStyleBackColor = false;
             this.LastNameExclamationCustomButton.Visible = false;
-            this.LastNameExclamationCustomButton.Click += new System.EventHandler(this.LastNameExclamationCustomButton_Click);
             // 
             // FirstNameCustomTextBox
             // 
@@ -416,6 +415,7 @@
             this.FirstNameCustomTextBox.PlaceHolderText = "Enter First Name";
             this.FirstNameCustomTextBox.ReadOnly = false;
             this.FirstNameCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.FirstNameCustomTextBox.ShortcutsEnabled = true;
             this.FirstNameCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.FirstNameCustomTextBox.TabIndex = 56;
             this.FirstNameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -487,6 +487,7 @@
             this.LastNameCustomTextBox.PlaceHolderText = "Enter Last Name";
             this.LastNameCustomTextBox.ReadOnly = false;
             this.LastNameCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.LastNameCustomTextBox.ShortcutsEnabled = true;
             this.LastNameCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.LastNameCustomTextBox.TabIndex = 57;
             this.LastNameCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -598,6 +599,7 @@
             this.EmailAddressCustomTextBox.PlaceHolderText = "Enter Email Address";
             this.EmailAddressCustomTextBox.ReadOnly = false;
             this.EmailAddressCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.EmailAddressCustomTextBox.ShortcutsEnabled = true;
             this.EmailAddressCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.EmailAddressCustomTextBox.TabIndex = 58;
             this.EmailAddressCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -644,6 +646,7 @@
             this.CityCustomTextBox.PlaceHolderText = "Enter City";
             this.CityCustomTextBox.ReadOnly = false;
             this.CityCustomTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.CityCustomTextBox.ShortcutsEnabled = true;
             this.CityCustomTextBox.Size = new System.Drawing.Size(228, 33);
             this.CityCustomTextBox.TabIndex = 59;
             this.CityCustomTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -707,7 +710,6 @@
             this.PersonalVerificationQuestionsControl.Size = new System.Drawing.Size(400, 440);
             this.PersonalVerificationQuestionsControl.TabIndex = 74;
             this.PersonalVerificationQuestionsControl.Visible = false;
-            this.PersonalVerificationQuestionsControl.Load += new System.EventHandler(this.PersonalVerificationQuestionsControl_Load);
             // 
             // LoginReturnerCustomButton
             // 
@@ -751,9 +753,11 @@
             this.Controls.Add(this.SmtpControl);
             this.Controls.Add(this.UserDetailsPanel);
             this.Controls.Add(this.PersonalVerificationQuestionsControl);
-            this.Controls.Add(this.registLabel);
+            this.Controls.Add(this.RegistrationLabel);
             this.Controls.Add(this.LoginReturnerCustomButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Registration";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registration";
             this.Load += new System.EventHandler(this.Registration_Load);
             this.UserDetailsPanel.ResumeLayout(false);
@@ -768,7 +772,7 @@
         private System.Windows.Forms.RadioButton AnotherGenderRadioButton;
         private System.Windows.Forms.RadioButton FemaleRadioButton;
         private System.Windows.Forms.RadioButton MaleRadioButton;
-        public System.Windows.Forms.Label registLabel;
+        public System.Windows.Forms.Label RegistrationLabel;
         private Controls.CustomTextBox UsernameCustomTextBox;
         private Controls.CustomButton LoginReturnerCustomButton;
         private System.Windows.Forms.Label UsernameLabel;

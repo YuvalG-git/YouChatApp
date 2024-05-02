@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PasswordRestart));
             this.ResetPasswordLabel = new System.Windows.Forms.Label();
             this.UsernameLabel = new System.Windows.Forms.Label();
             this.EmailAddressLabel = new System.Windows.Forms.Label();
@@ -46,10 +47,10 @@
             // ResetPasswordLabel
             // 
             this.ResetPasswordLabel.AutoSize = true;
-            this.ResetPasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResetPasswordLabel.Location = new System.Drawing.Point(101, 26);
+            this.ResetPasswordLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetPasswordLabel.Location = new System.Drawing.Point(87, 26);
             this.ResetPasswordLabel.Name = "ResetPasswordLabel";
-            this.ResetPasswordLabel.Size = new System.Drawing.Size(270, 31);
+            this.ResetPasswordLabel.Size = new System.Drawing.Size(373, 43);
             this.ResetPasswordLabel.TabIndex = 1;
             this.ResetPasswordLabel.Text = "RESET PASSWORD";
             // 
@@ -106,7 +107,6 @@
             this.PasswordGeneratorControl.PasswordExclamationVisible = true;
             this.PasswordGeneratorControl.Size = new System.Drawing.Size(335, 135);
             this.PasswordGeneratorControl.TabIndex = 36;
-            this.PasswordGeneratorControl.Load += new System.EventHandler(this.PasswordGeneratorControl_Load);
             // 
             // CodeSenderCustomButton
             // 
@@ -230,7 +230,7 @@
             this.PasswordResetPanel.Controls.Add(this.EmailAddressLabel);
             this.PasswordResetPanel.Location = new System.Drawing.Point(51, 1);
             this.PasswordResetPanel.Name = "PasswordResetPanel";
-            this.PasswordResetPanel.Size = new System.Drawing.Size(426, 661);
+            this.PasswordResetPanel.Size = new System.Drawing.Size(467, 661);
             this.PasswordResetPanel.TabIndex = 61;
             // 
             // BanControl
@@ -249,7 +249,9 @@
             this.ClientSize = new System.Drawing.Size(955, 655);
             this.Controls.Add(this.BanControl);
             this.Controls.Add(this.PasswordResetPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PasswordRestart";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PasswordReset";
             this.PasswordResetPanel.ResumeLayout(false);
             this.PasswordResetPanel.PerformLayout();

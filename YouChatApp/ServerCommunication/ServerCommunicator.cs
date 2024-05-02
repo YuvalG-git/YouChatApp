@@ -30,36 +30,140 @@ using Image = System.Drawing.Image;
 
 namespace YouChatApp
 {
+    /// <summary>
+    /// The "ServerCommunicator" class is responsible for the server communication.
+    /// </summary>
     public class ServerCommunicator
     {
-        private const string FailedRegistrationResponse = "Your registeration has failed \nPlease try changing the information provided again";
-        private const string FailedLoginResponse = "The login has failed \nYou probably wrote the wrong username or password \nIn case you don't have an account yet, please sign up";
-        private const string PasswordRenewalMessage_UnmatchedDetails = "Your past details aren't matching";
+        #region Private Message Const Fields
+
+        /// <summary>
+        /// The constant string "FailedRegistrationResponse" represents the response message for a failed registration attempt.
+        /// </summary>
+        private const string FailedRegistrationResponse = "Your registration has failed. Please try changing the information provided again.";
+
+        /// <summary>
+        /// The constant string "FailedLoginResponse" represents the response message for a failed login attempt.
+        /// </summary>
+        private const string FailedLoginResponse = "The login has failed. You probably wrote the wrong username or password. In case you don't have an account yet, please sign up.";
+
+        /// <summary>
+        /// The constant string "PasswordRenewalMessage_UnmatchedDetails" represents the message for unmatched details during a password renewal process.
+        /// </summary>
+        private const string PasswordRenewalMessage_UnmatchedDetails = "Your past details aren't matching.";
+
+        /// <summary>
+        /// The constant string "FailedCallRequest" represents the message for a failed call request.
+        /// </summary>
         private const string FailedCallRequest = "The user is currently offline or in another call. Please try again later.";
 
-        private bool isKeyExchangeInProgress = false;
-        private Queue<MessageState> messageQueue = new Queue<MessageState>();
+        #endregion
 
+        #region Private Communication Fields
+
+        /// <summary>
+        /// The TcpClient "Client" represents the TCP client.
+        /// </summary>
         private TcpClient Client;
 
+        /// <summary>
+        /// The byte[] "Data" represents the data.
+        /// </summary>
         private byte[] Data;
+
+        /// <summary>
+        /// The byte[] "dataHistory" represents the data history.
+        /// </summary>
         private byte[] dataHistory;
 
+        #endregion
+
+        #region Private Encryption Fields
+
+        /// <summary>
+        /// The RSAServiceProvider "Rsa" represents the RSA service provider.
+        /// </summary>
         private RSAServiceProvider Rsa;
+
+        /// <summary>
+        /// The string "ServerPublicKey" represents the server's public key.
+        /// </summary>
         private string ServerPublicKey;
+
+        /// <summary>
+        /// The string "PrivateKey" represents the private key.
+        /// </summary>
         private string PrivateKey;
 
-        public string SymmetricKey;
+        /// <summary>
+        /// The string "SymmetricKey" represents the symmetric key.
+        /// </summary>
+        private string SymmetricKey;
 
+        #endregion
 
+        #region Private Fields
+
+        /// <summary>
+        /// The boolean "isKeyExchangeInProgress" indicates whether a key exchange is in progress.
+        /// </summary>
+        private bool isKeyExchangeInProgress = false;
+
+        /// <summary>
+        /// The Queue<MessageState> "messageQueue" represents the queue of message states.
+        /// </summary>
+        private Queue<MessageState> messageQueue = new Queue<MessageState>();
+
+        /// <summary>
+        /// The boolean "isConnected" indicates whether the client is connected.
+        /// </summary>
         private bool isConnected;
 
-
-
-        private static string serverIp = "10.100.102.3";
-
+        /// <summary>
+        /// The static ServerCommunicator "_instance" represents the instance of the server communicator.
+        /// </summary>
         private static ServerCommunicator _instance;
 
+        #endregion
+
+        #region Private Const Fields
+
+        /// <summary>
+        /// The static string "serverIp" represents the server's IP address.
+        /// </summary>
+        private const string serverIp = "10.100.102.3";
+
+        /// <summary>
+        /// The static int "serverPort" represents the server's port.
+        /// </summary>
+        private const int serverPort = 1500;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// The <see cref="ServerCommunicator"/> private constructor initializes a new instance of the ServerCommunicator class and connects to the server.
+        /// </summary>
+        /// <remarks>
+        /// This constructor is used internally to create a new ServerCommunicator instance and establish a connection to the server.
+        /// </remarks>
+        private ServerCommunicator()
+        {
+            Connect();
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The "Instance" property represents the singleton instance of the ServerCommunicator class.
+        /// It gets the singleton instance, creating a new instance if it does not already exist.
+        /// </summary>
+        /// <value>
+        /// The singleton instance of the ServerCommunicator class.
+        /// </value>
         public static ServerCommunicator Instance
         {
             get
@@ -72,26 +176,27 @@ namespace YouChatApp
             }
         }
 
-        private ServerCommunicator()
-        {
-            Connect(serverIp);
-        }
+        #endregion
+
+        #region Private Communictation Methods
 
         /// <summary>
-        /// The Connect method attempts to establish a TCP/IP connection with a server using the provided IP addressand port: 1500
-        /// If the connection attempt fails, a MessageBox is displayed to the user
-        /// This method also creates a byte array to hold incoming data and begins an asynchronous read operation on the client's NetworkStream using the BeginRead method
-        /// The Connect method attempts to establish a TCP/IP connection with a server using the provided IP address
+        /// The "Connect" method attempts to connect to a server at the specified IP address.
         /// </summary>
-        /// <param name="ip">Represents the ip address of the server to connect to</param>
-        /// <returns>It returns true if the connection is successful. Otherwise, it returns false</returns>
-        private bool Connect(string ip)
+        /// <returns>True if the connection was successful, otherwise false.</returns>
+        /// <remarks>
+        /// This method creates a new TcpClient instance and attempts to connect to the server at the server IP and port.
+        /// If the connection attempt fails, a message box is displayed to inform the user.
+        /// If the connection is successful, the method sets the "isConnected" flag to true and calls the "HandleKeys" method.
+        /// It then initializes the "Data" array with the size of the client's receive buffer and begins an asynchronous read operation on the network stream.
+        /// The method returns true if the connection was successful, otherwise false.
+        /// </remarks>
+        private bool Connect()
         {
             Client = new TcpClient();
-
             try
             {
-                Client.Connect(ip, 1500);
+                Client.Connect(serverIp, serverPort);
 
             }
             catch
@@ -102,7 +207,6 @@ namespace YouChatApp
                 return false;
             isConnected = true;
             HandleKeys();
-
             Data = new byte[Client.ReceiveBufferSize];
             // BeginRead will begin async read from the NetworkStream
             // This allows the server to remain responsive and continue accepting new connections from other clients
@@ -111,20 +215,15 @@ namespace YouChatApp
             dataHistory = new byte[0];
             return true;
         }
-        private void HandleKeys()
-        {
-            Rsa = new RSAServiceProvider();
-            PrivateKey = Rsa.GetPrivateKey();
-            string clientPublicKey = Rsa.GetPublicKey();
 
-            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.EncryptionClientPublicKeySender;
-            object messageContent = clientPublicKey;
-            SendMessage(messageType, messageContent, false);
-            isKeyExchangeInProgress = true;
-        }
-
-
-
+        /// <summary>
+        /// The "ReceiveMessageLength" method handles the reception of the message length from the server.
+        /// </summary>
+        /// <param name="ar">The result of the asynchronous operation.</param>
+        /// <remarks>
+        /// This method is called when the client receives the length of the message from the server. It reads the length of the message
+        /// from the server's stream and prepares to receive the actual message by calling the "ReceiveMessage" method.
+        /// </remarks>
         private void ReceiveMessageLength(IAsyncResult ar)
         {
             if (Client != null && Client.Connected)
@@ -172,10 +271,23 @@ namespace YouChatApp
                 }
             }
         }
+
         /// <summary>
-        /// The ReceiveMessage method recieves and handles the incomming stream
+        /// The "ReceiveMessage" method handles the reception of messages from the server.
         /// </summary>
-        /// <param name="ar">IAsyncResult Interface</param>
+        /// <param name="ar">The result of the asynchronous operation.</param>
+        /// <remarks>
+        /// This method is called when an asynchronous read operation completes.
+        /// This method is called when the client receives a message from the server. It first checks if the client is still connected
+        /// and reads the number of bytes received from the server.
+        /// If the number of bytes read is less than 1, it indicates that the server has disconnected, and the client is notified.
+        /// The method then calls the "Disconnect" method to close the connection. It reads the message from the server's stream,
+        /// decrypts it if necessary, and processes it based on its type. It then reads the message length and creates a new byte
+        /// array to hold the combined data. The method continues to read from the server's stream until it has received the entire message.
+        /// It decrypts the message if it is an encrypted message and then deserializes it into a JsonObject. Based on the message type,
+        /// the method calls the appropriate handler method to process the message. Finally, the method resets the dataHistory array and
+        /// prepares to receive the next message length from the server.
+        /// </remarks>
         private void ReceiveMessage(IAsyncResult ar)
         {
             if (Client != null && Client.Connected)
@@ -493,299 +605,18 @@ namespace YouChatApp
                 }
             }
         }
-        
-        private void HandleUpdateProfilePictureResponse_SenderEnum(JsonObject jsonObject)
-        {
-            string profilePictureId = jsonObject.MessageBody as string;
-            ProfileDetailsHandler.ProfilePictureId = profilePictureId;
-            ProfileDetailsHandler.ProfilePicture = ProfilePictureImageList.GetImageByImageId(ProfileDetailsHandler.ProfilePictureId);
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleProfilePictureChange(ProfileDetailsHandler.Name, profilePictureId); });
-        }
-        private void HandleUpdateProfileStatusResponse_SenderEnum(JsonObject jsonObject)
-        {
-            string status = jsonObject.MessageBody as string;
-            ProfileDetailsHandler.Status = status;
-        }
-        private void HandleUdpVideoConnectionResponseEnum(JsonObject jsonObject)
-        {
-            UdpDetails udpDetails = jsonObject.MessageBody as UdpDetails;
-            string encryptedUdpAudioSymmetricKey = udpDetails.FieldNumber1;
-            string encryptedUdpVideoSymmetricKey = udpDetails.FieldNumber2;
-            string audioSymmetricKey = Rsa.Decrypt(encryptedUdpAudioSymmetricKey, PrivateKey);
-            string videoSymmetricKey = Rsa.Decrypt(encryptedUdpVideoSymmetricKey, PrivateKey);
-            AudioServerCommunication.symmetricKey = audioSymmetricKey;
-            VideoServerCommunication.symmetricKey = videoSymmetricKey;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenVideoCall(); });
-        }
-        private void HandleUdpAudioConnectionResponseEnum(JsonObject jsonObject)
-        {
-            string EncryptedUdpSymmetricKey = jsonObject.MessageBody as string;
-            string symmetricKey = Rsa.Decrypt(EncryptedUdpSymmetricKey, PrivateKey);
-            AudioServerCommunication.symmetricKey = symmetricKey;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenAudioCall(); });
-        }
-        private void HandlePastFriendRequestsResponseEnum(JsonObject jsonObject)
-        {
-            PastFriendRequests pastFriendRequests = jsonObject.MessageBody as PastFriendRequests;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetListOfFriendRequestControl(pastFriendRequests); });
-        }
-        private void HandleLoginBanStartEnum(JsonObject jsonObject)
-        {
-            double banDuration = (double)jsonObject.MessageBody;
-            FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleBan(banDuration); });
-        }
-        private void HandleUserDetailsResponseEnum(JsonObject jsonObject)
-        {
-            UserDetails userDetails = jsonObject.MessageBody as UserDetails;
-            ProfileDetailsHandler.Name = userDetails.Username;
-            ProfileDetailsHandler.ProfilePictureId = userDetails.ProfilePicture;
-            ProfileDetailsHandler.ProfilePicture = ProfilePictureImageList.GetImageByImageId(ProfileDetailsHandler.ProfilePictureId);//returns the wrong image for some reason                                                                                                                                           //a soultion might be a object and not a static class...
-            ProfileDetailsHandler.Status = userDetails.ProfileStatus;
-            ProfileDetailsHandler.TagLine = userDetails.TagLineId;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetProfilePicture(); });
-        }
-        private void HandleLoginResponse_SuccessfulSmtpLoginCodeEnum(JsonObject jsonObject)
-        {
-            ImageContent captchaCodeImageContent = jsonObject.MessageBody as ImageContent;
-            byte[] captchaCodeImageBytes = captchaCodeImageContent.ImageBytes;
-            Image captchaCodeImage = ConvertHandler.ConvertBytesToImage(captchaCodeImageBytes);
-            FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleCorrectCodeResponse(captchaCodeImage); });
-        }
-        private void HandleEncryptionSymmetricKeyRecieverEnum(JsonObject jsonObject)
-        {
-            string EncryptedSymmetricKeyReciever = jsonObject.MessageBody as string;
-            SymmetricKey = Rsa.Decrypt(EncryptedSymmetricKeyReciever, PrivateKey);
-            isKeyExchangeInProgress = false;
-            SendQueuedMessages();
-        }
-        private void HandleUpdateProfilePictureResponse_ChatUserRecieverEnum(JsonObject jsonObject)
-        {
-            ProfilePictureUpdate profilePictureUpdate = jsonObject.MessageBody as ProfilePictureUpdate;
-            string username = profilePictureUpdate.Username;
-            string profilePictureId = profilePictureUpdate.ProfilePictureId;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleProfilePictureChange(username, profilePictureId); });
-        }
-        private void HandleUpdateProfilePictureResponse_ContactRecieverEnum(JsonObject jsonObject)
-        {
-            ProfilePictureUpdate profilePictureUpdate = jsonObject.MessageBody as ProfilePictureUpdate;
-            string username = profilePictureUpdate.Username;
-            string profilePictureId = profilePictureUpdate.ProfilePictureId;
-            Contact contact = ContactManager.GetContact(username);
-            contact.ProfilePicture = ProfilePictureImageList.GetImageByImageId(profilePictureId);
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.ChangeUserProfilePicture(username, profilePictureId, contact.ProfilePicture); });
-        }
-        private void HandleOfflineUpdateEnum(JsonObject jsonObject)
-        {
-            OfflineDetails offlineDetails = jsonObject.MessageBody as OfflineDetails;
-            string username = offlineDetails.Username;
-            DateTime lastSeenTime = offlineDetails.LastSeenTime;
-            Contact contact = ContactManager.GetContact(username);
-            contact.Online = false;
-            contact.LastSeenTime = lastSeenTime;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetChatOnline(username, false, lastSeenTime); });
 
-        }
-        private void HandleUpdateProfileStatusResponse_RecieverEnum(JsonObject jsonObject)
-        {
-            StatusUpdate statusUpdate = jsonObject.MessageBody as StatusUpdate;
-            string username = statusUpdate.username;
-            string status = statusUpdate.Status;
-            Contact contact = ContactManager.GetContact(username);
-            contact.Status = status;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.ChangeUserStatus(username, status); });
-        }
-        private void HandleOnlineUpdateEnum(JsonObject jsonObject)
-        {
-            string userToBecomeOnlineName = jsonObject.MessageBody as string;
-            Contact contact = ContactManager.GetContact(userToBecomeOnlineName);
-            contact.Online = true;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetChatOnline(userToBecomeOnlineName,true); });
-        }
-        private void HandleMessageHistoryResponseEnum(JsonObject jsonObject)
-        {
-            MessageHistory messageHistory = jsonObject.MessageBody as MessageHistory;
-            List<JsonClasses.Message> messages = messageHistory.Messages;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleMessageHistory(messages); });
-        }
-        private void HandleSuccessfulAudioCallResponse_RecieverEnum(JsonObject jsonObject)
-        {
-            string[] details = GetFriendName(jsonObject);
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenCallInvitation(details[0], details[1],false); });
-        }
-        private void HandleSuccessfulVideoCallResponse_RecieverEnum(JsonObject jsonObject)
-        {
-            string[] details = GetFriendName(jsonObject);
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenCallInvitation(details[0], details[1],true); });
-        }
-        private void HandleVideoCallAcceptanceResponseEnum(JsonObject jsonObject)
-        {
-            string[] details = GetFriendName(jsonObject);
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.StartVideoUdpConnection(details[0], details[1]); });
-        }
-        private void HandleAudioCallAcceptanceResponseEnum(JsonObject jsonObject)
-        {
-            string[] details = GetFriendName(jsonObject);
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.StartAudioUdpConnection(details[0], details[1]); });
-        }
-
-        private string[] GetFriendName(JsonObject jsonObject)
-        {
-            string chatId = jsonObject.MessageBody as string;
-            ChatDetails chatDetails = ChatManager.GetChat(chatId);
-            DirectChat directChat = (DirectChat)chatDetails;
-            string friendName = directChat.GetContactName();
-            return new string[] { chatId, friendName};
-        }
-        private void HandleDeleteMessageResponseEnum(JsonObject jsonObject)
-        {
-            JsonClasses.Message message = jsonObject.MessageBody as JsonClasses.Message;
-            string messageSenderName = message.MessageSenderName;
-            string chatId = message.ChatId;
-            DateTime messageDateTime = message.MessageDateAndTime;
-            object messageContent = message.MessageContent;
-            string content = "";
-            if (messageContent is string textMessageContent)
-            {
-                content = textMessageContent;
-            }
-            else if (messageContent is ImageContent imageMessageContent)
-            {
-                content = "Image";
-            }
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleDeletedMessage(messageSenderName, chatId, messageDateTime, content); });
-        }
-        private void HandleSendMessageResponseEnum(JsonObject jsonObject)
-        {
-            JsonClasses.Message message = jsonObject.MessageBody as JsonClasses.Message;
-            string messageSenderName = message.MessageSenderName;
-            string chatId = message.ChatId;
-            DateTime messageDateTime = message.MessageDateAndTime;
-            object messageContent = message.MessageContent;
-            if (messageContent is string textMessageContent)
-            {
-                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleMessagesByOthers(messageSenderName, chatId, messageDateTime, textMessageContent); });
-
-            }
-            else if (messageContent is ImageContent imageMessageContent)
-            {
-                byte[] imageMessageContentByteArray = imageMessageContent.ImageBytes;
-                Image imageMessage = ConvertHandler.ConvertBytesToImage(imageMessageContentByteArray);
-                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleImageMessagesByOthers(messageSenderName, chatId, messageDateTime, imageMessage); });
-            }
-        }
-        private void HandleGroupCreatorResponseEnum(JsonObject jsonObject)
-        {
-            GroupChatDetails groupChatDetails = jsonObject.MessageBody as GroupChatDetails;
-            ChatManager.AddChat(groupChatDetails);
-            string chatId = groupChatDetails.ChatTagLineId;
-            ChatDetails chat = ChatManager.GetChat(chatId);
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleNewGroupChatCreation(chat); });
-        }
-        private void HandleFriendRequestRecieverEnum(JsonObject jsonObject)
-        {
-            PastFriendRequest pastFriendRequest = jsonObject.MessageBody as PastFriendRequest;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleNewFriendRequest(pastFriendRequest); });
-        }
-        private void HandleChatInformationResponseEnum(JsonObject jsonObject)
-        {
-            Chats chats = jsonObject.MessageBody as Chats;
-            List<ChatDetails> chatDetailsList = chats.ChatList;
-            foreach (ChatDetails chatDetails in chatDetailsList)
-            {
-                ChatManager.AddChat(chatDetails);
-            }
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetChatControlListOfContacts(); });
-        }
-        private void HandleContactInformationResponseEnum(JsonObject jsonObject)
-        {
-            Contacts contacts = jsonObject.MessageBody as Contacts;
-            List<ContactDetails> contactDetailsList = contacts.ContactList;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetContactControlList(contactDetailsList); });
-            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.ChatInformationRequest;
-            object messageContent = null;
-            SendMessage(messageType, messageContent);
-        }
-        private void HandleFriendRequestResponseRecieverEnum(JsonObject jsonObject)
-        {
-            ContactAndChat contactAndChat = jsonObject.MessageBody as ContactAndChat;
-            ContactDetails contactDetails = contactAndChat.ContactDetails;
-            Contact contact = new Contact(contactDetails);
-            ContactManager.AddContact(contact);
-            ChatDetails chatDetails = contactAndChat.Chat;
-            ChatManager.AddChat(chatDetails);
-            string chatId = chatDetails.ChatTagLineId;
-            ChatDetails chat = ChatManager.GetChat(chatId);
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleSuccessfulFriendRequest(contact, chat); });
-        }
-        private void HandleResetPasswordBanStartEnum(JsonObject jsonObject)
-        {
-            double banDuration = (double)jsonObject.MessageBody;
-            FormHandler._passwordRestart.Invoke((Action)delegate { FormHandler._passwordRestart.HandleBan(banDuration); });
-        }
-        private void HandleResetPasswordBanFinishEnum(JsonObject jsonObject)
-        {
-            FormHandler._passwordRestart.Invoke((Action)delegate { FormHandler._passwordRestart.HandleBanOver(); });
-        }
-        private void HandlePasswordUpdateBanStartEnum(JsonObject jsonObject)
-        {
-            double banDuration = (double)jsonObject.MessageBody;
-            FormHandler._passwordUpdate.Invoke((Action)delegate { FormHandler._passwordUpdate.HandleBan(banDuration); });
-        }
-        private void HandleRegistrationBanStartEnum(JsonObject jsonObject)
-        {
-            double banDuration = (double)jsonObject.MessageBody;
-            FormHandler._registration.Invoke((Action)delegate { FormHandler._registration.HandleBan(banDuration); });
-        }
-        private void HandleCaptchaImageAngleResponseEnum(JsonObject jsonObject)
-        {
-            CaptchaRotationImageDetails captchaRotationImageDetails = jsonObject.MessageBody as CaptchaRotationImageDetails;
-            object[] values = HandleCaptchaRotationImageDetailsArrival(captchaRotationImageDetails);
-            FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleCorrectCaptchaCode((Image)values[2], (Image)values[3], (int)values[0], (int)values[1]); });
-        }
-        private object[] HandleCaptchaRotationImageDetailsArrival(CaptchaRotationImageDetails captchaRotationImageDetails)
-        {
-            CaptchaRotationImages captchaRotationImages = captchaRotationImageDetails.CaptchaRotationImages;
-            CaptchaRotationSuccessRate captchaRotationSuccessRate = captchaRotationImageDetails.CaptchaRotationSuccessRate;
-            int score = captchaRotationSuccessRate.Score;
-            int attempts = captchaRotationSuccessRate.Attempts;
-            ImageContent captchaCircularImageContent = captchaRotationImages.RotatedImage;
-            ImageContent captchaImageContent = captchaRotationImages.BackgroundImage;
-            byte[] captchaCircularImageBytes = captchaCircularImageContent.ImageBytes;
-            byte[] captchaImageBytes = captchaImageContent.ImageBytes;
-            Image captchaCircularImage = ConvertHandler.ConvertBytesToImage(captchaCircularImageBytes);
-            Image captchaImage = ConvertHandler.ConvertBytesToImage(captchaImageBytes);
-            object[] values = { score, attempts, captchaCircularImage, captchaImage };
-            return values;
-        }
-        private void HandleLoginBanFinishEnum(JsonObject jsonObject)
-        {
-            if (jsonObject.MessageBody == null)
-            {
-                FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleBanOver(); });
-            }
-            else if (jsonObject.MessageBody is CaptchaRotationImageDetails captchaRotationImageDetails)
-            {
-                object[] values = HandleCaptchaRotationImageDetailsArrival(captchaRotationImageDetails);
-                FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleBanOver((Image)values[2], (Image)values[3], (int)values[0], (int)values[1]); });
-            }
-        }
-
-        private void HandleCaptchaImageResponseEnum(JsonObject jsonObject)
-        {
-            ImageContent captchaCodeImageContent = jsonObject.MessageBody as ImageContent;
-            byte[] captchaCodeImageBytes = captchaCodeImageContent.ImageBytes;
-            Image captchaCodeImage = ConvertHandler.ConvertBytesToImage(captchaCodeImageBytes);
-            FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleCaptchaImageRenewal(captchaCodeImage); });
-        }
-        private void HandleSuccessfulCaptchaImageAngleResponseEnum(JsonObject jsonObject)
-        {
-            PersonalVerificationQuestionDetails verificationQuestionDetails = jsonObject.MessageBody as PersonalVerificationQuestionDetails;
-            PersonalVerificationQuestions personalVerificationQuestions = verificationQuestionDetails.PersonalVerificationQuestions;
-            CaptchaRotationSuccessRate captchaRotationSuccessRate = verificationQuestionDetails.CaptchaRotationSuccessRate;
-            int score = captchaRotationSuccessRate.Score;
-            int attempts = captchaRotationSuccessRate.Attempts;
-            FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleSuccessfulCaptchaImageAngleResponse(personalVerificationQuestions, score,attempts); });
-        }
+        /// <summary>
+        /// The "HandleSendMessage" method sends a JSON message to the server, optionally encrypting it.
+        /// </summary>
+        /// <param name="jsonMessage">The JSON message to send.</param>
+        /// <param name="needEncryption">A boolean value indicating whether the message needs to be encrypted.</param>
+        /// <remarks>
+        /// This method is responsible for sending messages to the server. It first checks if the client is connected and if encryption is needed.
+        /// If encryption is required, it encrypts the message using the symmetric key. It then constructs the final message byte array
+        /// with a signal byte indicating encryption, copies the message bytes to the array, and sends it to the server using the network stream.
+        /// The method handles messages that exceed the buffer size by splitting them into smaller messages.
+        /// </remarks>
         private void HandleSendMessage(string jsonMessage, bool needEncryption)
         {
             if (Client != null && Client.Connected & isConnected)
@@ -859,20 +690,13 @@ namespace YouChatApp
             }
         }
 
-        public void SendMessage(EnumHandler.CommunicationMessageID_Enum messageType, object messageContent, bool needEncryption = true)
-        {
-            string jsonMessage = JsonClasses.JsonHandler.JsonHandler.GetJsonStringFromJsonData(messageType, messageContent);
-            if (isKeyExchangeInProgress)
-            {
-                // Queue the message for sending after the key exchange process is over
-                MessageState messageState = new MessageState(jsonMessage, needEncryption);
-                messageQueue.Enqueue(messageState);
-                return;
-            }
-            HandleSendMessage(jsonMessage, needEncryption);
-        }
-
-       
+        /// <summary>
+        /// The "SendQueuedMessages" method sends all queued messages to the server.
+        /// </summary>
+        /// <remarks>
+        /// This method dequeues messages from the message queue and sends them to the server using the "HandleSendMessage" method.
+        /// It continues this process until the message queue is empty.
+        /// </remarks>
         private void SendQueuedMessages()
         {
             MessageState messageState;
@@ -887,10 +711,690 @@ namespace YouChatApp
             }
         }
 
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
-        /// The Disconnect method disconnects the client from the server
+        /// The "HandleKeys" method handles the key exchange process between the client and the server.
         /// </summary>
+        /// <remarks>
+        /// This method generates a new RSA key pair for the client and sends the public key to the server.
+        /// The method sets a flag to indicate that the key exchange process is in progress.
+        /// </remarks>
+        private void HandleKeys()
+        {
+            Rsa = new RSAServiceProvider();
+            PrivateKey = Rsa.GetPrivateKey();
+            string clientPublicKey = Rsa.GetPublicKey();
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.EncryptionClientPublicKeySender;
+            object messageContent = clientPublicKey;
+            SendMessage(messageType, messageContent, false);
+            isKeyExchangeInProgress = true;
+        }
+
+        /// <summary>
+        /// The "HandleUpdateProfilePictureResponse_SenderEnum" method handles the response from the server after requesting to update the profile picture.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the response from the server.</param>
+        /// <remarks>
+        /// This method extracts the profile picture ID from the message body of the JSON object.
+        /// It updates the local profile picture ID and retrieves the new profile picture image.
+        /// Finally, it invokes a method on the main application form to handle the profile picture change visually.
+        /// </remarks>
+        private void HandleUpdateProfilePictureResponse_SenderEnum(JsonObject jsonObject)
+        {
+            string profilePictureId = jsonObject.MessageBody as string;
+            ProfileDetailsHandler.ProfilePictureId = profilePictureId;
+            ProfileDetailsHandler.ProfilePicture = ProfilePictureImageList.GetImageByImageId(ProfileDetailsHandler.ProfilePictureId);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleProfilePictureChange(ProfileDetailsHandler.Name, profilePictureId); });
+        }
+
+        /// <summary>
+        /// The "HandleUpdateProfileStatusResponse_SenderEnum" method handles the response from the server after requesting to update the profile status.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the response from the server.</param>
+        /// <remarks>
+        /// This method extracts the new profile status from the message body of the JSON object and updates the local profile status.
+        /// </remarks>
+        private void HandleUpdateProfileStatusResponse_SenderEnum(JsonObject jsonObject)
+        {
+            string status = jsonObject.MessageBody as string;
+            ProfileDetailsHandler.Status = status;
+        }
+
+        /// <summary>
+        /// The "HandleUdpVideoConnectionResponseEnum" method handles the response from the server for establishing a UDP video connection.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the response from the server.</param>
+        /// <remarks>
+        /// This method extracts the UDP details from the message body of the JSON object, decrypts the UDP audio and video symmetric keys, 
+        /// and sets the symmetric keys for audio and video communication. It then invokes the opening of a video call in the UI.
+        /// </remarks>
+        private void HandleUdpVideoConnectionResponseEnum(JsonObject jsonObject)
+        {
+            UdpDetails udpDetails = jsonObject.MessageBody as UdpDetails;
+            string encryptedUdpAudioSymmetricKey = udpDetails.FieldNumber1;
+            string encryptedUdpVideoSymmetricKey = udpDetails.FieldNumber2;
+            string audioSymmetricKey = Rsa.Decrypt(encryptedUdpAudioSymmetricKey, PrivateKey);
+            string videoSymmetricKey = Rsa.Decrypt(encryptedUdpVideoSymmetricKey, PrivateKey);
+            AudioServerCommunication.symmetricKey = audioSymmetricKey;
+            VideoServerCommunication.symmetricKey = videoSymmetricKey;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenVideoCall(); });
+        }
+
+        /// <summary>
+        /// The "HandleUdpAudioConnectionResponseEnum" method handles the response from the server for establishing a UDP audio connection.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the response from the server.</param>
+        /// <remarks>
+        /// This method extracts the encrypted UDP symmetric key from the message body of the JSON object, decrypts it using the private key, 
+        /// and sets the symmetric key for audio communication. It then invokes the opening of an audio call in the UI.
+        /// </remarks>
+        private void HandleUdpAudioConnectionResponseEnum(JsonObject jsonObject)
+        {
+            string EncryptedUdpSymmetricKey = jsonObject.MessageBody as string;
+            string symmetricKey = Rsa.Decrypt(EncryptedUdpSymmetricKey, PrivateKey);
+            AudioServerCommunication.symmetricKey = symmetricKey;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenAudioCall(); });
+        }
+
+        /// <summary>
+        /// The "HandlePastFriendRequestsResponseEnum" method handles the response from the server containing past friend requests.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the response from the server.</param>
+        /// <remarks>
+        /// This method extracts the past friend requests from the message body of the JSON object and sets the list of friend request controls in the UI.
+        /// </remarks>
+        private void HandlePastFriendRequestsResponseEnum(JsonObject jsonObject)
+        {
+            PastFriendRequests pastFriendRequests = jsonObject.MessageBody as PastFriendRequests;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetListOfFriendRequestControl(pastFriendRequests); });
+        }
+
+        /// <summary>
+        /// The "HandleLoginBanStartEnum" method handles the start of a login ban received from the server.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the ban duration.</param>
+        /// <remarks>
+        /// This method extracts the ban duration from the message body of the JSON object and invokes the UI method to handle the ban.
+        /// </remarks>
+        private void HandleLoginBanStartEnum(JsonObject jsonObject)
+        {
+            double banDuration = (double)jsonObject.MessageBody;
+            FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleBan(banDuration); });
+        }
+
+        /// <summary>
+        /// The "HandleUserDetailsResponseEnum" method handles the user details response received from the server.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the user details.</param>
+        /// <remarks>
+        /// This method extracts the user details from the message body of the JSON object and updates the local profile details accordingly.
+        /// It then invokes the UI method to set the profile picture.
+        /// </remarks>
+        private void HandleUserDetailsResponseEnum(JsonObject jsonObject)
+        {
+            UserDetails userDetails = jsonObject.MessageBody as UserDetails;
+            ProfileDetailsHandler.Name = userDetails.Username;
+            ProfileDetailsHandler.ProfilePictureId = userDetails.ProfilePicture;
+            ProfileDetailsHandler.ProfilePicture = ProfilePictureImageList.GetImageByImageId(ProfileDetailsHandler.ProfilePictureId);
+            ProfileDetailsHandler.Status = userDetails.ProfileStatus;
+            ProfileDetailsHandler.TagLine = userDetails.TagLineId;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetProfilePicture(); });
+        }
+
+        /// <summary>
+        /// The "HandleLoginResponse_SuccessfulSmtpLoginCodeEnum" method handles the successful SMTP login code response received from the server.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the captcha code image.</param>
+        /// <remarks>
+        /// This method extracts the captcha code image bytes from the message body of the JSON object and converts them into an image.
+        /// It then invokes the UI method to handle the correct code response, passing the captcha code image.
+        /// </remarks>
+        private void HandleLoginResponse_SuccessfulSmtpLoginCodeEnum(JsonObject jsonObject)
+        {
+            ImageContent captchaCodeImageContent = jsonObject.MessageBody as ImageContent;
+            byte[] captchaCodeImageBytes = captchaCodeImageContent.ImageBytes;
+            Image captchaCodeImage = ConvertHandler.ConvertBytesToImage(captchaCodeImageBytes);
+            FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleCorrectCodeResponse(captchaCodeImage); });
+        }
+
+        /// <summary>
+        /// The "HandleEncryptionSymmetricKeyRecieverEnum" method handles the reception of the encrypted symmetric key from the server.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the encrypted symmetric key.</param>
+        /// <remarks>
+        /// This method extracts the encrypted symmetric key from the message body of the JSON object and decrypts it using the private key.
+        /// It then sets the symmetric key, indicating that the key exchange process is complete, and proceeds to send any queued messages.
+        /// </remarks>
+        private void HandleEncryptionSymmetricKeyRecieverEnum(JsonObject jsonObject)
+        {
+            string EncryptedSymmetricKeyReciever = jsonObject.MessageBody as string;
+            SymmetricKey = Rsa.Decrypt(EncryptedSymmetricKeyReciever, PrivateKey);
+            isKeyExchangeInProgress = false;
+            SendQueuedMessages();
+        }
+
+        /// <summary>
+        /// The "HandleUpdateProfilePictureResponse_ChatUserRecieverEnum" method handles the response for updating the profile picture for a chat user.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the profile picture update information.</param>
+        /// <remarks>
+        /// This method extracts the username and profile picture ID from the message body of the JSON object.
+        /// It then invokes the "HandleProfilePictureChange" method of the chat form to update the profile picture for the specified user.
+        /// </remarks>
+        private void HandleUpdateProfilePictureResponse_ChatUserRecieverEnum(JsonObject jsonObject)
+        {
+            ProfilePictureUpdate profilePictureUpdate = jsonObject.MessageBody as ProfilePictureUpdate;
+            string username = profilePictureUpdate.Username;
+            string profilePictureId = profilePictureUpdate.ProfilePictureId;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleProfilePictureChange(username, profilePictureId); });
+        }
+
+        /// <summary>
+        /// The "HandleUpdateProfilePictureResponse_ContactRecieverEnum" method handles the response for updating the profile picture for a contact.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the profile picture update information.</param>
+        /// <remarks>
+        /// This method extracts the username and profile picture ID from the message body of the JSON object.
+        /// It then retrieves the contact from the contact manager using the username.
+        /// If the contact is found, it updates the contact's profile picture and invokes the "ChangeUserProfilePicture" method of the chat form to reflect the change.
+        /// </remarks>
+        private void HandleUpdateProfilePictureResponse_ContactRecieverEnum(JsonObject jsonObject)
+        {
+            ProfilePictureUpdate profilePictureUpdate = jsonObject.MessageBody as ProfilePictureUpdate;
+            string username = profilePictureUpdate.Username;
+            string profilePictureId = profilePictureUpdate.ProfilePictureId;
+            Contact contact = ContactManager.GetContact(username);
+            if (contact != null)
+            {
+                contact.ProfilePicture = ProfilePictureImageList.GetImageByImageId(profilePictureId);
+                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.ChangeUserProfilePicture(username, profilePictureId, contact.ProfilePicture); });
+            }
+        }
+
+        /// <summary>
+        /// The "HandleOfflineUpdateEnum" method handles the update for setting a contact's online status to offline.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the offline update details.</param>
+        /// <remarks>
+        /// This method extracts the username and last seen time from the message body of the JSON object.
+        /// It then retrieves the contact from the contact manager using the username.
+        /// If the contact is found, it sets the contact's online status to false and updates the last seen time.
+        /// Finally, it invokes the "SetChatOnline" method of the chat form to reflect the change in the UI.
+        /// </remarks>
+        private void HandleOfflineUpdateEnum(JsonObject jsonObject)
+        {
+            OfflineDetails offlineDetails = jsonObject.MessageBody as OfflineDetails;
+            string username = offlineDetails.Username;
+            DateTime lastSeenTime = offlineDetails.LastSeenTime;
+            Contact contact = ContactManager.GetContact(username);
+            if (contact != null)
+            {
+                contact.Online = false;
+                contact.LastSeenTime = lastSeenTime;
+                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetChatOnline(username, false, lastSeenTime); });
+            }
+        }
+
+        /// <summary>
+        /// The "HandleUpdateProfileStatusResponse_RecieverEnum" method handles the update for changing a user's status.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the status update details.</param>
+        /// <remarks>
+        /// This method extracts the username and status from the message body of the JSON object.
+        /// It then retrieves the contact from the contact manager using the username.
+        /// If the contact is found, it updates the contact's status and invokes the "ChangeUserStatus" method of the chat form to reflect the change in the UI.
+        /// </remarks>
+        private void HandleUpdateProfileStatusResponse_RecieverEnum(JsonObject jsonObject)
+        {
+            StatusUpdate statusUpdate = jsonObject.MessageBody as StatusUpdate;
+            string username = statusUpdate.username;
+            string status = statusUpdate.Status;
+            Contact contact = ContactManager.GetContact(username);
+            if (contact != null)
+            {
+                contact.Status = status;
+                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.ChangeUserStatus(username, status); });
+            }
+        }
+
+        /// <summary>
+        /// The "HandleOnlineUpdateEnum" method handles the update for changing a user's online status to online.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the username of the user to become online.</param>
+        /// <remarks>
+        /// This method extracts the username from the message body of the JSON object.
+        /// It then retrieves the contact from the contact manager using the username and sets the contact's online status to true.
+        /// Finally, it invokes the "SetChatOnline" method of the chat form to reflect the change in the UI.
+        /// </remarks>
+        private void HandleOnlineUpdateEnum(JsonObject jsonObject)
+        {
+            string userToBecomeOnlineName = jsonObject.MessageBody as string;
+            Contact contact = ContactManager.GetContact(userToBecomeOnlineName);
+            contact.Online = true;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetChatOnline(userToBecomeOnlineName,true); });
+        }
+
+        /// <summary>
+        /// The "HandleMessageHistoryResponseEnum" method handles the response containing message history.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the message history.</param>
+        /// <remarks>
+        /// This method extracts the message history from the message body of the JSON object.
+        /// It then retrieves the messages from the message history and invokes the "HandleMessageHistory" method of the chat form to process and display the messages.
+        /// </remarks>
+        private void HandleMessageHistoryResponseEnum(JsonObject jsonObject)
+        {
+            MessageHistory messageHistory = jsonObject.MessageBody as MessageHistory;
+            List<JsonClasses.Message> messages = messageHistory.Messages;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleMessageHistory(messages); });
+        }
+
+        /// <summary>
+        /// The "HandleSuccessfulAudioCallResponse_RecieverEnum" method handles the successful response to an audio call request.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the details of the call.</param>
+        /// <remarks>
+        /// This method extracts the details of the friend from the JSON object.
+        /// It then invokes the "OpenCallInvitation" method of the chat form to display the call invitation.
+        /// </remarks>
+        private void HandleSuccessfulAudioCallResponse_RecieverEnum(JsonObject jsonObject)
+        {
+            string[] details = GetFriendName(jsonObject);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenCallInvitation(details[0], details[1],false); });
+        }
+
+        /// <summary>
+        /// The "HandleSuccessfulVideoCallResponse_RecieverEnum" method handles the successful response to a video call request.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the details of the call.</param>
+        /// <remarks>
+        /// This method extracts the details of the friend from the JSON object.
+        /// It then invokes the "OpenCallInvitation" method of the chat form to display the call invitation for a video call.
+        /// </remarks>
+        private void HandleSuccessfulVideoCallResponse_RecieverEnum(JsonObject jsonObject)
+        {
+            string[] details = GetFriendName(jsonObject);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.OpenCallInvitation(details[0], details[1],true); });
+        }
+
+        /// <summary>
+        /// The "HandleVideoCallAcceptanceResponseEnum" method handles the response to a video call acceptance.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the details of the call.</param>
+        /// <remarks>
+        /// This method extracts the details of the friend from the JSON object.
+        /// It then invokes the "StartVideoUdpConnection" method of the chat form to start the UDP video connection.
+        /// </remarks>
+        private void HandleVideoCallAcceptanceResponseEnum(JsonObject jsonObject)
+        {
+            string[] details = GetFriendName(jsonObject);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.StartVideoUdpConnection(details[0], details[1]); });
+        }
+
+        /// <summary>
+        /// The "HandleAudioCallAcceptanceResponseEnum" method handles the response to an audio call acceptance.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the details of the call.</param>
+        /// <remarks>
+        /// This method extracts the details of the friend from the JSON object.
+        /// It then invokes the "StartAudioUdpConnection" method of the chat form to start the UDP audio connection.
+        /// </remarks>
+        private void HandleAudioCallAcceptanceResponseEnum(JsonObject jsonObject)
+        {
+            string[] details = GetFriendName(jsonObject);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.StartAudioUdpConnection(details[0], details[1]); });
+        }
+
+        /// <summary>
+        /// The "GetFriendName" method retrieves the name of the friend associated with a chat from a JSON object.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the chat ID.</param>
+        /// <returns>An array containing the chat ID and the name of the friend.</returns>
+        /// <remarks>
+        /// This method extracts the chat ID from the JSON object and retrieves the corresponding chat details.
+        /// It then gets the name of the friend from the chat details and returns an array containing the chat ID and the friend's name.
+        /// </remarks>
+        private string[] GetFriendName(JsonObject jsonObject)
+        {
+            string chatId = jsonObject.MessageBody as string;
+            ChatDetails chatDetails = ChatManager.GetChat(chatId);
+            DirectChat directChat = (DirectChat)chatDetails;
+            string friendName = directChat.GetContactName();
+            return new string[] { chatId, friendName};
+        }
+
+        /// <summary>
+        /// The "HandleDeleteMessageResponseEnum" method handles the response for deleting a message from a chat.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the message details.</param>
+        /// <remarks>
+        /// This method extracts the message details from the JSON object, including the message sender's name, chat ID,
+        /// message date and time, and message content. It then invokes the UI method to handle the deleted message,
+        /// passing along these details.
+        /// </remarks>
+        private void HandleDeleteMessageResponseEnum(JsonObject jsonObject)
+        {
+            JsonClasses.Message message = jsonObject.MessageBody as JsonClasses.Message;
+            string messageSenderName = message.MessageSenderName;
+            string chatId = message.ChatId;
+            DateTime messageDateTime = message.MessageDateAndTime;
+            object messageContent = message.MessageContent;
+            string content = "";
+            if (messageContent is string textMessageContent)
+            {
+                content = textMessageContent;
+            }
+            else if (messageContent is ImageContent imageMessageContent)
+            {
+                content = "Image";
+            }
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleDeletedMessage(messageSenderName, chatId, messageDateTime, content); });
+        }
+
+        /// <summary>
+        /// The "HandleSendMessageResponseEnum" method handles the response for sending a message to a chat.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the message details.</param>
+        /// <remarks>
+        /// This method extracts the message details from the JSON object, including the message sender's name, chat ID,
+        /// message date and time, and message content. It then checks the type of message content (text or image) and
+        /// invokes the UI method accordingly to handle the message.
+        /// </remarks>
+        private void HandleSendMessageResponseEnum(JsonObject jsonObject)
+        {
+            JsonClasses.Message message = jsonObject.MessageBody as JsonClasses.Message;
+            string messageSenderName = message.MessageSenderName;
+            string chatId = message.ChatId;
+            DateTime messageDateTime = message.MessageDateAndTime;
+            object messageContent = message.MessageContent;
+            if (messageContent is string textMessageContent)
+            {
+                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleMessagesByOthers(messageSenderName, chatId, messageDateTime, textMessageContent); });
+
+            }
+            else if (messageContent is ImageContent imageMessageContent)
+            {
+                byte[] imageMessageContentByteArray = imageMessageContent.ImageBytes;
+                Image imageMessage = ConvertHandler.ConvertBytesToImage(imageMessageContentByteArray);
+                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleImageMessagesByOthers(messageSenderName, chatId, messageDateTime, imageMessage); });
+            }
+        }
+
+        /// <summary>
+        /// The "HandleGroupCreatorResponseEnum" method handles the response for creating a new group chat.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the group chat details.</param>
+        /// <remarks>
+        /// This method extracts the group chat details from the JSON object and adds the new group chat to the chat manager.
+        /// It then retrieves the chat details for the new group chat and invokes the UI method to handle the new group chat creation.
+        /// </remarks>
+        private void HandleGroupCreatorResponseEnum(JsonObject jsonObject)
+        {
+            GroupChatDetails groupChatDetails = jsonObject.MessageBody as GroupChatDetails;
+            ChatManager.AddChat(groupChatDetails);
+            string chatId = groupChatDetails.ChatTagLineId;
+            ChatDetails chat = ChatManager.GetChat(chatId);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleNewGroupChatCreation(chat); });
+        }
+
+        /// <summary>
+        /// The "HandleFriendRequestRecieverEnum" method handles the reception of a friend request.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the details of the friend request.</param>
+        /// <remarks>
+        /// This method extracts the details of the friend request from the JSON object and invokes the UI method to handle the new friend request.
+        /// </remarks>
+        private void HandleFriendRequestRecieverEnum(JsonObject jsonObject)
+        {
+            PastFriendRequest pastFriendRequest = jsonObject.MessageBody as PastFriendRequest;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleNewFriendRequest(pastFriendRequest); });
+        }
+
+        /// <summary>
+        /// The "HandleChatInformationResponseEnum" method handles the reception of chat information.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the details of the chats.</param>
+        /// <remarks>
+        /// This method extracts the list of chat details from the JSON object and adds each chat to the chat manager.
+        /// It then invokes the UI method to update the list of contacts in the chat control.
+        /// </remarks>
+        private void HandleChatInformationResponseEnum(JsonObject jsonObject)
+        {
+            Chats chats = jsonObject.MessageBody as Chats;
+            List<ChatDetails> chatDetailsList = chats.ChatList;
+            foreach (ChatDetails chatDetails in chatDetailsList)
+            {
+                ChatManager.AddChat(chatDetails);
+            }
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetChatControlListOfContacts(); });
+        }
+
+        /// <summary>
+        /// The "HandleContactInformationResponseEnum" method handles the reception of contact information.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the details of the contacts.</param>
+        /// <remarks>
+        /// This method extracts the list of contact details from the JSON object and updates the contact control list in the UI.
+        /// It then sends a chat information request message to retrieve chat information.
+        /// </remarks>
+        private void HandleContactInformationResponseEnum(JsonObject jsonObject)
+        {
+            Contacts contacts = jsonObject.MessageBody as Contacts;
+            List<ContactDetails> contactDetailsList = contacts.ContactList;
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.SetContactControlList(contactDetailsList); });
+            EnumHandler.CommunicationMessageID_Enum messageType = EnumHandler.CommunicationMessageID_Enum.ChatInformationRequest;
+            object messageContent = null;
+            SendMessage(messageType, messageContent);
+        }
+
+        /// <summary>
+        /// The "HandleFriendRequestResponseRecieverEnum" method handles the reception of a friend request response.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the details of the contact and chat.</param>
+        /// <remarks>
+        /// This method extracts the contact details and chat details from the JSON object and adds them to the contact and chat managers, respectively.
+        /// It then invokes the UI method to handle the successful friend request, passing the contact and chat details.
+        /// </remarks>
+        private void HandleFriendRequestResponseRecieverEnum(JsonObject jsonObject)
+        {
+            ContactAndChat contactAndChat = jsonObject.MessageBody as ContactAndChat;
+            ContactDetails contactDetails = contactAndChat.ContactDetails;
+            Contact contact = new Contact(contactDetails);
+            ContactManager.AddContact(contact);
+            ChatDetails chatDetails = contactAndChat.Chat;
+            ChatManager.AddChat(chatDetails);
+            string chatId = chatDetails.ChatTagLineId;
+            ChatDetails chat = ChatManager.GetChat(chatId);
+            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleSuccessfulFriendRequest(contact, chat); });
+        }
+
+        /// <summary>
+        /// The "HandleResetPasswordBanStartEnum" method handles the start of a ban for resetting the password.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the ban duration.</param>
+        /// <remarks>
+        /// This method extracts the ban duration from the JSON object and invokes the UI method to handle the ban, passing the ban duration.
+        /// </remarks>
+        private void HandleResetPasswordBanStartEnum(JsonObject jsonObject)
+        {
+            double banDuration = (double)jsonObject.MessageBody;
+            FormHandler._passwordRestart.Invoke((Action)delegate { FormHandler._passwordRestart.HandleBan(banDuration); });
+        }
+
+        /// <summary>
+        /// The "HandleResetPasswordBanFinishEnum" method handles the completion of a ban for resetting the password.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object indicating the end of the ban.</param>
+        /// <remarks>
+        /// This method invokes the UI method to indicate that the ban for resetting the password is over.
+        /// </remarks>
+        private void HandleResetPasswordBanFinishEnum(JsonObject jsonObject)
+        {
+            FormHandler._passwordRestart.Invoke((Action)delegate { FormHandler._passwordRestart.HandleBanOver(); });
+        }
+
+        /// <summary>
+        /// The "HandlePasswordUpdateBanStartEnum" method handles the start of a ban for updating the password.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object indicating the start of the ban.</param>
+        /// <remarks>
+        /// This method invokes the UI method to handle the ban for updating the password.
+        /// </remarks>
+        private void HandlePasswordUpdateBanStartEnum(JsonObject jsonObject)
+        {
+            double banDuration = (double)jsonObject.MessageBody;
+            FormHandler._passwordUpdate.Invoke((Action)delegate { FormHandler._passwordUpdate.HandleBan(banDuration); });
+        }
+
+        /// <summary>
+        /// The "HandleRegistrationBanStartEnum" method handles the start of a ban for registration.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object indicating the start of the ban.</param>
+        /// <remarks>
+        /// This method invokes the UI method to handle the ban for registration.
+        /// </remarks>
+        private void HandleRegistrationBanStartEnum(JsonObject jsonObject)
+        {
+            double banDuration = (double)jsonObject.MessageBody;
+            FormHandler._registration.Invoke((Action)delegate { FormHandler._registration.HandleBan(banDuration); });
+        }
+
+        /// <summary>
+        /// The "HandleCaptchaImageAngleResponseEnum" method handles the arrival of a captcha image with rotation angles.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing captcha rotation image details.</param>
+        /// <remarks>
+        /// This method invokes the UI method to handle the captcha image with rotation angles.
+        /// </remarks>
+        private void HandleCaptchaImageAngleResponseEnum(JsonObject jsonObject)
+        {
+            CaptchaRotationImageDetails captchaRotationImageDetails = jsonObject.MessageBody as CaptchaRotationImageDetails;
+            object[] values = HandleCaptchaRotationImageDetailsArrival(captchaRotationImageDetails);
+            FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleCorrectCaptchaCode((Image)values[2], (Image)values[3], (int)values[0], (int)values[1]); });
+        }
+
+        /// <summary>
+        /// The "HandleCaptchaRotationImageDetailsArrival" method handles the arrival of captcha rotation image details.
+        /// It extracts the rotated image, background image, score, and attempts from the provided captcha rotation image details.
+        /// </summary>
+        /// <param name="captchaRotationImageDetails">The captcha rotation image details object containing the rotated image, background image, and success rate.</param>
+        /// <returns>
+        /// An array containing the captcha rotation score, attempts, rotated image, and background image.
+        /// </returns>
+        /// <remarks>
+        /// This method is used to process and extract relevant information from the received captcha rotation image details.
+        /// </remarks>
+        private object[] HandleCaptchaRotationImageDetailsArrival(CaptchaRotationImageDetails captchaRotationImageDetails)
+        {
+            CaptchaRotationImages captchaRotationImages = captchaRotationImageDetails.CaptchaRotationImages;
+            CaptchaRotationSuccessRate captchaRotationSuccessRate = captchaRotationImageDetails.CaptchaRotationSuccessRate;
+            int score = captchaRotationSuccessRate.Score;
+            int attempts = captchaRotationSuccessRate.Attempts;
+            ImageContent captchaCircularImageContent = captchaRotationImages.RotatedImage;
+            ImageContent captchaImageContent = captchaRotationImages.BackgroundImage;
+            byte[] captchaCircularImageBytes = captchaCircularImageContent.ImageBytes;
+            byte[] captchaImageBytes = captchaImageContent.ImageBytes;
+            Image captchaCircularImage = ConvertHandler.ConvertBytesToImage(captchaCircularImageBytes);
+            Image captchaImage = ConvertHandler.ConvertBytesToImage(captchaImageBytes);
+            object[] values = { score, attempts, captchaCircularImage, captchaImage };
+            return values;
+        }
+
+        /// <summary>
+        /// The "HandleLoginBanFinishEnum" method handles the completion of a login ban.
+        /// It checks if additional action is required after the ban, such as displaying a new captcha image.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing information about the ban completion.</param>
+        /// <remarks>
+        /// This method is called when the login ban is over. If a new captcha image is provided, it handles displaying it to the user.
+        /// </remarks>
+        private void HandleLoginBanFinishEnum(JsonObject jsonObject)
+        {
+            if (jsonObject.MessageBody == null)
+            {
+                FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleBanOver(); });
+            }
+            else if (jsonObject.MessageBody is CaptchaRotationImageDetails captchaRotationImageDetails)
+            {
+                object[] values = HandleCaptchaRotationImageDetailsArrival(captchaRotationImageDetails);
+                FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleBanOver((Image)values[2], (Image)values[3], (int)values[0], (int)values[1]); });
+            }
+        }
+
+        /// <summary>
+        /// The "HandleCaptchaImageResponseEnum" method handles the arrival of a new captcha image.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the new captcha image.</param>
+        /// <remarks>
+        /// This method is called when a new captcha image is needed, such as during a login attempt.
+        /// It converts the image bytes to an image object and then invokes the login form's method to handle the new captcha image.
+        /// </remarks>
+        private void HandleCaptchaImageResponseEnum(JsonObject jsonObject)
+        {
+            ImageContent captchaCodeImageContent = jsonObject.MessageBody as ImageContent;
+            byte[] captchaCodeImageBytes = captchaCodeImageContent.ImageBytes;
+            Image captchaCodeImage = ConvertHandler.ConvertBytesToImage(captchaCodeImageBytes);
+            FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleCaptchaImageRenewal(captchaCodeImage); });
+        }
+
+        /// <summary>
+        /// The "HandleSuccessfulCaptchaImageAngleResponseEnum" method handles the successful response to a captcha image angle request.
+        /// </summary>
+        /// <param name="jsonObject">The JSON object containing the personal verification questions and captcha rotation success rate.</param>
+        /// <remarks>
+        /// This method is called when the server successfully processes a captcha image angle request.
+        /// It extracts the personal verification questions and captcha rotation success rate from the JSON object,
+        /// then invokes the login form's method to handle the successful response, passing the personal verification questions, score, and attempts.
+        /// </remarks>
+        private void HandleSuccessfulCaptchaImageAngleResponseEnum(JsonObject jsonObject)
+        {
+            PersonalVerificationQuestionDetails verificationQuestionDetails = jsonObject.MessageBody as PersonalVerificationQuestionDetails;
+            PersonalVerificationQuestions personalVerificationQuestions = verificationQuestionDetails.PersonalVerificationQuestions;
+            CaptchaRotationSuccessRate captchaRotationSuccessRate = verificationQuestionDetails.CaptchaRotationSuccessRate;
+            int score = captchaRotationSuccessRate.Score;
+            int attempts = captchaRotationSuccessRate.Attempts;
+            FormHandler._login.Invoke((Action)delegate { FormHandler._login.HandleSuccessfulCaptchaImageAngleResponse(personalVerificationQuestions, score,attempts); });
+        }
+
+        #endregion
+
+        #region Public Methods    
+
+
+        /// <summary>
+        /// The "SendMessage" method sends a message to the server.
+        /// </summary>
+        /// <param name="messageType">The type of the message to send.</param>
+        /// <param name="messageContent">The content of the message to send.</param>
+        /// <param name="needEncryption">A flag indicating whether the message needs to be encrypted. Default is true.</param>
+        /// <remarks>
+        /// The method uses the JsonHandler class to convert the message type and content into a JSON string.
+        /// If a key exchange process is in progress, the message is queued for sending after the key exchange is completed.
+        /// If no key exchange is in progress, the message is sent immediately using the HandleSendMessage method.
+        /// </remarks>
+        public void SendMessage(EnumHandler.CommunicationMessageID_Enum messageType, object messageContent, bool needEncryption = true)
+        {
+            string jsonMessage = JsonClasses.JsonHandler.JsonHandler.GetJsonStringFromJsonData(messageType, messageContent);
+            if (isKeyExchangeInProgress)
+            {
+                // Queue the message for sending after the key exchange process is over
+                MessageState messageState = new MessageState(jsonMessage, needEncryption);
+                messageQueue.Enqueue(messageState);
+                return;
+            }
+            HandleSendMessage(jsonMessage, needEncryption);
+        }
+
+
+        /// <summary>
+        /// The "Disconnect" method disconnects the client from the server.
+        /// </summary>
+        /// <remarks>
+        /// If the client is not null, it closes and disposes the stream and sets the client to null.
+        /// </remarks>
         public void Disconnect()
         {
             if (Client != null)
@@ -909,5 +1413,7 @@ namespace YouChatApp
                 }
             }
         }
+
+        #endregion
     }
 }

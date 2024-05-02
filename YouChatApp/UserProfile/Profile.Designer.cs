@@ -75,9 +75,9 @@
             this.ProfilePicturePanel.Controls.Add(this.ProfilePictureControl);
             this.ProfilePicturePanel.Controls.Add(this.CurrentProfilePicturePictureBox);
             this.ProfilePicturePanel.Controls.Add(this.CurrentProfilePictureLabel);
-            this.ProfilePicturePanel.Location = new System.Drawing.Point(124, 155);
+            this.ProfilePicturePanel.Location = new System.Drawing.Point(100, 150);
             this.ProfilePicturePanel.Name = "ProfilePicturePanel";
-            this.ProfilePicturePanel.Size = new System.Drawing.Size(822, 667);
+            this.ProfilePicturePanel.Size = new System.Drawing.Size(800, 667);
             this.ProfilePicturePanel.TabIndex = 15;
             this.ProfilePicturePanel.Visible = false;
             // 
@@ -251,7 +251,7 @@
             this.ProfilePictureSelectionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ProfilePictureSelectionCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProfilePictureSelectionCustomButton.ForeColor = System.Drawing.Color.White;
-            this.ProfilePictureSelectionCustomButton.Location = new System.Drawing.Point(631, 102);
+            this.ProfilePictureSelectionCustomButton.Location = new System.Drawing.Point(300, 102);
             this.ProfilePictureSelectionCustomButton.Name = "ProfilePictureSelectionCustomButton";
             this.ProfilePictureSelectionCustomButton.Size = new System.Drawing.Size(150, 40);
             this.ProfilePictureSelectionCustomButton.TabIndex = 20;
@@ -272,7 +272,7 @@
             this.StatusSelectionCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StatusSelectionCustomButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StatusSelectionCustomButton.ForeColor = System.Drawing.Color.White;
-            this.StatusSelectionCustomButton.Location = new System.Drawing.Point(796, 102);
+            this.StatusSelectionCustomButton.Location = new System.Drawing.Point(550, 102);
             this.StatusSelectionCustomButton.Name = "StatusSelectionCustomButton";
             this.StatusSelectionCustomButton.Size = new System.Drawing.Size(150, 40);
             this.StatusSelectionCustomButton.TabIndex = 21;
@@ -284,7 +284,7 @@
             // ProfileStatusControl
             // 
             this.ProfileStatusControl.IsSelectedStatusShown = true;
-            this.ProfileStatusControl.Location = new System.Drawing.Point(884, 648);
+            this.ProfileStatusControl.Location = new System.Drawing.Point(345, 150);
             this.ProfileStatusControl.Name = "ProfileStatusControl";
             this.ProfileStatusControl.Size = new System.Drawing.Size(320, 345);
             this.ProfileStatusControl.TabIndex = 22;

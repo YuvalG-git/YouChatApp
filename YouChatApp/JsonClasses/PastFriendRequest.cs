@@ -6,12 +6,45 @@ using System.Threading.Tasks;
 
 namespace YouChatApp.JsonClasses
 {
+    /// <summary>
+    /// The "PastFriendRequest" class represents a past friend request.
+    /// </summary>
+    /// <remarks>
+    /// This class provides properties for managing the username, profile picture, and date of a past friend request.
+    /// </remarks>
     public class PastFriendRequest
     {
+        #region Private Fields
+
+        /// <summary>
+        /// The string "_username" stores the username of the user.
+        /// </summary>
         private string _username;
+
+        /// <summary>
+        /// The string "_profilePicture" stores the profile picture of the user.
+        /// </summary>
         private string _profilePicture;
+
+        /// <summary>
+        /// The DateTime "_friendRequestDate" stores the date and time when the friend request was sent.
+        /// </summary>
         private DateTime _friendRequestDate;
 
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// The "PastFriendRequest" constructor initializes a new instance of the <see cref="PastFriendRequest"/> class with the specified username, profile picture, and friend request date.
+        /// </summary>
+        /// <param name="username">The username of the friend request sender.</param>
+        /// <param name="profilePicture">The profile picture of the friend request sender.</param>
+        /// <param name="friendRequestDate">The date of the friend request.</param>
+        /// <remarks>
+        /// This constructor is used to create a new instance of the PastFriendRequest class, which represents a past friend request.
+        /// It initializes the username, profile picture, and friend request date of the past friend request.
+        /// </remarks>
         public PastFriendRequest(string username, string profilePicture, DateTime friendRequestDate)
         {
             _username = username;
@@ -19,20 +52,67 @@ namespace YouChatApp.JsonClasses
             _friendRequestDate = friendRequestDate;
         }
 
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The "Username" property represents the username of a user.
+        /// It gets or sets the username of the user.
+        /// </summary>
+        /// <value>
+        /// The username of the user.
+        /// </value>
         public string Username
         {
-            get { return _username; }
-            set { _username = value; }
+            get
+            {
+                return _username;
+            }
+            set
+            {
+                _username = value;
+            }
         }
+
+        /// <summary>
+        /// The "ProfilePicture" property represents the profile picture of a user.
+        /// It gets or sets the profile picture of the user.
+        /// </summary>
+        /// <value>
+        /// The profile picture of the user.
+        /// </value>
         public string ProfilePicture
         {
-            get { return _profilePicture; }
-            set { _profilePicture = value; }
+            get
+            {
+                return _profilePicture;
+            }
+            set
+            {
+                _profilePicture = value;
+            }
         }
+
+        /// <summary>
+        /// The "FriendRequestDate" property represents the date of a friend request.
+        /// It gets or sets the date of the friend request.
+        /// </summary>
+        /// <value>
+        /// The date of the friend request.
+        /// </value>
         public DateTime FriendRequestDate
         {
-            get { return _friendRequestDate; }
-            set { _friendRequestDate = value; }
+            get
+            {
+                return _friendRequestDate;
+            }
+            set
+            {
+                _friendRequestDate = value;
+            }
         }
+
+        #endregion
     }
 }
