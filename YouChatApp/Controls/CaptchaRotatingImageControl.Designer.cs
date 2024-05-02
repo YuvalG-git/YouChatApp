@@ -51,7 +51,6 @@
             this.CaptchaPicturesScoreLabel.Size = new System.Drawing.Size(61, 18);
             this.CaptchaPicturesScoreLabel.TabIndex = 26;
             this.CaptchaPicturesScoreLabel.Text = "Score:";
-            this.CaptchaPicturesScoreLabel.Click += new System.EventHandler(this.CaptchaPicturesScoreLabel_Click);
             // 
             // CaptchaPictureBox
             // 
@@ -62,7 +61,6 @@
             this.CaptchaPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.CaptchaPictureBox.TabIndex = 36;
             this.CaptchaPictureBox.TabStop = false;
-            this.CaptchaPictureBox.Click += new System.EventHandler(this.CaptchaPictureBox_Click);
             // 
             // InstructionsLabel
             // 

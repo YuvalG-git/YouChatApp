@@ -115,7 +115,7 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             // 
             this.SaveOptionToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.SaveOption;
             this.SaveOptionToolStripMenuItem.Name = "SaveOptionToolStripMenuItem";
-            this.SaveOptionToolStripMenuItem.Size = new System.Drawing.Size(124, 26);
+            this.SaveOptionToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.SaveOptionToolStripMenuItem.Text = "Save";
             this.SaveOptionToolStripMenuItem.Click += new System.EventHandler(this.SaveOptionToolStripMenuItem_Click);
             // 
@@ -123,7 +123,7 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             // 
             this.OpenOptionToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.OpenOption;
             this.OpenOptionToolStripMenuItem.Name = "OpenOptionToolStripMenuItem";
-            this.OpenOptionToolStripMenuItem.Size = new System.Drawing.Size(124, 26);
+            this.OpenOptionToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.OpenOptionToolStripMenuItem.Text = "Open";
             this.OpenOptionToolStripMenuItem.Click += new System.EventHandler(this.OpenOptionToolStripMenuItem_Click);
             // 
@@ -131,7 +131,7 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             // 
             this.DeleteOptionToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.DeleteOption1;
             this.DeleteOptionToolStripMenuItem.Name = "DeleteOptionToolStripMenuItem";
-            this.DeleteOptionToolStripMenuItem.Size = new System.Drawing.Size(124, 26);
+            this.DeleteOptionToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.DeleteOptionToolStripMenuItem.Text = "Delete";
             this.DeleteOptionToolStripMenuItem.Click += new System.EventHandler(this.DeleteOptionToolStripMenuItem_Click);
             // 
@@ -139,7 +139,7 @@ namespace YouChatApp.AttachedFiles.PaintHandler
             // 
             this.SendOptionToolStripMenuItem.Image = global::YouChatApp.Properties.Resources.SendOption1;
             this.SendOptionToolStripMenuItem.Name = "SendOptionToolStripMenuItem";
-            this.SendOptionToolStripMenuItem.Size = new System.Drawing.Size(124, 26);
+            this.SendOptionToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.SendOptionToolStripMenuItem.Text = "Send";
             this.SendOptionToolStripMenuItem.Click += new System.EventHandler(this.SendOptionToolStripMenuItem_Click);
             // 

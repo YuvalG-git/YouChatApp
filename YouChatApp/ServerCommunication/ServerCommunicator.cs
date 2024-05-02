@@ -978,18 +978,26 @@ namespace YouChatApp
         }
 
         /// <summary>
-        /// The "HandleMessageHistoryResponseEnum" method handles the response containing message history.
+        /// The "HandleMessageHistoryResponseEnum" method handles the response from the server containing message history.
         /// </summary>
-        /// <param name="jsonObject">The JSON object containing the message history.</param>
+        /// <param name="jsonObject">The JsonObject containing the response from the server.</param>
         /// <remarks>
-        /// This method extracts the message history from the message body of the JSON object.
-        /// It then retrieves the messages from the message history and invokes the "HandleMessageHistory" method of the chat form to process and display the messages.
+        /// This method extracts the message history from the JsonObject and invokes the appropriate method in the YouChat form to handle the message history.
+        /// If the content is a MessageHistory object, it extracts the messages and invokes the HandleMessageHistory method.
+        /// If the content is a string representing a chatId, it invokes the HandleMessageHistory method with the chatId parameter.
         /// </remarks>
         private void HandleMessageHistoryResponseEnum(JsonObject jsonObject)
         {
-            MessageHistory messageHistory = jsonObject.MessageBody as MessageHistory;
-            List<JsonClasses.Message> messages = messageHistory.Messages;
-            FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleMessageHistory(messages); });
+            object content = jsonObject.MessageBody;
+            if (content is MessageHistory messageHistory)
+            {
+                List<JsonClasses.Message> messages = messageHistory.Messages;
+                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleMessageHistory(messages); });
+            }
+            else if (content is string chatId)
+            {
+                FormHandler._youChat.Invoke((Action)delegate { FormHandler._youChat.HandleMessageHistory(chatId); });
+            }
         }
 
         /// <summary>

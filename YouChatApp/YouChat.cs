@@ -1003,6 +1003,19 @@ namespace YouChatApp
         }
 
         /// <summary>
+        /// The "HandleMessageHistory" method handles the message history for a specific chat identified by its chatId.
+        /// </summary>
+        /// <param name="chatId">The unique identifier of the chat for which the message history is being handled.</param>
+        /// <remarks>
+        /// This method sets the message count for the specified chatId to 0 and marks the message history as received for that chat.
+        /// </remarks>
+        public void HandleMessageHistory(string chatId)
+        {
+            messageCount[chatId] = 0;
+            messageHistoryReceieved[chatId] = true;
+        }
+
+        /// <summary>
         /// The "ChangeChatLastMessageInformation" method updates the last message information for a chat.
         /// </summary>
         /// <param name="chatId">The ID of the chat.</param>
